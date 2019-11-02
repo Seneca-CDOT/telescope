@@ -1,0 +1,19 @@
+{
+  "name": "telescope",
+  "version": "0.0.1",
+  "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
+  "scripts": {
+    "test": "echo \"TODO!\" && exit 1",
+    "start": "node src"
+  },
+  "repository": "Seneca-CDOT/telescope",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "dependencies": {
+    "bent": "^7.0.2",
+    "bull": "^3.11.0"
+  }
+}
