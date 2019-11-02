@@ -1,5 +1,5 @@
 /**
- * Something to get us started, nothing sacred here.
+ * Something to get us started, nothing sacred here, everything can change!
  */
 
 const fs = require('fs');
@@ -43,7 +43,7 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
   // Process this text file into a list of URL jobs, and enqueue for download
   const feedJobs = processFeedUrls(lines);
   enqueueFeedJobs(feedJobs);  
-});
 
-// Start working on the queue
-feedWorker.start();
+  // Start working on the queue
+  feedWorker.start();
+});
