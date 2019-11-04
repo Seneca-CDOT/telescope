@@ -1,9 +1,9 @@
-//TODO: Modularize code
+//TODO: Modularize code <- CREATE A NEW ISSUE IF YOU WANT TO WORK ON THIS
 var Feed = require('rss-to-json');
 //Using my feed as a template
 var link = 'https://paulopensourceblog.wordpress.com//feed/';
 
-//TODO: Attach parser to feed-worker
+//TODO: Attach parser to feed-worker <- CREATE A NEW ISSUE IF YOU WANT TO WORK ON THIS
 
 Feed.load(link, function(err, rss){
     //Calling my latest feed which is index 0
@@ -32,4 +32,4 @@ Feed.load(link, function(err, rss){
     console.log(rss.items[0].media);
 });
 
-//TODO: Only tested with wordpress, must test with other blog sites
+//TODO: Only tested with wordpress, must test with other blog sites <- CREATE A NEW ISSUE IF YOU WANT TO WORK ON THIS
