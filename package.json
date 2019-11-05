@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "scripts": {
-    "test": "eslint --ignore-path .gitignore .",
+    "eslint": "eslint --ignore-path .gitignore .",
+    "eslint-fix": "eslint --fix --ignore-path .gitignore .",
+    "test": "npm run eslint",
     "start": "node src"
   },
   "repository": "Seneca-CDOT/telescope",

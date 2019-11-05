@@ -46,6 +46,6 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
 
   // Start working on the queue
   feedWorker.start();
-  //Returning true if no other errors were encountered
+  // Returning true if no other errors were encountered
   return true;
 });
