@@ -14,6 +14,8 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "bent": "^7.0.2",
-    "bull": "^3.11.0"
+    "bull": "^3.11.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0"
   }
 }

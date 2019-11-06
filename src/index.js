@@ -6,6 +6,10 @@ const fs = require('fs');
 const feedQueue = require('./feed-queue');
 const feedWorker = require('./feed-worker');
 
+
+
+
+
 /**
  * Process a string into a list of Objects, each with a feed URL
  * @param {String} lines 
@@ -27,7 +31,10 @@ function processFeedUrls(lines) {
 async function enqueueFeedJobs(feedJobs) {
   for(let feedJob of feedJobs) {
     console.log(`Enqueuing Job - ${feedJob.url}`);
-    await feedQueue.add(feedJob);
+    await feedQueue.add(feedJob).catch(error =>{
+
+     console.log(error);
+    });
   }
 }
 
