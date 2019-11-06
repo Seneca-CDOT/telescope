@@ -22,7 +22,7 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 Some helpful guides:
 * [Redis for Linux](https://redis.io/download#installation) (recommended but not required)
 * [Redis for Windows Subsystem for Linux](https://anggo.ro/note/installing-redis-in-ubuntu-wsl/) (not recommended by Redis)
-* Redis for Windows - need instructions
+* Redis for Windows - You can use [this](https://github.com/tporadowski/redis/releases) installer to get up and running quickly for now.
 * Redis for MacOS - need instructions
 An easier solution would be to use Docker.
 
