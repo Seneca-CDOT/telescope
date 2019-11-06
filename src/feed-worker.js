@@ -10,8 +10,5 @@ exports.start = function() {
 
     // For now, just get the feed data and dump to the console
     return request(url).then(data => console.log(data + '\n\n'));
-    
-    
-  
   }).catch(err => console.log(err));  
 };

@@ -6,10 +6,6 @@ const fs = require('fs');
 const feedQueue = require('./feed-queue');
 const feedWorker = require('./feed-worker');
 
-
-
-
-
 /**
  * Process a string into a list of Objects, each with a feed URL
  * @param {String} lines 
