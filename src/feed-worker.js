@@ -1,8 +1,9 @@
-const feedQueue = require('./feed-queue');
 const bent = require('bent');
+const feedQueue = require('./feed-queue');
+
 const request = bent('string');
 
-exports.start = function() {
+exports.start = function () {
   // Start processing jobs from the feed queue...
   feedQueue.process(async (job) => {
     const { url } = job.data;
