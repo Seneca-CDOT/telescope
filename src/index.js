@@ -24,7 +24,7 @@ function processFeedUrls(lines) {
  * Adds feed URL jobs to the feed queue for processing
  * @param {Array[Object]} feedJobs - list of feed URL jobs to be processed
  */
-function enqueueFeedJobs(feedJobs) {
+async function enqueueFeedJobs(feedJobs) {
   feedJobs.forEach(async (feedJob) => {
     console.log(`Enqueuing Job - ${feedJob.url}`);
     await feedQueue.add(feedJob);
