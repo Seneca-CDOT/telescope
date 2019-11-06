@@ -37,7 +37,8 @@ function enqueueFeedJobs(feedJobs) {
 fs.readFile('feeds.txt', 'utf8', (err, lines) => {
   if (err) {
     console.error('unable to read initial list of feeds', err.message);
-    return process.exit(-1);
+    process.exit(-1);
+    return;
   }
 
   // Process this text file into a list of URL jobs, and enqueue for download
@@ -46,6 +47,4 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
 
   // Start working on the queue
   feedWorker.start();
-  // Returning true if no other errors were encountered
-  return true;
 });
