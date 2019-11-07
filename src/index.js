@@ -29,7 +29,6 @@ async function enqueueFeedJobs(feedJobs) {
     console.log(`Enqueuing Job - ${feedJob.url}`);
     await feedQueue.add(feedJob);
   });
-
 }
 
 /**
