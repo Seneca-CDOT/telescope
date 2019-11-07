@@ -23,3 +23,7 @@ __Windows__
 1. Download wget binary [here](http://wget.addictivecode.org/FrequentlyAskedQuestions.html#download)
 2. ```cd path/to/downloaded/wget```
 3. ```wget -r --no-parent https://people.gnome.org/~jdub/bzr/planet/devel/trunk/```
+
+# License
+
+Telescope is an open sourced software licensed as [BSD-2-Clause](https://github.com/Seneca-CDOT/telescope/blob/master/LICENSE)

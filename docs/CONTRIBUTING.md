@@ -10,13 +10,15 @@ Before creating an issue:
 * If they are, reach out and try to help. 
 
 ## Pull Requests
-Please submit pull requests in response to open issues. If you have a bug or feature, bring it up in issues first, to avoid two or more people working on the same thing.
+Please submit pull requests in response to open issues. If you have a bug or feature, bring it up in issues first, to avoid two or more people working on the same thing. Remember to rebase and run `npm run pretest` before submitting a pull request.
 
+We require all pull requests to be reviewed by at least 2 people before it can be merged into **master**
 
 ## Environment Setup
 **Prerequisites:**
 * [Node.js (npm)](https://nodejs.org/en/download/)
 * [Redis](https://redis.io/download)
+* [Git](https://git-scm.com/downloads)
 
 **Redis Set Up**
 Some helpful guides:
@@ -27,10 +29,28 @@ Some helpful guides:
 An easier solution would be to use Docker.
 
 **Setup**
+1. Clone the repository with `git clone https://github.com/Seneca-CDOT/telescope.git`
 1. Navigate to the root directory of telescope.
 1. Run `npm install`.
+1. Depending on your installation configuration, you may have to start the redis-server before proceeding to the next step. Do this by running the command `redis-server` in a seperate command window.
 1. Run `npm start` to start telescope.
-*If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window).*
+
+### Common Errors
+**Linux**
+
+If you encounter this error when running redis-server:
+
+`# Could not create server TCP listening socket *:6379: bind: Address already in use`
+
+You can run `sudo systemctl stop redis` to stop redis and try running `redis-server` again. If this doesn't work, you can check and manually kill the instance using port 6379 by running
+
+`ps aux | grep redis`
+
+```
+cindy     2570  0.0  0.0 253100  4908 pts/1    Sl+  13:11   0:00 redis-server *:6379
+cindy     2588  0.0  0.0 215744   888 pts/0    S+   13:16   0:00 grep --color=auto redis
+```
+Run `sudo kill -9 2570`
 
 ## MVP Features
 These features are the basic elements of what we are trying to accomplish, and are explained in further detail in [overview.md](https://github.com/Seneca-CDOT/telescope/blob/master/docs/overview.md#mvp-features):
