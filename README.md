@@ -4,6 +4,8 @@ A tool for tracking blogs in orbit around Seneca's open source involvement
 
 An initial discussion of the project is available in the [Overview](docs/overview.md) document.
 
+A guide to contributing, prerequisites, and building the environment available in the [CONTRIBUTING](docs/CONTRIBUTING.md) document.
+
 # Getting the project legacy code
 
 You may want a copy of the legacy project for later reading.
