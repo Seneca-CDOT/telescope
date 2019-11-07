@@ -43,7 +43,8 @@
     "node-fetch": "^2.6.0",
     "node-summarizer": "^1.0.7",
     "parse-github-url": "^1.0.2",
-    "sentiment": "^5.0.2"
+    "sentiment": "^5.0.2",
+    "wordcount": "^1.1.1"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
