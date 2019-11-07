@@ -6,6 +6,6 @@ module.exports = {
   rules: {
     "no-console": "off",
     "no-param-reassign": ["error", { props: false }],
-    "func-names": 0,
+    "func-names": "off",
   }
 };
