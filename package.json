@@ -1,0 +1,29 @@
+{
+  "name": "telescope",
+  "version": "0.0.1",
+  "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
+  "scripts": {
+    "eslint": "eslint --ignore-path .gitignore .",
+    "eslint-fix": "eslint --fix --ignore-path .gitignore .",
+    "pretest": "npm run eslint",
+    "test": "npm run jest",
+    "jest": "jest",
+    "start": "node src"
+  },
+  "repository": "Seneca-CDOT/telescope",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "dependencies": {
+    "bent": "^7.0.2",
+    "bull": "^3.11.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "jest": "^24.9.0"
+  }
+}
