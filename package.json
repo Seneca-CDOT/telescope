@@ -5,7 +5,8 @@
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
-    "test": "npm run eslint",
+    "pretest": "npm run eslint",
+    "test": "npm run jest",
     "jest": "jest",
     "start": "node src"
   },
