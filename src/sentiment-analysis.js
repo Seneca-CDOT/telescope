@@ -9,7 +9,7 @@
 var Sentiment = require('sentiment');
 var sentiment = new Sentiment();
 
-module.exports.startAnalysys = function(blogText){
+module.exports.run = async function(text) {
   var result;
    return new Promise(function(resolve,reject){
        result = sentiment.analyze(blogText);
