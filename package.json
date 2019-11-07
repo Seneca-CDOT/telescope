@@ -18,11 +18,7 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "bent": "^7.0.2",
-<<<<<<< HEAD
-    "bull": "^3.11.0",
-    "express": "^4.17.1",
-    "express-handlebars": "^3.1.0"
-=======
+
     "bull": "^3.11.0"
   },
   "devDependencies": {
@@ -30,6 +26,6 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "jest": "^24.9.0"
->>>>>>> upstream/master
+
   }
 }
