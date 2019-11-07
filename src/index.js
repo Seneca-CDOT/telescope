@@ -43,8 +43,12 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
 
   // Process this text file into a list of URL jobs, and enqueue for download
   const feedJobs = processFeedUrls(lines);
-  enqueueFeedJobs(feedJobs);
 
-  // Start working on the queue
-  feedWorker.start();
+  enqueueFeedJobs(feedJobs)
+  .then(() => {
+    feedWorker.start();
+
+  }).catch((err)=>{
+    console.log(err);
+  })
 });
