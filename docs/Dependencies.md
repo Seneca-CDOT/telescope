@@ -1,0 +1,1 @@
+This markdown file will serve as a discussion page to add or remove modules to the Telescope project
