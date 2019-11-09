@@ -28,6 +28,8 @@ An easier solution would be to use Docker.
 
 **Setup**
 1. Navigate to the root directory of telescope.
+1. Copy env.example to .env to create a new environment configuration.
+1. Replace default key values in .env with credentials. 
 1. Run `npm install`.
 1. Run `npm start` to start telescope.
 *If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window).*
