@@ -24,7 +24,7 @@ try {
 
 console.log(analyzeText);
 
-// Test 1: Test Promise Chain
+// Test 1: Test Promise Chain Try && Catch
 test('Test 1-1: Test Promise Chain(then)', () => {
   analyzeText(text1).getAsyAnalysis()
     .then((data) => console.log(data))

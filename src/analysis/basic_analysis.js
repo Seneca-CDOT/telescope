@@ -44,7 +44,6 @@ module.exports = function analyzeText(text_) {
     const result = Math.round(wordCount_ / wpm);
     return result;
   }
-
   // initialize values
   if (typeof text_ === 'string') {
     if (text_.length !== 0) {
