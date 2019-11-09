@@ -36,7 +36,7 @@ An easier solution would be to use Docker.
 1. Run `npm start` to start telescope.
 *If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window).*
 
-**THE LIST OF THINGS THAT MUST BE DONE BY A CONTRIBUTOR BEFORE filling A PR**
+**THE LIST OF THINGS THAT MUST BE DONE BY A CONTRIBUTOR BEFORE FILLING A PR**
 1. Run `npm test`
 1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:).
 
