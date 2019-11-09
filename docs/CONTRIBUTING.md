@@ -32,7 +32,7 @@ An easier solution would be to use Docker.
 1. Replace default key values in .env with credentials. 
 1. Run `npm install`.
 1. Run `npm test`
-1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:).i and then run `npm test` again.
+1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
 1. Run `npm start` to start telescope.
 *If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window).*
 
