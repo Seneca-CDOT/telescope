@@ -18,7 +18,10 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "bent": "^7.0.2",
-    "bull": "^3.11.0"
+    "bull": "^3.11.0",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "reading-level": "0.0.7"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
