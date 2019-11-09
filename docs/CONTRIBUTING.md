@@ -22,12 +22,14 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 Some helpful guides:
 * [Redis for Linux](https://redis.io/download#installation) (recommended but not required)
 * [Redis for Windows Subsystem for Linux](https://anggo.ro/note/installing-redis-in-ubuntu-wsl/) (not recommended by Redis)
-* Redis for Windows - need instructions
+* Redis for Windows - You can use [this](https://github.com/tporadowski/redis/releases) installer to get up and running quickly for now.
 * Redis for MacOS - need instructions
 An easier solution would be to use Docker.
 
 **Setup**
 1. Navigate to the root directory of telescope.
+1. Copy env.example to .env to create a new environment configuration.
+1. Replace default key values in .env with credentials. 
 1. Run `npm install`.
 1. Run `npm start` to start telescope.
 *If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window).*

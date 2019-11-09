@@ -5,7 +5,9 @@
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
-    "test": "npm run eslint",
+    "pretest": "npm run eslint",
+    "test": "npm run jest",
+    "jest": "jest",
     "start": "node src"
   },
   "repository": "Seneca-CDOT/telescope",
@@ -17,11 +19,14 @@
   "dependencies": {
     "bent": "^7.0.2",
     "bull": "^3.11.0",
+    "dotenv": "^8.2.0",
+    "feedparser-promised": "^2.0.1",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint-plugin-import": "^2.18.2",
+    "jest": "^24.9.0"
   }
 }
