@@ -22,5 +22,8 @@ module.exports = {
      * https://eslint.org/docs/rules/func-names
      */
     "func-names": "off",
+
+  
+    'no-plusplus': 'off'
   }
 };
