@@ -21,7 +21,10 @@
     "bull": "^3.11.0",
     "fs": "0.0.1-security",
     "path": "^0.12.7",
-    "reading-level": "0.0.7"
+    "reading-level": "0.0.7",
+    "dotenv": "^8.2.0",
+    "feedparser-promised": "^2.0.1",
+    "sentiment": "^5.0.2"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

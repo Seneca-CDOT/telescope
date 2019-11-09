@@ -28,9 +28,17 @@ An easier solution would be to use Docker.
 
 **Setup**
 1. Navigate to the root directory of telescope.
+1. Copy env.example to .env to create a new environment configuration.
+1. Replace default key values in .env with credentials. 
 1. Run `npm install`.
+1. Run `npm test`
+1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
 1. Run `npm start` to start telescope.
 *If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window).*
+
+**THE LIST OF THINGS THAT MUST BE DONE BY A CONTRIBUTOR BEFORE FILLING A PR**
+1. Run `npm test`
+1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
 
 ## MVP Features
 These features are the basic elements of what we are trying to accomplish, and are explained in further detail in [overview.md](https://github.com/Seneca-CDOT/telescope/blob/master/docs/overview.md#mvp-features):

@@ -14,4 +14,6 @@ const feedQueue = require('../src/feed-queue');
  * after testing would fix the issue. Maybe we can handle opening and closing
  * Redis inside this project <- CREATE NEW ISSUE TO SOLVE THIS PROBLEM.
 */
-test('Testing feed-queue.js', () => feedQueue.add('http://ajhooper.blogspot.com/feeds/posts/default'));
+test('Testing feed-queue.js', () => {
+  feedQueue.add('http://ajhooper.blogspot.com/feeds/posts/default');
+});

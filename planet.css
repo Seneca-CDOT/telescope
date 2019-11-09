@@ -1,151 +1,241 @@
+/* Regular theme starts */
+.normalTheme{
+	--main-bg-color: #ffffff;
+	--nav-font-color: #b51418;
+	--box-shadow-color: rgba(221, 220, 220, 0.911);
+	--nav-btn-bgcolor: #ffffff;
+	--close-btn-hover: #d85f61; 
+	--content-font: #000000;
+	--title-border: #a0a0a0d8;
+
+} 
+/* Regular Theme ends */
+
 body {
-	border-right: 1px solid black;
-	margin-right: 200px;
 
 	padding-left: 20px;
 	padding-right: 20px;
 }
 
-h1 {
-	margin-top: 0px;
-	padding-top: 20px;
 
-	font-family: "Bitstream Vera Sans", sans-serif;
-	font-weight: normal;
-	letter-spacing: -2px;
-	text-transform: lowercase;
-	text-align: right;
-
-	color: grey;
+#sideNav{
+	box-shadow: 5px 0px 5px var(--box-shadow-color);
 }
-
-.admin {
-	text-align: right;
-}
-
-h2 {
-	font-family: "Bitstream Vera Sans", sans-serif;
-	font-weight: normal;
-	color: #200080;
-
-	margin-left: -20px;
-}
-
-h3.planetauthor {
-	font-family: "Bitstream Vera Sans", sans-serif;
-	font-weight: bold; 
-
-	background-color: #dbdbdb;
-	border: 1px solid #ccc;
-	color: #b51418;
-
-	padding: 4px;
-}
-
-h3.planetauthor a {
-	text-decoration: none;
-	color: inherit;
-}
-
-h4 {
-	font-family: "Bitstream Vera Sans", sans-serif;
-	font-weight: bold;
-}
-
-h4 a {
-	text-decoration: none;
-	color: inherit;
-}
-
-img.face {
-	float: right;
-	margin-top: -3em;
-}
-
-.entry {
-	margin-bottom: 2em;
-}
-
-.entry .date {
-	font-family: "Bitstream Vera Sans", sans-serif;
-	color: grey;
-}
-
-.entry .date a {
-	text-decoration: none;
-	color: inherit;
-}
-
 .sidebar {
-	position: absolute;
-	top: 0px;
-	right: 0px;
+	margin: 0px;
+	padding: 0px;
 	width: 200px;
-
-	margin-left: 0px;
-	margin-right: 0px;
-	padding-right: 0px;
-
-	padding-top: 20px;
-	padding-left: 0px;
-
-	font-family: "Bitstream Vera Sans", sans-serif;
-	font-size: 85%;
+	background-color: var(--main-bg-color);
+	position: fixed;
+	height:100%;
+	overflow: auto;
 }
 
-.sidebar h2 {
-	font-size: 110%;
-	font-weight: bold;
-	color: black;
 
-	padding-left: 5px;
-	margin-left: 0px;
+
+/* Logo anchor */
+.sidebar a {
+	display: block;
+	margin-left: 15px;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
-.sidebar ul {
-	padding-left: 1em;
-	margin-left: 0px;
-
-	list-style-type: none;
+/* Sidebar navigation buttons */
+.sideUl{
+	list-style: none;
+	margin: 0;
+	padding: 0;	
+}
+.sideUl li {
+	margin-bottom: 15px;
+}
+.sideNavBtn{
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: var(--nav-font-color);
+	background-color: var(--nav-btn-bgcolor);
+	margin-left: 5px;
+	margin-bottom: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-weight: 900;
+	font-size: 100%;
+	width: 80%;
+	border: 2px solid var(--nav-font-color);
+	border-left-width: 6px;
+	border-left-color: var(--nav-font-color);
 }
 
-.sidebar ul li:hover {
-	color: grey;
+.sideNavBtn:hover {
+	background-color: var(--nav-font-color);
+	color: var(--nav-btn-bgcolor);
+	cursor: pointer;
 }
 
-.sidebar ul li a {
-        text-decoration: none;
+.sideNavBtn:focus {
+	background-color: var(--nav-font-color);
+	color: var(--nav-btn-bgcolor);
+	outline: none !important;
+	border: 1px solid var(--nav-font-color);
+	box-shadow: 0 0 3px var(--close-btn-hover);
 }
 
-.sidebar ul li a:hover {
-        text-decoration: underline;
+/* Sidebar Links */
+
+li #icon{
+	color: var(--nav-font-color);
+	margin: 10px;
+	display: inline;
 }
 
-.sidebar ul li a img {
-        border: 0;
+
+
+/* Dialogue Box CSS */
+.dBox{
+  	display: none;
+	position: fixed; 
+	z-index: 1; 
+	left: 234px;
+	top: 0;
+	bottom: 0;
+	width: 90%;
+	overflow: auto;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.4);
 }
 
-.sidebar p {
-	border-top: 1px solid grey;
-	margin-top: 30px;
-	padding-top: 10px;
-
-	padding-left: 5px;
+.dBox-content{
+	display: block;
+	margin: 15% auto;
+	padding: 20px;
+	padding-left: 30px;
+	background-color: var(--main-bg-color);
+	border: 1px solid var(--box-shadow-color);
+	width: 70%;
+	animation-name: animateDialogue;
+  	animation-duration: 0.4s;
 }
 
-.sidebar .message {
-    cursor: help;
-    border-bottom: 1px dashed red;
+.dBox-content h1:after{
+	content: "";
+	display: block;
+	text-align: left;
+	padding-bottom: 5px;
+	text-decoration: none;
+	color: var(--content-font-color);
+	font-weight: 900;
+	border-bottom: 15px solid var(--nav-font-color);
+	width: 25%;
 }
 
-.sidebar a.message:hover {
-    cursor: help;
-	background-color: #ff0000;
-	color: #ffffff !important;
-	text-decoration: none !important;
+.dBox-close{
+	color:  var(--nav-font-color);
+	float: right;
+	font-size: 28px;
+	font-weight: bold;	
 }
 
-a:hover {
-	text-decoration: underline !important;
-	color: blue !important;
+@-webkit-keyframes animateDialogue {
+	from {top:-300px; opacity:0} 
+	to {top:0; opacity:1}
+  }
+  
+@keyframes animateDialogue {
+	from {top:-300px; opacity:0}
+	to {top:0; opacity:1}
+  }
+
+.dBox-close:hover,
+.dBox-close:focus {
+  	color: var(--close-btn-hover);
+  	text-decoration: none;
+  	cursor: pointer;
+}
+
+#dBox-text{
+	display: block;
+	margin-left: 50px;
+	text-align: justify;
+}
+
+/* Search bar CSS */
+#srchDiv .col{
+	justify-content: end !important;
+	margin-left: 650px;
+}
+form.srchBox input[type=text] {
+	padding-left: 2px;
+	font-size: 100%;
+	border: 1px solid var(--nav-font-color);
+	float: left;
+	width: 50%;
+	background: var(--nav-btn-bgcolor);
+	font-weight: 500;
+  }
+form.srchBox input:focus{
+	outline: none !important;
+	border: 1px solid var(--nav-font-color);
+	box-shadow: 0 0 5px var(--close-btn-hover); 
+}
+  
+form.srchBox button {
+	float: left;
+	width: 20%;
+	padding: 1px;
+	background: var(--nav-font-color);
+	color: var(--nav-btn-bgcolor);
+	font-size: 100%;
+	font-weight: 600;
+	border: 1px solid var(--nav-font-color);
+	border-left: none;
+	cursor: pointer;
+  }
+  
+form.srchBox button:hover {
+	background: var(--close-btn-hover);
+  }
+  
+form.srchBox::after {
+	content: "";
+	clear: both;
+	display: table;
+  }
+
+/* Custom h1 to ensure major posts are separated */
+h1c{
+	font-size: 2em;
+	margin: .67em 0;
+	border-bottom: 15px solid var(--nav-font-color);
+	display: inline-block;
+	font-weight: 700;
+	text-align: center;
+}
+
+h2,h3{
+	text-align: center;
+}
+
+#mainHead{
+	margin-left: 240px;
+	width: 90%;
+}
+
+#mainContent{
+	text-align: justify;
+	display: inline-block;
+}
+
+.author{
+	font-size: 1.5em;
+	font-weight: 400;
+	margin-top: 1em;
+	display: inline-block;
+}
+
+.date{
+	font-size: 1.17em;
+	margin-bottom: .5em;
+	display: inline-block;
 }
