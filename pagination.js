@@ -1,18 +1,14 @@
+// Pagination Logic
 
-
-//Pagination Logic
-
-//Counts nymber of blog posts
+// Counts nymber of blog posts
 var numberOfItems = $('#page .blogPost').length;
 
-//Max number of blog posts per page
+// Max number of blog posts per page
 var limitPerPage = 3;
-
-
 
 $('#page .blogPost:gt(' + (limitPerPage - 1) + ')').hide(); // Hide all items over page limits (e.g., 5th item, 6th item, etc.)
 
-//total number of pages based on per page limit and posts counted.
+// total number of pages based on per page limit and posts counted.
 var totalPages = Math.ceil(numberOfItems / limitPerPage)
 
 // alert(totalPages);
@@ -26,12 +22,8 @@ for (var i = 2; i <= totalPages; i++) {
     $(".pagination").append("<li class='page-item'><a class='page-link' href='#'>" + i + "</a></li>"); // Insert page number into pagination tabs
 }
 
-
-
 // Add next button after all the page numbers  
 $(".pagination").append("<li id='next-page' hidden='true'> <a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>&laquo;</span><span class='sr-only'>Next</span></a></li>");
-
-
 
 // Function that displays new items based on page number that was clicked
 $(".pagination li.page-item").on("click", function () {
@@ -53,7 +45,6 @@ $(".pagination li.page-item").on("click", function () {
 
 });
 
-
 // Function to navigate to the previous page when users click on the previous-page id (previous page button)
 $("#next-page").on("click", function () {
     var currentPage = $(".pagination li.active").index(); // Identify the current active page
@@ -74,7 +65,6 @@ $("#next-page").on("click", function () {
         $(".pagination li.page-item:eq(" + (currentPage + 1) + ")").addClass('active'); // Make new page number the 'active' page
     }
 });
-
 
 
 // Function to navigate to the previous page when users click on the previous-page id (previous page button)
