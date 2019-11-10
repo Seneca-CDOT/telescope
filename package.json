@@ -6,7 +6,9 @@
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
     "stylelint": "stylelint --ignore-path .gitignore .",
-    "pretest": "npm run eslint",
+    "lint": "npm run eslint",
+    "postlint": "npm run stylelint",
+    "pretest": "npm run lint",
     "test": "npm run jest",
     "jest": "jest",
     "start": "node src"
