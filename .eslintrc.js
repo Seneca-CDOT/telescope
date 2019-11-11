@@ -5,16 +5,14 @@ module.exports = {
     "browser": true,
     "jquery": true
   },
-  "plugins": [
-    "dollar-sign",
-    "jquery"
-],
+
   rules: {
     /**
      * Disallow the use of console
      * https://eslint.org/docs/rules/no-console
      */
     "no-console": "off",
+
 
     /**
      * Disallow Reassignment of Function Parameters
@@ -27,5 +25,14 @@ module.exports = {
      * https://eslint.org/docs/rules/func-names
      */
     "func-names": "off",
+
+    "max-len": ["error", 256, 2, {
+            ignoreUrls: true,
+            ignoreComments: false,
+            ignoreRegExpLiterals: true,
+            ignoreStrings: false,
+            ignoreTemplateLiterals: false,
+          }],
+    'no-plusplus': 'off'
   }
 };
