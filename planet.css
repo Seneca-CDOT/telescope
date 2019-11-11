@@ -204,7 +204,7 @@ form.srchBox::after {
   }
 
 /* Custom h1 to ensure major posts are separated */
-h1c{
+.h1c{
 	font-size: 2em;
 	margin: .67em 0;
 	border-bottom: 15px solid var(--nav-font-color);
