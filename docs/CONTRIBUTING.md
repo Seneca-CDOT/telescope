@@ -40,6 +40,26 @@ An easier solution would be to use Docker.
 1. Run `npm test`
 1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
 
+### Common Errors
+**Linux**
+
+If you encounter this error when running redis-server:
+```
+# Could not create server TCP listening socket *:6379: bind: Address already in use
+```
+1. Run `sudo systemctl status redis` to check if the service is running
+2. Stop it with `sudo systemctl stop redis`.
+If this doesn't work, you can check and manually kill the instance using port 6379 by running
+`ps aux | grep redis`
+
+```
+user     2570  0.0  0.0 253100  4908 pts/1    Sl+  13:11   0:00 redis-server *:6379
+user     2588  0.0  0.0 215744   888 pts/0    S+   13:16   0:00 grep --color=auto redis
+```
+Run `sudo kill -9 2570`
+
+3. Try running `redis-server` again. 
+
 ## MVP Features
 These features are the basic elements of what we are trying to accomplish, and are explained in further detail in [overview.md](https://github.com/Seneca-CDOT/telescope/blob/master/docs/overview.md#mvp-features):
 
