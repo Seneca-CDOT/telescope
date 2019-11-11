@@ -1,3 +1,4 @@
+/*eslint-env jquery*/
 // Pagination Logic
 
 // Counts nymber of blog posts
@@ -18,7 +19,7 @@ const totalPages = Math.ceil(numberOfItems / limitPerPage);
 $('.pagination').append(`<li class='page-item active'><a class='page-link' href='#')'>${1}</a></li>`);
 
 // Adds additional pages dynamically based on # of blog posts
-for (let i = 2; i <= totalPages; i++) {
+for (let i = 2; i <= totalPages; i += 1) {
   // Insert page number into pagination tabs
   $('.pagination').append(`<li class='page-item'><a class='page-link' href='#'>${i}</a></li>`);
 }
@@ -42,7 +43,7 @@ $('.pagination li.page-item').on('click', function () {
   const grandTotal = limitPerPage * currentPage;
 
   // Loop through total items, selecting a new set of items based on page number
-  for (let i = grandTotal - limitPerPage; i < grandTotal; i++) {
+  for (let i = grandTotal - limitPerPage; i < grandTotal; i += 1) {
     $(`#page .blogPost:eq(${i})`).show(); // Show items from the new page that was selected
   }
   return true;
@@ -55,14 +56,14 @@ $('#next-page').on('click', () => {
   if (currentPage === totalPages) {
     return false;
   }
-  currentPage++; // Increment page by one
+  currentPage += 1; // Increment page by one
   $('.pagination li').removeClass('active'); // Remove the 'activate' status class from the previous active page number
   $('#page .blogPost').hide(); // Hide all items in the pagination loop
   // Get the total number of items up to the page that was selected
   const grandTotal = limitPerPage * currentPage;
 
   // Loop through total items, selecting a new set of items based on page number
-  for (let i = grandTotal - limitPerPage; i < grandTotal; i++) {
+  for (let i = grandTotal - limitPerPage; i < grandTotal; i += 1) {
     $(`#page .blogPost:eq(${i})`).show(); // Show items from the new page that was selected
   }
 
@@ -78,14 +79,14 @@ $('#previous-page').on('click', () => {
   if (currentPage === 1) {
     return false; // Exit function if invalid
   }
-  currentPage--; // Decrement page by one
+  currentPage -= 1; // Decrement page by one
   $('.pagination li').removeClass('active'); // Remove the 'activate' status class from the previous active page number
   $('#page .blogPost').hide(); // Hide all items in the pagination loop
   // Get the total number of items up to the page that was selected
   const grandTotal = limitPerPage * currentPage;
 
   // Loop through total items, selecting a new set of items based on page number
-  for (let i = grandTotal - limitPerPage; i < grandTotal; i++) {
+  for (let i = grandTotal - limitPerPage; i < grandTotal; i += 1) {
     $(`#page .blogPost:eq(${i})`).show(); // Show items from the new page that was selected
   }
 
