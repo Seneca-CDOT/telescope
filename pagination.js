@@ -1,4 +1,3 @@
-/*eslint-env jquery*/
 // Pagination Logic
 
 // Counts nymber of blog posts

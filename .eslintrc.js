@@ -5,16 +5,14 @@ module.exports = {
     "browser": true,
     "jquery": true
   },
-  "plugins": [
-    "dollar-sign",
-    "jquery"
-],
+
   rules: {
     /**
      * Disallow the use of console
      * https://eslint.org/docs/rules/no-console
      */
     "no-console": "off",
+
 
     /**
      * Disallow Reassignment of Function Parameters
