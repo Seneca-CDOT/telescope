@@ -3,7 +3,12 @@ module.exports = {
   "env": {
     "jest": true,
     "browser": true,
+    "jquery": true
   },
+  "plugins": [
+    "dollar-sign",
+    "jquery"
+],
   rules: {
     /**
      * Disallow the use of console
