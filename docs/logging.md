@@ -1,6 +1,6 @@
 # Logging Support Using Pino
 
-This project uses [Pino](http://getpino.io/#/) to provide support for logging in Production as well as development environments. The [logger.js](https://github.com/Seneca-CDOT/telescope/blob/master/utils/logger.js) module exports a logger instance that can be used in other modules to implement logging for important events.
+This project uses [Pino](http://getpino.io/#/) to provide support for logging in Production as well as development environments. The [logger.js](../utils/logger.js) module exports a logger instance that can be used in other modules to implement logging for important events.
 ## How to use the logger
 
 1. In the module, import the parent logger using the require statement at the top of the file.
