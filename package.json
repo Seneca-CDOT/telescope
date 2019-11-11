@@ -36,10 +36,12 @@
     "feedparser-promised": "^2.0.1",
     "pino": "^5.13.6",
     "pino-pretty": "^3.3.0",
-    "node-summarizer": "^1.0.7",
     "valid-url": "^1.0.9",
-    "jsdom": "^15.2.1",
     "nodemailer": "^6.3.1",
+    "jsdom": "^15.2.1",
+    "node-fetch": "^2.6.0",
+    "node-summarizer": "^1.0.7",
+    "parse-github-url": "^1.0.2",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
