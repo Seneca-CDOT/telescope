@@ -9,6 +9,6 @@ exports.start = function () {
     const { url } = job.data;
     console.log(`Processing job - ${url}`);
     // For now, just get the feed data and dump to the console
-   return request(url).then(data => console.log(data + '\n\n')).catch((err) => {throw err})
-  });  
+    return request(url).then((data) => console.log(`${data} + '\n\n'`)).catch((err) => { throw err; });
+  });
 };

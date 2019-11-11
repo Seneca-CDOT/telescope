@@ -1,0 +1,13 @@
+**/node_modules/
+**/node_modules_linux/
+**/docs/
+**/Dockerfile
+**/.dockerignore
+**/.editorconfig
+**/.eslintrc.js
+**/.gitignore
+**/.git
+**/README.md
+**/LICENSE
+**/.vscode
+**/.idea
