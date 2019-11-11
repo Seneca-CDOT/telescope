@@ -1,26 +1,37 @@
 module.exports = {
-  "extends": "airbnb-base",
-  "env": {
-    "jest": true,
-    "browser": true,
-  },
-  rules: {
-    /**
-     * Disallow the use of console
-     * https://eslint.org/docs/rules/no-console
-     */
-    "no-console": "off",
+    extends: ['airbnb-base', 'prettier'],
+    plugins: ['prettier'],
+    env: {
+        node: true,
+        es6: true,
+        jest: true,
+        browser: true
+    },
+    rules: {
+        'prettier/prettier': ['error'],
 
-    /**
-     * Disallow Reassignment of Function Parameters
-     * https://eslint.org/docs/rules/no-param-reassign
-     */
-    "no-param-reassign": ["error", { props: false }],
+        /**
+         * Disallow Assignment Operators in Conditional Statements
+         * https://eslint.org/docs/rules/no-cond-assign
+         */
+        'no-cond-assign': 'error',
 
-    /**
-     * Require or disallow named function expressions
-     * https://eslint.org/docs/rules/func-names
-     */
-    "func-names": "off",
-  }
+        /**
+         * Disallow Unnecessary Semicolons
+         * https://eslint.org/docs/rules/no-extra-semi
+         */
+        'no-extra-semi': 'warn',
+
+        /**
+         * Require or disallow named function expressions
+         * https://eslint.org/docs/rules/func-names
+         */
+        'func-names': 'off',
+
+        /**
+         * Disallow the use of console
+         * https://eslint.org/docs/rules/no-console
+         */
+        'no-console': 'off'
+    }
 };
