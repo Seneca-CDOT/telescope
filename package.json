@@ -22,7 +22,7 @@
   "dependencies": {
     "bent": "^7.0.2",
     "bull": "^3.11.0",
-    "jsdom": "^15.2.1"
+    "jsdom": "^15.2.1",
     "dotenv": "^8.2.0",
     "feedparser-promised": "^2.0.1",
     "sentiment": "^5.0.2"
