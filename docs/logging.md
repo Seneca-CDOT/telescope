@@ -19,7 +19,7 @@ log.info('Important information...');
 ![childLoggerExample](./images/childLoggerExample.png)
 
 ## Logger Configuration
-The properties for the logger instance are configured according to the environment and the log level. The **NODE_ENV** and **LOG_LEVEL** enviroment variables can be set in the **.env** file.
+The properties for the logger instance are configured according to the environment and the log level. The **NODE_ENV** and **LOG_LEVEL** enviroment variables can be set in the **.env** file. Also, the **LOG_FILE** environment variable can specify a file path where the logs will be written (for production mode only).
 
 ### Production Environment:
  If **NODE_ENV = Production** (assumed by default), then the code:
