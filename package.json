@@ -5,7 +5,7 @@
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
-    "stylelint": "stylelint src/style/*.css",
+    "stylelint": "stylelint src/**/*.css",
     "lint": "npm run eslint",
     "postlint": "npm run stylelint",
     "pretest": "npm run lint",
