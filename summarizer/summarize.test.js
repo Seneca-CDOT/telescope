@@ -1,16 +1,23 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const summarize = require('./summarize');
 
+
 describe('summarize tests...', () => {
-  const text = fs.readFileSync('./summarizer/text.txt', 'utf-8');
-  let data;
+  let inputData;
+  let predicted;
+  let expected;
 
-  it('summarize returns string', async () => {
-    data = await summarize(text, 5);
-    expect(typeof data).toBe('string');
+  beforeAll(async () => {
+    inputData = await fs.readFile('./summarizer/input.txt', 'utf-8');
+    expected = await fs.readFile('./summarizer/expected.txt', 'utf-8');
   });
 
-  it('summarize returns correct number of lines', () => {
-    expect(data.split('.').length).toBe(6);
+  test('summarize returns expected value', async () => {
+    predicted = await summarize(inputData, 5);
+    return expect(predicted).toBe(expected);
   });
+
+  test('summarize returns string', async () => expect(typeof predicted).toBe('string'));
+
+  test('summarize returns correct number of lines', () => expect(predicted.split('.').length).toBe(6));
 });
