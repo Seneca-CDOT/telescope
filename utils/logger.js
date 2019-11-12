@@ -1,13 +1,8 @@
 const pino = require('pino');
-// eslint-disable-next-line no-unused-vars
-const config = require('../src/config');
 
-/* If in Production mode (assumed by default):
- * Define a new Logger instance.
- * Write logs to a specified path.
- * Set log level to LOG_LEVEL environment variable with 'info' as default level.
- */
-let logger = pino({ level: process.env.LOG_LEVEL || 'info' }, pino.destination('./logFile'));
+require('../src/config');
+
+let logger;
 
 /* If in Development mode:
  * Output logs to console (which is by default)
@@ -19,6 +14,12 @@ if (process.env.NODE_ENV === 'development') {
     prettyPrint: { translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ' },
     level: process.env.LOG_LEVEL || 'debug',
   });
+} else {
+  /* If in Production mode:
+   * Write logs to a specified path.
+   * Set log level to LOG_LEVEL environment variable with 'info' as default level.
+   */
+  logger = pino({ level: process.env.LOG_LEVEL || 'info' }, pino.destination('./logFile'));
 }
 
 module.exports = logger;

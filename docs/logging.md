@@ -16,7 +16,7 @@ const log = parentLogger.child({ module: 'module-name' });
 log.info('Important information...');
 ```
 
-![childLoggerExample](https://imgur.com/RyZS0rg.png)
+![childLoggerExample](../images/childLoggerExample.png)
 
 ## Logger Configuration
 The properties for the logger instance are configured according to the environment and the log level. The **NODE_ENV** and **LOG_LEVEL** enviroment variables can be set in the **.env** file.
@@ -33,10 +33,10 @@ The properties for the logger instance are configured according to the environme
 cat logFile | pino-pretty --translateTime 'SYS: yyyy-mm-dd HH:MM:ss.l '
 ```
 **Generated log file:**
-![generatedLogFile](https://imgur.com/2VdRmEK.png)
+![generatedLogFile](../images/generatedLogFile.png)
 
 **Log file formatted using pino-pretty:**
-![prettyPrintLogFileToConsole](https://imgur.com/qL0IijL.png)
+![prettyPrintLogFileToConsole](../images/prettyPrintLogFileToConsole.png)
 
 ### Development Environment:
  If **NODE_ENV = Development**, then the code:
@@ -46,4 +46,4 @@ cat logFile | pino-pretty --translateTime 'SYS: yyyy-mm-dd HH:MM:ss.l '
 
 In development mode, logs are formattted using pino-pretty module and are printed to the console (see image below).
 
-![logToConsole](https://imgur.com/XhrM2lL.png)
+![logToConsole](../images/logToConsole.png)
