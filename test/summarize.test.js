@@ -1,5 +1,5 @@
 const fs = require('fs').promises;
-const summarize = require('./summarize');
+const summarize = require('../summarizer/summarize');
 
 
 describe('summarize tests...', () => {
