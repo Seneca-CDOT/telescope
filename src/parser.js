@@ -34,6 +34,7 @@ request(url)
         }
       }
     });
+    // eslint-disable-next-line no-console
     console.log(feed);
   })
   .catch((err) => { throw err; });
