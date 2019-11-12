@@ -2,13 +2,17 @@ module.exports = {
   "extends": "airbnb-base",
   "env": {
     "jest": true,
+    "browser": true,
+    "jquery": true
   },
+
   rules: {
     /**
      * Disallow the use of console
      * https://eslint.org/docs/rules/no-console
      */
     "no-console": "off",
+
 
     /**
      * Disallow Reassignment of Function Parameters
@@ -21,5 +25,6 @@ module.exports = {
      * https://eslint.org/docs/rules/func-names
      */
     "func-names": "off",
+
   }
 };
