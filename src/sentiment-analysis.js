@@ -9,5 +9,9 @@ const Sentiment = require('sentiment');
 
 module.exports.run = async function (text) {
   const sentiment = new Sentiment();
+  try{
   return Promise.resolve(sentiment.analyze(text));
+  }catch(error){
+    console.log(error);
+  }
 };
