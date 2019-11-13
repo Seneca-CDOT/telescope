@@ -1,7 +1,6 @@
-const config = require('./config');
 const Bull = require('bull');
+require('./config');
 
-const redisUrl = process.env.REDIS_URL;
-const queue = new Bull('feed-queue', redisUrl);
+const queue = new Bull('feed-queue', process.env.REDIS_URL);
 
 module.exports = queue;
