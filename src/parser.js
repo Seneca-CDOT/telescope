@@ -1,40 +1,59 @@
+require('dotenv').config();
 const bent = require('bent');
 const jsdom = require('jsdom');
 
 const request = bent('string');
-const url = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
 const { JSDOM } = jsdom;
-const nameTest = /^name/i;
-const linkTest = /^#/;
-let lines = '';
-let feed = '';
-let feedList = '';
-let tempLine = '';
 
-/**
-* Get feed data from url
-* process it to remove unnecessary information like "name" and square brackets
+/*
+* getData() returns Promise { <pending> }
+* It gets the data from 'pre' tag in a provided url
+* Splits the data into lines so its easier to process as a string array
+* That data is then returned as a Promise
 */
-request(url)
-  .then((data) => {
-    const dom = new JSDOM(data);
-    feedList = dom.window.document.querySelector('pre').textContent;
-    lines = feedList.split(/\r\n|\r|\n/);
+function getData() {
+  const list = request(process.env.FEED_URL)
+    .then((data) => {
+      const dom = new JSDOM(data);
+      let feedList = '';
+      feedList = dom.window.document.querySelector('pre').textContent;
+      return feedList.split(/\r\n|\r|\n/);
+    }).catch((err) => { throw err; });
 
-    lines.forEach((element) => {
-      if (!linkTest.test(element)) {
+  return list;
+}
+
+/*
+* parseData() returns Promise { <pending> }
+* It gets the data from getData function
+* Then processes it to remove square brackets from links and 'name=' in front of a name
+* That data is then returned as a Promise
+*/
+function parseData() {
+  const nameCheck = /^name/i;
+  const commentCheck = /^#/;
+
+  let feed = '';
+  let line = '';
+
+  const parsedData = getData().then((data) => {
+    data.forEach((element) => {
+      if (!commentCheck.test(element)) {
         if (element.startsWith('[')) {
-          tempLine = element.replace(/\[href="|\[/, '');
-          tempLine = tempLine.replace(']', '');
-          feed += `${tempLine}\n`;
+          line = element.replace(/([\[\]']+)/g, '');
+          feed += `${line}\n`;
         }
-        if (nameTest.test(element)) {
-          tempLine = element.replace(/^name = |^name= |^name=/i, '');
-          feed += `${tempLine}\n`;
+        if (nameCheck.test(element)) {
+          line = element.replace(/^\s*name\s*=\s*/, '');
+          feed += `${line}\n`;
         }
       }
+      console.log(feed);
+      return feed;
     });
-    // eslint-disable-next-line no-console
-    console.log(feed);
-  })
-  .catch((err) => { throw err; });
+  }).catch((err) => { throw err; });
+
+  return parsedData;
+}
+
+parseData();
