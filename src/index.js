@@ -5,6 +5,7 @@
 const fs = require('fs');
 const feedQueue = require('./feed-queue');
 const feedWorker = require('./feed-worker');
+const domainAnalysis = require('./domain-analysis');
 
 /**
  * Process a string into a list of Objects, each with a feed URL
@@ -46,6 +47,7 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
 
   enqueueFeedJobs(feedJobs).then(() => {
     feedWorker.start();
+    console.log(domainAnalysis.countDomain(feedJobs));
   }).catch((error) => {
     console.log(error);
   });
