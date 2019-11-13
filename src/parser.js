@@ -40,7 +40,8 @@ function parseData() {
     data.forEach((element) => {
       if (!commentCheck.test(element)) {
         if (element.startsWith('[')) {
-          line = element.replace(/([\[\]']+)/g, '');
+          // eslint-disable-next-line no-useless-escape
+          line = element.replace(/[\[\]']/g, '');
           feed += `${line}\n`;
         }
         if (nameCheck.test(element)) {
@@ -48,7 +49,7 @@ function parseData() {
           feed += `${line}\n`;
         }
       }
-      console.log(feed);
+
       return feed;
     });
   }).catch((err) => { throw err; });
