@@ -13,5 +13,10 @@ describe('summarize tests...', () => {
 
   test('summarize returns string', () => expect(typeof predicted).toBe('string'));
 
-  test('summarize returns correct number of lines', () => expect(predicted.split('.').length).toBe(6));
+  test('summarize returns correct number of lines', () => {
+    // NOTE: This regex does not catch floating point values properly.
+    // However, node-summarizer also fails to properly handle floating
+    // point values in strings, so this regex will suffice for now.
+    expect(predicted.match(/([^.!?]+[.!?]+)|([^.!?]+$)/g).length).toBe(5);
+  });
 });
