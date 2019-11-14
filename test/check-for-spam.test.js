@@ -13,19 +13,19 @@ describe('Spam detection checks', () => {
     parsedContent = await feedparser.parse(url);
   });
 
-  test('Should return false on first post', async () => {
+  test('Should return false on first post (not spam)', async () => {
     expect(checkForSpam(parsedContent[0])).toBe(false);
   });
 
-  test('Should return true on second post', async () => {
+  test('Should return true on second post (spam, no title)', async () => {
     expect(checkForSpam(parsedContent[1])).toBe(true);
   });
 
-  test('Should return true on third post', async () => {
+  test('Should return true on third post (spam, all caps)', async () => {
     expect(checkForSpam(parsedContent[2])).toBe(true);
   });
 
-  test('Should return true on fourth post', async () => {
+  test('Should return true on fourth post (spam, less than 20 characters)', async () => {
     expect(checkForSpam(parsedContent[3])).toBe(true);
   });
 });
