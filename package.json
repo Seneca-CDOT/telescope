@@ -38,7 +38,10 @@
     "node-summarizer": "^1.0.7",
     "openidconnect": "^1.0.0",
     "passport": "^0.4.0",
+<<<<<<< HEAD
     "passport-openid": "^0.4.0",
+=======
+>>>>>>> 9eed6cccd489823bdf2457edcd0e49eedf144f61
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
