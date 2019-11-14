@@ -1,4 +1,9 @@
 version: 2.1
+executors:
+  macos:
+    xcode: "10.0.0"
+  orbs:
+    win: circleci/windows@1.0.0
 jobs:
   build:
     working_directory: ~/telescope
@@ -13,20 +18,3 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
-  build-macos:
-    working_directory: ~/telescope
-    macos:
-      xcode: "11.0.0"
-    docker:
-      - image: circleci/node:lts
-      - image: circleci/redis:latest 
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: npm ci
-      - run:
-          name: Execute tests
-          command: npm test
-    
-    
