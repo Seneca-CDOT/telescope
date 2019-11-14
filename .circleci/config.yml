@@ -52,7 +52,7 @@ jobs:
           command: npm test
 
   workflows:
-    version: 2
+    version: 2.1
 
     the_workflow:
       jobs:
