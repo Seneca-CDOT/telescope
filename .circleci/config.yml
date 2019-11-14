@@ -1,4 +1,8 @@
 version: 2.1
+executors:
+  macos:
+    xcode: "10.0.0"
+
 jobs:
   build:
     working_directory: ~/telescope
