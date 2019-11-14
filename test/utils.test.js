@@ -11,4 +11,3 @@ test('Test for invalid URL: missing protocol', () => {
 test('Test for invalid URL: missing colon (:)', () => {
   expect(utils.isValidUrl('https//github.com/Seneca-CDOT/telescope/issus/74')).toBe(false);
 });
-
