@@ -35,8 +35,9 @@
     "express-healthcheck": "^0.1.0",
     "feedparser-promised": "^2.0.1",
     "node-summarizer": "^1.0.7",
-    "sentiment": "^5.0.2",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "jsdom": "^15.2.1",
+    "sentiment": "^5.0.2"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
