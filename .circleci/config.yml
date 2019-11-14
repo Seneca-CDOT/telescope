@@ -1,8 +1,11 @@
 version: 2.1
 jobs:
   build-macos:
+    working_directory: ~/telescope
     macos:
       xcode: "10.0.0"
+    steps:
+      - checkout
   build:
     working_directory: ~/telescope
     docker:
