@@ -1,6 +1,13 @@
 version: 2.1
+
+//FOR WINDOWS
+//orbs need to come before the build is defined for windows so I put it at top
+orbs:
+        win: circleci/windows@1.0.0
+
+
 jobs:
-  build:
+  buildLinux:
     working_directory: ~/telescope
     docker:
       - image: circleci/node:lts
@@ -13,3 +20,53 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
+
+    buildMacos:
+      working_directory: ~/telescope
+      macos:
+        xcode: "11.0.0"
+        resource_class: large
+      docker:
+       - image: circleci/node:lts
+       - image: circleci/redis:latest 
+      steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
+    
+    buildWindows:
+      workingdirectory: ~/telescope
+      executor: win/vs2019
+      docker:
+      - image: circleci/node:lts
+      - image: circleci/redis:latest 
+      steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
+
+  workflows:
+    version: 2
+
+    the_workflow:
+      jobs:
+        - buildLinux
+        - buildMacos
+        - buildWindows
+
+
+      
+
+      
+
+      
+
+
