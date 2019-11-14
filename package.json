@@ -24,6 +24,7 @@
     "bull": "^3.11.0",
     "dotenv": "^8.2.0",
     "feedparser-promised": "^2.0.1",
+    "redis-parser": "^3.0.0",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
