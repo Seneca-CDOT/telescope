@@ -14,16 +14,28 @@ const nodemailer = require('nodemailer');
 
 exports.sendMessage = async function (receipiants, subjectMessage, message) {
   return new Promise((resolve, reject) => {
-    // Credientials to send an email from
-    const transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport('SMTP', {
       // Email Server (.env variable must be used refer to the Contribution.md)
-      service: process.env.NODEMAILER_SERVER,
+      host: process.env.NODEMAILER_SERVER,
+      port: 25,
+      secure: false,
       auth: {
         // Email Name (.env variables must be used refer to the Contribution.md)
         user: process.env.NODEMAILER_USERNAME,
         // Email Pass (.env variables must be used refer to the Contribution.md)
         pass: process.env.NODEMAILER_PASSWORD,
-      },
+      }
+    });
+
+    // verify connection configuration
+    transporter.verify(function (error, success) {
+      // If error then print to console
+      if (error) {
+        console.log(error);
+      // else print a ready message
+      } else {
+        console.log("Server is ready to take our messages");
+      }
     });
 
     // Email Content
