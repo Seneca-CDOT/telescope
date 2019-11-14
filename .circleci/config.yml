@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
- "build-Linux":
+  build:
     working_directory: ~/telescope
     docker:
       - image: circleci/node:lts
@@ -13,12 +13,15 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
-  "build-Macos":
-    working_directory: ~/telescope
-    docker:
-      - image: circleci/node:lts
-      - image: circleci/redis:latest 
-    steps:
+        
+    build-Macos:
+      working_directory: ~/telescope
+      macos:
+        xcode: "10.0.0"
+      docker:
+       - image: circleci/node:lts
+       - image: circleci/redis:latest
+       steps:
       - checkout
       - run:
           name: Install dependencies
@@ -31,4 +34,5 @@ workflows:
   version: 2.1
   build:
     jobs:
-      - "build-Linux"
+      - "build"
+      - "build-Macos"
