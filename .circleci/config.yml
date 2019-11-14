@@ -20,7 +20,7 @@ jobs:
       docker:
       - image: circleci/node:lts
       - image: circleci/redis:latest 
-    steps:
+    steps1:
       - checkout
       - run:
           name: Install dependencies
