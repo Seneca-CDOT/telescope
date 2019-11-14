@@ -2,16 +2,24 @@
   "name": "telescope",
   "version": "0.0.1",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
+  "jest": {
+    "collectCoverage": true,
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
-    "stylelint": "stylelint --ignore-path .gitignore .",
+    "stylelint": "stylelint src/**/*.css",
     "lint": "npm run eslint",
     "postlint": "npm run stylelint",
     "pretest": "npm run lint",
     "test": "npm run jest",
     "jest": "jest",
-    "start": "node src"
+    "start": "node src",
+    "debug-server": "nodemon server.js"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -23,9 +31,13 @@
     "bent": "^7.0.2",
     "bull": "^3.11.0",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-healthcheck": "^0.1.0",
     "feedparser-promised": "^2.0.1",
     "passport": "^0.4.0",
     "passport-openidconnect": "0.0.2",
+    "node-summarizer": "^1.0.7",
+    "jsdom": "^15.2.1",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
@@ -33,7 +45,9 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "jest": "^24.9.0",
+    "nodemon": "^1.19.4",
     "stylelint": "^11.1.1",
-    "stylelint-config-recommended": "^3.0.0"
+    "stylelint-config-recommended": "^3.0.0",
+    "supertest": "^4.0.2"
   }
 }
