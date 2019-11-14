@@ -1,6 +1,6 @@
-require('dotenv').config();
 const bent = require('bent');
 const jsdom = require('jsdom');
+require('./config.js');
 
 const request = bent('string');
 const { JSDOM } = jsdom;
@@ -11,17 +11,13 @@ const { JSDOM } = jsdom;
 * Splits the data into lines so its easier to process as a string array
 * That data is then returned as a Promise
 */
-function getData() {
-  const list = request(process.env.FEED_URL)
+module.exports.getData = function () {
+  return request(process.env.FEED_URL)
     .then((data) => {
       const dom = new JSDOM(data);
-      let feedList = '';
-      feedList = dom.window.document.querySelector('pre').textContent;
-      return feedList.split(/\r\n|\r|\n/);
+      return dom.window.document.querySelector('pre').textContent.split(/\r\n|\r|\n/);
     }).catch((err) => { throw err; });
-
-  return list;
-}
+};
 
 /*
 * parseData() returns Promise { <pending> }
@@ -29,31 +25,35 @@ function getData() {
 * Then processes it to remove square brackets from links and 'name=' in front of a name
 * That data is then returned as a Promise
 */
-function parseData() {
+module.exports.parseData = function () {
   const nameCheck = /^name/i;
   const commentCheck = /^#/;
 
-  let feed = '';
   let line = '';
 
-  const parsedData = getData().then((data) => {
+  return this.getData().then((data) => {
+    const objArray = [];
+    let feed = [];
     data.forEach((element) => {
       if (!commentCheck.test(element)) {
         if (element.startsWith('[')) {
-          line = element.replace(/([\[\]']+)/g, '');
-          feed += `${line}\n`;
+          // eslint-disable-next-line no-useless-escape
+          line = element.replace(/[\[\]']/g, '');
+          feed.push(`${line}`);
         }
         if (nameCheck.test(element)) {
           line = element.replace(/^\s*name\s*=\s*/, '');
-          feed += `${line}\n`;
+          feed.push(`${line}`);
+          let obj = {
+            name: feed[feed.length - 1],
+            link: feed[feed.length - 2],
+          };
+          objArray.push(obj);
+          feed = [];
+          obj = {};
         }
       }
-      console.log(feed);
-      return feed;
     });
+    return objArray;
   }).catch((err) => { throw err; });
-
-  return parsedData;
-}
-
-parseData();
+};
