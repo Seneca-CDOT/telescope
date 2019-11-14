@@ -3,7 +3,9 @@ module.exports = {
   "env": {
     "jest": true,
     "browser": true,
-    "jquery": true
+    "jquery": true,
+    "node": true,
+    "es2017": true
   },
 
   rules: {
