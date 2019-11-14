@@ -28,7 +28,7 @@ exports.sendMessage = async function (receipiants, subjectMessage, message) {
 
     // Email Content
     const mailOptions = {
-      from: '', // Email Name
+      from: process.env.NODEMAILER_USERNAME, // Email Name
       to: receipiants, // People to send to
       subject: subjectMessage, // Subject Line
       html: message, // Message Body
@@ -37,9 +37,9 @@ exports.sendMessage = async function (receipiants, subjectMessage, message) {
     // Send the email with the email content
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        reject(err);
+        reject(err); // Send promise.reject if an error occurs
       } else {
-        resolve(info);
+        resolve(info); // Send promise.resolve if an error occurs
       }
     });
   });
