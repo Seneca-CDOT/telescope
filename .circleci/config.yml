@@ -1,7 +1,5 @@
 version: 2.1
 
-//FOR WINDOWS
-//orbs need to come before the build is defined for windows so I put it at top
 orbs:
         win: circleci/windows@1.0.0
 jobs:
