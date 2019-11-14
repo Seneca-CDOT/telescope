@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/telescope
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:lts
       - image: circleci/redis:latest 
     steps:
       - checkout
