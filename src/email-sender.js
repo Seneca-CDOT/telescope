@@ -24,17 +24,17 @@ exports.sendMessage = async function (receipiants, subjectMessage, message) {
         user: process.env.NODEMAILER_USERNAME,
         // Email Pass (.env variables must be used refer to the Contribution.md)
         pass: process.env.NODEMAILER_PASSWORD,
-      }
+      },
     });
 
     // verify connection configuration
-    transporter.verify(function (error, success) {
+    transporter.verify((error, success) => {
       // If error then print to console
       if (error) {
         console.log(error);
       // else print a ready message
-      } else {
-        console.log("Server is ready to take our messages");
+      } else if (success) {
+        console.log('Server is running properly');
       }
     });
 
