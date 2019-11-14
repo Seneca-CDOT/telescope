@@ -34,11 +34,8 @@
     "express": "^4.17.1",
     "express-healthcheck": "^0.1.0",
     "feedparser-promised": "^2.0.1",
-<<<<<<< HEAD
-    "redis-parser": "^3.0.0",
-=======
+    "jsdom": "^15.2.1",
     "node-summarizer": "^1.0.7",
->>>>>>> 36ab909795369e1539942fc5fc6ba609ab414382
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
