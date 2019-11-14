@@ -4,8 +4,6 @@ version: 2.1
 //orbs need to come before the build is defined for windows so I put it at top
 orbs:
         win: circleci/windows@1.0.0
-
-
 jobs:
   buildLinux:
     working_directory: ~/telescope
@@ -60,13 +58,4 @@ jobs:
       jobs:
         - buildLinux
         - buildMacos
-        - buildWindows
-
-
-      
-
-      
-
-      
-
-
+        - buildLinux
