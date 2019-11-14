@@ -1,4 +1,4 @@
-# Telescope <img align="left" width="100" height="100" src=https://github.com/brucremo/telescope/blob/master/images/telescope-logo-full.png>
+# Telescope <img align="left" width="100" height="100" src=https://github.com/brucremo/telescope/blob/master/images/telescope-logo.png>
 
 A tool for tracking blogs in orbit around Seneca's open source involvement
 
