@@ -11,24 +11,12 @@ describe('summarize tests...', () => {
   test('summarize returns string', () => expect(typeof predicted).toBe('string'));
 
   /*
-  node-summarizer's implementation of TextRank fails to return consistent summaries 
-  over multiple runs with the same input data.  This might be just an attribute of 
-  the TestRank algorithm itself as it randomly traverses the word map to generate a 
-  ranking of the most relavent sentences. Therefore, it is best to not test for 
-  an expected summary. However, the number of sentences returned should work 
-  but for some reason it also fails at times. More investigation is needed before 
-  the following two test may be included to the test suite.
-
-  test('summarize returns expected value', () => {
-    const expected = 'Bad news first because I’m a cup half empty kind of guy: I gave up on working with PHP and Laurel because I just ran out of time and lack the drive to really focus on learning a new technology when there are so many other fun things waiting to be tinkered.The latter was no fun so I’ll just talk about the react component.One was a new component for a react-app while the other was just a simple “add a button to html page” (Sorry, I ran out of time).';
-    expect(predicted).toBe(expected);
-  });
-
-  test('summarize returns correct number of lines', () => {
-    // NOTE: This regex does not catch floating point values properly.
-    // However, node-summarizer also fails to properly handle floating
-    // point values in strings, so this regex will suffice for now.
-    expect(predicted.match(/([^.!?]+[.!?]+)|([^.!?]+$)/g).length).toBe(3);
-  });
+  node-summarizer's implementation of TextRank fails to return consistent summaries
+  over multiple runs with the same input data.  This might be just an attribute of
+  the TestRank algorithm itself as it randomly traverses the word map to generate a
+  ranking of the most relavent sentences. Therefore, it is best to not test for
+  an expected summary. However, the number of sentences returned should work
+  but for some reason it also fails at times. More investigation is required before
+  the sentence count and the summary value may be tested.
   */
 });
