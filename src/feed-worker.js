@@ -19,7 +19,7 @@ exports.start = function () {
         };
         processedPosts.push(processedPost);
       });
-      return processedPosts;
     }
+    return processedPosts;
   });
 };
