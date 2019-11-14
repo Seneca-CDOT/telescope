@@ -1,18 +1,15 @@
-version: 2
+version: 2.1
 jobs:
   build:
     working_directory: ~/telescope
     docker:
-      - image: circleci/node:10
-      - image: circleci/redis:5 
+      - image: circleci/node:latest
+      - image: circleci/redis:latest 
     steps:
       - checkout
       - run:
           name: Install dependencies
           command: npm ci
-      - run:
-          name: 
-          command: npm run build --if-present
       - run:
           name: Execute tests
           command: npm test
