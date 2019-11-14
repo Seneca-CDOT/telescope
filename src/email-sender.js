@@ -14,7 +14,6 @@ const nodemailer = require('nodemailer');
 
 exports.sendMessage = async function (receipiants, subjectMessage, message) {
   return new Promise((resolve, reject) => {
-
     // Credientials to send an email from
     const transporter = nodemailer.createTransport({
       // Email Server (.env variable must be used refer to the Contribution.md)
