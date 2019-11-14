@@ -32,7 +32,8 @@ module.exports.parseData = function () {
   let line = '';
 
   return this.getData().then((data) => {
-    const feed = [];
+    const objArray = [];
+    let feed = [];
     data.forEach((element) => {
       if (!commentCheck.test(element)) {
         if (element.startsWith('[')) {
@@ -43,9 +44,16 @@ module.exports.parseData = function () {
         if (nameCheck.test(element)) {
           line = element.replace(/^\s*name\s*=\s*/, '');
           feed.push(`${line}`);
+          let obj = {
+            name: feed[feed.length - 1],
+            link: feed[feed.length - 2],
+          };
+          objArray.push(obj);
+          feed = [];
+          obj = {};
         }
       }
     });
-    return feed;
+    return objArray;
   }).catch((err) => { throw err; });
 };
