@@ -47,11 +47,11 @@ exports.sendMessage = async function (receipiants, subjectMessage, message) {
     };
 
     // Send the email with the email content
-    transporter.sendMail(mailOptions, (err, info) => {
+    transporter.sendMail(mailOptions, (err, info,) => {
       if (err) {
         reject(err); // Send promise.reject if an error occurs
       } else {
-        resolve(info); // Send promise.resolve if an error occurs
+        resolve(info.accepted); // Send promise.resolve if an error occurs
       }
     });
   });
