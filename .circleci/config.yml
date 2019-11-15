@@ -55,5 +55,5 @@ workflows:
   build:
     jobs:
       - "build"
-      - "build-Macos"
-      - "build-Windows"
+      - "build-macos"
+      - "build-windows"
