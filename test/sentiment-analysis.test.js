@@ -35,5 +35,3 @@ test('test if sample text does not return the correct object', () => sentimentAn
 test('test if sample text returns the correct object', () => sentimentAnalysis.run('I love cats, but I am allergic to them.').then((data) => {
   expect(data).toEqual(expect.objectContaining(expected));
 }));
-
-
