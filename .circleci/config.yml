@@ -49,14 +49,11 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
-
-
-
-
+          
 workflows:
   version: 2.1
   build:
     jobs:
-      - build
-      - build-Macos
-      - build-Windows
+      - "build"
+      - "build-Macos"
+      - "build-Windows"
