@@ -28,10 +28,12 @@ const expected = {
   ],
 };
 
-test('test if sample text does not return the correct object', () => sentimentAnalysis.run('I like dogs, but my girlfriend is afraid of them').then((data) => {
+test('test if sample text does not return the correct object', async () => {
+  const data = await sentimentAnalysis.run('I like dogs, but my girlfriend is afraid of them');
   expect(data).toEqual(expect.not.objectContaining(expected));
-}));
+});
 
-test('test if sample text returns the correct object', () => sentimentAnalysis.run('I love cats, but I am allergic to them.').then((data) => {
+test('test if sample text returns the correct object', async () => {
+  const data = await sentimentAnalysis.run('I love cats, but I am allergic to them.');
   expect(data).toEqual(expect.objectContaining(expected));
-}));
+});
