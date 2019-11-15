@@ -16,8 +16,9 @@ jobs:
 
   buildmacos:
     working_directory: ~/telescope
-    macos:
-     xcode: "9.0"
+    executor:
+      macos:
+        xcode: "9.0"
     
     docker:
       - image: circleci/node:lts
