@@ -16,6 +16,8 @@ jobs: # a basic unit of work in a run
 
   buildmacos:
     working_directory: ~/telescope
+    macos:
+      xcode: "10.0"
     docker:
       - image: circleci/node:lts
       - image: circleci/redis:latest
