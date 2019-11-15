@@ -30,7 +30,13 @@ function processFeedUrls(lines) {
 async function enqueueFeedJobs(feedJobs) {
   feedJobs.forEach(async (feedJob) => {
     console.log(`Enqueuing Job - ${feedJob.url}`);
-    await feedQueue.add(feedJob);
+    try{await feedQueue.add(feedJob);}
+    catch(err){
+      const { errno } = err;
+      if(errno == "ECONNREFUSED"){
+        console.error("Cannot connect "+feedJob.url+" Please make sure the Redis is install")
+      }
+    }
   });
 }
 
