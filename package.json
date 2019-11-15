@@ -30,12 +30,19 @@
   "dependencies": {
     "bent": "^7.0.2",
     "bull": "^3.11.0",
+    "bull-board": "^0.5.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-healthcheck": "^0.1.0",
     "feedparser-promised": "^2.0.1",
-    "node-summarizer": "^1.0.7",
+    "pino": "^5.13.6",
+    "pino-pretty": "^3.3.0",
+    "valid-url": "^1.0.9",
+    "nodemailer": "^6.3.1",
     "jsdom": "^15.2.1",
+    "node-fetch": "^2.6.0",
+    "node-summarizer": "^1.0.7",
+    "parse-github-url": "^1.0.2",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
