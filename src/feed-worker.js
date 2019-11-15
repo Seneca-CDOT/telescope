@@ -1,14 +1,26 @@
-const bent = require('bent');
 const feedQueue = require('./feed-queue');
-
-const request = bent('string');
+const feedParser = require('./feed-parser');
 
 exports.start = function () {
   // Start processing jobs from the feed queue...
   feedQueue.process(async (job) => {
     const { url } = job.data;
-    console.log(`Processing job - ${url}`);
-    // For now, just get the feed data and dump to the console
-    return request(url).then((data) => console.log(`${data} + '\n\n'`)).catch((err) => { throw err; });
+    const posts = await feedParser(url);
+    const processedPosts = [];
+    if (posts.length > 0) {
+      posts.forEach((post) => {
+        // We can extract any other infromation from the post that we need here.
+        const processedPost = {
+          author: post.author,
+          date: post.date,
+          title: post.title,
+          description: post.description,
+          postURL: post.link,
+        };
+        processedPosts.push(processedPost);
+      });
+      // We can pass these objects into another queue, For now just printing to the console.
+      console.log(processedPosts);
+    }
   });
 };
