@@ -226,13 +226,8 @@ article section p {
         display: block;
         position: absolute;
         right: 20px;
-        top: 20px;	
-        font-size:1.75em;
+        top: 20px;
     }
-    
-	.nav-button{
-		font-size: 1.25em;
-	}
 
     article section {
         margin-right: 0px;
