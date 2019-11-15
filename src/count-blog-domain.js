@@ -6,6 +6,11 @@
 //  import url library
 const url = require('url');
 
+//  import logger
+const parentLogger = require('../utils/logger');
+
+const log = parentLogger.child({ module: 'count-blog-domain' });
+
 /*  getDomain() is used to get the domain from hostname without username.
 *   It will split the hostname that pass in, if there is only two parts,
 *   then it will return the hostname;
@@ -54,7 +59,7 @@ module.exports.blogDomainCounter = function (feedUrls) {
         domainSummary[domainIndex].count += 1;
       }
     } catch (err) {
-      console.log(err);
+      log.error(err);
     }
   });
   return domainSummary;
