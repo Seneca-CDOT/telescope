@@ -19,12 +19,12 @@ log.info('Important information...');
 ![childLoggerExample](./images/childLoggerExample.png)
 
 ## Logger Configuration
-The properties for the logger instance are configured according to the environment and the log level. The **NODE_ENV** and **LOG_LEVEL** enviroment variables can be set in the **.env** file. Also, the **LOG_FILE** environment variable can specify a file path where the logs will be written (for production mode only).
+The properties for the logger instance are configured according to the environment and the log level. The **NODE_ENV** and **LOG_LEVEL** enviroment variables can be set in the **.env** file. Also, the **LOG_FILE** environment variable can specify a file path where the logs will be written (for production mode only). When LOG_FILE is not specified, the logs are written to the console using the pino-pretty option.
 
 ### Production Environment:
- If **NODE_ENV = Production** (assumed by default), then the code:
+ If **NODE_ENV = Production** or **NODE_ENV is not set**, then the code:
  * Defines a new Logger instance.
- * Writes logs to a specified file path ('./logFile').
+ * If LOG_FILE is set, writes logs to a specified file path ('./logFile') or outputs them to console.
  * Sets the log level to the LOG_LEVEL environment variable with 'info' as the default level.
 
  By default, Pino log lines are newline delimited JSON (NDJSON). This is perfect for production usage and long term storage. It's not so great for development environments. Thus, Pino logs can be prettified by using a Pino prettifier module like pino-pretty which is already added as dependency of this project. To view the logs in a more human readable format, use the following command:
@@ -40,7 +40,7 @@ cat logFile | pino-pretty --translateTime 'SYS: yyyy-mm-dd HH:MM:ss.l '
 
 ### Development Environment:
  If **NODE_ENV = Development**, then the code:
-  * Outputs logs to console (which is by default)
+ * Outputs logs to console (which is by default)
  * Enables prettyPrint option and translates time from epoch time to local time.
  * Sets the log level to the LOG_LEVEL environment variable with 'debug' as the default level.
 
