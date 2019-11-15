@@ -31,6 +31,22 @@ jobs: # a basic unit of work in a run
       - run:
           name: Execute tests
           command: npm test
+  
+  buildwindows:
+    working_directory: ~/telescope
+    executor: win/vs2019
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/redis:latest
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
+    
  
     
   
@@ -41,3 +57,4 @@ workflows:
     jobs:
       - build
       - buildmacos
+      - buildwindows
