@@ -37,30 +37,31 @@ module.exports.blogDomainCounter = function (feedUrls) {
   * it doesn''t need to check is it exist or not.
   */
 
+  if (feedUrls.length !== 0) { //  check the feedUrls is empty or not
+    const { hostname } = url.parse(feedUrls[0].url);
+    domainSummary.push(
+      createDomainObject(getDomain(hostname)),
+    );
 
-  const { hostname } = url.parse(feedUrls[0].url);
-  domainSummary.push(
-    createDomainObject(getDomain(hostname)),
-  );
-
-  /* feedUrls.slice(1) used to get rid of the first object
+    /* feedUrls.slice(1) used to get rid of the first object
   *  cause it was pushed into domainSummary when it's empty
   */
 
-  feedUrls.slice(1).forEach((feedUrl) => {
-    try {
-      const currentDomainName = getDomain(url.parse(feedUrl.url).hostname);
-      const domainIndex = domainSummary.findIndex((domain) => domain.name === currentDomainName);
-      if (domainIndex === -1) {
-        domainSummary.push(
-          createDomainObject(currentDomainName),
-        );
-      } else {
-        domainSummary[domainIndex].count += 1;
+    feedUrls.slice(1).forEach((feedUrl) => {
+      try {
+        const currentDomainName = getDomain(url.parse(feedUrl.url).hostname);
+        const domainIndex = domainSummary.findIndex((domain) => domain.name === currentDomainName);
+        if (domainIndex === -1) {
+          domainSummary.push(
+            createDomainObject(currentDomainName),
+          );
+        } else {
+          domainSummary[domainIndex].count += 1;
+        }
+      } catch (err) {
+        log.error(err);
       }
-    } catch (err) {
-      log.error(err);
-    }
-  });
+    });
+  }
   return domainSummary;
 };
