@@ -1,5 +1,11 @@
 const Bull = require('bull');
+const { setQueues } = require('bull-board');
 
-const queue = new Bull('feed-queue');
+require('./config');
+
+const queue = new Bull('feed-queue', process.env.REDIS_URL);
+
+// For visualizing queues using bull board
+setQueues(queue);
 
 module.exports = queue;
