@@ -5,7 +5,7 @@ services:
   - redis-server
 os:
   - "linux"
-  - osx
+  - "osx"
 addons:
   homebrew:
     packages: redis
