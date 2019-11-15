@@ -14,21 +14,21 @@ jobs: # a basic unit of work in a run
           name: Execute tests
           command: npm test
 
-  buildmacos: 
-    macos:  
-      xcode: "10.0.0" 
-    working_directory: ~/telescope
+  buildmacos:
+  working_directory: ~/telescope
     docker:
       - image: circleci/node:lts
       - image: circleci/redis:latest 
-    steps: 
-      - checkout  # pull down code from your version control system.
-     - run:
+    steps:
+      - checkout
+      - run:
           name: Install dependencies
           command: npm ci
       - run:
           name: Execute tests
           command: npm test
+    
+  
 
 workflows:
   version: 2
