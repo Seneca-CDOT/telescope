@@ -87,7 +87,6 @@ nav a:link, nav a:visited {
     transition: box-shadow 0.3s ease;
     font-family: var(--font-main);
     font-weight: 700;
-    font-size: 1.25em;
 }
 
 
@@ -228,10 +227,8 @@ article section p {
         position: absolute;
         right: 20px;
         top: 20px;
-        font-size: 1.75em;
     }
-    
-	
+
     article section {
         margin-right: 0px;
         margin-left: 0px;
