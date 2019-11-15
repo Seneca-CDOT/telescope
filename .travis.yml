@@ -4,6 +4,7 @@ node_js:
 services:
   - redis-server
 os:
+  - "linux"
   - osx
 addons:
   homebrew:
