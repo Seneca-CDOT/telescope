@@ -16,4 +16,4 @@ install:
   - if [ "$TRAVIS_OS_NAME" = "windows" ]; then choco install redis-64; fi
 script:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then redis-server /usr/local/etc/redis.conf; fi
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then redis-server --service-start; fi
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then redis-server.exe; fi
