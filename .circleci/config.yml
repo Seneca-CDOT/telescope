@@ -1,11 +1,10 @@
-version: 2.1
-
-jobs:
-  "build-linux":
+version: 2 # use version 2.0 of CircleCI
+jobs: # a basic unit of work in a run
+  build:
+    working_directory: ~/telescope
     docker:
       - image: circleci/node:lts
-      - image: circleci/redis:latest
-    working_directory: ~/telescope
+      - image: circleci/redis:latest 
     steps:
       - checkout
       - run:
@@ -13,27 +12,32 @@ jobs:
           command: npm ci
       - run:
           name: Execute tests
-          command: npm ci 
+          command: npm test
 
-  "build-macos":
-    macos:
-      xcode: "10.0"
-    docker:
-      - image: circleci/node:lts
-      - image: circleci/redis:latest
-    working_directory: ~/telescope
-    steps:
-      - checkout
+  buildmacos: # runs not using `Workflows` must have a `build` job as entry point
+    macos:  # indicate that we are using the macOS executor
+      xcode: "10.0.0" # indicate our selected version of Xcode
+    steps: # a series of commands to run
+      - checkout  # pull down code from your version control system.
       - run:
-          name: Install dependencies
-          command: npm ci
+          # run our tests using xcode's cli tool `xcodebuild`
+          name: Run Unit Tests
+          command: xcodebuild test -scheme circleci-demo-macos
       - run:
-          name: Execute tests
-          command: npm ci 
+          # build our application
+          name: Build Application
+          command: xcodebuild
+      - run:
+          # compress Xcode's build output so that it can be stored as an artifact
+          name: Compress app for storage
+          command: zip -r app.zip build/Release/circleci-demo-macos.app
+      - store_artifacts: # store this build output. Read more: https://circleci.com/docs/2.0/artifacts/
+          path: app.zip
+          destination: app
 
 workflows:
-  build:
+  version: 2
+  build_and_test:
     jobs:
-      - "build-linux"
-      - "build-macos"
-      
+      - build
+      - buildmacos
