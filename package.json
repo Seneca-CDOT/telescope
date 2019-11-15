@@ -34,14 +34,13 @@
     "express": "^4.17.1",
     "express-healthcheck": "^0.1.0",
     "feedparser-promised": "^2.0.1",
+    "node-summarizer": "^1.0.7",
+    "valid-url": "^1.0.9",
     "jsdom": "^15.2.1",
     "node-summarizer": "^1.0.7",
     "openidconnect": "^1.0.0",
     "passport": "^0.4.0",
-<<<<<<< HEAD
     "passport-openid": "^0.4.0",
-=======
->>>>>>> 9eed6cccd489823bdf2457edcd0e49eedf144f61
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
