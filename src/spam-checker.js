@@ -27,21 +27,22 @@ module.exports = async function (content) {
   }
 
   // The main body of the blog post with all HTML tags removed
-  await textParser.run(content.description).then((noTagsDesc) => {
-    // If the title is empty, post is considered spam
-    if (content.title != null) {
-      if (content.title !== ''
-          && !filter.isSpam(content.title)) {
-        // If the word count is under MINWORDS, all characters are capital,
-        // or spam-filter returns true, post is considered spam
-        if (getWordCount(noTagsDesc) > MINWORDS
-            && getCapitalLetters(noTagsDesc) < getAllLetters(noTagsDesc)
-            && !filter.isSpam(noTagsDesc)) {
-          return false;
-        }
+  const noTagsDesc = await textParser.run(content.description);
+
+  // If the title is empty, post is considered spam
+  if (content.title != null) {
+    if (content.title !== ''
+        && !filter.isSpam(content.title)) {
+      // If the word count is under MINWORDS, all characters are capital,
+      // or spam-filter returns true, post is considered spam
+      if (getWordCount(noTagsDesc) > MINWORDS
+          && getCapitalLetters(noTagsDesc) < getAllLetters(noTagsDesc)
+          && !filter.isSpam(noTagsDesc)) {
+        return false;
       }
       return true;
     }
     return true;
-  });
+  }
+  return true;
 };
