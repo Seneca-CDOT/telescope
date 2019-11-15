@@ -5,7 +5,7 @@ const emailsender = require('../src/email-sender');
 // and checks if it's resolve returns what is to be expected,
 // which an array of the testRecipient since it returns
 // an array of addresses it sent the email too
-test.skip('Tests if sendMessage resolves with expected info', async () => {
+test('Tests if sendMessage resolves with expected info', async () => {
   // Feeds test data into sendMessage function
   const testSubjectMessage = 'Test';
   const testHTML = '<h1>Hello World</h1>';
