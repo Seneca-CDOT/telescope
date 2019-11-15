@@ -8,18 +8,20 @@ node_js:
   - "10"
   - "8"
   - "6"
-addons:
-  homebrew:
-    packages:
-     - redis
-    update: true
-services:
-  - redis-server
+# addons:
+#   homebrew:
+#     packages:
+#      - redis
+#     update: true
+
 
 #manual install
-  #   install:
-  # - if [ $TRAVIS_OS_NAME = osx ]; then
-  #   brew update;
-  #   brew install redis;
-  #   redis-server /usr/local/etc/redis.conf;
-  #   fi
+    install:
+  - if [ $TRAVIS_OS_NAME = osx ]; then
+    brew update;
+    brew install redis;
+    redis-server /usr/local/etc/redis.conf;
+    fi
+
+# services:
+#   - redis-server
