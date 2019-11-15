@@ -40,6 +40,8 @@
     "node-summarizer": "^1.0.7",
     "nodemailer": "^6.3.1",
     "parse-github-url": "^1.0.2",
+    "passport": "^0.4.0",
+    "passport-openid": "^0.4.0",
     "pino": "^5.13.6",
     "pino-pretty": "^3.3.0",
     "sentiment": "^5.0.2",
