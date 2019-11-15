@@ -1,4 +1,4 @@
-version: 2.1 # use version 2.0 of CircleCI
+version: 2.0 # use version 2.0 of CircleCI
 orbs:
   win: circleci/windows@1.0.0
 jobs: # a basic unit of work in a run
