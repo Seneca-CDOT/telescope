@@ -12,6 +12,9 @@ class FeedParser {
     this.feedParser = parser;
   }
 
+  /**
+  Wrapper for the feed parser library.
+*/
   async parse(urlFeed) {
     try {
       return await this.feedParser.parse(urlFeed);

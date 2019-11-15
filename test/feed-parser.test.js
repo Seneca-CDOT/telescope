@@ -6,6 +6,8 @@ beforeEach(() => {
   parser = new FeedParser();
 });
 
+// utility method to check that parse does
+// indeed return an non-empty array.
 const assertValidFeed = (feed) => {
   expect(Array.isArray(feed)).toBeTruthy();
   expect(feed.length > 0).toBeTruthy();
