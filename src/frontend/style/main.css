@@ -77,7 +77,7 @@ nav a:link, nav a:visited {
     display: inline-block;
     width: 150px;
     background: var(--nav-btn-bgcolor);
-    font-size: 15px;
+    font-size: 1.25em;
     box-shadow: -5px 0px 0px 0px var(--secondary);
     border: solid 2px var(--secondary);
     cursor: pointer;
@@ -86,8 +86,7 @@ nav a:link, nav a:visited {
     margin: 5px;
     transition: box-shadow 0.3s ease;
     font-family: var(--font-main);
-    font-weight: 700;
-    font-size: 1.25em;
+    font-weight: 700;    
 }
 
 
