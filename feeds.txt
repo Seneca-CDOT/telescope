@@ -1,4 +1,4 @@
-# A simple list of feeds for initial testing, copied from 
+# A simple list of feeds for initial testing, copied from
 # https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List
 https://neilong31.wordpress.com/feed/
 http://ajhooper.blogspot.com/feeds/posts/default
