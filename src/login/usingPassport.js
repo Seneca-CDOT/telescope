@@ -27,7 +27,6 @@ passport.use(new OneLoginStrategy({
   passReqToCallback: true,
 },
 ((req, issuer, userId, profile, accessToken, refreshToken, params, callback) => {
-  /* this can be added to issue 145 once it is landed. */
   console.log('issuer:', issuer);
   console.log('userId:', userId);
   console.log('accessToken:', accessToken);
