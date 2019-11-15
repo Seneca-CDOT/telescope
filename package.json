@@ -30,6 +30,7 @@
   "dependencies": {
     "bent": "^7.0.2",
     "bull": "^3.11.0",
+    "bull-board": "^0.5.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-healthcheck": "^0.1.0",
