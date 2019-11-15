@@ -1,7 +1,4 @@
 version: 2.1
- #build-macos:
-  #  macos:
-   #   xcode: "9.0"
 jobs:
   build:
     working_directory: ~/telescope
@@ -17,21 +14,22 @@ jobs:
           name: Execute tests
           command: npm test
 
-  #build-macos:
-   # macos:
-     # xcode: "9.0"
-  #  working_directory: ~/telescope
-   # docker:
-    #  - image: circleci/node:lts
-    #  - image: circleci/redis:latest 
-   # steps:
-    #  - checkout
-    #  - run:
-     #     name: Install dependencies
-     #     command: npm ci
-    #  - run:
-     #     name: Execute tests
-     #     command: npm test
+  buildmacos:
+    working_directory: ~/telescope
+    macos:
+     xcode: "9.0"
+    
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/redis:latest 
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
   
  # build-windows:
   #  working_directory: ~/telescope
@@ -50,10 +48,10 @@ jobs:
    #       name: Execute tests
    #       command: npm test
           
-#workflows:
- # version: 2.1
-  #build:
-  #  jobs:
-   #   - "build"
-    #  - "build-macos"
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - "build"
+      - "buildmacos"
     #  - "build-windows"
