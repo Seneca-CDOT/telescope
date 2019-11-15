@@ -28,25 +28,33 @@ function createDomainObject(domainName) {
 /* it will return object array: {name: domainName, count: numberOfDomain} */
 module.exports.blogDomainCounter = function (feedUrls) {
   const domainSummary = [];
-  /* When the domainSummary[] is empty, the first object must be pushed into the array,
-  *  it doesn't need to check is it exist or not.
+  /* When the domainSummary[] is empty,the first object must be pushed into the array,
+  * it doesn''t need to check is it exist or not.
   */
+
+
   const { hostname } = url.parse(feedUrls[0].url);
   domainSummary.push(
     createDomainObject(getDomain(hostname)),
   );
 
   /* feedUrls.slice(1) used to get rid of the first object
-  cause it was pushed into domainSummary when it's empty */
+  *  cause it was pushed into domainSummary when it's empty
+  */
+
   feedUrls.slice(1).forEach((feedUrl) => {
-    const currentDomainName = getDomain(url.parse(feedUrl.url).hostname);
-    const domainIndex = domainSummary.findIndex((domain) => domain.name === currentDomainName);
-    if (domainIndex === -1) {
-      domainSummary.push(
-        createDomainObject(currentDomainName),
-      );
-    } else {
-      domainSummary[domainIndex].count += 1;
+    try {
+      const currentDomainName = getDomain(url.parse(feedUrl.url).hostname);
+      const domainIndex = domainSummary.findIndex((domain) => domain.name === currentDomainName);
+      if (domainIndex === -1) {
+        domainSummary.push(
+          createDomainObject(currentDomainName),
+        );
+      } else {
+        domainSummary[domainIndex].count += 1;
+      }
+    } catch (err) {
+      console.log(err);
     }
   });
   return domainSummary;
