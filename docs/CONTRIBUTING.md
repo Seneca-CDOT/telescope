@@ -7,7 +7,7 @@ We are all eager to work on telescope, and this document will help you to get st
 Before creating an issue:
 * Please look through the MVP Features listed below for inspiration.
 * Check [open issues](https://github.com/Seneca-CDOT/telescope/issues). Someone else may be working on the same thing!
-* If they are, reach out and try to help. 
+* If they are, reach out and try to help.
 
 ## Pull Requests
 Please submit pull requests in response to open issues. If you have a bug or feature, bring it up in issues first, to avoid two or more people working on the same thing.
@@ -29,12 +29,15 @@ An easier solution would be to use Docker.
 **Setup**
 1. Navigate to the root directory of telescope.
 1. Copy env.example to .env to create a new environment configuration.
-1. Replace default key values in .env with credentials. 
+1. Replace default key values in .env with credentials.
 1. Run `npm install`.
 1. Run `npm test`
 1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
 1. Run `npm start` to start telescope.
 *If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window).*
+
+#### Logging
+The logger.js module in the utils folder of the repository exports a logger instance that can be imported in other files and used to log important events in production as well as help in debugging during development. Refer to [logging.md](logging.md) for more details.
 
 **THE LIST OF THINGS THAT MUST BE DONE BY A CONTRIBUTOR BEFORE FILLING A PR**
 1. Run `npm test`

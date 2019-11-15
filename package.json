@@ -34,6 +34,8 @@
     "express": "^4.17.1",
     "express-healthcheck": "^0.1.0",
     "feedparser-promised": "^2.0.1",
+    "pino": "^5.13.6",
+    "pino-pretty": "^3.3.0",
     "node-summarizer": "^1.0.7",
     "valid-url": "^1.0.9",
     "jsdom": "^15.2.1",
