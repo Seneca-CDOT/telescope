@@ -1,33 +1,8 @@
 version: 2.1
-jobs:
-  build:
-    working_directory: ~/telescope
-    docker:
-      - image: circleci/node:lts
-      - image: circleci/redis:latest 
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: npm ci
-      - run:
-          name: Execute tests
-          command: npm test
-    build-macos: 
-      working_directory: ~/telescope
-      macos:  
-        xcode: "10.0.0"
+  jobs:
+    build:
+      docker: 
+        - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
       steps:
-        - checkout
-        - run: echo "hello World"
-
-  
-
-workflows:
-  my_workflow:
-    jobs:
-      - build
-      - buildmacos
-
-
-    
+        - checkout # check out the code in the project directory
+        - run: echo "hello world" # run the `echo` command
