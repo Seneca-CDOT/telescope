@@ -4,7 +4,19 @@ os:
   - windows
 language: node_js
 node_js:
-  - "stable"
+  - "node"
+addons:
+  homebrew:
+    packages:
+     - redis
+    update: true
 services:
   - redis-server
-  
+
+#manual install
+  #   install:
+  # - if [ $TRAVIS_OS_NAME = osx ]; then
+  #   brew update;
+  #   brew install redis;
+  #   redis-server /usr/local/etc/redis.conf;
+  #   fi
