@@ -1,12 +1,13 @@
+const filter = require('spam-filter')('naiveBayes');
 // content refers to the contents of the blog post (article) sent by feedparser
 module.exports = function (content) {
   // Minimum words set to 20, can be changed
-  const MINWORDS = 20;
+  const MINWORDS = 5;
 
   // Functions
   function removeTags(str) { // Removes HTML tags from a string, leaving only plaintext
     if (str != null && str !== '') {
-      return str.toString().replace(/<[^>]*>/g, '');
+      return str.replace(/<[^>]*>/g, '').toString();
     }
     return '';
   }
@@ -28,14 +29,15 @@ module.exports = function (content) {
 
   // If the title is empty, post is considered spam
   if (content.title != null) {
-    // If the word count is under MINWORDS or all characters are capital, post is considered spam
-    if (getWordCount(noTagsDesc) > MINWORDS
-        && getCapitalLetters(noTagsDesc) < getAllLetters(noTagsDesc)) {
-      return false;
+    if (content.title !== '' && !filter.isSpam(content.title)) {
+      // If the word count is under MINWORDS or all characters are capital, post is considered spam
+      if (getWordCount(noTagsDesc) > MINWORDS
+          && getCapitalLetters(noTagsDesc) < getAllLetters(noTagsDesc)
+          && !filter.isSpam(noTagsDesc)) {
+        return false;
+      }
     }
-
     return true;
   }
-
   return true;
 };
