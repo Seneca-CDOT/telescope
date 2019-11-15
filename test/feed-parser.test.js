@@ -71,7 +71,7 @@ test('Non existant feed failure case.', async () => {
   try {
     await feedParser('http://doesnotexists___.com');
   } catch (err) {
-    expect(err.message).toBe('getaddrinfo ENOTFOUND doesnotexists___.com');
+    expect(err.code).toBe('getaddrinfo ENOTFOUND doesnotexists___.com');
   }
 });
 
@@ -80,7 +80,7 @@ test('Not a feed failure case', async () => {
     const nonFeedURL = 'https://kerleysblog.blogspot.com';
     await feedParser(nonFeedURL);
   } catch (err) {
-    expect(err.message).toBe('Not a feed');
+    expect(err.code).toBe('Not a feed');
   }
 });
 
