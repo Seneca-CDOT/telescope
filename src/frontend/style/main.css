@@ -77,7 +77,7 @@ nav a:link, nav a:visited {
     display: inline-block;
     width: 150px;
     background: var(--nav-btn-bgcolor);
-    font-size: 15px;
+    font-size: 1.25em;
     box-shadow: -5px 0px 0px 0px var(--secondary);
     border: solid 2px var(--secondary);
     cursor: pointer;
@@ -227,6 +227,7 @@ article section p {
         position: absolute;
         right: 20px;
         top: 20px;
+        font-size: 1.75em;
     }
 
     article section {
