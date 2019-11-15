@@ -1,7 +1,7 @@
 version: 2.1
- build-macos:
-    macos:
-      xcode: "9.0"
+ #build-macos:
+  #  macos:
+   #   xcode: "9.0"
 jobs:
   build:
     working_directory: ~/telescope
