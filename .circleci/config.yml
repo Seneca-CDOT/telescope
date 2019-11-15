@@ -14,26 +14,21 @@ jobs: # a basic unit of work in a run
           name: Execute tests
           command: npm test
 
-  buildmacos: # runs not using `Workflows` must have a `build` job as entry point
-    macos:  # indicate that we are using the macOS executor
-      xcode: "10.0.0" # indicate our selected version of Xcode
-    steps: # a series of commands to run
+  buildmacos: 
+    macos:  
+      xcode: "10.0.0" 
+    working_directory: ~/telescope
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/redis:latest 
+    steps: 
       - checkout  # pull down code from your version control system.
+     - run:
+          name: Install dependencies
+          command: npm ci
       - run:
-          # run our tests using xcode's cli tool `xcodebuild`
-          name: Run Unit Tests
-          command: xcodebuild test -scheme circleci-demo-macos
-      - run:
-          # build our application
-          name: Build Application
-          command: xcodebuild
-      - run:
-          # compress Xcode's build output so that it can be stored as an artifact
-          name: Compress app for storage
-          command: zip -r app.zip build/Release/circleci-demo-macos.app
-      - store_artifacts: # store this build output. Read more: https://circleci.com/docs/2.0/artifacts/
-          path: app.zip
-          destination: app
+          name: Execute tests
+          command: npm test
 
 workflows:
   version: 2
