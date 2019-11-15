@@ -57,4 +57,4 @@ workflows:
     jobs:
       - build
       - buildmacos
-      - buildwindows
+     # - buildwindows
