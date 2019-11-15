@@ -8,5 +8,7 @@ os:
   - "osx"
 addons:
   homebrew:
-    packages: redis
+    packages: 
+      - redis
+    update: true
     
