@@ -2,6 +2,13 @@
   "name": "telescope",
   "version": "0.0.1",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
+  "jest": {
+    "collectCoverage": true,
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
@@ -29,6 +36,10 @@
     "feedparser-promised": "^2.0.1",
     "pino": "^5.13.6",
     "pino-pretty": "^3.3.0",
+    "node-summarizer": "^1.0.7",
+    "valid-url": "^1.0.9",
+    "jsdom": "^15.2.1",
+    "nodemailer": "^6.3.1",
     "sentiment": "^5.0.2"
   },
   "devDependencies": {
