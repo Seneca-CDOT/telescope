@@ -14,4 +14,5 @@ addons:
     update: true
 install:
   - if [ "$TRAVIS_OS_NAME" = "windows" ]; then choco install redis-64; fi
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then npm install eslint --save-dev; fi
+script:
+  - npm run lint
