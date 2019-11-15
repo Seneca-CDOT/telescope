@@ -7,4 +7,6 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../../../frontend/index.html'));
 });
 
+router.use('/admin', require('./admin'));
+
 module.exports = router;
