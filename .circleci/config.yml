@@ -1,26 +1,38 @@
 version: 2.1
-
-orbs:
-
-commands:
-  install-dependencies:
+jobs:
+  build:
+    working_directory: ~/telescope
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/redis:latest 
     steps:
       - checkout
-      - run: npm ci
-  execute-tests:
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
+  buildmacos:
+    macos:
+      xcode:
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/redis:latest 
     steps:
-      - run: npm test
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
 
-executors:
-  docker:
-    - image: circleci/node:lts
-    - image: circleci/redis:latest
+workflows:
+  my_workflow:
+    jobs:
+      - build
+      - buildmacos
 
-jobs:
-  build-linux:
-    executor: docker
-    steps:
-      - install-dependencies
-      - execute-tests
 
-#workflows:
+    
