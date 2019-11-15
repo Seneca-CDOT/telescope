@@ -13,24 +13,11 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
-        
-   build-Macos:
-    working_directory: ~/telescope
-    docker:
-      - image: circleci/node:lts
-      - image: circleci/redis:latest 
-    steps:
-      - checkout
-      - run:
-          name: Install dependencies
-          command: npm ci
-      - run:
-          name: Execute tests
-          command: npm test
 
-workflows:
-  version: 2.1
-  build:
-    jobs:
-      - "build"
-      - "build-Macos"
+
+
+  workflows:
+    version: 2.1
+    build:
+      jobs:
+        - build
