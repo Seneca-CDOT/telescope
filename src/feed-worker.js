@@ -19,7 +19,8 @@ exports.start = function () {
         };
         processedPosts.push(processedPost);
       });
+      // We can pass these objects into another queue, For now just printing to the console.
+      console.log(processedPosts);
     }
-    return processedPosts;
   });
 };
