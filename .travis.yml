@@ -6,6 +6,7 @@ services:
 os:
   - "linux"
   - "osx"
+  - "windows"
 addons:
   homebrew:
     packages: 
@@ -13,4 +14,4 @@ addons:
     update: true
 script:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then redis-server /usr/local/etc/redis.conf; fi
-    
+  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then redis-server --service-start; fi
