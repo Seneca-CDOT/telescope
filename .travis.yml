@@ -12,5 +12,5 @@ addons:
       - redis
     update: true
 script:
-  - redis-server /usr/local/etc/redis.conf
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then redis-server /usr/local/etc/redis.conf; fi
     
