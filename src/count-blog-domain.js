@@ -4,7 +4,7 @@
 */
 
 //  import url library
-const urls = require('url');
+const url = require('url');
 
 /*  getDomain() is used to get the domain from hostname without username.
 *   It will split the hostname that pass in, if there is only two parts,
@@ -28,17 +28,18 @@ function createDomainObject(domainName) {
 /* it will return object array: {name: domainName, count: numberOfDomain} */
 module.exports.blogDomainCounter = function (feedUrls) {
   const domainSummary = [];
-  const { hostname } = urls.parse(feedUrls[0].url);
+  /* When the domainSummary[] is empty, the first object must be pushed into the array,
+  *  it doesn't need to check is it exist or not.
+  */
+  const { hostname } = url.parse(feedUrls[0].url);
   domainSummary.push(
     createDomainObject(getDomain(hostname)),
   );
 
-  /* When the domainSummary is empty, it will push the first object into this array,
-  *  After the first object added, we don't need to check the first element again.
-  */
-
-  feedUrls.slice(1).forEach(({ url }) => {
-    const currentDomainName = getDomain(urls.parse(url).hostname);
+  /* feedUrls.slice(1) used to get rid of the first object
+  cause it was pushed into domainSummary when it's empty */
+  feedUrls.slice(1).forEach((feedUrl) => {
+    const currentDomainName = getDomain(url.parse(feedUrl.url).hostname);
     const domainIndex = domainSummary.findIndex((domain) => domain.name === currentDomainName);
     if (domainIndex === -1) {
       domainSummary.push(

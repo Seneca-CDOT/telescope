@@ -47,7 +47,6 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
 
   enqueueFeedJobs(feedJobs).then(() => {
     feedWorker.start();
-    console.log(counterBlogDomain.blogDomainCounter(feedJobs));
   }).catch((error) => {
     console.log(error);
   });
