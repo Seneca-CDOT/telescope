@@ -3,3 +3,9 @@ node_js:
   - "stable"
 services:
   - redis-server
+os:
+  - osx
+addons:
+  homebrew:
+    packages: redis
+    
