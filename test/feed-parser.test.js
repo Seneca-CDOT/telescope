@@ -71,7 +71,7 @@ test('Non existant feed failure case.', async () => {
   try {
     await feedParser('http://doesnotexists___.com');
   } catch (err) {
-    expect(err.message).toBe('getaddrinfo ENOTFOUND doesnotexists___.com doesnotexists___.com:80');
+    expect(err.message).toBe('getaddrinfo ENOTFOUND doesnotexists___.com');
   }
 });
 
