@@ -1,11 +1,11 @@
 const fs = require('fs');
 const inactiveFilter = require('../src/inactive-blog-filter');
 
-const redlist = JSON.parse(fs.readFileSync('../feeds-redlist.json'));
+const redlist = JSON.parse(fs.readFileSync('feeds-redlist.json'));
 
 describe('Redlisted feed checking', () => {
   it('should return false for bad feed URLs', async () => {
-    const badURLs = [redlist[0].slice(0, -1), '', undefined];
+    const badURLs = [redlist[0].url.slice(0, -1), '', undefined];
     badURLs.forEach((url) => {
       inactiveFilter.check(url, (callback, result) => {
         expect(result).toBe(false);
