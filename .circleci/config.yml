@@ -15,34 +15,25 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
-  buildmacos: 
-    macos:
-      xcode: "10.0.0"
+  buildwindows:
+    executor:
+      name: win/vs2019
+      - image: circleci/node:lts
+      - image: circleci/redis:latest
+
     working_directory: ~/telescope
-    resource_class: large
     steps:
       - checkout
-      - run:
+       - run:
           name: Install dependencies
           command: npm ci
       - run:
           name: Execute tests
           command: npm test
-  buildwindows:
-    executor:
-      name: win/vs2019
-    working_directory: ~/telescope
-    #docker:
-     # - image: "circleci/node:lts"
-     # - image: "circleci/reids:latest"
-    steps:
-      - checkout
-      - run: Write-Host 'Hello, Windows'
          
       
 workflows:
   myworkflows:
     jobs:
       - buildlinux
-      - buildmacos
       - buildwindows
