@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  win: circleci/windows@1.0.0
 jobs:
   build:
     working_directory: ~/telescope
@@ -19,6 +21,17 @@ jobs:
     working_directory: ~/telescope
     resource_class: large
     steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
+  buildwindows:
+    executor:
+      name: win/vs2019
+     steps:
       - checkout
       - run:
           name: Install dependencies
