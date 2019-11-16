@@ -18,6 +18,7 @@ jobs:
           command: npm test
   buildwindows:
     executor: win/vs2019
+    working_directory: ~/telescope
     steps:
       - checkout
       - run: Write-Host 'Hello, Windows'
