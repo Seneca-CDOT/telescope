@@ -17,21 +17,11 @@ jobs:
           name: Execute tests
           command: npm test
   buildwindows:
-    working_directory: ~/telescope
-    docker:
-      - image: circleci/node:lts
-      - image: circleci/redis:latest
-    executor:
-      name: win/vs2019
-      #shell: powershell.exe
+    executor: win/vs2019
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: npm ci
-      - run:
-          name: Execute tests
-          command: npm test
+      - run: Write-Host 'Hello, Windows'
+   
 
 workflows:
   mybuild:
