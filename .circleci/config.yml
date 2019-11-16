@@ -18,11 +18,9 @@ jobs:
   buildwindows:
     executor:
       name: win/vs2019
-    - image: circleci/node:lts
-    - image: circleci/redis:latest
-
+      shell: bash.exe
     working_directory: ~/telescope
-    steps:
+    steps: 
       - checkout
        - run:
           name: Install dependencies
