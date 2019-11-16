@@ -7,7 +7,11 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "automock": false,
+    "setupFiles": [
+    "./test/setupJest.js"
+  ]
   },
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
@@ -36,6 +40,7 @@
     "express-healthcheck": "^0.1.0",
     "feedparser-promised": "^2.0.1",
     "get-urls": "^9.2.0",
+    "jest-fetch-mock": "^2.1.2",
     "jsdom": "^15.2.1",
     "node-fetch": "^2.6.0",
     "node-summarizer": "^1.0.7",
