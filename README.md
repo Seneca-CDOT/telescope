@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 # Telescope
 [![Build Status](https://travis-ci.org/Seneca-CDOT/telescope.svg?branch=master)](https://travis-ci.org/Seneca-CDOT/telescope)
 [![CircleCI](https://circleci.com/gh/Seneca-CDOT/telescope.svg?style=svg)](https://circleci.com/gh/Seneca-CDOT/telescope)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
+=======
+# Telescope <img align="left" width="100" height="100" src=https://github.com/brucremo/telescope/blob/master/images/telescope-logo.png>
+>>>>>>> master
 
 A tool for tracking blogs in orbit around Seneca's open source involvement. We will be working on updating this software and adding key features that can be found below listed ad MVP features.
 
