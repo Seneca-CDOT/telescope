@@ -21,6 +21,9 @@ jobs:
         name: win/vs2019
         #shell: powershell.exe
       working_directory: ~/telescope
+      docker:
+        - image: circleci/node:lts
+        - image: circleci/node:lts
       steps:
         - checkout
         - run:
