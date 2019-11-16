@@ -17,9 +17,6 @@ jobs:
           name: Execute tests
           command: npm test
   buildwindows:
-    #docker:
-    #  - image: circleci/node:lts
-     # - image: circleci/redis:latest
     executor: win/vs2019
     working_directory: ~/telescope
     steps:
