@@ -1,0 +1,26 @@
+<form>
+  
+    <div class="container">
+      <!--For SAML to work an username is required, in this case SAML will connect with Seneca,
+      so the username in this case will be the Seneca provided email-->
+      <label for="uname"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="ename" required>
+      <br>
+      <br>
+      <!--Once SAML is implimented, the password should be the one for the Seneca email-->
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+      <br>
+      <br>
+      <label>
+        <input type="checkbox" name="remember"> Remember me
+      </label>
+      <br>
+      <br>
+      <button type="submit">Login</button>
+    </div>
+  
+    <div class="container" >
+      <button type="button" class="cancelbtn">Cancel</button>
+    </div>
+  </form> 
