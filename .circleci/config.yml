@@ -16,3 +16,10 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
+  buildwindows:
+      executor:
+        name: win/vs2019
+        shell: powershell.exe
+      working_directory: ~/telescope
+      steps:
+        - checkout
