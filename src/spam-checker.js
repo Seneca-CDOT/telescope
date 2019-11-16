@@ -1,18 +1,10 @@
 const filter = require('spam-filter')('naiveBayes');
 const textParser = require('./text-parser');
+
 // content refers to the contents of the blog post (article) sent by feedparser
 module.exports = async function (content) {
   // Minimum words set to 20, can be changed
   const MINWORDS = 5;
-
-  // Functions
-
-  /* function removeTags(str) { // Removes HTML tags from a string, leaving only plaintext
-    if (str != null && str !== '') {
-      return str.replace(/<[^>]*>/g, '').toString();
-    }
-    return '';
-  } */
 
   function getWordCount(str) { // Counts number of words in string
     return str.split(' ').length;
