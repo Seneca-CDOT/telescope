@@ -16,11 +16,11 @@ jobs:
   buildmacos:
     macos:
       xcode: "11.0.0"
+      docker:
+        - image: circleci/node:lts
+        - image: circleci/redis:latest 
     working_directory: ~/telescope
     resource_class: large
-    docker:
-      - image: circleci/node:lts
-      - image: circleci/redis:latest 
     steps:
       - checkout
       - run:
