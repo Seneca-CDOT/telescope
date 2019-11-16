@@ -1,52 +1,17 @@
-const redismock = require('redis-mock');
-
-process.env.REDIS_URL = 'redis://127.0.0.1:3679';
-
-// const storage = require('../src/storage');
+const storage = require('../src/storage');
 
 describe('Tests for storage', () => {
   const feed = { name: 'James Smith', url: 'http://seneca.co/jsmith' };
-  it('insert new value first time', (done) => {
-    const r = redismock.createClient('redis://127.0.0.1:3679');
-    r.on('connect', (msg) => {
-      expect(msg).toBe('123');
-    });
-    r.on('error', (err) => {
-      expect(err).toBe('123');
-    });
-    // storage.addFeed(feed.name, feed.url).then(() => {
-    const x = () => {
-      r.get('1000', (err, result) => {
-        expect(err).toBe(null);
-        expect(result).toBe(feed);
-        r.end();
-        done();
-      });
-    };
-    x();
-    // });
+  const feed2 = { name: 'James Smith 2', url: 'http://seneca.co/jsmith/2' };
+
+  it('inserting a feed returns a feed id', async () => {
+    const feedId = await storage.addFeed(feed.name, feed.url);
+    expect(typeof feedId).toBe('number');
+  });
+
+  it('should allow retrieving a feed by id after inserting', async () => {
+    const feedId = await storage.addFeed(feed2.name, feed2.url);
+    const result = await storage.getFeed(feedId);
+    expect(result).toEqual(feed2);
   });
 });
-
-
-// insert new without hashes
-/*
-test('', async () => {
-  // expect(process.env.redis).toBe();
-  const feed = { name: 'James Smith', url: 'http://seneca.co/jsmith' };
-  let addedFeed;
-  await storage.addFeed(feed.name, feed.url);
-  await client.get('1000', (err, value) => {
-    addedFeed = JSON.parse(value);
-    expect(value).toBe(feed);
-  });
-  client.end();
-  expect(addedFeed).toBe(feed);
-});
-*/
-
-// insert new with hash
-
-// get all members
-
-// get one member
