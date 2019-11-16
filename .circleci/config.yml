@@ -19,7 +19,7 @@ jobs:
   buildwindows:
       executor:
         name: win/vs2019
-        shell: powershell.exe
+        #shell: powershell.exe
       working_directory: ~/telescope
       steps:
         - checkout
