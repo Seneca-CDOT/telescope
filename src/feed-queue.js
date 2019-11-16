@@ -65,7 +65,7 @@ function watch(feedQueue) {
 }
 
 // For visualizing queues using bull board
-const queue = new Bull('feed-queue', process.env.REDIS_URL);
+const queue = new Bull('feed-queue', process.env.REDIS_URL || 'redis://127.0.0.1:6379');
 watch(queue);
 setQueues(queue);
 
