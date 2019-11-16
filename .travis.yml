@@ -7,18 +7,27 @@ os:
   - "linux"
   - "osx"
   - "windows"
-addons:
-  homebrew:
-    packages: 
-      - redis
-    update: true
-install:
-  - if [ "$TRAVIS_OS_NAME" = "windows" ]; then choco install redis-64; fi
-  - npm install eslint --save-dev
 before_install:
+  # When we switch to Prettier, this CRLF fixup should go away
   - cd ../..
   - mv $TRAVIS_REPO_SLUG _old
   - git config --global core.autocrlf false
   - git clone --depth=50 _old $TRAVIS_REPO_SLUG
   - cd $TRAVIS_REPO_SLUG
-  
+  # Deal with Redis install per-platform
+  - echo $TRAVIS_OS_NAME
+  - echo $PATH
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update && brew install redis && brew services start redis
+    fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      redis-server --daemonize yes
+      redis-cli info
+    else
+      choco install redis-64
+      redis-server --service-install
+      redis-server --service-start
+      redis-cli info
+    fi
