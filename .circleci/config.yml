@@ -23,3 +23,16 @@ jobs:
       working_directory: ~/telescope
       steps:
         - checkout
+        - run:
+            name: Install dependencies
+            command: npm ci
+        - run:
+            name: Execute tests
+            command: npm test
+
+workflows:
+  mybuild:
+    jobs:
+      - build
+      - buildwindows
+
