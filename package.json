@@ -10,8 +10,8 @@
     ],
     "automock": false,
     "setupFiles": [
-    "./test/setupJest.js"
-  ]
+      "./test/setupJest.js"
+    ]
   },
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
