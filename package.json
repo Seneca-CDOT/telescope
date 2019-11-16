@@ -35,6 +35,7 @@
     "express": "^4.17.1",
     "express-healthcheck": "^0.1.0",
     "feedparser-promised": "^2.0.1",
+    "get-urls": "^9.2.0",
     "jsdom": "^15.2.1",
     "node-fetch": "^2.6.0",
     "node-summarizer": "^1.0.7",

@@ -1,5 +1,6 @@
 const feedQueue = require('./feed-queue');
 const feedParser = require('./feed-parser');
+const extractUrls = require('./extract-urls');
 
 exports.start = function () {
   // Start processing jobs from the feed queue...
@@ -18,6 +19,7 @@ exports.start = function () {
           postURL: post.link,
         };
         processedPosts.push(processedPost);
+        extractUrls.extract(post.description);
       });
       // We can pass these objects into another queue, For now just printing to the console.
       console.log(processedPosts);
