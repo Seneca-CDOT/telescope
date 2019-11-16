@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   win: circleci/windows@1.0.0
 jobs:
-  build:
+  buildlinux:
     working_directory: ~/telescope
     docker:
       - image: circleci/node:lts
@@ -37,16 +37,12 @@ jobs:
      # - image: "circleci/reids:latest"
     steps:
       - checkout
-      - run:
-          name: Install dependencies
-          command: npm ci
-      - run:
-          name: Execute tests
-          command: npm test
-
+      - run: Write-Host 'Hello, Windows'
+         
+      
 workflows:
   myworkflows:
     jobs:
-      - build
+      - buildlinux
       - buildmacos
       - buildwindows
