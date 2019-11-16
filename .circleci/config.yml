@@ -1,22 +1,18 @@
 version: 2.1
 orbs:
-     win: circleci/windows@1.0.0 
-  jobs:
-    build:
-      docker: 
-        - image: circleci/node:4.8.2 # the primary container, where your job's commands are run
-      steps:
-        - checkout # check out the code in the project directory
-        - run: echo "hello world" # run the `echo` command
-    buildWindows:
-    executor: win/vs2019
+  win: circleci/windows@1.0.0
+
+jobs:
+  build:
+    working_directory: ~/telescope
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/redis:latest 
     steps:
       - checkout
-      - run: Write-Host 'Hello, Windows
-
-
-workflows:
-  my_workflow:
-    jobs:
-      -build
-      -buildWindows
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
