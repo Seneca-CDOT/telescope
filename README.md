@@ -1,5 +1,5 @@
 # Telescope
-[![Build Status]https://travis-ci.org/Seneca-CDOT/telescope.svg?branch=master](https://travis-ci.org/Seneca-CDOT/telescope)
+[![Build Status](https://travis-ci.org/Seneca-CDOT/telescope.svg?branch=master)](https://travis-ci.org/Seneca-CDOT/telescope)
 [![CircleCI](https://circleci.com/gh/Seneca-CDOT/telescope.svg?style=svg)](https://circleci.com/gh/Seneca-CDOT/telescope)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
