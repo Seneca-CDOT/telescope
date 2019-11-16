@@ -47,6 +47,7 @@
     "pino-pretty": "^3.3.0",
     "reading-level": "0.0.7",
     "sentiment": "^5.0.2",
+    "spam-filter": "^1.1.1",
     "valid-url": "^1.0.9",
     "wordcount": "^1.1.1"
   },
