@@ -15,8 +15,9 @@ jobs:
           command: npm test
   buildmacos:
     macos:
-      xcode: "10.0.0"
+      xcode: "11.0.0"
     working_directory: ~/telescope
+    resource_class: large
     docker:
       - image: circleci/node:lts
       - image: circleci/redis:latest 
