@@ -1,7 +1,4 @@
 version: 2.1
-orbs:
-  win: circleci/windows@1.0.0
-
 jobs:
   build:
     working_directory: ~/telescope
@@ -16,36 +13,22 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
-  buildwindows:
-    executor: win/vs2019
-    working_directory: ~/telescope
-    steps:
-       - run:
-          name: Install dependencies
-          command: npm ci
-      - run:
-          name: Execute tests
-          command: npm test
   buildmacos:
-    macos:
-      xcode:
+    working_directory: ~/telescope
     docker:
       - image: circleci/node:lts
-      - image: circleci/node:latest
-    working_directory: ~/telescope
+      - image: circleci/redis:latest 
     steps:
+      - checkout
       - run:
           name: Install dependencies
           command: npm ci
       - run:
           name: Execute tests
           command: npm test
-   
 
 workflows:
-  mybuild:
+  myworkflows:
     jobs:
       - build
-      - buildwindows
       - buildmacos
-
