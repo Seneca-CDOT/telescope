@@ -31,7 +31,7 @@ jobs:
   buildwindows:
     executor:
       name: win/vs2019
-     steps:
+    steps:
       - checkout
       - run:
           name: Install dependencies
