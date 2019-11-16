@@ -22,8 +22,8 @@ jobs:
     working_directory: ~/telescope
     steps: 
       - checkout
-       - run: npm ci
-       - run: npm test
+      - run: npm ci
+      - run: npm test
          
          
       
