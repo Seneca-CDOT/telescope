@@ -45,7 +45,8 @@
     "pino": "^5.13.6",
     "pino-pretty": "^3.3.0",
     "sentiment": "^5.0.2",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "wordcount": "^1.1.1"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
