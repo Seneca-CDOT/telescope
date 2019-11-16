@@ -45,3 +45,4 @@ workflows:
     jobs:
       - build
       - buildmacos
+      - buildwindows
