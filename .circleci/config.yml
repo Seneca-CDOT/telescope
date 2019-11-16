@@ -18,8 +18,8 @@ jobs:
   buildwindows:
     executor:
       name: win/vs2019
-      - image: circleci/node:lts
-      - image: circleci/redis:latest
+    - image: circleci/node:lts
+    - image: circleci/redis:latest
 
     working_directory: ~/telescope
     steps:
