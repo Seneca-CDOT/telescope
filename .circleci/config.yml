@@ -17,14 +17,32 @@ jobs:
           name: Execute tests
           command: npm test
   buildwindows:
-    docker:
-      - image: circleci/node:lts
-      - image: circleci/redis:latest
+    #docker:
+    #  - image: circleci/node:lts
+     # - image: circleci/redis:latest
     executor: win/vs2019
     working_directory: ~/telescope
     steps:
-      - checkout
-      - run: Write-Host 'Hello, Windows'
+       - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
+  buildmacos:
+    macos:
+      xcode:
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/node:latest
+    working_directory: ~/telescope
+    steps:
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
    
 
 workflows:
@@ -32,4 +50,5 @@ workflows:
     jobs:
       - build
       - buildwindows
+      - buildmacos
 
