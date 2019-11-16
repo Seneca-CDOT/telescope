@@ -7,6 +7,15 @@ os:
   - "linux"
   - "osx"
   - "windows"
+cache:
+  directories:
+    # On OSX, cache homebrew - https://stackoverflow.com/questions/39930171/cache-brew-builds-with-travis-ci?answertab=active#tab-top
+    - $HOME/Library/Caches/Homebrew
+    - /usr/local/Homebrew
+before_cache:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cleanup; fi
+  # Cache only .git files under "/usr/local/Homebrew" so "brew update" does not take 5min every build
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then find /usr/local/Homebrew \! -regex ".+\.git.+" -delete; fi
 before_install:
   # When we switch to Prettier, this CRLF fixup should go away
   - cd ../..
