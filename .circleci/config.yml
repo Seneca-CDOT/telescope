@@ -1,8 +1,10 @@
-version: 2 # use version 2.0 of CircleCI
+version: 2.1 # use version 2.0 of CircleCI
 orbs:
   win: circleci/windows@1.0.0
 jobs: # a basic unit of work in a run
   build:
+    machine: true
+    resource_class: large
     working_directory: ~/telescope
     docker:
       - image: circleci/node:lts
@@ -17,7 +19,6 @@ jobs: # a basic unit of work in a run
           command: npm test
 
   buildmacos:
-    working_directory: ~/telescope
     macos:
       xcode: "10.0"
     docker:
@@ -32,25 +33,24 @@ jobs: # a basic unit of work in a run
           name: Execute tests
           command: npm test
   
-  #buildwindows:
-    #working_directory: ~/telescope
-    #executor: win/vs2019
-    #docker:
-    #  - image: circleci/node:lts
-    #  - image: circleci/redis:latest
-    #steps:
-   #   - checkout
-     # - run:
-    #      name: Install dependencies
-    #      command: npm ci
-    #  - run:
-     #     name: Execute tests
-     #     command: npm test
-     
+  buildwindows:
+    executor: win/vs2019
+    docker:
+      - image: circleci/node:lts
+      - image: circleci/redis:latest
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Execute tests
+          command: npm test
+
 workflows:
-  version: 2
+  #version: 2
   build_and_test:
     jobs:
       - build
       - buildmacos
-    #  - buildwindows
+      - buildwindows
