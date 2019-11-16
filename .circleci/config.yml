@@ -31,9 +31,10 @@ jobs:
   buildwindows:
     executor:
       name: win/vs2019
-    docker:
-      - image: "circleci/node:lts"
-      - image: "circleci/reids:latest"
+    working_directory: ~/telescope
+    #docker:
+     # - image: "circleci/node:lts"
+     # - image: "circleci/reids:latest"
     steps:
       - checkout
       - run:
