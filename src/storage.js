@@ -1,28 +1,26 @@
-const Redis = require('ioredis');
+const redis = require('./lib/redis');
 
-const client = new Redis(process.env.REDIS_URL);
+// Redis Keys
+const FEED_ID = 'feed_id';
+const FEEDS = 'feeds';
 
 module.exports = {
-  addFeed: (name, url) => {
-    let feedID = 1000;
-    const feed = { name, url };
-    return client
-      .get('feed_id')
-      .then((result) => {
-        if (!result) client.set('feed_id', 1000);
-        else feedID = result;
-      })
-      .then(() => {
-        client
-          .pipeline()
-          .set(feedID, JSON.stringify(feed))
-          .sadd('feeds', feedID)
-          .incr('feed_id')
-          .exec();
-      });
+  addFeed: async (name, url) => {
+    // "If the key does not exist, it is set to 0 before performing the operation"
+    // https://redis.io/commands/INCR
+    const feedId = await redis.incr(FEED_ID);
+    await redis
+      .multi()
+      // Using hmset() until hset() fully supports multiple fields:
+      // https://github.com/stipsan/ioredis-mock/issues/345
+      // https://github.com/luin/ioredis/issues/551
+      .hmset(feedId, 'name', name, 'url', url)
+      .sadd('feeds', feedId)
+      .exec();
+    return feedId;
   },
 
-  getFeeds: () => client.smembers('feeds'),
+  getFeeds: () => redis.smembers(FEEDS),
 
-  getFeed: (feedID) => client.get(feedID),
+  getFeed: (feedID) => redis.hgetall(feedID),
 };
