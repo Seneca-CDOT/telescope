@@ -15,7 +15,7 @@ module.exports = {
       // https://github.com/stipsan/ioredis-mock/issues/345
       // https://github.com/luin/ioredis/issues/551
       .hmset(feedId, 'name', name, 'url', url)
-      .sadd('feeds', feedId)
+      .sadd(FEEDS, feedId)
       .exec();
     return feedId;
   },
