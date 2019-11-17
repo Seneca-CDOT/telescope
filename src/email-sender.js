@@ -14,7 +14,7 @@ const nodemailer = require('nodemailer');
 
 exports.sendMessage = async function (receipiants, subjectMessage, message) {
   return new Promise((resolve, reject) => {
-    const transporter = nodemailer.createTransport('SMTP', {
+    const transporter = nodemailer.createTransport({
       // Email Server (.env variable must be used refer to the Contribution.md)
       host: process.env.NODEMAILER_SERVER,
       port: 25,

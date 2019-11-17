@@ -30,6 +30,8 @@ An easier solution would be to use Docker.
 1. Navigate to the root directory of telescope.
 1. Copy env.example to .env to create a new environment configuration.
 1. Replace default key values in .env with credentials.
+1. Start the docker container for Redis using `docker-compose up -d redis`
+    - To stop the docker container for Redis, run `docker-compose stop redis`
 1. Run `npm install`.
 1. Run `npm test`
 1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.

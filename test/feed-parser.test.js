@@ -25,3 +25,17 @@ test('Passing an invalid RSS feed URI should error', async () => {
 test('Passing a valid URI, but not a feed URI should error', async () => {
   await expect(feedParser('https://google.ca')).rejects.toThrow('Not a feed');
 });
+
+test('Passing an IP address instead of a URI should throw an error', async () => {
+  await expect(feedParser('128.190.222.135')).rejects.toThrow('error');
+});
+
+test.skip('Passing an invalid RSS category feed should return an empty array', async () => {
+  const data = await feedParser('http://en.blog.wordpress.com/category/INVALID_CATEGORY/feed/');
+  expect(data.length).toBe(0);
+});
+
+test.skip('Passing a valid RSS category feed should return an array that is not empty', async () => {
+  const data = await feedParser('http://en.blog.wordpress.com/category/features/feed');
+  expect(data.length > 0).toBe(true);
+});
