@@ -1,8 +1,7 @@
-const bent = require('bent');
+const fetch = require('node-fetch');
 const jsdom = require('jsdom');
 require('./config.js');
 
-const request = bent('string');
 const { JSDOM } = jsdom;
 
 /*
@@ -12,7 +11,8 @@ const { JSDOM } = jsdom;
 * That data is then returned as a Promise
 */
 module.exports.getData = function () {
-  return request(process.env.FEED_URL)
+  return fetch(process.env.FEED_URL)
+    .then((res) => res.text())
     .then((data) => {
       const dom = new JSDOM(data);
       return dom.window.document.querySelector('pre').textContent.split(/\r\n|\r|\n/);
