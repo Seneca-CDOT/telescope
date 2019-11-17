@@ -14,4 +14,16 @@ describe('Tests for storage', () => {
     const result = await storage.getFeed(feedId);
     expect(result).toEqual(feed2);
   });
+
+  it('should return feed id after inserting', async () => {
+    const feedId = await storage.addFeed(feed.name, feed.url);
+    const result = await storage.getFeeds();
+    expect(result.indexOf(feedId.toString()) > -1).toEqual(true);
+  });
+
+  it('should increment feedId', async () => {
+    const feedId1 = await storage.addFeed(feed.name, feed.url);
+    const feedId2 = await storage.addFeed(feed2.name, feed2.url);
+    expect(feedId2 - feedId1).toEqual(1);
+  });
 });
