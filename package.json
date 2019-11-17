@@ -59,6 +59,7 @@
     "wordcount": "^1.1.1"
   },
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
