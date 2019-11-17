@@ -12,7 +12,7 @@ const { JSDOM } = jsdom;
 */
 module.exports.getData = function () {
   return fetch(process.env.FEED_URL)
-    .then((res) => res.text() )
+    .then((res) => res.text())
     .then((data) => {
       const dom = new JSDOM(data);
       return dom.window.document.querySelector('pre').textContent.split(/\r\n|\r|\n/);
