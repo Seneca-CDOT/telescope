@@ -40,3 +40,5 @@ before_install:
       redis-server --service-start
       redis-cli info
     fi
+before_script:
+  - npm run danger
