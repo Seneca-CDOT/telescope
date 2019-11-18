@@ -8,4 +8,4 @@ module.exports.run = async function (text) {
   const { window } = new JSDOM('');
   const DOMPurify = createDOMPurify(window);
   return Promise.resolve(DOMPurify.sanitize(text));
-}
+};
