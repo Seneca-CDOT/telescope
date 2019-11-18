@@ -1,6 +1,6 @@
 # Logging Support Using Pino
 
-This project uses [Pino](http://getpino.io/#/) to provide support for logging in Production as well as development environments. The [logger.js](../utils/logger.js) module exports a logger instance that can be used in other modules to implement logging for important events.
+This project uses [Pino](http://getpino.io/#/) to provide support for logging in Production as well as development environments. The [logger.js](../src/lib/logger.js) module exports a logger instance that can be used in other modules to implement logging for important events.
 ## How to use the logger
 
 1. In the module, import the parent logger using the require statement at the top of the file.
@@ -10,7 +10,7 @@ This project uses [Pino](http://getpino.io/#/) to provide support for logging in
 When you’re logging, it’s often handy or even necessary to categorize or sub-categorize the logs so more context can be added to the information that’s logged. Child loggers specialize the parent logger object, effectively adding more context to the information which is logged. For example, let’s say we want to know which module printed a certain log record. To do that, we call the parent’s logger.child method and pass in the new field in the constructor as shown in the code examples below.
 
 ```javascript
-const parentLogger = require('../utils/logger');
+const parentLogger = require('../src/lib/logger');
 const log = parentLogger.child({ module: 'module-name' });
 
 log.info('Important information...');

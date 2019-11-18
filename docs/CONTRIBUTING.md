@@ -39,7 +39,7 @@ An easier solution would be to use Docker.
 *If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window).*
 
 #### Logging
-The logger.js module in the utils folder of the repository exports a logger instance that can be imported in other files and used to log important events in production as well as help in debugging during development. Refer to [logging.md](logging.md) for more details.
+The logger.js module, in the lib directory under the src folder of the repository, exports a logger instance that can be imported in other files and used to log important events in production as well as help in debugging during development. Refer to [logging.md](logging.md) for more details.
 
 **THE LIST OF THINGS THAT MUST BE DONE BY A CONTRIBUTOR BEFORE FILLING A PR**
 1. Run `npm test`
