@@ -1,4 +1,6 @@
 const pino = require('pino');
+const expressPino = require('express-pino-logger');
+const os = require('os');
 
 require('../config');
 
@@ -11,7 +13,10 @@ let logger;
  */
 if (process.env.NODE_ENV === 'development') {
   logger = pino({
-    prettyPrint: { translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ' },
+    prettyPrint: {
+      translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
+      colorize: !(os.type() === 'Windows_NT'),
+    },
     level: process.env.LOG_LEVEL || 'debug',
   });
 } else if (process.env.LOG_FILE) {
@@ -19,9 +24,23 @@ if (process.env.NODE_ENV === 'development') {
    * Write logs to a specified path.
    * Set log level to LOG_LEVEL environment variable with 'info' as default level.
    */
-  logger = pino({ level: process.env.LOG_LEVEL || 'info' }, pino.destination(process.env.LOG_FILE));
+  logger = pino({
+    level: process.env.LOG_LEVEL || 'info',
+    prettyPrint: {
+      translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
+      colorize: false,
+    },
+  }, pino.destination(process.env.LOG_FILE));
 } else {
-  logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+  logger = pino({
+    level: process.env.LOG_LEVEL || 'info',
+    prettyPrint: {
+      translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
+      colorize: false,
+    },
+  });
 }
 
-module.exports = logger;
+const expressLogger = expressPino({ logger });
+
+module.exports = expressLogger;
