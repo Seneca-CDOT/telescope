@@ -1,6 +1,6 @@
 const pino = require('pino');
 
-require('../src/config');
+require('../config');
 
 let logger;
 

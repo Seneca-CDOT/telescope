@@ -7,7 +7,7 @@
 const url = require('url');
 
 //  import logger
-const parentLogger = require('../utils/logger');
+const parentLogger = require('./lib/logger');
 
 const log = parentLogger.child({ module: 'count-blog-domain' });
 
