@@ -16,7 +16,7 @@ exports.start = function() {
           date: post.date,
           title: post.title,
           description: post.description,
-          postURL: post.link
+          postURL: post.link,
         };
         processedPosts.push(processedPost);
         extractUrls.extract(post.description);

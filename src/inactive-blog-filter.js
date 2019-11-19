@@ -107,7 +107,7 @@ function update() {
 
           redlistUpdate.push({
             url: feedUrl,
-            lastUpdate: feed[0].date
+            lastUpdate: feed[0].date,
           });
         }
       } else {
@@ -115,7 +115,7 @@ function update() {
 
         redlistUpdate.push({
           url: feedUrl,
-          lastUpdate: null
+          lastUpdate: null,
         });
       }
 

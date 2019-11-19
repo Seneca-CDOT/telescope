@@ -18,7 +18,7 @@ test('test fetching data for a valid user URL', async () => {
     company: expect.any(String),
     blog: expect.any(String),
     email: expect.any(String),
-    bio: expect.any(String)
+    bio: expect.any(String),
   };
 
   fetch.mockResponseOnce(
@@ -30,7 +30,7 @@ test('test fetching data for a valid user URL', async () => {
         company: 'foo',
         blog: 'foo',
         email: 'foo',
-        bio: 'foo'
+        bio: 'foo',
       },
       { status: 200 }
     )
@@ -54,12 +54,12 @@ test('test fetching data for a valid repository URL', async () => {
       name: expect.any(String),
       spdx_id: expect.any(String),
       url: expect.any(String),
-      node_id: expect.any(String)
+      node_id: expect.any(String),
     },
     openIssues: expect.any(Number),
     forks: expect.any(Number),
     createdAt: expect.any(String),
-    language: expect.any(String)
+    language: expect.any(String),
   };
   fetch.mockResponseOnce(
     JSON.stringify(
@@ -71,12 +71,12 @@ test('test fetching data for a valid repository URL', async () => {
           name: 'foo',
           spdx_id: 'foo',
           url: 'foo',
-          node_id: 'foo'
+          node_id: 'foo',
         },
         open_issues: 0,
         forks: 0,
         created_at: 'foo',
-        language: 'foo'
+        language: 'foo',
       },
       { status: 200 }
     )
@@ -98,7 +98,7 @@ test('test fetching data for a valid issue URL', async () => {
     body: expect.any(String),
     createdAt: expect.any(String),
     branch: expect.any(String),
-    repo: expect.any(String)
+    repo: expect.any(String),
   };
 
   fetch.mockResponseOnce(
@@ -106,10 +106,10 @@ test('test fetching data for a valid issue URL', async () => {
       {
         user: {
           login: 'foo',
-          avatar_url: 'foo'
+          avatar_url: 'foo',
         },
         body: 'foo',
-        created_at: 'foo'
+        created_at: 'foo',
       },
       { status: 200 }
     )
@@ -131,7 +131,7 @@ test('test fetching data for a valid pull request URL', async () => {
     body: expect.any(String),
     createdAt: expect.any(String),
     branch: expect.any(String),
-    repo: expect.any(String)
+    repo: expect.any(String),
   };
 
   fetch.mockResponseOnce(
@@ -139,10 +139,10 @@ test('test fetching data for a valid pull request URL', async () => {
       {
         user: {
           login: 'foo',
-          avatar_url: 'foo'
+          avatar_url: 'foo',
         },
         body: 'foo',
-        created_at: 'foo'
+        created_at: 'foo',
       },
       { status: 200 }
     )

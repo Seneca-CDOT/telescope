@@ -24,7 +24,7 @@ passport.use(
       userInfoURL: `${OIDC_BASE_URI}/me`,
       tokenURL: `${OIDC_BASE_URI}/token`,
       callbackURL: OIDC_REDIRECT_URI,
-      passReqToCallback: true
+      passReqToCallback: true,
     },
     (req, issuer, userId, profile, accessToken, refreshToken, params, callback) => {
       console.log('issuer:', issuer);

@@ -11,14 +11,14 @@ const feedUrls = [
   { url: 'http://gkrilov.blogspot.com/feeds/posts/default' },
   { url: 'http://KrazyDre.blogspot.com/feeds/posts/default?alt=rss' },
   {
-    url: 'http://dcucereavii.blogspot.com/feeds/posts/default?alt=rss'
-  }
+    url: 'http://dcucereavii.blogspot.com/feeds/posts/default?alt=rss',
+  },
 ];
 
 const domainCountResult = [
   { name: 'wordpress.com', count: 2 },
   { name: 'medium.com', count: 1 },
-  { name: 'blogspot.com', count: 7 }
+  { name: 'blogspot.com', count: 7 },
 ];
 
 test('Count domains from blog posts', () => {
