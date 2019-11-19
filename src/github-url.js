@@ -77,7 +77,7 @@ exports.getGithubUrlData = async incomingUrl => {
           company,
           blog,
           email,
-          bio
+          bio,
         };
 
         // Repo
@@ -89,7 +89,7 @@ exports.getGithubUrlData = async incomingUrl => {
           open_issues: openIssues,
           forks,
           created_at: createdAt,
-          language
+          language,
         } = data;
 
         fetchedData = {
@@ -99,7 +99,7 @@ exports.getGithubUrlData = async incomingUrl => {
           openIssues,
           forks,
           createdAt,
-          language
+          language,
         };
 
         // Issue or Pull Request
@@ -107,7 +107,7 @@ exports.getGithubUrlData = async incomingUrl => {
         const {
           user: { login, avatar_url: avatarURL },
           body,
-          created_at: createdAt
+          created_at: createdAt,
         } = data;
 
         fetchedData = {
@@ -116,7 +116,7 @@ exports.getGithubUrlData = async incomingUrl => {
           body,
           createdAt,
           branch: ghUrl.branch,
-          repo: ghUrl.name
+          repo: ghUrl.name,
         };
       }
       return fetchedData;

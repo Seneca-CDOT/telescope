@@ -22,5 +22,5 @@ module.exports = {
 
   getFeeds: () => redis.smembers(FEEDS),
 
-  getFeed: feedID => redis.hgetall(feedID)
+  getFeed: feedID => redis.hgetall(feedID),
 };

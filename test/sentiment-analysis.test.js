@@ -7,7 +7,7 @@ const expected = {
   tokens: ['i', 'love', 'cats', 'but', 'i', 'am', 'allergic', 'to', 'them'],
   words: ['allergic', 'love'],
   positive: ['love'],
-  negative: ['allergic']
+  negative: ['allergic'],
 };
 
 test('test if sample text does not return the correct object', async () => {

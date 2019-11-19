@@ -50,7 +50,7 @@ module.exports.parseData = function() {
             feed.push(`${line}`);
             let obj = {
               name: feed[feed.length - 1],
-              link: feed[feed.length - 2]
+              link: feed[feed.length - 2],
             };
             objArray.push(obj);
             feed = [];

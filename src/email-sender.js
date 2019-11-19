@@ -23,8 +23,8 @@ exports.sendMessage = async function(receipiants, subjectMessage, message) {
         // Email Name (.env variables must be used refer to the Contribution.md)
         user: process.env.NODEMAILER_USERNAME,
         // Email Pass (.env variables must be used refer to the Contribution.md)
-        pass: process.env.NODEMAILER_PASSWORD
-      }
+        pass: process.env.NODEMAILER_PASSWORD,
+      },
     });
 
     // verify connection configuration
@@ -43,7 +43,7 @@ exports.sendMessage = async function(receipiants, subjectMessage, message) {
       from: process.env.NODEMAILER_USERNAME, // Email Name
       to: receipiants, // People to send to
       subject: subjectMessage, // Subject Line
-      html: message // Message Body
+      html: message, // Message Body
     };
 
     // Send the email with the email content

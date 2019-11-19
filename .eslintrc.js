@@ -6,7 +6,7 @@ module.exports = {
     browser: true,
     jquery: true,
     node: true,
-    es2017: true
+    es2017: true,
   },
   rules: {
     'prettier/prettier': ['error'],
@@ -27,6 +27,6 @@ module.exports = {
      * Require or disallow named function expressions
      * https://eslint.org/docs/rules/func-names
      */
-    'func-names': 'off'
-  }
+    'func-names': 'off',
+  },
 };
