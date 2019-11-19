@@ -1,31 +1,13 @@
-
 const sentimentAnalysis = require('../src/sentiment-analysis');
 
 const expected = {
   score: 1,
   comparative: 0.1111111111111111,
   calculation: [{ allergic: -2 }, { love: 3 }],
-  tokens: [
-    'i',
-    'love',
-    'cats',
-    'but',
-    'i',
-    'am',
-    'allergic',
-    'to',
-    'them',
-  ],
-  words: [
-    'allergic',
-    'love',
-  ],
-  positive: [
-    'love',
-  ],
-  negative: [
-    'allergic',
-  ],
+  tokens: ['i', 'love', 'cats', 'but', 'i', 'am', 'allergic', 'to', 'them'],
+  words: ['allergic', 'love'],
+  positive: ['love'],
+  negative: ['allergic']
 };
 
 test('test if sample text does not return the correct object', async () => {
