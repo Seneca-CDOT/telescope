@@ -15,3 +15,5 @@ process.on('unhandledRejection', ({ name, message }) => {
     process.exit(1);
   });
 });
+
+module.exports = server;
