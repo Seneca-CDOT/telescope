@@ -3,7 +3,7 @@
 // Later on , you can then organize the types of urls (github etc)...
 const getUrls = require('get-urls');
 // this function returns an array of urls from the html
-exports.extract = function (htmlData) {
+exports.extract = function(htmlData) {
   const urls = getUrls(htmlData);
   const arrayOfUrls = Array.from(urls);
   console.log('Printing URLs from blog feed data');

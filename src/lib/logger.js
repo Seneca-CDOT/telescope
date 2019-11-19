@@ -12,7 +12,7 @@ let logger;
 if (process.env.NODE_ENV === 'development') {
   logger = pino({
     prettyPrint: { translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ' },
-    level: process.env.LOG_LEVEL || 'debug',
+    level: process.env.LOG_LEVEL || 'debug'
   });
 } else if (process.env.LOG_FILE) {
   /* If in Production mode:

@@ -12,7 +12,7 @@ const nodemailer = require('nodemailer');
  message - '<p>An Error has occurred <br/>Error Message:</p>'
 */
 
-exports.sendMessage = async function (receipiants, subjectMessage, message) {
+exports.sendMessage = async function(receipiants, subjectMessage, message) {
   return new Promise((resolve, reject) => {
     const transporter = nodemailer.createTransport({
       // Email Server (.env variable must be used refer to the Contribution.md)
@@ -23,8 +23,8 @@ exports.sendMessage = async function (receipiants, subjectMessage, message) {
         // Email Name (.env variables must be used refer to the Contribution.md)
         user: process.env.NODEMAILER_USERNAME,
         // Email Pass (.env variables must be used refer to the Contribution.md)
-        pass: process.env.NODEMAILER_PASSWORD,
-      },
+        pass: process.env.NODEMAILER_PASSWORD
+      }
     });
 
     // verify connection configuration
@@ -32,7 +32,7 @@ exports.sendMessage = async function (receipiants, subjectMessage, message) {
       // If error then print to console
       if (error) {
         console.log(error);
-      // else print a ready message
+        // else print a ready message
       } else if (success) {
         console.log('Server is running properly');
       }
@@ -43,7 +43,7 @@ exports.sendMessage = async function (receipiants, subjectMessage, message) {
       from: process.env.NODEMAILER_USERNAME, // Email Name
       to: receipiants, // People to send to
       subject: subjectMessage, // Subject Line
-      html: message, // Message Body
+      html: message // Message Body
     };
 
     // Send the email with the email content

@@ -71,7 +71,7 @@ module.exports = function analyzeText(text_) {
 
   // asynchonize function
   // to get a basic analysis information, getAsyAnalysis should be called
-  this.getAsyAnalysis = async function () {
+  this.getAsyAnalysis = async function() {
     return new Promise((res, rej) => {
       if (isValidString) {
         res(analysis);

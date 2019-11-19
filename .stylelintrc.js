@@ -1,7 +1,6 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  "extends": "stylelint-config-recommended",
-  rules: {
-  }
+  extends: 'stylelint-config-recommended',
+  rules: {}
 };

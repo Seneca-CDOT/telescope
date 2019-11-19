@@ -2,27 +2,23 @@ const fs = require('fs');
 const path = require('path');
 const analyzeText = require('../src/analysis/basic_analysis.js');
 
-
 const text1 = 'Hello, world';
 const text2 = 'Navigate to the root directory of telescope';
-const text3 = 'Run npm start to start telescope. If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command redis-server in a seperate command window).';
+const text3 =
+  'Run npm start to start telescope. If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command redis-server in a seperate command window).';
 let text4;
 let text5;
 let text6;
 
 try {
-  text4 = fs.readFileSync(path.join(__dirname,
-    '/test_files/basic_analysis.test1.txt')).toString();
-  text5 = fs.readFileSync(path.join(__dirname,
-    '/test_files/basic_analysis.test2.txt')).toString();
-  text6 = fs.readFileSync(path.join(__dirname,
-    '/test_files/basic_analysis.test3.txt')).toString();
+  text4 = fs.readFileSync(path.join(__dirname, '/test_files/basic_analysis.test1.txt')).toString();
+  text5 = fs.readFileSync(path.join(__dirname, '/test_files/basic_analysis.test2.txt')).toString();
+  text6 = fs.readFileSync(path.join(__dirname, '/test_files/basic_analysis.test3.txt')).toString();
 } catch (err) {
   console.log(err);
 }
 
 console.log(analyzeText);
-
 
 // Test 1: Output Type Test
 describe('Output type test', () => {
@@ -57,7 +53,6 @@ describe('Basic analysis test 1', () => {
   beforeAll(async () => {
     data = await analyzeText(text2).getAsyAnalysis();
   });
-
 
   test('the number of of word count is ', async () => expect(data.wordCount).toEqual(7));
   test('the level of of readability is ', async () => expect(data.readability).toEqual('hard'));

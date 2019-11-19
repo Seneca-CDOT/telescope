@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-  - "node"
+  - 'node'
 services:
   - redis-server
 os:
-  - "linux"
-  - "osx"
-  - "windows"
+  - 'linux'
+  - 'osx'
+  - 'windows'
 cache:
   directories:
     # On OSX, cache homebrew - https://stackoverflow.com/questions/39930171/cache-brew-builds-with-travis-ci?answertab=active#tab-top

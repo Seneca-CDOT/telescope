@@ -13,7 +13,7 @@ test.skip('Tests if sendMessage resolves with expected info', async () => {
   const testReturnValue = await emailsender.sendMessage(
     testRecipient,
     testSubjectMessage,
-    testHTML,
+    testHTML
   );
   // Tests if the expected resolve is correct
   expect(testReturnValue).resolves.toBe([testRecipient]);
