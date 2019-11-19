@@ -19,7 +19,7 @@
     "stylelint": "stylelint src/**/*.css",
     "lint": "npm run eslint",
     "postlint": "npm run stylelint",
-    "prettier": "prettier --write \"{src,test}/**/*.{html,css,js}\"",
+    "prettier": "prettier --write \"./**/*.{md,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
     "test": "npm run jest",
     "jest": "cross-env MOCK_REDIS=1 jest",
