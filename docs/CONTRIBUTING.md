@@ -45,7 +45,7 @@ Some helpful guides:
    _If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window)._
 
 ## Workflow in git and GitHub
-When working on fixing bugs, please use the following git workflow
+When working on fixing bugs, please use the following workflow:
 
 1. If you haven't done so already, add an `upstream` remote so you can stay in sync:
     ```
@@ -56,7 +56,7 @@ When working on fixing bugs, please use the following git workflow
     git checkout master
     git pull upstream master
     ```
-1. Create a branch for your work, using the issue number
+1. Create a branch for your work, using the issue number:
     ```
     git checkout -b issue-123
     ```
@@ -80,7 +80,7 @@ When working on fixing bugs, please use the following git workflow
    ```
 1. This will give you a link to GitHub to create a Pull Request.
 1. Create your Pull Request, and give it a title `Fix #123: short description of fix` (NOTE: the "Fix #123" part, which will [automatically close the issue](https://help.github.com/en/github/managing-your-work-on-github/closing-issues-using-keywords) when this gets merged) as well as a full description to talk about everything you did, any follow-up work that's necessary, how to test the code, etc.
-1. Check the automatic Continuous Integration builds that happen in your Pull Request.  Make sure they go green, not red.  If something goes red, investigate the error, asking for help if you're not sure how to do this.
+1. Check the automatic Continuous Integration builds that happen in your Pull Request.  Make sure they go green, not red.  If something goes red, first investigate the error then ask for help if you're not sure how to solve it.
 1. When you get review comments to fix issues, make those changes and update your branch:
     ```
     ...edit files to fix review comments
@@ -90,7 +90,7 @@ When working on fixing bugs, please use the following git workflow
     ...if the tests fail, fix things, and repeat until they pass
     git push origin issue-123
     ```
-1. Once your reviewers have approved your work, you might be asked to Rebase and Update your branch to deal with conflicts on `master`:
+1. Once your reviewers have approved your work, you might be asked to rebase and update your branch to deal with conflicts on `master`:
     ```
     git checkout master
     git pull upstream master
@@ -112,7 +112,7 @@ If you are doing any work that relates to the `package.json` file, you need to d
 
 - don't hand-edit this file to add packages.  Instead, use `npm install --save package-name` or `npm install --save-dev package-name` to add packages to the `dependencies` or `devDependencies` sections.
 - if you touch `package.json`, always re-run `npm install`.
-- adding dependencies will mean `package-lock.json` has to get updated.  This is a generated file, and can be deleted and recreated with `npm install`
+- adding dependencies will mean `package-lock.json` has to get updated.  This is a generated file, and can be deleted and recreated with `npm install`.
 
 If you have merge conflicts in `package-lock.json`, do the following:
 
