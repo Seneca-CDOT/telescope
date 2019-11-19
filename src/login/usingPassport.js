@@ -12,26 +12,28 @@ OIDC_REDIRECT_URI=http://localhost:3000/oauth/callback
 
 // Configure the OpenId Connect Strategy
 // with credentials obtained from OneLogin
-const {
-  OIDC_BASE_URI, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_REDIRECT_URI,
-} = process.env;
+const { OIDC_BASE_URI, OIDC_CLIENT_ID, OIDC_CLIENT_SECRET, OIDC_REDIRECT_URI } = process.env;
 
-passport.use(new OneLoginStrategy({
-  issuer: OIDC_BASE_URI,
-  clientID: OIDC_CLIENT_ID,
-  clientSecret: OIDC_CLIENT_SECRET,
-  authorizationURL: `${OIDC_BASE_URI}/auth`,
-  userInfoURL: `${OIDC_BASE_URI}/me`,
-  tokenURL: `${OIDC_BASE_URI}/token`,
-  callbackURL: OIDC_REDIRECT_URI,
-  passReqToCallback: true,
-},
-((req, issuer, userId, profile, accessToken, refreshToken, params, callback) => {
-  console.log('issuer:', issuer);
-  console.log('userId:', userId);
-  console.log('accessToken:', accessToken);
-  console.log('refreshToken:', refreshToken);
-  console.log('params:', params);
-  req.session.accessToken = accessToken;
-  return callback(null, profile);
-})));
+passport.use(
+  new OneLoginStrategy(
+    {
+      issuer: OIDC_BASE_URI,
+      clientID: OIDC_CLIENT_ID,
+      clientSecret: OIDC_CLIENT_SECRET,
+      authorizationURL: `${OIDC_BASE_URI}/auth`,
+      userInfoURL: `${OIDC_BASE_URI}/me`,
+      tokenURL: `${OIDC_BASE_URI}/token`,
+      callbackURL: OIDC_REDIRECT_URI,
+      passReqToCallback: true,
+    },
+    (req, issuer, userId, profile, accessToken, refreshToken, params, callback) => {
+      console.log('issuer:', issuer);
+      console.log('userId:', userId);
+      console.log('accessToken:', accessToken);
+      console.log('refreshToken:', refreshToken);
+      console.log('params:', params);
+      req.session.accessToken = accessToken;
+      return callback(null, profile);
+    }
+  )
+);

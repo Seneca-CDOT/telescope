@@ -14,13 +14,15 @@ require('./backend/web/server');
  * @param {String} lines
  */
 function processFeedUrls(lines) {
-  return lines
-    // Divide the file into separate lines
-    .split(/\r?\n/)
-    // Basic filtering to remove any ines that don't look like a feed URL
-    .filter((line) => line.startsWith('http'))
-    // Convert this into an Object of the form expected by our queue
-    .map((url) => ({ url }));
+  return (
+    lines
+      // Divide the file into separate lines
+      .split(/\r?\n/)
+      // Basic filtering to remove any ines that don't look like a feed URL
+      .filter(line => line.startsWith('http'))
+      // Convert this into an Object of the form expected by our queue
+      .map(url => ({ url }))
+  );
 }
 
 /**
@@ -28,7 +30,7 @@ function processFeedUrls(lines) {
  * @param {Array[Object]} feedJobs - list of feed URL jobs to be processed
  */
 async function enqueueFeedJobs(feedJobs) {
-  feedJobs.forEach(async (feedJob) => {
+  feedJobs.forEach(async feedJob => {
     console.log(`Enqueuing Job - ${feedJob.url}`);
     await feedQueue.add(feedJob);
   });
@@ -47,9 +49,11 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
   // Process this text file into a list of URL jobs, and enqueue for download
   const feedJobs = processFeedUrls(lines);
 
-  enqueueFeedJobs(feedJobs).then(() => {
-    feedWorker.start();
-  }).catch((error) => {
-    console.log(error);
-  });
+  enqueueFeedJobs(feedJobs)
+    .then(() => {
+      feedWorker.start();
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });

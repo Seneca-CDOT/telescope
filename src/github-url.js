@@ -4,12 +4,10 @@ const fetch = require('node-fetch');
 
 const githubAPI = 'http://api.github.com';
 
-
-const isValidGithubUrl = (ghUrl) => ghUrl.protocol === 'https:'
-                                  && ghUrl.host === 'github.com'
-                                  && (ghUrl.branch !== 'issues'
-                                    || ghUrl.branch !== 'pull'
-                                    || ghUrl.branch !== 'master');
+const isValidGithubUrl = ghUrl =>
+  ghUrl.protocol === 'https:' &&
+  ghUrl.host === 'github.com' &&
+  (ghUrl.branch !== 'issues' || ghUrl.branch !== 'pull' || ghUrl.branch !== 'master');
 
 /**
  * @description Takes a url, checks if it's a valid github url
@@ -19,7 +17,7 @@ const isValidGithubUrl = (ghUrl) => ghUrl.protocol === 'https:'
  * @param {string} url Url that will be processed.
  * @return An object with all the fetched data.
  */
-exports.getGithubUrlData = async (incomingUrl) => {
+exports.getGithubUrlData = async incomingUrl => {
   const ghUrl = parseGithubUrl(incomingUrl);
 
   if (!isValidGithubUrl(ghUrl)) {
@@ -34,34 +32,34 @@ exports.getGithubUrlData = async (incomingUrl) => {
    * GET /users/:user
    */
   if (ghUrl.repo === null) subUrl = `/users/${ghUrl.path}`;
-
   /**
    * If branch is master and there's a repo,
    * it's repo URL:
    * GET /repos/:user/:repo
-   */
-  else if (ghUrl.branch === 'master') subUrl = `/repos/${ghUrl.repo}`;
-
+   */ else if (ghUrl.branch === 'master') subUrl = `/repos/${ghUrl.repo}`;
   /**
    * Otherwise it's a {pull request, issue} URL:
    * GET /repos/:user/:repo/{issues, pulls}
-   */
-  else subUrl = ghUrl.branch === 'pull' ? `/repos/${ghUrl.repo}/pulls` : `/repos/${ghUrl.repo}/issues`;
+   */ else
+    subUrl = ghUrl.branch === 'pull' ? `/repos/${ghUrl.repo}/pulls` : `/repos/${ghUrl.repo}/issues`;
 
   /**
    * Add the {issue,pull request} number at the end of the request:
    * GET /repos/:owner/:repo/{issues, pulls}/:{issue, pull_number}
    */
-  subUrl += (ghUrl.filepath !== null ? `/${ghUrl.filepath}` : '');
+  subUrl += ghUrl.filepath !== null ? `/${ghUrl.filepath}` : '';
 
   /**
    * Add GITHUB_TOKEN if in process.env
    */
-  subUrl += typeof process.env.GITHUB_TOKEN !== 'undefined' ? `?access_token=${process.env.GITHUB_TOKEN}` : '';
+  subUrl +=
+    typeof process.env.GITHUB_TOKEN !== 'undefined'
+      ? `?access_token=${process.env.GITHUB_TOKEN}`
+      : '';
 
   return fetch(`${githubAPI}${subUrl}`)
-    .then((res) => res.json())
-    .then((data) => {
+    .then(res => res.json())
+    .then(data => {
       let fetchedData;
 
       /**
@@ -70,15 +68,7 @@ exports.getGithubUrlData = async (incomingUrl) => {
        */
       // User
       if (ghUrl.repo === null) {
-        const {
-          login: user,
-          avatar_url: avatarURL,
-          name,
-          company,
-          blog,
-          email,
-          bio,
-        } = data;
+        const { login: user, avatar_url: avatarURL, name, company, blog, email, bio } = data;
 
         fetchedData = {
           user,
@@ -90,7 +80,7 @@ exports.getGithubUrlData = async (incomingUrl) => {
           bio,
         };
 
-      // Repo
+        // Repo
       } else if (ghUrl.branch === 'master') {
         const {
           owner: { avatar_url: avatarURL },
@@ -112,7 +102,7 @@ exports.getGithubUrlData = async (incomingUrl) => {
           language,
         };
 
-      // Issue or Pull Request
+        // Issue or Pull Request
       } else {
         const {
           user: { login, avatar_url: avatarURL },

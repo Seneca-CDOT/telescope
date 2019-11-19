@@ -12,7 +12,7 @@ const nodemailer = require('nodemailer');
  message - '<p>An Error has occurred <br/>Error Message:</p>'
 */
 
-exports.sendMessage = async function (receipiants, subjectMessage, message) {
+exports.sendMessage = async function(receipiants, subjectMessage, message) {
   return new Promise((resolve, reject) => {
     const transporter = nodemailer.createTransport({
       // Email Server (.env variable must be used refer to the Contribution.md)
@@ -32,7 +32,7 @@ exports.sendMessage = async function (receipiants, subjectMessage, message) {
       // If error then print to console
       if (error) {
         console.log(error);
-      // else print a ready message
+        // else print a ready message
       } else if (success) {
         console.log('Server is running properly');
       }

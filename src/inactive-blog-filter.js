@@ -13,7 +13,7 @@ const feedParser = require('./feed-parser');
  * @returns {boolean} - bool value
  */
 function isRedlisted(feedUrl, redItem) {
-  return (feedUrl === redItem.url);
+  return feedUrl === redItem.url;
 }
 
 /**
@@ -28,10 +28,10 @@ function dateDiff(postDate) {
 }
 
 /**
-* Callback for redlist check
-* @callback checkCallback
-* @param {boolean} result - true/false whether or not a feed url is redlisted
-*/
+ * Callback for redlist check
+ * @callback checkCallback
+ * @param {boolean} result - true/false whether or not a feed url is redlisted
+ */
 
 /**
  * Checks if feed url is redlisted
@@ -81,14 +81,14 @@ function update() {
     const feedUrlList = lines
       .split(/\r?\n/)
       // Basic filtering to remove any ines that don't look like a feed URL
-      .filter((line) => line.startsWith('http'))
+      .filter(line => line.startsWith('http'))
       // Convert this into an Object of the form expected by our queue
-      .map((url) => ({ url }));
+      .map(url => ({ url }));
 
     const redlistUpdate = [];
     let linesRead = 0;
 
-    feedUrlList.forEach(async (feedItem) => {
+    feedUrlList.forEach(async feedItem => {
       const feed = await feedParser(feedItem);
       const feedUrl = feedItem.url;
 
@@ -126,7 +126,7 @@ function update() {
         // Write the new feeds-redlist.json
         const rlData = JSON.stringify(redlistUpdate, null, 2);
 
-        fs.writeFile('feeds-redlist.json', rlData, (werr) => {
+        fs.writeFile('feeds-redlist.json', rlData, werr => {
           if (werr) {
             console.error('unable to write to feeds-redlist.json, cannot update', err.message);
             return;

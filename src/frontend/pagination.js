@@ -15,7 +15,9 @@ const totalPages = Math.ceil(numberOfItems / limitPerPage);
 // alert(numberOfItems);
 
 // Adds First Page Marker
-$('.pagination').append(`<li class='page-item active'><a class='page-link' href='#')'>${1}</a></li>`);
+$('.pagination').append(
+  `<li class='page-item active'><a class='page-link' href='#')'>${1}</a></li>`
+);
 
 // Adds additional pages dynamically based on # of blog posts
 for (let i = 2; i <= totalPages; i += 1) {
@@ -24,12 +26,14 @@ for (let i = 2; i <= totalPages; i += 1) {
 }
 
 // Add next button after all the page numbers
-$('.pagination').append("<li id='next-page' hidden='true'>"
- + "<a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>"
- + "&laquo;</span><span class='sr-only'>Next</span></a></li>");
+$('.pagination').append(
+  "<li id='next-page' hidden='true'>" +
+    "<a class='page-link' href='#' aria-label='Next'><span aria-hidden='true'>" +
+    "&laquo;</span><span class='sr-only'>Next</span></a></li>"
+);
 
 // Function that displays new items based on page number that was clicked
-$('.pagination li.page-item').on('click', function () {
+$('.pagination li.page-item').on('click', function() {
   // Check if page number that was clicked on is the current page that is being displayed
   if ($(this).hasClass('active')) {
     return false; // Exit function if invalid
@@ -69,7 +73,6 @@ $('#next-page').on('click', () => {
   $(`.pagination li.page-item:eq(${currentPage + 1})`).addClass('active'); // Make new page number the 'active' page
   return true;
 });
-
 
 // Navigate to the previous page when users click on the previous-page id
 $('#previous-page').on('click', () => {

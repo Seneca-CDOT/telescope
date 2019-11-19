@@ -7,7 +7,7 @@ const server = app.listen(HTTP_PORT, () => {
   console.log(`Telescope listening on port ${HTTP_PORT}`);
 });
 
-process.on('unhandledRejection', (err) => {
+process.on('unhandledRejection', err => {
   console.log('UNHANDLED REJECTION:  Shutting down...');
   console.log(err.name, err.message);
   server.close(() => {
