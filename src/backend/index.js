@@ -7,6 +7,8 @@ const feedQueue = require('./feed-queue');
 const feedWorker = require('./feed-worker');
 const parentLogger = require('../src/lib/logger');
 
+const log = parentLogger.child({ module: 'main' });
+
 const log = parentLogger.child({ module: 'module-name' });
 
 const log = logger.child({ module: 'basic-queue' });
@@ -34,6 +36,12 @@ function shutDown() {
     process.exit(1);
   }, 10000);
 }
+<<<<<<< HEAD:src/backend/index.js
+=======
+
+process.on('SIGTERM', shutDown);
+process.on('SIGINT', shutDown);
+>>>>>>> Issue-173: Remade Server Graceful Shutdown:src/index.js
 
 /**
  * Process a string into a list of Objects, each with a feed URL
