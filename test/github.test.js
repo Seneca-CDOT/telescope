@@ -151,3 +151,9 @@ test('test fetching data for a valid pull request URL', async () => {
   const pr = await gh.getGithubUrlData(validPullRequestUrl);
   Object.keys(validPullRequestData).map(property => expect(pr).toHaveProperty(property));
 });
+
+test('test fetching data for an invalid URL', async () => {
+  const invalidURL = 'https://example.com';
+
+  await expect(gh.getGithubUrlData(invalidURL)).rejects.toThrow('Invalid GitHub url');
+});
