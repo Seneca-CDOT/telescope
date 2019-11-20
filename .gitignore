@@ -1,3 +1,6 @@
+# ignore package-lock.json, https://docs.npmjs.com/misc/config#package-lock
+package-lock.json
+
 # dependencies
 node_modules/
 
