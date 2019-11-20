@@ -40,3 +40,6 @@ before_install:
       redis-server --service-start
       redis-cli info
     fi
+script:
+  - npm install
+  - npm run test-hint

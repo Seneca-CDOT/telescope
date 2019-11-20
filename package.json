@@ -24,7 +24,9 @@
     "test": "npm run jest",
     "jest": "cross-env MOCK_REDIS=1 jest",
     "start": "node src",
-    "debug-server": "nodemon server.js"
+    "debug-server": "nodemon server.js",
+    "webhint": "hint http://localhost:3000",
+    "test-hint": "hint ./test/test_files"
   },
   "husky": {
     "hooks": {
@@ -64,12 +66,14 @@
     "wordcount": "^1.1.1"
   },
   "devDependencies": {
+    "@hint/configuration-all": "^1.0.13",
     "cross-env": "^6.0.3",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
+    "hint": "^5.4.1",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
     "nodemon": "^1.19.4",
