@@ -10,7 +10,7 @@
     ],
     "automock": false,
     "setupFiles": [
-      "./test/setupJest.js"
+      "./test/lib/setupJest.js"
     ]
   },
   "scripts": {
