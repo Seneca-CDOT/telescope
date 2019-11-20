@@ -152,8 +152,32 @@ test('test fetching data for a valid pull request URL', async () => {
   Object.keys(validPullRequestData).map(property => expect(pr).toHaveProperty(property));
 });
 
+/**
+ * Test for a non valid URL,
+ * Case: not a github URL
+ */
 test('test fetching data for an invalid URL', async () => {
   const invalidURL = 'https://example.com';
+
+  await expect(gh.getGithubUrlData(invalidURL)).rejects.toThrow('Invalid GitHub url');
+});
+
+/**
+ * Test for a non valid URL,
+ * Case: missing https
+ */
+test('test fetching data for an invalid URL', async () => {
+  const invalidURL = 'github.com/Seneca-CDOT/telescope';
+
+  await expect(gh.getGithubUrlData(invalidURL)).rejects.toThrow('Invalid GitHub url');
+});
+
+/**
+ * Test for a non valid URL,
+ * Case: Using insecure connection
+ */
+test('test fetching data for an invalid URL', async () => {
+  const invalidURL = 'http://github.com/Seneca-CDOT/telescope';
 
   await expect(gh.getGithubUrlData(invalidURL)).rejects.toThrow('Invalid GitHub url');
 });
