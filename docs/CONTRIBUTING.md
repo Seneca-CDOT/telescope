@@ -104,27 +104,19 @@ When working on fixing bugs, please use the following workflow:
    git rebase --continue
    ...repeat until your rebase completes.  If you get stuck, use git rebase --abort to stop
    npm install
-   ...this is likely necessary to update your node_modules/ and package-lock.json, see below
+   ...this is likely necessary to update your node_modules/, see below
    git push origin issue-123 -f
    ```
 
 If you get stuck with any of this, ask in your issue or pull request, and we'll give you a hand.
 
-## Making changes to package.json and package-lock.json
+## Making changes to package.json
 
 If you are doing any work that relates to the `package.json` file, you need to do this with care. Here are some tips:
 
+- we don't include `package-lock.json` in our tree. Instead, we use [exact](https://docs.npmjs.com/misc/config#save-exact) versions in `package.json`. When you `npm install` a package, we specify an exact version number vs. using a semver range.
 - don't hand-edit this file to add packages. Instead, use `npm install --save package-name` or `npm install --save-dev package-name` to add packages to the `dependencies` or `devDependencies` sections.
 - if you touch `package.json`, always re-run `npm install`.
-- adding dependencies will mean `package-lock.json` has to get updated. This is a generated file, and can be deleted and recreated with `npm install`.
-
-If you have merge conflicts in `package-lock.json`, do the following:
-
-- delete the `node_modules/` directory
-- delete the `package-lock.json` file
-- run `npm install`
-
-The `package.json` and `package-lock.json` files can now be added to your commit.
 
 ## Logging
 
