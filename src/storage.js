@@ -1,4 +1,4 @@
-const redis = require('./lib/redis');
+const { redis } = require('./lib/redis');
 
 // Redis Keys
 const FEED_ID = 'feed_id';
