@@ -32,7 +32,15 @@ function processFeedUrls(lines) {
 async function enqueueFeedJobs(feedJobs) {
   feedJobs.forEach(async feedJob => {
     console.log(`Enqueuing Job - ${feedJob.url}`);
-    await feedQueue.add(feedJob);
+    await feedQueue.add(feedJob, {
+      attempts: 8,
+      backoff: {
+        type: 'exponential',
+        delay: 60 * 1000,
+      },
+      removeOnComplete: true,
+      removeOnFail: true,
+    });
   });
 }
 
