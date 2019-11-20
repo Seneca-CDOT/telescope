@@ -24,13 +24,16 @@ if (process.env.NODE_ENV === 'development') {
    * Write logs to a specified path.
    * Set log level to LOG_LEVEL environment variable with 'info' as default level.
    */
-  logger = pino({
-    level: process.env.LOG_LEVEL || 'info',
-    prettyPrint: {
-      translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
-      colorize: false,
+  logger = pino(
+    {
+      level: process.env.LOG_LEVEL || 'info',
+      prettyPrint: {
+        translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
+        colorize: false,
+      },
     },
-  }, pino.destination(process.env.LOG_FILE));
+    pino.destination(process.env.LOG_FILE)
+  );
 } else {
   logger = pino({
     level: process.env.LOG_LEVEL || 'info',
