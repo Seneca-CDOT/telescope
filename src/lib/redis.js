@@ -2,7 +2,7 @@ require('../config');
 const Redis = require('ioredis');
 const MockRedis = require('ioredis-mock');
 
-const logger = require('./logger');
+const { logger } = require('./logger');
 
 // If you need to set the Redis URL, do it in REDIS_URL
 const redisUrl = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
