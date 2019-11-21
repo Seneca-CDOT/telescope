@@ -1,4 +1,5 @@
 const nock = require('nock');
+const fixtures = require('./fixtures');
 const feedParser = require('../src/feed-parser');
 
 /**
@@ -7,13 +8,8 @@ const feedParser = require('../src/feed-parser');
  */
 
 test('passing a valid Atom feed URI and getting title of first post', async () => {
-  const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source';
-  nock('https://test321.blogspot.com')
-    .get('/feeds/posts/default/-/open-source')
-    .reply(
-      200,
-      '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><title>W3Schools Home Page</title><link>https://www.w3schools.com</link><description>Free web building tutorials</description><item><title>RSS Tutorial</title><link>https://www.w3schools.com/xml/xml_rss.asp</link><description>New RSS tutorial on W3Schools</description></item><item><title>XML Tutorial</title><link>https://www.w3schools.com/xml</link><description>New XML tutorial on W3Schools</description></item></channel></rss>'
-    );
+  const feedURL = fixtures.testAtomUri();
+  fixtures.nockValidAtomRes();
   const data = await feedParser(feedURL);
   expect(data[data.length - 1].title).toBe('XML Tutorial');
 });
@@ -25,13 +21,8 @@ test('Passing an invalid ATOM feed URI should error', async () => {
 });
 
 test('Passing a valid RSS feed URI and getting title of first post', async () => {
-  const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
-  nock('https://test321.blogspot.com')
-    .get('/feeds/posts/default/-/open-source?alt=rss')
-    .reply(
-      200,
-      '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><title>W3Schools Home Page</title><link>https://www.w3schools.com</link><description>Free web building tutorials</description><item><title>RSS Tutorial</title><link>https://www.w3schools.com/xml/xml_rss.asp</link><description>New RSS tutorial on W3Schools</description></item><item><title>XML Tutorial</title><link>https://www.w3schools.com/xml</link><description>New XML tutorial on W3Schools</description></item></channel></rss>'
-    );
+  const feedURL = fixtures.testRssUri();
+  fixtures.nockValidRssRes();
   const data = await feedParser(feedURL);
   expect(data[data.length - 1].title).toBe('XML Tutorial');
 });
@@ -51,7 +42,7 @@ test('Passing an IP address instead of a URI should throw an error', 
 });
 
 test('Passing an invalid RSS category feed should return an empty array', async () => {
-  const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
+  const feedURL = fixtures.testRssUri();
   nock('https://test321.blogspot.com')
     .get('/feeds/posts/default/-/open-source?alt=rss')
     .reply(
@@ -63,13 +54,8 @@ test('Passing an invalid RSS category feed should return an empty array', async 
 });
 
 test('Passing a valid RSS category feed should return an array that is not empty', async () => {
-  const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
-  nock('https://test321.blogspot.com')
-    .get('/feeds/posts/default/-/open-source?alt=rss')
-    .reply(
-      200,
-      '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><title>W3Schools Home Page</title><link>https://www.w3schools.com</link><description>Free web building tutorials</description><item><title>RSS Tutorial</title><link>https://www.w3schools.com/xml/xml_rss.asp</link><description>New RSS tutorial on W3Schools</description></item><item><title>XML Tutorial</title><link>https://www.w3schools.com/xml</link><description>New XML tutorial on W3Schools</description></item></channel></rss>'
-    );
+  const feedURL = fixtures.testRssUri();
+  fixtures.nockValidRssRes();
   const data = await feedParser(feedURL);
   expect(data.length > 0).toBe(true);
 });
