@@ -13,5 +13,3 @@ jobs:
       - run:
           name: Execute tests
           command: npm test
-      - run: npm install
-      - run: npm run test-hint
