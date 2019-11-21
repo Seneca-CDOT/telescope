@@ -19,6 +19,7 @@ body {
   --nav-btn-bgcolor: #fdfdfd;
   --content-font-color: #000000;
   --font-main: 'Montserrat', Arial, sans-serif;
+  --srch-after: #da291c;
 }
 
 /* MAIN GRID */
@@ -217,4 +218,121 @@ article section p {
     padding-right: 20px;
     padding-left: 20px;
   }
+}
+
+/* Search animation and icon CSS */
+.search_container {
+  display: block;
+  margin-bottom: 70px;
+}
+.search {
+  position: absolute;
+  margin: auto;
+  top: -250px;
+  bottom: 0;
+  left: 70px;
+  width: 40px;
+  height: 40px;
+  background: var(--secondary);
+  border-radius: 50%;
+  transition: all 1s;
+  z-index: 4;
+  box-shadow: 0 0 25px 0 var(--box-shadow-color);
+}
+
+.search:hover {
+  cursor: pointer;
+}
+
+.search::before {
+  content: '';
+  position: absolute;
+  margin: auto;
+  top: 15px;
+  right: 0;
+  bottom: 0;
+  left: 11px;
+  width: 7px;
+  height: 2px;
+  background: white;
+  transform: rotate(45deg);
+  transition: all 0.5s;
+}
+
+.search::after {
+  content: '';
+  position: absolute;
+  margin: auto;
+  top: -2px;
+  right: 0;
+  bottom: 0;
+  left: -2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: all 0.5s;
+}
+
+input.srch {
+  font-family: var(--font-main);
+  position: absolute;
+  margin: auto;
+  top: -250px;
+  bottom: 0;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border: none;
+  background: var(--nav-btn-bgcolor);
+  color: var(--content-font-color);
+  text-shadow: 0 0 10px var(--nav-btn-bgcolor);
+  padding: 0 80px 0 20px;
+  border-radius: 30px;
+  box-shadow: 0 0 3px 0 var(--secondary);
+  transition: all 1s;
+  opacity: 0;
+  z-index: 5;
+  font-weight: bolder;
+  letter-spacing: 0.1em;
+}
+
+input.srch:hover {
+  cursor: pointer;
+}
+
+input.srch:focus {
+  width: 60px;
+  opacity: 1;
+  cursor: text;
+}
+
+input.srch:focus ~ .search {
+  left: 150px;
+  background: var(--srch-after);
+  z-index: 6;
+}
+
+input.srch:focus ~ .search::before {
+  top: 0;
+  left: 0;
+  width: 15px;
+}
+
+input.srch:focus ~ .search::after {
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 2px;
+  border: none;
+  background: var(--main-bg);
+  border-radius: 0%;
+  transform: rotate(-45deg);
+}
+
+input.srch::placeholder {
+  color: var(--content-font-color);
+  opacity: 0.5;
+  font-weight: bolder;
 }

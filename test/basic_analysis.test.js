@@ -18,8 +18,6 @@ try {
   console.log(err);
 }
 
-console.log(analyzeText);
-
 // Test 1: Output Type Test
 describe('Output type test', () => {
   let data;

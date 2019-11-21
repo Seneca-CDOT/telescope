@@ -7,8 +7,6 @@
     <title>Telescope | Tracking Blogs in Orbit</title>
     <!-- CSS -->
     <link rel="stylesheet" href="./style/main.css" />
-    <!-- JavaScript  -->
-    <script src="./dialogue.js"></script>
     <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap"
@@ -33,7 +31,7 @@
           </a>
 
           <a href="#">
-            <button class="nav-button">
+            <button id="participants" class="nav-button">
               Participants
             </button>
           </a>
@@ -43,6 +41,12 @@
               Subscribe
             </button>
           </a>
+          <!-- SEARCH CONTAINER -->
+          <div class="search_container">
+            <input type="text" placeholder="Search..." class="srch" />
+            <div class="search"></div>
+          </div>
+
           <a> <div id="google_translate_element2"></div> </a>
 
           <i id="mobile-burger-close" class="fas fa-times"></i>
@@ -278,5 +282,6 @@
       type="text/javascript"
       src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"
     ></script>
+    <script src="./dialogue.js"></script>
   </body>
 </html>
