@@ -25,7 +25,7 @@
     "jest": "cross-env MOCK_REDIS=1 jest",
     "start": "node src",
     "hint": "hint http://localhost:3000",
-    "webhint": "cross-env PORT=3000 npm-run-all -r -p start hint"
+    "webhint": "cross-env PORT=3000 MOCK_REDIS=1 npm-run-all -r -p start hint"
   },
   "husky": {
     "hooks": {

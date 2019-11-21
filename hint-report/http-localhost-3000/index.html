@@ -1,0 +1,3288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" >
+    <title>Webhint</title>
+    <meta name="viewport" content="width=device-width">
+    
+    
+        <link rel="icon" href="./images/scan/favicon_failed.ico">
+    
+
+
+    <link rel="stylesheet" href="styles/fonts.css" >
+    <link rel="stylesheet" href="styles/base.css" >
+    <link rel="stylesheet" href="styles/controls.css" >
+    <link rel="stylesheet" href="styles/type.css" >
+    <link rel="stylesheet" href="styles/layouts.css" >
+    <link rel="stylesheet" href="styles/structure.css" >
+    <link rel="stylesheet" href="styles/anchor-top.css" >
+    <link rel="stylesheet" href="styles/scan/scan-results.css" >
+
+    <link rel="stylesheet" href="styles/highlight/default.min.css">
+</head>
+<body>
+    <div class="section container">
+    <div class="scan-overview" data-id="1574356420598" id="main">
+        <div class="scan-overview__status">
+            <div id="scan-percentage-bar" class="scan-overview__progress-bar end-animation" style="width: 100%"></div>
+            <p>scanning <span id="scan-percentage">100%</span></p>
+            <p class="scan-overview__scan-time">
+                scan time: <span id="scan-time">00:09</span>
+            </p>
+        </div>
+        <div class="scan-overview--details">
+            <div class="scan-overview--hints">
+                <p class="scan-overview__subheader">hints</p>
+                <p class="scan-overview__body--purple large" id="total-hints">131</p>
+            </div>
+            <div class="scan-overview--more-details">
+                <div class="scan-overview--scan-links">
+                    <div class="scan-overview--url">
+                        <p class="scan-overview__subheader">url: <span class="overview--url__url">http://localhost:3000/</span></p>
+                    </div>
+                    
+                        <div class="scan-overview--time-stamp">
+                            <p class="scan-overview__subheader">Date: <span id="scan-date" class="overview--time-stamp__time-stamp" data-date="2019-11-21T17:13:30.817Z">2019-11-21T17:13:30.817Z</span></p>
+                        </div>
+                    
+                </div>
+                
+            </div>
+            <div class="scan-overview--debug-details">
+                <div class="scan-overview--version">
+                    <p class="scan-overview__subheader">webhint version: <span id="version">5.4.1</span></p>
+                </div>
+                <div class="scan-overview--config">
+                    <p class="scan-overview__subheader"><a class="scan-overview__body__link" href="config/1574356420598">Configuration JSON</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <section id="results-container" class="section container" aria-labelledby="hints" aria-live="polite">
+        <h2 id="hints">Hints</h2>
+        <div class="layout layout--basic--offset--alt">
+            <div class="module module--secondary module--categories">
+                <button aria-control="categories-list" class="show-categories" id="show-categories">Jump to category</button>
+                <div class="rule-categories" id="categories-list">
+                                            <a class="rule-tile--wrapper" id="summary-performance" href="#category-performance">
+    <div class="rule-tile">
+        <img src="images/scan/performance.svg" class="rule-icon" alt="" role="presentation">
+        <div class="rule-tile__info">
+            <p class="rule-tile__category">Performance</p>
+            <div class="rule-tile__results">
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">hints</p>
+                    <p class="rule-tile__sub-category rule-tile__hints"><span>61<span></p>
+                </div>
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">passed</p>
+                    <p class="rule-tile__sub-category"><span class="rule-tile__passed">2</span>&nbsp;/&nbsp;9</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+                                            <a class="rule-tile--wrapper" id="summary-pwa" href="#category-pwa">
+    <div class="rule-tile">
+        <img src="images/scan/pwa.svg" class="rule-icon" alt="" role="presentation">
+        <div class="rule-tile__info">
+            <p class="rule-tile__category">PWA</p>
+            <div class="rule-tile__results">
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">hints</p>
+                    <p class="rule-tile__sub-category rule-tile__hints"><span>3<span></p>
+                </div>
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">passed</p>
+                    <p class="rule-tile__sub-category"><span class="rule-tile__passed">3</span>&nbsp;/&nbsp;6</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+                                            <a class="rule-tile--wrapper" id="summary-accessibility" href="#category-accessibility">
+    <div class="rule-tile">
+        <img src="images/scan/accessibility.svg" class="rule-icon" alt="" role="presentation">
+        <div class="rule-tile__info">
+            <p class="rule-tile__category">Accessibility</p>
+            <div class="rule-tile__results">
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">hints</p>
+                    <p class="rule-tile__sub-category rule-tile__hints"><span>0<span></p>
+                </div>
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">passed</p>
+                    <p class="rule-tile__sub-category"><span class="rule-tile__passed">14</span>&nbsp;/&nbsp;14</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+                                            <a class="rule-tile--wrapper" id="summary-development" href="#category-development">
+    <div class="rule-tile">
+        <img src="images/scan/dev-icon.svg" class="rule-icon" alt="" role="presentation">
+        <div class="rule-tile__info">
+            <p class="rule-tile__category">Development</p>
+            <div class="rule-tile__results">
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">hints</p>
+                    <p class="rule-tile__sub-category rule-tile__hints"><span>0<span></p>
+                </div>
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">passed</p>
+                    <p class="rule-tile__sub-category"><span class="rule-tile__passed">13</span>&nbsp;/&nbsp;13</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+                                            <a class="rule-tile--wrapper" id="summary-pitfalls" href="#category-pitfalls">
+    <div class="rule-tile">
+        <img src="images/scan/pitfalls_icon.svg" class="rule-icon" alt="" role="presentation">
+        <div class="rule-tile__info">
+            <p class="rule-tile__category">Pitfalls</p>
+            <div class="rule-tile__results">
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">hints</p>
+                    <p class="rule-tile__sub-category rule-tile__hints"><span>16<span></p>
+                </div>
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">passed</p>
+                    <p class="rule-tile__sub-category"><span class="rule-tile__passed">2</span>&nbsp;/&nbsp;4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+                                            <a class="rule-tile--wrapper" id="summary-compatibility" href="#category-compatibility">
+    <div class="rule-tile">
+        <img src="images/scan/compatibility.svg" class="rule-icon" alt="" role="presentation">
+        <div class="rule-tile__info">
+            <p class="rule-tile__category">Compatibility</p>
+            <div class="rule-tile__results">
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">hints</p>
+                    <p class="rule-tile__sub-category rule-tile__hints"><span>20<span></p>
+                </div>
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">passed</p>
+                    <p class="rule-tile__sub-category"><span class="rule-tile__passed">6</span>&nbsp;/&nbsp;12</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+                                            <a class="rule-tile--wrapper" id="summary-security" href="#category-security">
+    <div class="rule-tile">
+        <img src="images/scan/security.svg" class="rule-icon" alt="" role="presentation">
+        <div class="rule-tile__info">
+            <p class="rule-tile__category">Security</p>
+            <div class="rule-tile__results">
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">hints</p>
+                    <p class="rule-tile__sub-category rule-tile__hints"><span>31<span></p>
+                </div>
+                <div class="rule-tile__result-wrapper">
+                    <p class="rule-tile__sub-category">passed</p>
+                    <p class="rule-tile__sub-category"><span class="rule-tile__passed">3</span>&nbsp;/&nbsp;10</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+                    
+                </div>
+            </div>
+            <div class="module module--primary module--results">
+                                    <section class="rule-result" id="performance">
+    <div class="rule-result--category">
+        <h3 id="category-performance">Performance <a href="#category-performance" class="hint-link" title="Performance"></a></h3>
+        
+            <button title="expand" class="button-expand-all expanded">close all</button>
+
+        
+    </div>
+    
+        
+            <details open class="rule-result--details" id="http-compression" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show http-compression&#39;s result details" role="button">http-compression: 19 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-http-compression/#why-is-this-important"
+                title="http-compression - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-http-compression/#examples-that-pass-the-hint"
+                title="http-compression - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Response should be compressed with gzip when gzip compression is requested. <a href="#hint-http-compression-1" class="hint-link" title="http-compression: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> Response should be compressed with Zopfli when gzip compression is requested. <a href="#hint-http-compression-2" class="hint-link" title="http-compression: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;display=swap">
+                        https://fonts.googleapis … 700,900&amp;display=swap
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link href=&#34;https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> Response should be compressed with Zopfli when gzip compression is requested. <a href="#hint-http-compression-3" class="hint-link" title="http-compression: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2">
+                        https://translate.google … ogleTranslateElementInit2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; src=&#34;https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> Response should include &#39;vary&#39; header containing &#39;accept-encoding&#39; value. <a href="#hint-http-compression-4" class="hint-link" title="http-compression: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2">
+                        https://translate.google … ogleTranslateElementInit2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Vary: 
+Cache-Control: no-cache, must-revalidate</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> Response should be compressed with Brotli when Brotli compression is requested over HTTPS. <a href="#hint-http-compression-5" class="hint-link" title="http-compression: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2">
+                        https://translate.google … ogleTranslateElementInit2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; src=&#34;https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> Response should not be compressed for requests made with &#39;accept-encoding: identity&#39;. <a href="#hint-http-compression-6" class="hint-link" title="http-compression: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link rel=&#34;stylesheet&#34; href=&#34;https://use.fontawesome.com/releases/v5.8.2/css/all.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-7">
+                    <span class="rule-result--details__hint-number">hint #7:</span> Response should be compressed with Zopfli when gzip compression is requested. <a href="#hint-http-compression-7" class="hint-link" title="http-compression: hint #7"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link rel=&#34;stylesheet&#34; href=&#34;https://use.fontawesome.com/releases/v5.8.2/css/all.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-8">
+                    <span class="rule-result--details__hint-number">hint #8:</span> Response should include &#39;vary&#39; header containing &#39;accept-encoding&#39; value. <a href="#hint-http-compression-8" class="hint-link" title="http-compression: hint #8"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Vary: access-control-request-headers, access-control-request-method, accept-encoding
+Cache-Control: max-age=31556926</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-9">
+                    <span class="rule-result--details__hint-number">hint #9:</span> Response should include &#39;vary&#39; header containing &#39;accept-encoding&#39; value. <a href="#hint-http-compression-9" class="hint-link" title="http-compression: hint #9"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Vary: access-control-request-headers, access-control-request-method, accept-encoding
+Cache-Control: max-age=31556926</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-10">
+                    <span class="rule-result--details__hint-number">hint #10:</span> Response should include &#39;content-encoding: br&#39; header. <a href="#hint-http-compression-10" class="hint-link" title="http-compression: hint #10"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link rel=&#34;stylesheet&#34; href=&#34;https://use.fontawesome.com/releases/v5.8.2/css/all.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-11">
+                    <span class="rule-result--details__hint-number">hint #11:</span> Response should be compressed with Zopfli when gzip compression is requested. <a href="#hint-http-compression-11" class="hint-link" title="http-compression: hint #11"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link type=&#34;text/css&#34; rel=&#34;stylesheet&#34; charset=&#34;UTF-8&#34; href=&#34;https://translate.googleapis.com/translate_static/css/translateelement.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-12">
+                    <span class="rule-result--details__hint-number">hint #12:</span> Response should be compressed with Brotli when Brotli compression is requested over HTTPS. <a href="#hint-http-compression-12" class="hint-link" title="http-compression: hint #12"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link type=&#34;text/css&#34; rel=&#34;stylesheet&#34; charset=&#34;UTF-8&#34; href=&#34;https://translate.googleapis.com/translate_static/css/translateelement.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-13">
+                    <span class="rule-result--details__hint-number">hint #13:</span> Response should be compressed with Zopfli when gzip compression is requested. <a href="#hint-http-compression-13" class="hint-link" title="http-compression: hint #13"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/js/element/main.js">
+                        https://translate.googlea … static/js/element/main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/translate_static/js/element/main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-14">
+                    <span class="rule-result--details__hint-number">hint #14:</span> Response should be compressed with Brotli when Brotli compression is requested over HTTPS. <a href="#hint-http-compression-14" class="hint-link" title="http-compression: hint #14"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/js/element/main.js">
+                        https://translate.googlea … static/js/element/main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/translate_static/js/element/main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-15">
+                    <span class="rule-result--details__hint-number">hint #15:</span> Response should be compressed with Zopfli when gzip compression is requested. <a href="#hint-http-compression-15" class="hint-link" title="http-compression: hint #15"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js">
+                        https://translate.googlea … element/element_main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-16">
+                    <span class="rule-result--details__hint-number">hint #16:</span> Response should be compressed with Brotli when Brotli compression is requested over HTTPS. <a href="#hint-http-compression-16" class="hint-link" title="http-compression: hint #16"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js">
+                        https://translate.googlea … element/element_main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-17">
+                    <span class="rule-result--details__hint-number">hint #17:</span> Response should be compressed with Zopfli when gzip compression is requested. <a href="#hint-http-compression-17" class="hint-link" title="http-compression: hint #17"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_a/l?client=te&amp;alpha=true&amp;hl=en&amp;cb=_callbacks____0k38z5rkm">
+                        https://translate.googlea … callbacks____0k38z5rkm
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-18">
+                    <span class="rule-result--details__hint-number">hint #18:</span> Response should include &#39;vary&#39; header containing &#39;accept-encoding&#39; value. <a href="#hint-http-compression-18" class="hint-link" title="http-compression: hint #18"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_a/l?client=te&amp;alpha=true&amp;hl=en&amp;cb=_callbacks____0k38z5rkm">
+                        https://translate.googlea … callbacks____0k38z5rkm
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Vary: 
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-compression-19">
+                    <span class="rule-result--details__hint-number">hint #19:</span> Response should be compressed with Brotli when Brotli compression is requested over HTTPS. <a href="#hint-http-compression-19" class="hint-link" title="http-compression: hint #19"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_a/l?client=te&amp;alpha=true&amp;hl=en&amp;cb=_callbacks____0k38z5rkm">
+                        https://translate.googlea … callbacks____0k38z5rkm
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="http-cache" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show http-cache&#39;s result details" role="button">http-cache: 16 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-http-cache/#why-is-this-important"
+                title="http-cache - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-http-cache/#examples-that-pass-the-hint"
+                title="http-cache - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> No &#34;cache-control&#34; header or empty value found. It should have a value <a href="#hint-http-cache-1" class="hint-link" title="http-cache: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/dialogue.js">
+                        http://localhost:3000/dialogue.js
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> No &#34;cache-control&#34; header or empty value found. It should have a value <a href="#hint-http-cache-2" class="hint-link" title="http-cache: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/img/logo.svg">
+                        http://localhost:3000/img/logo.svg
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> The following directive has an invalid value:
+stale-while-revalidate=604800 <a href="#hint-http-cache-3" class="hint-link" title="http-cache: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;display=swap">
+                        https://fonts.googleapis … 700,900&amp;display=swap
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: private, max-age=86400, stale-while-revalidate=604800</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> The directive &#34;must-revalidate&#34; is not recommended <a href="#hint-http-cache-4" class="hint-link" title="http-cache: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2">
+                        https://translate.google … ogleTranslateElementInit2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: no-cache, must-revalidate</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> Static resources should use the &#34;immutable&#34; directive:
+Directives used: max-age=31556926 <a href="#hint-http-cache-5" class="hint-link" title="http-cache: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: max-age=31556926</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> Static resources should have a long cache value (31536000):
+Directives used: public, max-age=3600 <a href="#hint-http-cache-6" class="hint-link" title="http-cache: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: public, max-age=3600</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-7">
+                    <span class="rule-result--details__hint-number">hint #7:</span> Static resources should use the &#34;immutable&#34; directive:
+Directives used: public, max-age=3600 <a href="#hint-http-cache-7" class="hint-link" title="http-cache: hint #7"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: public, max-age=3600</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-8">
+                    <span class="rule-result--details__hint-number">hint #8:</span> Static resources should have a long cache value (31536000):
+Directives used: public, max-age=3600 <a href="#hint-http-cache-8" class="hint-link" title="http-cache: hint #8"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/js/element/main.js">
+                        https://translate.googlea … static/js/element/main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: public, max-age=3600</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-9">
+                    <span class="rule-result--details__hint-number">hint #9:</span> Static resources should use the &#34;immutable&#34; directive:
+Directives used: public, max-age=3600 <a href="#hint-http-cache-9" class="hint-link" title="http-cache: hint #9"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/js/element/main.js">
+                        https://translate.googlea … static/js/element/main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: public, max-age=3600</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-10">
+                    <span class="rule-result--details__hint-number">hint #10:</span> Static resources should use the &#34;immutable&#34; directive:
+Directives used: public, max-age=31536000 <a href="#hint-http-cache-10" class="hint-link" title="http-cache: hint #10"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js">
+                        https://translate.googlea … element/element_main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: public, max-age=31536000</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-11">
+                    <span class="rule-result--details__hint-number">hint #11:</span> Static resources should use the &#34;immutable&#34; directive:
+Directives used: max-age=31556926 <a href="#hint-http-cache-11" class="hint-link" title="http-cache: hint #11"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/webfonts/fa-solid-900.woff2">
+                        https://use.fontawesome … bfonts/fa-solid-900.woff2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: max-age=31556926</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-12">
+                    <span class="rule-result--details__hint-number">hint #12:</span> The directive &#34;must-revalidate&#34; is not recommended <a href="#hint-http-cache-12" class="hint-link" title="http-cache: hint #12"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_a/l?client=te&amp;alpha=true&amp;hl=en&amp;cb=_callbacks____0k38z5rkm">
+                        https://translate.googlea … callbacks____0k38z5rkm
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: no-cache, no-store, max-age=0, must-revalidate</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-13">
+                    <span class="rule-result--details__hint-number">hint #13:</span> Static resources should use the &#34;immutable&#34; directive:
+Directives used: public, max-age=31536000 <a href="#hint-http-cache-13" class="hint-link" title="http-cache: hint #13"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png">
+                        https://www.gstatic.com … 1x/translate_24dp.png
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: public, max-age=31536000</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-14">
+                    <span class="rule-result--details__hint-number">hint #14:</span> Static resources should use the &#34;immutable&#34; directive:
+Directives used: public, max-age=31536000 <a href="#hint-http-cache-14" class="hint-link" title="http-cache: hint #14"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/product/2x/translate_24dp.png">
+                        https://www.gstatic.com … 2x/translate_24dp.png
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: public, max-age=31536000</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-15">
+                    <span class="rule-result--details__hint-number">hint #15:</span> Static resources should use the &#34;immutable&#34; directive:
+Directives used: public, max-age=31536000 <a href="#hint-http-cache-15" class="hint-link" title="http-cache: hint #15"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png">
+                        https://www.gstatic.com … glelogo_color_42x16dp.png
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Cache-Control: public, max-age=31536000</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-http-cache-16">
+                    <span class="rule-result--details__hint-number">hint #16:</span> No &#34;cache-control&#34; header or empty value found. It should have a value <a href="#hint-http-cache-16" class="hint-link" title="http-cache: hint #16"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/favicon.ico">
+                        http://localhost:3000/favicon.ico
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="no-html-only-headers" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show no-html-only-headers&#39;s result details" role="button">no-html-only-headers: 9 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-no-html-only-headers/#why-is-this-important"
+                title="no-html-only-headers - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-no-html-only-headers/#examples-that-pass-the-hint"
+                title="no-html-only-headers - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Response should not include unneeded &#39;x-xss-protection&#39; header. <a href="#hint-no-html-only-headers-1" class="hint-link" title="no-html-only-headers: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;display=swap">
+                        https://fonts.googleapis … 700,900&amp;display=swap
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link href=&#34;https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> Response should not include unneeded &#39;x-xss-protection&#39; header. <a href="#hint-no-html-only-headers-2" class="hint-link" title="no-html-only-headers: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2">
+                        https://translate.google … ogleTranslateElementInit2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; src=&#34;https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> Response should not include unneeded &#39;x-xss-protection&#39; header. <a href="#hint-no-html-only-headers-3" class="hint-link" title="no-html-only-headers: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link type=&#34;text/css&#34; rel=&#34;stylesheet&#34; charset=&#34;UTF-8&#34; href=&#34;https://translate.googleapis.com/translate_static/css/translateelement.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> Response should not include unneeded &#39;x-xss-protection&#39; header. <a href="#hint-no-html-only-headers-4" class="hint-link" title="no-html-only-headers: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/js/element/main.js">
+                        https://translate.googlea … static/js/element/main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/translate_static/js/element/main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> Response should not include unneeded &#39;x-xss-protection&#39; header. <a href="#hint-no-html-only-headers-5" class="hint-link" title="no-html-only-headers: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js">
+                        https://translate.googlea … element/element_main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> Response should not include unneeded &#39;content-security-policy&#39; and &#39;x-xss-protection&#39; headers. <a href="#hint-no-html-only-headers-6" class="hint-link" title="no-html-only-headers: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_a/l?client=te&amp;alpha=true&amp;hl=en&amp;cb=_callbacks____0k38z5rkm">
+                        https://translate.googlea … callbacks____0k38z5rkm
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-7">
+                    <span class="rule-result--details__hint-number">hint #7:</span> Response should not include unneeded &#39;x-xss-protection&#39; header. <a href="#hint-no-html-only-headers-7" class="hint-link" title="no-html-only-headers: hint #7"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png">
+                        https://www.gstatic.com … 1x/translate_24dp.png
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;img src=&#34;https://www.gstatic.com/images/branding/product/1x/translate_24dp.png&#34; width=&#34;20&#34; height=&#34;20&#34; alt=&#34;Google Translate&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-8">
+                    <span class="rule-result--details__hint-number">hint #8:</span> Response should not include unneeded &#39;x-xss-protection&#39; header. <a href="#hint-no-html-only-headers-8" class="hint-link" title="no-html-only-headers: hint #8"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/product/2x/translate_24dp.png">
+                        https://www.gstatic.com … 2x/translate_24dp.png
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-html-only-headers-9">
+                    <span class="rule-result--details__hint-number">hint #9:</span> Response should not include unneeded &#39;x-xss-protection&#39; header. <a href="#hint-no-html-only-headers-9" class="hint-link" title="no-html-only-headers: hint #9"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png">
+                        https://www.gstatic.com … glelogo_color_42x16dp.png
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;img src=&#34;https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png&#34; width=&#34;37px&#34; height=&#34;14px&#34; style=&#34;padding-right: 3px&#34; alt=&#34;Google Translate&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="no-broken-links" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show no-broken-links&#39;s result details" role="button">no-broken-links: 3 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-no-broken-links/#why-is-this-important"
+                title="no-broken-links - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-no-broken-links/#examples-that-pass-the-hint"
+                title="no-broken-links - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-broken-links-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Broken link found (404 response). <a href="#hint-no-broken-links-1" class="hint-link" title="no-broken-links: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/dialogue.js">
+                        http://localhost:3000/dialogue.js
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-broken-links-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> Broken link found (404 response). <a href="#hint-no-broken-links-2" class="hint-link" title="no-broken-links: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/img/logo.svg">
+                        http://localhost:3000/img/logo.svg
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-broken-links-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> Broken link found (404 response). <a href="#hint-no-broken-links-3" class="hint-link" title="no-broken-links: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/style/main.css">
+                        http://localhost:3000/style/main.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link rel=&#34;stylesheet&#34; href=&#34;./style/main.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="amp-validator" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show amp-validator&#39;s result details" role="button">amp-validator: 12 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-amp-validator/#why-is-this-important"
+                title="amp-validator - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-amp-validator/#examples-that-pass-the-hint"
+                title="amp-validator - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> The mandatory attribute &#39;⚡&#39; is missing in tag &#39;html&#39;. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml#required-markup) <a href="#hint-amp-validator-1" class="hint-link" title="amp-validator: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> The attribute &#39;href&#39; in tag &#39;link rel=stylesheet for fonts&#39; is set to the invalid value &#39;./style/main.css&#39;. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml#custom-fonts) <a href="#hint-amp-validator-2" class="hint-link" title="amp-validator: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> Custom JavaScript is not allowed. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml#html-tags) <a href="#hint-amp-validator-3" class="hint-link" title="amp-validator: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> The tag &#39;img&#39; may only appear as a descendant of tag &#39;noscript&#39;. Did you mean &#39;amp-img&#39;? (https://amp.dev/documentation/components/amp-img) <a href="#hint-amp-validator-4" class="hint-link" title="amp-validator: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> Custom JavaScript is not allowed. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml#html-tags) <a href="#hint-amp-validator-5" class="hint-link" title="amp-validator: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> Custom JavaScript is not allowed. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml#html-tags) <a href="#hint-amp-validator-6" class="hint-link" title="amp-validator: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-7">
+                    <span class="rule-result--details__hint-number">hint #7:</span> Custom JavaScript is not allowed. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml#html-tags) <a href="#hint-amp-validator-7" class="hint-link" title="amp-validator: hint #7"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-8">
+                    <span class="rule-result--details__hint-number">hint #8:</span> The mandatory tag &#39;link rel=canonical&#39; is missing or incorrect. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml#required-markup) <a href="#hint-amp-validator-8" class="hint-link" title="amp-validator: hint #8"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-9">
+                    <span class="rule-result--details__hint-number">hint #9:</span> The mandatory tag &#39;head &gt; style[amp-boilerplate]&#39; is missing or incorrect. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amp-boilerplate?format=websites) <a href="#hint-amp-validator-9" class="hint-link" title="amp-validator: hint #9"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-10">
+                    <span class="rule-result--details__hint-number">hint #10:</span> The mandatory tag &#39;noscript &gt; style[amp-boilerplate]&#39; is missing or incorrect. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amp-boilerplate?format=websites) <a href="#hint-amp-validator-10" class="hint-link" title="amp-validator: hint #10"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-11">
+                    <span class="rule-result--details__hint-number">hint #11:</span> The mandatory tag &#39;amphtml engine v0.js script&#39; is missing or incorrect. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amphtml#required-markup) <a href="#hint-amp-validator-11" class="hint-link" title="amp-validator: hint #11"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-amp-validator-12">
+                    <span class="rule-result--details__hint-number">hint #12:</span> The mandatory tag &#39;noscript enclosure for boilerplate&#39; is missing or incorrect. (https://amp.dev/documentation/guides-and-tutorials/learn/spec/amp-boilerplate?format=websites) <a href="#hint-amp-validator-12" class="hint-link" title="amp-validator: hint #12"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="image-optimization-cloudinary" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show image-optimization-cloudinary&#39;s result details" role="button">image-optimization-cloudinary: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-image-optimization-cloudinary/#why-is-this-important"
+                title="image-optimization-cloudinary - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-image-optimization-cloudinary/#examples-that-pass-the-hint"
+                title="image-optimization-cloudinary - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-image-optimization-cloudinary-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> No valid configuration for Cloudinary found. Hint could not run. <a href="#hint-image-optimization-cloudinary-1" class="hint-link" title="image-optimization-cloudinary: hint #1"></a>
+                </p>
+                
+                
+            </div>
+            
+                <div class="rule-result--details__footer-msg">
+                    
+                        <p>To learn more visit </p>
+                    
+
+                    <a href="https://webspeedtest.cloudinary.com">
+                        <img src="images/scan/cloudinary_logo_for_white_bg.svg" alt="Cloudinary" class="cloudinary-logo">
+                    </a>
+                </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="performance-budget" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show performance-budget&#39;s result details" role="button">performance-budget: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-performance-budget/#why-is-this-important"
+                title="performance-budget - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-performance-budget/#examples-that-pass-the-hint"
+                title="performance-budget - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-performance-budget-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> To load all the resources on a 3GFast network, it will take about 5.4s in optimal conditions (that is 0.4s more than the 5s target). <a href="#hint-performance-budget-1" class="hint-link" title="performance-budget: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+    
+</section>
+
+                                    <section class="rule-result" id="pwa">
+    <div class="rule-result--category">
+        <h3 id="category-pwa">PWA <a href="#category-pwa" class="hint-link" title="PWA"></a></h3>
+        
+            <button title="expand" class="button-expand-all expanded">close all</button>
+
+        
+    </div>
+    
+        
+            <details open class="rule-result--details" id="apple-touch-icons" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show apple-touch-icons&#39;s result details" role="button">apple-touch-icons: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-apple-touch-icons/#why-is-this-important"
+                title="apple-touch-icons - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-apple-touch-icons/#examples-that-pass-the-hint"
+                title="apple-touch-icons - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-apple-touch-icons-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;apple-touch-icon&#39; link element was not specified. <a href="#hint-apple-touch-icons-1" class="hint-link" title="apple-touch-icons: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="meta-theme-color" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show meta-theme-color&#39;s result details" role="button">meta-theme-color: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-meta-theme-color/#why-is-this-important"
+                title="meta-theme-color - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-meta-theme-color/#examples-that-pass-the-hint"
+                title="meta-theme-color - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-meta-theme-color-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;theme-color&#39; meta element was not specified. <a href="#hint-meta-theme-color-1" class="hint-link" title="meta-theme-color: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="manifest-exists" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show manifest-exists&#39;s result details" role="button">manifest-exists: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-manifest-exists/#why-is-this-important"
+                title="manifest-exists - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-manifest-exists/#examples-that-pass-the-hint"
+                title="manifest-exists - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-manifest-exists-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;manifest&#39; link element was not specified. <a href="#hint-manifest-exists-1" class="hint-link" title="manifest-exists: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+    
+</section>
+
+                                    <section class="rule-result" id="accessibility">
+    <div class="rule-result--category">
+        <h3 id="category-accessibility">Accessibility <a href="#category-accessibility" class="hint-link" title="Accessibility"></a></h3>
+        
+    </div>
+    
+        <div class="rule-result--details">
+    <div class="rule-result__message--passed">
+        <p>No issues</p>
+    </div>
+</div>
+
+    
+</section>
+
+                                    <section class="rule-result" id="development">
+    <div class="rule-result--category">
+        <h3 id="category-development">Development <a href="#category-development" class="hint-link" title="Development"></a></h3>
+        
+    </div>
+    
+        <div class="rule-result--details">
+    <div class="rule-result__message--passed">
+        <p>No issues</p>
+    </div>
+</div>
+
+    
+</section>
+
+                                    <section class="rule-result" id="pitfalls">
+    <div class="rule-result--category">
+        <h3 id="category-pitfalls">Pitfalls <a href="#category-pitfalls" class="hint-link" title="Pitfalls"></a></h3>
+        
+            <button title="expand" class="button-expand-all expanded">close all</button>
+
+        
+    </div>
+    
+        
+            <details open class="rule-result--details" id="css-prefix-order" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show css-prefix-order&#39;s result details" role="button">css-prefix-order: 13 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-css-prefix-order/#why-is-this-important"
+                title="css-prefix-order - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-css-prefix-order/#examples-that-pass-the-hint"
+                title="css-prefix-order - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;box-shadow&#39; should be listed after &#39;-webkit-box-shadow&#39;. <a href="#hint-css-prefix-order-1" class="hint-link" title="css-prefix-order: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt {
+    box-shadow: 0 4px 16px rgba(0,0,0,.2);
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> &#39;border-radius&#39; should be listed after &#39;-webkit-border-radius&#39;. <a href="#hint-css-prefix-order-2" class="hint-link" title="css-prefix-order: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .status-message {
+    border-radius: 4px;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> &#39;box-shadow&#39; should be listed after &#39;-webkit-box-shadow&#39;. <a href="#hint-css-prefix-order-3" class="hint-link" title="css-prefix-order: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .status-message {
+    box-shadow: inset 0px 2px 2px #1e6609;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> &#39;box-shadow&#39; should be listed after &#39;-webkit-box-shadow&#39;. <a href="#hint-css-prefix-order-4" class="hint-link" title="css-prefix-order: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .translate-form .activity-form input {
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> &#39;box-shadow&#39; should be listed after &#39;-moz-box-shadow&#39;. <a href="#hint-css-prefix-order-5" class="hint-link" title="css-prefix-order: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .translate-form .activity-form input:focus #goog-gt-tt .translate-form .activity-form input.focus #goog-gt-tt … goog-gt-tt .translate-form .activity-form input:.focus:active {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.5);
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> &#39;box-shadow&#39; should be listed after &#39;-moz-box-shadow&#39;. <a href="#hint-css-prefix-order-6" class="hint-link" title="css-prefix-order: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .translate-form .activity-form input.activity-submit:hover {
+    box-shadow: inset 0 0 0 1px #fff,0px 1px 1px rgba(0,0,0,0.1);
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-7">
+                    <span class="rule-result--details__hint-number">hint #7:</span> &#39;box-sizing&#39; should be listed after &#39;-moz-box-sizing&#39;. <a href="#hint-css-prefix-order-7" class="hint-link" title="css-prefix-order: hint #7"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">.goog-text-highlight {
+    box-sizing: border-box;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-8">
+                    <span class="rule-result--details__hint-number">hint #8:</span> &#39;border-radius&#39; should be listed after &#39;-moz-border-radius&#39;. <a href="#hint-css-prefix-order-8" class="hint-link" title="css-prefix-order: hint #8"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .gt-hl-text,
+#goog-gt-tt .trans-target-highlight {
+    border-radius: 4px;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-9">
+                    <span class="rule-result--details__hint-number">hint #9:</span> &#39;box-sizing&#39; should be listed after &#39;-moz-box-sizing&#39;. <a href="#hint-css-prefix-order-9" class="hint-link" title="css-prefix-order: hint #9"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .gt-hl-text,
+#goog-gt-tt .trans-target-highlight {
+    box-sizing: border-box;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-10">
+                    <span class="rule-result--details__hint-number">hint #10:</span> &#39;border-radius&#39; should be listed after &#39;-moz-border-radius&#39;. <a href="#hint-css-prefix-order-10" class="hint-link" title="css-prefix-order: hint #10"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .trans-target,
+#goog-gt-tt .trans-target .trans-target-highlight {
+    border-radius: 4px 4px 0px 0px;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-11">
+                    <span class="rule-result--details__hint-number">hint #11:</span> &#39;box-sizing&#39; should be listed after &#39;-moz-box-sizing&#39;. <a href="#hint-css-prefix-order-11" class="hint-link" title="css-prefix-order: hint #11"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .trans-target,
+#goog-gt-tt .trans-target .trans-target-highlight {
+    box-sizing: border-box;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-12">
+                    <span class="rule-result--details__hint-number">hint #12:</span> &#39;border-radius&#39; should be listed after &#39;-moz-border-radius&#39;. <a href="#hint-css-prefix-order-12" class="hint-link" title="css-prefix-order: hint #12"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .trans-edit {
+    border-radius: 0em;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-css-prefix-order-13">
+                    <span class="rule-result--details__hint-number">hint #13:</span> &#39;box-sizing&#39; should be listed after &#39;-moz-box-sizing&#39;. <a href="#hint-css-prefix-order-13" class="hint-link" title="css-prefix-order: hint #13"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt #alt-input-text {
+    box-sizing: border-box;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="button-type" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show button-type&#39;s result details" role="button">button-type: 3 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-button-type/#why-is-this-important"
+                title="button-type - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-button-type/#examples-that-pass-the-hint"
+                title="button-type - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-button-type-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Button type attribute has not been set <a href="#hint-button-type-1" class="hint-link" title="button-type: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;button class=&#34;nav-button&#34;&gt;
+              Feed
+            &lt;/button&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-button-type-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> Button type attribute has not been set <a href="#hint-button-type-2" class="hint-link" title="button-type: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;button class=&#34;nav-button&#34;&gt;
+              Participants
+            &lt;/button&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-button-type-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> Button type attribute has not been set <a href="#hint-button-type-3" class="hint-link" title="button-type: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;button class=&#34;nav-button&#34;&gt;
+              Subscribe
+            &lt;/button&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+    
+</section>
+
+                                    <section class="rule-result" id="compatibility">
+    <div class="rule-result--category">
+        <h3 id="category-compatibility">Compatibility <a href="#category-compatibility" class="hint-link" title="Compatibility"></a></h3>
+        
+            <button title="expand" class="button-expand-all expanded">close all</button>
+
+        
+    </div>
+    
+        
+            <details open class="rule-result--details" id="content-type" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show content-type&#39;s result details" role="button">content-type: 4 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-content-type/#why-is-this-important"
+                title="content-type - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-content-type/#examples-that-pass-the-hint"
+                title="content-type - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-content-type-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;content-type&#39; header charset value should be &#39;utf-8&#39;. <a href="#hint-content-type-1" class="hint-link" title="content-type: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Content-Type: text/css</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-content-type-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> &#39;content-type&#39; header charset value should be &#39;utf-8&#39;. <a href="#hint-content-type-2" class="hint-link" title="content-type: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Content-Type: text/css</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-content-type-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> &#39;content-type&#39; header charset value should be &#39;utf-8&#39;. <a href="#hint-content-type-3" class="hint-link" title="content-type: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/js/element/main.js">
+                        https://translate.googlea … static/js/element/main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Content-Type: text/javascript</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-content-type-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> &#39;content-type&#39; header charset value should be &#39;utf-8&#39;. <a href="#hint-content-type-4" class="hint-link" title="content-type: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js">
+                        https://translate.googlea … element/element_main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Content-Type: text/javascript</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="compat-api/css" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show compat-api/css&#39;s result details" role="button">compat-api/css: 10 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-compat-api/css/#why-is-this-important"
+                title="compat-api/css - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-compat-api/css/#examples-that-pass-the-hint"
+                title="compat-api/css - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;text-rendering&#39; is not supported by Edge, Internet Explorer. <a href="#hint-compat-api/css-1" class="hint-link" title="compat-api/css: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">.fa,
+.fab,
+.fal,
+.far,
+.fas {
+    text-rendering: auto;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> &#39;-ms-filter&#39; is not supported by Chrome, Chrome Android, Internet Explorer, Samsung Internet. Add &#39;filter&#39; to support Chrome 53+, Chrome Android 53+, Samsung Internet 6.0+. Add &#39;-webkit-filter&#39; to support Chrome 18+. <a href="#hint-compat-api/css-2" class="hint-link" title="compat-api/css: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">.fa-rotate-90 {
+    -ms-filter: &#34;progid:DXImageTransform.Microsoft.BasicImage(rotation=1)&#34;;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> &#39;-ms-filter&#39; is not supported by Chrome, Chrome Android, Internet Explorer, Samsung Internet. Add &#39;filter&#39; to support Chrome 53+, Chrome Android 53+, Samsung Internet 6.0+. Add &#39;-webkit-filter&#39; to support Chrome 18+. <a href="#hint-compat-api/css-3" class="hint-link" title="compat-api/css: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">.fa-rotate-180 {
+    -ms-filter: &#34;progid:DXImageTransform.Microsoft.BasicImage(rotation=2)&#34;;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> &#39;-ms-filter&#39; is not supported by Chrome, Chrome Android, Internet Explorer, Samsung Internet. Add &#39;filter&#39; to support Chrome 53+, Chrome Android 53+, Samsung Internet 6.0+. Add &#39;-webkit-filter&#39; to support Chrome 18+. <a href="#hint-compat-api/css-4" class="hint-link" title="compat-api/css: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">.fa-rotate-270 {
+    -ms-filter: &#34;progid:DXImageTransform.Microsoft.BasicImage(rotation=3)&#34;;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> &#39;-ms-filter&#39; is not supported by Chrome, Chrome Android, Internet Explorer, Samsung Internet. Add &#39;filter&#39; to support Chrome 53+, Chrome Android 53+, Samsung Internet 6.0+. Add &#39;-webkit-filter&#39; to support Chrome 18+. <a href="#hint-compat-api/css-5" class="hint-link" title="compat-api/css: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">.fa-flip-horizontal {
+    -ms-filter: &#34;progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)&#34;;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> &#39;-ms-filter&#39; is not supported by Chrome, Chrome Android, Internet Explorer, Samsung Internet. Add &#39;filter&#39; to support Chrome 53+, Chrome Android 53+, Samsung Internet 6.0+. Add &#39;-webkit-filter&#39; to support Chrome 18+. <a href="#hint-compat-api/css-6" class="hint-link" title="compat-api/css: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">.fa-flip-both,
+.fa-flip-horizontal.fa-flip-vertical,
+.fa-flip-vertical {
+    -ms-filter: &#34;progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)&#34;;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-7">
+                    <span class="rule-result--details__hint-number">hint #7:</span> &#39;filter&#39; is not supported by Chrome &lt; 53, Internet Explorer. Add &#39;-webkit-filter&#39; to support Chrome 18+. <a href="#hint-compat-api/css-7" class="hint-link" title="compat-api/css: hint #7"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">:root .fa-flip-both,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical,
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270 {
+    filter: none;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-8">
+                    <span class="rule-result--details__hint-number">hint #8:</span> &#39;resize&#39; is not supported by Edge, Internet Explorer. <a href="#hint-compat-api/css-8" class="hint-link" title="compat-api/css: hint #8"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt textarea {
+    resize: vertical;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-9">
+                    <span class="rule-result--details__hint-number">hint #9:</span> &#39;-webkit-user-select&#39; is not supported by Internet Explorer. Add &#39;-ms-user-select&#39; to support Internet Explorer 10+. <a href="#hint-compat-api/css-9" class="hint-link" title="compat-api/css: hint #9"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .translate-form .activity-form input {
+    -webkit-user-select: none;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/css-10">
+                    <span class="rule-result--details__hint-number">hint #10:</span> &#39;-moz-user-select&#39; is not supported by Internet Explorer. Add &#39;-ms-user-select&#39; to support Internet Explorer 10+. <a href="#hint-compat-api/css-10" class="hint-link" title="compat-api/css: hint #10"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="css">#goog-gt-tt .translate-form .activity-form input {
+    -moz-user-select: none;
+}</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="compat-api/html" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show compat-api/html&#39;s result details" role="button">compat-api/html: 2 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-compat-api/html/#why-is-this-important"
+                title="compat-api/html - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-compat-api/html/#examples-that-pass-the-hint"
+                title="compat-api/html - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/html-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;div[dir]&#39; is not supported by Edge, Internet Explorer. <a href="#hint-compat-api/html-1" class="hint-link" title="compat-api/html: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;div class=&#34;skiptranslate goog-te-gadget&#34; dir=&#34;ltr&#34; style=&#34;&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-compat-api/html-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> &#39;div[dir]&#39; is not supported by Edge, Internet Explorer. <a href="#hint-compat-api/html-2" class="hint-link" title="compat-api/html: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;div id=&#34;goog-gt-tt&#34; class=&#34;skiptranslate&#34; dir=&#34;ltr&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="highest-available-document-mode" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show highest-available-document-mode&#39;s result details" role="button">highest-available-document-mode: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-highest-available-document-mode/#why-is-this-important"
+                title="highest-available-document-mode - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-highest-available-document-mode/#examples-that-pass-the-hint"
+                title="highest-available-document-mode - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-highest-available-document-mode-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;x-ua-compatible&#39; meta element should not be specified as it is not needed. <a href="#hint-highest-available-document-mode-1" class="hint-link" title="highest-available-document-mode: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;meta http-equiv=&#34;X-UA-Compatible&#34; content=&#34;ie=edge&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="no-friendly-error-pages" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show no-friendly-error-pages&#39;s result details" role="button">no-friendly-error-pages: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-no-friendly-error-pages/#why-is-this-important"
+                title="no-friendly-error-pages - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-no-friendly-error-pages/#examples-that-pass-the-hint"
+                title="no-friendly-error-pages - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-friendly-error-pages-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Response with status code 404 should have more than 512 bytes. <a href="#hint-no-friendly-error-pages-1" class="hint-link" title="no-friendly-error-pages: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="html-checker" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show html-checker&#39;s result details" role="button">html-checker: 2 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-html-checker/#why-is-this-important"
+                title="html-checker - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-html-checker/#examples-that-pass-the-hint"
+                title="html-checker - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-html-checker-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> The element “button” must not appear as a descendant of the “a” element. <a href="#hint-html-checker-1" class="hint-link" title="html-checker: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="html">          &lt;button class=&#34;nav-button&#34;&gt;
+     </code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-html-checker-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> The “type” attribute is unnecessary for JavaScript resources. <a href="#hint-html-checker-2" class="hint-link" title="html-checker: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="html">t --&gt;
+    &lt;script type=&#34;text/javascript&#34;&gt;
+     </code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+    
+</section>
+
+                                    <section class="rule-result" id="security">
+    <div class="rule-result--category">
+        <h3 id="category-security">Security <a href="#category-security" class="hint-link" title="Security"></a></h3>
+        
+            <button title="expand" class="button-expand-all expanded">close all</button>
+
+        
+    </div>
+    
+        
+            <details open class="rule-result--details" id="ssllabs" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show ssllabs&#39;s result details" role="button">ssllabs: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-ssllabs/#why-is-this-important"
+                title="ssllabs - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-ssllabs/#examples-that-pass-the-hint"
+                title="ssllabs - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-ssllabs-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;http://localhost:3000/&#39; does not support HTTPS. <a href="#hint-ssllabs-1" class="hint-link" title="ssllabs: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+                <div class="rule-result--details__footer-msg">
+                    
+                        <p>To learn more visit </p>
+                    
+
+                    <a href="https://www.ssllabs.com/ssltest/analyze.html?d=%URL%">
+                        <img src="images/scan/qualys-ssl-labs-logo.png" alt="Qualys SSL Labs" class="ssllabs-logo">
+                    </a>
+                </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="https-only" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show https-only&#39;s result details" role="button">https-only: 2 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-https-only/#why-is-this-important"
+                title="https-only - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-https-only/#examples-that-pass-the-hint"
+                title="https-only - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-https-only-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Site should be served over HTTPS. <a href="#hint-https-only-1" class="hint-link" title="https-only: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-https-only-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> Should be served over HTTPS. <a href="#hint-https-only-2" class="hint-link" title="https-only: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/img/logo.svg">
+                        http://localhost:3000/img/logo.svg
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="no-disallowed-headers" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show no-disallowed-headers&#39;s result details" role="button">no-disallowed-headers: 7 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-no-disallowed-headers/#why-is-this-important"
+                title="no-disallowed-headers - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-no-disallowed-headers/#examples-that-pass-the-hint"
+                title="no-disallowed-headers - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-disallowed-headers-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Response should not include disallowed &#39;x-powered-by&#39; header. <a href="#hint-no-disallowed-headers-1" class="hint-link" title="no-disallowed-headers: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">x-powered-by: express</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-disallowed-headers-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> Response should not include disallowed &#39;x-powered-by&#39; header. <a href="#hint-no-disallowed-headers-2" class="hint-link" title="no-disallowed-headers: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/dialogue.js">
+                        http://localhost:3000/dialogue.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">x-powered-by: express</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-disallowed-headers-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> Response should not include disallowed &#39;x-powered-by&#39; header. <a href="#hint-no-disallowed-headers-3" class="hint-link" title="no-disallowed-headers: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/img/logo.svg">
+                        http://localhost:3000/img/logo.svg
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">x-powered-by: express</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-disallowed-headers-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> &#39;server&#39; header value should only contain the server name, not &#39;HTTP server (unknown)&#39;. <a href="#hint-no-disallowed-headers-4" class="hint-link" title="no-disallowed-headers: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2">
+                        https://translate.google … ogleTranslateElementInit2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Server: http server (unknown)</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-disallowed-headers-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> &#39;server&#39; header value should only contain the server name, not &#39;NetDNA-cache/2.2&#39;. <a href="#hint-no-disallowed-headers-5" class="hint-link" title="no-disallowed-headers: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Server: netdna-cache/2.2</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-disallowed-headers-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> &#39;server&#39; header value should only contain the server name, not &#39;NetDNA-cache/2.2&#39;. <a href="#hint-no-disallowed-headers-6" class="hint-link" title="no-disallowed-headers: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/webfonts/fa-solid-900.woff2">
+                        https://use.fontawesome … bfonts/fa-solid-900.woff2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">Server: netdna-cache/2.2</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-no-disallowed-headers-7">
+                    <span class="rule-result--details__hint-number">hint #7:</span> Response should not include disallowed &#39;x-powered-by&#39; header. <a href="#hint-no-disallowed-headers-7" class="hint-link" title="no-disallowed-headers: hint #7"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/favicon.ico">
+                        http://localhost:3000/favicon.ico
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="http">x-powered-by: express</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="x-content-type-options" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show x-content-type-options&#39;s result details" role="button">x-content-type-options: 4 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-x-content-type-options/#why-is-this-important"
+                title="x-content-type-options - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-x-content-type-options/#examples-that-pass-the-hint"
+                title="x-content-type-options - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-x-content-type-options-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Response should include &#39;x-content-type-options&#39; header. <a href="#hint-x-content-type-options-1" class="hint-link" title="x-content-type-options: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-x-content-type-options-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> Response should include &#39;x-content-type-options&#39; header. <a href="#hint-x-content-type-options-2" class="hint-link" title="x-content-type-options: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;display=swap">
+                        https://fonts.googleapis … 700,900&amp;display=swap
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link href=&#34;https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-x-content-type-options-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> Response should include &#39;x-content-type-options&#39; header. <a href="#hint-x-content-type-options-3" class="hint-link" title="x-content-type-options: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link rel=&#34;stylesheet&#34; href=&#34;https://use.fontawesome.com/releases/v5.8.2/css/all.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-x-content-type-options-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> Response should include &#39;x-content-type-options&#39; header. <a href="#hint-x-content-type-options-4" class="hint-link" title="x-content-type-options: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/webfonts/fa-solid-900.woff2">
+                        https://use.fontawesome … bfonts/fa-solid-900.woff2
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="sri" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show sri&#39;s result details" role="button">sri: 6 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-sri/#why-is-this-important"
+                title="sri - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-sri/#examples-that-pass-the-hint"
+                title="sri - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-sri-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> Cross-origin resource https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;display=swap needs a &#34;crossorigin&#34; attribute to be eligible for integrity validation <a href="#hint-sri-1" class="hint-link" title="sri: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link href=&#34;https://fonts.googleapis.com/css?family=Montserrat:400,700,900&amp;amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-sri-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> Cross-origin resource &lt;a href=&#34;https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2&#34;&gt;https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2&lt;/a&gt; needs a &#34;crossorigin&#34; attribute to be eligible for integrity validation <a href="#hint-sri-2" class="hint-link" title="sri: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; src=&#34;https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-sri-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> Cross-origin resource &lt;a href=&#34;https://use.fontawesome.com/releases/v5.8.2/css/all.css&#34;&gt;https://use.fontawesome.com/releases/v5.8.2/css/all.css&lt;/a&gt; needs a &#34;crossorigin&#34; attribute to be eligible for integrity validation <a href="#hint-sri-3" class="hint-link" title="sri: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link rel=&#34;stylesheet&#34; href=&#34;https://use.fontawesome.com/releases/v5.8.2/css/all.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-sri-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> Cross-origin resource &lt;a href=&#34;https://translate.googleapis.com/translate_static/css/translateelement.css&#34;&gt;https://translate.googleapis.com/translate_static/css/translateelement.css&lt;/a&gt; needs a &#34;crossorigin&#34; attribute to be eligible for integrity validation <a href="#hint-sri-4" class="hint-link" title="sri: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link type=&#34;text/css&#34; rel=&#34;stylesheet&#34; charset=&#34;UTF-8&#34; href=&#34;https://translate.googleapis.com/translate_static/css/translateelement.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-sri-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> Cross-origin resource &lt;a href=&#34;https://translate.googleapis.com/translate_static/js/element/main.js&#34;&gt;https://translate.googleapis.com/translate_static/js/element/main.js&lt;/a&gt; needs a &#34;crossorigin&#34; attribute to be eligible for integrity validation <a href="#hint-sri-5" class="hint-link" title="sri: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/translate_static/js/element/main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-sri-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> Cross-origin resource &lt;a href=&#34;https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js&#34;&gt;https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js&lt;/a&gt; needs a &#34;crossorigin&#34; attribute to be eligible for integrity validation <a href="#hint-sri-6" class="hint-link" title="sri: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="strict-transport-security" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show strict-transport-security&#39;s result details" role="button">strict-transport-security: 10 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-strict-transport-security/#why-is-this-important"
+                title="strict-transport-security - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-strict-transport-security/#examples-that-pass-the-hint"
+                title="strict-transport-security - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-1" class="hint-link" title="strict-transport-security: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2">
+                        https://translate.google … ogleTranslateElementInit2
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; src=&#34;https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-2">
+                    <span class="rule-result--details__hint-number">hint #2:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-2" class="hint-link" title="strict-transport-security: hint #2"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+                        https://use.fontawesome … leases/v5.8.2/css/all.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link rel=&#34;stylesheet&#34; href=&#34;https://use.fontawesome.com/releases/v5.8.2/css/all.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-3">
+                    <span class="rule-result--details__hint-number">hint #3:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-3" class="hint-link" title="strict-transport-security: hint #3"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+                        https://translate.googlea … translateelement.css
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;link type=&#34;text/css&#34; rel=&#34;stylesheet&#34; charset=&#34;UTF-8&#34; href=&#34;https://translate.googleapis.com/translate_static/css/translateelement.css&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-4">
+                    <span class="rule-result--details__hint-number">hint #4:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-4" class="hint-link" title="strict-transport-security: hint #4"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_static/js/element/main.js">
+                        https://translate.googlea … static/js/element/main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/translate_static/js/element/main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-5">
+                    <span class="rule-result--details__hint-number">hint #5:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-5" class="hint-link" title="strict-transport-security: hint #5"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js">
+                        https://translate.googlea … element/element_main.js
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;script type=&#34;text/javascript&#34; charset=&#34;UTF-8&#34; src=&#34;https://translate.googleapis.com/element/TE_20190916_00/e/js/element/element_main.js&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-6">
+                    <span class="rule-result--details__hint-number">hint #6:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-6" class="hint-link" title="strict-transport-security: hint #6"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://use.fontawesome.com/releases/v5.8.2/webfonts/fa-solid-900.woff2">
+                        https://use.fontawesome … bfonts/fa-solid-900.woff2
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-7">
+                    <span class="rule-result--details__hint-number">hint #7:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-7" class="hint-link" title="strict-transport-security: hint #7"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://translate.googleapis.com/translate_a/l?client=te&amp;alpha=true&amp;hl=en&amp;cb=_callbacks____0k38z5rkm">
+                        https://translate.googlea … callbacks____0k38z5rkm
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-8">
+                    <span class="rule-result--details__hint-number">hint #8:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-8" class="hint-link" title="strict-transport-security: hint #8"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/product/1x/translate_24dp.png">
+                        https://www.gstatic.com … 1x/translate_24dp.png
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;img src=&#34;https://www.gstatic.com/images/branding/product/1x/translate_24dp.png&#34; width=&#34;20&#34; height=&#34;20&#34; alt=&#34;Google Translate&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-9">
+                    <span class="rule-result--details__hint-number">hint #9:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-9" class="hint-link" title="strict-transport-security: hint #9"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/product/2x/translate_24dp.png">
+                        https://www.gstatic.com … 2x/translate_24dp.png
+                    </a>
+                </p>
+                
+                
+            </div>
+            
+        
+            <div class="rule-result--details__body">
+                <p id="hint-strict-transport-security-10">
+                    <span class="rule-result--details__hint-number">hint #10:</span> &#39;strict-transport-security&#39; header was not specified <a href="#hint-strict-transport-security-10" class="hint-link" title="strict-transport-security: hint #10"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png">
+                        https://www.gstatic.com … glelogo_color_42x16dp.png
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;img src=&#34;https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_42x16dp.png&#34; width=&#34;37px&#34; height=&#34;14px&#34; style=&#34;padding-right: 3px&#34; alt=&#34;Google Translate&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+            <details open class="rule-result--details" id="disown-opener" aria-expanded="true" role="group">
+    <summary class="rule-title" title="show disown-opener&#39;s result details" role="button">disown-opener: 1 hints</summary>
+    <div class="rule-content">
+        
+        <div class="rule-doc-buttons">
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-disown-opener/#why-is-this-important"
+                title="disown-opener - Why is this important">
+                Why is this important <span class="rule-doc-icon"></span>
+            </a>
+
+            <a class="rule-doc-button" rel="noopener noreferrer" target="_blank" href="https://webhint.io/docs/user-guide/hints/hint-disown-opener/#examples-that-pass-the-hint"
+                title="disown-opener - How to fix it">
+                How to fix it <span class="rule-doc-icon"></span>
+            </a>
+        </div>
+        
+        
+            <div class="rule-result--details__body">
+                <p id="hint-disown-opener-1">
+                    <span class="rule-result--details__hint-number">hint #1:</span> &#39;&lt;a class=&#34;goog-logo-link&#34; href=&#34;https://translat … -right: 3px&#34; alt=&#34;Google Translate&#34;&gt;Translate&lt;/a&gt;&#39; should have &#39;rel&#39; attribute value include &#39;noopener&#39; and &#39;noreferrer&#39; keywords. <a href="#hint-disown-opener-1" class="hint-link" title="disown-opener: hint #1"></a>
+                </p>
+                
+                <p>
+                    <a class="rule-result--details__hint-link" target="_blank" rel="noopener noreferrer" href="http://localhost:3000/">
+                        http://localhost:3000/
+                    </a>
+                </p>
+                
+                
+                <div class="rule-result__code">
+                    <code class="">&lt;a class=&#34;goog-logo-link&#34; href=&#34;https://translate.google.com&#34; target=&#34;_blank&#34;&gt;</code>
+                </div>
+                
+            </div>
+            
+        
+    </div>
+</details>
+
+        
+    
+</section>
+
+                
+            </div>
+        </div>
+    </section>
+    
+</div>
+
+    <a href="#main" class="anchor-top" hidden aria-label="back to top">top</a>
+
+    <script src="js/highlight/highlight.min.js"></script>
+    <script src="js/highlight/languages/xml.min.js"></script>
+    <script src="js/polyfills/details.js"></script>
+    <script src="js/anchor-top.js"></script>
+
+    <script src="js/scan/_locales/en/messages.js"></script>
+    <script src="js/scan/get-message.js"></script>
+    <script src="js/scan/scanner-common.js"></script>
+</body>
+</html>
