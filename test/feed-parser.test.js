@@ -50,7 +50,7 @@ test('Passing an IP address instead of a URI should throw an error', 
   await expect(feedParser('128.190.222.135')).rejects.toThrow('error');
 });
 
-test.skip('Passing an invalid RSS category feed should return an empty array', async () => {
+test('Passing an invalid RSS category feed should return an empty array', async () => {
   const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
   nock('https://test321.blogspot.com')
     .get('/feeds/posts/default/-/open-source?alt=rss')
@@ -62,7 +62,7 @@ test.skip('Passing an invalid RSS category feed should return an empty array', a
   expect(data.length).toBe(0);
 });
 
-test.skip('Passing a valid RSS category feed should return an array that is not empty', async () => {
+test('Passing a valid RSS category feed should return an array that is not empty', async () => {
   const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
   nock('https://test321.blogspot.com')
     .get('/feeds/posts/default/-/open-source?alt=rss')
