@@ -37,7 +37,6 @@ test('Passing a valid URI, but not a feed URI should error', async () => {
   await expect(feedParser('https://google.ca')).rejects.toThrow('Not a feed');
 });
 
-
 test('Passing an IP address instead of a URI should throw an error', async () => {
   await expect(feedParser('128.190.222.135')).rejects.toThrow('error');
 });
@@ -61,36 +60,36 @@ test('Passing a valid RSS category feed should return an array that is not empty
   expect(data.length > 0).toBe(true);
 });
 
-const assertValidFeed = (feed) => {
-  expect(Array.isArray(feed)).toBeTruthy();
-  expect(feed.length > 0).toBeTruthy();
-};
+test('Non existent feed failure case: 404', async () => {
+  expect.assertions(1);
 
+  nock('http://doesnotexist.com')
+    .get('/no/such/feed')
+    .reply(404, 'Not Found');
 
-test('Non existant feed failure case.', async () => {
   try {
-    await feedParser('http://doesnotexists___.com');
+    await feedParser('http://doesnotexist.com/no/such/feed');
   } catch (err) {
-    expect(err.code).toBe('ENOTFOUND');
-  }
-});
-test('Not a feed failure case', async () => {
-  try {
-    const nonFeedURL = 'https://kerleysblog.blogspot.com';
-    await feedParser(nonFeedURL);
-  } catch (err) {
-    expect(err.code).toBe('Not a feed');
+    expect(err).toBeTruthy();
   }
 });
 
-test('Blogger feed success case', async () => {
-  const validFeed = 'https://kerleysblog.blogspot.com/feeds/posts/default?alt=rss';
-  const feed = await feedParser(validFeed);
-  assertValidFeed(feed);
-});
+test('Not a feed failure case: html vs. xml', async () => {
+  expect.assertions(1);
 
-test('Wordpress site feed success case', async () => {
-  const validFeed = 'https://medium.com/feed/@Medium';
-  const feed = await feedParser(validFeed);
-  assertValidFeed(feed);
+  nock('http://doesnotexist.com')
+    .get('/html/response')
+    .reply(
+      200,
+      '<!DOCTYPE html><html><head><title>HTML Page</title></head><body>HTML, NOT XML</body></html>',
+      {
+        'Content-Type': 'text/html',
+      }
+    );
+
+  try {
+    await feedParser('http://doesnotexist.com/html/response');
+  } catch (err) {
+    expect(err).toBeTruthy();
+  }
 });
