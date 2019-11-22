@@ -5,9 +5,9 @@ services:
     depends_on:
       - redis
     ports:
-      - "3000:3000"
+      - '3000:3000'
     network_mode: host
   redis:
     image: redis:latest
     ports:
-      - "6379:6379"
+      - '6379:6379'

@@ -1,5 +1,42 @@
 language: node_js
 node_js:
-  - "stable"
+  - lts/*
 services:
   - redis-server
+os:
+  - 'linux'
+  - 'osx'
+  - 'windows'
+cache:
+  directories:
+    # On OSX, cache homebrew - https://stackoverflow.com/questions/39930171/cache-brew-builds-with-travis-ci?answertab=active#tab-top
+    - $HOME/Library/Caches/Homebrew
+    - /usr/local/Homebrew
+before_cache:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cleanup; fi
+  # Cache only .git files under "/usr/local/Homebrew" so "brew update" does not take 5min every build
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then find /usr/local/Homebrew \! -regex ".+\.git.+" -delete; fi
+before_install:
+  # When we switch to Prettier, this CRLF fixup should go away
+  - cd ../..
+  - mv $TRAVIS_REPO_SLUG _old
+  - git config --global core.autocrlf false
+  - git clone --depth=50 _old $TRAVIS_REPO_SLUG
+  - cd $TRAVIS_REPO_SLUG
+  # Deal with Redis install per-platform
+  - echo $TRAVIS_OS_NAME
+  - echo $PATH
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      brew update && brew install redis && brew services start redis
+    fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      redis-server --daemonize yes
+      redis-cli info
+    else
+      choco install redis-64
+      redis-server --service-install
+      redis-server --service-start
+      redis-cli info
+    fi
