@@ -226,113 +226,43 @@ article section p {
   margin-bottom: 70px;
 }
 .search {
-  position: absolute;
-  margin: auto;
-  top: -250px;
-  bottom: 0;
-  left: 70px;
-  width: 40px;
-  height: 40px;
-  background: var(--secondary);
-  border-radius: 50%;
-  transition: all 1s;
-  z-index: 4;
-  box-shadow: 0 0 25px 0 var(--box-shadow-color);
+  width: 100%;
+  position: relative;
+  display: flex;
 }
 
-.search:hover {
-  cursor: pointer;
-}
-
-.search::before {
-  content: '';
-  position: absolute;
-  margin: auto;
-  top: 15px;
-  right: 0;
-  bottom: 0;
-  left: 11px;
-  width: 7px;
-  height: 2px;
-  background: white;
-  transform: rotate(45deg);
-  transition: all 0.5s;
-}
-
-.search::after {
-  content: '';
-  position: absolute;
-  margin: auto;
-  top: -2px;
-  right: 0;
-  bottom: 0;
-  left: -2px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid white;
-  transition: all 0.5s;
-}
-
-input.srch {
-  font-family: var(--font-main);
-  position: absolute;
-  margin: auto;
-  top: -250px;
-  bottom: 0;
-  left: 20px;
-  width: 30px;
-  height: 30px;
+.searchTerm {
+  width: 100%;
+  border: 3px solid #da291c;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
   outline: none;
-  border: none;
-  background: var(--nav-btn-bgcolor);
-  color: var(--content-font-color);
-  text-shadow: 0 0 10px var(--nav-btn-bgcolor);
-  padding: 0 80px 0 20px;
-  border-radius: 30px;
-  box-shadow: 0 0 3px 0 var(--secondary);
-  transition: all 1s;
-  opacity: 0;
-  z-index: 5;
-  font-weight: bolder;
-  letter-spacing: 0.1em;
+  color: #9dbfaf;
+  font-size: 12px;
 }
 
-input.srch:hover {
+.searchTerm:focus {
+  color: #da291c;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #da291c;
+  background: #da291c;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
   cursor: pointer;
+  font-size: 16px;
 }
 
-input.srch:focus {
-  width: 60px;
-  opacity: 1;
-  cursor: text;
-}
-
-input.srch:focus ~ .search {
-  left: 150px;
-  background: var(--srch-after);
-  z-index: 6;
-}
-
-input.srch:focus ~ .search::before {
-  top: 0;
-  left: 0;
-  width: 15px;
-}
-
-input.srch:focus ~ .search::after {
-  top: 0;
-  left: 0;
-  width: 15px;
-  height: 2px;
-  border: none;
-  background: var(--main-bg);
-  border-radius: 0%;
-  transform: rotate(-45deg);
-}
-
-input.srch::placeholder {
-  color: var(--content-font-color);
-  opacity: 0.5;
-  font-weight: bolder;
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 2px;
 }
