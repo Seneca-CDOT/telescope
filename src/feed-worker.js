@@ -20,8 +20,6 @@ exports.workerCallback = async function(job) {
         processedPosts.push(processedPost);
         extractUrls.extract(post.description);
       });
-      // We can pass these objects into another queue, For now just printing to the console.
-      console.log(processedPosts);
       return Promise.resolve(processedPosts);
     }
     return Promise.reject(new Error(`Failed to extract posts from url: ${url}`));
