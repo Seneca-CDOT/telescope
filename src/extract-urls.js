@@ -6,7 +6,5 @@ const getUrls = require('get-urls');
 exports.extract = function(htmlData) {
   const urls = getUrls(htmlData);
   const arrayOfUrls = Array.from(urls);
-  console.log('Printing URLs from blog feed data');
-  console.log(arrayOfUrls);
   return arrayOfUrls;
 };
