@@ -122,6 +122,29 @@ If you are doing any work that relates to the `package.json` file, you need to d
 
 The logger.js module, in the lib directory under the src folder of the repository, exports a logger instance that can be imported in other files and used to log important events in production as well as help in debugging during development. Refer to [logging.md](logging.md) for more details.
 
+## Reports
+
+There are a number of reports that get generated, and can aid in developer understanding.
+
+The first is test coverage information. To generate the report, run the tests:
+
+```
+npm test
+```
+
+After the tests complete, a text summary report is printed. However, a much more
+useful, dynamic HTML version is created in `coverage/lcov-report/index.html`.
+
+The second report is for [Webhint](https://webhint.io/) information about the frontend.
+To generate this report:
+
+```
+npm run webhint
+```
+
+This will start the web server and run webhint in a browser. A text summary will
+be printed to the console, and a dynamic HTML version created in `hint-report/http-localhost-3000/index.html`.
+
 ## MVP Features
 
 These features are the basic elements of what we are trying to accomplish, and are explained in further detail in [overview.md](https://github.com/Seneca-CDOT/telescope/blob/master/docs/overview.md#mvp-features):
