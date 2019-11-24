@@ -1,3 +1,22 @@
 {
-  "extends": ["web-recommended"]
+  "extends": ["web-recommended"],
+  "formatters": ["html", "stylish"],
+  "ignoredUrls": [
+    {
+      "domain": "use.fontawesome.com",
+      "hints": ["*"]
+    },
+    {
+      "domain": ".*\\.googleapis\\.com/.*",
+      "hints": ["*"]
+    },
+    {
+      "domain": ".*\\.gstatic\\.com/.*",
+      "hints": ["*"]
+    },
+    {
+      "domain": ".*\\.google\\.com/.*",
+      "hints": ["*"]
+    }
+  ]
 }

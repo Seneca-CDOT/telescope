@@ -29,4 +29,4 @@ yarn-error.log*
 *.o
 
 # web-hint report
-hint-report/*
+hint-report/
