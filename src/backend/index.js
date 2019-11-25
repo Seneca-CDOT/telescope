@@ -5,7 +5,9 @@
 const fs = require('fs');
 const feedQueue = require('./feed/feed-queue');
 const feedWorker = require('./feed/feed-worker');
+const { logger } = require('./utils/logger');
 
+const log = logger.child({ module: 'basic-queue' });
 // Start the web server
 require('./web/server');
 
@@ -31,7 +33,7 @@ function processFeedUrls(lines) {
  */
 async function enqueueFeedJobs(feedJobs) {
   feedJobs.forEach(async feedJob => {
-    console.log(`Enqueuing Job - ${feedJob.url}`);
+    log.info(`Enqueuing Job - ${feedJob.url}`);
     await feedQueue.add(feedJob, {
       attempts: 8,
       backoff: {
@@ -49,7 +51,7 @@ async function enqueueFeedJobs(feedJobs) {
  */
 fs.readFile('feeds.txt', 'utf8', (err, lines) => {
   if (err) {
-    console.error('unable to read initial list of feeds', err.message);
+    log.error('unable to read initial list of feeds', err.message);
     process.exit(-1);
     return;
   }
@@ -62,6 +64,6 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
       feedWorker.start();
     })
     .catch(error => {
-      console.log(error);
+      log.error(error);
     });
 });
