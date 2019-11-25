@@ -71,7 +71,7 @@ nav a:visited {
   display: inline-block;
   width: 150px;
   background: var(--nav-btn-bgcolor);
-  font-size: 1.25em;
+  font-size: 1em;
   box-shadow: -5px 0px 0px 0px var(--secondary);
   border: solid 2px var(--secondary);
   cursor: pointer;
@@ -110,7 +110,7 @@ article {
 }
 
 article header {
-  grid-area: 'header';
+  grid-area: header;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -118,37 +118,113 @@ article header {
   background: var(--main-bg);
   position: sticky;
   top: 0px;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 article header h1 {
   font-weight: 900;
-  font-size: 30px;
+  font-size: 25px;
   box-shadow: 0px 5px 0px 0px var(--secondary);
+  display: block;
+  overflow-x: hidden;
+  max-width: 75%;
 }
 
-article section {
+article header h1 a:link,
+article header h1 a:visited {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--content-font-color);
+  text-decoration: none;
+}
+
+.article-details {
+  flex-basis: 25%;
+  flex-grow: 0;
+  text-align: right;
+  min-width: 200px;
+}
+
+article .post-content {
   grid-area: article-content;
   font-weight: 400;
   text-align: justify;
 }
 
-article section h2,
-article section h3,
-article section h4,
-article section h5 {
+article .post-content h2,
+article .post-content h3,
+article .post-content h4,
+article .post-content h5 {
   text-align: center;
   margin: 25px;
 }
 
-article section p {
+article .post-content p {
   font-size: 17px;
   line-height: 25px;
-  text-indent: 30px;
   margin-top: 25px;
 }
 
-.article-details {
-  text-align: right;
+.post-content img {
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+  max-width: 100%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.post-content ol,
+.post-content ul {
+  margin-left: 50px;
+}
+
+.post-author a:link,
+.post-author a:visited {
+  color: var(--content-font-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.modal-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: var(--box-shadow-color);
+  z-index: 20;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-panel {
+  width: 800px;
+  height: 500px;
+  padding: 10px;
+  background: var(--main-bg);
+  box-shadow: 0px 5px 5px var(--box-shadow-color);
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 100px auto;
+  grid-template-areas: 'title' 'content';
+  font-family: var(--font-main);
+  text-align: center;
+}
+
+.modal-panel h1 {
+  grid-area: title;
+}
+
+.modal-panel section {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  overflow-y: scroll;
 }
 
 /* RESPONSIVE QUERIES */
@@ -171,6 +247,7 @@ article section p {
   .navigation-adaptive {
     flex-direction: row;
     justify-content: space-between;
+    box-shadow: none;
   }
 
   #main-logo {
@@ -208,9 +285,43 @@ article section p {
     font-size: 1.75em;
   }
 
-  article section {
+  article .post-content {
     margin-right: 0px;
     margin-left: 0px;
+  }
+
+  article header {
+    display: block;
+    max-width: 100%;
+  }
+
+  article header h1 a {
+    height: 20px;
+    display: block;
+    font-size: 20px;
+    text-align: center;
+    text-overflow: ellipsis;
+    padding-bottom: 5px;
+  }
+
+  article header h1 {
+    max-width: 100%;
+    box-shadow: 0px 3px 0px 0px var(--secondary);
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .post-author {
+    float: left;
+  }
+
+  .post-date {
+    float: right;
+  }
+
+  .article-details {
+    display: block;
+    text-align: center;
   }
 
   .content {
