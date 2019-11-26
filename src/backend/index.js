@@ -3,23 +3,14 @@
  */
 
 const fs = require('fs');
-<<<<<<< HEAD:src/backend/index.js
-const { logger } = require('./utils/logger');
-const feedQueue = require('./feed/queue');
-const feedWorker = require('./feed/worker');
-=======
 const feedQueue = require('./feed-queue');
 const feedWorker = require('./feed-worker');
 const parentLogger = require('../src/lib/logger');
 
 const log = parentLogger.child({ module: 'module-name' });
->>>>>>> Issue-173: Remade Server Graceful Shutdown:src/index.js
 
 const log = logger.child({ module: 'basic-queue' });
 // Start the web server
-<<<<<<< HEAD:src/backend/index.js
-require('./web/server');
-=======
 const server = require('./backend/web/server');
 
 /**
@@ -43,7 +34,6 @@ function shutDown() {
     process.exit(1);
   }, 10000);
 }
->>>>>>> Issue-173: Remade Server Graceful Shutdown:src/index.js
 
 /**
  * Process a string into a list of Objects, each with a feed URL
