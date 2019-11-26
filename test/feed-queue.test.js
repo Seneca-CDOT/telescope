@@ -6,5 +6,6 @@ afterAll(() => feedQueue.close());
 
 /**
  * feedQueue.add() returns a promise which is usually true unless the Redis server is offline.
-*/
-test('able to add a job to the feed queue', async () => feedQueue.add('http://ajhooper.blogspot.com/feeds/posts/default'));
+ */
+test('able to add a job to the feed queue', async () =>
+  feedQueue.add('http://ajhooper.blogspot.com/feeds/posts/default'));
