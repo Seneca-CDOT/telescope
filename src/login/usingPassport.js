@@ -26,8 +26,7 @@ passport.use(
       callbackURL: OIDC_REDIRECT_URI,
       passReqToCallback: true,
     },
-    // This function sends the following: issuer, user ID, access Token,refresh Token and other parameteres.
-    // returns the profile asscociated with the above credentials
+    // This function returns 'issuer:' issuer, 'userId:' userId, 'accessToken:' accessToken, 'refreshToken:' refreshToken, 'params:' params
     (req, issuer, userId, profile, accessToken, refreshToken, params, callback) => {
       req.session.accessToken = accessToken;
       return callback(null, profile);
