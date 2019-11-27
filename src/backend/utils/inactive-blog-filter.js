@@ -4,7 +4,7 @@
  */
 require('../lib/config.js');
 const fs = require('fs');
-const feedParser = require('../feed/feed-parser');
+const feedParser = require('../feed/parser');
 const { logger } = require('./logger');
 
 const log = logger.child({ module: 'inactive-blog-filter' });

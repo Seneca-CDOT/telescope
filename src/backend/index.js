@@ -3,9 +3,9 @@
  */
 
 const fs = require('fs');
-const feedQueue = require('./feed/feed-queue');
-const feedWorker = require('./feed/feed-worker');
 const { logger } = require('./utils/logger');
+const feedQueue = require('./feed/queue');
+const feedWorker = require('./feed/worker');
 
 const log = logger.child({ module: 'basic-queue' });
 // Start the web server
