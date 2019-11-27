@@ -1,4 +1,4 @@
-const storage = require('../src/storage');
+const storage = require('../src/backend/utils/storage');
 
 describe('Tests for storage', () => {
   const feed = { name: 'James Smith', url: 'http://seneca.co/jsmith' };

@@ -1,7 +1,7 @@
 const { setQueues } = require('bull-board');
 
-require('./config');
-const { createQueue } = require('./lib/queue');
+require('../lib/config');
+const { createQueue } = require('../lib/queue');
 
 // Create a Bull Redis Queue
 const queue = createQueue('feed-queue');

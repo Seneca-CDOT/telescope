@@ -1,6 +1,6 @@
 const feedQueue = require('./feed-queue');
 const feedParser = require('./feed-parser');
-const extractUrls = require('./extract-urls');
+const extractUrls = require('../utils/extract-urls');
 
 exports.workerCallback = async function(job) {
   const { url } = job.data;

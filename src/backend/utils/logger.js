@@ -2,7 +2,7 @@ const pino = require('pino');
 const expressPino = require('express-pino-logger');
 const os = require('os');
 
-require('../config');
+require('../lib/config');
 
 let logger;
 

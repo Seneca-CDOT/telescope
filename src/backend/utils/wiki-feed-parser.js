@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
-require('./config.js');
+require('../lib/config');
 
 const { JSDOM } = jsdom;
 

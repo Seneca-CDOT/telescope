@@ -1,6 +1,6 @@
 const Bull = require('bull');
 const { Redis, redisUrl } = require('./redis');
-const { logger } = require('./logger');
+const { logger } = require('../utils/logger');
 
 /**
  * Shared redis connections for pub/sub, see:

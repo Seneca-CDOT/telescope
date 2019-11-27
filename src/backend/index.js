@@ -3,11 +3,11 @@
  */
 
 const fs = require('fs');
-const feedQueue = require('./feed-queue');
-const feedWorker = require('./feed-worker');
+const feedQueue = require('./feed/feed-queue');
+const feedWorker = require('./feed/feed-worker');
 
 // Start the web server
-require('./backend/web/server');
+require('./web/server');
 
 /**
  * Process a string into a list of Objects, each with a feed URL

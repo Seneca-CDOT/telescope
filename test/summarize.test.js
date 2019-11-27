@@ -1,4 +1,4 @@
-const summarize = require('../src/summarize');
+const summarize = require('../src/backend/utils/summarize');
 
 describe('summarize tests...', () => {
   const inputData =
