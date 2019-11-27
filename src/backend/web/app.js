@@ -1,7 +1,7 @@
 const express = require('express');
 const healthcheck = require('express-healthcheck');
 
-const logger = require('../../lib/logger');
+const logger = require('../utils/logger');
 const router = require('./routes');
 
 const app = express();

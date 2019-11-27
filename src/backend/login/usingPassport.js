@@ -1,6 +1,6 @@
 const passport = require('passport');
 const OneLoginStrategy = require('passport-openid').Strategy;
-require('../config');
+require('../lib/config');
 /* Set environmental variables for these
 https://www.onelogin.com/ to create your account.
 Tutorial is here: https://developers.onelogin.com/quickstart/authentication/nodejs

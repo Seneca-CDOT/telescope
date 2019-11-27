@@ -1,5 +1,5 @@
 const fixtures = require('./fixtures');
-const feedParser = require('../src/feed-parser');
+const feedParser = require('../src/backend/feed/feed-parser');
 
 /**
  * feedParser(feed) async function returning an object if the feed URI is correct and there are

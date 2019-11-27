@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const analyzeText = require('../src/analysis/basic_analysis.js');
+const analyzeText = require('../src/backend/utils/basic_analysis');
 
 const text1 = 'Hello, world';
 const text2 = 'Navigate to the root directory of telescope';

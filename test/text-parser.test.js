@@ -1,4 +1,4 @@
-const textParser = require('../src/text-parser');
+const textParser = require('../src/backend/utils/text-parser');
 
 /**
  * textParser.run() will convert the html to text plain

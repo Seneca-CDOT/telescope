@@ -2,9 +2,9 @@
  * Returns whether or not the blog should be marked as inactive
  * Criteria for filtering (in milliseconds) is based on filters.json under blog.inactive
  */
-require('./config.js');
+require('../lib/config.js');
 const fs = require('fs');
-const feedParser = require('./feed-parser');
+const feedParser = require('../feed/feed-parser');
 
 /**
  * Condition for passing redlist some() check

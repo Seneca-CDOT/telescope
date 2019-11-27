@@ -1,4 +1,4 @@
-const feedQueue = require('../src/feed-queue');
+const feedQueue = require('../src/backend/feed/feed-queue');
 
 // Bull will hold the redis connection open unless we shutdown the queue,
 // which will block jest from completing.  After all tests are done, close it.

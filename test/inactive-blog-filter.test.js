@@ -1,4 +1,4 @@
-const inactiveFilter = require('../src/inactive-blog-filter');
+const inactiveFilter = require('../src/backend/utils/inactive-blog-filter');
 const redlist = require('../feeds-redlist.json');
 
 describe('Redlisted feed checking', () => {

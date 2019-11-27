@@ -1,4 +1,4 @@
-const emailsender = require('../src/email-sender');
+const emailsender = require('../src/backend/utils/email-sender');
 
 // This tests sendMessage from /src/email-sender.js:
 // It gives a test email and recipient to the sendMessage function

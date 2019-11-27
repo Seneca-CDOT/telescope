@@ -1,4 +1,4 @@
-require('./config');
+require('../lib/config');
 const parseGithubUrl = require('parse-github-url');
 const fetch = require('node-fetch');
 
