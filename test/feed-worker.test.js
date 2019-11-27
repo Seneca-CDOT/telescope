@@ -1,4 +1,4 @@
-const feedWorker = require('../src/backend/feed/feed-worker');
+const feedWorker = require('../src/backend/feed/worker');
 
 describe('testing the worker callback function', () => {
   const job1 = {
