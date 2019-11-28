@@ -23,7 +23,7 @@
     "pretest": "npm run lint",
     "test": "npm run jest",
     "jest": "cross-env MOCK_REDIS=1 jest",
-    "jest-watch":"cross-env MOCK_REDIS=1 jest --watch",
+    "jest-watch": "cross-env MOCK_REDIS=1 jest --watch",
     "start": "node src",
     "debug-server": "nodemon server.js"
   },

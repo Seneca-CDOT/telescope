@@ -111,7 +111,7 @@ article {
 }
 
 article header {
-  grid-area: 'header';
+  grid-area: header;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -119,12 +119,28 @@ article header {
   background: var(--main-bg);
   position: sticky;
   top: 0px;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 article header h1 {
   font-weight: 900;
-  font-size: 30px;
+  font-size: 25px;
   box-shadow: 0px 5px 0px 0px var(--secondary);
+  display: block;
+  overflow-x: hidden;
+  max-width: 75%;
+}
+
+article header h1 a:link,
+article header h1 a:visited {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--content-font-color);
+  text-decoration: none;
 }
 
 article section {
@@ -150,6 +166,53 @@ article section p {
 
 .article-details {
   text-align: right;
+}
+
+.modal-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: var(--box-shadow-color);
+  z-index: 20;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-panel {
+  width: 800px;
+  height: 500px;
+  padding: 10px;
+  background: var(--main-bg);
+  box-shadow: 0px 5px 5px var(--box-shadow-color);
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 100px auto;
+  grid-template-areas: 'title' 'content';
+  font-family: var(--font-main);
+  text-align: center;
+}
+
+.modal-panel h1 {
+  grid-area: title;
+}
+
+.modal-panel section {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  overflow-y: scroll;
+}
+
+/* States */
+.mobile-menu-open {
+  transform: translateX(-200px);
+  box-shadow: 0px 0px 100px var(--box-shadow-color);
+}
+
+.modal-open {
+  display: flex;
 }
 
 /* RESPONSIVE QUERIES */
