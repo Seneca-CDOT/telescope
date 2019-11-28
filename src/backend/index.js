@@ -3,17 +3,14 @@
  */
 
 const fs = require('fs');
-const feedQueue = require('./feed-queue');
-const feedWorker = require('./feed-worker');
-const parentLogger = require('../src/lib/logger');
+const feedQueue = require('./feed/queue');
+const feedWorker = require('./feed/worker');
+const parentLogger = require('./utils/logger');
 
 const log = parentLogger.child({ module: 'main' });
 
-const log = parentLogger.child({ module: 'module-name' });
-
-const log = logger.child({ module: 'basic-queue' });
 // Start the web server
-const server = require('./backend/web/server');
+const server = require('./web/server');
 
 /**
  * Stops the Redis Queue, closes all connections gracefuly
@@ -46,7 +43,7 @@ function shutDown() {
     ),
   ])
     .then(() => process.exit(0))
-    .catch(err => log.error(error));
+    .catch(err => log.error(err));
 }
 
 /**
