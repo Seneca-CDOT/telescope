@@ -5,9 +5,9 @@
 const fs = require('fs');
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
-const parentLogger = require('./utils/logger');
+const { logger } = require('./utils/logger');
 
-const log = parentLogger.child({ module: 'main' });
+const log = logger.child({ module: 'main' });
 
 // Start the web server
 const server = require('./web/server');
@@ -27,19 +27,17 @@ function shutDown() {
   // Try to shut down
   Promise.all([
     // Shutdown the queue
-    feedQueue.close().catch(
-      err => log.error('Unable to close feed queue gracefully', err),
-      // Shutdown the web server - we could also use util.promisify if you want
-      new Promise((resolve, reject) =>
-        server.close(err => {
-          if (err) {
-            log.error('Unable to close web server gracefully', err);
-            reject(err);
-          } else {
-            resolve();
-          }
-        })
-      )
+    feedQueue.close().catch(err => log.error('Unable to close feed queue gracefully', err)),
+    // Shutdown the web server - we could also use util.promisify if you want
+    new Promise((resolve, reject) =>
+      server.close(err => {
+        if (err) {
+          log.error('Unable to close web server gracefully', err);
+          reject(err);
+        } else {
+          resolve();
+        }
+      })
     ),
   ])
     .then(() => process.exit(0))
@@ -52,11 +50,9 @@ function shutDown() {
 process.on('SIGTERM', shutDown);
 process.on('SIGINT', shutDown);
 process.on('unhandledRejection', err => {
-  console.log('UNHANDLED REJECTION:  Shutting down...');
-  console.log(err.name, err.message);
-  server.close(() => {
-    process.exit(1);
-  });
+  log.error({ err }, 'UNHANDLED REJECTION:  Shutting down...');
+  log.error({ err }, err.name, err.message);
+  shutDown();
 });
 
 /**
@@ -103,9 +99,6 @@ fs.readFile('feeds.txt', 'utf8', (err, lines) => {
     process.exit(-1);
     return;
   }
-
-  process.on('SIGTERM', shutDown);
-  process.on('SIGINT', shutDown);
 
   // Process this text file into a list of URL jobs, and enqueue for download
   const feedJobs = processFeedUrls(lines);
