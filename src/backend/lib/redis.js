@@ -1,7 +1,7 @@
 require('./config');
 const Redis = require('ioredis');
 const MockRedis = require('ioredis-mock');
-
+const url = require('url');
 const { logger } = require('../utils/logger');
 
 // If you need to set the Redis URL, do it in REDIS_URL
@@ -13,8 +13,16 @@ const useMockRedis = process.env.MOCK_REDIS;
 // RedisConstructor is one of Redis or MockRedis
 const RedisConstructor = useMockRedis ? MockRedis : Redis;
 
-// Export either a real Redis instance, or Mocked.
-const redisInstance = new RedisConstructor(redisUrl);
+function createRedisClient() {
+  try {
+    const { port, host } = url.parse(redisUrl, true);
+    return new RedisConstructor(port, host, { password: process.env.REDIS_PASSWORD });
+  } catch (err) {
+    const message = `Unable to parse port and host from "${redisUrl}"`;
+    logger.error({ err }, message);
+    throw new Error(message);
+  }
+}
 
 // If using MockRedis, shim info() until https://github.com/stipsan/ioredis-mock/issues/841 ships
 if (useMockRedis && typeof MockRedis.prototype.info !== 'function') {
@@ -23,10 +31,8 @@ if (useMockRedis && typeof MockRedis.prototype.info !== 'function') {
 }
 
 module.exports = {
-  // Redis URL to use if using the constructor
-  redisUrl,
   // If callers need to create a new redis instance, they'll use the ctor
-  Redis: RedisConstructor,
+  createRedisClient,
   // Otherwise they can use this shared instance (most should use this)
-  redis: redisInstance,
+  redis: createRedisClient(),
 };

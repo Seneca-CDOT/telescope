@@ -1,13 +1,14 @@
 const Bull = require('bull');
-const { Redis, redisUrl } = require('./redis');
+const { createRedisClient } = require('./redis');
 const { logger } = require('../utils/logger');
 
 /**
  * Shared redis connections for pub/sub, see:
  * https://github.com/OptimalBits/bull/blob/28a2b9aa444d028fc5192c9bbdc9bb5811e77b08/PATTERNS.md#reusing-redis-connections
  */
-const client = new Redis(redisUrl);
-const subscriber = new Redis(redisUrl);
+
+const client = createRedisClient();
+const subscriber = createRedisClient();
 
 /**
  * Create a Queue with the given `name` (String).
@@ -25,7 +26,7 @@ function createQueue(name) {
         case 'subscriber':
           return subscriber;
         default:
-          return new Redis(redisUrl);
+          return createRedisClient();
       }
     },
   })
