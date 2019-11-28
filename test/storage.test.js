@@ -23,8 +23,8 @@ describe('Tests for storage', () => {
     content:
       "I have never done this before, so let's make this short. This post is just a test on how my blog post will look like.",
     text: 'post one text',
-    updated: Date('2009-09-07T22:23:00.544Z'),
-    published: Date('2009-09-07T22:20:00.000Z'),
+    updated: new Date('2009-09-07T22:23:00.544Z'),
+    published: new Date('2009-09-07T22:20:00.000Z'),
     url: 'http://seneca.co/jsmith',
     site: 'wordpress.com',
   };
@@ -37,8 +37,8 @@ describe('Tests for storage', () => {
     content:
       "I have never done this before, so let's make this short. This post is just a test on how my blog post will look like.",
     text: 'post one text2',
-    updated: Date('2008-09-07T22:12:00.544Z'),
-    published: Date('2008-09-07T22:09:00.000Z'),
+    updated: new Date('2008-09-07T22:12:00.544Z'),
+    published: new Date('2008-09-07T22:09:00.000Z'),
     url: 'http://seneca.co/jsmith',
     site: 'wordpress.com',
   };
