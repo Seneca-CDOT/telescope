@@ -1,7 +1,3 @@
-/**
- * Something to get us started, nothing sacred here, everything can change!
- */
-
 const fs = require('fs');
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
@@ -13,9 +9,16 @@ const log = logger.child({ module: 'main' });
 const server = require('./web/server');
 
 /**
- * Stops the Redis Queue, closes all connections gracefuly
+ * Stops the Redis Queue, web server, etc. closing all connections gracefully
  */
+let isShuttingDown = false;
+
 function shutDown() {
+  if (isShuttingDown) {
+    return;
+  }
+
+  isShuttingDown = true;
   log.info('Received kill signal, shutting down gracefully');
 
   // Force shutting down
@@ -26,21 +29,33 @@ function shutDown() {
 
   // Try to shut down
   Promise.all([
-    // Shutdown the queue
-    feedQueue.close().catch(err => log.error('Unable to close feed queue gracefully', err)),
-    // Shutdown the web server - we could also use util.promisify if you want
-    new Promise((resolve, reject) =>
+    // 1. Shutdown the queue
+    feedQueue
+      .close()
+      .then(() => log.info('Feed queue shut down.'))
+      .catch(err => log.error('Unable to close feed queue gracefully', err)),
+    // 2. Shutdown the web server, if necessary
+    new Promise((resolve, reject) => {
+      if (!(server && server.listening)) {
+        log.info('Web server already shut down.');
+        resolve();
+        return;
+      }
       server.close(err => {
         if (err) {
-          log.error('Unable to close web server gracefully', err);
+          log.error('Unable to close web server gracefully', { err });
           reject(err);
         } else {
+          log.info('Web server shut down.');
           resolve();
         }
-      })
-    ),
+      });
+    }),
   ])
-    .then(() => process.exit(0))
+    .then(() => {
+      log.info('Shutting down.');
+      process.exit(0);
+    })
     .catch(err => log.error(err));
 }
 
@@ -50,8 +65,11 @@ function shutDown() {
 process.on('SIGTERM', shutDown);
 process.on('SIGINT', shutDown);
 process.on('unhandledRejection', err => {
-  log.error({ err }, 'UNHANDLED REJECTION:  Shutting down...');
-  log.error({ err }, err.name, err.message);
+  log.error({ err }, 'UNHANDLED REJECTION: Shutting down...');
+  shutDown();
+});
+process.on('uncaughtException', err => {
+  log.error({ err }, 'UNCAUGHT EXCEPTION: Shutting down...');
   shutDown();
 });
 
