@@ -1,9 +1,8 @@
 # Version 3, most current, and recommended compose file version
 # https://docs.docker.com/compose/compose-file/compose-versioning/
-version: "3"
+version: '3'
 
 services:
-
   # First service
   telescope:
     build:
@@ -11,25 +10,21 @@ services:
       dockerfile: Dockerfile
     env_file: .env
     environment:
-      # a place-holder for the variable passed by CLI and with a default value
-      # the passed or default value is the desired command to run `telescope`
-      script: ${script:-debug-server}
+      # a place-holder for the variable passed by CLI with a default value
+      # the passed or default value is a command to run `telescope`
+      - script=${script:-start}
+      # override the .env variable for `REDIS_URL`
+      - REDIS_URL=redis://redis:${REDIS_PORT}
     depends_on:
       - redis
-    # PORT MAPPING IN `host` MODE IS WRONG AND MUST BE CHANGED.
-    network_mode: host
     ports:
-      - "$PORT:$PORT"
-    volumes:
-      # bind-mount current folder to the running image
-      # is needed so that nodemon from container can track changes in local
-      - ./:/telescope
+      - '$PORT:$PORT'
 
   # Second service
   redis:
-    image: redis:$REDIS_VERSION
+    image: redis:latest
     ports:
-      - "$REDIS_PORT:$REDIS_PORT"
+      - '$REDIS_PORT:$REDIS_PORT'
 
   # Third service
   # SSO Identity Provider test service, https://simplesamlphp.org
@@ -41,8 +36,8 @@ services:
     # image owner's blog post https://medium.com/disney-streaming/setup-a-single-sign-on-saml-test-environment-with-docker-and-nodejs-c53fc1a984c9
     image: kristophjunge/test-saml-idp
     ports:
-      # These ports + port 80 (inspected) are pre-defined in the latter image, and we can not use them for telescope
+      # These ports + port 80 are pre-defined in the latter image
       # http port
-      - "8080:8080"
+      - '8080:8080'
       # https port
-      - "8443:8443"
+      - '8443:8443'
