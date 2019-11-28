@@ -21,27 +21,46 @@ const server = require('./backend/web/server');
 function shutDown() {
   log.info('Received kill signal, shutting down gracefully');
 
-  // Close the Redis Queue
-  feedQueue.close();
-
-  // Close server and terminate all connections
-  server.close(() => {
-    log.info('Closed out remaining connections');
-    process.exit(0);
-  });
-
   // Force shutting down
   setTimeout(() => {
     log.error('Could not close connections in time, forcefully shutting down');
     process.exit(1);
   }, 10000);
-}
-<<<<<<< HEAD:src/backend/index.js
-=======
 
+  // Try to shut down
+  Promise.all([
+    // Shutdown the queue
+    feedQueue.close().catch(
+      err => log.error('Unable to close feed queue gracefully', err),
+      // Shutdown the web server - we could also use util.promisify if you want
+      new Promise((resolve, reject) =>
+        server.close(err => {
+          if (err) {
+            log.error('Unable to close web server gracefully', err);
+            reject(err);
+          } else {
+            resolve();
+          }
+        })
+      )
+    ),
+  ])
+    .then(() => process.exit(0))
+    .catch(err => log.error(error));
+}
+
+/**
+ * Shutting Down Logic for most Server Shutdown Cases
+ */
 process.on('SIGTERM', shutDown);
 process.on('SIGINT', shutDown);
->>>>>>> Issue-173: Remade Server Graceful Shutdown:src/index.js
+process.on('unhandledRejection', err => {
+  console.log('UNHANDLED REJECTION:  Shutting down...');
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
+});
 
 /**
  * Process a string into a list of Objects, each with a feed URL
