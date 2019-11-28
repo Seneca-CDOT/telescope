@@ -19,6 +19,7 @@ body {
   --nav-btn-bgcolor: #fdfdfd;
   --content-font-color: #000000;
   --font-main: 'Montserrat', Arial, sans-serif;
+  --srch-after: #da291c;
 }
 
 /* MAIN GRID */
@@ -71,7 +72,7 @@ nav a:visited {
   display: inline-block;
   width: 150px;
   background: var(--nav-btn-bgcolor);
-  font-size: 1em;
+  font-size: 1.25em;
   box-shadow: -5px 0px 0px 0px var(--secondary);
   border: solid 2px var(--secondary);
   cursor: pointer;
@@ -142,13 +143,6 @@ article header h1 a:visited {
   text-decoration: none;
 }
 
-.article-details {
-  flex-basis: 25%;
-  flex-grow: 0;
-  text-align: right;
-  min-width: 200px;
-}
-
 article .post-content {
   grid-area: article-content;
   font-weight: 400;
@@ -166,28 +160,12 @@ article .post-content h5 {
 article .post-content p {
   font-size: 17px;
   line-height: 25px;
+  text-indent: 30px;
   margin-top: 25px;
 }
 
-.post-content img {
-  padding: 30px;
-  background: rgba(0, 0, 0, 0.7);
-  box-sizing: border-box;
-  max-width: 100%;
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-.post-content ol,
-.post-content ul {
-  margin-left: 50px;
-}
-
-.post-author a:link,
-.post-author a:visited {
-  color: var(--content-font-color);
-  text-decoration: none;
-  font-weight: bold;
+.article-details {
+  text-align: right;
 }
 
 .modal-container {
@@ -227,6 +205,16 @@ article .post-content p {
   overflow-y: scroll;
 }
 
+/* States */
+.mobile-menu-open {
+  transform: translateX(-200px);
+  box-shadow: 0px 0px 100px var(--box-shadow-color);
+}
+
+.modal-open {
+  display: flex;
+}
+
 /* RESPONSIVE QUERIES */
 @media only screen and (max-width: 1280px) {
   .content {
@@ -247,7 +235,6 @@ article .post-content p {
   .navigation-adaptive {
     flex-direction: row;
     justify-content: space-between;
-    box-shadow: none;
   }
 
   #main-logo {
@@ -290,42 +277,55 @@ article .post-content p {
     margin-left: 0px;
   }
 
-  article header {
-    display: block;
-    max-width: 100%;
-  }
-
-  article header h1 a {
-    height: 20px;
-    display: block;
-    font-size: 20px;
-    text-align: center;
-    text-overflow: ellipsis;
-    padding-bottom: 5px;
-  }
-
-  article header h1 {
-    max-width: 100%;
-    box-shadow: 0px 3px 0px 0px var(--secondary);
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
-  .post-author {
-    float: left;
-  }
-
-  .post-date {
-    float: right;
-  }
-
-  .article-details {
-    display: block;
-    text-align: center;
-  }
-
   .content {
     padding-right: 20px;
     padding-left: 20px;
   }
+}
+
+/* Search animation and icon CSS */
+.search_container {
+  display: block;
+  margin-bottom: 70px;
+}
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #da291c;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+  font-size: 12px;
+}
+
+.searchTerm:focus {
+  color: #da291c;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #da291c;
+  background: #da291c;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 2px;
 }

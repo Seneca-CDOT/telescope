@@ -7,18 +7,18 @@
     <title>Telescope | Tracking Blogs in Orbit</title>
     <!-- CSS -->
     <link rel="stylesheet" href="./style/main.css" />
-    <!-- JavaScript  -->
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
     <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+    <!-- JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
@@ -29,7 +29,14 @@
         <img id="main-logo" src="./img/logo.svg" alt="Telescope logo" />
 
         <!-- NAV LINKS -->
+
         <nav>
+          <a href="login.html">
+            <button class="nav-button">
+              Login
+            </button>
+          </a>
+
           <a href="#">
             <button class="nav-button">
               Feed
@@ -37,7 +44,7 @@
           </a>
 
           <a href="#">
-            <button class="nav-button modal-button" data-modal="participants">
+            <button id="participants" class="nav-button modal-button" data-modal="participants">
               Participants
             </button>
           </a>
@@ -47,6 +54,18 @@
               Subscribe
             </button>
           </a>
+          <!-- SEARCH CONTAINER -->
+          <div class="search_container">
+            <div class="wrap">
+              <div class="search">
+                <input type="text" class="searchTerm" placeholder="Search" />
+                <button type="submit" class="searchButton">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
           <a>
             <div id="google_translate_element2"></div>
           </a>
@@ -62,110 +81,18 @@
       <div class="content">
         <!-- Dynamically loaded content goes here -->
       </div>
-    </div>
 
-    <div class="modal-container">
-      <div class="modal-panel">
-        <h1>Title</h1>
-        <section>
-          asdasdsa
-        </section>
+      <!-- Structure for modal, hidden by default -->
+      <div class="modal-container">
+        <div class="modal-panel">
+          <h1>Modal</h1>
+          <section></section>
+        </div>
       </div>
     </div>
 
-    <!-- SCRIPTS -->
+    <script src="/scripts/main.js"></script>
 
-    <script>
-      $(() => {
-        getPostsPage(1);
-      });
-
-      function getPostsPage(page = 1) {
-        $('.content').html('loading...');
-
-        $.get(`/dummy_data/posts.json?page=${page}`)
-          .done(postsObject => {
-            const { posts } = postsObject;
-            $('.content').html('');
-            posts.forEach(post => {
-              $('.content').append(`
-                <article>
-                    <header>
-                        <h1><a title="${post.title}" href="${post.url}">${post.title}</a></h1>
-                        <div class="article-details">
-                            <div class="post-author"><a href="${post.site}">${post.author}</a></div>
-                            <div class="post-date">${post.updated}</div>
-                        </div>
-                    </header>
-        
-                    <section class="post-content">
-                        ${post.content}
-                    </section>
-                </article>
-                `);
-            });
-          })
-          .fail(error => {
-            console.error(error);
-            alert(
-              `Something went wrong.\n${error.status} ${error.statusText}\nCheck the log for more info. `
-            );
-            $('.content').html('Error loading Posts');
-          });
-      }
-
-      // Toggle the mobile menu
-      $('#mobile-burger').click(() => {
-        const nav = $('nav');
-
-        nav.css({
-          transform: 'translateX(-200px)',
-          boxShadow: '0px 0px 100px var(--box-shadow-color)',
-        });
-
-        const close = $('#mobile-burger-close');
-
-        close.click(function() {
-          nav.css({
-            transform: 'translateX(0px)',
-            boxShadow: '0px 0px 0px var(--box-shadow-color)',
-          });
-        });
-      });
-
-      // Toggle the participants modal
-      $('.modal-button').click(() => {
-        $.get('/dummy_data/participants.json')
-          .done(data => {
-            showModal({ title: 'Participants', content: data.participants });
-          })
-          .fail(error => {
-            console.error(error);
-            alert(
-              `Something went wrong.\n${error.status} ${error.statusText}\nCheck the log for more info. `
-            );
-          });
-      });
-
-      function showModal(props = { title: 'Modal', content: 'Content' }) {
-        $('.modal-panel h1').html(props.title);
-        $('.modal-panel section').html('');
-
-        props.content.forEach(element => {
-          $('.modal-panel section').append(
-            `<span><a href="${element.url}">${element.name}</a></span>`
-          );
-        });
-
-        $('.modal-container').css({ display: 'flex' });
-
-        $('.modal-container').click(function(e) {
-          if (e.target === this) {
-            $('.modal-container').css({ display: 'none' });
-          }
-        });
-      }
-    </script>
     <!-- Google translate Javascript -->
     <script type="text/javascript">
       function googleTranslateElementInit2() {

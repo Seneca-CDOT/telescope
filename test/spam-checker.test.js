@@ -1,5 +1,5 @@
 const feedparser = require('feedparser-promised');
-const checkForSpam = require('../src/spam-checker');
+const checkForSpam = require('../src/backend/utils/spam-checker');
 
 const url = 'https://telescopetestblog.blogspot.com/feeds/posts/default?alt=rss';
 
