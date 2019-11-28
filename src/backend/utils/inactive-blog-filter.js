@@ -2,9 +2,12 @@
  * Returns whether or not the blog should be marked as inactive
  * Criteria for filtering (in milliseconds) is based on filters.json under blog.inactive
  */
-require('./config.js');
+require('../lib/config.js');
 const fs = require('fs');
-const feedParser = require('./feed-parser');
+const feedParser = require('../feed/parser');
+const { logger } = require('./logger');
+
+const log = logger.child({ module: 'inactive-blog-filter' });
 
 /**
  * Condition for passing redlist some() check
@@ -73,7 +76,7 @@ function update() {
   // Read the feeds list file
   fs.readFile('feeds.txt', 'utf8', (err, lines) => {
     if (err) {
-      console.error('unable to read initial list of feeds, cannot update', err.message);
+      log.error('unable to read initial list of feeds, cannot update', err.message);
       return;
     }
 
@@ -103,7 +106,7 @@ function update() {
         const timeDiff = Math.ceil(dateDiff(recentPostDate) / (1000 * 3600 * 24));
 
         if (timeDiff > process.env.BLOG_INACTIVE_TIME) {
-          console.log(`Blog at: ${feedUrl} is INACTIVE!`);
+          log.info(`Blog at: ${feedUrl} is INACTIVE!`);
 
           redlistUpdate.push({
             url: feedUrl,
@@ -111,7 +114,7 @@ function update() {
           });
         }
       } else {
-        console.log(`Blog at: ${feedUrl} HAS NOTHING TO SHARE!`);
+        log.info(`Blog at: ${feedUrl} HAS NOTHING TO SHARE!`);
 
         redlistUpdate.push({
           url: feedUrl,
@@ -128,11 +131,11 @@ function update() {
 
         fs.writeFile('feeds-redlist.json', rlData, werr => {
           if (werr) {
-            console.error('unable to write to feeds-redlist.json, cannot update', err.message);
+            log.error('unable to write to feeds-redlist.json, cannot update', err.message);
             return;
           }
 
-          console.log('wrote to feeds-redlist.json');
+          log.info('wrote to feeds-redlist.json');
         });
       }
     });

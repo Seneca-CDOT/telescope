@@ -1,4 +1,4 @@
-const sentimentAnalysis = require('../src/sentiment-analysis');
+const sentimentAnalysis = require('../src/backend/utils/sentiment-analysis');
 
 const expected = {
   score: 1,

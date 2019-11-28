@@ -1,4 +1,4 @@
-require('../../config');
+require('../lib/config');
 const app = require('./app.js');
 
 const { logger } = app.get('logger');

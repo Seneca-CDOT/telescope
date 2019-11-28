@@ -27,3 +27,6 @@ yarn-error.log*
 *.exe
 *.obj
 *.o
+
+# web-hint report
+hint-report/
