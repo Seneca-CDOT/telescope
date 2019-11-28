@@ -1,4 +1,4 @@
-const { redis } = require('../lib/redis');
+const { redis } = require('./backend/lib/redis');
 
 // Redis Keys
 const FEED_ID = 'feed_id';
@@ -51,13 +51,13 @@ module.exports = {
         'site',
         post.site
       )
-      .zadd(POSTS, new Date(post.published).getTime(), post.guid) // sort set by published date as scores
+      .zadd(POSTS, post.published.getTime(), post.guid) // sort set by published date as scores
       .exec();
   },
 
   getPosts: (startDate, endDate) =>
     // Get all posts between start and end dates in the sorted set
-    redis.zrangebyscore(POSTS, new Date(startDate).getTime(), new Date(endDate).getTime()),
+    redis.zrangebyscore(POSTS, startDate.getTime(), endDate.getTime()),
 
   getPost: guid => redis.hgetall(guid),
 };
