@@ -4,7 +4,7 @@
 **/coverage/
 **/docs/
 **/node_modules/
-**/node_modules_linux/g
+**/.DS_Store
 **/.dockerignore
 **/.editorconfig
 **/.git
@@ -13,7 +13,6 @@
 **/.travis.yml
 **/CODE-OF-CONDUCT.md
 **/Dockerfile
-**/LICENSE
 **/README.md
 **/docker-compose.yml
 **/env.example
