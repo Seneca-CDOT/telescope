@@ -24,7 +24,14 @@
     "test": "npm run jest",
     "jest": "cross-env MOCK_REDIS=1 jest",
     "jest-watch": "cross-env MOCK_REDIS=1 jest --watch",
+<<<<<<< HEAD
     "start": "node src",
+=======
+    "start": "node src/backend",
+    "server": "node src/backend/web/server",
+    "hint": "hint http://localhost:3000",
+    "webhint": "cross-env PORT=3000 npm-run-all -r -p server hint",
+>>>>>>> 7c934cdf0918232bdf1a6b1aefdf455d7e8e1485
     "debug-server": "nodemon server.js"
   },
   "husky": {
