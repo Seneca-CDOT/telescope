@@ -15,7 +15,7 @@ let logger;
 /*Created a local variable to to hold the value form process.env.LOG_LEVEL.toLowerCase()
  * The if statement will check the verible if the verible is anything other than levels
  * stated within file it will automaticaly set to info.
- * https://getpino.io/#/docs/api?id=api Look for the title ``` level (String) ```
+ * https://getpino.io/#/docs/api?id=level-string Look for the title ``` level (String) ```
  */
 var local_LOG = process.env.LOG_LEVEL.toLowerCase();
 if (local_LOG != 'info') {
