@@ -97,10 +97,10 @@ async function enqueueFeedJobs(feedJobs) {
   feedJobs.forEach(async feedJob => {
     log.info(`Enqueuing Job - ${feedJob.url}`);
     await feedQueue.add(feedJob, {
-      attempts: 8,
+      attempts: process.env.FEED_QUEUE_ATTEMPTS,
       backoff: {
         type: 'exponential',
-        delay: 60 * 1000,
+        delay: process.env.FEED_QUEUE_DELAY,
       },
       removeOnComplete: true,
       removeOnFail: true,
