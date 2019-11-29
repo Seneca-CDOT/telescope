@@ -26,6 +26,8 @@ module.exports = {
 
   getFeed: feedID => redis.hgetall(feedID),
 
+  getFeedsCount: () => redis.scard(FEEDS),
+
   addPost: async post => {
     await redis
       .multi()
@@ -58,6 +60,8 @@ module.exports = {
   getPosts: (startDate, endDate) =>
     // Get all posts between start and end dates in the sorted set
     redis.zrangebyscore(POSTS, startDate.getTime(), endDate.getTime()),
+
+  getPostsCount: () => redis.zcard(POSTS),
 
   getPost: guid => redis.hgetall(guid),
 };

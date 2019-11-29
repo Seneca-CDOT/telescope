@@ -4,6 +4,11 @@ describe('Tests for storage', () => {
   const feed = { name: 'James Smith', url: 'http://seneca.co/jsmith' };
   const feed2 = { name: 'James Smith 2', url: 'http://seneca.co/jsmith/2' };
 
+  it('check that storage is empty', async () => {
+    const result = await storage.getFeedsCount();
+    expect(result).toEqual(0);
+  });
+
   it('inserting a feed returns a feed id', async () => {
     const feedId = await storage.addFeed(feed.name, feed.url);
     expect(typeof feedId).toBe('number');
@@ -13,6 +18,19 @@ describe('Tests for storage', () => {
     const feedId = await storage.addFeed(feed2.name, feed2.url);
     const result = await storage.getFeed(feedId);
     expect(result).toEqual(feed2);
+  });
+
+  it('check feed count', async () => {
+    const result = await storage.getFeedsCount();
+    expect(result).toEqual(2);
+  });
+
+  it('should return ids of all the feeds', async () => {
+    const feedId1 = await storage.addFeed(feed.name, feed.url);
+    const feedId2 = await storage.addFeed(feed2.name, feed2.url);
+    const result = await storage.getFeeds();
+    expect(result).toContain(feedId1.toString());
+    expect(result).toContain(feedId2.toString());
   });
 
   const post = {
@@ -43,6 +61,11 @@ describe('Tests for storage', () => {
     site: 'wordpress.com',
   };
 
+  it('check there is no posts', async () => {
+    const result = await storage.getPostsCount();
+    expect(result).toEqual(0);
+  });
+
   it('should allow retrieving a post by guid after inserting', async () => {
     await storage.addPost(post);
     const result = await storage.getPost(post.guid);
@@ -59,5 +82,10 @@ describe('Tests for storage', () => {
     const result = await storage.getPosts(post2.published, post.published);
     expect(result[0]).toEqual(post2.guid);
     expect(result[1]).toEqual(post.guid);
+  });
+
+  it('check post count', async () => {
+    const result = await storage.getPostsCount();
+    expect(result).toEqual(2);
   });
 });
