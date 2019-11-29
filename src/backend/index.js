@@ -1,3 +1,4 @@
+require('./lib/config.js');
 const fs = require('fs');
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
