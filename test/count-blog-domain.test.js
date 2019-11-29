@@ -1,4 +1,4 @@
-const countBlogDomain = require('../src/count-blog-domain');
+const countBlogDomain = require('../src/backend/utils/count-blog-domain');
 
 const feedUrls = [
   { url: 'https://neilong31.wordpress.com/feed/' },

@@ -1,5 +1,5 @@
-const nock = require('nock');
-const feedParser = require('../src/feed-parser');
+const fixtures = require('./fixtures');
+const feedParser = require('../src/backend/feed/parser');
 
 /**
  * feedParser(feed) async function returning an object if the feed URI is correct and there are
@@ -7,104 +7,55 @@ const feedParser = require('../src/feed-parser');
  */
 
 test('passing a valid Atom feed URI and getting title of first post', async () => {
-  const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source';
-  nock('https://test321.blogspot.com')
-    .get('/feeds/posts/default/-/open-source')
-    .reply(
-      200,
-      '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><title>W3Schools Home Page</title><link>https://www.w3schools.com</link><description>Free web building tutorials</description><item><title>RSS Tutorial</title><link>https://www.w3schools.com/xml/xml_rss.asp</link><description>New RSS tutorial on W3Schools</description></item><item><title>XML Tutorial</title><link>https://www.w3schools.com/xml</link><description>New XML tutorial on W3Schools</description></item></channel></rss>'
-    );
+  const feedURL = fixtures.getAtomUri();
+  fixtures.nockValidAtomResponse();
   const data = await feedParser(feedURL);
   expect(data[data.length - 1].title).toBe('XML Tutorial');
 });
 
 test('Passing an invalid ATOM feed URI should error', async () => {
-  await expect(feedParser('c3ho.blogspot.com/feeds/posts/default/-/open-source')).rejects.toThrow(
-    'error'
-  );
+  const url = fixtures.stripProtocol(fixtures.getAtomUri());
+  await expect(feedParser(url)).rejects.toThrow();
 });
 
 test('Passing a valid RSS feed URI and getting title of first post', async () => {
-  const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
-  nock('https://test321.blogspot.com')
-    .get('/feeds/posts/default/-/open-source?alt=rss')
-    .reply(
-      200,
-      '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><title>W3Schools Home Page</title><link>https://www.w3schools.com</link><description>Free web building tutorials</description><item><title>RSS Tutorial</title><link>https://www.w3schools.com/xml/xml_rss.asp</link><description>New RSS tutorial on W3Schools</description></item><item><title>XML Tutorial</title><link>https://www.w3schools.com/xml</link><description>New XML tutorial on W3Schools</description></item></channel></rss>'
-    );
+  const feedURL = fixtures.getRssUri();
+  fixtures.nockValidRssResponse();
   const data = await feedParser(feedURL);
   expect(data[data.length - 1].title).toBe('XML Tutorial');
 });
 
 test('Passing an invalid RSS feed URI should error', async () => {
-  await expect(
-    feedParser('c3ho.blogspot.com/feeds/posts/default/-/open-source?alt=rss')
-  ).rejects.toThrow('error');
+  const url = fixtures.stripProtocol(fixtures.getRssUri());
+  await expect(feedParser(url)).rejects.toThrow();
 });
 
 test('Passing a valid URI, but not a feed URI should error', async () => {
-  await expect(feedParser('https://google.ca')).rejects.toThrow('Not a feed');
+  const url = fixtures.getHtmlUri();
+  fixtures.nockValidHtmlResponse();
+  await expect(feedParser(url)).rejects.toThrow();
 });
 
-
-test('Passing an IP address instead of a URI should throw an error', async () => {
-  await expect(feedParser('128.190.222.135')).rejects.toThrow('error');
+test('Passing an IP address instead of a URI should throw an error', async () => {
+  await expect(feedParser('128.190.222.135')).rejects.toThrow();
 });
 
 test('Passing an invalid RSS category feed should return an empty array', async () => {
-  const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
-  nock('https://test321.blogspot.com')
-    .get('/feeds/posts/default/-/open-source?alt=rss')
-    .reply(
-      200,
-      '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel></channel></rss>'
-    );
+  const feedURL = fixtures.getRssUri();
+  fixtures.nockInvalidRssResponse();
   const data = await feedParser(feedURL);
   expect(data.length).toBe(0);
 });
 
 test('Passing a valid RSS category feed should return an array that is not empty', async () => {
-  const feedURL = 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
-  nock('https://test321.blogspot.com')
-    .get('/feeds/posts/default/-/open-source?alt=rss')
-    .reply(
-      200,
-      '<?xml version="1.0" encoding="UTF-8" ?><rss version="2.0"><channel><title>W3Schools Home Page</title><link>https://www.w3schools.com</link><description>Free web building tutorials</description><item><title>RSS Tutorial</title><link>https://www.w3schools.com/xml/xml_rss.asp</link><description>New RSS tutorial on W3Schools</description></item><item><title>XML Tutorial</title><link>https://www.w3schools.com/xml</link><description>New XML tutorial on W3Schools</description></item></channel></rss>'
-    );
+  const feedURL = fixtures.getRssUri();
+  fixtures.nockValidRssResponse();
   const data = await feedParser(feedURL);
   expect(data.length > 0).toBe(true);
 });
 
-const assertValidFeed = (feed) => {
-  expect(Array.isArray(feed)).toBeTruthy();
-  expect(feed.length > 0).toBeTruthy();
-};
-
-
-test('Non existant feed failure case.', async () => {
-  try {
-    await feedParser('http://doesnotexists___.com');
-  } catch (err) {
-    expect(err.code).toBe('ENOTFOUND');
-  }
-});
-test('Not a feed failure case', async () => {
-  try {
-    const nonFeedURL = 'https://kerleysblog.blogspot.com';
-    await feedParser(nonFeedURL);
-  } catch (err) {
-    expect(err.code).toBe('Not a feed');
-  }
-});
-
-test('Blogger feed success case', async () => {
-  const validFeed = 'https://kerleysblog.blogspot.com/feeds/posts/default?alt=rss';
-  const feed = await feedParser(validFeed);
-  assertValidFeed(feed);
-});
-
-test('Wordpress site feed success case', async () => {
-  const validFeed = 'https://medium.com/feed/@Medium';
-  const feed = await feedParser(validFeed);
-  assertValidFeed(feed);
+test('Non existent feed failure case: 404', async () => {
+  const url = fixtures.getHtmlUri();
+  fixtures.nock404Response();
+  await expect(feedParser(url)).rejects.toThrow();
 });

@@ -1,6 +1,7 @@
 const passport = require('passport');
 const OneLoginStrategy = require('passport-openid').Strategy;
-require('../config');
+require('../lib/config');
+
 /* Set environmental variables for these
 https://www.onelogin.com/ to create your account.
 Tutorial is here: https://developers.onelogin.com/quickstart/authentication/nodejs
@@ -26,12 +27,8 @@ passport.use(
       callbackURL: OIDC_REDIRECT_URI,
       passReqToCallback: true,
     },
+    // This function returns 'issuer:' issuer, 'userId:' userId, 'accessToken:' accessToken, 'refreshToken:' refreshToken, 'params:' params
     (req, issuer, userId, profile, accessToken, refreshToken, params, callback) => {
-      console.log('issuer:', issuer);
-      console.log('userId:', userId);
-      console.log('accessToken:', accessToken);
-      console.log('refreshToken:', refreshToken);
-      console.log('params:', params);
       req.session.accessToken = accessToken;
       return callback(null, profile);
     }

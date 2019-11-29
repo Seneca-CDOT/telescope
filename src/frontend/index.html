@@ -7,8 +7,6 @@
     <title>Telescope | Tracking Blogs in Orbit</title>
     <!-- CSS -->
     <link rel="stylesheet" href="./style/main.css" />
-    <!-- JavaScript  -->
-    <script src="./dialogue.js"></script>
     <!-- Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap"
@@ -25,7 +23,14 @@
         <img id="main-logo" src="./img/logo.svg" alt="Telescope logo" />
 
         <!-- NAV LINKS -->
+
         <nav>
+          <a href="login.html">
+            <button class="nav-button">
+              Login
+            </button>
+          </a>
+
           <a href="#">
             <button class="nav-button">
               Feed
@@ -33,7 +38,7 @@
           </a>
 
           <a href="#">
-            <button class="nav-button">
+            <button id="participants" class="nav-button">
               Participants
             </button>
           </a>
@@ -43,7 +48,21 @@
               Subscribe
             </button>
           </a>
-          <a> <div id="google_translate_element2"></div> </a>
+          <!-- SEARCH CONTAINER -->
+          <div class="search_container">
+            <div class="wrap">
+              <div class="search">
+                <input type="text" class="searchTerm" placeholder="Search" />
+                <button type="submit" class="searchButton">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <a>
+            <div id="google_translate_element2"></div>
+          </a>
 
           <i id="mobile-burger-close" class="fas fa-times"></i>
         </nav>
@@ -278,5 +297,6 @@
       type="text/javascript"
       src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"
     ></script>
+    <script src="./dialogue.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-const gh = require('../src/github-url');
+const gh = require('../src/backend/utils/github-url');
 global.fetch = require('node-fetch');
 
 beforeEach(() => {

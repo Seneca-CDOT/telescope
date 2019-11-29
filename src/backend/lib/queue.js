@@ -1,6 +1,6 @@
 const Bull = require('bull');
 const { Redis, redisUrl } = require('./redis');
-const parentLogger = require('./logger');
+const { logger } = require('../utils/logger');
 
 /**
  * Shared redis connections for pub/sub, see:
@@ -16,7 +16,7 @@ const subscriber = new Redis(redisUrl);
  * We also setup logging for this queue name.
  */
 function createQueue(name) {
-  const log = parentLogger.child({ module: `queue:${name}` });
+  const log = logger.child({ module: `queue:${name}` });
   const queue = new Bull(name, {
     createClient: type => {
       switch (type) {

@@ -43,6 +43,7 @@ Some helpful guides:
 1. Run `npm install`.
 1. Run `npm test`
 1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
+1. Run `npm run jest-watch` to watch files for any changes and rerun tests related to changed files.
 1. Run `npm start` to start telescope.
    _If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window)._
 
@@ -121,6 +122,29 @@ If you are doing any work that relates to the `package.json` file, you need to d
 ## Logging
 
 The logger.js module, in the lib directory under the src folder of the repository, exports a logger instance that can be imported in other files and used to log important events in production as well as help in debugging during development. Refer to [logging.md](logging.md) for more details.
+
+## Reports
+
+There are a number of reports that get generated, and can aid in developer understanding.
+
+The first is test coverage information. To generate the report, run the tests:
+
+```
+npm test
+```
+
+After the tests complete, a text summary report is printed. However, a much more
+useful, dynamic HTML version is created in `coverage/lcov-report/index.html`.
+
+The second report is for [Webhint](https://webhint.io/) information about the frontend.
+To generate this report:
+
+```
+npm run webhint
+```
+
+This will start the web server and run webhint in a browser. A text summary will
+be printed to the console, and a dynamic HTML version created in `hint-report/http-localhost-3000/index.html`.
 
 ## MVP Features
 

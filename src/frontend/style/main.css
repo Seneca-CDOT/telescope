@@ -19,6 +19,7 @@ body {
   --nav-btn-bgcolor: #fdfdfd;
   --content-font-color: #000000;
   --font-main: 'Montserrat', Arial, sans-serif;
+  --srch-after: #da291c;
 }
 
 /* MAIN GRID */
@@ -217,4 +218,51 @@ article section p {
     padding-right: 20px;
     padding-left: 20px;
   }
+}
+
+/* Search animation and icon CSS */
+.search_container {
+  display: block;
+  margin-bottom: 70px;
+}
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #da291c;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+  font-size: 12px;
+}
+
+.searchTerm:focus {
+  color: #da291c;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #da291c;
+  background: #da291c;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 2px;
 }

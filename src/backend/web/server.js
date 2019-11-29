@@ -1,4 +1,4 @@
-require('../../config');
+require('../lib/config');
 const app = require('./app.js');
 
 const { logger } = app.get('logger');
@@ -8,10 +8,4 @@ const server = app.listen(HTTP_PORT, () => {
   logger.info(`Telescope listening on port ${HTTP_PORT}`);
 });
 
-process.on('unhandledRejection', ({ name, message }) => {
-  logger.error('UNHANDLED REJECTION:  Shutting down...');
-  logger.error(`${name}: ${message}`);
-  server.close(() => {
-    process.exit(1);
-  });
-});
+module.exports = server;

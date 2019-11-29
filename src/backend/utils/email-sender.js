@@ -1,4 +1,7 @@
 const nodemailer = require('nodemailer');
+const { logger } = require('./logger');
+
+const log = logger.child({ module: 'email-sender' });
 
 /*
                              HOW TO USE
@@ -31,10 +34,10 @@ exports.sendMessage = async function(receipiants, subjectMessage, message) {
     transporter.verify((error, success) => {
       // If error then print to console
       if (error) {
-        console.log(error);
+        log.error(error);
         // else print a ready message
       } else if (success) {
-        console.log('Server is running properly');
+        log.info('Server is running properly');
       }
     });
 
