@@ -14,17 +14,6 @@ FROM node:lts
 
 # Use Redis image via compose-file
 
-# Set Shell to exit immediately if a pipeline returns a non-zero status: -e
-# Assume YES for prompts: -y
-# Update OS
-# Upgrade all packages and resolve conflicts
-# Clear out the local repository of retrieved package files
-RUN set -e
-RUN apt-get update -y
-RUN apt-get dist-upgrade -y
-RUN apt-get clean -y
-RUN echo "Finished installing OS dependencies"
-
 # Change working directory on the image
 WORKDIR "/telescope"
 
