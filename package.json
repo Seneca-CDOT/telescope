@@ -63,6 +63,7 @@
     "passport-openid": "0.4.0",
     "pino": "5.13.6",
     "pino-pretty": "3.4.0",
+    "puppeteer": "2.0.0",
     "reading-level": "0.0.7",
     "sentiment": "5.0.2",
     "spam-filter": "1.1.1",
