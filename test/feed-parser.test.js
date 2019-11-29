@@ -36,7 +36,7 @@ test('Passing a valid URI, but not a feed URI should error', async () => {
   await expect(feedParser(url)).rejects.toThrow();
 });
 
-test('Passing an IP address instead of a URI should throw an error', async () => {
+test('Passing an IP address instead of a URI should throw an error', async () => {
   await expect(feedParser('128.190.222.135')).rejects.toThrow();
 });
 
