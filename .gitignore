@@ -30,3 +30,6 @@ yarn-error.log*
 
 # web-hint report
 hint-report/
+
+#Redis dump file
+dump.rdb
