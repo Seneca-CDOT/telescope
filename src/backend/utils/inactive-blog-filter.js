@@ -144,3 +144,4 @@ function update() {
 
 exports.check = check;
 exports.update = update;
+exports.dateDiff = dateDiff;
