@@ -1,11 +1,20 @@
-const jsdom = require('jsdom');
+const puppeteer = require('puppeteer');
 
-const { JSDOM } = jsdom;
+module.exports = async function(htmlFragment) {
+  let browser;
+  try {
+    browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-// Simple function to convert html to text
-// Issue #75: https://github.com/Seneca-CDOT/telescope/issues/75
-exports.run = async function(html) {
-  const frag = JSDOM.fragment(html);
-  const result = await frag.textContent;
-  return result;
+    await page.setContent(htmlFragment, {
+      waitUntil: 'domcontentloaded',
+    });
+
+    const result = await page.evaluate('document.body.innerText');
+    return result;
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+  }
 };
