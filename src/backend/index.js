@@ -80,14 +80,14 @@ process.on('uncaughtException', err => {
  */
 async function enqueueWikiFeed() {
   const data = await wikiFeed.parseData();
-  Promise.all(
+  await Promise.all(
     data.map(async feedJob => {
       log.info(`Enqueuing feed job for ${feedJob.url}`);
       await feedQueue.add(feedJob, {
-        attempts: 8,
+        attempts: process.env.FEED_QUEUE_ATTEMPTS || 8,
         backoff: {
           type: 'exponential',
-          delay: 60 * 1000,
+          delay: process.env.FEED_QUEUE_DELAY_MS || 60 * 1000,
         },
         removeOnComplete: true,
         removeOnFail: true,
