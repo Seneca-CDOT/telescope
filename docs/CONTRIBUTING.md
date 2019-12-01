@@ -51,10 +51,12 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 #### Linux (Ubuntu)
 
-**This guide is sourced from the official [Docker Community Edition](https://docs.docker.com/install/linux/docker-ce/ubuntu/) Installation Documentation.**
+**This guide is sourced from the official [Docker-CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/) Installation Documentation.**
+
+**Install Docker Engine - Community Edition**
 
 1. Update the apt package index: `sudo apt-get update`
-1. Install packages to allow apt to use a repository over HTTPS:
+2. Install packages to allow apt to use a repository over HTTPS:
 
 ```
 sudo apt-get install \
@@ -79,11 +81,24 @@ sudo add-apt-repository \
 6. Update the apt package index again: `sudo apt-get update`
 7. Install the latest version of Docker Engine community: `sudo apt-get install docker-ce docker-ce-cli containerd.io`
 8. Verify your installation by running `sudo docker run hello-world`. This should print a hello world paragraph that includes a confirmation that docker is working on your system.
-   _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
+
+**Install docker-compose**
+
+9. Run to download the current stable version of docker-compose:
+
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+10. Apply executable permissions to the downloaded file: `sudo chmod +x /usr/local/bin/docker-compose`
+11. Check installation using: `docker-compose --version`
+
+_NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
+
 ### SAML Setup
 - Run `bash ./generate_ssl_certs.sh` in terminal
 
-### Setup
+### Setup Telescope
 
 1. Navigate to the root directory of telescope.
 1. Copy env.example to .env to create a new environment configuration.
