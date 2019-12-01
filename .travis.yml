@@ -34,3 +34,8 @@ before_install:
       redis-server --service-start
       redis-cli info
     fi
+matrix:
+  allow_failures:
+    # Windows can fail if choco can't download redis
+    # https://github.com/Seneca-CDOT/telescope/issues/387
+    - os: windows
