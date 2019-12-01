@@ -22,7 +22,7 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 ### Prerequisites:
 
 - [Node.js (npm)](https://nodejs.org/en/download/)
-- Redis (2 methods)
+- [Redis](https://redis.io/) (2 methods)
   - Use [Docker and docker-compose](#docker-and-docker-compose-set-up)
   - Install as a [native application](#using-redis-as-a-native-application)
 
@@ -30,7 +30,8 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 #### Linux:
 
-- Install Redis using your distribution's package manager, for example:
+Install Redis using your distribution's package manager, for example:
+
 - Ubuntu based: `sudo apt install redis`
 - Red Hat, Fedora: `sudo dnf install redis`
 
@@ -42,14 +43,14 @@ redis-server
 
 #### Windows:
 
-We are using chocolatey package manager to install Redis on Windows. To get chocolatey, simply follow this [guide](https://chocolatey.org/install) and run the following commands:
+We are using [Chocolatey package manager](https://chocolatey.org/) to install Redis on Windows. To get Chocolatey, simply follow this [guide](https://chocolatey.org/install) and run the following commands:
 
-1. To install redis: `choco install redis-64 -v`
-1. To set redis as a windows service: `redis-server --service-install`
-1. To start redis: `redis-server --service-start`
+1. To install Redis: `choco install redis-64 -v`
+1. To set Redis as a windows service: `redis-server --service-install`
+1. To start Redis: `redis-server --service-start`
 1. To check if running and display server information: `redis-cli info`
 
-### Docker and docker-compose Set Up
+### Docker and Docker-Compose Set Up
 
 <<<<<<< HEAD
 #### Windows 10 (Professional, Enterprise, and Education Editions only
@@ -59,7 +60,6 @@ We are using chocolatey package manager to install Redis on Windows. To get choc
 
 1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 1. Docker for Desktop comes with docker-compose installed.
-1.
 
 #### MacOS (Sierra 10.12 or above)
 
@@ -81,7 +81,7 @@ Docker Desktop for Windows is not available on Home Edition, and you cannot run 
 
 #### Linux-Ubuntu
 
-This guide is sourced from the official [Docker-CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/) Installation Documentation.
+This guide is sourced from the official [Docker-CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [Docker-Compose](https://docs.docker.com/compose/install/) Installation Documentation.
 
 **Install Docker Engine - Community Edition**
 
@@ -110,11 +110,11 @@ sudo add-apt-repository \
 
 6. Update the apt package index again: `sudo apt-get update`
 7. Install the latest version of Docker Engine community: `sudo apt-get install docker-ce docker-ce-cli containerd.io`
-8. Verify your installation by running `sudo docker run hello-world`. This should print a hello world paragraph that includes a confirmation that docker is working on your system.
+8. Verify your installation by running `sudo docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
 
-**Install docker-compose**
+**Install Docker-Compose**
 
-9. Run to download the current stable version of docker-compose:
+9. Run to download the current stable version of Docker-Compose:
 
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -137,7 +137,7 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 
    - Docker: `docker-compose up -d redis`
 
-   _To stop the docker container for Redis, run:_ `docker-compose stop redis`
+   _To stop the Docker container for Redis, run:_ `docker-compose stop redis`
 
    - Native Install: `redis-service`
 
