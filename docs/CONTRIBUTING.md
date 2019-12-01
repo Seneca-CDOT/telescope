@@ -19,24 +19,71 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 ## Environment Setup
 
-**Prerequisites:**
+### Prerequisites:
 
 - [Node.js (npm)](https://nodejs.org/en/download/)
-- [Redis](https://redis.io/download)
+- [Docker and docker compose](#docker-and-docker-compose-set-up)
 
-**Redis Set Up**
-Some helpful guides:
+### Docker and docker-compose Set Up
 
-- [Redis for Linux](https://redis.io/download#installation) (recommended but not required)
-- [Redis for Windows Subsystem for Linux](https://anggo.ro/note/installing-redis-in-ubuntu-wsl/) (not recommended by Redis)
-- Redis for Windows - You can use [this](https://github.com/tporadowski/redis/releases) installer to get up and running quickly for now.
-- Redis for MacOS - need instructions
-  An easier solution would be to use Docker.
+#### Windows 10 (Professional, Enterprise, and Education Editions only
 
-**SAML Setup**
+1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+1. Docker for Desktop comes with docker-compose installed.
+
+#### MacOS (Sierra 10.12 or above)
+
+1. Get [Docker for Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
+1. Docker for Desktop comes with docker-compose installed.
+
+#### Windows 10 Home Edition and Windows Subsystem for Linux (WSL)
+
+**Docker Desktop for Windows is not available on Home Edition, and you cannot run docker in WSL (Windows Subsystem for Linux). You can get the environment set up using the following methods:**
+
+- Set up a virtual machine to run Linux Ubuntu
+  1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+  1. [Follow this helpful youtube tutorial to create a virtual machine with Ubuntu](https://www.youtube.com/watch?v=ThsxqznrgCw&t=401s)
+  1. Use the Linux installation instructions [below](<#linux-(Ubuntu)>).
+- Use Windows 10 Education Edition
+  1. Download Windows 10 Education Edition from the [Seneca Software Center](https://senecacollege.onthehub.com/WebStore/OfferingDetails.aspx?o=c0bd2c36-a530-e511-940e-b8ca3a5db7a1)
+  1. Update your OS using the installation instructions.
+  1. Use [Windows 10 Education Edition](<#windows-10-(professional,-Enterprise,-and-Education-Editions-only)>) set up instructions.
+
+#### Linux (Ubuntu)
+
+**This guide is sourced from the official [Docker Community Edition](https://docs.docker.com/install/linux/docker-ce/ubuntu/) Installation Documentation.**
+
+1. Update the apt package index: `sudo apt-get update`
+1. Install packages to allow apt to use a repository over HTTPS:
+
+```
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+```
+
+3. Add Docker’s official GPG key: `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
+4. Verify that you now have the key with the fingerprint 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88, by searching for the last 8 characters of the fingerprint: `sudo apt-key fingerprint 0EBFCD88`
+5. Use the following command to set up the stable repository:
+
+```
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+```
+
+6. Update the apt package index again: `sudo apt-get update`
+7. Install the latest version of Docker Engine community: `sudo apt-get install docker-ce docker-ce-cli containerd.io`
+8. Verify your installation by running `sudo docker run hello-world`. This should print a hello world paragraph that includes a confirmation that docker is working on your system.
+   _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
+### SAML Setup
 - Run `bash ./generate_ssl_certs.sh` in terminal
 
-**Setup**
+### Setup
 
 1. Navigate to the root directory of telescope.
 1. Copy env.example to .env to create a new environment configuration.
