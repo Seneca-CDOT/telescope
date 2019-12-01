@@ -1,4 +1,4 @@
-const utils = require('../src/utils');
+const utils = require('../src/backend/utils/utils');
 
 test('Test for valid URL', () => {
   expect(utils.isValidUrl('https://github.com/Seneca-CDOT/telescope/issues/74')).toBe(true);

@@ -27,3 +27,9 @@ yarn-error.log*
 *.exe
 *.obj
 *.o
+
+# web-hint report
+hint-report/
+
+#Redis dump file
+dump.rdb

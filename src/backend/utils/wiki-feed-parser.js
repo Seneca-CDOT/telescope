@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
-require('./config.js');
+require('../lib/config');
 
 const { JSDOM } = jsdom;
 
@@ -50,7 +50,7 @@ module.exports.parseData = function() {
             feed.push(`${line}`);
             let obj = {
               name: feed[feed.length - 1],
-              link: feed[feed.length - 2],
+              url: feed[feed.length - 2],
             };
             objArray.push(obj);
             feed = [];

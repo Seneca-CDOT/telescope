@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const analyzeText = require('../src/analysis/basic_analysis.js');
+const analyzeText = require('../src/backend/utils/basic_analysis');
+const { logger } = require('../src/backend/utils/logger');
+
+const log = logger.child({ module: 'basic-analysis-test' });
 
 const text1 = 'Hello, world';
 const text2 = 'Navigate to the root directory of telescope';
@@ -15,7 +18,7 @@ try {
   text5 = fs.readFileSync(path.join(__dirname, '/test_files/basic_analysis.test2.txt')).toString();
   text6 = fs.readFileSync(path.join(__dirname, '/test_files/basic_analysis.test3.txt')).toString();
 } catch (err) {
-  console.log(err);
+  log.error(err);
 }
 
 // Test 1: Output Type Test

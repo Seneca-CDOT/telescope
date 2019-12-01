@@ -1,4 +1,4 @@
-const inactiveFilter = require('../src/inactive-blog-filter');
+const inactiveFilter = require('../src/backend/utils/inactive-blog-filter');
 const redlist = require('../feeds-redlist.json');
 
 describe('Redlisted feed checking', () => {
@@ -17,5 +17,19 @@ describe('Redlisted feed checking', () => {
         expect(result).toBe(true);
       });
     });
+  });
+});
+
+describe('Testing dateDiff function', () => {
+  it('dateDiff should return a positive value if postDate(parameter) is before currentDate', () => {
+    expect(inactiveFilter.dateDiff(Date.now() - 1)).toBeGreaterThan(0);
+  });
+
+  it('dateDiff should return a negative value if postDate(parameter) is after currentDate', () => {
+    expect(inactiveFilter.dateDiff(Date.now() + 1)).toBeLessThan(0);
+  });
+
+  it('dateDiff should return a zero value if postDate(parameter) is the same as currentDate', () => {
+    expect(inactiveFilter.dateDiff(Date.now())).toEqual(0);
   });
 });

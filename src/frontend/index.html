@@ -23,7 +23,14 @@
         <img id="main-logo" src="./img/logo.svg" alt="Telescope logo" />
 
         <!-- NAV LINKS -->
+
         <nav>
+          <a href="login.html">
+            <button class="nav-button">
+              Login
+            </button>
+          </a>
+
           <a href="#">
             <button class="nav-button">
               Feed
@@ -43,11 +50,19 @@
           </a>
           <!-- SEARCH CONTAINER -->
           <div class="search_container">
-            <input type="text" placeholder="Search..." class="srch" />
-            <div class="search"></div>
+            <div class="wrap">
+              <div class="search">
+                <input type="text" class="searchTerm" placeholder="Search" />
+                <button type="submit" class="searchButton">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <a> <div id="google_translate_element2"></div> </a>
+          <a>
+            <div id="google_translate_element2"></div>
+          </a>
 
           <i id="mobile-burger-close" class="fas fa-times"></i>
         </nav>
