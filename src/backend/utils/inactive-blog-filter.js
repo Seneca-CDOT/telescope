@@ -98,6 +98,8 @@ async function update(
         // We convert the dateDiff(result) from ms in days
         const timeDiff = Math.ceil(dateDiff(recentPostDate) / (1000 * 3600 * 24));
 
+        // BLOG_INACTIVE_TIME is supplied with a necessary default value, e.g. of 365 days
+        // See: https://github.com/Seneca-CDOT/telescope/issues/396
         if (timeDiff > (process.env.BLOG_INACTIVE_TIME || 365)) {
           log.info(`Blog at: ${feedUrl} is INACTIVE!`);
 
