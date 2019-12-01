@@ -38,7 +38,7 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 #### Windows 10 Home Edition and Windows Subsystem for Linux (WSL)
 
-**Docker Desktop for Windows is not available on Home Edition, and you cannot run docker in WSL (Windows Subsystem for Linux). You can get the environment set up using the following methods:**
+Docker Desktop for Windows is not available on Home Edition, and you cannot run docker in WSL (Windows Subsystem for Linux). You can get the environment set up using the following methods:
 
 - Set up a virtual machine to run Linux Ubuntu
   1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads)
@@ -51,7 +51,7 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 #### Linux (Ubuntu)
 
-**This guide is sourced from the official [Docker-CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/) Installation Documentation.**
+This guide is sourced from the official [Docker-CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/) Installation Documentation.
 
 **Install Docker Engine - Community Edition**
 
