@@ -26,7 +26,11 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 ### Docker and docker-compose Set Up
 
+<<<<<<< HEAD
 #### Windows 10 (Professional, Enterprise, and Education Editions only
+=======
+#### Windows 10 Pro, Enterprise, or Education
+>>>>>>> Fixed links broken by husky
 
 1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 1. Docker for Desktop comes with docker-compose installed.
@@ -43,13 +47,13 @@ Docker Desktop for Windows is not available on Home Edition, and you cannot run 
 - Set up a virtual machine to run Linux Ubuntu
   1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads)
   1. [Follow this helpful youtube tutorial to create a virtual machine with Ubuntu](https://www.youtube.com/watch?v=ThsxqznrgCw&t=401s)
-  1. Use the Linux installation instructions [below](<#linux-(Ubuntu)>).
+  1. Use the Linux installation instructions [below](#linux-Ubuntu).
 - Use Windows 10 Education Edition
   1. Download Windows 10 Education Edition from the [Seneca Software Center](https://senecacollege.onthehub.com/WebStore/OfferingDetails.aspx?o=c0bd2c36-a530-e511-940e-b8ca3a5db7a1)
   1. Update your OS using the installation instructions.
-  1. Use [Windows 10 Education Edition](<#windows-10-(professional,-Enterprise,-and-Education-Editions-only)>) set up instructions.
+  1. Use [Windows 10 Education Edition](#Windows-10-Pro,-Enterprise,-or-Education) set up instructions.
 
-#### Linux (Ubuntu)
+#### Linux-Ubuntu
 
 This guide is sourced from the official [Docker-CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/) Installation Documentation.
 
