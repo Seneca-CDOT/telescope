@@ -34,7 +34,7 @@ function dateDiff(postDate) {
 /**
  * Checks if feed url is redlisted
  * @param {string} feedUrl - url of the feed to check against redlist
- * @param {string} [redlistPath=feeds-redlist.json] - relative path to JSON file storing non-active feeds
+ * @param {string} [redlistPath=feeds-redlist.json] - path to JSON file storing non-active feeds
  */
 async function check(feedUrl, redlistPath = 'feeds-redlist.json') {
   // Read redlist file
@@ -46,7 +46,7 @@ async function check(feedUrl, redlistPath = 'feeds-redlist.json') {
       return Promise.resolve(redList.some(isRedlisted.bind(null, feedUrl)));
     })
     .catch(err => {
-      log.error(`failed to read ${redlistPath}: no feeds`);
+      log.error(`failed to read ${redlistPath}`, err.message);
       return Promise.reject(err);
     });
 }
@@ -59,9 +59,9 @@ async function check(feedUrl, redlistPath = 'feeds-redlist.json') {
  * pass feed data more intuitively
  *
  * Due to amount of operations, this can be run periodically instead of with every feed update
- * @param {string} [feedsPath=feeds.txt] - relative path to .txt file storing active feeds
- * @param {string} [redlistPath=feeds-redlist.json] - relative path to JSON file storing non-active feeds
- * @param {feed} [parser=feedParser] - reference to the function used to parse feeds
+ * @param {string} [feedsPath=feeds.txt] - path to .txt file storing active feeds
+ * @param {string} [redlistPath=feeds-redlist.json] - path to JSON file storing non-active feeds
+ * @param {function} [parser=feedParser] - reference to the function used to parse feeds
  */
 async function update(
   feedsPath = 'feeds.txt',
@@ -69,7 +69,7 @@ async function update(
   parser = feedParser
 ) {
   if (!feedsPath || !redlistPath) {
-    return Promise.reject(new Error('failed to update: bad arguments'));
+    return Promise.reject(new Error('failed to update: bad filepath'));
   }
 
   // Read the feeds list file
@@ -91,7 +91,7 @@ async function update(
 
       let recentPostDate = new Date();
 
-      if (feed) {
+      if (feed && typeof feed[0] !== 'undefined') {
         recentPostDate = new Date(feed[0].date);
 
         // Check if the blog is inactive
@@ -129,7 +129,7 @@ async function update(
             log.info(`wrote to ${redlistPath}: ${rlData}`);
           })
           .catch(err => {
-            log.error(`failed to update feeds`, err);
+            log.error(err.message);
             throw err;
           });
       }
