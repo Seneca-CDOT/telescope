@@ -30,6 +30,13 @@ describe('Tests for storage', () => {
     expect(result).toContain(feedId2.toString());
   });
 
+  it('should return all members of the set value stored at key', async () => {
+    await storage.addFeed(feed.name, feed.url);
+    await storage.addFeed(feed2.name, feed2.url);
+    const feeds = await storage.getFeeds();
+    expect(feeds).toEqual(['1', '2', '3', '4', '5', '6', '7']);
+  });
+
   const post = {
     guid: 'tag:blogger.com,1999:blog-7100164112302197371.post-522285656016053350',
     author: 'Neil David',
