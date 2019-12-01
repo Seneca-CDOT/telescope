@@ -17,12 +17,6 @@ before_cache:
   # Cache only .git files under "/usr/local/Homebrew" so "brew update" does not take 5min every build
   - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then find /usr/local/Homebrew \! -regex ".+\.git.+" -delete; fi
 before_install:
-  # When we switch to Prettier, this CRLF fixup should go away
-  - cd ../..
-  - mv $TRAVIS_REPO_SLUG _old
-  - git config --global core.autocrlf false
-  - git clone --depth=50 _old $TRAVIS_REPO_SLUG
-  - cd $TRAVIS_REPO_SLUG
   # Deal with Redis install per-platform
   - echo $TRAVIS_OS_NAME
   - echo $PATH
@@ -35,7 +29,7 @@ before_install:
       redis-server --daemonize yes
       redis-cli info
     else
-      choco install redis-64
+      choco install redis-64 -v
       redis-server --service-install
       redis-server --service-start
       redis-cli info
