@@ -109,7 +109,7 @@ describe('Testing of update()', () => {
     },
     {
       url: 'http://ajhooper.blogspot.com/feeds/posts/default',
-      date: new Date('2008-10-18T17:22:32.366Z').getTime(),
+      date: '2008-10-18T17:22:32.366Z',
       status: 'inactive',
     },
     {
@@ -145,8 +145,6 @@ describe('Testing of update()', () => {
     return inactiveFilter
       .update(pathToInactiveFeeds, pathToMockRedList, mockFeedParser)
       .then(data => {
-        log.info(`data.url: ${data.url}`);
-        log.info(`data.length: ${data.length}`);
         expect(data.length).toEqual(inactiveRedlist.length);
         for (let i = 0; i < inactiveRedlist.length; i += 1) {
           expect(data[i].url).toBe(inactiveRedlist[i].url);
@@ -154,7 +152,6 @@ describe('Testing of update()', () => {
       })
       .catch(err => {
         deleteMockRedlist();
-        log.error(err.message);
         throw new Error(err.message);
       });
   });

@@ -94,15 +94,11 @@ async function update(
       if (feed) {
         recentPostDate = new Date(feed[0].date);
 
-        log.info(`feed[0].date: ${feed[0].date}`);
-
         // Check if the blog is inactive
         // We convert the dateDiff(result) from ms in days
         const timeDiff = Math.ceil(dateDiff(recentPostDate) / (1000 * 3600 * 24));
-        log.info(`timeDiff: ${timeDiff}`);
-        log.info(`process.env.BLOG_INACTIVE_TIME: ${process.env.BLOG_INACTIVE_TIME}`);
 
-        if (timeDiff > process.env.BLOG_INACTIVE_TIME) {
+        if (timeDiff > (process.env.BLOG_INACTIVE_TIME || 365)) {
           log.info(`Blog at: ${feedUrl} is INACTIVE!`);
 
           redlistUpdate.push({
