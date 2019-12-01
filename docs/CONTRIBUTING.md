@@ -22,7 +22,32 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 ### Prerequisites:
 
 - [Node.js (npm)](https://nodejs.org/en/download/)
-- [Docker and docker compose](#docker-and-docker-compose-set-up)
+- Redis (2 methods)
+  - Use [Docker and docker-compose](#docker-and-docker-compose-set-up)
+  - Install as a [native application](#using-redis-as-a-native-application)
+
+### Using Redis as a native application
+
+#### Linux:
+
+- Install Redis using your distribution's package manager, for example:
+- Ubuntu based: `sudo apt install redis`
+- Red Hat, Fedora: `sudo dnf install redis`
+
+_Once Redis is installed, you can start it in a terminal by running:_
+
+```
+redis-server
+```
+
+#### Windows:
+
+We are using chocolatey package manager to install Redis on Windows. To get chocolatey, simply follow this [guide](https://chocolatey.org/install) and run the following commands:
+
+1. To install redis: `choco install redis-64 -v`
+1. To set redis as a windows service: `redis-server --service-install`
+1. To start redis: `redis-server --service-start`
+1. To check if running and display server information: `redis-cli info`
 
 ### Docker and docker-compose Set Up
 
@@ -34,6 +59,7 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 1. Docker for Desktop comes with docker-compose installed.
+1.
 
 #### MacOS (Sierra 10.12 or above)
 
@@ -107,14 +133,21 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 1. Navigate to the root directory of telescope.
 1. Copy env.example to .env to create a new environment configuration.
 1. Replace default key values in .env with credentials.
-1. Start the docker container for Redis using `docker-compose up -d redis`
-   - To stop the docker container for Redis, run `docker-compose stop redis`
+1. Start Redis using:
+
+   - Docker: `docker-compose up -d redis`
+
+   _To stop the docker container for Redis, run:_ `docker-compose stop redis`
+
+   - Native Install: `redis-service`
+
+   _To stop Redis, ctrl+c the window running the redis server._
+
 1. Run `npm install`.
 1. Run `npm test`
 1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
 1. Run `npm run jest-watch` to watch files for any changes and rerun tests related to changed files.
 1. Run `npm start` to start telescope.
-   _If you get a series of errors, you may have to start redis-server depending on your installation configuration, do this by running the command `redis-server` in a seperate command window)._
 
 ## Workflow in git and GitHub
 
