@@ -1,13 +1,43 @@
+# Version 3, most current, and recommended compose file version
+# https://docs.docker.com/compose/compose-file/compose-versioning/
 version: '3'
+
 services:
+  # First service
   telescope:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    environment:
+      # a place-holder for the variable passed by CLI with a default value
+      # the passed or default value is a command to run `telescope`
+      - script=${script:-start}
+      # override the .env variable for `REDIS_URL`
+      - REDIS_URL=redis://redis:${REDIS_PORT}
     depends_on:
       - redis
     ports:
-      - '3000:3000'
-    network_mode: host
+      - '$PORT:$PORT'
+
+  # Second service
   redis:
     image: redis:latest
     ports:
-      - '6379:6379'
+      - '$REDIS_PORT:$REDIS_PORT'
+
+  # Third service
+  # SSO Identity Provider test service, https://simplesamlphp.org
+  # Access to the authentication page via http://localhost:8080/simplesaml or https://localhost:8443/simplesaml
+  ssoipd:
+    environment:
+      - SIMPLESAMLPHP_SP_ENTITY_ID=${OIDC_CLIENT_ID:-saml-poc}
+      - SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=${OIDC_REDIRECT_URI}
+    # image owner's blog post https://medium.com/disney-streaming/setup-a-single-sign-on-saml-test-environment-with-docker-and-nodejs-c53fc1a984c9
+    image: kristophjunge/test-saml-idp
+    ports:
+      # These ports + port 80 are pre-defined in the latter image
+      # http port
+      - '8080:8080'
+      # https port
+      - '8443:8443'

@@ -19,3 +19,17 @@ describe('Redlisted feed checking', () => {
     });
   });
 });
+
+describe('Testing dateDiff function', () => {
+  it('dateDiff should return a positive value if postDate(parameter) is before currentDate', () => {
+    expect(inactiveFilter.dateDiff(Date.now() - 1)).toBeGreaterThan(0);
+  });
+
+  it('dateDiff should return a negative value if postDate(parameter) is after currentDate', () => {
+    expect(inactiveFilter.dateDiff(Date.now() + 1)).toBeLessThan(0);
+  });
+
+  it('dateDiff should return a zero value if postDate(parameter) is the same as currentDate', () => {
+    expect(inactiveFilter.dateDiff(Date.now())).toEqual(0);
+  });
+});

@@ -1,3 +1,4 @@
+require('./lib/config.js');
 const fs = require('fs');
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
@@ -97,10 +98,10 @@ async function enqueueFeedJobs(feedJobs) {
   feedJobs.forEach(async feedJob => {
     log.info(`Enqueuing Job - ${feedJob.url}`);
     await feedQueue.add(feedJob, {
-      attempts: 8,
+      attempts: process.env.FEED_QUEUE_ATTEMPTS || 8,
       backoff: {
         type: 'exponential',
-        delay: 60 * 1000,
+        delay: process.env.FEED_QUEUE_DELAY_MS || 60 * 1000,
       },
       removeOnComplete: true,
       removeOnFail: true,
