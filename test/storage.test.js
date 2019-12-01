@@ -4,11 +4,6 @@ describe('Tests for storage', () => {
   const feed = { name: 'James Smith', url: 'http://seneca.co/jsmith' };
   const feed2 = { name: 'James Smith 2', url: 'http://seneca.co/jsmith/2' };
 
-  it('check that storage is empty', async () => {
-    const result = await storage.getFeedsCount();
-    expect(result).toEqual(0);
-  });
-
   it('inserting a feed returns a feed id', async () => {
     const feedId = await storage.addFeed(feed.name, feed.url);
     expect(typeof feedId).toBe('number');
@@ -21,8 +16,10 @@ describe('Tests for storage', () => {
   });
 
   it('check feed count', async () => {
-    const result = await storage.getFeedsCount();
-    expect(result).toEqual(2);
+    const count1 = await storage.getFeedsCount();
+    await storage.addFeed(feed.name, feed.url);
+    const count2 = await storage.getFeedsCount();
+    expect(count2 - count1).toEqual(1);
   });
 
   it('should return ids of all the feeds', async () => {
@@ -61,10 +58,19 @@ describe('Tests for storage', () => {
     site: 'wordpress.com',
   };
 
-  it('check there is no posts', async () => {
-    const result = await storage.getPostsCount();
-    expect(result).toEqual(0);
-  });
+  const post3 = {
+    guid: '3tag:blogger.com,1999:blog-7100164112302197371.post-522285656016053350',
+    author: 'Neil David3',
+    title: 'My First Blog3',
+    link: 'http://nadavid2.blogspot.com/2008/09/my-first-blog.html',
+    content:
+      "I have never done this before, so let's make this short. This post is just a test on how my blog post will look like.",
+    text: 'post one text3',
+    updated: new Date('2008-09-07T22:12:00.544Z'),
+    published: new Date('2008-09-07T22:09:00.000Z'),
+    url: 'http://seneca.co/jsmith',
+    site: 'wordpress.com',
+  };
 
   it('should allow retrieving a post by guid after inserting', async () => {
     await storage.addPost(post);
@@ -85,7 +91,9 @@ describe('Tests for storage', () => {
   });
 
   it('check post count', async () => {
-    const result = await storage.getPostsCount();
-    expect(result).toEqual(2);
+    const count1 = await storage.getPostsCount();
+    await storage.addPost(post3);
+    const count2 = await storage.getPostsCount();
+    expect(count2 - count1).toEqual(1);
   });
 });
