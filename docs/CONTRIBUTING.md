@@ -68,14 +68,15 @@ We are using [Chocolatey package manager](https://chocolatey.org/) to install Re
 
 #### Windows 10 Home Edition and Windows Subsystem for Linux (WSL)
 
-Docker Desktop for Windows is not available on Home Edition, and you cannot run docker in WSL (Windows Subsystem for Linux). You can get the environment set up using the following methods:
+Docker Desktop for Windows is not available on Home Edition, and you cannot run docker in WSL (Windows Subsystem for Linux). You can get the environment set up using **one** of these three methods:
 
 - Get [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/) instead of Docker Desktop for Windows. Make sure that your system can do virtualization and enable virtualization.
 - Set up a virtual machine to run Linux Ubuntu
+  1. Make sure your system can do virtualization and enable it.
   1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads)
   1. [Follow this helpful youtube tutorial to create a virtual machine with Ubuntu](https://www.youtube.com/watch?v=ThsxqznrgCw&t=401s)
   1. Use the Linux installation instructions [below](#linux-Ubuntu).
-- Use Windows 10 Education Edition
+- Update your home edition to Windows 10 Education Edition
   1. Download Windows 10 Education Edition from the [Seneca Software Center](https://senecacollege.onthehub.com/WebStore/OfferingDetails.aspx?o=c0bd2c36-a530-e511-940e-b8ca3a5db7a1)
   1. Update your OS using the installation instructions.
   1. Use [Windows 10 Education Edition](#Windows-10-Pro,-Enterprise,-or-Education) set up instructions.
