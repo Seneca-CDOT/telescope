@@ -1,16 +1,27 @@
 const feedparser = require('./parser');
 const feedQueue = require('./queue');
+const Post = require('../post');
+const textParser = require('../utils/text-parser');
 
 exports.workerCallback = async function(job) {
   const { url } = job.data;
   const posts = await feedparser(url);
-  return posts.map(post => ({
-    author: post.author,
-    date: post.date,
-    title: post.title,
-    description: post.description,
-    postURL: post.link,
-  }));
+  const processedPosts = await Promise.all(
+    posts.map(async post => {
+      const textContent = await textParser(post.description);
+      return new Post(
+        post.author,
+        post.title,
+        post.description,
+        textContent,
+        post.date,
+        post.pubDate,
+        post.link,
+        post.guid
+      );
+    })
+  );
+  return processedPosts;
 };
 
 exports.start = function() {
