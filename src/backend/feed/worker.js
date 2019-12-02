@@ -25,7 +25,7 @@ exports.workerCallback = async function(job) {
       return processedPosts;
     }
   } catch (err) {
-    throw Error('The error here is ' + err);
+    console.log(err);
   }
 };
 
