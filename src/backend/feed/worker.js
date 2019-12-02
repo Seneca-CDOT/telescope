@@ -1,5 +1,7 @@
-const feedparser = require('./parser');
 const feedQueue = require('./queue');
+const feedparser = require('./parser');
+const storage = require('../utils/storage');
+
 const Post = require('../post');
 
 exports.workerCallback = async function(job) {
@@ -23,7 +25,12 @@ exports.workerCallback = async function(job) {
   return processedPosts;
 };
 
-exports.start = function() {
+exports.start = async function() {
   // Start processing jobs from the feed queue...
-  feedQueue.process(this.workerCallback);
+  feedQueue.process(exports.workerCallback);
+  feedQueue.on('completed', (job, results) => {
+    if (results.length > 0) {
+      Promise.all(async result => storage.addPost(result));
+    }
+  });
 };
