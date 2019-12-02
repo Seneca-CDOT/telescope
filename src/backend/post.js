@@ -13,6 +13,7 @@ class Post {
     this.dateUpdated = dateUpdated;
     this.postLink = postLink;
     this.guid = guid;
+    this.text = '';
     this.wordCount = 0;
   }
 }
