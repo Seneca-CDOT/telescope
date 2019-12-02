@@ -22,6 +22,7 @@ exports.workerCallback = async function(job) {
       });
       // We can pass these objects into another queue, For now just printing to the console.
       console.log(processedPosts);
+      return processedPosts;
     }
   } catch (err) {
     throw Error('The error here is ' + err);
