@@ -2,7 +2,6 @@ const feedQueue = require('./queue');
 const feedParser = require('./parser');
 const extractUrls = require('../utils/extract-urls');
 const Post = require('../post');
-//const textParser = require('../utils/text-parser');
 const wordCount = require('../utils/word-counter');
 
 async function processContent(post) {
