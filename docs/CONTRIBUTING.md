@@ -70,6 +70,7 @@ We are using [Chocolatey package manager](https://chocolatey.org/) to install Re
 
 Docker Desktop for Windows is not available on Home Edition, and you cannot run docker in WSL (Windows Subsystem for Linux). You can get the environment set up using the following methods:
 
+- Get [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/) instead of Docker Desktop for Windows. Make sure that your system can do virtualization and enable virtualization.
 - Set up a virtual machine to run Linux Ubuntu
   1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads)
   1. [Follow this helpful youtube tutorial to create a virtual machine with Ubuntu](https://www.youtube.com/watch?v=ThsxqznrgCw&t=401s)
