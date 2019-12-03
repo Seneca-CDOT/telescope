@@ -23,7 +23,6 @@ router.get('/', (req, res) => {
   req.on('close', () => {
     queue.off('completed', completedHandler);
     res.end();
-    console.log(`Client closed connection`);
   });
 });
 

@@ -10,6 +10,6 @@ router.use(express.static(path.join(__dirname, '../../../frontend')));
 
 router.use('/admin', admin);
 router.use('/opml', opml);
-router.use('/stream', sse);
+router.use('/feed-updates', sse);
 
 module.exports = router;
