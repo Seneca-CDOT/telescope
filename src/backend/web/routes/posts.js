@@ -11,7 +11,6 @@ posts.get('/', async (req, res) => {
   redisGuids.forEach(guid => arrayOfPosts.push(getPost(guid)));
   const processedPosts = await Promise.all(arrayOfPosts);
 
-  const telescopeURL = env === 'production' ? 'telescope.cdot.systems' : 'localhost';
   const listOfPosts = processedPosts
     // Return id and url for a specific post
     .map(processed => {
