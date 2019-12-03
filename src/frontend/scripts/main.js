@@ -51,7 +51,7 @@ async function getPostsPage() {
                 </header>
 
                 <section class="post-content">
-                    $ {post.content}
+                    ${post.content}
                 </section>
             </article>
             `);
