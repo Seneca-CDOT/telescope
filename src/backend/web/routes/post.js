@@ -6,7 +6,8 @@ const post = express.Router();
 
 // Allow for the id to be a URI, possibly containing path separators
 post.get('/*', async (req, res) => {
-  const guid = req.params[0];
+  const guid = decodeURIComponent(req.params[0]);
+  logger.info('/post', guid);
 
   let redisPost;
   try {
