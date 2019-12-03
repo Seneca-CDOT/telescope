@@ -25,7 +25,7 @@ module.exports = async function(content) {
   if (content.title != null) {
     if (content.title !== '' && !filter.isSpam(content.title)) {
       // The main body of the blog post with all HTML tags removed
-      const noTagsDesc = await textParser.run(content.description);
+      const noTagsDesc = await textParser(content.description);
       // If the word count is under MINWORDS, all characters are capital,
       // or spam-filter returns true, post is considered spam
       if (
