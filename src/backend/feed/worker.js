@@ -1,19 +1,18 @@
 const feedparser = require('./parser');
 const feedQueue = require('./queue');
 const Post = require('../post');
-const textParser = require('../utils/text-parser');
 
 exports.workerCallback = async function(job) {
   const { url } = job.data;
   const posts = await feedparser(url);
   const processedPosts = await Promise.all(
     posts.map(async post => {
-      const textContent = await textParser(post.description);
+      // TODO: run this through text parser and sanitizer
       return new Post(
         post.author,
         post.title,
         post.description,
-        textContent,
+        'textContent',
         post.date,
         post.pubDate,
         post.link,
