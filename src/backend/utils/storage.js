@@ -63,12 +63,5 @@ module.exports = {
 
   getPostsCount: () => redis.zcard(POSTS),
 
-  getPost: async guid => {
-    const post = await redis.hgetall(guid);
-
-    if (Object.keys(post).length !== 0) post.guid = guid;
-    else return null;
-
-    return post;
-  },
+  getPost: async guid => redis.hgetall(guid),
 };
