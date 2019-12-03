@@ -113,17 +113,29 @@ sudo add-apt-repository \
 6. Update the apt package index again: `sudo apt-get update`
 7. Install the latest version of Docker Engine community: `sudo apt-get install docker-ce docker-ce-cli containerd.io`
 8. Verify your installation by running `sudo docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
-
+9. If you want to add yourself to the Docker group (and not be required to enter `sudo` before every docker command), then follow these steps ([source](https://docs.docker.com/install/linux/linux-postinstall/)):
+    1. Create the Docker group: `sudo groupadd docker`
+    1. Add your user to the group: `sudo usermod -aG docker $USER`
+    1. Log out and log back in (you may have to restart if you are running through a virtual machine)
+    1. Verify if you can run docker without `sudo`: `docker run hello-world`
+_NOTE: This may cause errors if you have already run docker before, if so then run the following commands to reset it:_
+```
+sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+sudo chmod g+rwx "$HOME/.docker" -R
+```
+10. If you would like to run docker as a service on your machine:
+    1. Enable docker on startup: `sudo systemctl enable docker`
+    1. Disable docker on startup: `sudo systemctl disable docker`
 **Install Docker-Compose**
 
-9. Run to download the current stable version of Docker-Compose:
+11. Run to download the current stable version of Docker-Compose:
 
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-10. Apply executable permissions to the downloaded file: `sudo chmod +x /usr/local/bin/docker-compose`
-11. Check installation using: `docker-compose --version`
+12. Apply executable permissions to the downloaded file: `sudo chmod +x /usr/local/bin/docker-compose`
+13. Check installation using: `docker-compose --version`
 
 _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
 
