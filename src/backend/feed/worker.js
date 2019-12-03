@@ -1,6 +1,7 @@
 const feedQueue = require('./queue');
 const feedparser = require('./parser');
 const storage = require('../utils/storage');
+const { logger } = require('../utils/logger');
 
 const Post = require('../post');
 
@@ -15,8 +16,8 @@ exports.workerCallback = async function(job) {
         post.title,
         post.description,
         'textContent',
-        post.date,
-        post.pubDate,
+        new Date(post.date),
+        new Date(post.pubDate),
         post.link,
         post.guid
       );
@@ -28,9 +29,11 @@ exports.workerCallback = async function(job) {
 exports.start = async function() {
   // Start processing jobs from the feed queue...
   feedQueue.process(exports.workerCallback);
-  feedQueue.on('completed', (job, results) => {
-    if (results.length > 0) {
-      Promise.all(async result => storage.addPost(result));
+  feedQueue.on('completed', async (job, results) => {
+    try {
+      await Promise.all(results.map(result => storage.addPost(result)));
+    } catch (err) {
+      logger.error({ err }, 'Error inserting posts into database');
     }
   });
 };

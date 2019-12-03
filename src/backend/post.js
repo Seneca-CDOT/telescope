@@ -10,8 +10,8 @@ class Post {
     this.title = title;
     this.htmlContent = htmlContent;
     this.textContent = textContent;
-    this.datePublished = datePublished;
-    this.dateUpdated = dateUpdated;
+    this.published = datePublished;
+    this.updated = dateUpdated;
     this.postLink = postLink;
     this.guid = guid;
     this.wordCount = 0;
