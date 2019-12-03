@@ -52,11 +52,7 @@ We are using [Chocolatey package manager](https://chocolatey.org/) to install Re
 
 ### Docker and Docker-Compose Set Up
 
-<<<<<<< HEAD
-#### Windows 10 (Professional, Enterprise, and Education Editions only
-=======
 #### Windows 10 Pro, Enterprise, or Education
->>>>>>> Fixed links broken by husky
 
 1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 1. Docker for Desktop comes with docker-compose installed.
