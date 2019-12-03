@@ -87,11 +87,13 @@ This guide is sourced from the official [Docker-CE](https://docs.docker.com/inst
 
 **Install Docker Engine - Community Edition**
 
-1. Update the apt package index: `sudo apt-get update`
+_IMPORTANT: If you are not a superuser, then type `sudo` before each of the following commands_
+
+1. Update the apt package index: `apt-get update`
 2. Install packages to allow apt to use a repository over HTTPS:
 
 ```
-sudo apt-get install \
+apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
@@ -100,30 +102,30 @@ sudo apt-get install \
 ```
 
 3. Add Docker’s official GPG key: `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
-4. Verify that you now have the key with the fingerprint 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88, by searching for the last 8 characters of the fingerprint: `sudo apt-key fingerprint 0EBFCD88`
+4. Verify that you now have the key with the fingerprint 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88, by searching for the last 8 characters of the fingerprint: `apt-key fingerprint 0EBFCD88`
 5. Use the following command to set up the stable repository:
 
 ```
-sudo add-apt-repository \
+add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 ```
 
-6. Update the apt package index again: `sudo apt-get update`
-7. Install the latest version of Docker Engine community: `sudo apt-get install docker-ce docker-ce-cli containerd.io`
-8. Verify your installation by running `sudo docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
-9. If you want to add yourself to the Docker group (and not be required to enter `sudo` before every docker command), then follow these steps ([source](https://docs.docker.com/install/linux/linux-postinstall/)):
-    1. Create the Docker group: `sudo groupadd docker`
-    1. Add your user to the group: `sudo usermod -aG docker $USER`
+6. Update the apt package index again: `apt-get update`
+7. Install the latest version of Docker Engine community: `apt-get install docker-ce docker-ce-cli containerd.io`
+8. Verify your installation by running `docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
+9. If you want to add yourself to the Docker group then follow these steps ([source](https://docs.docker.com/install/linux/linux-postinstall/)):
+    1. Create the Docker group: `groupadd docker`
+    1. Add your user to the group: `usermod -aG docker $USER`
     1. Log out and log back in (you may have to restart if you are running through a virtual machine)
-    1. Verify if you can run docker without `sudo`: `docker run hello-world`
+    1. Verify if you can still run docker: `docker run hello-world`
 _NOTE: This may cause errors if you have already run docker before, if so then run the following commands to reset it:_
 ```
 sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
 sudo chmod g+rwx "$HOME/.docker" -R
 ```
-10. If you would like to run docker as a service on your machine:
+10. Now run docker as a service on your machine, on startup:
     1. Enable docker on startup: `sudo systemctl enable docker`
     1. Disable docker on startup: `sudo systemctl disable docker`
 **Install Docker-Compose**
