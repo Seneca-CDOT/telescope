@@ -33,3 +33,6 @@ hint-report/
 
 #Redis dump file
 dump.rdb
+
+# SAML certificates
+certs/*
