@@ -34,6 +34,8 @@ module.exports = {
       .hmset(
         // using guid as keys as it is unique to posts
         post.guid,
+        'guid',
+        post.guid,
         'author',
         post.author,
         'title',
