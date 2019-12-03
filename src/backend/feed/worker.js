@@ -31,18 +31,12 @@ exports.workerCallback = async function(job) {
   }
 };
 
-// eslint-disable-next-line prettier/prettier
-exports.start = function() {
+exports.start = async function() {
   // Start processing jobs from the feed queue...
   feedQueue.process(exports.workerCallback);
   feedQueue.on('completed', (job, results) => {
     if (results.length > 0) {
-      results.forEach(result => {
-        console.log(`Result: ${result.title}`);
-        // We have an issure here, addPost is an async function. Should we make the start
-        // function an async one too..?
-        storage.addPost(result);
-      });
+      Promise.all(async result => storage.addPost(result));
     }
   });
 };
