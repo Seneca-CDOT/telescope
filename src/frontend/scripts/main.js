@@ -16,22 +16,31 @@ function showModal(props = { title: 'Modal', content: 'Content' }) {
   });
 }
 
-function getPostsPage(page = 1) {
+async function getPostsPage() {
   $('.content').html('loading...');
 
-  $.get(`/dummy_data/posts.json?page=${page}`)
-    .done(postsObject => {
-      const { posts } = postsObject;
-      $('.content').html('');
-      posts.forEach(post => {
-        const dateOptions = {
-          weekday: 'long',
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-        };
-        const updatedDate = new Date(post.updated).toLocaleDateString('en-CA', dateOptions);
-        $('.content').append(`
+  const response = await fetch('/posts');
+  const ids = await response.json();
+
+  const posts = await Promise.all(
+    ids.map(async id => {
+      const res = await fetch(`/post/${encodeURIComponent(id.id)}`);
+      const post = await res.json();
+      return post;
+    })
+  );
+
+  $('.content').html('');
+  posts
+    .forEach(post => {
+      const dateOptions = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      };
+      const updatedDate = new Date(post.updated).toLocaleDateString('en-CA', dateOptions);
+      $('.content').append(`
             <article>
                 <header>
                     <h1><a title="${post.title}" href="${post.url}">${post.title}</a></h1>
@@ -40,26 +49,22 @@ function getPostsPage(page = 1) {
                         <div class="post-date">${updatedDate}</div>
                     </div>
                 </header>
-    
+
                 <section class="post-content">
-                    ${post.content}
+                    $ {post.content}
                 </section>
             </article>
             `);
-      });
     })
     .fail(error => {
       console.error(error);
-      alert(
-        `Something went wrong.\n${error.status} ${error.statusText}\nCheck the log for more info. `
-      );
       $('.content').html('Error loading Posts');
     });
 }
 
 // Entry point: document loaded
 $(() => {
-  getPostsPage(1);
+  getPostsPage();
 });
 
 // Toggle the mobile menu
