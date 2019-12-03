@@ -34,24 +34,16 @@ name=Eric Ferguson
 
 [http://armenzg.blogspot.com/feeds/posts/default/-/open%20source]
 name=Armen Zambrano G. (armenzg)`;
+
+const noPreErr = TypeError("Cannot read property 'textContent' of null");
+
 beforeEach(() => {
   fetch.resetMocks();
 });
 
 test('Testing wiki-feed-parser.getData with pre tag', async () => {
   const mockBody = `<html><pre>${mockFeed}</pre></html>`;
-  fetch.mockResponseOnce(
-    JSON.stringify(
-      {
-        body: mockBody,
-        created_at: 'foo',
-      },
-      {
-        status: 200,
-        ok: true,
-      }
-    )
-  );
+  fetch.mockResponseOnce(mockBody);
 
   const response = await parser.getData();
   expect(response).toStrictEqual(mockFeed.split('\n'));
@@ -59,56 +51,24 @@ test('Testing wiki-feed-parser.getData with pre tag', async () => {
 
 test('Testing wiki-feed-parser.getData with no pre tag', async () => {
   const mockBody = `<html>${mockFeed}</html>`;
-  fetch.mockResponseOnce(
-    JSON.stringify(
-      {
-        body: mockBody,
-        created_at: 'foo',
-      },
-      {
-        status: 200,
-        ok: true,
-      }
-    )
-  );
 
-  const response = await parser.getData();
-  expect(response).toThrow('No pre tag found');
+  fetch.mockResponseOnce(mockBody);
+
+  await parser.getData().catch(err => {
+    expect(err).toStrictEqual(noPreErr);
+  });
 });
 
 test('Testing wiki-feed-parser.getData when fetch fails', async () => {
-  fetch.mockResponseOnce(
-    fetch.mockResponseOnce(
-      JSON.stringify(
-        {
-          body: '',
-          created_at: 'foo',
-        },
-        {
-          status: 404,
-          ok: false,
-        }
-      )
-    )
-  );
-  const response = await parser.getData();
-  expect(response).toThrow('Could not get data from wiki page');
+  fetch.mockReject(new Error('fake error message'));
+  await parser.getData().catch(err => {
+    expect(err).toStrictEqual(Error('fake error message'));
+  });
 });
 
 test('Testing wiki-feed-parser.parseData', async () => {
   const mockBody = `<html><pre>${mockFeed}</pre></html>`;
-  fetch.mockResponseOnce(
-    JSON.stringify(
-      {
-        body: mockBody,
-        created_at: 'foo',
-      },
-      {
-        status: 200,
-        ok: true,
-      }
-    )
-  );
+  fetch.mockResponseOnce(mockBody);
 
   const expectedData = [
     {
@@ -128,19 +88,9 @@ test('Testing wiki-feed-parser.parseData', async () => {
 
 test('Testing wiki-feed-parser.parseData when getData fails with no pre tag', async () => {
   const mockBody = `<html>${mockFeed}</html>`;
-  fetch.mockResponseOnce(
-    JSON.stringify(
-      {
-        body: mockBody,
-        created_at: 'foo',
-      },
-      {
-        status: 200,
-        ok: true,
-      }
-    )
-  );
+  fetch.mockResponseOnce(mockBody);
 
-  const response = await parser.parseData();
-  expect(response).toThrow('No pre tag found');
+  await parser.parseData().catch(err => {
+    expect(err).toStrictEqual(noPreErr);
+  });
 });
