@@ -33,6 +33,10 @@ Some helpful guides:
 - Redis for MacOS - need instructions
   An easier solution would be to use Docker.
 
+**SAML Setup**
+
+- Run `bash ./generate_ssl_certs.sh` in terminal
+
 **Setup**
 
 1. Navigate to the root directory of telescope.

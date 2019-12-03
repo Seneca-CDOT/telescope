@@ -57,11 +57,11 @@ module.exports = {
       .exec();
   },
 
-  getPosts: (startDate, endDate) =>
-    // Get all posts between start and end dates in the sorted set
-    redis.zrangebyscore(POSTS, startDate.getTime(), endDate.getTime()),
+  getPosts: () =>
+    // Get all posts
+    redis.zrange(POSTS, 0, -1),
 
   getPostsCount: () => redis.zcard(POSTS),
 
-  getPost: guid => redis.hgetall(guid),
+  getPost: async guid => redis.hgetall(guid),
 };

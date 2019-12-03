@@ -28,7 +28,8 @@
     "server": "node src/backend/web/server",
     "hint": "hint http://localhost:3000",
     "webhint": "cross-env PORT=3000 npm-run-all -r -p server hint",
-    "debug-server": "nodemon server.js"
+    "lighthouse-index": "lighthouse http://localhost:3000 --output-path=./lighthouse-report.html --view",
+    "lighthouse": "cross-env PORT=3000 npm-run-all -r -p server lighthouse-index"
   },
   "husky": {
     "hooks": {
@@ -42,7 +43,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "bull": "3.11.0",
+    "bull": "3.12.1",
     "bull-board": "0.5.0",
     "dompurify": "2.0.7",
     "dotenv": "8.2.0",
@@ -52,7 +53,7 @@
     "feedparser-promised": "2.0.1",
     "get-urls": "9.2.0",
     "ioredis": "4.14.1",
-    "ioredis-mock": "4.18.2",
+    "ioredis-mock": "4.18.4",
     "jsdom": "15.2.1",
     "node-fetch": "2.6.0",
     "node-summarizer": "1.0.7",
@@ -71,25 +72,28 @@
     "wordcount": "1.1.1"
   },
   "devDependencies": {
-    "@hint/configuration-all": "1.0.13",
+    "@hint/configuration-all": "2.0.0",
     "cross-env": "6.0.3",
-    "eslint": "6.6.0",
+    "eslint": "6.7.2",
     "eslint-config-airbnb-base": "14.0.0",
-    "eslint-config-prettier": "6.5.0",
+    "eslint-config-prettier": "6.7.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-prettier": "3.1.1",
-    "hint": "5.4.1",
+    "hint": "6.0.0",
     "husky": "3.1.0",
     "jest": "24.9.0",
     "jest-fetch-mock": "2.1.2",
+    "lighthouse": "5.6.0",
     "nock": "11.7.0",
-    "nodemon": "1.19.4",
     "npm-run-all": "4.1.5",
     "prettier": "1.19.1",
     "pretty-quick": "2.0.1",
-    "stylelint": "11.1.1",
+    "stylelint": "12.0.0",
     "stylelint-config-prettier": "7.0.0",
     "stylelint-prettier": "1.1.1",
     "supertest": "4.0.2"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }

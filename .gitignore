@@ -28,8 +28,13 @@ yarn-error.log*
 *.obj
 *.o
 
+lighthouse-report.html
+
 # web-hint report
 hint-report/
 
 #Redis dump file
 dump.rdb
+
+# SAML certificates
+certs/*

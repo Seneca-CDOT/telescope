@@ -1,19 +1,39 @@
-const feedparser = require('./parser');
 const feedQueue = require('./queue');
+const feedparser = require('./parser');
+const storage = require('../utils/storage');
+const { logger } = require('../utils/logger');
+
+const Post = require('../post');
 
 exports.workerCallback = async function(job) {
   const { url } = job.data;
   const posts = await feedparser(url);
-  return posts.map(post => ({
-    author: post.author,
-    date: post.date,
-    title: post.title,
-    description: post.description,
-    postURL: post.link,
-  }));
+  const processedPosts = await Promise.all(
+    posts.map(async post => {
+      // TODO: run this through text parser and sanitizer
+      return new Post(
+        post.author,
+        post.title,
+        post.description,
+        'textContent',
+        new Date(post.date),
+        new Date(post.pubDate),
+        post.link,
+        post.guid
+      );
+    })
+  );
+  return processedPosts;
 };
 
-exports.start = function() {
+exports.start = async function() {
   // Start processing jobs from the feed queue...
-  feedQueue.process(this.workerCallback);
+  feedQueue.process(exports.workerCallback);
+  feedQueue.on('completed', async (job, results) => {
+    try {
+      await Promise.all(results.map(result => storage.addPost(result)));
+    } catch (err) {
+      logger.error({ err }, 'Error inserting posts into database');
+    }
+  });
 };
