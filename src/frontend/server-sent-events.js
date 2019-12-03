@@ -1,5 +1,5 @@
 // Connect to server to recieve stream of updates
-const source = new EventSource('/stream');
+const source = new EventSource('/feed-updates');
 
 source.onopen = () => {
   console.log('Connection to server opened.');
