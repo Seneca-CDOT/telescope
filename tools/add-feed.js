@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-require('../lib/config');
+require('../src/backend/lib/config');
 
 const args = require('minimist')(process.argv.slice(2));
-const { logger } = require('./logger');
-const { isValidUrl } = require('./utils');
-const feedQueue = require('../feed/queue');
+const { logger } = require('../src/backend/utils/logger');
+const { isValidUrl } = require('../src/backend/utils/utils');
+const feedQueue = require('../src/backend/feed/queue');
 
 const log = logger.child({ module: 'add-feed' });
 
