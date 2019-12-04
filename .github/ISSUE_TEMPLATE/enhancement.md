@@ -2,17 +2,11 @@
 name: Enhancement
 about: Suggest an idea for Telescope
 title: ''
-labels: ''
+labels: kind/feature
 assignees: ''
 
 ---
 
----
-name: Enhancement Request
-about: Suggest an enhancement to Telescope
-labels: kind/feature
-
----
 <!-- Please only use this template for submitting enhancement requests -->
 
 **What would you like to be added**:
