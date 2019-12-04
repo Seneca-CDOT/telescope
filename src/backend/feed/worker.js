@@ -5,16 +5,19 @@ const { logger } = require('../utils/logger');
 
 const Post = require('../post');
 
+const sanitizeHTML = require('../utils/sanitize-html');
+
 exports.workerCallback = async function(job) {
   const { url } = job.data;
   const posts = await feedparser(url);
   const processedPosts = await Promise.all(
     posts.map(async post => {
       // TODO: run this through text parser and sanitizer
+      const sanitizedHTML = await sanitizeHTML.run(post.description);
       return new Post(
         post.author,
         post.title,
-        post.description,
+        sanitizedHTML,
         'textContent',
         new Date(post.date),
         new Date(post.pubDate),
