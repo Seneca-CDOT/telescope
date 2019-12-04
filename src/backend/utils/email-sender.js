@@ -46,7 +46,23 @@ exports.sendMessage = async function(receipiants, subjectMessage, message) {
       from: process.env.NODEMAILER_USERNAME, // Email Name
       to: receipiants, // People to send to
       subject: subjectMessage, // Subject Line
-      html: message, // Message Body
+      html:
+        '<body>' +
+        '<table border="1" cellpadding="0" cellspacing="0" width="100%">' +
+        '<td align="center" bgcolor="#70bbd9" style="padding: 40px 0 30px 0;">' +
+        '<h1 style="font-size:40px"><b>Seneca-CDOT Telescope</b></h1>' +
+        '<a href="https://github.com/Seneca-CDOT/telescope" style="font-size:30px">Github</a>' +
+        '</td>' +
+        '<td align="center" bgcolor="#db3d3d" style="padding: 40px 0 30px 0;">' +
+        '<h1 style="font-size:40px"><b>⚠️ERROR</b></h1>' +
+        '</td>' +
+        '<tr><td style="padding: 40px 30px 40px 30px;" colspan="2">' +
+        '<table cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;">' +
+        '<tr><td width="15%"><b>Error Message:</b></td>' +
+        `<td style="word-wrap:break-word" width="85%">${message}</td></tr>` +
+        '</table></td>' +
+        '</table>' +
+        '</body>', // Message Body
     };
 
     // Send the email with the email content
