@@ -2,15 +2,8 @@
 name: Bug Report
 about: Create a report to help us improve Telescope
 title: ''
-labels: ''
-assignees: ''
-
----
-
----
-name: Bug Report
-about: Report a bug encountered while using Telescope
 labels: kind/bug
+assignees: ''
 
 ---
 
