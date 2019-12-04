@@ -61,7 +61,7 @@ module.exports = {
 
   getPosts: () =>
     // Get all posts
-    redis.zrange(POSTS, 0, -1),
+    redis.zrevrange(POSTS, 0, -1),
 
   getPostsCount: () => redis.zcard(POSTS),
 
