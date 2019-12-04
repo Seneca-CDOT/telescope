@@ -21,7 +21,7 @@ posts.get('/', async (req, res) => {
       // Return id and url for a specific post
       .map(guid => ({
         id: guid,
-        url: `/post/:${guid}`,
+        url: `/post/${encodeURIComponent(guid)}`,
       }))
   );
 });
