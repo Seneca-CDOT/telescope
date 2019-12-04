@@ -59,7 +59,7 @@ module.exports = {
       .exec();
   },
 
-  getPosts: (counter = 0) =>
+  getPosts: counter =>
     /**
      * 'counter' needs -1 because 'zrevrange()' includes the element at index 'counter'
      * in the array it returns
