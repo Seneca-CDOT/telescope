@@ -6,6 +6,7 @@ const posts = express.Router();
 
 posts.get('/', async (req, res) => {
   let redisGuids;
+  const defaultNumberOfPosts = 10;
   try {
     redisGuids = await getPosts(req.query.counter ? req.query.counter : defaultNumberOfPosts);
   } catch (err) {
