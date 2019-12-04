@@ -14,7 +14,7 @@
     ]
   },
   "bin": {
-    "add-feed": "./src/backend/utils/add-feed.js"
+    "add-feed": "./tools/add-feed.js"
   },
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
@@ -34,7 +34,7 @@
     "webhint": "cross-env PORT=3000 npm-run-all -r -p server hint",
     "lighthouse-index": "lighthouse http://localhost:3000 --output-path=./lighthouse-report.html --view",
     "lighthouse": "cross-env PORT=3000 npm-run-all -r -p server lighthouse-index",
-    "debug-server": "nodemon server.js"
+    "test-ci": "run-s prettier-check test"
   },
   "husky": {
     "hooks": {
@@ -50,7 +50,6 @@
   "dependencies": {
     "bull": "3.12.1",
     "bull-board": "0.5.0",
-    "dompurify": "2.0.7",
     "dotenv": "8.2.0",
     "express": "4.17.1",
     "express-healthcheck": "0.1.0",

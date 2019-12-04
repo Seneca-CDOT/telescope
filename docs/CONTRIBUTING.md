@@ -200,6 +200,16 @@ When working on fixing bugs, please use the following workflow:
    ...manually fix any errors yourself, rerunning npm test each time to confirm
    ```
 
+You can add feeds to the queue manually using `add-feed` followed by the name of the blogger and url of the feed. This can be useful for testing purposes.
+
+First, add a link to the binary:
+
+`npm link`
+
+Then use `add-feed`
+
+`add-feed --name "Bender Bending Rodriguez" --url futurama.wordpress.com/feed`
+
 ### Squashing Commits
 
 Before creating your pull request you may want to squash all your commits down to one. Ideally this should be done before you rebase on the upstream master.
