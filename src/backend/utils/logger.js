@@ -1,67 +1,38 @@
-/* eslint-disable no-lonely-if */
 const pino = require('pino');
 const expressPino = require('express-pino-logger');
 const os = require('os');
+const path = require('path');
 
 require('../lib/config');
 
-let logger;
-let logLevel;
-
-/* If in Development mode:
- * Output logs to console (which is by default)
- * Enable prettyPrint option and translate time from epoch time to local time.
- * Set log level to LOG_LEVEL environment variable with 'debug' as default level.
- */
-
-/* Created a local variable to to hold the value form process.env.LOG_LEVEL.toLowerCase()
- * The if statement will check the variable if the variable is anything other than levels
- * stated within file it will automatically set to info.
- * https://getpino.io/#/docs/api?id=level-string Look for the title ``` level (String) ```
- */
-
-logLevel = (process.env.LOG_LEVEL || 'info').toLowerCase();
+// Deal with log levels we don't know, or which are incorrectly formatted
+let logLevel = (process.env.LOG_LEVEL || 'info').toLowerCase();
 if (!pino.levels.values[logLevel]) {
-  logLevel = 'info';
+  // Use `debug` by default in development mode, `info` otherwise.
+  logLevel = process.env.NODE_ENV === 'development' ? 'debug' : 'info';
 }
 
-if (logLevel !== 'info') {
-  logLevel = 'info';
-} else if (process.env.NODE_ENV === 'development') {
-  logger = pino({
-    prettyPrint: {
-      translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
-      colorize: !(os.type() === 'Windows_NT'),
-    },
-    level: process.env.LOG_LEVEL || 'debug',
-  });
+const options = {
+  prettyPrint: {
+    // Translate time from epoch time to local time
+    translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
+  },
+  level: logLevel,
+};
+
+// Log to stdout, or a file if LOG_FILE is specified
+let destination;
+if (process.env.LOG_FILE) {
+  destination = pino.destination(path.resolve(process.cwd(), process.env.LOG_FILE));
+  options.prettyPrint = false;
+  //  options.prettyPrint.colorize = false;
 } else {
-  if (process.env.LOG_FILE) {
-    /* If in Production mode:
-     * Write logs to a specified path.
-     * Set log level to LOG_LEVEL environment variable with 'info' as default level.
-     */
-    logger = pino(
-      {
-        level: logLevel || 'info',
-        prettyPrint: {
-          translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
-          colorize: false,
-        },
-      },
-      pino.destination(process.env.LOG_FILE)
-    );
-  } else {
-    logger = pino({
-      level: logLevel || 'info',
-      prettyPrint: {
-        translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
-        colorize: false,
-      },
-    });
-  }
+  // Try to use colour when not logging to a file, but skip on Windows
+  options.prettyPrint.colorize = !(os.type() === 'Windows_NT');
+  destination = pino.destination(process.stdout.fd);
 }
 
+const logger = pino(options, destination);
 const expressLogger = expressPino({ logger });
 
 module.exports = expressLogger;
