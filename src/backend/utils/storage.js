@@ -59,9 +59,12 @@ module.exports = {
       .exec();
   },
 
-  getPosts: () =>
-    // Get all posts
-    redis.zrange(POSTS, 0, -1),
+  getPosts: counter =>
+    /**
+     * 'counter' needs -1 because 'zrevrange()' includes the element at index 'counter'
+     * in the array it returns
+     */
+    redis.zrevrange(POSTS, 0, counter - 1),
 
   getPostsCount: () => redis.zcard(POSTS),
 
