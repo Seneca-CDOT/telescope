@@ -13,6 +13,9 @@
       "./test/lib/setupJest.js"
     ]
   },
+  "bin": {
+    "add-feed": "./src/backend/utils/add-feed.js"
+  },
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
@@ -31,8 +34,7 @@
     "webhint": "cross-env PORT=3000 npm-run-all -r -p server hint",
     "lighthouse-index": "lighthouse http://localhost:3000 --output-path=./lighthouse-report.html --view",
     "lighthouse": "cross-env PORT=3000 npm-run-all -r -p server lighthouse-index",
-    "debug-server": "nodemon server.js",
-    "add-feed": "node src/backend/utils/add-feed.js"
+    "debug-server": "nodemon server.js"
   },
   "husky": {
     "hooks": {

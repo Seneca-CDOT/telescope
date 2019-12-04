@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 require('../lib/config');
 
 const args = require('minimist')(process.argv.slice(2));
@@ -12,7 +14,7 @@ async function add() {
     !Object.prototype.hasOwnProperty.call(args, 'name') ||
     !Object.prototype.hasOwnProperty.call(args, 'url')
   ) {
-    log.error('INVALID NUMBER OF ARGUMENTS');
+    log.error('Usage: add-feed --name <name of the blog author> --url <the feed of the url>');
     process.exit(1);
   }
   const { name, url } = args;
@@ -20,15 +22,9 @@ async function add() {
     log.error('INVALID URL');
     process.exit(1);
   }
-  const cleanName = String(name);
-  if (cleanName.match(/[.*+?^${}()|[\]\\`]/)) {
-    log.error('ONLY ALPHANUMERICAL CHARACTERS ALLOWED');
-    process.exit(1);
-  }
 
   const feed = { name, url };
 
-  log.info(`Enqueuing feed job for ${url}`);
   await feedQueue
     .add(feed, {
       attempts: process.env.FEED_QUEUE_ATTEMPTS || 8,
@@ -43,7 +39,6 @@ async function add() {
       log.error({ err }, 'Error enqueuing feed');
       process.exit(1);
     });
-  log.info('feed added');
   process.exit(0);
 }
 add();
