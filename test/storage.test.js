@@ -78,16 +78,16 @@ describe('Tests for storage', () => {
     expect(result.link).toEqual(post.link);
   });
 
-  it('get all posts returns corrent number of posts', async () => {
+  it('get all posts returns current number of posts', async () => {
     await storage.addPost(post2);
-    const result = await storage.getPosts(post2.published, post.published);
+    const result = await storage.getPosts(0, -1);
     expect(result.length).toEqual(2);
   });
 
   it('get all posts returns sorted posts by date', async () => {
-    const result = await storage.getPosts(post2.published, post.published);
-    expect(result[0]).toEqual(post2.guid);
-    expect(result[1]).toEqual(post.guid);
+    const result = await storage.getPosts(0, -1);
+    expect(result[0]).toEqual(post.guid);
+    expect(result[1]).toEqual(post2.guid);
   });
 
   it('check post count', async () => {
