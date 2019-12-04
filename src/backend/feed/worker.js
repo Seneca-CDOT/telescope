@@ -10,7 +10,7 @@ exports.workerCallback = async function(job) {
   const posts = await feedparser(url);
   const processedPosts = await Promise.all(
     posts.map(async post => {
-      // TODO: run this through text parser and sanitizer
+      // TODO: run this through text parser
       const sanitizedHTML = await sanitizeHTML.run(post.description);
       return new Post(
         post.author,
