@@ -7,9 +7,12 @@ const posts = express.Router();
 posts.get('/', async (req, res) => {
   let redisGuids;
   const defaultNumberOfPosts = 30;
+  const capNumOfPosts = 100;
   try {
     req.query.per_page = req.query.per_page || defaultNumberOfPosts;
-    redisGuids = await getPosts(req.query.per_page > 100 ? 100 : req.query.per_page);
+    redisGuids = await getPosts(
+      req.query.per_page > capNumOfPosts ? capNumOfPosts : req.query.per_page
+    );
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
     res.status(503).json({
