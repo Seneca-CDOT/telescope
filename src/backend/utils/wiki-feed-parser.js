@@ -1,8 +1,6 @@
 const fetch = require('node-fetch');
-const jsdom = require('jsdom');
 require('../lib/config');
-
-const { JSDOM } = jsdom;
+const textParser = require('../utils/text-parser');
 
 /*
  * getData() returns Promise { <pending> }
@@ -10,12 +8,12 @@ const { JSDOM } = jsdom;
  * Splits the data into lines so its easier to process as a string array
  * That data is then returned as a Promise
  */
-module.exports.getData = function() {
+module.exports.getData = async function() {
   return fetch(process.env.FEED_URL)
     .then(res => res.text())
-    .then(data => {
-      const dom = new JSDOM(data);
-      return dom.window.document.querySelector('pre').textContent.split(/\r\n|\r|\n/);
+    .then(async data => {
+      const result = await textParser(data);
+      return result.split(/\n/);
     })
     .catch(err => {
       throw err;
