@@ -27,7 +27,6 @@ describe('test /posts endpoint', async () => {
   });
 
   it('requests default number of items', async () => {
-    // Requests default number of items
     const res = await request(app).get('/posts');
 
     expect(res.status).toEqual(200);
