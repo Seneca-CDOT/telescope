@@ -6,14 +6,15 @@ const { getPostsCount } = require('../../utils/storage');
 const posts = express.Router();
 
 posts.get('/', async (req, res) => {
+  const defaultNumberOfPosts = 30;
+  const capNumOfPosts = 100;
+  const page = req.query.page || 1;
+
   let redisGuids;
   let perPage;
   let postsInDB;
   let from;
   let to;
-  const defaultNumberOfPosts = 30;
-  const capNumOfPosts = 100;
-  const page = req.query.page || 1;
 
   /**
    * Set 'perPage' to a value under within the limits or
@@ -40,8 +41,8 @@ posts.get('/', async (req, res) => {
     return;
   }
 
-  const nextPage = to === postsInDB ? page : page + 1;
-  const prevPage = from === 0 ? page : page - 1;
+  const nextPage = to === postsInDB ? 1 : page + 1;
+  const prevPage = from === 0 ? postsInDB / perPage : page - 1;
 
   res.links({
     next: `/posts?per_page=${perPage}&page=${nextPage}`,
