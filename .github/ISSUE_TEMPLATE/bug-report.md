@@ -1,9 +1,7 @@
 ---
 name: Bug Report
 about: Create a report to help us improve Telescope
-title: ''
-labels: kind/bug
-assignees: ''
+labels: type: enhancement
 
 ---
 
@@ -21,3 +19,4 @@ assignees: ''
 
 **Environment**:
 - OS:
+- Browser: 
