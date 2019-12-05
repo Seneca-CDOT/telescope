@@ -17,7 +17,7 @@ posts.get('/', async (req, res) => {
   let to;
 
   /**
-   * Set 'perPage' to a value under within the limits or
+   * Set 'perPage' to a value within the limits or
    * to default if per_page is not present
    */
   if (req.query.per_page)
@@ -27,7 +27,10 @@ posts.get('/', async (req, res) => {
   try {
     postsInDB = await getPostsCount();
 
-    // Set the range of posts we want to get from our DB
+    /**
+     * Set the range of posts that will be requested
+     * {from, to}
+     */
     from = perPage * (page - 1);
     // Make sure the upper limit is not higher than the total number of posts in the DB
     to = perPage * page > postsInDB ? postsInDB : perPage * page;
@@ -41,6 +44,9 @@ posts.get('/', async (req, res) => {
     return;
   }
 
+  /**
+   *
+   */
   const nextPage = to === postsInDB ? 1 : page + 1;
   const prevPage = from === 0 ? postsInDB / perPage : page - 1;
 
