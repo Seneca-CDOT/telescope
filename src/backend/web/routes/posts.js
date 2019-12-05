@@ -1,6 +1,7 @@
 const express = require('express');
 const { getPosts } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
+const { count } = require('../../utils/storage.js');
 
 const posts = express.Router();
 
@@ -31,4 +32,6 @@ posts.get('/', async (req, res) => {
   );
 });
 
-module.exports = posts;
+posts.get('/count', async (req, res) => {
+  res.json(count.getPostsCount());
+});
