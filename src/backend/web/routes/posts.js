@@ -1,5 +1,5 @@
 const express = require('express');
-const { getPosts } = require('../../utils/storage');
+const { getPosts, getPostsCount } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 const { getPostsCount } = require('../../utils/storage');
 
@@ -7,13 +7,20 @@ const posts = express.Router();
 
 posts.get('/', async (req, res) => {
   let redisGuids;
+  let perPage;
   const defaultNumberOfPosts = 30;
   const capNumOfPosts = 100;
+  const page = req.query.page || 1;
+
+  if (req.query.per_page)
+    perPage = req.query.per_page > capNumOfPosts ? capNumOfPosts : req.query.per_page;
+  else perPage = defaultNumberOfPosts;
+
   try {
-    req.query.per_page = req.query.per_page || defaultNumberOfPosts;
-    redisGuids = await getPosts(
-      req.query.per_page > capNumOfPosts ? capNumOfPosts : req.query.per_page
-    );
+    const postsInDB = await getPostsCount();
+    const from = perPage * (page - 1);
+    const to = perPage * page > postsInDB ? postsInDB : perPage * page;
+    redisGuids = await getPosts(from, to);
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
     res.status(503).json({
