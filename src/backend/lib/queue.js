@@ -29,9 +29,9 @@ function createQueue(name) {
       }
     },
   })
-    .on('error', error => {
+    .on('error', err => {
       // An error occurred
-      log.error(`Queue ${name} error:`, error, ' Stack: ', error.stack);
+      log.error({ err }, `Queue ${name} error`);
     })
     .on('waiting', jobID => {
       // A job is waiting for the next idling worker
