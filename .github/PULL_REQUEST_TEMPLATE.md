@@ -1,6 +1,6 @@
 <!--
 Thanks for sending a pull request!
-if this is your first time, please ensure you have read through our contributor guild: https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md
+- if this is your first time, please ensure you have read through our contributor guild: https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md
 -->
 
 **Issue This PR Addresses**
@@ -25,7 +25,7 @@ if this is your first time, please ensure you have read through our contributor 
 <!-- Before submitting a PR, address each item -->
 
 - [ ] **Quality**: This PR is tested and works locally
-- [ ] **Quality**: This PR builds and passes <what-tests-do-we-run>
+- [ ] **Quality**: This PR builds and passes our npm test
 - [ ] **Tests**: This PR includes thorough tests or an explanation of why it does not
 - [ ] **Screenshots**: This PR includes screenshots or GIFs of the changes made or an explanation of why it does not (if applicable)
 - [ ] **Documentation**: This PR includes updated/added documentation to user exposed functionalty or configuration variables are added/changed or an explanation of why it does not(if applicable)
