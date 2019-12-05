@@ -7,9 +7,9 @@ describe('test /posts endpoint', async () => {
   const requestedItems = 50;
   const maxItems = 100;
 
-  const posts = [...Array(150).keys()].map(index => {
+  const posts = [...Array(150).keys()].map(guid => {
     return {
-      guid: `${index}`,
+      guid: `${guid}`,
       author: 'foo',
       title: 'foo',
       link: 'foo',
