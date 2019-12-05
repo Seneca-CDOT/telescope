@@ -12,14 +12,22 @@ posts.get('/', async (req, res) => {
   const capNumOfPosts = 100;
   const page = req.query.page || 1;
 
+  /**
+   * Set 'perPage' to a value under within the limits or
+   * to default if per_page is not present
+   */
   if (req.query.per_page)
     perPage = req.query.per_page > capNumOfPosts ? capNumOfPosts : req.query.per_page;
   else perPage = defaultNumberOfPosts;
 
   try {
     const postsInDB = await getPostsCount();
+
+    // Set the range of posts we want to get from our DB
     const from = perPage * (page - 1);
+    // Make sure the upper limit is not higher than the total number of posts in the DB
     const to = perPage * page > postsInDB ? postsInDB : perPage * page;
+
     redisGuids = await getPosts(from, to);
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
