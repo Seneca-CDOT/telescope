@@ -1,10 +1,7 @@
 ---
 name: Enhancement
 about: Suggest an idea for Telescope
-title: ''
-labels: kind/feature
-assignees: ''
-
+labels: "type: enhancement"
 ---
 
 <!-- Please only use this template for submitting enhancement requests -->
