@@ -16,11 +16,19 @@ function showModal(props = { title: 'Modal', content: 'Content' }) {
   });
 }
 
-async function getPostsPage() {
+async function getPostsPage(perPage = 10) {
   $('.content').html('loading...');
 
-  const response = await fetch('/posts');
-  const ids = await response.json();
+  let response;
+  let ids;
+
+  try {
+    response = await fetch(`/posts/?per_page=${encodeURIComponent(perPage)}`);
+    ids = await response.json();
+  } catch (err) {
+    console.error(err);
+    $('.content').html('Error loading Posts');
+  }
 
   const posts = await Promise.all(
     ids.map(async id => {
@@ -31,16 +39,15 @@ async function getPostsPage() {
   );
 
   $('.content').html('');
-  posts
-    .forEach(post => {
-      const dateOptions = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-      };
-      const updatedDate = new Date(post.updated).toLocaleDateString('en-CA', dateOptions);
-      $('.content').append(`
+  posts.forEach(post => {
+    const dateOptions = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    };
+    const updatedDate = new Date(post.updated).toLocaleDateString('en-CA', dateOptions);
+    $('.content').append(`
             <article>
                 <header>
                     <h1><a title="${post.title}" href="${post.url}">${post.title}</a></h1>
@@ -55,11 +62,7 @@ async function getPostsPage() {
                 </section>
             </article>
             `);
-    })
-    .fail(error => {
-      console.error(error);
-      $('.content').html('Error loading Posts');
-    });
+  });
 }
 
 // Entry point: document loaded
@@ -88,8 +91,5 @@ $('.modal-button').click(() => {
     })
     .fail(error => {
       console.error(error);
-      alert(
-        `Something went wrong.\n${error.status} ${error.statusText}\nCheck the log for more info. `
-      );
     });
 });
