@@ -111,10 +111,8 @@ article {
 }
 
 article header {
-
   font-family: Georgia, Cambria, 'Times New Roman';
   grid-area: 'header';
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -161,7 +159,6 @@ article section h5 {
   text-align: center;
   margin: 25px;
 }
-
 
 article section p {
   font-family: Georgia, Cambria, 'Times New Roman';
@@ -285,9 +282,8 @@ article section p {
     width: 670px;
     margin-right: auto;
     margin-left: auto;
-
   }
-
+  
   .content {
     padding-right: 20px;
     padding-left: 20px;
