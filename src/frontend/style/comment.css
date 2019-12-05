@@ -1,0 +1,110 @@
+/*
+This is a style sheet for comment
+*/
+
+.comments-embed {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  padding-top: 10px;
+  width: 100%;
+  display: block;
+}
+
+.comment-container {
+  display: block;
+  padding-bottom: 10px;
+}
+
+.comments {
+  margin-left: 0px;
+  color: #696969;
+  text-align: left;
+  font-weight: normal;
+}
+
+.comment-list li {
+  list-style: none;
+}
+
+.comment-profile-image {
+  display: inline;
+}
+
+.comment-box {
+  padding-top: 20px;
+  display: inline-block;
+}
+
+.comment-writer {
+  font-weight: bolder;
+}
+
+.comment-date {
+  padding-left: 10px;
+  font-size: 80%;
+  color: #696969;
+  text-transform: uppercase;
+}
+
+.comment-content {
+  margin-top: 15px;
+  display: block;
+  margin-left: 0px;
+  text-align: left;
+}
+
+.comment-reply-box {
+}
+
+.comment-textbox {
+  padding-top: 20px;
+  width: 100%;
+  padding-bottom: 20px;
+  border-top-style: dashed;
+  border-top-color: #d3d3d3;
+  border-top-width: 1px;
+  border-bottom-style: dashed;
+  border-bottom-color: #d3d3d3;
+  border-bottom-width: 1px;
+}
+
+.comment-textarea {
+  width: 100%;
+  border: none;
+  font-size: 14;
+}
+
+.comment-textarea:focus {
+  outline: none;
+}
+
+.comment-button-container {
+  padding-top: 20px;
+}
+
+.btn {
+  margin-top: 15px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.btn:link,
+.btn:visited {
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 200px;
+  margin-right: 15px;
+  color: #696969;
+  transition: background-color 0.2s, border 0.2s, color 0.2s;
+}
+
+.btn:hover,
+.btn:active {
+  color: #da291c;
+}
+
+.btn-full {
+  font-size: 15px;
+}
