@@ -35,3 +35,5 @@ posts.get('/', async (req, res) => {
 posts.get('/count', async (req, res) => {
   res.json(count.getPostsCount());
 });
+
+module.exports = posts;
