@@ -16,10 +16,10 @@ function showModal(props = { title: 'Modal', content: 'Content' }) {
   });
 }
 
-async function getPostsPage() {
+async function getPostsPage(per_page = 10) {
   $('.content').html('loading...');
 
-  const response = await fetch('/posts');
+  const response = await fetch(`/posts/?per_page=${encodeURIComponent(per_page)}`);
   const ids = await response.json();
 
   const posts = await Promise.all(
