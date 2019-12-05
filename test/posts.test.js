@@ -26,22 +26,26 @@ describe('test /posts endpoint', async () => {
     Promise.all(posts.map(post => addPost(post)));
   });
 
-  it('testing returning default number of items: 30', async () => {
+  it('requests default number of items', async () => {
+    // Requests default number of items
     const res = await request(app).get('/posts');
+
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body.length).toBe(defaultItems);
   });
 
-  it('testing returning requested number of items: 50', async () => {
+  it('requests a specific number of items', async () => {
     const res = await request(app).get('/posts?per_page=50');
+
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body.length).toBe(requestedItems);
   });
 
-  it('testing returning max number of items: 100', async () => {
+  it('requests more items than the limit set by the server', async () => {
     const res = await request(app).get('/posts?per_page=150');
+
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body.length).toBe(maxItems);
