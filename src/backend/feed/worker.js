@@ -6,6 +6,7 @@ const { logger } = require('../utils/logger');
 const Post = require('../post');
 
 const sanitizeHTML = require('../utils/sanitize-html');
+
 exports.workerCallback = async function(job) {
   const { url } = job.data;
   const posts = await feedparser(url);
