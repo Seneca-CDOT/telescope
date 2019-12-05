@@ -1,0 +1,123 @@
+# This file creates replicas number of Pods, all served with one Kubernetes Service resource
+# each pod has 2 containers (telescope and redis) as has been specified in following Deployment resource
+
+# Change <DockerID> with the Docker Hub namespace (ID/username) in this file
+# To deploy project on Kubernetes we must have telescope image from `Dockerfile-deploy` file pushed on Docker Hub (instruction in `Dockerfile-deploy`).
+# We need `kubectl` installed, and for local simulation of the deployment, `minikube` installed and running.
+# deploy the app using following command
+# $ kubectl create -f telescope.yaml
+# to watch the pods as they gets created
+# $ kubectl get pods --watch
+# to see stdout of containers (telescope or redis) in one specific instance (pod)
+# $ kubctl logs <pod name as shown by above command> -c [telescope | redis]   ---> ex. $ kubectl logs telescope-7b567445fc-pn7cb -c telescope
+# finally access to the app which is running in Kubernetes cluster using this command
+# $ minikube service telescope
+# we can scale the app using the following command (example: from 3 replicas to 5)
+# $ kubectl scale --replicas=5 telescope
+# re-creating and replacing resources defined in a YAML file (ONLY IN MINIKUBE):
+# $ kubectl replace --force -f telescope.yaml   -----> Will cause service outage; Do not use in real deployment in Kubernetes
+
+# Service resource
+## telescope needs a service resource to be accessible to the outside the cluster
+## Service resource also guarantees the same IP address after each restart
+
+# version of Kubernetes API- using stable version
+apiVersion: v1
+# resource type and label
+kind: Service
+metadata:
+  name: telescope
+  labels:
+    app: telescope
+# specifications of resource
+spec:
+  selector:
+    app: telescope
+  ports:
+    # the port that cluster is listening (exposed)
+    - port: 8080
+      # the port in each pod that Service maps traffic on
+      targetPort: 8080
+      # the exposed port will be manipulated as nodePort. If we don't define it, it would be a random number greater than/equal 30000
+      # this is the port number we will see when we access to service by cluster's IP address
+
+  # This resource needs to communicate with outside of the cluster
+  # and share traffic between instances of app
+  type: NodePort
+---
+# Deployment resource
+
+# version of Kubernetes API- stable version for deployment resource
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telescope
+  labels:
+    # related to the service
+    app: telescope
+spec:
+  # at least 3 instances (pods) for resilient deployment, proper traffic management, and smooth updating the app
+  replicas: 3
+  selector:
+    matchLabels:
+      app: telescope
+  # label and specification of Pod
+  template:
+    metadata:
+      labels:
+        app: telescope
+    spec:
+      # shared file system between containers (redis and telescope)
+      volumes:
+        - name: storage
+          emptyDir: {}
+      # containers in this Pod (we have two)
+      containers:
+        # first container
+        - name: telescope
+          # change DockerID to telescope's Docker Hub username
+          image: c3ho/telescope
+          # Always pull, because we are using the latest image version
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              # this path is implemented in our app. we can also check with home page ('/') to get 200 response
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+
+        # second container
+        - name: redis
+          image: redis:latest
+          # Always pull, because we are using the latest image version
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6379
+          # mount storage to the shared file system
+          volumeMounts:
+            - name: storage
+              mountPath: /from-redis
+          # container health checks to apply restart policy on Pod
+          livenessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 5
+            timeoutSeconds: 1

@@ -1,0 +1,62 @@
+# This file will produce the telescope's image needed for deployment (ex. on Kubernetes)
+#
+# CLI command to create an image using this file:
+# Assumption: `telescope-deploy` would be the image name. If you change this name, change the image name also on `telescope.yaml`
+# $ docker build -f Dockerfile-deploy -t telescope-deploy .            ----> notice the dot at the end!
+# to put the image on Docker Hub:
+# $ docker login                                                       ----> you need an account; use your credential
+# $ docker tag telescope-deploy <DockerId>/telescope-deploy:<version>  ----> ex. $ docker tag telescope-deploy username/telescope-deploy
+#          needs Docker Hub ID. We may ignore version (we are using latest in `telescope.yaml` which is the default version)
+#          otherwise make them consistent in image tag and in YAML file.
+# $ docker push <DockerId>/telescope-deploy:<version>                  ----> ignore version if you ignored in image tag
+
+
+# Dockerfile-deploy
+
+# First stage of building image
+###############################
+
+# Use `node` long term stable image as the parent to build this image
+FROM node:lts as builder
+
+# Change working directory on the image
+WORKDIR "/telescope"
+
+# Copy package.json and .npmrc from local to the image
+# Copy before bundle app source to make sure package-lock.json never gets involved
+COPY package.json ./
+COPY .npmrc ./
+
+# Install all Node.js modules on the image
+RUN npm install --no-package-lock --production
+
+
+# Second stage, making the final image
+# only keep run-requirment from last stage
+##########################################
+
+# Use `node` long term stable and slim version image as the parent to build final image
+# The slim version has minimal packages needed to run application
+# It doesn't have version control, compiler, and etc which makes it significantly smaller and more secure
+FROM node:lts-slim
+
+# Change working directory on the image
+WORKDIR "/telescope"
+
+# Copy dependencies from last stage
+COPY --from=builder /telescope/node_modules /telescope/node_modules
+
+# Bundle app source
+COPY . .
+
+# Set the environment to production
+ENV NODE_ENV production
+
+# Change the run time user to not be root any more
+# The node image has a run time user already set up
+USER node
+
+# Expose (manage) the server port on Kuberbetes
+
+# run the image with this command
+CMD ["npm", "start"]

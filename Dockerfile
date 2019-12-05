@@ -13,9 +13,16 @@
 # Context: Build Context
 FROM node:lts-alpine as build
 
+<<<<<<< HEAD
 # Tini Entrypoint for Alpine
 RUN apk add --no-cache tini
 ENTRYPOINT [ "/sbin/tini", "--"]
+=======
+# Use `node` long term stable image as the parent to build this image
+FROM node:lts
+EXPOSE 8080
+# Use Redis image via compose-file
+>>>>>>> f950c9b... further changes
 
 # Set Working Directory Context
 WORKDIR "/telescope"

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostaliases-pod
+spec:
+  restartPolicy: Never
+  hostAliases:
+    - ip: '192.168.99.100'
+      hostnames:
+        - 'hello-world.info'
+  containers:
+    - name: telescope-hosts
+      image: c3ho/telescope
+      imagePullPolicy: Never
+      command:
+        - cat
+      args:
+        - '/etc/hosts'
