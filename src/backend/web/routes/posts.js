@@ -8,6 +8,9 @@ const posts = express.Router();
 posts.get('/', async (req, res) => {
   let redisGuids;
   let perPage;
+  let postsInDB;
+  let from;
+  let to;
   const defaultNumberOfPosts = 30;
   const capNumOfPosts = 100;
   const page = req.query.page || 1;
@@ -21,12 +24,12 @@ posts.get('/', async (req, res) => {
   else perPage = defaultNumberOfPosts;
 
   try {
-    const postsInDB = await getPostsCount();
+    postsInDB = await getPostsCount();
 
     // Set the range of posts we want to get from our DB
-    const from = perPage * (page - 1);
+    from = perPage * (page - 1);
     // Make sure the upper limit is not higher than the total number of posts in the DB
-    const to = perPage * page > postsInDB ? postsInDB : perPage * page;
+    to = perPage * page > postsInDB ? postsInDB : perPage * page;
 
     redisGuids = await getPosts(from, to);
   } catch (err) {
@@ -37,6 +40,15 @@ posts.get('/', async (req, res) => {
     return;
   }
 
+  const nextPage = to === postsInDB ? page : page + 1;
+  const prevPage = from === 0 ? page : page - 1;
+
+  res.links({
+    next: `/posts?per_page=${perPage}&page=${nextPage}`,
+    prev: `/posts?per_page=${perPage}&page=${prevPage}`,
+    first: `/posts?per_page=${perPage}&page=${1}`,
+    last: `/posts?per_page=${perPage}&page=${postsInDB / perPage}`,
+  });
   res.json(
     redisGuids
       // Return id and url for a specific post
