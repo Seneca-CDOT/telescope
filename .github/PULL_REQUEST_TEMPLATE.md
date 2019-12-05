@@ -1,6 +1,6 @@
 <!--
 Thanks for sending a pull request!
-- if this is your first time, please ensure you have read through our contributor guild: https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md
+- if this is your first time, please ensure you have read through our contributor guide: https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md
 -->
 
 **Issue This PR Addresses**
