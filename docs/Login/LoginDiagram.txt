@@ -1,27 +1,32 @@
 Step 1
+Front End Connects to Telescope
 
 ===============     ===============
 |front end    | --->|Telescope    |  
 ===============     ===============
 	  
 Step 2
+Telescope communicates back to Front end
 
 ===============     ===============
 |Front End    | <---|Telescope    |
 ===============     ===============
 Step 3
+Front End connects  to Saml2 using middleware Docker
 
 ===============     ====================     ==========
-|Front end    | --->|docker(middleware)|---->|Saml2   |
+|Front end    | --->|Docker(middleware)|---->|Saml2   |
 ===============     ====================     ==========  
 
 Step 4
+Send data back  from Saml2  to front end  Via Docker
 
 ===============     ====================     ==========
 |Front end    | <---|docker(middleware)|<---|Saml2   |
 ===============     ====================     ========== 
 
 Step 5
+Front end  transmits back to telescope with Authentication Token
 
 ===============      ========================
 |Front End    | ---->|Telescope (with token)|
