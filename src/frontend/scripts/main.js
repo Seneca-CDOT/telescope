@@ -21,22 +21,22 @@ async function getPostsPage(perPage = 10) {
 
   let response;
   let ids;
+  let posts;
 
   try {
     response = await fetch(`/posts/?per_page=${encodeURIComponent(perPage)}`);
     ids = await response.json();
+    posts = await Promise.all(
+      ids.map(async id => {
+        const res = await fetch(id.url);
+        const post = await res.json();
+        return post;
+      })
+    );
   } catch (err) {
     console.error(err);
     $('.content').html('Error loading Posts');
   }
-
-  const posts = await Promise.all(
-    ids.map(async id => {
-      const res = await fetch(`/post/${encodeURIComponent(id.id)}`);
-      const post = await res.json();
-      return post;
-    })
-  );
 
   $('.content').html('');
   posts.forEach(post => {
