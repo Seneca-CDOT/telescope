@@ -2,9 +2,7 @@ const feedQueue = require('./queue');
 const feedparser = require('./parser');
 const storage = require('../utils/storage');
 const { logger } = require('../utils/logger');
-
 const Post = require('../post');
-
 const sanitizeHTML = require('../utils/sanitize-html');
 
 exports.workerCallback = async function(job) {
