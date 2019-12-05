@@ -1,8 +1,7 @@
 ---
 name: Bug Report
 about: Create a report to help us improve Telescope
-labels: type: enhancement
-
+labels: "type/bug"
 ---
 
 <!-- Please use this template while reporting a bug and provide as much info as possible. Thanks!
