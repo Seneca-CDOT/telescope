@@ -31,8 +31,8 @@ services:
   # Access to the authentication page via http://localhost:8080/simplesaml or https://localhost:8443/simplesaml
   ssoipd:
     environment:
-      - SIMPLESAMLPHP_SP_ENTITY_ID=${OIDC_CLIENT_ID:-saml-poc}
-      - SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=${OIDC_REDIRECT_URI}
+      - SIMPLESAMLPHP_SP_ENTITY_ID=${SAML2_CLIENT_ID:-saml-poc}
+      - SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=${SAML2_REDIRECT_URI}
     # image owner's blog post https://medium.com/disney-streaming/setup-a-single-sign-on-saml-test-environment-with-docker-and-nodejs-c53fc1a984c9
     image: kristophjunge/test-saml-idp
     ports:
