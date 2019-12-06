@@ -20,6 +20,7 @@
     "lint": "npm run eslint",
     "postlint": "npm run stylelint",
     "prettier": "prettier --write \"./**/*.{md,json,html,css,js,yml}\"",
+    "prettier-check": "prettier --check \"./**/*.{md,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
     "test": "npm run jest",
     "jest": "cross-env MOCK_REDIS=1 jest",
@@ -29,7 +30,8 @@
     "hint": "hint http://localhost:3000",
     "webhint": "cross-env PORT=3000 npm-run-all -r -p server hint",
     "lighthouse-index": "lighthouse http://localhost:3000 --output-path=./lighthouse-report.html --view",
-    "lighthouse": "cross-env PORT=3000 npm-run-all -r -p server lighthouse-index"
+    "lighthouse": "cross-env PORT=3000 npm-run-all -r -p server lighthouse-index",
+    "test-ci": "run-s prettier-check test"
   },
   "husky": {
     "hooks": {

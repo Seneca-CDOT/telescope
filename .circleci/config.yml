@@ -16,4 +16,4 @@ jobs:
           command: npm install
       - run:
           name: Execute tests
-          command: npm test
+          command: npm run test-ci
