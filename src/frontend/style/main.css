@@ -164,6 +164,11 @@ article .post-content p {
   margin-top: 25px;
 }
 
+article .post-content ol,
+article .post-content ul {
+  padding-left: 20px;
+}
+
 .article-details {
   text-align: right;
 }
