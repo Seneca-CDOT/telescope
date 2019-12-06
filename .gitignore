@@ -28,13 +28,14 @@ yarn-error.log*
 *.obj
 *.o
 
+# Lighthouse CI report `npm run lighthouse`
 lighthouse-report.html
 
-# web-hint report
+# Webhint report `npm run webhint
 hint-report/
 
-#Redis dump file
+# Redis dump file
 dump.rdb
 
 # SAML certificates
-certs/*
+certs/
