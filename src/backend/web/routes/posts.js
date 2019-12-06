@@ -34,7 +34,8 @@ posts.get('/', async (req, res) => {
 
 posts.get('/count', async (req, res) => {
   try {
-    await res.json(getPostsCount());
+    const count = await getPostsCount();
+    res.json(count);
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
     res.status(500).json({
