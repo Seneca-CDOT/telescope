@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../src/backend/web/app');
 const { addPost } = require('../src/backend/utils/storage');
 
-describe('test /posts endpoint', async () => {
+describe('test /posts endpoint', () => {
   const defaultItems = 30;
   const requestedItems = 50;
   const maxItems = 100;

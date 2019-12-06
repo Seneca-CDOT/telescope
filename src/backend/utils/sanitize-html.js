@@ -1,11 +1,12 @@
-// Sanitize HTML and prevent XSS attacks using DOMPurify
-// eg. DOMPurify.sanitize('<img src=x onerror=alert(1)//>'); // becomes <img src="x">
+// Sanitize HTML and prevent XSS attacks
+// <img src=x onerror=alert(1)> becomes <img src="x">
 
-const createDOMPurify = require('dompurify');
-const { JSDOM } = require('jsdom');
+const sanitizeHtml = require('sanitize-html');
 
-module.exports.run = async function(text) {
-  const { window } = new JSDOM();
-  const DOMPurify = createDOMPurify(window);
-  return Promise.resolve(DOMPurify.sanitize(text));
+module.exports = function(dirty) {
+  return sanitizeHtml(dirty, {
+    // Add <img> to the list of allowed tags, see:
+    // https://github.com/apostrophecms/sanitize-html#what-are-the-default-options
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+  });
 };
