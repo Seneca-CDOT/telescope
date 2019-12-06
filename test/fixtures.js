@@ -101,3 +101,7 @@ exports.nockValidHtmlResponse = function() {
 exports.nock404Response = function() {
   nockResponse(getHtmlUri(), 'Not Found', 404, 'text/html');
 };
+
+exports.createMockJobObjectFromURL = function(feedURL) {
+  return { data: { url: feedURL } };
+};
