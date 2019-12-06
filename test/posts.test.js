@@ -49,4 +49,12 @@ describe('test /posts endpoint', () => {
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body.length).toBe(maxItems);
   });
+
+  it('returns correct number of posts', async () => {
+    const res = await request(app).get('/posts/count');
+
+    expect(res.status).toEqual(200);
+    expect(res.get('Content-type')).toContain('application/json');
+    expect(res.body).toBe(150);
+  });
 });
