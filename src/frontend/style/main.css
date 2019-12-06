@@ -95,9 +95,16 @@ nav a:visited {
   grid-area: main;
   display: flex;
   flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
   padding-right: 200px;
   padding-left: 200px;
   overflow-y: scroll;
+}
+
+.content h1 a {
+  text-decoration: none;
+  color: #000;
 }
 
 article {
@@ -107,7 +114,7 @@ article {
     'header'
     'article-content';
   font-family: var(--font-main);
-  margin-top: 20px;
+  margin-bottom: 80px;
 }
 
 article header {
@@ -128,7 +135,7 @@ article header h1 {
   box-shadow: 0px 5px 0px 0px var(--secondary);
 }
 
-article section {
+article .post-content {
   grid-area: article-content;
   font-weight: 400;
   text-align: justify;
@@ -159,6 +166,7 @@ article section p {
 /* RESPONSIVE QUERIES */
 @media only screen and (max-width: 1280px) {
   .content {
+    max-width: 670px;
     padding-right: 50px;
     padding-left: 100px;
   }
@@ -274,4 +282,51 @@ img {
   margin-top: 20px;
   margin-left: 10px;
   margin-right: 2px;
+}
+
+.modal-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: var(--box-shadow-color);
+  z-index: 20;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-panel {
+  width: 800px;
+  height: 500px;
+  padding: 10px;
+  background: var(--main-bg);
+  box-shadow: 0px 5px 5px var(--box-shadow-color);
+  border-radius: 10px;
+  display: grid;
+  grid-template-rows: 100px auto;
+  grid-template-areas: 'title' 'content';
+  font-family: var(--font-main);
+  text-align: center;
+}
+
+.modal-panel h1 {
+  grid-area: title;
+}
+
+.modal-panel section {
+  grid-area: content;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  overflow-y: scroll;
+}
+
+/* States */
+.mobile-menu-open {
+  transform: translateX(-200px);
+  box-shadow: 0px 0px 100px var(--box-shadow-color);
+}
+
+.modal-open {
+  display: flex;
 }
