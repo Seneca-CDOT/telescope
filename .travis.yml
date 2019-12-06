@@ -42,6 +42,8 @@ before_install:
       redis-server --service-start
       redis-cli info
     fi
+script:
+  - npm run test-ci
 matrix:
   allow_failures:
     # Windows can fail if choco can't download redis
