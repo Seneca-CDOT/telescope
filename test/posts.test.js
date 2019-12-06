@@ -49,11 +49,11 @@ describe('test /posts endpoint', () => {
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body.length).toBe(maxItems);
   });
-});
-it('returns correct number of posts', async () => {
-  const count = await request(app).get('/posts/count');
+  it('returns correct number of posts', async () => {
+    const count = await request(app).get('/posts/count');
 
-  expect(res.status).toEqual(200);
-  expect(res.get('Content-type')).toContain('application/json');
-  expect(res.body).toBe(count);
+    expect(res.status).toEqual(200);
+    expect(res.get('Content-type')).toContain('application/json');
+    expect(res.body).toBe(count);
+  });
 });
