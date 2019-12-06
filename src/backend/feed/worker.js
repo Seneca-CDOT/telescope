@@ -12,11 +12,10 @@ exports.workerCallback = async function(job) {
     return await Promise.all(
       posts.map(async post => {
         // TODO: run this through text parser
-        const sanitizedHTML = await sanitizeHTML.run(post.description);
         return new Post(
           post.author,
           post.title,
-          sanitizedHTML,
+          sanitizeHTML(post.description),
           'textContent',
           new Date(post.date),
           new Date(post.pubDate),
