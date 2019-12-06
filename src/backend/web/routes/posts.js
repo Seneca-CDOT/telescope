@@ -45,16 +45,19 @@ posts.get('/', async (req, res) => {
   }
 
   /**
-   *
+   * Add prev, next, first and last in the response's header.
+   * It's been implemented to work circularly.
+   * Once reached the last set of posts, 'next' points at the first set.
+   * Same case with 'prev' and the first set of posts.
    */
-  const nextPage = to === postsInDB ? 1 : page + 1;
-  const prevPage = from === 0 ? postsInDB / perPage : page - 1;
+  const nextPage = to >= postsInDB ? 1 : parseInt(page, 10) + 1;
+  const prevPage = from === 0 ? Math.floor(postsInDB / perPage) : page - 1;
 
   res.links({
     next: `/posts?per_page=${perPage}&page=${nextPage}`,
     prev: `/posts?per_page=${perPage}&page=${prevPage}`,
     first: `/posts?per_page=${perPage}&page=${1}`,
-    last: `/posts?per_page=${perPage}&page=${postsInDB / perPage}`,
+    last: `/posts?per_page=${perPage}&page=${Math.floor(postsInDB / perPage)}`,
   });
   res.json(
     redisGuids
