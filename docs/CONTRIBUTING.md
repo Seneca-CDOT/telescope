@@ -121,11 +121,12 @@ sudo chmod g+rwx "$HOME/.docker" -R
 ```
 
 10. Now run docker as a service on your machine, on startup:
-
     1. Enable docker on startup: `sudo systemctl enable docker`
     1. Disable docker on startup: `sudo systemctl disable docker`
 
-1. Run to download the current stable version of Docker-Compose:
+**Install Docker-Compose**
+
+11. Run to download the current stable version of Docker-Compose:
 
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
