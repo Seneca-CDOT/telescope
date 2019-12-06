@@ -139,6 +139,7 @@ article .post-content {
   grid-area: article-content;
   font-weight: 400;
   text-align: justify;
+  width: 670px;
 }
 
 article section h2,
