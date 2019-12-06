@@ -1,42 +1,61 @@
+const fixtures = require('./fixtures');
 const feedWorker = require('../src/backend/feed/worker');
 
-describe('testing the worker callback function', () => {
-  const job1 = {
-    data: { url: 'https://c3ho.blogspot.com/feeds/posts/default/-/open-source?alt=rss' },
-  };
-  const job2 = { data: { url: 'c3ho.blogspot.com/feeds/posts/default/-/open-source?alt=rss' } };
-  const job3 = { data: { url: 'https://c3ho.blogspot.com/feeds/posts/default/-/open-source' } };
-  const job4 = { data: { url: 'c3ho.blogspot.com/feeds/posts/default/-/open-source' } };
-  const job5 = { data: { url: 'https://google.ca' } };
-  const job6 = { data: { url: '128.190.222.135' } };
-  const job7 = { data: { url: 'http://en.blog.wordpress.com/category/INVALID_CATEGORY/feed/' } };
+test('passing a valid Atom feed URI should pass', async () => {
+  const feedURL = fixtures.getAtomUri();
+  fixtures.nockValidAtomResponse();
+  const job = fixtures.createMockJobObjectFromURL(feedURL);
+  await expect(feedWorker.workerCallback(job)).resolves.toBeTruthy();
+});
 
-  it('should pass with a valid ATOM feed URI', async () => {
-    await expect(feedWorker.workerCallback(job1)).resolves.toBeTruthy();
-  });
+test('Passing an invalid ATOM feed URI should error', async () => {
+  const url = fixtures.stripProtocol(fixtures.getAtomUri());
+  const job = fixtures.createMockJobObjectFromURL(url);
+  await expect(feedWorker.workerCallback(job)).rejects.toThrow();
+});
 
-  it('should fail with an invalid ATOM feed URI should error', async () => {
-    await expect(feedWorker.workerCallback(job2)).rejects.toThrow();
-  });
+test('Passing a valid RSS feed URI should pass', async () => {
+  const feedURL = fixtures.getRssUri();
+  fixtures.nockValidRssResponse();
+  const job = fixtures.createMockJobObjectFromURL(feedURL);
+  await expect(feedWorker.workerCallback(job)).resolves.toBeTruthy();
+});
 
-  it('should pass with a valid RSS feed URI', async () => {
-    await expect(feedWorker.workerCallback(job3)).resolves.toBeTruthy();
-  });
+test('Passing an invalid RSS feed URI should error', async () => {
+  const url = fixtures.stripProtocol(fixtures.getRssUri());
+  const job = fixtures.createMockJobObjectFromURL(url);
+  await expect(feedWorker.workerCallback(job)).rejects.toThrow();
+});
 
-  it('should fail with an invalid RSS feed URI', async () => {
-    await expect(feedWorker.workerCallback(job4)).rejects.toThrow();
-  });
+test('Passing a valid URI, but not a feed URI should error', async () => {
+  const url = fixtures.getHtmlUri();
+  fixtures.nockValidHtmlResponse();
+  const job = fixtures.createMockJobObjectFromURL(url);
+  await expect(feedWorker.workerCallback(job)).rejects.toThrow();
+});
 
-  it('should fail with a valid URI, but not a feed URI', async () => {
-    await expect(feedWorker.workerCallback(job5)).rejects.toThrow();
-  });
+test('Passing an IP address instead of a URI should error', async () => {
+  const job = fixtures.createMockJobObjectFromURL('128.190.222.135');
+  await expect(feedWorker.workerCallback(job)).rejects.toThrow();
+});
 
-  it('should fail by passing an IP address instead of a URI', async () => {
-    await expect(feedWorker.workerCallback(job6)).rejects.toThrow();
-  });
+test('Passing an invalid RSS category feed should pass', async () => {
+  const feedURL = fixtures.getRssUri();
+  fixtures.nockInvalidRssResponse();
+  const job = fixtures.createMockJobObjectFromURL(feedURL);
+  await expect(feedWorker.workerCallback(job)).resolves.toBeTruthy();
+});
 
-  // TODO: this needs to actually fail: currently returns a valid RSS feed XML doc
-  it.skip('should fail by passing an invalid RSS category feed due to empty array', async () => {
-    await expect(feedWorker.workerCallback(job7)).rejects.toThrow();
-  });
+test('Passing a valid RSS category feed should pass', async () => {
+  const feedURL = fixtures.getRssUri();
+  fixtures.nockValidRssResponse();
+  const job = fixtures.createMockJobObjectFromURL(feedURL);
+  await expect(feedWorker.workerCallback(job)).resolves.toBeTruthy();
+});
+
+test('Non existent feed failure case: 404 should error', async () => {
+  const url = fixtures.getHtmlUri();
+  fixtures.nock404Response();
+  const job = fixtures.createMockJobObjectFromURL(url);
+  await expect(feedWorker.workerCallback(job)).rejects.toThrow();
 });
