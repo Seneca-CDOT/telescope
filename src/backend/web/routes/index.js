@@ -5,6 +5,7 @@ const opml = require('./opml');
 const post = require('./post');
 const posts = require('./posts');
 const sse = require('./server-sent-events');
+const login = require('./login');
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.use('/opml', opml);
 router.use('/post', post);
 router.use('/posts', posts);
 router.use('/feed-updates', sse);
+router.use('/login', login);
 
 module.exports = router;
