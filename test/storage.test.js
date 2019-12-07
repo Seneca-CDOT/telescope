@@ -9,7 +9,7 @@ const {
   getPostsCount,
 } = require('../src/backend/utils/storage');
 
-describe('Tests for feeds', () => {
+describe('Storage tests for feeds', () => {
   const feed = { name: 'James Smith', url: 'http://seneca.co/jsmith' };
   const feed2 = { name: 'James Smith 2', url: 'http://seneca.co/jsmith/2' };
 
@@ -40,7 +40,7 @@ describe('Tests for feeds', () => {
   });
 });
 
-describe('Tests for posts', () => {
+describe('Storage tests for posts', () => {
   const testPost = {
     guid: '0',
     author: 'foo',
@@ -86,7 +86,7 @@ describe('Tests for posts', () => {
 
   it('should allow retrieving a post by guid after inserting', async () => {
     const result = await getPost(testPost.guid);
-    expect(result.link).toEqual(testPost.link);
+    expect(result.guid).toEqual(testPost.guid);
   });
 
   it('get all posts returns current number of posts', async () => {
