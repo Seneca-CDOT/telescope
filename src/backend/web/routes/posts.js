@@ -8,11 +8,11 @@ const posts = express.Router();
 posts.get('/', async (req, res) => {
   const defaultNumberOfPosts = 30;
   const capNumOfPosts = 100;
-  const page = req.query.page || 1;
+  const page = parseInt(req.query.page || 1, 10);
 
-  let redisGuids;
+  let guids;
   let perPage;
-  let postsInDB;
+  let postsCount;
   let from;
   let to;
 
@@ -25,7 +25,7 @@ posts.get('/', async (req, res) => {
   else perPage = defaultNumberOfPosts;
 
   try {
-    postsInDB = await getPostsCount();
+    postsCount = await getPostsCount();
 
     /**
      * Set the range of posts that will be requested
@@ -33,9 +33,9 @@ posts.get('/', async (req, res) => {
      */
     from = perPage * (page - 1);
     // Make sure the upper limit is not higher than the total number of posts in the DB
-    to = perPage * page > postsInDB ? postsInDB : perPage * page;
+    to = perPage * page > postsCount ? postsCount : perPage * page;
 
-    redisGuids = await getPosts(from, to);
+    guids = await getPosts(from, to);
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
     res.status(503).json({
@@ -50,17 +50,17 @@ posts.get('/', async (req, res) => {
    * Once reached the last set of posts, 'next' points at the first set.
    * Same case with 'prev' and the first set of posts.
    */
-  const nextPage = to >= postsInDB ? 1 : parseInt(page, 10) + 1;
-  const prevPage = from === 0 ? Math.floor(postsInDB / perPage) : page - 1;
+  const nextPage = to >= postsCount ? 1 : page + 1;
+  const prevPage = from === 0 ? Math.floor(postsCount / perPage) : page - 1;
 
   res.links({
     next: `/posts?per_page=${perPage}&page=${nextPage}`,
     prev: `/posts?per_page=${perPage}&page=${prevPage}`,
     first: `/posts?per_page=${perPage}&page=${1}`,
-    last: `/posts?per_page=${perPage}&page=${Math.floor(postsInDB / perPage)}`,
+    last: `/posts?per_page=${perPage}&page=${Math.floor(postsCount / perPage)}`,
   });
   res.json(
-    redisGuids
+    guids
       // Return id and url for a specific post
       .map(guid => ({
         id: guid,
