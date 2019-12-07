@@ -1,7 +1,7 @@
 ---
 name: Enhancement
 about: Suggest an idea for Telescope
-labels: "type: enhancement"
+labels: 'type: enhancement'
 ---
 
 <!-- Please only use this template for submitting enhancement requests -->
