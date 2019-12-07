@@ -1,6 +1,7 @@
 require('./lib/config.js');
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
+const textParser = require('./utils/text-parser');
 const { logger: log } = require('./utils/logger');
 const wikiFeed = require('./utils/wiki-feed-parser');
 const shutdown = require('./lib/shutdown');
@@ -17,6 +18,15 @@ process.on('SIGINT', shutdown('SIGINT'));
 process.on('SIGQUIT', shutdown('SIGQUIT'));
 process.on('unhandledRejection', shutdown('UNHANDLED REJECTION'));
 process.on('uncaughtException', shutdown('UNCAUGHT EXCEPTION'));
+
+textParser
+  .initialize()
+  .then(() => {
+    log.info('Successfully initialized text parser');
+  })
+  .catch(error => {
+    log.error({ error }, 'Unable to initialize text parser');
+  });
 
 /**
  * Adds feed URL jobs to the feed queue for processing

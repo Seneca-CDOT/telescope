@@ -8,6 +8,9 @@ module.exports = {
     node: true,
     es2017: true,
   },
+  globals: {
+    page: true,
+  },
   rules: {
     'prettier/prettier': ['error'],
 

@@ -2,6 +2,7 @@ const { promisify } = require('util');
 
 const feedQueue = require('../feed/queue');
 const { logger } = require('../utils/logger');
+const textParser = require('../utils/text-parser');
 const server = require('../web/server');
 
 let isShuttingDown = false;
@@ -13,6 +14,13 @@ function stopQueue() {
     .catch(err => logger.error({ err }, 'Unable to close feed queue gracefully'));
 }
 
+function shutdownTextParser() {
+  return textParser
+    .close()
+    .then(() => logger.info('Text parser shut down.'))
+    .catch(err => logger.error({ err }, 'Unable to close text parser gracefully'));
+}
+
 function stopWebServer() {
   const serverClose = promisify(server.close.bind(server));
   return serverClose()
@@ -21,7 +29,7 @@ function stopWebServer() {
 }
 
 function cleanShutdown() {
-  return Promise.all([stopQueue(), stopWebServer()])
+  return Promise.all([stopQueue(), shutdownTextParser(), stopWebServer()])
     .then(() => logger.info('Completing shut down.'))
     .catch(err => logger.error({ err }, 'Failed to perform clean shutdown'));
 }
