@@ -164,6 +164,8 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 
 ## Workflow in git and GitHub
 
+### Getting Started
+
 When working on fixing bugs, please use the following workflow:
 
 1. If you haven't done so already, add an `upstream` remote so you can stay in sync:
@@ -175,6 +177,7 @@ When working on fixing bugs, please use the following workflow:
    git checkout master
    git pull upstream master
    ```
+1. Additionally, it is a good idea to run `npm install` to make sure everything is up to date and you have everything neccessary.
 1. Create a branch for your work, using the issue number:
    ```
    git checkout -b issue-123
@@ -185,6 +188,9 @@ When working on fixing bugs, please use the following workflow:
    git add file1 file2 ...
    git commit -m "Updating file1 and file2 to do ..."
    ```
+
+### Testing Your Code
+
 1. Run the test suite, using `npm test`. Fix any lint errors, warnings, or other failures (NOTE: if you're not sure what an eslint rule means, [look it up in the docs](https://eslint.org/docs/rules/)):
    ```
    npm test
@@ -193,6 +199,36 @@ When working on fixing bugs, please use the following workflow:
    npm test
    ...manually fix any errors yourself, rerunning npm test each time to confirm
    ```
+
+### Squashing Commits
+
+Before creating your pull request you may want to squash all your commits down to one. Ideally this should be done before you rebase on the upstream master.
+
+Before you begin make sure you are in your own branch and any and all changes you wish to make are commited.
+
+1. The first step is to find the base commit where your branch began. To find this you can run `git log` and look through the history for the commit before your first commit. Copy the hash from this commit.
+1. Run `git rebase -i` followed by the base commit's hash.
+   Example: `git rebase -i 1bab04f`
+1. A `git-rebase-todo` file will then open up in your default editor. If you have no set one then you will be prompted to edit it in terminal using VIM.
+   Example:
+
+```
+pick 52a4ced Build
+pick b85d7a9 Final Build
+```
+
+1. On this screen you will need to decide what you want to do with each commit. Most commonly you will be choosing to squash, fixup or reword your commits. The example below will create one commit instead of 2 with the commit message being "Build".
+   Example:
+
+```
+pick 52a4ced Build
+fixup b85d7a9 Final Build
+```
+
+1. Once this is done you can save and close the file. (Or if using VIM press esc then : followed by wq to save and quit).
+
+### Submitting Your Code
+
 1. When you're done, push to your fork, using the same name as your branch:
    ```
    git push origin issue-123
@@ -200,7 +236,7 @@ When working on fixing bugs, please use the following workflow:
 1. This will give you a link to GitHub to create a Pull Request.
 1. Create your Pull Request, and give it a title `Fix #123: short description of fix` (NOTE: the "Fix #123" part, which will [automatically close the issue](https://help.github.com/en/github/managing-your-work-on-github/closing-issues-using-keywords) when this gets merged) as well as a full description to talk about everything you did, any follow-up work that's necessary, how to test the code, etc.
 1. Check the automatic Continuous Integration builds that happen in your Pull Request. Make sure they go green, not red. If something goes red, first investigate the error then ask for help if you're not sure how to solve it.
-1. When you get review comments to fix issues, make those changes and update your branch:
+1. When you get review comments to fix issues, make those changes and update your branch (you can optionally squash these new commits):
    ```
    ...edit files to fix review comments
    git add file1
