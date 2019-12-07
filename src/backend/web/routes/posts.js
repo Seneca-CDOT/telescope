@@ -1,7 +1,6 @@
 const express = require('express');
 const { getPosts, getPostsCount } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
-const { getPostsCount } = require('../../utils/storage');
 
 const posts = express.Router();
 
