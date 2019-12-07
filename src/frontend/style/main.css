@@ -36,6 +36,7 @@ body {
 /* NAVIGATION */
 
 .navigation-adaptive {
+  width: 250px;
   grid-area: nav;
   background: var(--main-bg);
   box-shadow: 0px 0px 10px var(--box-shadow-color);
@@ -46,12 +47,12 @@ body {
 }
 
 #main-logo {
-  width: 120px;
+  width: 155px;
   margin-top: 20px;
 }
 
 nav {
-  margin-top: 50px;
+  margin-top: 25px;
   text-align: center;
 }
 
@@ -78,10 +79,9 @@ nav a:visited {
   cursor: pointer;
   padding: 5px;
   color: var(--content-font-color);
-  margin: 5px;
+  margin: 12px;
   transition: box-shadow 0.3s ease;
   font-family: var(--font-main);
-  font-weight: 700;
 }
 
 .nav-button:hover {
@@ -95,9 +95,16 @@ nav a:visited {
   grid-area: main;
   display: flex;
   flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
   padding-right: 200px;
   padding-left: 200px;
   overflow-y: scroll;
+}
+
+.content h1 a {
+  text-decoration: none;
+  color: #000;
 }
 
 article {
@@ -107,11 +114,12 @@ article {
     'header'
     'article-content';
   font-family: var(--font-main);
-  margin-top: 20px;
+  margin-bottom: 80px;
 }
 
 article header {
-  grid-area: header;
+  font-family: Georgia, Cambria, 'Times New Roman';
+  grid-area: 'header';
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -119,53 +127,162 @@ article header {
   background: var(--main-bg);
   position: sticky;
   top: 0px;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 article header h1 {
   font-weight: 900;
-  font-size: 25px;
+  font-size: 2.5rem;
   box-shadow: 0px 5px 0px 0px var(--secondary);
-  display: block;
-  overflow-x: hidden;
-  max-width: 75%;
-}
-
-article header h1 a:link,
-article header h1 a:visited {
-  display: inline-block;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--content-font-color);
-  text-decoration: none;
 }
 
 article .post-content {
   grid-area: article-content;
   font-weight: 400;
   text-align: justify;
+  width: 670px;
 }
 
-article .post-content h2,
-article .post-content h3,
-article .post-content h4,
-article .post-content h5 {
+article section h2,
+article section h3,
+article section h4,
+article section h5 {
+  font-family: Georgia, Cambria, 'Times New Roman';
   text-align: center;
   margin: 25px;
 }
 
-article .post-content p {
-  font-size: 17px;
-  line-height: 25px;
+article section p {
+  font-family: Georgia, Cambria, 'Times New Roman';
+  text-align: left;
+  font-size: 1.25rem;
+  line-height: 2rem;
   text-indent: 30px;
   margin-top: 25px;
 }
 
 .article-details {
   text-align: right;
+}
+
+/* RESPONSIVE QUERIES */
+@media only screen and (max-width: 1280px) {
+  .content {
+    max-width: 670px;
+    padding-right: 50px;
+    padding-left: 100px;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .main-grid {
+    grid-template-columns: 20px auto 20px;
+    grid-template-rows: 60px auto;
+    grid-template-areas:
+      'nav nav nav'
+      'main main main';
+  }
+
+  .navigation-adaptive {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #main-logo {
+    margin-top: 0px;
+    height: 40px;
+    width: 80px;
+  }
+
+  nav {
+    margin: 0px;
+    position: fixed;
+    width: 200px;
+    right: -200px;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: var(--main-bg);
+    box-shadow: 0px 0px 0px var(--box-shadow-color);
+    transition: transform 0.4s ease, box-shadow 0.7s ease;
+  }
+
+  #mobile-burger {
+    display: inline-block;
+    padding: 20px;
+  }
+
+  #mobile-burger-close {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 1.75em;
+  }
+
+  article section {
+    width: 670px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .content {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
+/* Search animation and icon CSS */
+.search_container {
+  display: block;
+  margin-bottom: 70px;
+}
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+img {
+  max-width: 1200px;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #da291c;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9dbfaf;
+  font-size: 12px;
+}
+
+.searchTerm:focus {
+  color: #da291c;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #da291c;
+  background: #da291c;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap {
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 2px;
 }
 
 .modal-container {
@@ -213,119 +330,4 @@ article .post-content p {
 
 .modal-open {
   display: flex;
-}
-
-/* RESPONSIVE QUERIES */
-@media only screen and (max-width: 1280px) {
-  .content {
-    padding-right: 50px;
-    padding-left: 50px;
-  }
-}
-
-@media only screen and (max-width: 1024px) {
-  .main-grid {
-    grid-template-columns: 20px auto 20px;
-    grid-template-rows: 60px auto;
-    grid-template-areas:
-      'nav nav nav'
-      'main main main';
-  }
-
-  .navigation-adaptive {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  #main-logo {
-    margin-top: 0px;
-    height: 40px;
-    width: 80px;
-  }
-
-  nav {
-    margin: 0px;
-    position: fixed;
-    width: 200px;
-    right: -200px;
-    top: 0px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: var(--main-bg);
-    box-shadow: 0px 0px 0px var(--box-shadow-color);
-    transition: transform 0.4s ease, box-shadow 0.7s ease;
-  }
-
-  #mobile-burger {
-    display: inline-block;
-    padding: 20px;
-  }
-
-  #mobile-burger-close {
-    display: block;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    font-size: 1.75em;
-  }
-
-  article .post-content {
-    margin-right: 0px;
-    margin-left: 0px;
-  }
-
-  .content {
-    padding-right: 20px;
-    padding-left: 20px;
-  }
-}
-
-/* Search animation and icon CSS */
-.search_container {
-  display: block;
-  margin-bottom: 70px;
-}
-.search {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
-
-.searchTerm {
-  width: 100%;
-  border: 3px solid #da291c;
-  border-right: none;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9dbfaf;
-  font-size: 12px;
-}
-
-.searchTerm:focus {
-  color: #da291c;
-}
-
-.searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #da291c;
-  background: #da291c;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-/*Resize the wrap to see the search bar change!*/
-.wrap {
-  width: 90%;
-  margin-top: 20px;
-  margin-left: 10px;
-  margin-right: 2px;
 }
