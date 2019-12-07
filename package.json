@@ -14,7 +14,8 @@
     ]
   },
   "bin": {
-    "add-feed": "./tools/add-feed.js"
+    "add-feed": "./tools/add-feed.js",
+    "html-elements": "./tools/html-elements.js"
   },
   "scripts": {
     "eslint": "eslint --ignore-path .gitignore .",
