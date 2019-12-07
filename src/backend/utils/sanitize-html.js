@@ -7,6 +7,6 @@ module.exports = function(dirty) {
   return sanitizeHtml(dirty, {
     // Add <img> to the list of allowed tags, see:
     // https://github.com/apostrophecms/sanitize-html#what-are-the-default-options
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'figure']),
   });
 };

@@ -25,12 +25,12 @@ describe('Sanitize HTML', () => {
     expect(data).toBe('<p>Here is color <strong>blue</strong></p>');
   });
 
-  test('<figure> with <img> should remove <figure>', () => {
+  test('<figure> with <img> should strip inline style as both are added to allowed tags', () => {
     const data = sanitizeHTML(
       '<figure class="wp-block-image size-large"><img src="https://paulopensourceblog.files.wordpress.com/2019/12/image-3.png?w=1024" alt="" class="wp-image-2226"></figure>'
     );
     expect(data).toBe(
-      '<img src="https://paulopensourceblog.files.wordpress.com/2019/12/image-3.png?w=1024" />'
+      '<figure><img src="https://paulopensourceblog.files.wordpress.com/2019/12/image-3.png?w=1024" /></figure>'
     );
   });
 
