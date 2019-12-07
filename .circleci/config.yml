@@ -12,6 +12,9 @@ jobs:
       - checkout
       - puppeteer/install
       - run:
+          name: Generate SSL Certs
+          command: ./tools/generate-ssl-certs.sh
+      - run:
           name: Install dependencies
           command: npm install
       - run:
