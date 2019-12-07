@@ -8,8 +8,8 @@ class Post {
   constructor(author, title, htmlContent, textContent, datePublished, dateUpdated, postLink, guid) {
     this.author = author;
     this.title = title;
-    this.htmlContent = htmlContent;
-    this.textContent = textContent;
+    this.content = htmlContent;
+    this.text = textContent;
     this.published = datePublished;
     this.updated = dateUpdated;
     this.postLink = postLink;

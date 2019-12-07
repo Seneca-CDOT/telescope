@@ -2,28 +2,33 @@ const feedQueue = require('./queue');
 const feedparser = require('./parser');
 const storage = require('../utils/storage');
 const { logger } = require('../utils/logger');
-
 const Post = require('../post');
+const sanitizeHTML = require('../utils/sanitize-html');
 
 exports.workerCallback = async function(job) {
   const { url } = job.data;
-  const posts = await feedparser(url);
-  const processedPosts = await Promise.all(
-    posts.map(async post => {
-      // TODO: run this through text parser and sanitizer
-      return new Post(
-        post.author,
-        post.title,
-        post.description,
-        'textContent',
-        new Date(post.date),
-        new Date(post.pubDate),
-        post.link,
-        post.guid
-      );
-    })
-  );
-  return processedPosts;
+  try {
+    const posts = await feedparser(url);
+    return await Promise.all(
+      posts.map(async post => {
+        // TODO: run this through text parser
+        return new Post(
+          post.author,
+          post.title,
+          sanitizeHTML(post.description),
+          'textContent',
+          new Date(post.date),
+          new Date(post.pubDate),
+          post.link,
+          post.guid
+        );
+      })
+    );
+  } catch (err) {
+    const message = `Unable to process feed ${url} for job ${job.id}`;
+    logger.error({ err }, message);
+    throw new Error(message);
+  }
 };
 
 exports.start = async function() {
