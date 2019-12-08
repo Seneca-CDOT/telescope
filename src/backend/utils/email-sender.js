@@ -69,7 +69,7 @@ exports.verifyTransporter = function(transporter) {
   transporter.verify(err => {
     // If error then print to console
     if (err) {
-      log.error(err);
+      log.error({ err }, 'Transporter connection failed.');
       return false;
     }
     // else print a ready message

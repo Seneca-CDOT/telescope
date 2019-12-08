@@ -17,8 +17,8 @@ try {
   text4 = fs.readFileSync(path.join(__dirname, '/test_files/basic_analysis.test1.txt')).toString();
   text5 = fs.readFileSync(path.join(__dirname, '/test_files/basic_analysis.test2.txt')).toString();
   text6 = fs.readFileSync(path.join(__dirname, '/test_files/basic_analysis.test3.txt')).toString();
-} catch (err) {
-  log.error(err);
+} catch (error) {
+  log.error({ error }, 'Error reading text file for analysis test');
 }
 
 // Test 1: Output Type Test

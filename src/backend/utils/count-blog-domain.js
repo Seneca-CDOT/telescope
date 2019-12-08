@@ -55,8 +55,8 @@ module.exports.blogDomainCounter = function(feedUrls) {
         } else {
           domainSummary[domainIndex].count += 1;
         }
-      } catch (err) {
-        log.error(err);
+      } catch (error) {
+        log.error({ error }, 'Error in counting blogs for domain.');
       }
     });
   }
