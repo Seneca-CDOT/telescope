@@ -10,7 +10,7 @@ test('passing a valid Atom feed URI and getting title of first post', async () =
   const feedURL = fixtures.getAtomUri();
   fixtures.nockValidAtomResponse();
   const data = await feedParser(feedURL);
-  expect(data[data.length - 1].title).toBe('XML Tutorial');
+  expect(data[data.length - 1].title).toBe('RSS Solutions for Schools and Colleges');
 });
 
 test('Passing an invalid ATOM feed URI should error', async () => {
@@ -22,7 +22,7 @@ test('Passing a valid RSS feed URI and getting title of first post', async () =>
   const feedURL = fixtures.getRssUri();
   fixtures.nockValidRssResponse();
   const data = await feedParser(feedURL);
-  expect(data[data.length - 1].title).toBe('XML Tutorial');
+  expect(data[data.length - 1].title).toBe('RSS Solutions for Schools and Colleges');
 });
 
 test('Passing an invalid RSS feed URI should error', async () => {
