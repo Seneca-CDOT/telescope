@@ -1,29 +1,13 @@
 const feedQueue = require('./queue');
 const feedparser = require('./parser');
-const storage = require('../utils/storage');
 const { logger } = require('../utils/logger');
 const Post = require('../post');
-const sanitizeHTML = require('../utils/sanitize-html');
 
 exports.workerCallback = async function(job) {
   const { url } = job.data;
   try {
-    const posts = await feedparser(url);
-    return await Promise.all(
-      posts.map(async post => {
-        // TODO: run this through text parser
-        return new Post(
-          post.author,
-          post.title,
-          sanitizeHTML(post.description),
-          'textContent',
-          new Date(post.date),
-          new Date(post.pubDate),
-          post.link,
-          post.guid
-        );
-      })
-    );
+    const articles = await feedparser(url);
+    return articles.map(article => Post.fromArticle(article));
   } catch (err) {
     const message = `Unable to process feed ${url} for job ${job.id}`;
     logger.error({ err }, message);
@@ -34,9 +18,11 @@ exports.workerCallback = async function(job) {
 exports.start = async function() {
   // Start processing jobs from the feed queue...
   feedQueue.process(exports.workerCallback);
-  feedQueue.on('completed', async (job, results) => {
+
+  // When posts are returned from the queue, save them to the database
+  feedQueue.on('completed', async (job, posts) => {
     try {
-      await Promise.all(results.map(result => storage.addPost(result)));
+      await Promise.all(posts.map(post => post.save()));
     } catch (err) {
       logger.error({ err }, 'Error inserting posts into database');
     }
