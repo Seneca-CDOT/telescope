@@ -45,9 +45,9 @@ async function check(feedUrl, redlistPath = 'feeds-redlist.json') {
       const redList = [].concat(JSON.parse(redListRaw));
       return Promise.resolve(redList.some(isRedlisted.bind(null, feedUrl)));
     })
-    .catch(err => {
-      log.error(`failed to read ${redlistPath}`, err.message);
-      return Promise.reject(err);
+    .catch(error => {
+      log.error({ error }, `failed to read ${redlistPath}`);
+      return Promise.reject(error);
     });
 }
 
@@ -130,9 +130,9 @@ async function update(
           .then(() => {
             log.info(`wrote to ${redlistPath}: ${rlData}`);
           })
-          .catch(err => {
-            log.error(err.message);
-            throw err;
+          .catch(error => {
+            log.error({ error }, `Cannot write to file ${redlistPath} `);
+            throw error;
           });
       }
     });

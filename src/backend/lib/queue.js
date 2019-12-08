@@ -55,9 +55,9 @@ function createQueue(name) {
       // A job has been completed
       log.info(`Job ${job.id} completed.`);
     })
-    .on('failed', (job, err) => {
+    .on('failed', (job, error) => {
       // A job failed with an error
-      log.error(`Job ${job.id} failed:`, err);
+      log.error({ error }, `Job ${job.id} failed.`);
     })
     .on('paused', job => {
       // The queue was paused
