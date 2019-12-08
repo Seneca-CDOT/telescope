@@ -34,28 +34,27 @@ module.exports = {
       .hmset(
         // using guid as keys as it is unique to posts
         post.guid,
-        'guid',
-        post.guid,
         'author',
         post.author,
         'title',
         post.title,
-        'link',
-        post.link,
-        'content',
-        post.content,
+        'html',
+        post.html,
         'text',
         post.text,
-        'updated',
-        post.updated,
         'published',
         post.published,
+        'updated',
+        post.updated,
         'url',
         post.url,
         'site',
-        post.site
+        post.site,
+        'guid',
+        post.guid
       )
-      .zadd(POSTS, post.published.getTime(), post.guid) // sort set by published date as scores
+      // sort set by published date as scores
+      .zadd(POSTS, post.published.getTime(), post.guid)
       .exec();
   },
 

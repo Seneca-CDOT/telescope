@@ -58,7 +58,7 @@ async function getPostsPage(perPage = 10) {
                 </header>
 
                 <section class="post-content">
-                    ${post.content}
+                    ${post.html}
                 </section>
             </article>
             `);
