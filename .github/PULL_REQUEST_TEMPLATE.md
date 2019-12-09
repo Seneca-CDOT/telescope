@@ -3,7 +3,7 @@ Thanks for sending a pull request!
 - if this is your first time, please ensure you have read through our contributor guide: https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md
 -->
 
-**Issue This PR Addresses**
+## Issue This PR Addresses
 
 <!--
 1. Automatically close the issue when this PR is merged
@@ -12,9 +12,14 @@ Thanks for sending a pull request!
     USAGE: #<issue number> <reason>(i.e. This issue was worked on by @user and myself and his PR should close the issue.)
 -->
 
-**Type of Change**
+## Type of Change
 
 <!-- bug fix, feature, documentation, UI, etc. -->
+
+- [ ] **Bugfix**: Change which fixes an issue
+- [ ] **New Feature**: Change which adds functionality
+- [ ] **Documentation Update**: Change which improves documentation
+- [ ] **UI**: Change which improves UI
 
 ## Description
 
