@@ -32,4 +32,4 @@ Thanks for sending a pull request!
 - [ ] **Quality**: This PR builds and passes our npm test and works locally
 - [ ] **Tests**: This PR includes thorough tests or an explanation of why it does not
 - [ ] **Screenshots**: This PR includes screenshots or GIFs of the changes made or an explanation of why it does not (if applicable)
-- [ ] **Documentation**: This PR includes updated/added documentation to user exposed functionalty or configuration variables are added/changed or an explanation of why it does not(if applicable)
+- [ ] **Documentation**: This PR includes updated/added documentation to user exposed functionality or configuration variables are added/changed or an explanation of why it does not(if applicable)
