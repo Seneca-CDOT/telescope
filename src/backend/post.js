@@ -44,7 +44,7 @@ class Post {
 
     // A valid RSS/Atom feed can have missing fields that we care about.
     // Keep track of any that are missing, and throw if necessary.
-    let missing = [];
+    const missing = [];
     if (!article.author) missing.push('author');
     if (!article.description) missing.push('description');
     if (!article.pubdate) missing.push('pubdate');
@@ -54,7 +54,7 @@ class Post {
     if (!(article.meta && article.meta.link)) missing.push('meta.link');
 
     if (missing.length) {
-      let message = `invalid article: missing ${missing.join(', ')}`;
+      const message = `invalid article: missing ${missing.join(', ')}`;
       logger.debug(message);
       throw new Error(message);
     }
@@ -62,7 +62,7 @@ class Post {
     // Allow for missing title, but give it one
     if (!article.title) {
       logger.debug('article missing title, substituting "Untitled"');
-      article.title || 'Untitled';
+      article.title = 'Untitled';
     }
 
     // NOTE: feedparser article properties are documented here:
