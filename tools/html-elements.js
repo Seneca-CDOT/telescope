@@ -7,7 +7,7 @@
 
 const jsdom = require('jsdom');
 
-const { getPost } = require('../src/backend/utils/storage');
+const Post = require('../src/backend/post');
 const processPosts = require('./lib/process-posts');
 
 const { JSDOM } = jsdom;
@@ -25,8 +25,12 @@ function uniq(list) {
  * @param {String} guid - Redis key for this post
  */
 async function processPost(guid) {
-  const { content } = await getPost(guid);
-  const frag = JSDOM.fragment(content);
+  const post = await Post.byGuid(guid);
+  if (!post) {
+    console.error(`No post found in database for guid=${guid}, skipping`);
+    return [];
+  }
+  const frag = JSDOM.fragment(post.html);
   return Array.from(frag.querySelectorAll('*')).map(elem => elem.tagName.toLowerCase());
 }
 
@@ -55,10 +59,12 @@ async function run() {
     const tagCounts = countTags(elements);
     // Get a sorted list of tags by count
     const uniqTags = uniq(elements).sort((a, b) => tagCounts[b] - tagCounts[a]);
-    // Print our list of tags and counts in descending order
-    uniqTags.forEach((tag, idx) =>
-      console.log(`${idx + 1}. <${tag}> (${tagCounts[tag].toLocaleString()})`)
-    );
+    // Print our list of tags and counts/percentage in descending order
+    uniqTags.forEach((tag, idx) => {
+      const count = tagCounts[tag];
+      const percent = (count / elements.length) * 100;
+      console.log(`${idx + 1}. <${tag}> (${count.toLocaleString()}, ${percent.toFixed(3)}%)`);
+    });
 
     process.exit(0);
   } catch (err) {
