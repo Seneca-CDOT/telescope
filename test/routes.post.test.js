@@ -22,7 +22,7 @@ describe('test /post responses', () => {
     existingGuid
   );
 
-  // an object, expected to be returned by a correct querry
+  // an object, expected to be returned by a correct query
   const receivedPost1 = {
     author: 'foo',
     title: 'foo',
@@ -48,7 +48,7 @@ describe('test /post responses', () => {
     existingNeedingEncoding
   );
 
-  // an object, expected to be returned by a correct querry
+  // an object, expected to be returned by a correct query
   const receivedPost2 = {
     author: 'bar',
     title: 'bar',
