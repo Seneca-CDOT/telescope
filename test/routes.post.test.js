@@ -36,12 +36,12 @@ describe('test /post responses', () => {
 
   // add the post to the storage
   beforeAll(() => {
-    new Promise(() => addPost(toBeAdded));
+    addPost(toBeAdded);
   });
 
   // tests
   it("pass a guid that doesn't exist", async () => {
-    const res = await request(app).get('/post/' + keys[1]);
+    const res = await request(app).get(`/post/${keys[1]}`);
 
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
@@ -49,7 +49,7 @@ describe('test /post responses', () => {
   });
 
   it('pass a guid that exists', async () => {
-    const res = await request(app).get('/post/' + keys[0]);
+    const res = await request(app).get(`/post/${keys[0]}`);
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
@@ -57,7 +57,7 @@ describe('test /post responses', () => {
   });
 
   it("pass an encoded guid that doesn't exist", async () => {
-    const res = await request(app).get(encodeURI('/post/' + keys[1]));
+    const res = await request(app).get(encodeURI(`/post/${keys[1]}`));
 
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
@@ -65,7 +65,7 @@ describe('test /post responses', () => {
   });
 
   it('pass an encoded guid that exists', async () => {
-    const res = await request(app).get(encodeURI('/post/' + keys[0]));
+    const res = await request(app).get(encodeURI(`/post/${keys[0]}`));
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
