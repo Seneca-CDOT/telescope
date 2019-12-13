@@ -1,29 +1,29 @@
 const request = require('supertest');
 const app = require('../src/backend/web/app');
-const { addPost } = require('../src/backend/utils/storage');
+const Post = require('../src/backend/post');
 
 describe('test /post responses', () => {
   // an array of keys.
-  const keys = [100, 101];
+  const existingGuid = 'existing-guid';
+  const missingGuid = 'missing-guid';
+  const existingNeedingEncoding = 'guid needing/encoding';
+  const missingNeedingEncoding = 'missing needing/encoding';
 
-  // an object to be added to the storage for testing purposes
-  const toBeAdded = {
-    guid: `${keys[0]}`,
-    author: 'foo',
-    title: 'foo',
-    link: 'foo',
-    content: 'foo',
-    text: 'foo',
-    updated: new Date('2009-09-07T22:23:00.544Z'),
-    published: new Date('2009-09-07T22:20:00.000Z'),
-    html: '',
-    url: 'foo',
-    site: 'foo',
-  };
+  // an object to be added for testing purposes
+  const addedPost1 = new Post(
+    'foo',
+    'foo',
+    '',
+    'foo',
+    new Date('2009-09-07T22:20:00.000Z'),
+    new Date('2009-09-07T22:23:00.000Z'),
+    'foo',
+    'foo',
+    existingGuid
+  );
 
   // an object, expected to be returned by a correct querry
-  const returned = {
-    guid: '100',
+  const receivedPost1 = {
     author: 'foo',
     title: 'foo',
     html: '',
@@ -32,43 +32,69 @@ describe('test /post responses', () => {
     updated: '2009-09-07T22:23:00.000Z',
     url: 'foo',
     site: 'foo',
+    guid: 'existing-guid',
+  };
+
+  // an object to be added for testing purposes
+  const addedPost2 = new Post(
+    'bar',
+    'bar',
+    '',
+    'bar',
+    new Date('2010-09-07T22:20:00.000Z'),
+    new Date('2010-09-07T22:23:00.000Z'),
+    'bar',
+    'bar',
+    existingNeedingEncoding
+  );
+
+  // an object, expected to be returned by a correct querry
+  const receivedPost2 = {
+    author: 'bar',
+    title: 'bar',
+    html: '',
+    text: 'bar',
+    published: '2010-09-07T22:20:00.000Z',
+    updated: '2010-09-07T22:23:00.000Z',
+    url: 'bar',
+    site: 'bar',
+    guid: 'guid needing/encoding',
   };
 
   // add the post to the storage
-  beforeAll(() => {
-    addPost(toBeAdded);
+  beforeAll(async () => {
+    addedPost1.save();
+    addedPost2.save();
   });
 
   // tests
   it("pass a guid that doesn't exist", async () => {
-    const res = await request(app).get(`/post/${keys[1]}`);
+    const res = await request(app).get(`/post/${missingGuid}`);
 
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body.message).toEqual('Post not found for id 101');
   });
 
   it('pass a guid that exists', async () => {
-    const res = await request(app).get(`/post/${keys[0]}`);
+    const res = await request(app).get(`/post/${existingGuid}`);
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body).toEqual(returned);
+    expect(res.body).toEqual(receivedPost1);
   });
 
   it("pass an encoded guid that doesn't exist", async () => {
-    const res = await request(app).get(encodeURI(`/post/${keys[1]}`));
+    const res = await request(app).get(`/post/${encodeURIComponent(missingNeedingEncoding)}`);
 
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body.message).toEqual('Post not found for id 101');
   });
 
   it('pass an encoded guid that exists', async () => {
-    const res = await request(app).get(encodeURI(`/post/${keys[0]}`));
+    const res = await request(app).get(`/post/${encodeURIComponent(existingNeedingEncoding)}`);
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body).toEqual(returned);
+    expect(res.body).toEqual(receivedPost2);
   });
 });
