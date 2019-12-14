@@ -17,7 +17,6 @@ const subscriber = createRedisClient();
  * We also setup logging for this queue name.
  */
 function createQueue(name) {
-  const log = logger.child({ module: `queue:${name}` });
   const queue = new Bull(name, {
     createClient: type => {
       switch (type) {
@@ -32,54 +31,54 @@ function createQueue(name) {
   })
     .on('error', err => {
       // An error occurred
-      log.error({ err }, `Queue ${name} error`);
+      logger.error({ err }, `Queue ${name} error`);
     })
     .on('waiting', jobID => {
       // A job is waiting for the next idling worker
-      log.info(`Job ${jobID} is waiting.`);
+      logger.debug(`Job ${jobID} is waiting.`);
     })
     .on('active', job => {
       // A job has started (use jobPromise.cancel() to abort it)
-      log.info(`Job ${job.id} is active`);
+      logger.debug(`Job ${job.id} is active`);
     })
     .on('stalled', job => {
       // A job was marked as stalled. This is useful for debugging
       // which workers are crashing or pausing the event loop
-      log.info(`Job ${job.id} has stalled.`);
+      logger.debug(`Job ${job.id} has stalled.`);
     })
     .on('progress', (job, progress) => {
       // A job's progress was updated
-      log.info(`Job ${job.id} progress:`, progress);
+      logger.debug(`Job ${job.id} progress:`, progress);
     })
     .on('completed', job => {
       // A job has been completed
-      log.info(`Job ${job.id} completed.`);
+      logger.debug(`Job ${job.id} completed.`);
     })
     .on('failed', (job, error) => {
       // A job failed with an error
-      log.error({ error }, `Job ${job.id} failed.`);
+      logger.error({ error }, `Job ${job.id} failed.`);
     })
     .on('paused', job => {
       // The queue was paused
-      log.info(`Queue ${name} resumed. ID:`, job.id);
+      logger.debug(`Queue ${name} resumed. ID:`, job.id);
     })
     .on('resumed', job => {
       // The queue resumed
-      log.info(`Queue ${name} resumed. ID: `, job.id);
+      logger.debug(`Queue ${name} resumed. ID: `, job.id);
     })
     .on('cleaned', (jobs, types) => {
       // Old jobs were cleaned from the queue
       // 'Jobs' is an array of cleaned jobs
       // 'Types' is an array of their types
-      log.info(`Queue ${name} was cleaned. Jobs: `, jobs, ' Types: ', types);
+      logger.debug(`Queue ${name} was cleaned. Jobs: `, jobs, ' Types: ', types);
     })
     .on('drained', () => {
       // The queue was drained
       // (the last item in the queue was returned by a worker)
-      log.info(`Queue ${name} was drained.`);
+      logger.debug(`Queue ${name} was drained.`);
     })
     .on('removed', job => {
-      log.info(`Job ${job.id} was removed.`);
+      logger.debug(`Job ${job.id} was removed.`);
     });
 
   return queue;
