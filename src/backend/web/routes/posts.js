@@ -1,4 +1,5 @@
 const express = require('express');
+const Post = require('../../post');
 const { getPosts, getPostsCount } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 
@@ -63,7 +64,7 @@ posts.get('/', async (req, res) => {
       // Return id and url for a specific post
       .map(guid => ({
         id: guid,
-        url: `/post/${encodeURIComponent(guid)}`,
+        url: `/posts/${encodeURIComponent(guid)}`,
       }))
   );
 });
@@ -75,6 +76,29 @@ posts.get('/count', async (req, res) => {
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
     res.status(500).json({
+      message: 'Unable to connect to database',
+    });
+  }
+});
+
+// The guid is likely a URI, and must be encoded by the client
+posts.get('/:guid', async (req, res) => {
+  const guid = decodeURIComponent(req.params.guid);
+
+  try {
+    const post = await Post.byGuid(guid);
+
+    // If the object we get back is empty, use 404
+    if (!post) {
+      res.status(404).json({
+        message: `Post not found for id ${guid}`,
+      });
+    } else {
+      res.json(post);
+    }
+  } catch (err) {
+    logger.error({ err }, 'Unable to get posts from Redis');
+    res.status(503).json({
       message: 'Unable to connect to database',
     });
   }
