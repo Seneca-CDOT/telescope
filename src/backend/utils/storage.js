@@ -72,9 +72,9 @@ module.exports = {
   getPost: async guid => redis.hgetall(guid),
 
   /**
-   * Moves a feed from active(FEEDS) to inactive(INACTIVE_FEEDS)
-   * @param feedId lower index
-   * @return feedId of feed being moved
+   * Moves a feed from active(FEEDS) to inactive(INACTIVE_FEEDS), will check if the set exists first before moving
+   * @param feedId key of set being moved
+   * @return feedId of key being moved
    */
   addInactiveFeed: async feedId => {
     if ((await redis.exists(INACTIVE_FEEDS)) === 1) {
@@ -90,11 +90,16 @@ module.exports = {
         .hmset(feedId, 'name', name, 'url', url)
         .sadd(INACTIVE_FEEDS, feedId)
         .exec();
-      return feedId;
     }
     return feedId;
   },
 
+  /**
+   * Gets an array of guids from redis
+   * @param from lower index
+   * @param to higher index, it needs -1 because redis includes the element at this index in the returned array
+   * @return Array of guids
+   */
   getInactiveFeeds: () => redis.smembers(INACTIVE_FEEDS),
 
   getInactiveFeed: feedID => redis.hgetall(feedID),
