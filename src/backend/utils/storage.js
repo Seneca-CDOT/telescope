@@ -94,12 +94,6 @@ module.exports = {
     return feedId;
   },
 
-  /**
-   * Gets an array of guids from redis
-   * @param from lower index
-   * @param to higher index, it needs -1 because redis includes the element at this index in the returned array
-   * @return Array of guids
-   */
   getInactiveFeeds: () => redis.smembers(INACTIVE_FEEDS),
 
   getInactiveFeed: feedID => redis.hgetall(feedID),
