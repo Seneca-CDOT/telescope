@@ -33,7 +33,7 @@ describe('test /posts endpoint', () => {
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.get('X-Total-Count')).toContain(createdItems.toString());
+    expect(res.get('X-Total-Count')).toBe(createdItems.toString());
     expect(res.body.length).toBe(defaultItems);
     expect(res.body instanceof Array).toBe(true);
   });
@@ -43,7 +43,7 @@ describe('test /posts endpoint', () => {
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.get('X-Total-Count')).toContain(createdItems.toString());
+    expect(res.get('X-Total-Count')).toBe(createdItems.toString());
     expect(res.body.length).toBe(requestedItems);
     expect(res.body instanceof Array).toBe(true);
   });
@@ -53,7 +53,7 @@ describe('test /posts endpoint', () => {
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.get('X-Total-Count')).toContain(createdItems.toString());
+    expect(res.get('X-Total-Count')).toBe(createdItems.toString());
     expect(res.body.length).toBe(maxItems);
     expect(res.body instanceof Array).toBe(true);
   });
