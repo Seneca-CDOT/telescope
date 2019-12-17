@@ -8,18 +8,22 @@ const POSTS = 'posts';
 const INACTIVE_FEEDS = 'inactive_feeds';
 
 module.exports = {
-  addFeed: async (name, url) => {
+  addFeed: async feed => {
     // "If the key does not exist, it is set to 0 before performing the operation"
     // https://redis.io/commands/INCR
     const feedId = await redis.incr(FEED_ID);
-    await redis
-      .multi()
-      // Using hmset() until hset() fully supports multiple fields:
-      // https://github.com/stipsan/ioredis-mock/issues/345
-      // https://github.com/luin/ioredis/issues/551
-      .hmset(feedId, 'name', name, 'url', url)
-      .sadd(FEEDS, feedId)
-      .exec();
+    if (feed.inactive === false) {
+      await redis
+        .multi()
+        // Using hmset() until hset() fully supports multiple fields:
+        // https://github.com/stipsan/ioredis-mock/issues/345
+        // https://github.com/luin/ioredis/issues/551
+        .hmset(feedId, 'name', feed.name, 'url', feed.url)
+        .sadd(FEEDS, feedId)
+        .exec();
+    } else {
+      this.addInactiveFeed(feed);
+    }
     return feedId;
   },
 
@@ -76,22 +80,20 @@ module.exports = {
    * @param feedId key of set being moved
    * @return feedId of key being moved
    */
-  addInactiveFeed: async feedId => {
+  addInactiveFeed: async feed => {
     if ((await redis.exists(INACTIVE_FEEDS)) === 1) {
-      await redis.smove(FEEDS, INACTIVE_FEEDS, feedId);
+      await redis.smove(FEEDS, INACTIVE_FEEDS, feed.feedId);
     } else {
-      const name = await redis.hget(feedId, 'name');
-      const url = await redis.hget(feedId, 'url');
       await redis
         .multi()
         // Using hmset() until hset() fully supports multiple fields:
         // https://github.com/stipsan/ioredis-mock/issues/345
         // https://github.com/luin/ioredis/issues/551
-        .hmset(feedId, 'name', name, 'url', url)
-        .sadd(INACTIVE_FEEDS, feedId)
+        .hmset(feed.feedId, 'name', feed.name, 'url', feed.url)
+        .sadd(INACTIVE_FEEDS, feed.feedId)
         .exec();
     }
-    return feedId;
+    return feed.feedId;
   },
 
   getInactiveFeeds: () => redis.smembers(INACTIVE_FEEDS),
