@@ -53,6 +53,8 @@ posts.get('/', async (req, res) => {
   const nextPage = to >= postsCount ? 1 : page + 1;
   const prevPage = from === 0 ? Math.floor(postsCount / perPage) : page - 1;
 
+  res.set('X-Total-Count', postsCount);
+
   res.links({
     next: `/posts?per_page=${perPage}&page=${nextPage}`,
     prev: `/posts?per_page=${perPage}&page=${prevPage}`,
