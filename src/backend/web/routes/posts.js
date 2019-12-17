@@ -71,18 +71,6 @@ posts.get('/', async (req, res) => {
   );
 });
 
-posts.get('/count', async (req, res) => {
-  try {
-    const count = await getPostsCount();
-    res.json(count);
-  } catch (err) {
-    logger.error({ err }, 'Unable to get posts from Redis');
-    res.status(500).json({
-      message: 'Unable to connect to database',
-    });
-  }
-});
-
 // The guid is likely a URI, and must be encoded by the client
 posts.get('/:guid', async (req, res) => {
   const guid = decodeURIComponent(req.params.guid);
