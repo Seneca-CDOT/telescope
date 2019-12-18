@@ -1,19 +1,6 @@
 const storage = require('./utils/storage');
 
-/**
- * Feed Object, upon being created all feeds will be active and have a feedId of 0 until saved into Redis
- * @param url url of feed
- * @param name author name of feed
- * @param feedId unique id for feed
- */
 class Feed {
-  constructor(url, name) {
-    this.url = url;
-    this.name = name;
-    this.inactive = false;
-    this.feedId = 0;
-  }
-
   /**
    * Saves current feed to appropriate set in Redis
    */
@@ -22,11 +9,27 @@ class Feed {
   }
 
   /**
-   * Marks the feed as inactive
+   * Checks if feed is part active feeds list. If it is, will move feed from active FEEDS set to INACTIVE_FEEDS set
    */
-  inactive() {
-    this.inactive = true;
-    this.save();
+  async inactive() {
+    const isActive = await this.isActive(this);
+    if (isActive === 1) {
+      await storage.addInactiveFeed();
+    }
+  }
+
+  /**
+   * Marks the feed as active and moves feed to active set
+   */
+  async active() {
+    await this.save();
+  }
+
+  /**
+   * Checks if the feed is in the active feeds(FEEDS) set
+   */
+  async isActive() {
+    return this.getFeedStatus();
   }
 }
 
