@@ -53,6 +53,8 @@ posts.get('/', async (req, res) => {
   const nextPage = to >= postsCount ? 1 : page + 1;
   const prevPage = from === 0 ? Math.floor(postsCount / perPage) : page - 1;
 
+  res.set('X-Total-Count', postsCount);
+
   res.links({
     next: `/posts?per_page=${perPage}&page=${nextPage}`,
     prev: `/posts?per_page=${perPage}&page=${prevPage}`,
@@ -67,18 +69,6 @@ posts.get('/', async (req, res) => {
         url: `/posts/${encodeURIComponent(guid)}`,
       }))
   );
-});
-
-posts.get('/count', async (req, res) => {
-  try {
-    const count = await getPostsCount();
-    res.json(count);
-  } catch (err) {
-    logger.error({ err }, 'Unable to get posts from Redis');
-    res.status(500).json({
-      message: 'Unable to connect to database',
-    });
-  }
 });
 
 // The guid is likely a URI, and must be encoded by the client

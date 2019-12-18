@@ -7,8 +7,9 @@ describe('test /posts endpoint', () => {
   const defaultItems = 30;
   const requestedItems = 50;
   const maxItems = 100;
+  const createdItems = 150;
 
-  const posts = [...Array(150).keys()].map(guid => {
+  const posts = [...Array(createdItems).keys()].map(guid => {
     return {
       guid: `${guid}`,
       author: 'foo',
@@ -32,6 +33,7 @@ describe('test /posts endpoint', () => {
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
+    expect(res.get('X-Total-Count')).toBe(createdItems.toString());
     expect(res.body.length).toBe(defaultItems);
     expect(res.body instanceof Array).toBe(true);
   });
@@ -41,6 +43,7 @@ describe('test /posts endpoint', () => {
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
+    expect(res.get('X-Total-Count')).toBe(createdItems.toString());
     expect(res.body.length).toBe(requestedItems);
     expect(res.body instanceof Array).toBe(true);
   });
@@ -50,16 +53,9 @@ describe('test /posts endpoint', () => {
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
+    expect(res.get('X-Total-Count')).toBe(createdItems.toString());
     expect(res.body.length).toBe(maxItems);
     expect(res.body instanceof Array).toBe(true);
-  });
-
-  it('returns correct number of posts', async () => {
-    const res = await request(app).get('/posts/count');
-
-    expect(res.status).toEqual(200);
-    expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body).toBe(150);
   });
 });
 
