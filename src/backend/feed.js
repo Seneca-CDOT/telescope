@@ -2,34 +2,31 @@ const storage = require('./utils/storage');
 
 class Feed {
   /**
-   * Saves current feed to appropriate set in Redis
+   * Saves current feed to Redis
    */
   async save() {
     this.feedId = await storage.addFeed(this);
+    await storage.storeFeed(this.feedId);
   }
 
   /**
    * Checks if feed is part active feeds list. If it is, will move feed from active FEEDS set to INACTIVE_FEEDS set
+   * else will move ffeed from INACTIVE_FEEDS to FEEDS
    */
-  async inactive() {
-    const isActive = await this.isActive(this);
+  async move() {
+    const isActive = await storage.isActive(this);
     if (isActive === 1) {
-      await storage.addInactiveFeed();
+      await storage.moveFeed(this.feedId, 'feeds', 'inactive_feeds');
+    } else {
+      await storage.moveFeed(this.feedId, 'inactive_feeds', 'feeds');
     }
-  }
-
-  /**
-   * Marks the feed as active and moves feed to active set
-   */
-  async active() {
-    await this.save();
   }
 
   /**
    * Checks if the feed is in the active feeds(FEEDS) set
    */
   async isActive() {
-    return this.getFeedStatus();
+    return storage.isFeedActive(this.feedId);
   }
 }
 

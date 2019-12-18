@@ -9,48 +9,46 @@ const INACTIVE_FEEDS = 'inactive_feeds';
 
 module.exports = {
   /**
-   * Adds/Moves feed to the active FEEDS set and returns the feedId
+   * Adds/Moves feed to the appropriate set depending on feedSet parameter.
    * @param feed Feed Object
    * @return feedId
    */
   addFeed: async feed => {
-    if (feed.feedId && (await redis.exists(INACTIVE_FEEDS)) === 1) {
-      await redis.smove(INACTIVE_FEEDS, FEEDS, feed.feedId);
-    } else {
-      // "If the key does not exist, it is set to 0 before performing the operation"
-      // https://redis.io/commands/INCR
-      const feedId = await redis.incr(FEED_ID);
-      await redis
-        .multi()
-        // Using hmset() until hset() fully supports multiple fields:
-        // https://github.com/stipsan/ioredis-mock/issues/345
-        // https://github.com/luin/ioredis/issues/551
-        .hmset(feedId, 'name', feed.name, 'url', feed.url)
-        .sadd(FEEDS, feedId)
-        .exec();
-      return feedId;
-    }
-    return feed.feedId;
+    // "If the key does not exist, it is set to 0 before performing the operation"
+    // https://redis.io/commands/INCR
+    const feedId = await redis.incr(FEED_ID);
+    // Using hmset() until hset() fully supports multiple fields:
+    // https://github.com/stipsan/ioredis-mock/issues/345
+    // https://github.com/luin/ioredis/issues/551
+    await redis.hmset(feedId, 'name', feed.name, 'url', feed.url);
+    return feedId;
   },
 
   /**
-   * Moves feed from active FEEDS set to INACTIVE_FEEDS set. A destination must always be initialized
-   * with sadd() before other members can be moved to the destination
-   * @param feed Feed Object
+   * Stores feed into destinatiion
+   * @param feedId unique ID of feed to be stored
+   * @param destination set feed is being added into
    */
-  addInactiveFeed: async feed => {
-    if ((await redis.exists(INACTIVE_FEEDS)) === 1) {
-      await redis.smove(FEEDS, INACTIVE_FEEDS, feed.feedId);
+  storeFeed: async (feedId, destination) => {
+    return redis.sadd(destination, feedId);
+  },
+
+  /**
+   * Moves feed from source to destination, if the destination does not exist (0 members), will call storeFeed() to destination instead
+   * @param feedId unique ID of feed to be moved
+   * @param source source of feed bbeing moved from
+   * @param destination destination of feed being moved into
+   * @return 1 for success, 0 for failure
+   */
+  moveFeed: async (feedId, source, destination) => {
+    let result;
+    const members = (await redis.smembers(destination)).length;
+    if (members === 0) {
+      result = redis.smove(source, destination, feedId);
     } else {
-      await redis
-        .multi()
-        // Using hmset() until hset() fully supports multiple fields:
-        // https://github.com/stipsan/ioredis-mock/issues/345
-        // https://github.com/luin/ioredis/issues/551
-        .hmset(feed.feedId, 'name', feed.name, 'url', feed.url)
-        .sadd(INACTIVE_FEEDS, feed.feedId)
-        .exec();
+      result = this.storeFeed(feedId, destination);
     }
+    return result;
   },
 
   getFeeds: () => redis.smembers(FEEDS),
@@ -105,5 +103,5 @@ module.exports = {
 
   getInactiveFeedsCount: () => redis.scard(INACTIVE_FEEDS),
 
-  getFeedStatus: feedId => redis.sismember(FEEDS, feedId),
+  isFeedActive: feedId => redis.sismember(FEEDS, feedId),
 };
