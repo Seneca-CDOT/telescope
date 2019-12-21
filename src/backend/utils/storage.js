@@ -68,5 +68,5 @@ module.exports = {
 
   getPostsCount: () => redis.zcard(POSTS),
 
-  getPost: async guid => redis.hgetall(guid),
+  getPost: guid => redis.hgetall(guid),
 };

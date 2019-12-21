@@ -80,9 +80,7 @@ describe('Storage tests for posts', () => {
     site: 'foo',
   };
 
-  beforeAll(() => {
-    Promise.all([testPost, testPost2, testPost3].map(post => addPost(post)));
-  });
+  beforeAll(() => Promise.all([testPost, testPost2, testPost3].map(post => addPost(post))));
 
   it('should allow retrieving a post by guid after inserting', async () => {
     const result = await getPost(testPost.guid);

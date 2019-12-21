@@ -14,32 +14,27 @@ describe('Spam detection checks', () => {
   });
 
   test('Should return true on first post (spam, title is detected as spam by spam-filter)', async () => {
-    checkForSpam(parsedContent[0]).then(result => {
-      expect(result).toBe(true);
-    });
+    const result = await checkForSpam(parsedContent[0]);
+    expect(result).toBe(true);
   });
 
   test('Should return false on second post (not spam)', async () => {
-    checkForSpam(parsedContent[1]).then(result => {
-      expect(result).toBe(false);
-    });
+    const result = await checkForSpam(parsedContent[1]);
+    expect(result).toBe(false);
   });
 
   test('Should return true on third post (spam, no title)', async () => {
-    checkForSpam(parsedContent[2]).then(result => {
-      expect(result).toBe(true);
-    });
+    const result = await checkForSpam(parsedContent[2]);
+    expect(result).toBe(true);
   });
 
   test('Should return true on fourth post (spam, all caps)', async () => {
-    checkForSpam(parsedContent[3]).then(result => {
-      expect(result).toBe(true);
-    });
+    const result = await checkForSpam(parsedContent[3]);
+    expect(result).toBe(true);
   });
 
   test('Should return true on fifth post (spam, less than 5 words)', async () => {
-    checkForSpam(parsedContent[4]).then(result => {
-      expect(result).toBe(true);
-    });
+    const result = await checkForSpam(parsedContent[4]);
+    expect(result).toBe(true);
   });
 });

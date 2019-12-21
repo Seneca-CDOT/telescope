@@ -9,7 +9,6 @@ require('../lib/config.js');
 const { logger } = require('./logger');
 
 const fsPromises = fs.promises;
-const log = logger.child({ module: 'inactive-blog-filter' });
 
 /**
  * Condition for passing redlist some() check
@@ -39,17 +38,14 @@ function dateDiff(postDate) {
  */
 async function check(feedUrl, redlistPath = 'feeds-redlist.json') {
   // Read redlist file
-  return fsPromises
-    .readFile(redlistPath, 'utf-8')
-    .then(redListRaw => {
-      // Concat to array no matter what
-      const redList = [].concat(JSON.parse(redListRaw));
-      return Promise.resolve(redList.some(isRedlisted.bind(null, feedUrl)));
-    })
-    .catch(error => {
-      log.error({ error }, `failed to read ${redlistPath}`);
-      return Promise.reject(error);
-    });
+  try {
+    const redListRaw = await fsPromises.readFile(redlistPath, 'utf-8');
+    const redList = [].concat(JSON.parse(redListRaw));
+    return redList.some(redItem => isRedlisted(feedUrl, redItem));
+  } catch (error) {
+    logger.error({ error }, `failed to read ${redlistPath}`);
+    throw error;
+  }
 }
 
 /**
@@ -66,12 +62,13 @@ async function check(feedUrl, redlistPath = 'feeds-redlist.json') {
  */
 async function update(feedsPath = 'feeds.txt', redlistPath = 'feeds-redlist.json', parser = parse) {
   if (!feedsPath || !redlistPath) {
-    return Promise.reject(new Error('failed to update: bad filepath'));
+    throw new Error('failed to update: bad filepath');
   }
 
-  // Read the feeds list file
-  return fsPromises.readFile(feedsPath, 'utf-8').then(async lines => {
-    // Divide the file into separate lines
+  try {
+    const redlistUpdate = [];
+    // Read the feeds list file
+    const lines = await fsPromises.readFile(feedsPath, 'utf-8');
     const feedUrlList = lines
       .split(/\r?\n/)
       // Basic filtering to remove any ines that don't look like a feed URL
@@ -79,63 +76,53 @@ async function update(feedsPath = 'feeds.txt', redlistPath = 'feeds-redlist.json
       // Convert this into an Object of the form expected by our queue
       .map(url => ({ url }));
 
-    const redlistUpdate = [];
     let linesRead = 0;
+    await Promise.all(
+      feedUrlList.map(async feedItem => {
+        const feed = await parser(feedItem);
+        const feedUrl = feedItem.url;
+        let recentPostDate = new Date();
 
-    feedUrlList.forEach(async feedItem => {
-      const feed = await parser(feedItem);
-      const feedUrl = feedItem.url;
+        if (feed && typeof feed[0] !== 'undefined') {
+          recentPostDate = new Date(feed[0].date);
 
-      let recentPostDate = new Date();
+          // Check if the blog is inactive
+          // We convert the dateDiff(result) from ms in days
+          const timeDiff = Math.ceil(dateDiff(recentPostDate) / (1000 * 3600 * 24));
 
-      if (feed && typeof feed[0] !== 'undefined') {
-        recentPostDate = new Date(feed[0].date);
+          // BLOG_INACTIVE_TIME is supplied with a necessary default value, e.g. of 365 days
+          // See: https://github.com/Seneca-CDOT/telescope/issues/396
+          if (timeDiff > (process.env.BLOG_INACTIVE_TIME || 365)) {
+            logger.info(`Blog at: ${feedUrl} is INACTIVE!`);
 
-        // Check if the blog is inactive
-        // We convert the dateDiff(result) from ms in days
-        const timeDiff = Math.ceil(dateDiff(recentPostDate) / (1000 * 3600 * 24));
-
-        // BLOG_INACTIVE_TIME is supplied with a necessary default value, e.g. of 365 days
-        // See: https://github.com/Seneca-CDOT/telescope/issues/396
-        if (timeDiff > (process.env.BLOG_INACTIVE_TIME || 365)) {
-          log.info(`Blog at: ${feedUrl} is INACTIVE!`);
-
+            redlistUpdate.push({
+              url: feedUrl,
+              lastUpdate: feed[0].date,
+            });
+          }
+        } else {
+          // In case of invalid/ dead feeds
+          logger.info(`Blog at: ${feedUrl} HAS NOTHING TO SHARE!`);
           redlistUpdate.push({
             url: feedUrl,
-            lastUpdate: feed[0].date,
+            lastUpdate: null,
           });
         }
-      } else {
-        // In case of invalid/ dead feeds
-        log.info(`Blog at: ${feedUrl} HAS NOTHING TO SHARE!`);
+        linesRead += 1;
 
-        redlistUpdate.push({
-          url: feedUrl,
-          lastUpdate: null,
-        });
-      }
-
-      // Use a counter to ensure all feeds are processed before writing redlist
-      linesRead += 1;
-
-      if (linesRead === feedUrlList.length) {
-        // Write the new feeds-redlist.json
-        const rlData = JSON.stringify(redlistUpdate, null, 2);
-
-        await fsPromises
-          .writeFile(redlistPath, rlData)
-          .then(() => {
-            log.info(`wrote to ${redlistPath}: ${rlData}`);
-          })
-          .catch(error => {
-            log.error({ error }, `Cannot write to file ${redlistPath} `);
-            throw error;
-          });
-      }
-    });
-
-    return Promise.resolve(redlistUpdate);
-  });
+        if (linesRead === feedUrlList.length) {
+          // Write the new feeds-redlist.json
+          const rlData = JSON.stringify(redlistUpdate, null, 2);
+          await fsPromises.writeFile(redlistPath, rlData);
+          logger.info(`wrote to ${redlistPath}: ${rlData}`);
+        }
+      })
+    );
+    return redlistUpdate;
+  } catch (error) {
+    logger.error({ error });
+    throw error;
+  }
 }
 
 exports.check = check;

@@ -36,31 +36,19 @@ describe('Redlisted feed checking', () => {
   it('should return false for bad feed URLs', async () => {
     const badURLs = [redlist[0].url.slice(0, -1), '', undefined];
 
-    badURLs.forEach(async url => {
-      await inactiveFilter
-        .check(url)
-        .then(isRedlisted => {
-          expect(isRedlisted).toBe(false);
-        })
-        .catch(err => {
-          log.error(err.message);
-          throw err;
-        });
-    });
+    await Promise.all(
+      badURLs.map(async url => {
+        expect(await inactiveFilter.check(url)).toBe(false);
+      })
+    );
   });
 
   it('should return true for all feed URLs in feeds-redlist.json', async () => {
-    redlist.forEach(async feed => {
-      await inactiveFilter
-        .check(feed.url)
-        .then(isRedlisted => {
-          expect(isRedlisted).toBe(true);
-        })
-        .catch(err => {
-          log.error(err.message);
-          throw err;
-        });
-    });
+    await Promise.all(
+      redlist.map(async feed => {
+        expect(await inactiveFilter.check(feed.url)).toBe(true);
+      })
+    );
   });
 
   it('should handle being passed a bad filename by rejecting with an error', async () => {
@@ -129,54 +117,56 @@ describe('Testing of update()', () => {
   }
 
   it('should not redlist active blogs', async () => {
-    return inactiveFilter
-      .update(pathToActiveFeeds, pathToMockRedList, mockFeedParser)
-      .then(data => {
-        expect(data.length).toEqual(0);
-      })
-      .catch(err => {
-        deleteMockRedlist();
-        log.error(err.message);
-        throw err;
-      });
+    try {
+      const data = await inactiveFilter.update(
+        pathToActiveFeeds,
+        pathToMockRedList,
+        mockFeedParser
+      );
+      expect(data.length).toEqual(0);
+    } catch (err) {
+      deleteMockRedlist();
+      log.error(err.message);
+      throw err;
+    }
   });
 
   it('should redlist inactive blogs', async () => {
     const inactiveRedlist = mockFeeds.filter(item => {
       return item.status === 'inactive';
     });
-    return inactiveFilter
-      .update(pathToInactiveFeeds, pathToMockRedList, mockFeedParser)
-      .then(data => {
-        expect(data.length).toEqual(inactiveRedlist.length);
-        for (let i = 0; i < inactiveRedlist.length; i += 1) {
-          expect(data[i].url).toBe(inactiveRedlist[i].url);
-        }
-      })
-      .catch(err => {
-        deleteMockRedlist();
-        log.error(err.message);
-        throw err;
-      });
+    try {
+      const data = await inactiveFilter.update(
+        pathToInactiveFeeds,
+        pathToMockRedList,
+        mockFeedParser
+      );
+      expect(data.length).toEqual(inactiveRedlist.length);
+      for (let i = 0; i < inactiveRedlist.length; i += 1) {
+        expect(data[i].url).toBe(inactiveRedlist[i].url);
+      }
+    } catch (err) {
+      deleteMockRedlist();
+      log.error(err.message);
+      throw err;
+    }
   });
 
   it('should redlist invalid or dead blogs', async () => {
     const deadRedlist = mockFeeds.filter(item => {
       return item.status === 'dead';
     });
-    return inactiveFilter
-      .update(pathToDeadFeeds, pathToMockRedList, mockFeedParser)
-      .then(data => {
-        expect(data.length).toEqual(deadRedlist.length);
-        for (let i = 0; i < deadRedlist.length; i += 1) {
-          expect(data[i].url).toBe(deadRedlist[i].url);
-        }
-      })
-      .catch(err => {
-        deleteMockRedlist();
-        log.error(err.message);
-        throw err;
-      });
+    try {
+      const data = await inactiveFilter.update(pathToDeadFeeds, pathToMockRedList, mockFeedParser);
+      expect(data.length).toEqual(deadRedlist.length);
+      for (let i = 0; i < deadRedlist.length; i += 1) {
+        expect(data[i].url).toBe(deadRedlist[i].url);
+      }
+    } catch (err) {
+      deleteMockRedlist();
+      log.error(err.message);
+      throw err;
+    }
   });
 
   it('should handle an invalid first argument by throwing an error', async () => {

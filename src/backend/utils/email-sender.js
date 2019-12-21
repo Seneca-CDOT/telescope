@@ -2,8 +2,6 @@ require('../lib/config');
 const nodemailer = require('nodemailer');
 const { logger } = require('./logger');
 
-const log = logger.child({ module: 'email-sender' });
-
 /*
                              HOW TO USE
  Import this file - const sendEmail = require('./email-sender);
@@ -69,39 +67,36 @@ exports.verifyTransporter = function(transporter) {
   transporter.verify(err => {
     // If error then print to console
     if (err) {
-      log.error({ err }, 'Transporter connection failed.');
+      logger.error({ err }, 'Transporter connection failed.');
       return false;
     }
     // else print a ready message
-    log.info('Server is running properly');
+    logger.info('Server is running properly');
     return true;
   });
 };
 
 // Sends a message using the passed in parameters
 exports.sendMessage = async function(receipiants, subjectMessage, message) {
-  return new Promise((resolve, reject) => {
-    const transporter = this.createTransporter(
+  try {
+    const transporter = await this.createTransporter(
       process.env.NODEMAILER_SERVER,
       2222,
       false,
       process.env.NODEMAILER_USERNAME,
       process.env.NODEMAILER_PASSWORD
     );
-    const allGood = this.verifyTransporter(transporter);
-    if (!allGood) {
-      reject(new Error()); // Send promise.reject if an error occurs
+    if (!this.verifyTransporter(transporter)) {
+      throw new Error('Email transport could not be verified');
     }
     // Creates email for to be sent
     const mail = this.createMail(receipiants, subjectMessage, message);
 
     // Send the email with the email content
-    transporter.sendMail(mail, (err, info) => {
-      if (err) {
-        reject(err); // Send promise.reject if an error occurs
-      } else {
-        resolve(info.accepted); // Send promise.resolve if an error occurs
-      }
-    });
-  });
+    const result = await transporter.sendMail(mail);
+    return result.accepted;
+  } catch (error) {
+    logger.error({ error }, 'Unable to send email');
+    throw error;
+  }
 };
