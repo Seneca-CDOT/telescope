@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const healthcheck = require('express-healthcheck');
+const cors = require('cors');
 
 const logger = require('../utils/logger');
 const router = require('./routes');
@@ -15,6 +16,8 @@ app.set('view engine', 'handlebars');
 
 app.set('logger', logger);
 app.use(logger);
+
+app.use(cors());
 
 app.use('/health', healthcheck());
 
