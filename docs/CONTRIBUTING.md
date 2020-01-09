@@ -4,6 +4,8 @@
 
 We are all eager to work on telescope, and this document will help you to get started!
 
+For community discussions, join our [#telescope Slack channel](https://seneca-open-source.slack.com/archives/CS5DGCAE5).
+
 ## Issues
 
 Before creating an issue:
