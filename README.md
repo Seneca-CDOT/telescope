@@ -9,6 +9,8 @@ A tool for tracking blogs in orbit around Seneca's open source involvement. We w
 An initial discussion of the project is available in the [Overview](docs/overview.md) document.
 For contribution, the docs can be found here [Contribution](docs/CONTRIBUTING.md)
 
+For community discussions, join our [#telescope Slack channel](https://seneca-open-source.slack.com/archives/CS5DGCAE5).
+
 ## Quick Setup Guide
 
 Clone the source locally:
