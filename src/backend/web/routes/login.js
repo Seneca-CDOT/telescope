@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const { samlStrategy, handleLogin } = require('../../login/usingPassport');
-const logger = require('../../utils/logger');
+const { logger } = require('../../utils/logger');
 
 const router = express.Router();
 
@@ -21,24 +21,21 @@ router.use(passport.initialize({}));
 router.use(passport.session({}));
 
 /* this route is used to login and will redirect you to the external service that takes care of authentication */
-router.get('/login', handleLogin, passport.authenticate('samlStrategy'));
+router.get('/', handleLogin, passport.authenticate('samlStrategy'));
 
 /* this route is where you get directed from the external service. This is your redirect url found in the .env */
-router.post('/login/callback', handleLogin, passport.authenticate('samlStrategy'), function(
-  req,
-  res
-) {
+router.post('/callback', handleLogin, passport.authenticate('samlStrategy'), function(req, res) {
   logger.info({ user: req.user }, 'SSO login callback');
-  res.send('Log in Callback Success');
+  res.json(req.user);
 });
 
 passport.serializeUser(function(user, done) {
-  logger.info({ user }, 'Serialize user');
+  logger.debug({ user }, 'Serialize user');
   done(null, user);
 });
 
 passport.deserializeUser(function(user, done) {
-  logger.info({ user }, 'Deserialize user');
+  logger.debug({ user }, 'Deserialize user');
   done(null, user);
 });
 
