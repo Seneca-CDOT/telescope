@@ -3,6 +3,11 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const healthcheck = require('express-healthcheck');
 const cors = require('cors');
+const { ApolloServer } = require('apollo-server-express');
+
+// Required for GraphQl
+const storage = require('../utils/storage');
+const { typeDefs, resolvers } = require('./graphql/queries');
 
 const logger = require('../utils/logger');
 const router = require('./routes');
@@ -18,6 +23,15 @@ app.set('logger', logger);
 app.use(logger);
 
 app.use(cors());
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: { storage },
+});
+
+// Add the Apollo server to app and define GraphQL's endpoint
+server.applyMiddleware({ app, path: '/gql' });
 
 app.use('/health', healthcheck());
 
