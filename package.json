@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "jest": {
-    "collectCoverage": true,
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/"
@@ -27,8 +26,9 @@
     "prettier-check": "prettier --check \"./**/*.{md,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
     "test": "npm run jest",
-    "jest": "cross-env LOG_LEVEL=silent MOCK_REDIS=1 jest",
-    "jest-watch": "cross-env MOCK_REDIS=1 jest --watch",
+    "jest": "cross-env LOG_LEVEL=silent MOCK_REDIS=1 jest --",
+    "coverage": "cross-env LOG_LEVEL=silent MOCK_REDIS=1 jest --collectCoverage --",
+    "jest-watch": "cross-env MOCK_REDIS=1 jest --watch --",
     "start": "node src/backend",
     "server": "node src/backend/web/server",
     "hint": "hint http://localhost:3000",
