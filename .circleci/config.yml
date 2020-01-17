@@ -1,7 +1,4 @@
 version: 2.1
-orbs:
-  # Necessary for Puppeteer support
-  puppeteer: threetreeslight/puppeteer@0.1.2
 jobs:
   build:
     working_directory: ~/telescope
@@ -10,7 +7,6 @@ jobs:
       - image: circleci/redis:latest
     steps:
       - checkout
-      - puppeteer/install
       - run:
           name: Generate SSL Certs
           command: ./tools/generate-ssl-certs.sh

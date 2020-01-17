@@ -5,14 +5,16 @@ const Post = require('../post');
 
 exports.workerCallback = async function(job) {
   const { url } = job.data;
+  let articles;
+
   try {
-    const articles = await feedparser(url);
-    return articles.map(article => Post.fromArticle(article));
+    articles = await feedparser(url);
   } catch (err) {
-    const message = `Unable to process feed ${url} for job ${job.id}`;
-    logger.error({ err }, message);
-    throw new Error(message);
+    logger.error({ err }, `Unable to process feed ${url}`);
+    throw err;
   }
+
+  return articles.map(article => Post.fromArticle(article));
 };
 
 exports.start = async function() {

@@ -1,6 +1,7 @@
 const { getPost, addPost } = require('./utils/storage');
 const { logger } = require('./utils/logger');
 const sanitizeHTML = require('./utils/sanitize-html');
+const textParser = require('./utils/text-parser');
 
 function toDate(date) {
   // Is this already a Date?
@@ -65,16 +66,28 @@ class Post {
       article.title = 'Untitled';
     }
 
+    let sanitizedHTML;
+    let plainText;
+    try {
+      // The article.description is frequently the full HTML article content.
+      // Sanitize it of any scripts or other dangerous attributes/elements
+      sanitizedHTML = sanitizeHTML(article.description);
+      // Also generate plain text from the sanitized HTML
+      plainText = textParser(sanitizedHTML);
+    } catch (err) {
+      logger.error({ err }, 'Unable to sanitize and parse HTML for feed');
+      throw err;
+    }
+
     // NOTE: feedparser article properties are documented here:
     // https://www.npmjs.com/package/feedparser#list-of-article-properties
     return new Post(
       article.author,
       article.title,
-      // description (frequently, the full article content).
-      // Clean it of any scripts or other dangerous attributes/elements
-      sanitizeHTML(article.description),
-      // TODO: run this through text parser
-      article.description,
+      // sanitized HTML version of the post
+      sanitizedHTML,
+      // plain text version of the post
+      plainText,
       // pubdate (original published date)
       article.pubdate,
       // date (most recent update)
