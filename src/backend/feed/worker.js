@@ -1,5 +1,6 @@
+const { parse } = require('feedparser-promised');
+
 const feedQueue = require('./queue');
-const feedparser = require('./parser');
 const { logger } = require('../utils/logger');
 const Post = require('../post');
 
@@ -8,7 +9,7 @@ exports.workerCallback = async function(job) {
   let articles;
 
   try {
-    articles = await feedparser(url);
+    articles = await parse(url);
   } catch (err) {
     logger.error({ err }, `Unable to process feed ${url}`);
     throw err;

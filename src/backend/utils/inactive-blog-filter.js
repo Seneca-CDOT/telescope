@@ -2,9 +2,10 @@
  * Returns whether or not the blog should be marked as inactive
  * Criteria for filtering (in milliseconds) is based on filters.json under blog.inactive
  */
-require('../lib/config.js');
 const fs = require('fs');
-const feedParser = require('../feed/parser');
+const { parse } = require('feedparser-promised');
+
+require('../lib/config.js');
 const { logger } = require('./logger');
 
 const fsPromises = fs.promises;
@@ -63,11 +64,7 @@ async function check(feedUrl, redlistPath = 'feeds-redlist.json') {
  * @param {string} [redlistPath=feeds-redlist.json] - path to JSON file storing non-active feeds
  * @param {function} [parser=feedParser] - reference to the function used to parse feeds
  */
-async function update(
-  feedsPath = 'feeds.txt',
-  redlistPath = 'feeds-redlist.json',
-  parser = feedParser
-) {
+async function update(feedsPath = 'feeds.txt', redlistPath = 'feeds-redlist.json', parser = parse) {
   if (!feedsPath || !redlistPath) {
     return Promise.reject(new Error('failed to update: bad filepath'));
   }
