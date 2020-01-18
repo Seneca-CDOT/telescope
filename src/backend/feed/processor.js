@@ -1,0 +1,31 @@
+/**
+ * A processor function to be run concurrently, in its own process, and
+ * with potentially multiple simultaneous instances, by the feed queue.
+ * https://github.com/OptimalBits/bull#separate-processes
+ */
+
+const { parse } = require('feedparser-promised');
+
+const { logger } = require('../utils/logger');
+const Post = require('../post');
+
+module.exports = async function processor(job) {
+  const { url } = job.data;
+  const httpOptions = {
+    url,
+    // ms to wait for a connection to be assumed to have failed
+    timeout: 20 * 1000,
+    gzip: true,
+  };
+  let articles;
+
+  try {
+    articles = await parse(httpOptions);
+  } catch (err) {
+    logger.error({ err }, `Unable to process feed ${url}`);
+    throw err;
+  }
+
+  // Transform the list of articles to a list of Post objects
+  return articles.map(article => Post.fromArticle(article));
+};

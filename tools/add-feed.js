@@ -27,10 +27,10 @@ async function add() {
 
   await feedQueue
     .add(feed, {
-      attempts: process.env.FEED_QUEUE_ATTEMPTS || 8,
+      attempts: process.env.FEED_QUEUE_ATTEMPTS || 2,
       backoff: {
         type: 'exponential',
-        delay: process.env.FEED_QUEUE_DELAY_MS || 60 * 1000,
+        delay: process.env.FEED_QUEUE_DELAY_MS || 30 * 1000,
       },
       removeOnComplete: true,
       removeOnFail: true,
