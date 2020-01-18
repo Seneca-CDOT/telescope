@@ -1,20 +1,9 @@
-const puppeteer = require('puppeteer');
+const jsdom = require('jsdom');
 
-module.exports = async function(htmlFragment) {
-  let browser;
-  try {
-    browser = await puppeteer.launch();
-    const page = await browser.newPage();
+const { JSDOM } = jsdom;
 
-    await page.setContent(htmlFragment, {
-      waitUntil: 'domcontentloaded',
-    });
-
-    const result = await page.evaluate('document.body.innerText');
-    return result;
-  } finally {
-    if (browser) {
-      await browser.close();
-    }
-  }
-};
+/**
+ * Given a fragment of HTML, build a DOM element and get its text content.
+ * If we get back nothing, return the empty string.
+ */
+module.exports = htmlFragment => JSDOM.fragment(htmlFragment).textContent || '';
