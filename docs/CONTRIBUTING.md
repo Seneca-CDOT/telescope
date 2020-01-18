@@ -193,14 +193,29 @@ When working on fixing bugs, please use the following workflow:
 
 ### Testing Your Code
 
-1. Run the test suite, using `npm test`. Fix any lint errors, warnings, or other failures (NOTE: if you're not sure what an eslint rule means, [look it up in the docs](https://eslint.org/docs/rules/)):
-   ```
-   npm test
-   ...if there are lint errors, try having eslint fix them for you
-   npm run eslint-fix
-   npm test
-   ...manually fix any errors yourself, rerunning npm test each time to confirm
-   ```
+Run the test suite, using `npm test`. Fix any lint errors, warnings, or other failures (NOTE: if you're not sure what an eslint rule means, [look it up in the docs](https://eslint.org/docs/rules/)):
+
+```
+npm test
+...if there are lint errors, try having eslint fix them for you
+npm run eslint-fix
+npm test
+...manually fix any errors yourself, rerunning npm test each time to confirm
+```
+
+You can also run the tests in _watch_ mode, so that they will automatically ru-run
+when you make changes:
+
+```
+npm run jest-watch
+```
+
+In addition, you can run individual tests, in both normal or watch mode, by
+adding the name of a file. For example, to run tests in a file called parser.test.js:
+
+```
+npm test parser
+```
 
 You can add feeds to the queue manually using `add-feed` followed by the name of the blogger and url of the feed. This can be useful for testing purposes.
 
@@ -293,7 +308,7 @@ There are a number of reports that get generated, and can aid in developer under
 The first is test coverage information. To generate the report, run the tests:
 
 ```
-npm test
+npm run coverage
 ```
 
 After the tests complete, a text summary report is printed. However, a much more
