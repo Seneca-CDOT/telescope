@@ -170,6 +170,7 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 
 When working on fixing bugs, please use the following workflow:
 
+1. First, make sure your editor is set up correctly to use our preferred formats. We use tools like [Prettier](https://prettier.io/) to help keep our code consistently formatted. If you're using [VSCode](https://code.visualstudio.com/) as your editor, we have a number of pre-configured project settings and extensions you can install (you'll be prompted when you open the Telescope project root). If you're using another editor, [check to see if there is a plugin you can use](https://editorconfig.org/#download). This will help you write code that is consistent with our coding format. However, we'll also automatically format your code when you commit in git.
 1. If you haven't done so already, add an `upstream` remote so you can stay in sync:
    ```
    git remote add upstream https://github.com/Seneca-CDOT/telescope.git
@@ -179,7 +180,7 @@ When working on fixing bugs, please use the following workflow:
    git checkout master
    git pull upstream master
    ```
-1. Additionally, it is a good idea to run `npm install` to make sure everything is up to date and you have everything neccessary.
+1. Additionally, it is a good idea to run `npm install` to make sure everything is up to date and you have everything necessary.
 1. Create a branch for your work, using the issue number:
    ```
    git checkout -b issue-123
