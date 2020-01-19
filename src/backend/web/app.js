@@ -31,7 +31,7 @@ const server = new ApolloServer({
 });
 
 // Add the Apollo server to app and define GraphQL's endpoint
-server.applyMiddleware({ app, path: '/gql' });
+server.applyMiddleware({ app, path: '/graphql' });
 
 app.use('/health', healthcheck());
 
