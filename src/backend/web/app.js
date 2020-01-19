@@ -5,9 +5,9 @@ const healthcheck = require('express-healthcheck');
 const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 
-// Required for GraphQl
+// Required for GraphQL
 const storage = require('../utils/storage');
-const { typeDefs, resolvers } = require('./graphql/queries');
+const { typeDefs, resolvers } = require('./graphql');
 
 const logger = require('../utils/logger');
 const router = require('./routes');
