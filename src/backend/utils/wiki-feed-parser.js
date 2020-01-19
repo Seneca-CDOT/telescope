@@ -14,7 +14,7 @@ const { JSDOM } = jsdom;
  */
 async function getWikiText(url) {
   try {
-    const response = await fetch(process.env.FEED_URL);
+    const response = await fetch(url);
     const data = await response.text();
 
     const dom = new JSDOM(data);
@@ -36,8 +36,13 @@ async function getWikiText(url) {
  * }
  */
 module.exports = async function() {
-  // NOTE: we expect this URL to the CDOT wiki feed list to exist in .env
-  const url = process.env.FEED_URL;
+  let url = process.env.FEED_URL;
+
+  if (!url) {
+    url = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
+    logger.debug(`No value found for FEED_URL in env, using default ${url} instead`);
+  }
+
   const nameCheck = /^\s*name/i;
   const commentCheck = /^\s*#/;
 
