@@ -5,9 +5,10 @@ const {
   getFeed,
   getFeeds,
   getPostsCount,
-  getPost,
   getPosts,
 } = require('../../utils/storage');
+
+const Post = require('../../post');
 
 const maxPostsPerPage = process.env.MAX_POSTS_PER_PAGE || 30;
 
@@ -74,7 +75,7 @@ module.exports.resolvers = {
      * @return Post object for the passed guid
      */
     getPost: (parent, { guid }) => {
-      return getPost(guid);
+      return Post.byGuid(guid);
     },
 
     /**
@@ -93,7 +94,7 @@ module.exports.resolvers = {
         const last = first + prPage < numOFPosts ? first + prPage : numOFPosts;
         const posts = await getPosts(first, last);
 
-        return Promise.all(posts.map(post => getPost(post)));
+        return Promise.all(posts.map(post => Post.byGuid(post)));
       }
       return [];
     },
