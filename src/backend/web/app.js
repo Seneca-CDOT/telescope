@@ -6,7 +6,6 @@ const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 
 // Required for GraphQL
-const storage = require('../utils/storage');
 const { typeDefs, resolvers } = require('./graphql');
 
 const logger = require('../utils/logger');
@@ -27,7 +26,6 @@ app.use(cors());
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: { storage },
 });
 
 // Add the Apollo server to app and define GraphQL's endpoint

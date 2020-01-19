@@ -1,5 +1,14 @@
 const { gql } = require('apollo-server-express');
 
+const {
+  getFeedsCount,
+  getFeed,
+  getFeeds,
+  getPostsCount,
+  getPost,
+  getPosts,
+} = require('../../utils/storage');
+
 const maxPostsPerPage = process.env.MAX_POSTS_PER_PAGE || 30;
 
 module.exports.typeDefs = gql`
@@ -40,23 +49,23 @@ module.exports.resolvers = {
      * @param guid
      * @return Feed object for the passed guid
      */
-    getFeed: (parent, { guid }, { storage }) => {
-      return storage.getFeed(guid);
+    getFeed: (parent, { guid }) => {
+      return getFeed(guid);
     },
 
     /**
      * @description Fetches all the Feed objects in our database
      * @return Array Feed objects
      */
-    getFeeds: (parent, arg, { storage }) => {
-      return storage.getFeeds('feeds');
+    getFeeds: () => {
+      return getFeeds('feeds');
     },
 
     /**
      * @return Number of Feed objects in our database
      */
-    getFeedsCount: (parent, arg, { storage }) => {
-      return storage.getFeedsCount();
+    getFeedsCount: () => {
+      return getFeedsCount();
     },
 
     /**
@@ -64,8 +73,8 @@ module.exports.resolvers = {
      * @param guid
      * @return Post object for the passed guid
      */
-    getPost: (parent, { guid }, { storage }) => {
-      return storage.getPost(guid);
+    getPost: (parent, { guid }) => {
+      return getPost(guid);
     },
 
     /**
@@ -74,17 +83,17 @@ module.exports.resolvers = {
      * @param perPage Number of Post objects in every page
      * @return Array of 'perPage' number of Post objects
      */
-    getPosts: async (parent, { page, perPage }, { storage }) => {
+    getPosts: async (parent, { page, perPage }) => {
       const prPage = perPage > maxPostsPerPage ? maxPostsPerPage : perPage;
 
-      const numOFPosts = await storage.getPostsCount();
+      const numOFPosts = await getPostsCount();
       const first = page * prPage;
 
       if (first < numOFPosts) {
         const last = first + prPage < numOFPosts ? first + prPage : numOFPosts;
-        const posts = await storage.getPosts(first, last);
+        const posts = await getPosts(first, last);
 
-        return Promise.all(posts.map(post => storage.getPost(post)));
+        return Promise.all(posts.map(post => getPost(post)));
       }
       return [];
     },
@@ -92,8 +101,8 @@ module.exports.resolvers = {
     /**
      * @return Number of Post objects in our database
      */
-    getPostsCount: (parent, arg, { storage }) => {
-      return storage.getPostsCount();
+    getPostsCount: () => {
+      return getPostsCount();
     },
   },
 };
