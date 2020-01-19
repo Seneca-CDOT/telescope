@@ -32,7 +32,7 @@ function createQueue(name) {
     .on('error', err => {
       // An error occurred
       if (err.code === 'ECONNREFUSED') {
-        logger.info(
+        logger.error(
           '\n\n\t💡  It appears that Redis is not running on your machine.',
           '\n\t   Please see our documentation for how to install and run Redis:',
           '\n\t   https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md\n'
