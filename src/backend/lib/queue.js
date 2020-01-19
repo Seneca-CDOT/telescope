@@ -9,6 +9,7 @@ const { logger } = require('../utils/logger');
 
 const client = createRedisClient();
 const subscriber = createRedisClient();
+let redisErrorLogged = false;
 
 /**
  * Create a Queue with the given `name` (String).
@@ -32,11 +33,14 @@ function createQueue(name) {
     .on('error', err => {
       // An error occurred
       if (err.code === 'ECONNREFUSED') {
-        logger.error(
-          '\n\n\t💡  It appears that Redis is not running on your machine.',
-          '\n\t   Please see our documentation for how to install and run Redis:',
-          '\n\t   https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md\n'
-        );
+        if (!redisErrorLogged) {
+          logger.error(
+            '\n\n\t💡  It appears that Redis is not running on your machine.',
+            '\n\t   Please see our documentation for how to install and run Redis:',
+            '\n\t   https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md\n'
+          );
+          redisErrorLogged = true;
+        }
       } else {
         logger.error({ err }, `Queue ${name} error`);
       }
