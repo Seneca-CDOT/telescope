@@ -19,38 +19,13 @@ process.on('unhandledRejection', shutdown('UNHANDLED REJECTION'));
 process.on('uncaughtException', shutdown('UNCAUGHT EXCEPTION'));
 
 /**
- * Add a feed URL job to the queue. It may fail, if there is already
- * a job in the queue with the same URL.
- */
-async function addFeedJob(feedInfo) {
-  const options = {
-    // Use the feed URL as the job key, so we don't double add it.
-    // Bull will not add a job there already exists a job with the same id.
-    id: feedInfo.url,
-    attempts: process.env.FEED_QUEUE_ATTEMPTS || 2,
-    backoff: {
-      type: 'exponential',
-      delay: process.env.FEED_QUEUE_DELAY_MS || 30 * 1000,
-    },
-    removeOnComplete: true,
-    removeOnFail: true,
-  };
-
-  try {
-    feedQueue.add(feedInfo, options);
-  } catch (err) {
-    logger.error({ err }, 'Unable to add job to queue');
-  }
-}
-
-/**
  * Adds feed URL jobs to the feed queue for processing
  * @param {Array[Object]} feedJobs - list of feed URL jobs to be processed
  */
 async function enqueueWikiFeed() {
   try {
     const data = await wikiFeed.parseData();
-    await Promise.all(data.map(feedInfo => addFeedJob(feedInfo)));
+    await Promise.all(data.map(feedInfo => feedQueue.addFeed(feedInfo)));
   } catch (err) {
     logger.error({ err }, 'Error queuing wiki feeds');
   }
