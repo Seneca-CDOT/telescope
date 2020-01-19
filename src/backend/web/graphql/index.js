@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-const maxPostsPerPage = 30;
+const maxPostsPerPage = process.env.MAX_POSTS_PER_PAGE || 30;
 
 module.exports.typeDefs = gql`
   # 'Feed' matches our Feed type used with redis
