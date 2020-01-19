@@ -31,7 +31,15 @@ function createQueue(name) {
   })
     .on('error', err => {
       // An error occurred
-      logger.error({ err }, `Queue ${name} error`);
+      if (err.code === 'ECONNREFUSED') {
+        logger.info(
+          '\n\n\t💡  It appears that Redis is not running on your machine.',
+          '\n\t   Please see our documentation for how to install and run Redis:',
+          '\n\t   https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md\n'
+        );
+      } else {
+        logger.error({ err }, `Queue ${name} error`);
+      }
     })
     .on('waiting', jobID => {
       // A job is waiting for the next idling worker
