@@ -23,22 +23,13 @@ async function add() {
     process.exit(1);
   }
 
-  const feed = { name, url };
+  const feedInfo = { name, url };
 
-  await feedQueue
-    .add(feed, {
-      attempts: process.env.FEED_QUEUE_ATTEMPTS || 8,
-      backoff: {
-        type: 'exponential',
-        delay: process.env.FEED_QUEUE_DELAY_MS || 60 * 1000,
-      },
-      removeOnComplete: true,
-      removeOnFail: true,
-    })
-    .catch(err => {
-      log.error({ err }, 'Error enqueuing feed');
-      process.exit(1);
-    });
-  process.exit(0);
+  try {
+    await feedQueue.addFeed(feedInfo);
+    process.exit(0);
+  } catch (err) {
+    process.exit(1);
+  }
 }
 add();
