@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql: graphql } = require('apollo-server-express');
 
 const {
   getFeedsCount,
@@ -12,7 +12,7 @@ const Post = require('../../post');
 
 const maxPostsPerPage = process.env.MAX_POSTS_PER_PAGE || 30;
 
-module.exports.typeDefs = gql`
+module.exports.typeDefs = graphql`
   # 'Feed' matches our Feed type used with redis
   type Feed {
     name: String
