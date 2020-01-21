@@ -27,6 +27,13 @@ const createFeedKey = uri => {
   return createKey(uri, 'feed');
 };
 
+const getRawKeys = keys => {
+  keys.map(async key => {
+    const { guid } = await redis.hgetall(key);
+    return guid.replace('/^t:(post|feed):/', '');
+  });
+};
+
 // Redis Keys
 const FEEDS = 't:feeds';
 
@@ -45,7 +52,17 @@ module.exports = {
       .exec();
   },
 
-  getFeeds: () => redis.smembers(FEEDS),
+  getFeeds: async () => {
+    const keys = await redis.smembers(FEEDS);
+
+    /**
+     * 'smembers' returns an array of encoded, hashed guids.
+     * This array is used to return the 'guid' property in
+     * Feed objects, which contains the decoded, unhashed version
+     * of the guid
+     */
+    return Promise.all(getRawKeys(keys));
+  },
 
   getFeed: feedID => redis.hgetall(createFeedKey(feedID)),
 
@@ -98,12 +115,7 @@ module.exports = {
      * Post objects, which contains the decoded, unhashed version
      * of the guid
      */
-    return Promise.all(
-      keys.map(async key => {
-        const { guid } = await redis.hgetall(key);
-        return guid.replace('/^t:post:/', '');
-      })
-    );
+    return Promise.all(getRawKeys(keys));
   },
 
   getPostsCount: () => redis.zcard(POSTS),
