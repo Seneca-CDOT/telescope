@@ -33,8 +33,8 @@ async function getPostsPage(perPage = 10) {
         return post;
       })
     );
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     $('.content').html('Error loading Posts');
   }
 

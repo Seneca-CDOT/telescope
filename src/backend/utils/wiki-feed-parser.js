@@ -17,8 +17,8 @@ module.exports.getData = function() {
       const dom = new JSDOM(data);
       return dom.window.document.querySelector('pre').textContent.split(/\r\n|\r|\n/);
     })
-    .catch(err => {
-      throw err;
+    .catch(error => {
+      throw error;
     });
 };
 
@@ -60,7 +60,7 @@ module.exports.parseData = function() {
       });
       return objArray;
     })
-    .catch(err => {
-      throw err;
+    .catch(error => {
+      throw error;
     });
 };

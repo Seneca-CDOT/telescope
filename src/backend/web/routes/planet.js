@@ -53,10 +53,10 @@ router.get('/', async (req, res) => {
   try {
     const grouped = await getPostDataGrouped();
     res.render('planet', grouped);
-  } catch (err) {
-    logger.error({ err }, 'Error processing posts from Redis');
+  } catch (error) {
+    logger.error({ error }, 'Error processing posts from Redis');
     res.status(503).json({
-      message: `Error processing posts: ${err.message}`,
+      message: `Error processing posts: ${error.message}`,
     });
   }
 });

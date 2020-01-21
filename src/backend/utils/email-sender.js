@@ -66,10 +66,10 @@ exports.createMail = function(receipients, subjectMessage, message) {
 // Verifies if the transporter passed was created successfully
 exports.verifyTransporter = function(transporter) {
   // Verify connection configuration
-  transporter.verify(err => {
+  transporter.verify(error => {
     // If error then print to console
-    if (err) {
-      log.error({ err }, 'Transporter connection failed.');
+    if (error) {
+      log.error({ error }, 'Transporter connection failed.');
       return false;
     }
     // else print a ready message
@@ -96,9 +96,9 @@ exports.sendMessage = async function(receipiants, subjectMessage, message) {
     const mail = this.createMail(receipiants, subjectMessage, message);
 
     // Send the email with the email content
-    transporter.sendMail(mail, (err, info) => {
-      if (err) {
-        reject(err); // Send promise.reject if an error occurs
+    transporter.sendMail(mail, (error, info) => {
+      if (error) {
+        reject(error); // Send promise.reject if an error occurs
       } else {
         resolve(info.accepted); // Send promise.resolve if an error occurs
       }

@@ -74,9 +74,9 @@ class Post {
       sanitizedHTML = sanitizeHTML(article.description);
       // Also generate plain text from the sanitized HTML
       plainText = textParser(sanitizedHTML);
-    } catch (err) {
-      logger.error({ err }, 'Unable to sanitize and parse HTML for feed');
-      throw err;
+    } catch (error) {
+      logger.error({ error }, 'Unable to sanitize and parse HTML for feed');
+      throw error;
     }
 
     // NOTE: feedparser article properties are documented here:

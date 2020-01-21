@@ -10,9 +10,9 @@ exports.workerCallback = async function(job) {
 
   try {
     articles = await parse(url);
-  } catch (err) {
-    logger.error({ err }, `Unable to process feed ${url}`);
-    throw err;
+  } catch (error) {
+    logger.error({ error }, `Unable to process feed ${url}`);
+    throw error;
   }
 
   return articles.map(article => Post.fromArticle(article));
@@ -26,8 +26,8 @@ exports.start = async function() {
   feedQueue.on('completed', async (job, posts) => {
     try {
       await Promise.all(posts.map(post => post.save()));
-    } catch (err) {
-      logger.error({ err }, 'Error inserting posts into database');
+    } catch (error) {
+      logger.error({ error }, 'Error inserting posts into database');
     }
   });
 };

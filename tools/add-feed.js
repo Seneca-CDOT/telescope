@@ -35,8 +35,8 @@ async function add() {
       removeOnComplete: true,
       removeOnFail: true,
     })
-    .catch(err => {
-      log.error({ err }, 'Error enqueuing feed');
+    .catch(error => {
+      log.error({ error }, 'Error enqueuing feed');
       process.exit(1);
     });
   process.exit(0);

@@ -36,7 +36,7 @@ async function enqueueWikiFeed() {
         removeOnFail: true,
       })
     )
-  ).catch(err => log.error({ err }, 'Error queuing wiki feeds'));
+  ).catch(error => log.error({ error }, 'Error queuing wiki feeds'));
 }
 
 enqueueWikiFeed()

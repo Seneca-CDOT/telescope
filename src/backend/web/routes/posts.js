@@ -36,8 +36,8 @@ posts.get('/', async (req, res) => {
     to = perPage * page > postsCount ? postsCount : perPage * page;
 
     guids = await getPosts(from, to);
-  } catch (err) {
-    logger.error({ err }, 'Unable to get posts from Redis');
+  } catch (error) {
+    logger.error({ error }, 'Unable to get posts from Redis');
     res.status(503).json({
       message: 'Unable to connect to database',
     });
@@ -86,8 +86,8 @@ posts.get('/:guid', async (req, res) => {
     } else {
       res.json(post);
     }
-  } catch (err) {
-    logger.error({ err }, 'Unable to get posts from Redis');
+  } catch (error) {
+    logger.error({ error }, 'Unable to get posts from Redis');
     res.status(503).json({
       message: 'Unable to connect to database',
     });

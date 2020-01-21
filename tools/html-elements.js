@@ -67,8 +67,8 @@ async function run() {
     });
 
     process.exit(0);
-  } catch (err) {
-    console.error('Unable to process posts', err);
+  } catch (error) {
+    console.error('Unable to process posts', error);
     process.exit(1);
   }
 }

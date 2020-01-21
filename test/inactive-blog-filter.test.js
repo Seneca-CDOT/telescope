@@ -9,18 +9,18 @@ const pathToMockRedList = path.join(__dirname, './test_files/mock-redlist.json')
 const deleteMockRedlist = () => {
   try {
     fs.unlinkSync(pathToMockRedList);
-  } catch (err) {
-    log.error(`failed to delete ${pathToMockRedList}`, err.message);
-    throw err;
+  } catch (error) {
+    log.error(`failed to delete ${pathToMockRedList}`, error.message);
+    throw error;
   }
 };
 const initializeMockRedlist = () => {
   try {
     fs.writeFileSync(pathToMockRedList, '[]', { flag: 'w' });
-  } catch (err) {
+  } catch (error) {
     deleteMockRedlist();
-    log.error(`failed to write to ${pathToMockRedList}`, err.message);
-    throw err;
+    log.error(`failed to write to ${pathToMockRedList}`, error.message);
+    throw error;
   }
 };
 
@@ -42,9 +42,9 @@ describe('Redlisted feed checking', () => {
         .then(isRedlisted => {
           expect(isRedlisted).toBe(false);
         })
-        .catch(err => {
-          log.error(err.message);
-          throw err;
+        .catch(error => {
+          log.error(error.message);
+          throw error;
         });
     });
   });
@@ -56,9 +56,9 @@ describe('Redlisted feed checking', () => {
         .then(isRedlisted => {
           expect(isRedlisted).toBe(true);
         })
-        .catch(err => {
-          log.error(err.message);
-          throw err;
+        .catch(error => {
+          log.error(error.message);
+          throw error;
         });
     });
   });
@@ -134,10 +134,10 @@ describe('Testing of update()', () => {
       .then(data => {
         expect(data.length).toEqual(0);
       })
-      .catch(err => {
+      .catch(error => {
         deleteMockRedlist();
-        log.error(err.message);
-        throw err;
+        log.error(error.message);
+        throw error;
       });
   });
 
@@ -153,10 +153,10 @@ describe('Testing of update()', () => {
           expect(data[i].url).toBe(inactiveRedlist[i].url);
         }
       })
-      .catch(err => {
+      .catch(error => {
         deleteMockRedlist();
-        log.error(err.message);
-        throw err;
+        log.error(error.message);
+        throw error;
       });
   });
 
@@ -172,10 +172,10 @@ describe('Testing of update()', () => {
           expect(data[i].url).toBe(deadRedlist[i].url);
         }
       })
-      .catch(err => {
+      .catch(error => {
         deleteMockRedlist();
-        log.error(err.message);
-        throw err;
+        log.error(error.message);
+        throw error;
       });
   });
 
