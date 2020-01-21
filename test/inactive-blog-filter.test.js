@@ -10,7 +10,7 @@ const deleteMockRedlist = () => {
   try {
     fs.unlinkSync(pathToMockRedList);
   } catch (error) {
-    log.error(`failed to delete ${pathToMockRedList}`, error.message);
+    log.error({ error }, `failed to delete ${pathToMockRedList}`);
     throw error;
   }
 };
@@ -19,7 +19,7 @@ const initializeMockRedlist = () => {
     fs.writeFileSync(pathToMockRedList, '[]', { flag: 'w' });
   } catch (error) {
     deleteMockRedlist();
-    log.error(`failed to write to ${pathToMockRedList}`, error.message);
+    log.error({ error }, `failed to write to ${pathToMockRedList}`);
     throw error;
   }
 };
@@ -43,7 +43,7 @@ describe('Redlisted feed checking', () => {
           expect(isRedlisted).toBe(false);
         })
         .catch(error => {
-          log.error(error.message);
+          log.error({ error });
           throw error;
         });
     });
@@ -57,7 +57,7 @@ describe('Redlisted feed checking', () => {
           expect(isRedlisted).toBe(true);
         })
         .catch(error => {
-          log.error(error.message);
+          log.error({ error });
           throw error;
         });
     });
@@ -136,7 +136,7 @@ describe('Testing of update()', () => {
       })
       .catch(error => {
         deleteMockRedlist();
-        log.error(error.message);
+        log.error({ error });
         throw error;
       });
   });
@@ -155,7 +155,7 @@ describe('Testing of update()', () => {
       })
       .catch(error => {
         deleteMockRedlist();
-        log.error(error.message);
+        log.error({ error });
         throw error;
       });
   });
@@ -174,7 +174,7 @@ describe('Testing of update()', () => {
       })
       .catch(error => {
         deleteMockRedlist();
-        log.error(error.message);
+        log.error({ error });
         throw error;
       });
   });

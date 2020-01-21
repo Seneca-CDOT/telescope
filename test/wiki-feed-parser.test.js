@@ -54,15 +54,15 @@ test('Testing wiki-feed-parser.getData with no pre tag', async () => {
 
   fetch.mockResponseOnce(mockBody);
 
-  await parser.getData().catch(error => {
-    expect(error).toStrictEqual(noPreErr);
+  await parser.getData().catch(err => {
+    expect(err).toStrictEqual(noPreErr);
   });
 });
 
 test('Testing wiki-feed-parser.getData when fetch fails', async () => {
   fetch.mockReject(new Error('fake error message'));
-  await parser.getData().catch(error => {
-    expect(error).toStrictEqual(Error('fake error message'));
+  await parser.getData().catch(err => {
+    expect(err).toStrictEqual(Error('fake error message'));
   });
 });
 
@@ -90,7 +90,7 @@ test('Testing wiki-feed-parser.parseData when getData fails with no pre tag', as
   const mockBody = `<html>${mockFeed}</html>`;
   fetch.mockResponseOnce(mockBody);
 
-  await parser.parseData().catch(error => {
-    expect(error).toStrictEqual(noPreErr);
+  await parser.parseData().catch(err => {
+    expect(err).toStrictEqual(noPreErr);
   });
 });
