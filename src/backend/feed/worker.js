@@ -22,12 +22,8 @@ function getFeedWorkersCount() {
     return cpuCount;
   }
 
-  const count = Number(FEED_QUEUE_PARALLEL_WORKERS);
-  if (typeof count === 'number') {
-    return Math.min(count, cpuCount);
-  }
-
-  return 1;
+  const count = Number(FEED_QUEUE_PARALLEL_WORKERS) || 1;
+  return Math.min(count, cpuCount);
 }
 
 exports.start = function() {
