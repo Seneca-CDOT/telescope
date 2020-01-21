@@ -28,7 +28,7 @@ const createFeedKey = uri => {
 };
 
 const getRawKeys = keys => {
-  keys.map(async key => {
+  return keys.map(async key => {
     const { guid } = await redis.hgetall(key);
     return guid.replace('/^t:(post|feed):/', '');
   });
