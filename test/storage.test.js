@@ -1,7 +1,6 @@
 const {
   addFeed,
   getFeed,
-  getFeeds,
   getFeedsCount,
   addPost,
   getPost,
@@ -13,14 +12,9 @@ describe('Storage tests for feeds', () => {
   const feed = { name: 'James Smith', url: 'http://seneca.co/jsmith' };
   const feed2 = { name: 'James Smith 2', url: 'http://seneca.co/jsmith/2' };
 
-  it('inserting a feed returns a feed id', async () => {
-    const feedId = await addFeed(feed.name, feed.url);
-    expect(typeof feedId).toBe('string');
-  });
-
   it('should allow retrieving a feed by id after inserting', async () => {
-    const feedId = await addFeed(feed2.name, feed2.url);
-    const result = await getFeed(feedId);
+    await addFeed(feed2.name, feed2.url);
+    const result = await getFeed('http://seneca.co/jsmith/2');
     expect(result).toEqual(feed2);
   });
 
@@ -28,14 +22,6 @@ describe('Storage tests for feeds', () => {
     await addFeed(feed.name, feed.url);
     await addFeed(feed2.name, feed2.url);
     expect(await getFeedsCount()).toEqual(2);
-  });
-
-  it('should return ids of all the feeds', async () => {
-    const feedId1 = await addFeed(feed.name, feed.url);
-    const feedId2 = await addFeed(feed2.name, feed2.url);
-    const result = await getFeeds();
-    expect(result).toContain(feedId1.toString());
-    expect(result).toContain(feedId2.toString());
   });
 });
 
