@@ -19,6 +19,10 @@ Before creating an issue:
 
 Please submit pull requests in response to open issues. If you have a bug or feature, bring it up in issues first, to avoid two or more people working on the same thing. See workflow information below.
 
+## Environment Setup
+
+For instructions on how to setup your Telescope environment, please see [Environment Setup](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md).
+
 ### SAML Setup
 
 - Run `bash ./generate_ssl_certs.sh` in terminal
