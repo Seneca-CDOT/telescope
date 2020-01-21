@@ -1,16 +1,14 @@
 const { redis } = require('../lib/redis');
+const standardize = require('./standardize');
 
 // Redis Keys
-const FEED_ID = 'feed_id';
 const FEEDS = 'feeds';
 
 const POSTS = 'posts';
 
 module.exports = {
   addFeed: async (name, url) => {
-    // "If the key does not exist, it is set to 0 before performing the operation"
-    // https://redis.io/commands/INCR
-    const feedId = await redis.incr(FEED_ID);
+    const feedId = standardize(url, 'feed');
     await redis
       .multi()
       // Using hmset() until hset() fully supports multiple fields:
@@ -29,11 +27,13 @@ module.exports = {
   getFeedsCount: () => redis.scard(FEEDS),
 
   addPost: async post => {
+    const encrGuid = standardize(post.guid, 'post');
+
     await redis
       .multi()
       .hmset(
         // using guid as keys as it is unique to posts
-        post.guid,
+        encrGuid,
         'author',
         post.author,
         'title',
@@ -54,7 +54,7 @@ module.exports = {
         post.guid
       )
       // sort set by published date as scores
-      .zadd(POSTS, post.published.getTime(), post.guid)
+      .zadd(POSTS, post.published.getTime(), encrGuid)
       .exec();
   },
 
