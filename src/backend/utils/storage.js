@@ -51,13 +51,13 @@ module.exports = {
   getFeedsCount: () => redis.scard(FEEDS),
 
   addPost: async post => {
-    const encrGuid = standardize(post.guid, 'post');
+    const key = standardize(post.guid, 'post');
 
     await redis
       .multi()
       .hmset(
         // using guid as keys as it is unique to posts
-        encrGuid,
+        key,
         'author',
         post.author,
         'title',
@@ -78,19 +78,34 @@ module.exports = {
         post.guid
       )
       // sort set by published date as scores
-      .zadd(POSTS, post.published.getTime(), encrGuid)
+      .zadd(POSTS, post.published.getTime(), key)
       .exec();
   },
 
   /**
-   * Gets an array of guids from redis
+   * Returns an array of guids from redis
    * @param from lower index
    * @param to higher index, it needs -1 because redis includes the element at this index in the returned array
    * @return Array of guids
    */
-  getPosts: (from, to) => redis.zrevrange(POSTS, from, to - 1),
+  getPosts: async (from, to) => {
+    const keys = await redis.zrevrange(POSTS, from, to - 1);
+
+    /**
+     * 'zrevrange returns an array of encrypted hashed guids.
+     * This array is used to return the 'guid' property in
+     * Post objects, which contains the unencrypted, unhashed version
+     * of the guid
+     */
+    return Promise.all(
+      keys.map(async key => {
+        const { guid } = await redis.hgetall(key);
+        return guid.replace('/t:post:/', '');
+      })
+    );
+  },
 
   getPostsCount: () => redis.zcard(POSTS),
 
-  getPost: guid => redis.hgetall(guid),
+  getPost: async guid => redis.hgetall(standardize(guid, 'post')),
 };
