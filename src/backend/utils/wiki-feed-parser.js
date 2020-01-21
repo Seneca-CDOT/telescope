@@ -1,6 +1,8 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
+
 require('../lib/config');
+const { logger } = require('../utils/logger');
 
 const { JSDOM } = jsdom;
 
@@ -10,57 +12,65 @@ const { JSDOM } = jsdom;
  * Splits the data into lines so its easier to process as a string array
  * That data is then returned as a Promise
  */
-module.exports.getData = function() {
-  return fetch(process.env.FEED_URL)
-    .then(res => res.text())
-    .then(data => {
-      const dom = new JSDOM(data);
-      return dom.window.document.querySelector('pre').textContent.split(/\r\n|\r|\n/);
-    })
-    .catch(err => {
-      throw err;
-    });
-};
+async function getWikiText(url) {
+  try {
+    const response = await fetch(process.env.FEED_URL);
+    const data = await response.text();
+
+    const dom = new JSDOM(data);
+    return dom.window.document.querySelector('pre').textContent;
+  } catch (error) {
+    logger.error({ error }, `Unable to download wiki feed data from url ${url}`);
+    throw error;
+  }
+}
 
 /*
- * parseData() returns Promise { <pending> }
- * It gets the data from getData function
- * Then processes it to remove square brackets from links and 'name=' in front of a name
- * That data is then returned as a Promise
+ * Returns a Promise { <pending> }
+ * It downloads the feed data from the Wiki, then processes it into an
+ * Array of feed Objects of the following form:
+ *
+ * {
+ *   name: "name of user",
+ *   url: "feed url of user"
+ * }
  */
-module.exports.parseData = function() {
-  const nameCheck = /^name/i;
-  const commentCheck = /^#/;
+module.exports = async function() {
+  // NOTE: we expect this URL to the CDOT wiki feed list to exist in .env
+  const url = process.env.FEED_URL;
+  const nameCheck = /^\s*name/i;
+  const commentCheck = /^\s*#/;
 
-  let line = '';
+  let wikiText;
+  try {
+    wikiText = await getWikiText(url);
+  } catch (error) {
+    logger.error({ error }, `Unable to download wiki feed data from url ${url}`);
+    throw error;
+  }
 
-  return this.getData()
-    .then(data => {
-      const objArray = [];
-      let feed = [];
-      data.forEach(element => {
-        if (!commentCheck.test(element)) {
-          if (element.startsWith('[')) {
-            // eslint-disable-next-line no-useless-escape
-            line = element.replace(/[\[\]']/g, '');
-            feed.push(`${line}`);
-          }
-          if (nameCheck.test(element)) {
-            line = element.replace(/^\s*name\s*=\s*/, '');
-            feed.push(`${line}`);
-            let obj = {
-              name: feed[feed.length - 1],
-              url: feed[feed.length - 2],
-            };
-            objArray.push(obj);
-            feed = [];
-            obj = {};
-          }
-        }
-      });
-      return objArray;
-    })
-    .catch(err => {
-      throw err;
-    });
+  const lines = wikiText.split(/\r\n|\r|\n/);
+  const feeds = [];
+  let currentFeed = {};
+
+  // Iterate through all lines and find url/name pairs, then add to feeds array.
+  lines.forEach(line => {
+    if (commentCheck.test(line)) {
+      // skip comments
+      return;
+    }
+
+    // Is this a feed URL?
+    if (line.startsWith('[')) {
+      currentFeed.url = line.replace(/[[\]']/g, '');
+    } // Is this a name?
+    else if (nameCheck.test(line)) {
+      currentFeed.name = line.replace(/^\s*name\s*=\s*/, '');
+      // The name will follow the URL that goes with it, so add this feed now
+      feeds.push(currentFeed);
+      currentFeed = {};
+    }
+  });
+
+  return feeds;
 };
