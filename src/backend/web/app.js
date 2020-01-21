@@ -4,6 +4,7 @@ const expressHandlebars = require('express-handlebars');
 const healthcheck = require('express-healthcheck');
 const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
+const helmet = require('helmet');
 
 const logger = require('../utils/logger');
 const router = require('./routes');
@@ -29,7 +30,11 @@ app.set('view engine', 'handlebars');
 app.set('logger', logger);
 app.use(logger);
 
+app.use(express.static(`${__dirname}/static`, { dotfiles: 'allow' }));
+
 app.use(cors());
+
+app.use(helmet());
 
 app.use('/health', healthcheck());
 
