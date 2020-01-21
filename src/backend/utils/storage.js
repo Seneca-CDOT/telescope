@@ -28,13 +28,13 @@ const createFeedKey = uri => {
 };
 
 // Redis Keys
-const FEEDS = 'feeds';
+const FEEDS = 't:feeds';
 
-const POSTS = 'posts';
+const POSTS = 't:posts';
 
 module.exports = {
   addFeed: async (name, url) => {
-    const key = createFeedKey(url, 'feed');
+    const key = createFeedKey(url);
     await redis
       .multi()
       // Using hmset() until hset() fully supports multiple fields:
@@ -53,7 +53,7 @@ module.exports = {
   getFeedsCount: () => redis.scard(FEEDS),
 
   addPost: async post => {
-    const key = createPostKey(post.guid, 'post');
+    const key = createPostKey(post.guid);
 
     await redis
       .multi()
@@ -109,5 +109,5 @@ module.exports = {
 
   getPostsCount: () => redis.zcard(POSTS),
 
-  getPost: guid => redis.hgetall(createPostKey(guid, 'post')),
+  getPost: guid => redis.hgetall(createPostKey(guid)),
 };
