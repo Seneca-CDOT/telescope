@@ -4,8 +4,8 @@
 
 - [Node.js (npm)](https://nodejs.org/en/download/)
 - [Redis](https://redis.io/) (2 methods)
-  - Use [Docker and docker-compose](#docker-and-docker-compose-set-up)
-  - Install as a [native application](#using-redis-as-a-native-application)
+  - Use [Docker and docker-compose](https://docs.docker.com/install/)
+  - Install as a [native application](https://redis.io/topics/quickstart)
 
 ### Install Redis as a native application
 
