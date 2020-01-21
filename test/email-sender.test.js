@@ -10,7 +10,11 @@ test.skip('Tests if sendMessage resolves with expected info', async () => {
   const testSubjectMessage = 'Test';
   const testHTML = '<h1>Hello World</h1>';
   const testRecipient = process.env.NODEMAILER_TESTRECIPIENT;
-  const testReturnValue = emailsender.sendMessage(testRecipient, testSubjectMessage, testHTML);
+  const testReturnValue = await emailsender.sendMessage(
+    testRecipient,
+    testSubjectMessage,
+    testHTML
+  );
   // Tests if the expected resolve is correct
   expect(testReturnValue).resolves.toBe([testRecipient]);
 });

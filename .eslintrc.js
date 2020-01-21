@@ -1,6 +1,6 @@
 module.exports = {
-  extends: ['airbnb-base', 'prettier'],
-  plugins: ['prettier'],
+  extends: ['airbnb-base', 'prettier', 'plugin:promise/recommended'],
+  plugins: ['prettier', 'promise'],
   env: {
     jest: true,
     browser: true,
@@ -23,6 +23,36 @@ module.exports = {
      */
     'no-param-reassign': ['error', { props: false }],
 
+    /**Disallows unnecessary return await
+     * https://eslint.org/docs/rules/no-return-await
+     */
+    'no-return-await': ['error'],
+
+    /**
+     * Disallow using an async function as a Promise executor
+     * https://eslint.org/docs/rules/no-async-promise-executor
+     */
+    'no-async-promise-executor': ['error'],
+
+    /**
+     * Disallow await inside of loops
+     * https://eslint.org/docs/rules/no-await-in-loop
+     */
+    'no-await-in-loop': ['error'],
+
+    /**
+     * Disallow assignments that can lead to race conditions due to
+     * usage of await or yield
+     * https://eslint.org/docs/rules/require-atomic-updates
+     */
+    'require-atomic-updates': ['error'],
+
+    /**
+     * Disallow async functions which have no await expression
+     * https://eslint.org/docs/rules/require-await
+     */
+    'require-await': ['error'],
+
     /**
      * Require or disallow named function expressions
      * https://eslint.org/docs/rules/func-names
@@ -34,5 +64,20 @@ module.exports = {
      * https://eslint.org/docs/rules/func-names
      */
     'linebreak-style': 'off',
+
+    /**
+     * The following are eslint rules from the promise-plugin
+     * https://github.com/xjamundx/eslint-plugin-promise
+     */
+
+    /**
+     * Prefer wait to then() for reading Promise values
+     */
+    'promise/prefer-await-to-then': 'warn',
+
+    /**
+     * Prefer async/await to the callback pattern
+     */
+    'promise/prefer-await-to-callbacks': 'warn',
   },
 };

@@ -1,6 +1,7 @@
 require('../lib/config');
 const parseGithubUrl = require('parse-github-url');
 const fetch = require('node-fetch');
+const { logger } = require('./logger');
 
 const githubAPI = 'http://api.github.com';
 
@@ -56,69 +57,71 @@ exports.getGithubUrlData = async incomingUrl => {
     typeof process.env.GITHUB_TOKEN !== 'undefined'
       ? `?access_token=${process.env.GITHUB_TOKEN}`
       : '';
+  let data;
+  try {
+    const fetchResult = await fetch(`${githubAPI}${subUrl}`);
+    data = await fetchResult.json();
+  } catch (error) {
+    logger.error({ error }, 'Unable to fetch GitHub API results');
+    throw error;
+  }
+  let fetchedData;
+  /**
+   * Format the fetched data in a specifi way depending if the url
+   * is for a repo, user or for a {pull request, issue}
+   */
+  // User
+  if (ghUrl.repo === null) {
+    const { login: user, avatar_url: avatarURL, name, company, blog, email, bio } = data;
 
-  return fetch(`${githubAPI}${subUrl}`)
-    .then(res => res.json())
-    .then(data => {
-      let fetchedData;
+    fetchedData = {
+      user,
+      avatarURL,
+      name,
+      company,
+      blog,
+      email,
+      bio,
+    };
 
-      /**
-       * Format the fetched data in a specifi way depending if the url
-       * is for a repo, user or for a {pull request, issue}
-       */
-      // User
-      if (ghUrl.repo === null) {
-        const { login: user, avatar_url: avatarURL, name, company, blog, email, bio } = data;
+    // Repo
+  } else if (ghUrl.branch === 'master') {
+    const {
+      owner: { avatar_url: avatarURL },
+      description,
+      license,
+      open_issues: openIssues,
+      forks,
+      created_at: createdAt,
+      language,
+    } = data;
 
-        fetchedData = {
-          user,
-          avatarURL,
-          name,
-          company,
-          blog,
-          email,
-          bio,
-        };
+    fetchedData = {
+      avatarURL,
+      description,
+      license,
+      openIssues,
+      forks,
+      createdAt,
+      language,
+    };
 
-        // Repo
-      } else if (ghUrl.branch === 'master') {
-        const {
-          owner: { avatar_url: avatarURL },
-          description,
-          license,
-          open_issues: openIssues,
-          forks,
-          created_at: createdAt,
-          language,
-        } = data;
+    // Issue or Pull Request
+  } else {
+    const {
+      user: { login, avatar_url: avatarURL },
+      body,
+      created_at: createdAt,
+    } = data;
 
-        fetchedData = {
-          avatarURL,
-          description,
-          license,
-          openIssues,
-          forks,
-          createdAt,
-          language,
-        };
-
-        // Issue or Pull Request
-      } else {
-        const {
-          user: { login, avatar_url: avatarURL },
-          body,
-          created_at: createdAt,
-        } = data;
-
-        fetchedData = {
-          login,
-          avatarURL,
-          body,
-          createdAt,
-          branch: ghUrl.branch,
-          repo: ghUrl.name,
-        };
-      }
-      return fetchedData;
-    });
+    fetchedData = {
+      login,
+      avatarURL,
+      body,
+      createdAt,
+      branch: ghUrl.branch,
+      repo: ghUrl.name,
+    };
+  }
+  return fetchedData;
 };

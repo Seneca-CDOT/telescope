@@ -30,7 +30,7 @@ queue.addFeed = async function(feedInfo) {
   };
 
   try {
-    queue.add(feedInfo, options);
+    await queue.add(feedInfo, options);
   } catch (err) {
     logger.error({ err, feedInfo }, 'Unable to add job to queue');
   }

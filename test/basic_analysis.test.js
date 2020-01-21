@@ -55,9 +55,9 @@ describe('Basic analysis test 1', () => {
     data = await analyzeText(text2).getAsyAnalysis();
   });
 
-  test('the number of of word count is ', async () => expect(data.wordCount).toEqual(7));
-  test('the level of of readability is ', async () => expect(data.readability).toEqual('hard'));
-  test('the number of of reading time is ', async () => expect(data.readingTime).toEqual(0));
+  test('the number of of word count is ', () => expect(data.wordCount).toEqual(7));
+  test('the level of of readability is ', () => expect(data.readability).toEqual('hard'));
+  test('the number of of reading time is ', () => expect(data.readingTime).toEqual(0));
 });
 
 describe('Basic analysis test 2', () => {
@@ -66,9 +66,9 @@ describe('Basic analysis test 2', () => {
     data = await analyzeText(text3).getAsyAnalysis();
   });
 
-  test('the number of of word count is ', async () => expect(data.wordCount).toEqual(36));
-  test('the level of of readability is ', async () => expect(data.readability).toEqual('hard'));
-  test('the number of of reading time is ', async () => expect(data.readingTime).toEqual(0));
+  test('the number of of word count is ', () => expect(data.wordCount).toEqual(36));
+  test('the level of of readability is ', () => expect(data.readability).toEqual('hard'));
+  test('the number of of reading time is ', () => expect(data.readingTime).toEqual(0));
 });
 
 describe('Basic analysis test 3', () => {
@@ -77,9 +77,9 @@ describe('Basic analysis test 3', () => {
     data = await analyzeText(text4).getAsyAnalysis();
   });
 
-  test('the number of of word count is ', async () => expect(data.wordCount).toEqual(560));
-  test('the level of of readability is ', async () => expect(data.readability).toEqual('hard'));
-  test('the number of of reading time is ', async () => expect(data.readingTime).toEqual(3));
+  test('the number of of word count is ', () => expect(data.wordCount).toEqual(560));
+  test('the level of of readability is ', () => expect(data.readability).toEqual('hard'));
+  test('the number of of reading time is ', () => expect(data.readingTime).toEqual(3));
 });
 
 describe('Basic analysis test 4', () => {
@@ -88,9 +88,9 @@ describe('Basic analysis test 4', () => {
     data = await analyzeText(text5).getAsyAnalysis();
   });
 
-  test('the number of of word count is ', async () => expect(data.wordCount).toEqual(6254));
-  test('the level of of readability is ', async () => expect(data.readability).toEqual('hard'));
-  test('the number of of reading time is ', async () => expect(data.readingTime).toEqual(31));
+  test('the number of of word count is ', () => expect(data.wordCount).toEqual(6254));
+  test('the level of of readability is ', () => expect(data.readability).toEqual('hard'));
+  test('the number of of reading time is ', () => expect(data.readingTime).toEqual(31));
 });
 
 describe('Basic analysis test 5', () => {
@@ -99,7 +99,7 @@ describe('Basic analysis test 5', () => {
     data = await analyzeText(text6).getAsyAnalysis();
   });
 
-  test('the number of of word count is ', async () => expect(data.wordCount).toEqual(25648));
-  test('the level of of readability is ', async () => expect(data.readability).toEqual('hard'));
-  test('the number of of reading time is ', async () => expect(data.readingTime).toEqual(128));
+  test('the number of of word count is ', () => expect(data.wordCount).toEqual(25648));
+  test('the level of of readability is ', () => expect(data.readability).toEqual('hard'));
+  test('the number of of reading time is ', () => expect(data.readingTime).toEqual(128));
 });

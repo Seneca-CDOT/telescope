@@ -24,9 +24,7 @@ describe('test /posts endpoint', () => {
     };
   });
 
-  beforeAll(() => {
-    Promise.all(posts.map(post => addPost(post)));
-  });
+  beforeAll(() => Promise.all(posts.map(post => addPost(post))));
 
   it('requests default number of items', async () => {
     const res = await request(app).get('/posts');
@@ -119,10 +117,7 @@ describe('test /posts/:guid responses', () => {
   };
 
   // add the post to the storage
-  beforeAll(async () => {
-    addedPost1.save();
-    addedPost2.save();
-  });
+  beforeAll(() => Promise.all([addedPost1.save(), addedPost2.save()]));
 
   // tests
   it("pass a guid that doesn't exist", async () => {
