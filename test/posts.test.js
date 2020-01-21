@@ -2,7 +2,6 @@ const request = require('supertest');
 const app = require('../src/backend/web/app');
 const Post = require('../src/backend/post');
 const { addPost } = require('../src/backend/utils/storage');
-const standardize = require('../src/backend/utils/standardize');
 
 describe('test /posts endpoint', () => {
   const defaultItems = 30;
@@ -62,8 +61,6 @@ describe('test /posts/:guid responses', () => {
   // an array of keys.
   const existingGuid = 'http://existing-guid';
   const missingGuid = 'http://missing-guid';
-  const existingNeedingEncoding = 'http://guid.needing/encoding';
-  const missingNeedingEncoding = 'http://missing.needing/encoding';
 
   // an object to be added for testing purposes
   const addedPost1 = new Post(
@@ -91,57 +88,12 @@ describe('test /posts/:guid responses', () => {
     guid: 'http://existing-guid',
   };
 
-  // an object to be added for testing purposes
-  const addedPost2 = new Post(
-    'bar',
-    'bar',
-    '',
-    'bar',
-    new Date('2010-09-07T22:20:00.000Z'),
-    new Date('2010-09-07T22:23:00.000Z'),
-    'bar',
-    'bar',
-    existingNeedingEncoding
-  );
-
-  // an object, expected to be returned by a correct query
-  const receivedPost2 = {
-    author: 'bar',
-    title: 'bar',
-    html: '',
-    text: 'bar',
-    published: '2010-09-07T22:20:00.000Z',
-    updated: '2010-09-07T22:23:00.000Z',
-    url: 'bar',
-    site: 'bar',
-    guid: 'http://guid.needing/encoding',
-  };
-
   // add the post to the storage
-  beforeAll(() => Promise.all([addedPost1.save(), addedPost2.save()]));
+  beforeAll(() => addedPost1.save());
 
   // tests
-  it("pass a guid that doesn't exist", async () => {
-    const res = await request(app).get(`/posts/${standardize(missingGuid, 'post')}`);
-
-    expect(res.status).toEqual(404);
-    expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body instanceof Array).toBe(false);
-  });
-
-  it('pass a guid that exists', async () => {
-    const res = await request(app).get(`/posts/${standardize(existingGuid, 'post')}`);
-
-    expect(res.status).toEqual(200);
-    expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body).toEqual(receivedPost1);
-    expect(res.body instanceof Array).toBe(false);
-  });
-
   it("pass an encoded guid that doesn't exist", async () => {
-    const res = await request(app).get(
-      `/posts/${encodeURIComponent(standardize(missingNeedingEncoding, 'post'))}`
-    );
+    const res = await request(app).get(`/posts/${encodeURIComponent(missingGuid)}`);
 
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
@@ -149,13 +101,11 @@ describe('test /posts/:guid responses', () => {
   });
 
   it('pass an encoded guid that exists', async () => {
-    const res = await request(app).get(
-      `/posts/${encodeURIComponent(standardize(existingNeedingEncoding, 'post'))}`
-    );
+    const res = await request(app).get(`/posts/${encodeURIComponent(existingGuid)}`);
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body).toEqual(receivedPost2);
+    expect(res.body).toEqual(receivedPost1);
     expect(res.body instanceof Array).toBe(false);
   });
 });
