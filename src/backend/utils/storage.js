@@ -43,12 +43,11 @@ module.exports = {
       .hmset(key, 'name', name, 'url', url)
       .sadd(FEEDS, key)
       .exec();
-    return key;
   },
 
   getFeeds: () => redis.smembers(FEEDS),
 
-  getFeed: feedID => redis.hgetall(feedID),
+  getFeed: feedID => redis.hgetall(createFeedKey(feedID)),
 
   getFeedsCount: () => redis.scard(FEEDS),
 
