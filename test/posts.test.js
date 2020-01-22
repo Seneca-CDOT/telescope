@@ -5,7 +5,7 @@ const app = require('../src/backend/web/app');
 const Post = require('../src/backend/post');
 const { addPost } = require('../src/backend/utils/storage');
 
-const createKey = url => {
+const encodeKey = url => {
   return crypto
     .createHash('sha256')
     .update(normalizeUrl(url))
@@ -102,7 +102,7 @@ describe('test /posts/:guid responses', () => {
 
   // tests
   it("pass an encoded guid that doesn't exist", async () => {
-    const res = await request(app).get(`/posts/${encodeURIComponent(createKey(missingGuid))}`);
+    const res = await request(app).get(`/posts/${encodeURIComponent(encodeKey(missingGuid))}`);
 
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
@@ -110,7 +110,7 @@ describe('test /posts/:guid responses', () => {
   });
 
   it('pass an encoded guid that exists', async () => {
-    const res = await request(app).get(`/posts/${encodeURIComponent(createKey(existingGuid))}`);
+    const res = await request(app).get(`/posts/${encodeURIComponent(encodeKey(existingGuid))}`);
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
