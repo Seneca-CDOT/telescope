@@ -1,39 +1,74 @@
+const crypto = require('crypto');
+const normalizeUrl = require('normalize-url');
+const { logger } = require('./logger');
 const { redis } = require('../lib/redis');
 
 // Redis Keys
-const FEED_ID = 'feed_id';
-const FEEDS = 'feeds';
+const feedsKey = 't:feeds';
+const postsKey = 't:posts';
 
-const POSTS = 'posts';
+// Namespaces
+const feedNamespace = 't:feed:';
+const postNamespace = 't:post:';
+
+const createKey = (url, prefix) => {
+  try {
+    return prefix.concat(
+      crypto
+        .createHash('sha256')
+        .update(url)
+        .digest('base64')
+    );
+  } catch (error) {
+    logger.error(`There was an error hashing the url ${url}`);
+    throw error;
+  }
+};
+
+const createPostKey = uri => {
+  return createKey(uri, postNamespace);
+};
+
+const createFeedKey = uri => {
+  return createKey(normalizeUrl(uri), feedNamespace);
+};
 
 module.exports = {
   addFeed: async (name, url) => {
-    // "If the key does not exist, it is set to 0 before performing the operation"
-    // https://redis.io/commands/INCR
-    const feedId = await redis.incr(FEED_ID);
+    const key = createFeedKey(url);
     await redis
       .multi()
       // Using hmset() until hset() fully supports multiple fields:
       // https://github.com/stipsan/ioredis-mock/issues/345
       // https://github.com/luin/ioredis/issues/551
-      .hmset(feedId, 'name', name, 'url', url)
-      .sadd(FEEDS, feedId)
+      .hmset(key, 'name', name, 'url', url)
+      .sadd(feedsKey, key)
       .exec();
-    return feedId;
   },
 
-  getFeeds: () => redis.smembers(FEEDS),
+  getFeeds: async () => {
+    const keys = await redis.smembers(feedsKey);
 
-  getFeed: feedID => redis.hgetall(feedID),
+    /**
+     * It's necessary to remove the namespace from all the ids
+     * before returning them
+     */
+    const feedNamespaceRe = new RegExp(`^${feedNamespace}`);
+    return keys.map(key => key.replace(feedNamespaceRe, ''));
+  },
 
-  getFeedsCount: () => redis.scard(FEEDS),
+  getFeed: feedID => redis.hgetall(feedNamespace.concat(feedID)),
+
+  getFeedsCount: () => redis.scard(feedsKey),
 
   addPost: async post => {
+    const key = createPostKey(post.guid);
+
     await redis
       .multi()
       .hmset(
         // using guid as keys as it is unique to posts
-        post.guid,
+        key,
         'author',
         post.author,
         'title',
@@ -54,19 +89,28 @@ module.exports = {
         post.guid
       )
       // sort set by published date as scores
-      .zadd(POSTS, post.published.getTime(), post.guid)
+      .zadd(postsKey, post.published.getTime(), key)
       .exec();
   },
 
   /**
-   * Gets an array of guids from redis
+   * Returns an array of guids from redis
    * @param from lower index
    * @param to higher index, it needs -1 because redis includes the element at this index in the returned array
    * @return Array of guids
    */
-  getPosts: (from, to) => redis.zrevrange(POSTS, from, to - 1),
+  getPosts: async (from, to) => {
+    const keys = await redis.zrevrange(postsKey, from, to - 1);
 
-  getPostsCount: () => redis.zcard(POSTS),
+    /**
+     * It's necessary to remove the namespace from all the ids
+     * before returning them
+     */
+    const postNamespaceRe = new RegExp(`^${postNamespace}`);
+    return keys.map(key => key.replace(postNamespaceRe, ''));
+  },
 
-  getPost: guid => redis.hgetall(guid),
+  getPostsCount: () => redis.zcard(postsKey),
+
+  getPost: guid => redis.hgetall(postNamespace.concat(guid)),
 };
