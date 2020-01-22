@@ -36,6 +36,7 @@ before_install:
       redis-cli info
     else
       # TODO: need script for Windows to generate SSL certs...
+      ./tools/generate-ssl-certs.sh
       # Install Redis
       choco install redis-64 -v
       redis-server --service-install
