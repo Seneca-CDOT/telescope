@@ -1,6 +1,7 @@
 const {
   addFeed,
   getFeed,
+  getFeeds,
   getFeedsCount,
   addPost,
   getPost,
@@ -14,7 +15,8 @@ describe('Storage tests for feeds', () => {
 
   it('should allow retrieving a feed by id after inserting', async () => {
     await addFeed(feed2.name, feed2.url);
-    const result = await getFeed('http://seneca.co/jsmith/2');
+    const feeds = await getFeeds();
+    const result = await getFeed(feeds[0]);
     expect(result).toEqual(feed2);
   });
 
@@ -68,8 +70,9 @@ describe('Storage tests for posts', () => {
   beforeAll(() => Promise.all([testPost, testPost2, testPost3].map(post => addPost(post))));
 
   it('should allow retrieving a post by guid after inserting', async () => {
-    const result = await getPost(testPost.guid);
-    expect(result.guid).toEqual(testPost.guid);
+    const posts = await getPosts(0, 0);
+    const result = await getPost(posts[0]);
+    expect(result.guid).toEqual(testPost3.guid);
   });
 
   it('get all posts returns current number of posts', async () => {
@@ -79,8 +82,10 @@ describe('Storage tests for posts', () => {
 
   it('get all posts returns sorted posts by date', async () => {
     const result = await getPosts(0, 0);
-    expect(result[0]).toEqual(testPost3.guid);
-    expect(result[1]).toEqual(testPost2.guid);
+    const firstPost = await getPost(result[0]);
+    const secondPost = await getPost(result[1]);
+    expect(firstPost.guid).toEqual(testPost3.guid);
+    expect(secondPost.guid).toEqual(testPost2.guid);
   });
 
   it('check post count', async () => {
