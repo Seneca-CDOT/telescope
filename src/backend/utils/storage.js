@@ -50,10 +50,8 @@ module.exports = {
     const keys = await redis.smembers(FEEDS);
 
     /**
-     * 'smembers' returns an array of encoded, hashed guids.
-     * This array is used to return the 'guid' property in
-     * Feed objects, which contains the decoded, unhashed version
-     * of the guid
+     * It's necessary to remove the namespace from all the ids
+     * before returning them
      */
     return keys.map(key => key.replace(/^t:feed:/, ''));
   },
@@ -104,10 +102,8 @@ module.exports = {
     const keys = await redis.zrevrange(POSTS, from, to - 1);
 
     /**
-     * 'zrevrange' returns an array of encoded, hashed guids.
-     * This array is used to return the 'guid' property in
-     * Post objects, which contains the decoded, unhashed version
-     * of the guid
+     * It's necessary to remove the namespace from all the ids
+     * before returning them
      */
     return keys.map(key => key.replace(/^t:post:/, ''));
   },
