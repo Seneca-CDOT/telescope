@@ -1,4 +1,4 @@
-const parser = require('../src/backend/utils/wiki-feed-parser');
+const getWikiFeeds = require('../src/backend/utils/wiki-feed-parser');
 global.fetch = require('node-fetch');
 
 const mockFeed = `################# Failing Feeds Commented Out [Start] #################
@@ -41,31 +41,6 @@ beforeEach(() => {
   fetch.resetMocks();
 });
 
-test('Testing wiki-feed-parser.getData with pre tag', async () => {
-  const mockBody = `<html><pre>${mockFeed}</pre></html>`;
-  fetch.mockResponseOnce(mockBody);
-
-  const response = await parser.getData();
-  expect(response).toStrictEqual(mockFeed.split('\n'));
-});
-
-test('Testing wiki-feed-parser.getData with no pre tag', async () => {
-  const mockBody = `<html>${mockFeed}</html>`;
-
-  fetch.mockResponseOnce(mockBody);
-
-  await parser.getData().catch(err => {
-    expect(err).toStrictEqual(noPreErr);
-  });
-});
-
-test('Testing wiki-feed-parser.getData when fetch fails', async () => {
-  fetch.mockReject(new Error('fake error message'));
-  await parser.getData().catch(err => {
-    expect(err).toStrictEqual(Error('fake error message'));
-  });
-});
-
 test('Testing wiki-feed-parser.parseData', async () => {
   const mockBody = `<html><pre>${mockFeed}</pre></html>`;
   fetch.mockResponseOnce(mockBody);
@@ -82,7 +57,7 @@ test('Testing wiki-feed-parser.parseData', async () => {
       url: 'http://armenzg.blogspot.com/feeds/posts/default/-/open%20source',
     },
   ];
-  const response = await parser.parseData();
+  const response = await getWikiFeeds();
   expect(response).toStrictEqual(expectedData);
 });
 
@@ -90,7 +65,7 @@ test('Testing wiki-feed-parser.parseData when getData fails with no pre tag', as
   const mockBody = `<html>${mockFeed}</html>`;
   fetch.mockResponseOnce(mockBody);
 
-  await parser.parseData().catch(err => {
+  await getWikiFeeds().catch(err => {
     expect(err).toStrictEqual(noPreErr);
   });
 });

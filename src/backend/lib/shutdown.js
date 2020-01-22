@@ -6,24 +6,32 @@ const server = require('../web/server');
 
 let isShuttingDown = false;
 
-function stopQueue() {
-  return feedQueue
-    .close()
-    .then(() => logger.info('Feed queue shut down.'))
-    .catch(err => logger.error({ err }, 'Unable to close feed queue gracefully'));
+async function stopQueue() {
+  try {
+    await feedQueue.close();
+    logger.info('Feed queue shut down.');
+  } catch (error) {
+    logger.error({ error }, 'Unable to close feed queue gracefully');
+  }
 }
 
-function stopWebServer() {
+async function stopWebServer() {
   const serverClose = promisify(server.close.bind(server));
-  return serverClose()
-    .then(() => logger.info('Web server shut down.'))
-    .catch(err => logger.error({ err }, 'Unable to close web server gracefully'));
+  try {
+    await serverClose();
+    logger.info('Web server shut down.');
+  } catch (error) {
+    logger.error({ error }, 'Unable to close web server gracefully');
+  }
 }
 
-function cleanShutdown() {
-  return Promise.all([stopQueue(), stopWebServer()])
-    .then(() => logger.info('Completing shut down.'))
-    .catch(err => logger.error({ err }, 'Failed to perform clean shutdown'));
+async function cleanShutdown() {
+  try {
+    await Promise.all([stopQueue(), stopWebServer()]);
+    logger.info('Completing shut down.');
+  } catch (error) {
+    logger.error({ error }, 'Failed to perform clean shutdown');
+  }
 }
 
 function shutdown(signal) {
