@@ -3,11 +3,12 @@ const normalizeUrl = require('normalize-url');
 const { logger } = require('./logger');
 const { redis } = require('../lib/redis');
 
-const createKey = (url, prefix) => {
-  const namespace = `t:${prefix}:`;
+const feedNamespace = 't:feed:';
+const postNamespace = 't:post:';
 
+const createKey = (url, prefix) => {
   try {
-    return namespace.concat(
+    return prefix.concat(
       crypto
         .createHash('sha256')
         .update(url)
@@ -20,18 +21,11 @@ const createKey = (url, prefix) => {
 };
 
 const createPostKey = uri => {
-  return createKey(normalizeUrl(uri), 'post');
+  return createKey(normalizeUrl(uri), postNamespace);
 };
 
 const createFeedKey = uri => {
-  return createKey(uri, 'feed');
-};
-
-const getRawKeys = keys => {
-  return keys.map(async key => {
-    const { guid } = await redis.hgetall(key);
-    return guid.replace('/^t:(post|feed):/', '');
-  });
+  return createKey(uri, feedNamespace);
 };
 
 // Redis Keys
@@ -61,10 +55,10 @@ module.exports = {
      * Feed objects, which contains the decoded, unhashed version
      * of the guid
      */
-    return Promise.all(getRawKeys(keys));
+    return keys.map(key => key.replace(/^t:feed:/, ''));
   },
 
-  getFeed: feedID => redis.hgetall(createFeedKey(feedID)),
+  getFeed: feedID => redis.hgetall(feedNamespace.concat(feedID)),
 
   getFeedsCount: () => redis.scard(FEEDS),
 
@@ -115,10 +109,10 @@ module.exports = {
      * Post objects, which contains the decoded, unhashed version
      * of the guid
      */
-    return Promise.all(getRawKeys(keys));
+    return keys.map(key => key.replace(/^t:post:/, ''));
   },
 
   getPostsCount: () => redis.zcard(POSTS),
 
-  getPost: guid => redis.hgetall(createPostKey(guid)),
+  getPost: guid => redis.hgetall(postNamespace.concat(guid)),
 };
