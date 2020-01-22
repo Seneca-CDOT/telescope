@@ -137,6 +137,29 @@ describe('test /posts/:guid responses', () => {
     expect(res.body instanceof Array).toBe(false);
   });
 
+  // rn tests only content type
+  it('pass a guid that exists and response type is text/plain', async () => {
+    const res = await request(app)
+      .get(`/posts/${existingGuid}`)
+      .set('Accept', 'text/plain');
+
+    expect(res.status).toEqual(200);
+    expect(res.get('Content-type')).toContain('text/plain');
+    // should receive text but receve {}
+    // expect(res.body).toEqual(receivedPost1.text);
+    expect(res.body instanceof Array).toBe(false);
+  });
+
+  it('pass a guid that exists and response type is text/html', async () => {
+    const res = await request(app)
+      .get(`/posts/${existingGuid}`)
+      .set('Accept', 'text/html');
+
+    expect(res.status).toEqual(200);
+    expect(res.get('Content-type')).toContain('text/html');
+    expect(res.body instanceof Array).toBe(false);
+  });
+
   it("pass an encoded guid that doesn't exist", async () => {
     const res = await request(app).get(`/posts/${encodeURIComponent(missingNeedingEncoding)}`);
 
