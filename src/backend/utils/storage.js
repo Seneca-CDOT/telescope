@@ -3,6 +3,11 @@ const normalizeUrl = require('normalize-url');
 const { logger } = require('./logger');
 const { redis } = require('../lib/redis');
 
+// Redis Keys
+const feedsKey = 't:feeds';
+const postsKey = 't:posts';
+
+// Namespaces
 const feedNamespace = 't:feed:';
 const postNamespace = 't:post:';
 
@@ -15,23 +20,18 @@ const createKey = (url, prefix) => {
         .digest('base64')
     );
   } catch (error) {
-    logger.error(`There was an error processing ${url}`);
+    logger.error(`There was an error hashing the url ${url}`);
     throw error;
   }
 };
 
 const createPostKey = uri => {
-  return createKey(normalizeUrl(uri), postNamespace);
+  return createKey(uri, postNamespace);
 };
 
 const createFeedKey = uri => {
-  return createKey(uri, feedNamespace);
+  return createKey(normalizeUrl(uri), feedNamespace);
 };
-
-// Redis Keys
-const FEEDS = 't:feeds';
-
-const POSTS = 't:posts';
 
 module.exports = {
   addFeed: async (name, url) => {
@@ -42,23 +42,24 @@ module.exports = {
       // https://github.com/stipsan/ioredis-mock/issues/345
       // https://github.com/luin/ioredis/issues/551
       .hmset(key, 'name', name, 'url', url)
-      .sadd(FEEDS, key)
+      .sadd(feedsKey, key)
       .exec();
   },
 
   getFeeds: async () => {
-    const keys = await redis.smembers(FEEDS);
+    const keys = await redis.smembers(feedsKey);
 
     /**
      * It's necessary to remove the namespace from all the ids
      * before returning them
      */
-    return keys.map(key => key.replace(/^t:feed:/, ''));
+    const feedNamespaceRe = new RegExp(`^${feedNamespace}`);
+    return keys.map(key => key.replace(feedNamespaceRe, ''));
   },
 
   getFeed: feedID => redis.hgetall(feedNamespace.concat(feedID)),
 
-  getFeedsCount: () => redis.scard(FEEDS),
+  getFeedsCount: () => redis.scard(feedsKey),
 
   addPost: async post => {
     const key = createPostKey(post.guid);
@@ -88,7 +89,7 @@ module.exports = {
         post.guid
       )
       // sort set by published date as scores
-      .zadd(POSTS, post.published.getTime(), key)
+      .zadd(postsKey, post.published.getTime(), key)
       .exec();
   },
 
@@ -99,16 +100,17 @@ module.exports = {
    * @return Array of guids
    */
   getPosts: async (from, to) => {
-    const keys = await redis.zrevrange(POSTS, from, to - 1);
+    const keys = await redis.zrevrange(postsKey, from, to - 1);
 
     /**
      * It's necessary to remove the namespace from all the ids
      * before returning them
      */
-    return keys.map(key => key.replace(/^t:post:/, ''));
+    const postNamespaceRe = new RegExp(`^${postNamespace}`);
+    return keys.map(key => key.replace(postNamespaceRe, ''));
   },
 
-  getPostsCount: () => redis.zcard(POSTS),
+  getPostsCount: () => redis.zcard(postsKey),
 
   getPost: guid => redis.hgetall(postNamespace.concat(guid)),
 };
