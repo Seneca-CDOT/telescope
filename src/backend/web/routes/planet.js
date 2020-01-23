@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { getPosts } = require('../../utils/storage');
-const Post = require('../../post');
+const Post = require('../../data/post');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
@@ -18,7 +18,7 @@ function formatDate(date) {
  */
 async function getPostDataGrouped() {
   const ids = await getPosts(0, 50);
-  const posts = await Promise.all(ids.map(id => Post.byGuid(id)));
+  const posts = await Promise.all(ids.map(id => Post.byId(id)));
 
   // We group the posts into nested objects: days > authors > posts
   const grouped = { days: {} };

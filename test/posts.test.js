@@ -1,16 +1,9 @@
-const crypto = require('crypto');
-const normalizeUrl = require('normalize-url');
 const request = require('supertest');
-const app = require('../src/backend/web/app');
-const Post = require('../src/backend/post');
-const { addPost } = require('../src/backend/utils/storage');
 
-const encodeKey = url => {
-  return crypto
-    .createHash('sha256')
-    .update(normalizeUrl(url))
-    .digest('base64');
-};
+const app = require('../src/backend/web/app');
+const Post = require('../src/backend/data/post');
+const { addPost } = require('../src/backend/utils/storage');
+const hash = require('../src/backend/data/hash');
 
 describe('test /posts endpoint', () => {
   const defaultItems = 30;
@@ -18,9 +11,12 @@ describe('test /posts endpoint', () => {
   const maxItems = 100;
   const createdItems = 150;
 
-  const posts = [...Array(createdItems).keys()].map(guid => {
+  const posts = [...Array(createdItems).keys()].map(item => {
+    const guid = `http://telescope${item}.cdot.systems`;
+    const id = hash(guid);
     return {
-      guid: `http://telescope${guid}.cdot.systems`,
+      id,
+      guid,
       author: 'foo',
       title: 'foo',
       link: 'foo',
@@ -95,22 +91,23 @@ describe('test /posts/:guid responses', () => {
     url: 'foo',
     site: 'foo',
     guid: 'http://existing-guid',
+    id: hash('http://existing-guid'),
   };
 
   // add the post to the storage
   beforeAll(() => addedPost1.save());
 
   // tests
-  it("pass an encoded guid that doesn't exist", async () => {
-    const res = await request(app).get(`/posts/${encodeURIComponent(encodeKey(missingGuid))}`);
+  it("pass an id that doesn't exist", async () => {
+    const res = await request(app).get(`/posts/${hash(missingGuid)}`);
 
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body instanceof Array).toBe(false);
   });
 
-  it('pass an encoded guid that exists', async () => {
-    const res = await request(app).get(`/posts/${encodeURIComponent(encodeKey(existingGuid))}`);
+  it('pass an id that does exist', async () => {
+    const res = await request(app).get(`/posts/${hash(existingGuid)}`);
 
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
