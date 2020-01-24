@@ -17,9 +17,9 @@ function createRedisClient() {
   try {
     const { port, host } = url.parse(redisUrl, true);
     return new RedisConstructor(port, host, { password: process.env.REDIS_PASSWORD });
-  } catch (err) {
+  } catch (error) {
     const message = `Unable to parse port and host from "${redisUrl}"`;
-    logger.error({ err }, message);
+    logger.error({ error }, message);
     throw new Error(message);
   }
 }

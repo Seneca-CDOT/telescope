@@ -34,9 +34,9 @@ function createQueue(name) {
       }
     },
   })
-    .on('error', err => {
+    .on('error', error => {
       // An error occurred
-      if (err.code === 'ECONNREFUSED' && !redisConnectionRefusalLogged) {
+      if (error.code === 'ECONNREFUSED' && !redisConnectionRefusalLogged) {
         logger.error(
           '\n\n\t💡  It appears that Redis is not running on your machine.',
           '\n\t   Please see our documentation for how to install and run Redis:',
@@ -44,7 +44,7 @@ function createQueue(name) {
         );
         redisConnectionRefusalLogged = true;
       } else {
-        logger.error({ err }, `Queue ${name} error`);
+        logger.error({ error }, `Queue ${name} error`);
       }
     })
     .on('waiting', jobID => {

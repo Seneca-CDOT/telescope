@@ -64,10 +64,10 @@ exports.createMail = function(receipients, subjectMessage, message) {
 // Verifies if the transporter passed was created successfully
 exports.verifyTransporter = function(transporter) {
   // Verify connection configuration
-  transporter.verify(err => {
+  transporter.verify(error => {
     // If error then print to console
-    if (err) {
-      logger.error({ err }, 'Transporter connection failed.');
+    if (error) {
+      logger.error({ error }, 'Transporter connection failed.');
       return false;
     }
     // else print a ready message
