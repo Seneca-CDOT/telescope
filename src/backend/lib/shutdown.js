@@ -35,7 +35,7 @@ async function cleanShutdown() {
 }
 
 function shutdown(signal) {
-  return async err => {
+  return async error => {
     if (isShuttingDown) {
       return;
     }
@@ -43,8 +43,8 @@ function shutdown(signal) {
     logger.info(`Received ${signal}, starting shut down`);
     isShuttingDown = true;
 
-    if (err) {
-      logger.error({ err });
+    if (error) {
+      logger.error({ error });
     }
 
     // If our attempts to shut down cleanly don't work, force it
