@@ -35,9 +35,13 @@ before_install:
       redis-server --daemonize yes
       redis-cli info
     else
-      # TODO: need script for Windows to generate SSL certs...
       # Install Redis
       choco install redis-64 -v
+      # Install Open SSL to run Scripts
+      choco install openssl.light
+      # Make certs folder if it doesn't exist.
+      mkdir -p certs
+      ./tools/generate-ssl-certs.sh
       redis-server --service-install
       redis-server --service-start
       redis-cli info
@@ -45,7 +49,3 @@ before_install:
 script:
   - npm run test-ci
 matrix:
-  allow_failures:
-    # Windows can fail if choco can't download redis
-    # https://github.com/Seneca-CDOT/telescope/issues/387
-    - os: windows
