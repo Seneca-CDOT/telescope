@@ -2,7 +2,8 @@ const crypto = require('crypto');
 
 /**
  * Hash function used to generate our unique data ids.
- * We use sha256 and encode in base64, for example:
+ * We use sha256 and encode in hex, so it's safe to use
+ * in URLs. For example:
  *
  *   6Xoj0UXOW3FNirlSYranli5gY6dDq60hs24EIAcHAEc=
  *
@@ -18,5 +19,5 @@ module.exports = input =>
   crypto
     .createHash('sha256')
     .update(input)
-    .digest('base64')
+    .digest('hex')
     .slice(0, 10);
