@@ -11,7 +11,7 @@ module.exports.typeDefs = graphql`
   # 'Feed' matches our Feed type used with redis
   type Feed {
     id: String
-    name: String
+    author: String
     url: String
   }
 
