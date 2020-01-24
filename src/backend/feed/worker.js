@@ -3,7 +3,7 @@ const path = require('path');
 
 const feedQueue = require('./queue');
 const { logger } = require('../utils/logger');
-const Post = require('../post');
+const Post = require('../data/post');
 
 /**
  * We determine the number of parallel feed processor functions to run

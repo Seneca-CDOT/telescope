@@ -9,27 +9,33 @@ const {
   getPostsCount,
 } = require('../src/backend/utils/storage');
 
+const Feed = require('../src/backend/data/feed');
+const hash = require('../src/backend/data/hash');
+
 describe('Storage tests for feeds', () => {
-  const feed = { name: 'James Smith', url: 'http://seneca.co/jsmith' };
-  const feed2 = { name: 'James Smith 2', url: 'http://seneca.co/jsmith/2' };
+  const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith');
+  const feed2 = new Feed('James Smith 2', 'http://seneca.co/jsmith/2');
+
+  beforeAll(() => Promise.all([addFeed(feed1), addFeed(feed2)]));
 
   it('should allow retrieving a feed by id after inserting', async () => {
-    await addFeed(feed2.name, feed2.url);
-    const feeds = await getFeeds();
-    const result = await getFeed(feeds[0]);
-    expect(result).toEqual(feed2);
+    const result = await getFeed(feed1.id);
+    expect(result).toEqual(feed1);
   });
 
-  it('check feed count', async () => {
-    await addFeed(feed.name, feed.url);
-    await addFeed(feed2.name, feed2.url);
+  it('should return expected feed count', async () => {
     expect(await getFeedsCount()).toEqual(2);
+  });
+
+  it('should return expected feeds', async () => {
+    expect(await getFeeds()).toEqual([feed1.id, feed2.id]);
   });
 });
 
 describe('Storage tests for posts', () => {
   const testPost = {
     guid: 'http://example.com',
+    id: hash('http://example.com'),
     author: 'foo',
     title: 'foo',
     link: 'foo',
@@ -43,6 +49,7 @@ describe('Storage tests for posts', () => {
 
   const testPost2 = {
     guid: 'http://dev.telescope.cdot.systems',
+    id: hash('http://dev.telescope.cdot.systems'),
     author: 'foo',
     title: 'foo',
     link: 'foo',
@@ -56,6 +63,7 @@ describe('Storage tests for posts', () => {
 
   const testPost3 = {
     guid: 'http://telescope.cdot.systems',
+    id: hash('http://telescope.cdot.systems'),
     author: 'foo',
     title: 'foo',
     link: 'foo',
@@ -69,10 +77,10 @@ describe('Storage tests for posts', () => {
 
   beforeAll(() => Promise.all([testPost, testPost2, testPost3].map(post => addPost(post))));
 
-  it('should allow retrieving a post by guid after inserting', async () => {
+  it('should allow retrieving a post by id after inserting', async () => {
     const posts = await getPosts(0, 0);
     const result = await getPost(posts[0]);
-    expect(result.guid).toEqual(testPost3.guid);
+    expect(result.id).toEqual(testPost3.id);
   });
 
   it('get all posts returns current number of posts', async () => {
@@ -84,8 +92,8 @@ describe('Storage tests for posts', () => {
     const result = await getPosts(0, 0);
     const firstPost = await getPost(result[0]);
     const secondPost = await getPost(result[1]);
-    expect(firstPost.guid).toEqual(testPost3.guid);
-    expect(secondPost.guid).toEqual(testPost2.guid);
+    expect(firstPost.id).toEqual(testPost3.id);
+    expect(secondPost.id).toEqual(testPost2.id);
   });
 
   it('check post count', async () => {

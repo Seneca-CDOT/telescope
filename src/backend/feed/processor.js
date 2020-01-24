@@ -7,7 +7,7 @@
 const { parse } = require('feedparser-promised');
 
 const { logger } = require('../utils/logger');
-const Post = require('../post');
+const Post = require('../data/post');
 
 module.exports = async function processor(job) {
   const { url } = job.data;

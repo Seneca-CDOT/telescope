@@ -1,26 +1,23 @@
 const { gql: graphql } = require('apollo-server-express');
 
-const {
-  getFeedsCount,
-  getFeed,
-  getFeeds,
-  getPostsCount,
-  getPosts,
-} = require('../../utils/storage');
+const { getFeedsCount, getFeeds, getPostsCount, getPosts } = require('../../utils/storage');
 
-const Post = require('../../post');
+const Post = require('../../data/post');
+const Feed = require('../../data/feed');
 
 const maxPostsPerPage = process.env.MAX_POSTS_PER_PAGE || 30;
 
 module.exports.typeDefs = graphql`
   # 'Feed' matches our Feed type used with redis
   type Feed {
-    name: String
+    id: String
+    author: String
     url: String
   }
 
   # 'Post' matches our Post type used with redis
   type Post {
+    id: String
     author: String
     title: String
     html: String
@@ -34,49 +31,52 @@ module.exports.typeDefs = graphql`
 
   # Queries to fetch data from redis
   type Query {
-    getFeed(guid: ID!): Feed
-    getFeeds: [ID]
-    getFeedsCount: Float
-    getPost(guid: ID!): Post
+    getFeedById(id: ID!): Feed
+    getFeedByUrl(url: String!): Feed
+    getFeeds: [Feed]
+    getFeedsCount: Int
+    getPost(id: ID!): Post
     getPosts(page: Int, perPage: Int): [Post]
-    getPostsCount: Float
+    getPostsCount: Int
   }
 `;
 
 module.exports.resolvers = {
   Query: {
     /**
-     * @description Takes a guid and returns a Feed object
-     * @param guid
-     * @return Feed object for the passed guid
+     * @description Takes an id and returns a Feed object
+     * @param id
+     * @return Feed object for the passed id
      */
-    getFeed: (parent, { guid }) => {
-      return getFeed(guid);
-    },
+    getFeedById: (parent, { id }) => Feed.byId(id),
+
+    /**
+     * @description Takes a url and returns a Feed object
+     * @param url
+     * @return Feed object for the passed url
+     */
+    getFeedByUrl: (parent, { url }) => Feed.byUrl(url),
 
     /**
      * @description Fetches all the Feed objects in our database
      * @return Array Feed objects
      */
-    getFeeds: () => {
-      return getFeeds('feeds');
+    getFeeds: async () => {
+      const feedIds = await getFeeds();
+      return Promise.all(feedIds.map(id => Feed.byId(id)));
     },
 
     /**
      * @return Number of Feed objects in our database
      */
-    getFeedsCount: () => {
-      return getFeedsCount();
-    },
+    getFeedsCount: () => getFeedsCount(),
 
     /**
-     * @description Takes a guid and returns a Post object
+     * @description Takes an id and returns a Post object
      * @param guid
-     * @return Post object for the passed guid
+     * @return Post object for the passed id
      */
-    getPost: (parent, { guid }) => {
-      return Post.byGuid(guid);
-    },
+    getPost: (parent, { id }) => Post.byId(id),
 
     /**
      * @description Fetches 'perPage' number of Post objects from page number 'page'.
@@ -92,9 +92,9 @@ module.exports.resolvers = {
 
       if (first < numOFPosts) {
         const last = first + prPage < numOFPosts ? first + prPage : numOFPosts;
-        const posts = await getPosts(first, last);
+        const postIds = await getPosts(first, last);
 
-        return Promise.all(posts.map(post => Post.byGuid(post)));
+        return Promise.all(postIds.map(id => Post.byId(id)));
       }
       return [];
     },
@@ -102,8 +102,6 @@ module.exports.resolvers = {
     /**
      * @return Number of Post objects in our database
      */
-    getPostsCount: () => {
-      return getPostsCount();
-    },
+    getPostsCount: () => getPostsCount(),
   },
 };

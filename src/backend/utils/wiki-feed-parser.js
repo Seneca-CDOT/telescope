@@ -1,8 +1,10 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
+const { isWebUri } = require('valid-url');
 
 require('../lib/config');
 const { logger } = require('../utils/logger');
+const Feed = require('../data/feed');
 
 const { JSDOM } = jsdom;
 
@@ -56,7 +58,7 @@ module.exports = async function() {
 
   const lines = wikiText.split(/\r\n|\r|\n/);
   const feeds = [];
-  let currentFeed = {};
+  let currentFeedInfo = {};
 
   // Iterate through all lines and find url/name pairs, then add to feeds array.
   lines.forEach(line => {
@@ -67,13 +69,23 @@ module.exports = async function() {
 
     // Is this a feed URL?
     if (line.startsWith('[')) {
-      currentFeed.url = line.replace(/[[\]']/g, '');
-    } // Is this a name?
+      currentFeedInfo.url = line.replace(/[[\]']/g, '');
+    } // Is this an author's name?
     else if (nameCheck.test(line)) {
-      currentFeed.name = line.replace(/^\s*name\s*=\s*/, '');
+      currentFeedInfo.author = line.replace(/^\s*name\s*=\s*/, '');
+
       // The name will follow the URL that goes with it, so add this feed now
-      feeds.push(currentFeed);
-      currentFeed = {};
+      // Make sure the URL for this feed is a valid http/https web URI,
+      // then process into a Feed object.
+      if (!isWebUri(currentFeedInfo.url)) {
+        logger.info(
+          `Skipping invalid wiki feed url ${currentFeedInfo.url} for author ${currentFeedInfo.author}`
+        );
+      } else {
+        feeds.push(Feed.parse(currentFeedInfo));
+      }
+
+      currentFeedInfo = {};
     }
   });
 

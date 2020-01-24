@@ -7,7 +7,7 @@
 
 const jsdom = require('jsdom');
 
-const Post = require('../src/backend/post');
+const Post = require('../src/backend/data/post');
 const processPosts = require('./lib/process-posts');
 
 const { JSDOM } = jsdom;
@@ -24,10 +24,10 @@ function uniq(list) {
  * Return an array of all element names used for the HTML in a post
  * @param {String} guid - Redis key for this post
  */
-async function processPost(guid) {
-  const post = await Post.byGuid(guid);
+async function processPost(id) {
+  const post = await Post.byId(id);
   if (!post) {
-    console.error(`No post found in database for guid=${guid}, skipping`);
+    console.error(`No post found in database for id=${id}, skipping`);
     return [];
   }
   const frag = JSDOM.fragment(post.html);
