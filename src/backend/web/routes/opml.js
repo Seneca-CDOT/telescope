@@ -1,25 +1,33 @@
 const express = require('express');
 const opml = require('opml-generator');
+const { getFeeds } = require('../../utils/storage');
+const { logger } = require('../../utils/logger');
+const Feed = require('../../data/feed');
 
 const router = express.Router();
 
 const header = {
   title: 'OPML Feeds',
-  dateCreated: new Date(2020, 2, 9),
-  ownerName: 'Jordan',
+  dateCreated: new Date(),
+  ownerName: 'Telescope',
 };
 
-const outlines = [
-  {
-    text: 'txt',
-    title: 'My Open Source Experience',
-    type: 'rss',
-    xmlUrl: 'https://jrdnlxopensource.blogspot.com/feeds/posts/default/-/open-source',
-    htmlUrl: 'https://jrdnlxopensource.blogspot.com/',
-  },
-];
-
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+  let feeds;
+  try {
+    feeds = await Promise.all((await getFeeds()).map(Feed.byId));
+  } catch (error) {
+    logger.error({ error }, 'Failed to get feeds from Redis storage');
+  }
+  const outlines = feeds.map(feed => {
+    return {
+      text: feed.id,
+      title: `${feed.author}'s blog`,
+      type: feed.url.includes('atom') ? 'atom' : 'rss',
+      xmlUrl: feed.url,
+      htmlUrl: new URL(feed.url).origin,
+    };
+  });
   // call the opml() function here, and return it on res, using the correct content-type of " text/x-opml"
   res.setHeader('Content-type', 'text/x-opml');
   res.send(opml(header, outlines));
