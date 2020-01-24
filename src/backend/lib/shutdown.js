@@ -56,7 +56,7 @@ function shutdown(signal) {
 
     // Try to shut down cleanly
     await cleanShutdown();
-    process.exit(err ? 1 : 0);
+    process.exit(error ? 1 : 0);
   };
 }
 
