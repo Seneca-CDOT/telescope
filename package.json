@@ -70,7 +70,6 @@
     "minimist": "1.2.0",
     "node-fetch": "2.6.0",
     "node-summarizer": "1.0.7",
-    "nodemailer": "6.3.1",
     "normalize-url": "4.5.0",
     "opml-generator": "1.1.1",
     "parse-github-url": "1.0.2",
