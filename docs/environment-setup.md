@@ -117,3 +117,28 @@ Docker Desktop for Windows is not available on Home Edition, and you cannot run 
   1. Download Windows 10 Education Edition from the [Seneca Software Center](https://senecacollege.onthehub.com/WebStore/OfferingDetails.aspx?o=c0bd2c36-a530-e511-940e-b8ca3a5db7a1)
   1. Update your OS using the installation instructions.
   1. Use [Windows 10 Education Edition](#Windows-10-Pro,-Enterprise,-or-Education) set up instructions.
+
+## After installing the prerequisites:
+
+### SAML Setup
+
+1. Run `./tools/generate_ssl_certs.sh` in terminal, this will create a `certs` directory and two pem files `key.pem` and `cert.pem` inside. On Windows, only `key.pem` will be created in /certs.
+2. You will also need to create a `idp_key.pem` file in the certs folder, copy and paste the following key into `idp_key.pem`:
+
+`MIIDXTCCAkWgAwIBAgIJALmVVuDWu4NYMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwHhcNMTYxMjMxMTQzNDQ3WhcNNDgwNjI1MTQzNDQ3WjBFMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzUCFozgNb1h1M0jzNRSCjhOBnR`
+
+3. Create a file called `.env` in the root directory. Copy and paste everything in `env.example` (also located in root) into your newly created `.env`. Ensure all related SAML2 information is filled out.
+
+- SAML2_BASE_URI
+- SAML2_CLIENT_ID
+- SAML2_CLIENT_SECRET
+- SAML2_REDIRECT_URI
+
+_Note: The `env.example` file has examples commented on top of each variable_
+
+### Now you can start Redis without errors using one of the following methods:
+
+- Using Docker `docker run -d -p 6379:6379 redis`
+- Natively installed redis `redis-server`
+
+Run `npm start` and open `localhost:3000`

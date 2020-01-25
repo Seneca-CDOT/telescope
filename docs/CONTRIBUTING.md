@@ -23,10 +23,6 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 For instructions on how to setup your Telescope environment, please see [Environment Setup](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md).
 
-### SAML Setup
-
-- Run `bash ./generate_ssl_certs.sh` in terminal
-
 ### Setup Telescope
 
 1. Navigate to the root directory of telescope.
