@@ -11,6 +11,9 @@ const router = express.Router();
 
 router.use(express.static(path.join(__dirname, '../../../frontend')));
 
+// Legacy CDOT Planet static assets
+router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
+
 router.use('/admin', admin);
 router.use('/opml', opml);
 router.use('/planet', planet);
