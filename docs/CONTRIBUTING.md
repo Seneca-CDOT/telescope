@@ -23,25 +23,6 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 For instructions on how to setup your Telescope environment, please see [Environment Setup](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md).
 
-### Setup Telescope
-
-1. Navigate to the root directory of telescope.
-1. Copy env.example to .env to create a new environment configuration.
-1. Replace default key values in .env with credentials.
-1. Start Redis using:
-
-   - Docker: `docker-compose up -d redis`
-
-   _To stop the Docker container for Redis, run:_ `docker-compose stop redis`
-
-   - Native Install: `redis-service`
-
-   _To stop Redis, ctrl+c the window running the redis server._
-
-1. Run `npm install`.
-1. Run `npm test`
-1. Run `npm start` to start telescope.
-
 ## Workflow in git and GitHub
 
 ### Getting Started
