@@ -17,11 +17,10 @@ describe('test /posts endpoint', () => {
     return {
       id,
       guid,
-      author: 'foo',
-      title: 'foo',
-      link: 'foo',
-      content: 'foo',
-      text: 'foo',
+      author: 'author',
+      title: 'title',
+      link: 'link',
+      html: 'html',
       updated: new Date('2009-09-07T22:23:00.544Z'),
       published: new Date('2009-09-07T22:20:00.000Z'),
       url: 'foo',
@@ -62,34 +61,32 @@ describe('test /posts endpoint', () => {
   });
 });
 
-describe('test /posts/:guid responses', () => {
+describe('test /posts/:id responses', () => {
   // an array of keys.
   const existingGuid = 'http://existing-guid';
   const missingGuid = 'http://missing-guid';
 
-  // an object to be added for testing purposes
+  // Post Object
   const addedPost1 = new Post(
-    'foo',
-    'foo',
-    '',
-    'foo',
+    'author',
+    'title',
+    'html',
     new Date('2009-09-07T22:20:00.000Z'),
     new Date('2009-09-07T22:23:00.000Z'),
-    'foo',
-    'foo',
+    'url',
+    'site',
     existingGuid
   );
 
-  // an object, expected to be returned by a correct query
+  // Raw JS Object, expected to be returned by a correct query
   const receivedPost1 = {
-    author: 'foo',
-    title: 'foo',
-    html: '',
-    text: 'foo',
+    author: 'author',
+    title: 'title',
+    html: 'html',
     published: '2009-09-07T22:20:00.000Z',
     updated: '2009-09-07T22:23:00.000Z',
-    url: 'foo',
-    site: 'foo',
+    url: 'url',
+    site: 'site',
     guid: 'http://existing-guid',
     id: hash('http://existing-guid'),
   };

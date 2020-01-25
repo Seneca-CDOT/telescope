@@ -52,8 +52,6 @@ module.exports = {
         post.title,
         'html',
         post.html,
-        'text',
-        post.text,
         'published',
         post.published,
         'updated',

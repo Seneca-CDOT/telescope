@@ -12,13 +12,12 @@ function toDate(date) {
 }
 
 class Post {
-  constructor(author, title, html, text, datePublished, dateUpdated, postUrl, siteUrl, guid) {
+  constructor(author, title, html, datePublished, dateUpdated, postUrl, siteUrl, guid) {
     // Use the post's guid as our unique identifier
     this.id = hash(guid);
     this.author = author;
     this.title = title;
     this.html = html;
-    this.text = text;
     this.published = datePublished ? toDate(datePublished) : new Date();
     this.updated = dateUpdated ? toDate(dateUpdated) : new Date();
     this.url = postUrl;
@@ -32,6 +31,13 @@ class Post {
    */
   save() {
     addPost(this);
+  }
+
+  /**
+   * Generate the plain text version of this post on demand vs. storing
+   */
+  get text() {
+    return textParser(this.html);
   }
 
   /**
@@ -80,13 +86,10 @@ class Post {
     }
 
     let sanitizedHTML;
-    let plainText;
     try {
       // The article.description is frequently the full HTML article content.
       // Sanitize it of any scripts or other dangerous attributes/elements
       sanitizedHTML = sanitizeHTML(article.description);
-      // Also generate plain text from the sanitized HTML
-      plainText = textParser(sanitizedHTML);
     } catch (error) {
       logger.error({ error }, 'Unable to sanitize and parse HTML for feed');
       throw error;
@@ -99,8 +102,6 @@ class Post {
       article.title,
       // sanitized HTML version of the post
       sanitizedHTML,
-      // plain text version of the post
-      plainText,
       // pubdate (original published date)
       article.pubdate,
       // date (most recent update)
@@ -118,17 +119,7 @@ class Post {
    * @param {Object} o - an Object containing the necessary fields
    */
   static parse(o) {
-    return new Post(
-      o.author,
-      o.title,
-      o.html,
-      o.text,
-      o.published,
-      o.updated,
-      o.url,
-      o.site,
-      o.guid
-    );
+    return new Post(o.author, o.title, o.html, o.published, o.updated, o.url, o.site, o.guid);
   }
 
   /**
