@@ -127,7 +127,7 @@ Docker Desktop for Windows is not available on Home Edition, and you cannot run 
 
 `MIIDXTCCAkWgAwIBAgIJALmVVuDWu4NYMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwHhcNMTYxMjMxMTQzNDQ3WhcNNDgwNjI1MTQzNDQ3WjBFMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzUCFozgNb1h1M0jzNRSCjhOBnR`
 
-3. Create a file called `.env` in the root directory. Copy and paste everything in `env.example` (also located in root) into your newly created `.env`. Ensure all related SAML2 information is filled out.
+3. In the root directory, run `cp env.example .env` on Linux/Mac or `copy env.example .env` on Windows. In your newly created .env file, ensure all related SAML2 information is filled out.
 
 - SAML2_BASE_URI
 - SAML2_CLIENT_ID
