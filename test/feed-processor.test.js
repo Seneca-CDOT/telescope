@@ -15,11 +15,13 @@ test('Passing a valid RSS feed URI should pass', async () => {
   await expect(processor(job)).resolves.toBeTruthy();
 });
 
-test('Passing a valid URI, but not a feed URI should error', async () => {
+test('Passing a valid URI with HTML response should return an empty Array', async () => {
   const url = fixtures.getHtmlUri();
   fixtures.nockValidHtmlResponse();
   const job = fixtures.createMockJobObjectFromURL(url);
-  await expect(processor(job)).rejects.toThrow();
+  const result = await processor(job);
+  expect(Array.isArray(result)).toBe(true);
+  expect(result.length).toBe(0);
 });
 
 test('Passing an invalid RSS category feed should pass', async () => {
@@ -36,9 +38,11 @@ test('Passing a valid RSS category feed should pass', async () => {
   await expect(processor(job)).resolves.toBeTruthy();
 });
 
-test('Non existent feed failure case: 404 should error', async () => {
+test('Non existent feed failure case: 404 should return an empty Array', async () => {
   const url = fixtures.getHtmlUri();
   fixtures.nock404Response();
   const job = fixtures.createMockJobObjectFromURL(url);
-  await expect(processor(job)).rejects.toThrow();
+  const result = await processor(job);
+  expect(Array.isArray(result)).toBe(true);
+  expect(result.length).toBe(0);
 });
