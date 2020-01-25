@@ -40,8 +40,6 @@ For instructions on how to setup your Telescope environment, please see [Environ
 
 1. Run `npm install`.
 1. Run `npm test`
-1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
-1. Run `npm run jest-watch` to watch files for any changes and rerun tests related to changed files.
 1. Run `npm start` to start telescope.
 
 ## Workflow in git and GitHub
