@@ -1,17 +1,15 @@
 const express = require('express');
 const Feed = require('../../data/feed');
-const { getFeeds, getFeedsCount } = require('../../utils/storage');
+const { getFeeds } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 
 const feeds = express.Router();
 
 feeds.get('/', async (req, res) => {
   let ids;
-  let feedsCount;
 
   try {
     ids = await getFeeds();
-    feedsCount = await getFeedsCount();
   } catch (err) {
     logger.error({ err }, 'Unable to get feeds from Redis');
     res.status(503).json({
@@ -20,7 +18,7 @@ feeds.get('/', async (req, res) => {
     return;
   }
 
-  res.set('X-Total-Count', feedsCount);
+  res.set('X-Total-Count', ids.length);
   res.json(
     ids
       // Return id and url for a specific feed
@@ -31,7 +29,6 @@ feeds.get('/', async (req, res) => {
   );
 });
 
-// The guid is likely a URI, and must be encoded by the client
 feeds.get('/:id', async (req, res) => {
   const { id } = req.params;
 
