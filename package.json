@@ -83,6 +83,7 @@
     "sanitize-html": "1.20.1",
     "sentiment": "5.0.2",
     "spam-filter": "1.1.1",
+    "stoppable": "1.1.0",
     "valid-url": "1.0.9",
     "wordcount": "1.1.1"
   },

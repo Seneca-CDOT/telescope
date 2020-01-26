@@ -16,7 +16,10 @@ async function stopQueue() {
 }
 
 async function stopWebServer() {
-  const serverClose = promisify(server.close.bind(server));
+  // Use stopppable's server.stop() instead of httpServer.close()
+  // to force connections to close as well.  See:
+  // https://github.com/hunterloftis/stoppable
+  const serverClose = promisify(server.stop.bind(server));
   try {
     await serverClose();
     logger.info('Web server shut down.');
