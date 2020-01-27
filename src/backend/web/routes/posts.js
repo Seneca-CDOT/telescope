@@ -1,5 +1,6 @@
 require('../../lib/config');
 const express = require('express');
+const accepts = require('accepts');
 const Post = require('../../data/post');
 const { getPosts, getPostsCount } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
@@ -84,7 +85,22 @@ posts.get('/:id', async (req, res) => {
         message: `Post not found for id ${id}`,
       });
     } else {
-      res.json(post);
+      const accept = accepts(req);
+
+      switch (accept.type(['json', 'text', 'html'])) {
+        case 'json':
+          res.append('Content-type', 'application/json').json(post);
+          break;
+        case 'text':
+          res.append('Content-type', 'text/plain').send(post.text);
+          break;
+        case 'html':
+          res.append('Content-type', 'text/html').send(post.html);
+          break;
+        default:
+          res.append('Content-type', 'application/json').json(post);
+          break;
+      }
     }
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');

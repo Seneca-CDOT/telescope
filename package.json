@@ -50,6 +50,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
+    "accepts": "1.3.7",
     "apollo-server-express": "2.9.16",
     "body-parser": "1.19.0",
     "bull": "3.12.1",
