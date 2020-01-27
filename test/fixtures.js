@@ -1,5 +1,7 @@
 const nock = require('nock');
 const url = require('url');
+const fs = require('fs');
+const path = require('path');
 
 /**
  * This is a fixture module for telescope tests which contains measures to
@@ -11,6 +13,11 @@ const getRssUri = () => 'https://test321.blogspot.com/feeds/posts/default/-/open
 const getHtmlUri = () => 'https://test321.blogspot.com/blog';
 // Remove leading protocol from a URI
 const stripProtocol = uri => uri.replace(/^https?:\/\//, '');
+
+// Use blog.humphd.org as a more realistic test case
+const getRealWorldRssUri = () => 'https://blog.humphd.org/tag/seneca/rss/';
+const getRealWorldRssBody = () =>
+  fs.readFileSync(path.join(__dirname, './test_files/blog.humphd.org.rss'));
 
 // Portion of https://www.feedforall.com/sample.xml
 const getValidFeedBody = () =>
@@ -113,6 +120,7 @@ function nockResponse(uri, body, httpResponseCode, mimeType) {
 exports.getAtomUri = getAtomUri;
 exports.getRssUri = getRssUri;
 exports.getHtmlUri = getHtmlUri;
+exports.getRealWorldRssUri = getRealWorldRssUri;
 exports.stripProtocol = stripProtocol;
 
 exports.getValidFeedBody = getValidFeedBody;
@@ -137,6 +145,10 @@ exports.nockValidHtmlResponse = function() {
 
 exports.nock404Response = function() {
   nockResponse(getHtmlUri(), 'Not Found', 404, 'text/html');
+};
+
+exports.nockRealWorldRssResponse = function() {
+  nockResponse(getRealWorldRssUri(), getRealWorldRssBody(), 200, 'application/rss+xml');
 };
 
 exports.createMockJobObjectFromURL = function(feedURL) {

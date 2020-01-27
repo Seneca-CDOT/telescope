@@ -1,7 +1,7 @@
 require('../../lib/config');
 const express = require('express');
 const accepts = require('accepts');
-const Post = require('../../post');
+const Post = require('../../data/post');
 const { getPosts, getPostsCount } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 
@@ -12,7 +12,7 @@ posts.get('/', async (req, res) => {
   const capNumOfPosts = 100;
   const page = parseInt(req.query.page || 1, 10);
 
-  let guids;
+  let ids;
   let perPage;
   let postsCount;
   let from;
@@ -37,7 +37,7 @@ posts.get('/', async (req, res) => {
     // Make sure the upper limit is not higher than the total number of posts in the DB
     to = perPage * page > postsCount ? postsCount : perPage * page;
 
-    guids = await getPosts(from, to);
+    ids = await getPosts(from, to);
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
     res.status(503).json({
@@ -64,27 +64,26 @@ posts.get('/', async (req, res) => {
     last: `/posts?per_page=${perPage}&page=${Math.floor(postsCount / perPage)}`,
   });
   res.json(
-    guids
+    ids
       // Return id and url for a specific post
-      .map(guid => ({
-        id: guid,
-        url: `/posts/${encodeURIComponent(guid)}`,
+      .map(id => ({
+        id,
+        url: `/posts/${id}`,
       }))
   );
 });
 
-// The guid is likely a URI, and must be encoded by the client
 
-posts.get('/:guid', async (req, res) => {
-  const guid = decodeURIComponent(req.params.guid);
+posts.get('/:id', async (req, res) => {
+  const { id } = req.params;
 
   try {
-    const post = await Post.byGuid(guid);
+    const post = await Post.byId(id);
 
     // If the object we get back is empty, use 404
     if (!post) {
       res.status(404).json({
-        message: `Post not found for id ${guid}`,
+        message: `Post not found for id ${id}`,
       });
     } else {
       const accept = accepts(req);

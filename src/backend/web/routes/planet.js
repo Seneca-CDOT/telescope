@@ -1,7 +1,8 @@
 const express = require('express');
 
-const { getPosts } = require('../../utils/storage');
-const Post = require('../../post');
+const { getPosts, getFeeds } = require('../../utils/storage');
+const Post = require('../../data/post');
+const Feed = require('../../data/feed');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
@@ -18,7 +19,7 @@ function formatDate(date) {
  */
 async function getPostDataGrouped() {
   const ids = await getPosts(0, 50);
-  const posts = await Promise.all(ids.map(id => Post.byGuid(id)));
+  const posts = await Promise.all(ids.map(id => Post.byId(id)));
 
   // We group the posts into nested objects: days > authors > posts
   const grouped = { days: {} };
@@ -49,10 +50,15 @@ async function getPostDataGrouped() {
   return grouped;
 }
 
+async function getFeedData() {
+  const feedIds = await getFeeds();
+  return Promise.all(feedIds.map(Feed.byId));
+}
+
 router.get('/', async (req, res) => {
   try {
-    const grouped = await getPostDataGrouped();
-    res.render('planet', grouped);
+    const [grouped, feeds] = await Promise.all([getPostDataGrouped(), getFeedData()]);
+    res.render('planet', { feeds, ...grouped });
   } catch (err) {
     logger.error({ err }, 'Error processing posts from Redis');
     res.status(503).json({

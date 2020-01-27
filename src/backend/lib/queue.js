@@ -11,6 +11,11 @@ const client = createRedisClient();
 const subscriber = createRedisClient();
 
 /**
+ * Tracks whether an informative message has been logged following a Redis connection failure
+ */
+let redisConnectionRefusalLogged = false;
+
+/**
  * Create a Queue with the given `name` (String).
  * We create a Bull Queue using either a real or mocked
  * redis, and manage the creation of the redis connections.
@@ -29,9 +34,18 @@ function createQueue(name) {
       }
     },
   })
-    .on('error', err => {
+    .on('error', error => {
       // An error occurred
-      logger.error({ err }, `Queue ${name} error`);
+      if (error.code === 'ECONNREFUSED' && !redisConnectionRefusalLogged) {
+        logger.error(
+          '\n\n\t💡  It appears that Redis is not running on your machine.',
+          '\n\t   Please see our documentation for how to install and run Redis:',
+          '\n\t   https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md\n'
+        );
+        redisConnectionRefusalLogged = true;
+      } else {
+        logger.error({ error }, `Queue ${name} error`);
+      }
     })
     .on('waiting', jobID => {
       // A job is waiting for the next idling worker

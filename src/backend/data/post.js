@@ -1,25 +1,26 @@
-const { getPost, addPost } = require('./utils/storage');
-const { logger } = require('./utils/logger');
-const sanitizeHTML = require('./utils/sanitize-html');
-const textParser = require('./utils/text-parser');
+const { getPost, addPost } = require('../utils/storage');
+const { logger } = require('../utils/logger');
+const sanitizeHTML = require('../utils/sanitize-html');
+const textParser = require('../utils/text-parser');
+const hash = require('./hash');
 
 function toDate(date) {
-  // Is this already a Date?
-  if (typeof date === 'object' && typeof date.getTime === 'function') {
+  if (date instanceof Date) {
     return date;
   }
-
   return new Date(date);
 }
 
 class Post {
   constructor(author, title, html, text, datePublished, dateUpdated, postUrl, siteUrl, guid) {
+    // Use the post's guid as our unique identifier
+    this.id = hash(guid);
     this.author = author;
     this.title = title;
     this.html = html;
     this.text = text;
-    this.published = toDate(datePublished);
-    this.updated = toDate(dateUpdated);
+    this.published = datePublished ? toDate(datePublished) : new Date();
+    this.updated = dateUpdated ? toDate(dateUpdated) : new Date();
     this.url = postUrl;
     this.site = siteUrl;
     this.guid = guid;
@@ -27,15 +28,18 @@ class Post {
 
   /**
    * Save the current Post to the database.
+   * Returns a Promise.
    */
-  async save() {
-    await addPost(this);
+  save() {
+    addPost(this);
   }
 
   /**
    * Parse an article object into a Post object.
    * @param {Object} article parsed via feedparser, see:
    * https://www.npmjs.com/package/feedparser#what-is-the-parsed-output-produced-by-feedparser
+   *
+   * If data is missing, throws an error.
    */
   static fromArticle(article) {
     // Validate the properties we get, and if we don't have them all, throw
@@ -48,8 +52,6 @@ class Post {
     const missing = [];
     if (!article.author) missing.push('author');
     if (!article.description) missing.push('description');
-    if (!article.pubdate) missing.push('pubdate');
-    if (!article.date) missing.push('date');
     if (!article.link) missing.push('link');
     if (!article.guid) missing.push('guid');
     if (!(article.meta && article.meta.link)) missing.push('meta.link');
@@ -66,6 +68,17 @@ class Post {
       article.title = 'Untitled';
     }
 
+    // If we're missing dates, assign current date
+    const today = new Date();
+    if (!article.pubdate) {
+      logger.debug('article missing pubdate, substituting current date');
+      article.pubdate = today;
+    }
+    if (!article.date) {
+      logger.debug('article missing date, substituting current date');
+      article.date = today;
+    }
+
     let sanitizedHTML;
     let plainText;
     try {
@@ -74,9 +87,9 @@ class Post {
       sanitizedHTML = sanitizeHTML(article.description);
       // Also generate plain text from the sanitized HTML
       plainText = textParser(sanitizedHTML);
-    } catch (err) {
-      logger.error({ err }, 'Unable to sanitize and parse HTML for feed');
-      throw err;
+    } catch (error) {
+      logger.error({ error }, 'Unable to sanitize and parse HTML for feed');
+      throw error;
     }
 
     // NOTE: feedparser article properties are documented here:
@@ -119,13 +132,13 @@ class Post {
   }
 
   /**
-   * Returns a Post from the database using the given guid
-   * @param {String} guid - the guid of a post to get from the database.
+   * Returns a Post from the database using the given id
+   * @param {String} id - the id of a post (hashed guid) to get from Redis.
    */
-  static async byGuid(guid) {
-    const post = await getPost(guid);
-    // No post found using this guid
-    if (post && !post.guid) {
+  static async byId(id) {
+    const post = await getPost(id);
+    // No post found using this id
+    if (!(post && post.id)) {
       return null;
     }
     return Post.parse(post);

@@ -3,7 +3,7 @@ const path = require('path');
 
 const feedQueue = require('./queue');
 const { logger } = require('../utils/logger');
-const Post = require('../post');
+const Post = require('../data/post');
 
 /**
  * We determine the number of parallel feed processor functions to run
@@ -37,8 +37,8 @@ exports.start = function() {
       // The posts we get back will be Objects, and we need to convert
       // to a full Post, then save to Redis.
       await Promise.all(posts.map(post => Post.parse(post).save()));
-    } catch (err) {
-      logger.error({ err }, 'Error inserting posts into database');
+    } catch (error) {
+      logger.error({ error }, 'Error inserting posts into database');
     }
   });
 

@@ -9,18 +9,18 @@ const pathToMockRedList = path.join(__dirname, './test_files/mock-redlist.json')
 const deleteMockRedlist = () => {
   try {
     fs.unlinkSync(pathToMockRedList);
-  } catch (err) {
-    log.error(`failed to delete ${pathToMockRedList}`, err.message);
-    throw err;
+  } catch (error) {
+    log.error({ error }, `failed to delete ${pathToMockRedList}`);
+    throw error;
   }
 };
 const initializeMockRedlist = () => {
   try {
     fs.writeFileSync(pathToMockRedList, '[]', { flag: 'w' });
-  } catch (err) {
+  } catch (error) {
     deleteMockRedlist();
-    log.error(`failed to write to ${pathToMockRedList}`, err.message);
-    throw err;
+    log.error({ error }, `failed to write to ${pathToMockRedList}`);
+    throw error;
   }
 };
 
@@ -124,10 +124,10 @@ describe('Testing of update()', () => {
         mockFeedParser
       );
       expect(data.length).toEqual(0);
-    } catch (err) {
+    } catch (error) {
       deleteMockRedlist();
-      log.error(err.message);
-      throw err;
+      log.error({ error });
+      throw error;
     }
   });
 
@@ -145,10 +145,10 @@ describe('Testing of update()', () => {
       for (let i = 0; i < inactiveRedlist.length; i += 1) {
         expect(data[i].url).toBe(inactiveRedlist[i].url);
       }
-    } catch (err) {
+    } catch (error) {
       deleteMockRedlist();
-      log.error(err.message);
-      throw err;
+      log.error({ error });
+      throw error;
     }
   });
 
@@ -162,10 +162,10 @@ describe('Testing of update()', () => {
       for (let i = 0; i < deadRedlist.length; i += 1) {
         expect(data[i].url).toBe(deadRedlist[i].url);
       }
-    } catch (err) {
+    } catch (error) {
       deleteMockRedlist();
-      log.error(err.message);
-      throw err;
+      log.error({ error });
+      throw error;
     }
   });
 

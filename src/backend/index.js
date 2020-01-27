@@ -2,7 +2,7 @@ require('./lib/config.js');
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
 const { logger } = require('./utils/logger');
-const wikiFeed = require('./utils/wiki-feed-parser');
+const getWikiFeeds = require('./utils/wiki-feed-parser');
 const shutdown = require('./lib/shutdown');
 
 // Start the web server
@@ -24,8 +24,19 @@ process.on('uncaughtException', shutdown('UNCAUGHT EXCEPTION'));
  */
 async function enqueueWikiFeed() {
   try {
-    const data = await wikiFeed.parseData();
-    await Promise.all(data.map(feedInfo => feedQueue.addFeed(feedInfo)));
+    // Get an Array of Feed objects from the wiki feed list
+    const feeds = await getWikiFeeds();
+    // Process all of these Feed objects into Redis and the feed queue
+    await Promise.all(
+      feeds.map(feed =>
+        Promise.all([
+          // Store this feed in Redis
+          feed.save(),
+          // Add a job to the feed queue to process all of its posts
+          feedQueue.addFeed(feed),
+        ])
+      )
+    );
   } catch (err) {
     logger.error({ err }, 'Error queuing wiki feeds');
   }

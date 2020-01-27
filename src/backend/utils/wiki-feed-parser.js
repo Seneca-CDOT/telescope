@@ -1,6 +1,10 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
+const { isWebUri } = require('valid-url');
+
 require('../lib/config');
+const { logger } = require('../utils/logger');
+const Feed = require('../data/feed');
 
 const { JSDOM } = jsdom;
 
@@ -10,57 +14,80 @@ const { JSDOM } = jsdom;
  * Splits the data into lines so its easier to process as a string array
  * That data is then returned as a Promise
  */
-module.exports.getData = function() {
-  return fetch(process.env.FEED_URL)
-    .then(res => res.text())
-    .then(data => {
-      const dom = new JSDOM(data);
-      return dom.window.document.querySelector('pre').textContent.split(/\r\n|\r|\n/);
-    })
-    .catch(err => {
-      throw err;
-    });
-};
+async function getWikiText(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.text();
+
+    const dom = new JSDOM(data);
+    return dom.window.document.querySelector('pre').textContent;
+  } catch (error) {
+    logger.error({ error }, `Unable to download wiki feed data from url ${url}`);
+    throw error;
+  }
+}
 
 /*
- * parseData() returns Promise { <pending> }
- * It gets the data from getData function
- * Then processes it to remove square brackets from links and 'name=' in front of a name
- * That data is then returned as a Promise
+ * Returns a Promise { <pending> }
+ * It downloads the feed data from the Wiki, then processes it into an
+ * Array of feed Objects of the following form:
+ *
+ * {
+ *   name: "name of user",
+ *   url: "feed url of user"
+ * }
  */
-module.exports.parseData = function() {
-  const nameCheck = /^name/i;
-  const commentCheck = /^#/;
+module.exports = async function() {
+  let url = process.env.FEED_URL;
 
-  let line = '';
+  if (!url) {
+    url = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
+    logger.debug(`No value found for FEED_URL in env, using default ${url} instead`);
+  }
 
-  return this.getData()
-    .then(data => {
-      const objArray = [];
-      let feed = [];
-      data.forEach(element => {
-        if (!commentCheck.test(element)) {
-          if (element.startsWith('[')) {
-            // eslint-disable-next-line no-useless-escape
-            line = element.replace(/[\[\]']/g, '');
-            feed.push(`${line}`);
-          }
-          if (nameCheck.test(element)) {
-            line = element.replace(/^\s*name\s*=\s*/, '');
-            feed.push(`${line}`);
-            let obj = {
-              name: feed[feed.length - 1],
-              url: feed[feed.length - 2],
-            };
-            objArray.push(obj);
-            feed = [];
-            obj = {};
-          }
-        }
-      });
-      return objArray;
-    })
-    .catch(err => {
-      throw err;
-    });
+  const nameCheck = /^\s*name/i;
+  const commentCheck = /^\s*#/;
+
+  let wikiText;
+  try {
+    wikiText = await getWikiText(url);
+  } catch (error) {
+    logger.error({ error }, `Unable to download wiki feed data from url ${url}`);
+    throw error;
+  }
+
+  const lines = wikiText.split(/\r\n|\r|\n/);
+  const feeds = [];
+  let currentFeedInfo = {};
+
+  // Iterate through all lines and find url/name pairs, then add to feeds array.
+  lines.forEach(line => {
+    if (commentCheck.test(line)) {
+      // skip comments
+      return;
+    }
+
+    // Is this a feed URL?
+    if (line.startsWith('[')) {
+      currentFeedInfo.url = line.replace(/[[\]']/g, '');
+    } // Is this an author's name?
+    else if (nameCheck.test(line)) {
+      currentFeedInfo.author = line.replace(/^\s*name\s*=\s*/, '');
+
+      // The name will follow the URL that goes with it, so add this feed now
+      // Make sure the URL for this feed is a valid http/https web URI,
+      // then process into a Feed object.
+      if (!isWebUri(currentFeedInfo.url)) {
+        logger.info(
+          `Skipping invalid wiki feed url ${currentFeedInfo.url} for author ${currentFeedInfo.author}`
+        );
+      } else {
+        feeds.push(Feed.parse(currentFeedInfo));
+      }
+
+      currentFeedInfo = {};
+    }
+  });
+
+  return feeds;
 };

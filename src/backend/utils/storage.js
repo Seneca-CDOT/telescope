@@ -1,39 +1,51 @@
 const { redis } = require('../lib/redis');
 
 // Redis Keys
-const FEED_ID = 'feed_id';
-const FEEDS = 'feeds';
+const feedsKey = 't:feeds';
+const postsKey = 't:posts';
 
-const POSTS = 'posts';
+// Namespaces
+const feedNamespace = 't:feed:';
+const postNamespace = 't:post:';
+
+// "6Xoj0UXOW3" to "t:post:6Xoj0UXOW3"
+const createPostKey = id => postNamespace.concat(id);
+// "NirlSYranl" to "t:feed:NirlSYranl"
+const createFeedKey = id => feedNamespace.concat(id);
 
 module.exports = {
-  addFeed: async (name, url) => {
-    // "If the key does not exist, it is set to 0 before performing the operation"
-    // https://redis.io/commands/INCR
-    const feedId = await redis.incr(FEED_ID);
+  /**
+   * Feeds
+   */
+  addFeed: async feed => {
+    const key = createFeedKey(feed.id);
     await redis
       .multi()
       // Using hmset() until hset() fully supports multiple fields:
       // https://github.com/stipsan/ioredis-mock/issues/345
       // https://github.com/luin/ioredis/issues/551
-      .hmset(feedId, 'name', name, 'url', url)
-      .sadd(FEEDS, feedId)
+      .hmset(key, 'id', feed.id, 'author', feed.author, 'url', feed.url)
+      .sadd(feedsKey, feed.id)
       .exec();
-    return feedId;
   },
 
-  getFeeds: () => redis.smembers(FEEDS),
+  getFeeds: () => redis.smembers(feedsKey),
 
-  getFeed: feedID => redis.hgetall(feedID),
+  getFeed: id => redis.hgetall(feedNamespace.concat(id)),
 
-  getFeedsCount: () => redis.scard(FEEDS),
+  getFeedsCount: () => redis.scard(feedsKey),
 
+  /**
+   * Posts
+   */
   addPost: async post => {
+    const key = createPostKey(post.id);
     await redis
       .multi()
       .hmset(
-        // using guid as keys as it is unique to posts
-        post.guid,
+        key,
+        'id',
+        post.id,
         'author',
         post.author,
         'title',
@@ -54,19 +66,19 @@ module.exports = {
         post.guid
       )
       // sort set by published date as scores
-      .zadd(POSTS, post.published.getTime(), post.guid)
+      .zadd(postsKey, post.published.getTime(), post.id)
       .exec();
   },
 
   /**
-   * Gets an array of guids from redis
+   * Returns an array of post ids from redis
    * @param from lower index
    * @param to higher index, it needs -1 because redis includes the element at this index in the returned array
-   * @return Array of guids
+   * @return Array of ids
    */
-  getPosts: (from, to) => redis.zrevrange(POSTS, from, to - 1),
+  getPosts: (from, to) => redis.zrevrange(postsKey, from, to - 1),
 
-  getPostsCount: () => redis.zcard(POSTS),
+  getPostsCount: () => redis.zcard(postsKey),
 
-  getPost: guid => redis.hgetall(guid),
+  getPost: id => redis.hgetall(postNamespace.concat(id)),
 };

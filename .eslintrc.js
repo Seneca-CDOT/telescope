@@ -1,6 +1,8 @@
 module.exports = {
-  extends: ['airbnb-base', 'prettier', 'plugin:promise/recommended'],
-  plugins: ['prettier', 'promise'],
+  extends: ['airbnb-base', 'prettier', 'plugin:promise/recommended', 'plugin:react/recommended'],
+
+  plugins: ['prettier', 'promise', 'react'],
+
   env: {
     jest: true,
     browser: true,
@@ -8,9 +10,13 @@ module.exports = {
     node: true,
     es2017: true,
   },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
   rules: {
     'prettier/prettier': ['error'],
-
     /**
      * Disallow the use of console
      * https://eslint.org/docs/rules/no-console
@@ -27,13 +33,11 @@ module.exports = {
      * https://eslint.org/docs/rules/no-return-await
      */
     'no-return-await': ['error'],
-
     /**
      * Disallow using an async function as a Promise executor
      * https://eslint.org/docs/rules/no-async-promise-executor
      */
     'no-async-promise-executor': ['error'],
-
     /**
      * Disallow await inside of loops
      * https://eslint.org/docs/rules/no-await-in-loop
@@ -58,18 +62,15 @@ module.exports = {
      * https://eslint.org/docs/rules/func-names
      */
     'func-names': 'off',
-
     /**
      * Disallow enforcement of consistent linebreak style
      * https://eslint.org/docs/rules/func-names
      */
     'linebreak-style': 'off',
-
     /**
      * The following are eslint rules from the promise-plugin
      * https://github.com/xjamundx/eslint-plugin-promise
      */
-
     /**
      * Prefer wait to then() for reading Promise values
      */
@@ -79,5 +80,11 @@ module.exports = {
      * Prefer async/await to the callback pattern
      */
     'promise/prefer-await-to-callbacks': 'warn',
+
+    'react/jsx-uses-react': 'error',
+
+    'react/jsx-uses-vars': 'error',
+
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
   },
 };

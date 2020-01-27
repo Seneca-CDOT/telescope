@@ -7,7 +7,7 @@
 const { parse } = require('feedparser-promised');
 
 const { logger } = require('../utils/logger');
-const Post = require('../post');
+const Post = require('../data/post');
 
 module.exports = async function processor(job) {
   const { url } = job.data;
@@ -21,9 +21,9 @@ module.exports = async function processor(job) {
 
   try {
     articles = await parse(httpOptions);
-  } catch (err) {
-    logger.error({ err }, `Unable to process feed ${url}`);
-    throw err;
+  } catch (error) {
+    logger.error({ error }, `Unable to process feed ${url}`);
+    throw error;
   }
 
   // Transform the list of articles to a list of Post objects
