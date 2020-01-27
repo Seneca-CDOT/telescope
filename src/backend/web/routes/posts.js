@@ -73,7 +73,6 @@ posts.get('/', async (req, res) => {
   );
 });
 
-
 posts.get('/:id', async (req, res) => {
   const { id } = req.params;
 
