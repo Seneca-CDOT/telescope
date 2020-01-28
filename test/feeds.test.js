@@ -37,6 +37,8 @@ describe('test /feeds/:id responses', () => {
     author: 'foo',
     url: existingUrl,
     id: hash(existingUrl),
+    etag: null,
+    lastModified: null,
   };
 
   // add the feed to the storage
