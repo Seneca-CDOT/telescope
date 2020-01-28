@@ -5,11 +5,18 @@
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "<rootDir>/src/frontend/public/",
+      "<rootDir>/src/frontend/.cache/"
     ],
     "automock": false,
     "setupFiles": [
       "./test/lib/setupJest.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/frontend/public/",
+      "<rootDir>/src/frontend/.cache/"
     ]
   },
   "bin": {
