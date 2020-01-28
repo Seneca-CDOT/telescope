@@ -138,7 +138,19 @@ _Note: The `env.example` file has examples commented on top of each variable_
 
 ### Now you can start Redis without errors using one of the following methods:
 
-- Using Docker `docker run -d -p 6379:6379 redis`
-- Natively installed redis `redis-server`
+#### Using Docker
+
+```
+sudo systemctl start docker
+docker-compose up --build redis
+```
+
+_Note: You may need to add your user to the docker group in Linux to use `docker-compose` without `sudo`. To do this, try `groups $USER` in a terminal and check if docker is in the list of groups. If not, add it with `usermod -aG docker $USER` and reboot._
+
+#### Natively installed Redis:
+
+Run `redis-server`
+
+### Finally
 
 Run `npm start` and open `localhost:3000`
