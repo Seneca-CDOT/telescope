@@ -15,20 +15,42 @@ const hash = require('../src/backend/data/hash');
 describe('Storage tests for feeds', () => {
   const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith');
   const feed2 = new Feed('James Smith 2', 'http://seneca.co/jsmith/2');
+  const feed3 = new Feed('James Smith 2', 'http://seneca.co/jsmith/3', 'etag');
+  const feed4 = new Feed('James Smith 2', 'http://seneca.co/jsmith/4', 'etag', 'last-modified');
 
-  beforeAll(() => Promise.all([addFeed(feed1), addFeed(feed2)]));
+  beforeAll(() => Promise.all([addFeed(feed1), addFeed(feed2), addFeed(feed3), addFeed(feed4)]));
 
   it('should allow retrieving a feed by id after inserting', async () => {
-    const result = await getFeed(feed1.id);
-    expect(result).toEqual(feed1);
+    const feed = await getFeed(feed1.id);
+    expect(feed.id).toEqual(feed1.id);
+    expect(feed.author).toEqual(feed1.author);
+    expect(feed.url).toEqual(feed1.url);
+    expect(feed.etag).toEqual('');
+    expect(feed.lastModified).toEqual('');
   });
 
   it('should return expected feed count', async () => {
-    expect(await getFeedsCount()).toEqual(2);
+    expect(await getFeedsCount()).toEqual(4);
   });
 
   it('should return expected feeds', async () => {
-    expect(await getFeeds()).toEqual([feed1.id, feed2.id]);
+    expect(await getFeeds()).toEqual([feed1.id, feed2.id, feed3.id, feed4.id]);
+  });
+
+  it('should deal with etag property correctly when available and missing', async () => {
+    const feeds = await Promise.all((await getFeeds()).map(id => getFeed(id)));
+    expect(feeds[0].etag).toBe('');
+    expect(feeds[1].etag).toBe('');
+    expect(feeds[2].etag).toBe('etag');
+    expect(feeds[3].etag).toBe('etag');
+  });
+
+  it('should deal with lastModified property correctly when available and missing', async () => {
+    const feeds = await Promise.all((await getFeeds()).map(id => getFeed(id)));
+    expect(feeds[0].lastModified).toBe('');
+    expect(feeds[1].lastModified).toBe('');
+    expect(feeds[2].lastModified).toBe('');
+    expect(feeds[3].lastModified).toBe('last-modified');
   });
 });
 

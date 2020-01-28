@@ -3,6 +3,8 @@ const url = require('url');
 const fs = require('fs');
 const path = require('path');
 
+const Feed = require('../src/backend/data/feed');
+
 /**
  * This is a fixture module for telescope tests which contains measures to
  * maintain a reproducible environment for system testing
@@ -108,12 +110,13 @@ const getValidHtmlBody = () =>
  * @param {Number} httpResponseCode - the HTTP result code
  * @param {String} mimeType  - the mime type to use for the response
  */
-function nockResponse(uri, body, httpResponseCode, mimeType) {
+function nockResponse(uri, body, httpResponseCode, mimeType, headers) {
   const { protocol, host, pathname, search } = url.parse(uri);
   nock(`${protocol}//${host}`)
     .get(`${pathname}${search || ''}`)
     .reply(httpResponseCode, body, {
       'Content-Type': mimeType,
+      ...headers,
     });
 }
 
@@ -127,30 +130,28 @@ exports.getValidFeedBody = getValidFeedBody;
 exports.getEmptyFeedBody = getEmptyFeedBody;
 exports.getValidHtmlBody = getValidHtmlBody;
 
-exports.nockValidAtomResponse = function() {
-  nockResponse(getAtomUri(), getValidFeedBody(), 200, 'application/rss+xml');
+exports.nockValidAtomResponse = function(headers = {}) {
+  nockResponse(getAtomUri(), getValidFeedBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.nockValidRssResponse = function() {
-  nockResponse(getRssUri(), getValidFeedBody(), 200, 'application/rss+xml');
+exports.nockValidRssResponse = function(headers = {}) {
+  nockResponse(getRssUri(), getValidFeedBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.nockInvalidRssResponse = function() {
-  nockResponse(getRssUri(), getEmptyFeedBody(), 200, 'application/rss+xml');
+exports.nockInvalidRssResponse = function(headers = {}) {
+  nockResponse(getRssUri(), getEmptyFeedBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.nockValidHtmlResponse = function() {
-  nockResponse(getHtmlUri(), getValidHtmlBody(), 200, 'text/html');
+exports.nockValidHtmlResponse = function(headers = {}) {
+  nockResponse(getHtmlUri(), getValidHtmlBody(), 200, 'text/html', headers);
 };
 
-exports.nock404Response = function() {
-  nockResponse(getHtmlUri(), 'Not Found', 404, 'text/html');
+exports.nock404Response = function(headers = {}) {
+  nockResponse(getHtmlUri(), 'Not Found', 404, 'text/html', headers);
 };
 
-exports.nockRealWorldRssResponse = function() {
-  nockResponse(getRealWorldRssUri(), getRealWorldRssBody(), 200, 'application/rss+xml');
+exports.nockRealWorldRssResponse = function(headers = {}) {
+  nockResponse(getRealWorldRssUri(), getRealWorldRssBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.createMockJobObjectFromURL = function(feedURL) {
-  return { data: { url: feedURL } };
-};
+exports.createMockJobObjectFromURL = feedUrl => ({ data: new Feed('author', feedUrl) });

@@ -24,7 +24,19 @@ module.exports = {
       // Using hmset() until hset() fully supports multiple fields:
       // https://github.com/stipsan/ioredis-mock/issues/345
       // https://github.com/luin/ioredis/issues/551
-      .hmset(key, 'id', feed.id, 'author', feed.author, 'url', feed.url)
+      .hmset(
+        key,
+        'id',
+        feed.id,
+        'author',
+        feed.author,
+        'url',
+        feed.url,
+        'etag',
+        feed.etag,
+        'lastModified',
+        feed.lastModified
+      )
       .sadd(feedsKey, feed.id)
       .exec();
   },

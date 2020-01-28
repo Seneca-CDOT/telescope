@@ -6,11 +6,20 @@ const hash = require('./hash');
 const urlToId = url => hash(normalizeUrl(url));
 
 class Feed {
-  constructor(author, url) {
+  constructor(author, url, etag, lastModified) {
+    if (!url) {
+      throw new Error('missing url for feed');
+    }
+    if (!author) {
+      throw new Error('missing author for feed');
+    }
     // Use the feed's normalized url as our unique identifier
     this.id = urlToId(url);
     this.author = author;
     this.url = url;
+    // We may or may not have these cache values when we create a feed.
+    this.etag = etag === '' ? null : etag;
+    this.lastModified = lastModified === '' ? null : lastModified;
   }
 
   /**
@@ -26,7 +35,7 @@ class Feed {
    * @param {Object} o - an Object containing the necessary fields for a feed
    */
   static parse(o) {
-    return new Feed(o.author, o.url);
+    return new Feed(o.author, o.url, o.etag, o.lastModified);
   }
 
   /**
