@@ -17,10 +17,10 @@
     "html-elements": "./tools/html-elements.js"
   },
   "scripts": {
-    "build": "npm run build --prefix src/frontend",
-    "develop": "npm run develop --prefix src/frontend",
-    "serve": "npm run serve --prefix src/frontend",
-    "clean": "npm run clean --prefix src/frontend",
+    "build": "npm run build --prefix src/frontend --",
+    "develop": "npm run develop --prefix src/frontend --",
+    "serve": "npm run serve --prefix src/frontend --",
+    "clean": "npm run clean --prefix src/frontend --",
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
     "stylelint": "stylelint src/**/*.css",
