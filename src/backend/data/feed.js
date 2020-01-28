@@ -1,6 +1,6 @@
 const normalizeUrl = require('normalize-url');
 
-const { getFeed, addFeed } = require('../utils/storage');
+const { getFeed, addFeed, addInvalidFeed } = require('../utils/storage');
 const hash = require('./hash');
 
 const urlToId = url => hash(normalizeUrl(url));
@@ -28,6 +28,10 @@ class Feed {
    */
   save() {
     addFeed(this);
+  }
+
+  saveInvalid() {
+    addInvalidFeed(this);
   }
 
   /**

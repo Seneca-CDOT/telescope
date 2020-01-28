@@ -3,6 +3,7 @@ const { redis } = require('../lib/redis');
 // Redis Keys
 const feedsKey = 't:feeds';
 const postsKey = 't:posts';
+const invalidKey = 't:feeds:invalid';
 
 // Namespaces
 const feedNamespace = 't:feed:';
@@ -46,6 +47,22 @@ module.exports = {
   getFeed: id => redis.hgetall(feedNamespace.concat(id)),
 
   getFeedsCount: () => redis.scard(feedsKey),
+
+  addInvalidFeed: async feed => {
+    const key = createFeedKey(feed.id);
+    await redis
+      .multi()
+      // Using hmset() until hset() fully supports multiple fields:
+      // https://github.com/stipsan/ioredis-mock/issues/345
+      // https://github.com/luin/ioredis/issues/551
+      .hmset(key, 'id', feed.id, 'author', feed.author, 'url', feed.url)
+      .sadd(invalidKey, feed.id)
+      .exec();
+  },
+
+  getInvalidFeeds: () => redis.smembers(invalidKey),
+
+  getInvalidCount: () => redis.scard(invalidKey),
 
   /**
    * Posts
