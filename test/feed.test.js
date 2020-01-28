@@ -69,6 +69,7 @@ describe('Fost data class tests', () => {
       await feed.save();
       const persisted = await Feed.byId(feed.id);
       expect(persisted.etag).toEqual('etag');
+      expect(persisted.lastModified).toBe(null);
     });
 
     test('Setting lastModified on a feed should persist', async () => {
@@ -77,6 +78,7 @@ describe('Fost data class tests', () => {
       await feed.save();
       const persisted = await Feed.byId(feed.id);
       expect(persisted.lastModified).toEqual('lastModified');
+      expect(persisted.etag).toBe(null);
     });
   });
 });
