@@ -52,7 +52,12 @@ async function getPostDataGrouped() {
 
 async function getFeedData() {
   const feedIds = await getFeeds();
-  return Promise.all(feedIds.map(Feed.byId));
+  const feeds = await Promise.all(feedIds.map(Feed.byId));
+  return feeds.sort((a, b) => {
+    if (a.author < b.author) return -1;
+    if (a.author > b.author) return 1;
+    return 0;
+  });
 }
 
 router.get('/', async (req, res) => {
