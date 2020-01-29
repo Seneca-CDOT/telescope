@@ -5,7 +5,7 @@ const url = require('url');
 const { logger } = require('../utils/logger');
 
 // If you need to set the Redis URL, do it in REDIS_URL
-const redisUrl = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
+const redisUrl = `${process.env.REDIS_URL}:${process.env.REDIS_PORT}` || 'redis://127.0.0.1:6379';
 
 // Set MOCK_REDIS=1 to mock, MOCK_REDIS= to use real redis
 const useMockRedis = process.env.MOCK_REDIS;
