@@ -24,7 +24,6 @@
   "devDependencies": {
     "json-loader": "^0.5.7",
     "node-sass": "^4.13.1",
-    "prettier": "^1.19.1",
     "sass": "^1.24.4"
   },
   "keywords": [
@@ -34,11 +33,9 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "compile-sass": "node-sass src/sass/main.scss src/css/style.css -w"
   },
   "repository": {

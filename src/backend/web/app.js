@@ -23,7 +23,7 @@ server.applyMiddleware({ app, path: '/graphql' });
 
 // Template rendering for legacy "planet" view of posts
 app.engine('handlebars', expressHandlebars());
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'planet/views'));
 app.set('view engine', 'handlebars');
 
 app.set('logger', logger);

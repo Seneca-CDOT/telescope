@@ -22,6 +22,14 @@ describe('Fost data class tests', () => {
     expect(createFeed()).toEqual(data);
   });
 
+  test('Feed constructor should throw if missing url', () => {
+    expect(() => new Feed('author', undefined)).toThrow();
+  });
+
+  test('Feed constructor should throw if missing author and url', () => {
+    expect(() => new Feed(undefined, undefined)).toThrow();
+  });
+
   test('Feed.parse() should be able to parse an Object into a Feed', () => {
     expect(Feed.parse(data)).toEqual(createFeed());
   });
@@ -53,6 +61,24 @@ describe('Fost data class tests', () => {
     test('Feed.byId() for an invalid url should return null', async () => {
       const feed = await Feed.byUrl('http://invalid.url.com');
       expect(feed).toBe(null);
+    });
+
+    test('Setting etag on a feed should persist', async () => {
+      const feed = new Feed('author', 'http://url.com/with/etag');
+      feed.etag = 'etag';
+      await feed.save();
+      const persisted = await Feed.byId(feed.id);
+      expect(persisted.etag).toEqual('etag');
+      expect(persisted.lastModified).toBe(null);
+    });
+
+    test('Setting lastModified on a feed should persist', async () => {
+      const feed = new Feed('author', 'http://url.com/with/lastModified');
+      feed.lastModified = 'lastModified';
+      await feed.save();
+      const persisted = await Feed.byId(feed.id);
+      expect(persisted.lastModified).toEqual('lastModified');
+      expect(persisted.etag).toBe(null);
     });
   });
 });

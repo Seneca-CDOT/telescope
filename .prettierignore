@@ -4,4 +4,6 @@ node_modules/
 coverage/
 hint-report/
 lighthouse-report.html
-certs/
+certs
+public
+.cache

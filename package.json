@@ -5,11 +5,18 @@
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "<rootDir>/src/frontend/public/",
+      "<rootDir>/src/frontend/.cache/"
     ],
     "automock": false,
     "setupFiles": [
       "./test/lib/setupJest.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/frontend/public/",
+      "<rootDir>/src/frontend/.cache/"
     ]
   },
   "bin": {
@@ -17,14 +24,18 @@
     "html-elements": "./tools/html-elements.js"
   },
   "scripts": {
+    "build": "npm run build --prefix src/frontend --",
+    "develop": "npm run develop --prefix src/frontend --",
+    "serve": "npm run serve --prefix src/frontend --",
+    "clean": "npm run clean --prefix src/frontend --",
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
     "stylelint": "stylelint src/**/*.css",
     "lint": "npm run eslint",
     "postlint": "npm run stylelint",
-    "postinstall": "cd src/frontend && npm i",
-    "prettier": "prettier --write \"./**/*.{md,json,html,css,js,yml}\"",
-    "prettier-check": "prettier --check \"./**/*.{md,json,html,css,js,yml}\"",
+    "postinstall": "npm install --prefix src/frontend",
+    "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
+    "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
     "test": "npm run jest",
     "jest": "cross-env LOG_LEVEL=silent MOCK_REDIS=1 jest --",
@@ -50,6 +61,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
+    "accepts": "1.3.7",
     "apollo-server-express": "2.9.16",
     "body-parser": "1.19.0",
     "bull": "3.12.1",
@@ -83,6 +95,7 @@
     "sanitize-html": "1.20.1",
     "sentiment": "5.0.2",
     "spam-filter": "1.1.1",
+    "stoppable": "1.1.0",
     "valid-url": "1.0.9",
     "wordcount": "1.1.1"
   },
