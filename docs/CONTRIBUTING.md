@@ -23,31 +23,6 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 For instructions on how to setup your Telescope environment, please see [Environment Setup](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md).
 
-### SAML Setup
-
-- Run `bash ./generate_ssl_certs.sh` in terminal
-
-### Setup Telescope
-
-1. Navigate to the root directory of telescope.
-1. Copy env.example to .env to create a new environment configuration.
-1. Replace default key values in .env with credentials.
-1. Start Redis using:
-
-   - Docker: `docker-compose up -d redis`
-
-   _To stop the Docker container for Redis, run:_ `docker-compose stop redis`
-
-   - Native Install: `redis-service`
-
-   _To stop Redis, ctrl+c the window running the redis server._
-
-1. Run `npm install`.
-1. Run `npm test`
-1. IF eslint detect some issues run `npm run eslint-fix` before manually fixing the issue (Will save you time :smile:) and then run `npm test` again.
-1. Run `npm run jest-watch` to watch files for any changes and rerun tests related to changed files.
-1. Run `npm start` to start telescope.
-
 ### Frontend Development
 
 The Telescope frontend app lives in [`src/frontend`](../src/frontend) and is
