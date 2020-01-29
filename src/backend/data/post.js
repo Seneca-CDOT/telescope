@@ -3,6 +3,7 @@ const { logger } = require('../utils/logger');
 const sanitizeHTML = require('../utils/sanitize-html');
 const textParser = require('../utils/text-parser');
 const hash = require('./hash');
+const ArticleError = require('./article-error');
 
 function toDate(date) {
   if (date instanceof Date) {
@@ -59,7 +60,7 @@ class Post {
     if (missing.length) {
       const message = `invalid article: missing ${missing.join(', ')}`;
       logger.debug(message);
-      throw new Error(message);
+      throw new ArticleError(message);
     }
 
     // Allow for missing title, but give it one

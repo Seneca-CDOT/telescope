@@ -10,6 +10,7 @@ const fetch = require('node-fetch');
 const { logger } = require('../utils/logger');
 const Post = require('../data/post');
 const Feed = require('../data/feed');
+const ArticleError = require('../data/article-error');
 
 // Check for cached ETag and Last-Modified info on the feed.
 function hasHeaders(feed) {
@@ -92,9 +93,32 @@ async function getFeedInfo(feed) {
   return info;
 }
 
+/**
+ * Convert an array of Articles from the feed parser into Post objects.
+ * @param {Array<article>} articles to process into posts
+ */
+function articlesToPosts(articles) {
+  const posts = [];
+
+  articles.forEach(article => {
+    if (!article) return;
+    try {
+      const post = Post.fromArticle(article);
+      posts.push(post);
+    } catch (error) {
+      // If this is just some missing data, ignore the post, otherwise throw.
+      if (!(error instanceof ArticleError)) {
+        throw error;
+      }
+    }
+  });
+
+  return posts;
+}
+
 module.exports = async function processor(job) {
   const feed = Feed.parse(job.data);
-  let articles;
+  let articles = [];
   let info;
 
   try {
@@ -104,7 +128,7 @@ module.exports = async function processor(job) {
       // Log some common cases we see, with a general message if none of these
       switch (info.status) {
         case 304:
-          logger.debug(`${info.status} Feed is up-to-date: ${feed.url}`);
+          logger.info(`${info.status} Feed is up-to-date: ${feed.url}`);
           break;
         case 404:
           logger.warn(`${info.status} Feed not found: ${feed.url}`);
@@ -120,16 +144,16 @@ module.exports = async function processor(job) {
           logger.warn(`${info.status} Feed server error: ${feed.url}`);
           break;
         default:
-          logger.debug(`${info.status} Feed not downloaded: ${feed.url}`);
+          logger.info(`${info.status} Feed not downloaded: ${feed.url}`);
           break;
       }
 
       // No posts were processed, return an empty list.
-      return [];
+      return articles;
     }
 
     // Download the updated feed contents
-    logger.debug(`${info.status} Feed has new content: ${feed.url}`);
+    logger.info(`${info.status} Feed has new content: ${feed.url}`);
     articles = await parse(
       addHeaders(
         {
@@ -142,7 +166,7 @@ module.exports = async function processor(job) {
       )
     );
     // Transform the list of articles to a list of Post objects
-    articles = articles.map(article => Post.fromArticle(article));
+    articles = articlesToPosts(articles);
 
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;
@@ -156,7 +180,6 @@ module.exports = async function processor(job) {
           info.contentType ? `(${info.contentType})` : ''
         }`
       );
-      articles = [];
     } else {
       logger.error({ error }, `Unable to process feed ${feed.url}`);
       throw error;
