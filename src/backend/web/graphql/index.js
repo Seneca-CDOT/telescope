@@ -36,8 +36,30 @@ module.exports.typeDefs = graphql`
     getFeeds: [Feed]
     getFeedsCount: Int
     getPost(id: ID!): Post
-    getPosts(page: Int, perPage: Int): [Post]
+    getPosts(filter: PostFilter, page: Int, perPage: Int): [Post]
     getPostsCount: Int
+  }
+
+  # Post filters
+  input PostFilter {
+    author: String
+    fromDate: String
+    toDate: String
+    date: String
+  }
+
+  # Input filters
+  input StringFilter {
+    eq: String
+    ne: String
+    in: String
+    nin: String
+    regex: String
+  }
+
+  input IntFilter {
+    eq: Int
+    ne: Int
   }
 `;
 
@@ -84,7 +106,7 @@ module.exports.resolvers = {
      * @param perPage Number of Post objects in every page
      * @return Array of 'perPage' number of Post objects
      */
-    getPosts: async (parent, { page, perPage }) => {
+    getPosts: async (parent, { filter, page, perPage }) => {
       const prPage = perPage > maxPostsPerPage ? maxPostsPerPage : perPage;
 
       const numOFPosts = await getPostsCount();
@@ -94,7 +116,24 @@ module.exports.resolvers = {
         const last = first + prPage < numOFPosts ? first + prPage : numOFPosts;
         const postIds = await getPosts(first, last);
 
-        return Promise.all(postIds.map(id => Post.byId(id)));
+        const result = await Promise.all(postIds.map(id => Post.byId(id)));
+
+        if (filter) {
+          // check if author name is equal to what we're searching for.
+          if (filter.author) {
+            return result.filter(posts => posts.author === filter.author);
+          }
+          // check if published date is between
+          if (filter.fromDate && filter.toDate) {
+            const fromDate = new Date(filter.fromDate);
+            const toDate = new Date(filter.toDate);
+            return result.filter(
+              posts => parseInt(posts.published, 10) >= fromDate && posts.published <= toDate
+            );
+          }
+        }
+
+        return result;
       }
       return [];
     },
