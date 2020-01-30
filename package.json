@@ -33,7 +33,7 @@
     "stylelint": "stylelint src/**/*.css",
     "lint": "npm run eslint",
     "postlint": "npm run stylelint",
-    "postinstall": "npm install --prefix src/frontend",
+    "postinstall": "cd src/frontend && npm install",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
