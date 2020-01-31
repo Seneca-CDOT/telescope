@@ -46,6 +46,14 @@ module.exports.typeDefs = graphql`
     fromDate: String
     toDate: String
     date: String
+    url: String
+  }
+
+  # Feed filters
+  input FeedFilter {
+    id: String
+    author: String
+    url: String
   }
 
   # Input filters
@@ -119,17 +127,21 @@ module.exports.resolvers = {
         const result = await Promise.all(postIds.map(id => Post.byId(id)));
 
         if (filter) {
-          // check if author name is equal to what we're searching for.
+          // check if author name is equal to what we're searching for
           if (filter.author) {
             return result.filter(posts => posts.author === filter.author);
           }
-          // check if published date is between
+          // check if published date is between two provided dates
           if (filter.fromDate && filter.toDate) {
             const fromDate = new Date(filter.fromDate);
             const toDate = new Date(filter.toDate);
             return result.filter(
               posts => parseInt(posts.published, 10) >= fromDate && posts.published <= toDate
             );
+          }
+          // check if url is equal to what we're searching for
+          if (filter.url) {
+            return result.filter(posts => posts.url === filter.url);
           }
         }
 
