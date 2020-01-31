@@ -7,6 +7,7 @@ const opml = require('./opml');
 const planet = require('./planet');
 const posts = require('./posts');
 const login = require('./login');
+const stats = require('./stats');
 
 const router = express.Router();
 
@@ -21,5 +22,6 @@ router.use('/opml', opml);
 router.use('/planet', planet);
 router.use('/posts', posts);
 router.use('/login', login);
+router.use('/stats', stats);
 
 module.exports = router;

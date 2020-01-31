@@ -90,6 +90,15 @@ module.exports = {
    */
   getPosts: (from, to) => redis.zrevrange(postsKey, from, to - 1),
 
+  /**
+   * Returns an array of post ids from redis
+   * @param start starting Date in the range
+   * @param end ending Date in the range
+   * @return Array of ids
+   */
+  getPostsByDate: (startDate, endDate) =>
+    redis.zrangebyscore(postsKey, startDate.getTime(), endDate.getTime()),
+
   getPostsCount: () => redis.zcard(postsKey),
 
   getPost: id => redis.hgetall(postNamespace.concat(id)),
