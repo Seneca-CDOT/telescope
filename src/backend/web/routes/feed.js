@@ -33,7 +33,7 @@ const feedRoute = type => async (req, res) => {
     id: BASE_URL,
     link: `${BASE_URL}/feed/${type}`,
     language: 'en',
-    // TODO:
+    // TODO: https://github.com/Seneca-CDOT/telescope/issues/637
     // image: 'http://example.com/image.png',
     // favicon: 'http://example.com/favicon.ico',
     copyright: 'Copyright original authors',
