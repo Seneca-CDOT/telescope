@@ -74,6 +74,7 @@
     "express-healthcheck": "0.1.0",
     "express-pino-logger": "4.0.0",
     "express-session": "1.17.0",
+    "feed": "4.1.0",
     "feedparser-promised": "2.0.1",
     "get-urls": "9.2.0",
     "ioredis": "4.14.1",
