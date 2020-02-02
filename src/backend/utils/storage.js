@@ -53,7 +53,7 @@ module.exports = {
 
   addInvalidFeed: (feed, reason) => {
     const key = createInvalidFeedKey(feed.id);
-    redis.add(key, reason);
+    redis.set(key, reason);
   },
 
   isInvalid: feed => redis.exists(feed.id),
