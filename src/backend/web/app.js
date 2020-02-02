@@ -3,7 +3,6 @@ const express = require('express');
 const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const healthcheck = require('express-healthcheck');
 const cors = require('cors');
@@ -34,10 +33,9 @@ app.set('logger', logger);
 app.use(logger);
 
 // Setup Passport SAML based Authentication
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// TODO: why is resave false?
+// TODO: decide if we should do resave=false, https://www.npmjs.com/package/express-session#resave
 app.use(session({ secret, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -48,17 +46,5 @@ app.use(cors());
 app.use('/health', healthcheck());
 // Include our router with all endpoints
 app.use('/', router);
-
-// development error handler
-// will print stacktrace
-function errorHandler(err, req, res, next) {
-  logger.error({ err, next }, 'Express error');
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: err,
-  });
-}
-app.use(errorHandler);
 
 module.exports = app;
