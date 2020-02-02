@@ -31,5 +31,17 @@
     <h1>Telescope</h1>
 
     <p>NOTE: this page is going away soon, just for testing login/logout.</p>
+
+    <p>To get info about the user, you can hit these two routes:</p>
+    <ol>
+      <li>
+        <a href="/user/authenticated">/user/authenticated</a> - any user can hit this, returns 200
+        if authenticated already, 401 if not
+      </li>
+      <li>
+        <a href="/user/info">/user/info</a> - only authenticated users can hit this, returns JSON of
+        user profile info
+      </li>
+    </ol>
   </body>
 </html>

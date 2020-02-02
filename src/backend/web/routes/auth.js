@@ -34,4 +34,12 @@ router.get('/logout', (req, res) => {
   res.redirect(telescopeHomeUrl);
 });
 
+/**
+ * /auth/user allows for the browser to get information about the logged in user.
+ * If not logged in, this will return a 401.
+ */
+router.get('/user', passport.authenticate('saml'), (req, res) => {
+  res.json(req.user);
+});
+
 module.exports = router;

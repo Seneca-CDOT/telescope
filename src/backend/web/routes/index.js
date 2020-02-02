@@ -10,6 +10,7 @@ const planet = require('./planet');
 const posts = require('./posts');
 const stats = require('./stats');
 const auth = require('./auth');
+const user = require('./user');
 
 const router = express.Router();
 
@@ -25,5 +26,6 @@ router.use('/planet', planet);
 router.use('/posts', posts);
 router.use('/stats', stats);
 router.use('/auth', auth);
+router.use('/user', user);
 
 module.exports = router;

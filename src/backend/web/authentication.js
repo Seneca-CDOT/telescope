@@ -88,22 +88,34 @@ function init(passport) {
  * be redirected to the login page.  To use it:
  *
  * router.get('/your/route', authenticateUser, function(res, res) { ... }))
+ *
+ * By default, the request will be redirected.  Pass false if you want to just
+ * return a 401.
  */
-function authenticateUser(req, res, next) {
-  // If the user is already authenticated, let this pass to next route
-  if (req.isAuthenticated()) {
-    next();
-    return;
-  }
+function authenticateUser(redirect = true) {
+  return function(req, res, next) {
+    // If the user is already authenticated, let this pass to next route
+    if (req.isAuthenticated()) {
+      next();
+      return;
+    }
 
-  // If the user isn't authenticated, send them to our SSO provider
-  if (req.session) {
-    // Remember where we were trying to go before logging in so we can get back there
-    req.session.returnTo = req.originalUrl;
-  } else {
-    logger.warn('SAML - authenticateUser: No session property on request!');
-  }
-  res.redirect(telescopeLoginUrl);
+    // If redirect is false, send a 401
+    if (!redirect) {
+      // TODO: should probably allow sending HTML, JSON, etc.
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
+    // Redirect the unauthenticated user to our SSO provider
+    if (req.session) {
+      // Remember where we were trying to go before logging in so we can get back there
+      req.session.returnTo = req.originalUrl;
+    } else {
+      logger.warn('SAML - authenticateUser: No session property on request!');
+    }
+    res.redirect(telescopeLoginUrl);
+  };
 }
 
 module.exports.init = init;
