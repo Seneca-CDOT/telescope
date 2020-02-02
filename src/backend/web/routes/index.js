@@ -8,8 +8,8 @@ const feeds = require('./feeds');
 const feed = require('./feed');
 const planet = require('./planet');
 const posts = require('./posts');
-const login = require('./login');
 const stats = require('./stats');
+const auth = require('./auth');
 
 const router = express.Router();
 
@@ -23,7 +23,7 @@ router.use('/feeds', feeds);
 router.use('/feed', feed);
 router.use('/planet', planet);
 router.use('/posts', posts);
-router.use('/login', login);
 router.use('/stats', stats);
+router.use('/auth', auth);
 
 module.exports = router;
