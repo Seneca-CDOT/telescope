@@ -121,6 +121,11 @@ module.exports = async function processor(job) {
   let articles = [];
   let info;
 
+  const invalid = feed.isInvalid();
+  if (invalid) {
+    logger.info(`Skipping resource at ${feed.url}.  Feed previously marked invalid`);
+    return [];
+  }
   try {
     info = await getFeedInfo(feed);
     // If we get no new version info, there's nothing left to do.
@@ -185,6 +190,5 @@ module.exports = async function processor(job) {
       throw error;
     }
   }
-
   return articles;
 };
