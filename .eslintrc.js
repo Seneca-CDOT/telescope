@@ -93,5 +93,10 @@ module.exports = {
     'react/jsx-uses-vars': 'error',
 
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+
+    /**
+     * Some passport properties are only exposed via underscore names
+     */
+    'no-underscore-dangle': 'off',
   },
 };

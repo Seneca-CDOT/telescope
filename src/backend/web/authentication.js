@@ -8,12 +8,28 @@ const hash = require('../data/hash');
 const telescopeLoginUrl = '/auth/login';
 
 /**
- * Get our SAML Auth env variables, and warn if any are missing
+ * Get our SSO/SLO/SAML/Auth env variables, and warn if any are missing
  */
 function getAuthEnv() {
-  const { SAML2_BASE_URI, SAML2_REDIRECT_URI, SAML2_CLIENT_ID, SAML2_CLIENT_SECRET } = process.env;
+  const {
+    SAML2_CLIENT_ID,
+    SAML2_CLIENT_SECRET,
+    SSO_LOGIN_URL,
+    SSO_LOGIN_CALLBACK_URL,
+    SLO_LOGOUT_URL,
+    SLO_LOGOUT_CALLBACK_URL,
+  } = process.env;
 
-  if (!(SAML2_BASE_URI && SAML2_REDIRECT_URI && SAML2_CLIENT_ID && SAML2_CLIENT_SECRET)) {
+  if (
+    !(
+      SAML2_CLIENT_ID &&
+      SAML2_CLIENT_SECRET &&
+      SSO_LOGIN_URL &&
+      SSO_LOGIN_CALLBACK_URL &&
+      SLO_LOGOUT_URL &&
+      SLO_LOGOUT_CALLBACK_URL
+    )
+  ) {
     logger.error(
       '\n\n\t💡  It appears that you have not yet configured SAML auth .env variables.',
       '\n\t   Please refer to our documentation regarding SAML auth environment configuration:',
@@ -21,12 +37,26 @@ function getAuthEnv() {
     );
   }
 
-  return { SAML2_BASE_URI, SAML2_REDIRECT_URI, SAML2_CLIENT_ID, SAML2_CLIENT_SECRET };
+  return {
+    SAML2_CLIENT_ID,
+    SAML2_CLIENT_SECRET,
+    SSO_LOGIN_URL,
+    SSO_LOGIN_CALLBACK_URL,
+    SLO_LOGOUT_URL,
+    SLO_LOGOUT_CALLBACK_URL,
+  };
 }
 
 function init(passport) {
   // Confirm we have all the environment variables we expect
-  const { SAML2_BASE_URI, SAML2_REDIRECT_URI, SAML2_CLIENT_ID, SAML2_CLIENT_SECRET } = getAuthEnv();
+  const {
+    SAML2_CLIENT_ID,
+    SAML2_CLIENT_SECRET,
+    SSO_LOGIN_URL,
+    SSO_LOGIN_CALLBACK_URL,
+    SLO_LOGOUT_URL,
+    SLO_LOGOUT_CALLBACK_URL,
+  } = getAuthEnv();
 
   // Load certs
   let cert = null;
@@ -54,29 +84,31 @@ function init(passport) {
   });
 
   // Setup SAML authentication strategy
-  passport.use(
-    new SamlStrategy(
-      {
-        // See param details at https://github.com/bergie/passport-saml#config-parameter-details
-        callbackUrl: SAML2_REDIRECT_URI,
-        entryPoint: SAML2_BASE_URI,
-        issuer: SAML2_CLIENT_ID,
-        // TODO: why do both of these point to the same thing?  Do we need both?
-        decryptionPvk: cert,
-        privateCert: cert,
-      },
-      function(profile, done) {
-        // TODO: we can probably pick off the user data we actually need here...
-        if (!profile) {
-          const error = new Error('SAML Strategy verify callback missing profile');
-          logger.error({ error });
-          done(error);
-        } else {
-          done(null, profile);
-        }
+  const strategy = new SamlStrategy(
+    {
+      // See param details at https://github.com/bergie/passport-saml#config-parameter-details
+      logoutUrl: SLO_LOGOUT_URL,
+      logoutCallbackUrl: SLO_LOGOUT_CALLBACK_URL,
+      entryPoint: SSO_LOGIN_URL,
+      callbackUrl: SSO_LOGIN_CALLBACK_URL,
+      issuer: SAML2_CLIENT_ID,
+      // TODO: why do both of these point to the same thing?  Do we need both?
+      decryptionPvk: cert,
+      privateCert: cert,
+    },
+    function(profile, done) {
+      // TODO: we can probably pick off the user data we actually need here...
+      if (!profile) {
+        const error = new Error('SAML Strategy verify callback missing profile');
+        logger.error({ error });
+        done(error);
+      } else {
+        done(null, profile);
       }
-    )
+    }
   );
+
+  passport.use(strategy);
 
   // Give back the session secret to use
   return SAML2_CLIENT_SECRET || hash(`secret-${Date.now()}!`);
