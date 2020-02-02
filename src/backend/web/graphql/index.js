@@ -129,7 +129,7 @@ module.exports.resolvers = {
         if (filter) {
           // check if author name is equal to what we're searching for
           if (filter.author) {
-            return result.filter(posts => posts.author === filter.author);
+            return result.filter(post => post.author === filter.author);
           }
           // check if published date is between two provided dates
           if (filter.fromDate && filter.toDate) {
@@ -141,7 +141,7 @@ module.exports.resolvers = {
           }
           // check if url is equal to what we're searching for
           if (filter.url) {
-            return result.filter(posts => posts.url === filter.url);
+            return result.filter(post => post.url === filter.url);
           }
         }
 
