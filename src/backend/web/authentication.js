@@ -5,6 +5,8 @@ const path = require('path');
 const { logger } = require('../utils/logger');
 const hash = require('../data/hash');
 
+const telescopeLoginUrl = '/auth/login';
+
 /**
  * Get our SAML Auth env variables, and warn if any are missing
  */
@@ -36,13 +38,19 @@ function init(passport) {
 
   // Add session user object de/serialize functions
   passport.serializeUser(function(user, done) {
-    logger.debug({ user }, 'Serialize user');
-    done(null, user);
+    // TODO: is it necessary to use JSON vs. Object?
+    done(null, JSON.stringify(user));
   });
 
-  passport.deserializeUser(function(user, done) {
-    logger.debug({ user }, 'Deserialize user');
-    done(null, user);
+  passport.deserializeUser(function(json, done) {
+    // TODO: is it necessary to use JSON vs. Object?
+    try {
+      const user = JSON.parse(json);
+      done(null, user);
+    } catch (error) {
+      logger.error({ error }, `Error deserializing user json: got '${json}'`);
+      done(error);
+    }
   });
 
   // Setup SAML authentication strategy
@@ -52,22 +60,51 @@ function init(passport) {
         // See param details at https://github.com/bergie/passport-saml#config-parameter-details
         callbackUrl: SAML2_REDIRECT_URI,
         entryPoint: SAML2_BASE_URI,
-        issuer: SAML2_CLIENT_ID, // was 'saml-poc'
-        // identifierFormat: null, // do we need this?
-        // Why do both of these point to the same thing?  Do we need both?
+        issuer: SAML2_CLIENT_ID,
+        // TODO: why do both of these point to the same thing?  Do we need both?
         decryptionPvk: cert,
         privateCert: cert,
       },
       function(profile, done) {
-        // TODO: we can probably pick off the data we need vs. using everything
-        return done(null, profile);
+        // TODO: we can probably pick off the user data we actually need here...
+        if (!profile) {
+          const error = new Error('SAML Strategy verify callback missing profile');
+          logger.error({ error });
+          done(error);
+        } else {
+          done(null, profile);
+        }
       }
     )
   );
 
-  // Return the secret to use on the session.  Don't crash if missing this.
-  // TODO: I need this to pass CI, but it's not good enough.
-  return SAML2_CLIENT_SECRET || hash(`Set a better secret than this ${Date.now()}!`);
+  // Give back the session secret to use
+  return SAML2_CLIENT_SECRET || hash(`secret-${Date.now()}!`);
+}
+
+/**
+ * Middleware to make sure that a route is authenticated. If the user is
+ * already authenticated, your route will be called.  If not, the user will
+ * be redirected to the login page.  To use it:
+ *
+ * router.get('/your/route', authenticateUser, function(res, res) { ... }))
+ */
+function authenticateUser(req, res, next) {
+  // If the user is already authenticated, let this pass to next route
+  if (req.isAuthenticated()) {
+    next();
+    return;
+  }
+
+  // If the user isn't authenticated, send them to our SSO provider
+  if (req.session) {
+    // Remember where we were trying to go before logging in so we can get back there
+    req.session.returnTo = req.originalUrl;
+  } else {
+    logger.warn('SAML - authenticateUser: No session property on request!');
+  }
+  res.redirect(telescopeLoginUrl);
 }
 
 module.exports.init = init;
+module.exports.authenticateUser = authenticateUser;
