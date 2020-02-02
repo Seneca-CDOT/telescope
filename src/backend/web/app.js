@@ -49,4 +49,16 @@ app.use('/health', healthcheck());
 // Include our router with all endpoints
 app.use('/', router);
 
+// development error handler
+// will print stacktrace
+function errorHandler(err, req, res, next) {
+  logger.error({ err, next }, 'Express error');
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: err,
+  });
+}
+app.use(errorHandler);
+
 module.exports = app;
