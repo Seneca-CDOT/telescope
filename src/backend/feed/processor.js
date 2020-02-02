@@ -150,12 +150,14 @@ module.exports = async function processor(job) {
           break;
         case 404:
           logger.warn(`${info.status} Feed not found: ${feed.url}`);
-          feed.saveInvalid(`${info.status} Feed not found: ${feed.url}`);
           break;
         case 410:
           logger.warn(`${info.status} Feed no longer available: ${feed.url}`);
+<<<<<<< HEAD
           feed.saveInvalid(`${info.status} Feed no longer available: ${feed.url}`);
 >>>>>>> commented check for now
+=======
+>>>>>>> changes from DH feedback
           break;
         case 429:
           logger.warn(`${info.status} Feed requested too many times: ${feed.url}`);
@@ -218,6 +220,7 @@ module.exports = async function processor(job) {
         }`
       );
 <<<<<<< HEAD
+<<<<<<< HEAD
     } else {
       logger.error({ error }, `Unable to process feed ${feed.url}`);
 =======
@@ -227,6 +230,13 @@ module.exports = async function processor(job) {
       logger.error({ error }, `Unable to process feed ${feed.url}`);
       feed.saveInvalid(`Unable to process feed ${feed.url}`);
 >>>>>>> commented check for now
+=======
+      feed.setInvalid(`${feed.url} not a valid feed`);
+      articles = [];
+    } else {
+      logger.error({ error }, `Unable to process feed ${feed.url}`);
+      feed.setInvalid(`Unable to process feed ${feed.url}`);
+>>>>>>> changes from DH feedback
       throw error;
     }
   }
