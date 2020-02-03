@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Post = ({ text, author, url, title }) => {
+const Post = ({ content, author, url, title }) => {
   return (
     <div className="post">
       <div className="">
@@ -10,7 +10,7 @@ const Post = ({ text, author, url, title }) => {
         </h2>
         <h3>{author}</h3>
       </div>
-      {text}
+      <div dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
 };
@@ -18,7 +18,7 @@ const Post = ({ text, author, url, title }) => {
 Post.propTypes = {
   url: PropTypes.string,
   author: PropTypes.string,
-  text: PropTypes.string,
+  content: PropTypes.any,
   title: PropTypes.string,
 };
 

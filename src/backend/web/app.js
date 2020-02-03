@@ -17,6 +17,8 @@ const server = new ApolloServer({
 });
 
 const app = express();
+app.use(cors());
+app.options('*', cors());
 
 // Add the Apollo server to app and define GraphQL's endpoint
 server.applyMiddleware({ app, path: '/graphql' });
@@ -28,8 +30,6 @@ app.set('view engine', 'handlebars');
 
 app.set('logger', logger);
 app.use(logger);
-
-app.use(cors());
 
 app.use('/health', healthcheck());
 
