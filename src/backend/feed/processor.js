@@ -189,11 +189,9 @@ module.exports = async function processor(job) {
       logger.error({ error }, `Unable to process feed ${feed.url}`);
       throw error;
 =======
-  if (!feed.isInvalid()) {
-=======
-  const valid = await feed.isInvalid();
-  if (!valid) {
->>>>>>> updated index.js
+  const invalid = await feed.isInvalid();
+  if (!invalid) {
+>>>>>>> other changes
     try {
       info = await getFeedInfo(feed);
       // If we get no new version info, there's nothing left to do.
@@ -261,7 +259,7 @@ module.exports = async function processor(job) {
 >>>>>>> more changes
     }
   } else {
-    logger.debug(`Ignoring ${feed.id} as it is an invalid feed`);
+    logger.info(`Ignoring ${feed.id} as it is an invalid feed`);
   }
   return articles;
 };
