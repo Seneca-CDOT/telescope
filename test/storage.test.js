@@ -7,6 +7,7 @@ const {
   getPost,
   getPosts,
   getPostsCount,
+  setInvalidFeed,
 } = require('../src/backend/utils/storage');
 
 const Feed = require('../src/backend/data/feed');
@@ -17,8 +18,22 @@ describe('Storage tests for feeds', () => {
   const feed2 = new Feed('James Smith 2', 'http://seneca.co/jsmith/2');
   const feed3 = new Feed('James Smith 2', 'http://seneca.co/jsmith/3', 'etag');
   const feed4 = new Feed('James Smith 2', 'http://seneca.co/jsmith/4', 'etag', 'last-modified');
+  const feed5 = new Feed(
+    'James Smith Invalid Feed',
+    'http://seneca.co/jsmith/4',
+    'etag',
+    'last-modified'
+  );
 
-  beforeAll(() => Promise.all([addFeed(feed1), addFeed(feed2), addFeed(feed3), addFeed(feed4)]));
+  beforeAll(() =>
+    Promise.all([
+      addFeed(feed1),
+      addFeed(feed2),
+      addFeed(feed3),
+      addFeed(feed4),
+      setInvalidFeed(feed5, 'This just fails'),
+    ])
+  );
 
   it('should allow retrieving a feed by id after inserting', async () => {
     const feed = await getFeed(feed1.id);
@@ -51,6 +66,10 @@ describe('Storage tests for feeds', () => {
     expect(feeds[1].lastModified).toBe('');
     expect(feeds[2].lastModified).toBe('');
     expect(feeds[3].lastModified).toBe('last-modified');
+  });
+
+  it('feed5 feed is invalid', () => {
+    expect(feed5.isInvalid).toBe(1);
   });
 });
 
