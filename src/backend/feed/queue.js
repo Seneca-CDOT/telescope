@@ -26,7 +26,7 @@ queue.addFeed = async function(feed) {
       delay: process.env.FEED_QUEUE_DELAY_MS || 60 * 1000,
     },
     removeOnComplete: true,
-    removeOnFail: true,
+    removeOnFail: false,
   };
 
   try {
