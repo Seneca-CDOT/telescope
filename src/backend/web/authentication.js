@@ -47,6 +47,32 @@ function getAuthEnv() {
   };
 }
 
+// TODO: figure out our cert/key loading
+let cert;
+
+function getCert() {
+  if (cert) {
+    return cert;
+  }
+
+  try {
+    cert = fs.readFileSync(path.resolve(process.cwd(), './certs/key.pem'), 'utf8');
+  } catch (error) {
+    logger.error({ error }, 'Unable to load certs/key.pem');
+  }
+
+  return cert;
+}
+
+try {
+  cert = fs.readFileSync(path.resolve(process.cwd(), './certs/key.pem'), 'utf8');
+} catch (error) {
+  logger.error({ error }, 'Unable to load certs/key.pem');
+}
+
+// Our SamlStrategy instance. Created by init() and exposed as `.strategy`
+let strategy;
+
 function init(passport) {
   // Confirm we have all the environment variables we expect
   const {
@@ -57,14 +83,6 @@ function init(passport) {
     SLO_LOGOUT_URL,
     SLO_LOGOUT_CALLBACK_URL,
   } = getAuthEnv();
-
-  // Load certs
-  let cert = null;
-  try {
-    cert = fs.readFileSync(path.resolve(process.cwd(), './certs/key.pem'), 'utf8');
-  } catch (error) {
-    logger.error({ error }, 'Unable to load certs/key.pem');
-  }
 
   // Add session user object de/serialize functions
   passport.serializeUser(function(user, done) {
@@ -84,7 +102,7 @@ function init(passport) {
   });
 
   // Setup SAML authentication strategy
-  const strategy = new SamlStrategy(
+  strategy = new SamlStrategy(
     {
       // See param details at https://github.com/bergie/passport-saml#config-parameter-details
       logoutUrl: SLO_LOGOUT_URL,
@@ -92,9 +110,9 @@ function init(passport) {
       entryPoint: SSO_LOGIN_URL,
       callbackUrl: SSO_LOGIN_CALLBACK_URL,
       issuer: SAML2_CLIENT_ID,
-      // TODO: why do both of these point to the same thing?  Do we need both?
-      decryptionPvk: cert,
-      privateCert: cert,
+      // TODO: this isn't right yet.  See https://github.com/bergie/passport-saml#security-and-signatures
+      decryptionPvk: getCert(),
+      privateCert: getCert(),
     },
     function(profile, done) {
       // TODO: we can probably pick off the user data we actually need here...
@@ -116,39 +134,61 @@ function init(passport) {
 
 /**
  * Middleware to make sure that a route is authenticated. If the user is
- * already authenticated, your route will be called.  If not, the user will
- * be redirected to the login page.  To use it:
+ * already authenticated, your route will be called.
  *
- * router.get('/your/route', authenticateUser, function(res, res) { ... }))
+ * Depending on the route, and whether it is being called by a user
+ * or as part of a REST API, you can use one of the following:
  *
- * By default, the request will be redirected.  Pass false if you want to just
- * return a 401.
+ *
+ * - authenticate: if the user is already authenticated, the next() route
+ *   will be be called, otherwise an HTTP 401 Unauthorized will be returned
+ *   on the response. This is probably what you want for a REST API endpoint.
+ *
+ * - authenticateWithRedirect: if the user is already authenticated, the next()
+ *   route will be be called, otherwise the user will be redirected to the SSO
+ *   login page, where they can authenticate and try again. When they finish
+ *   logging in, they will be redirected to the original path they were trying
+ *   to access.
+ *
+ * To use these:
+ *
+ * router.get('/your/route', authenticate, function(res, res) { ... }))
  */
-function authenticateUser(redirect = true) {
-  return function(req, res, next) {
-    // If the user is already authenticated, let this pass to next route
-    if (req.isAuthenticated()) {
-      next();
-      return;
-    }
+function authenticate(req, res, next) {
+  // If the user is already authenticated, let this pass to next route
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    // TODO: should probably send appropriate response type (HTML, JSON, etc.)
+    res.status(401).send('Unauthorized');
+  }
+}
 
-    // If redirect is false, send a 401
-    if (!redirect) {
-      // TODO: should probably allow sending HTML, JSON, etc.
-      res.status(401).send('Unauthorized');
-      return;
-    }
+function authenticateWithRedirect(req, res, next) {
+  // If the user is already authenticated, let this pass to next route
+  if (req.isAuthenticated()) {
+    next();
+    return;
+  }
 
-    // Redirect the unauthenticated user to our SSO provider
-    if (req.session) {
-      // Remember where we were trying to go before logging in so we can get back there
-      req.session.returnTo = req.originalUrl;
-    } else {
-      logger.warn('SAML - authenticateUser: No session property on request!');
-    }
-    res.redirect(telescopeLoginUrl);
-  };
+  // Redirect the unauthenticated user to our SSO provider
+  if (req.session) {
+    // Remember where we were trying to go before logging in so we can get back there
+    req.session.returnTo = req.originalUrl;
+  } else {
+    logger.warn('SAML - authenticateUser: No session property on request!');
+  }
+  res.redirect(telescopeLoginUrl);
+}
+
+function samlMetadata() {
+  // I need to get the decryptionCert vs signingCert sorted out here...
+  // https://github.com/bergie/passport-saml#generateserviceprovidermetadata-decryptioncert-signingcert-
+  return strategy.generateServiceProviderMetadata(getCert(), getCert());
 }
 
 module.exports.init = init;
-module.exports.authenticateUser = authenticateUser;
+module.exports.strategy = strategy;
+module.exports.samlMetadata = samlMetadata;
+module.exports.authenticate = authenticate;
+module.exports.authenticateWithRedirect = authenticateWithRedirect;

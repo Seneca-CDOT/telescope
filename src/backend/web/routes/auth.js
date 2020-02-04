@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 
+const { samlMetadata, strategy } = require('../authentication');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
@@ -33,7 +34,7 @@ router.get('/login', passport.authenticate('saml'));
  */
 function logout(req, res) {
   try {
-    const strategy = passport._strategy('saml');
+    // TODO: confirm I can use strategy above... was: const strategy = passport._strategy('saml');
     strategy.logout(req, (error, requestUrl) => {
       if (error) {
         logger.error({ error }, 'logout error - unable to generate logout URL');
@@ -65,5 +66,13 @@ router.post('/logout/callback', (req, res) => {
  * /auth/logout allows users to clear login tokens from their session
  */
 router.get('/logout', passport.authenticate('saml'), logout);
+
+/**
+ * Provide SAML Metadata for our SP
+ */
+router.get('/metadata', (req, res) => {
+  res.type('application/xml');
+  res.status(200).send(samlMetadata());
+});
 
 module.exports = router;
