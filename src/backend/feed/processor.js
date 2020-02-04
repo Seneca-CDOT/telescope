@@ -120,16 +120,12 @@ module.exports = async function processor(job) {
   const feed = Feed.parse(job.data);
   let articles = [];
   let info;
-<<<<<<< HEAD
 
   const invalid = feed.isInvalid();
   if (invalid) {
     logger.info(`Skipping resource at ${feed.url}.  Feed previously marked invalid`);
     return [];
   }
-=======
-  // if (!feed.isInvalid()) {
->>>>>>> commented check for now
   try {
     info = await getFeedInfo(feed);
     // If we get no new version info, there's nothing left to do.
@@ -137,7 +133,6 @@ module.exports = async function processor(job) {
       // Log some common cases we see, with a general message if none of these
       switch (info.status) {
         case 304:
-<<<<<<< HEAD
           logger.info(`${info.status} Feed is up-to-date: ${feed.url}`);
           break;
         case 404:
@@ -145,19 +140,6 @@ module.exports = async function processor(job) {
           break;
         case 410:
           logger.warn(`${info.status} Feed no longer available: ${feed.url}`);
-=======
-          logger.debug(`${info.status} Feed is up-to-date: ${feed.url}`);
-          break;
-        case 404:
-          logger.warn(`${info.status} Feed not found: ${feed.url}`);
-          break;
-        case 410:
-          logger.warn(`${info.status} Feed no longer available: ${feed.url}`);
-<<<<<<< HEAD
-          feed.saveInvalid(`${info.status} Feed no longer available: ${feed.url}`);
->>>>>>> commented check for now
-=======
->>>>>>> changes from DH feedback
           break;
         case 429:
           logger.warn(`${info.status} Feed requested too many times: ${feed.url}`);
@@ -167,28 +149,16 @@ module.exports = async function processor(job) {
           logger.warn(`${info.status} Feed server error: ${feed.url}`);
           break;
         default:
-<<<<<<< HEAD
           logger.info(`${info.status} Feed not downloaded: ${feed.url}`);
-=======
-          logger.debug(`${info.status} Feed not downloaded: ${feed.url}`);
->>>>>>> commented check for now
           break;
       }
 
       // No posts were processed, return an empty list.
-<<<<<<< HEAD
       return articles;
     }
 
     // Download the updated feed contents
     logger.info(`${info.status} Feed has new content: ${feed.url}`);
-=======
-      return [];
-    }
-
-    // Download the updated feed contents
-    logger.debug(`${info.status} Feed has new content: ${feed.url}`);
->>>>>>> commented check for now
     articles = await parse(
       addHeaders(
         {
@@ -201,11 +171,7 @@ module.exports = async function processor(job) {
       )
     );
     // Transform the list of articles to a list of Post objects
-<<<<<<< HEAD
     articles = articlesToPosts(articles);
-=======
-    articles = articles.map(article => Post.fromArticle(article));
->>>>>>> commented check for now
 
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;
@@ -219,24 +185,8 @@ module.exports = async function processor(job) {
           info.contentType ? `(${info.contentType})` : ''
         }`
       );
-<<<<<<< HEAD
-<<<<<<< HEAD
     } else {
       logger.error({ error }, `Unable to process feed ${feed.url}`);
-=======
-      feed.saveInvalid(`${feed.url} not a valid feed`);
-      articles = [];
-    } else {
-      logger.error({ error }, `Unable to process feed ${feed.url}`);
-      feed.saveInvalid(`Unable to process feed ${feed.url}`);
->>>>>>> commented check for now
-=======
-      feed.setInvalid(`${feed.url} not a valid feed`);
-      articles = [];
-    } else {
-      logger.error({ error }, `Unable to process feed ${feed.url}`);
-      feed.setInvalid(`Unable to process feed ${feed.url}`);
->>>>>>> changes from DH feedback
       throw error;
     }
   }
