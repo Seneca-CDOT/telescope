@@ -31,14 +31,17 @@ class Feed {
   }
 
   /**
-   * Saves the current Feed to the database as a key and value as a reason
+   * Adds the current Feed to the database with the specified reason
    */
   setInvalid(reason) {
     setInvalidFeed(this.id, reason);
   }
 
+  /**
+   * Checks whether the current feed is valid or not
+   */
   isInvalid() {
-    isInvalid(this.id);
+    return isInvalid(this.id);
   }
 
   /**

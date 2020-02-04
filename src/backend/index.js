@@ -44,6 +44,15 @@ async function updateFeed(feed) {
 }
 
 /**
+ * Invalidates a feed
+ * @param {Feed} feed
+ */
+async function invalidateFeed(feedData) {
+  const feed = Feed.parse(feedData);
+  await feed.setInvalid(feedData.reason || 'unknown reason');
+}
+
+/**
  * Process all of these Feed objects into Redis and the feed queue.
  * @param {Array<Feed>} feeds - the parsed feed Objects to be processed.
  */
@@ -55,9 +64,11 @@ function processFeeds(feeds) {
       // Add a job to the feed queue to process all of this feed's posts.
       await feedQueue.addFeed(currentFeed);
       // If failed, set the feed to invalid and save to Redis.
-      feedQueue.on('failed', (job, err) => {
-        currentFeed.setInvalid(err.message);
-      });
+      feedQueue.on('failed', job =>
+        invalidateFeed(job.data).catch(error =>
+          logger.error({ error }, 'Unable to invalidate feed')
+        )
+      );
     })
   );
 }

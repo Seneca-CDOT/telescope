@@ -1,3 +1,5 @@
+const RedisMock = require('ioredis-mock');
+
 const {
   addFeed,
   getFeed,
@@ -13,6 +15,12 @@ const {
 
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
+
+const redis = new RedisMock({
+  data: {
+    't:feed:testInvalidFeed:invalid': 'invalid',
+  },
+});
 
 describe('Storage tests for feeds', () => {
   const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith');
@@ -32,6 +40,7 @@ describe('Storage tests for feeds', () => {
       addFeed(feed2),
       addFeed(feed3),
       addFeed(feed4),
+      addFeed(feed5),
       setInvalidFeed(feed5.id, 'This just fails'),
     ])
   );
@@ -70,11 +79,11 @@ describe('Storage tests for feeds', () => {
   });
 
   it('feed4 should be a valid feed', async () => {
-    expect(await isInvalid(feed4.id)).toBe(0);
+    expect(await isInvalid(feed4.id)).toBe(null);
   });
 
   it('feed5 should be an invalid feed', async () => {
-    expect(await isInvalid(feed5.id)).toBe(1);
+    expect(await redis.get('t:feed:testInvalidFeed:invalid')).toBe('invalid');
   });
 });
 

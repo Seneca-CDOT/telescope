@@ -190,6 +190,7 @@ module.exports = async function processor(job) {
       throw error;
 =======
   const invalid = await feed.isInvalid();
+<<<<<<< HEAD
   if (!invalid) {
 >>>>>>> other changes
     try {
@@ -221,21 +222,72 @@ module.exports = async function processor(job) {
 
         // No posts were processed, return an empty list.
         return [];
+=======
+  if (invalid) {
+    logger.info(`Skipping resource at ${feed.url}. Feed previously marked invalid.`);
+    return [];
+  }
+  try {
+    info = await getFeedInfo(feed);
+    // If we get no new version info, there's nothing left to do.
+    if (!info.shouldDownload) {
+      // Log some common cases we see, with a general message if none of these
+      switch (info.status) {
+        case 304:
+          logger.debug(`${info.status} Feed is up-to-date: ${feed.url}`);
+          break;
+        case 404:
+          logger.warn(`${info.status} Feed not found: ${feed.url}`);
+          break;
+        case 410:
+          logger.warn(`${info.status} Feed no longer available: ${feed.url}`);
+          break;
+        case 429:
+          logger.warn(`${info.status} Feed requested too many times: ${feed.url}`);
+          break;
+        case 500:
+        case 599:
+          logger.warn(`${info.status} Feed server error: ${feed.url}`);
+          break;
+        default:
+          logger.debug(`${info.status} Feed not downloaded: ${feed.url}`);
+          break;
+>>>>>>> some changes
       }
 
-      // Download the updated feed contents
-      logger.debug(`${info.status} Feed has new content: ${feed.url}`);
-      articles = await parse(
-        addHeaders(
-          {
-            url: feed.url,
-            // ms to wait for a connection to be assumed to have failed
-            timeout: 20 * 1000,
-            gzip: true,
-          },
-          feed
-        )
+      // No posts were processed, return an empty list.
+      return [];
+    }
+
+    // Download the updated feed contents
+    logger.debug(`${info.status} Feed has new content: ${feed.url}`);
+    articles = await parse(
+      addHeaders(
+        {
+          url: feed.url,
+          // ms to wait for a connection to be assumed to have failed
+          timeout: 20 * 1000,
+          gzip: true,
+        },
+        feed
+      )
+    );
+    // Transform the list of articles to a list of Post objects
+    articles = articles.map(article => Post.fromArticle(article));
+
+    // Version info for this feed changed, so update the database
+    feed.etag = feed.etag || info.etag;
+    feed.lastModified = feed.lastModified || info.lastModified;
+    await feed.save();
+  } catch (error) {
+    // If the feedparser can't parse this, we get a 'Not a feed' error
+    if (error.message === 'Not a feed') {
+      logger.info(
+        `Skipping resource at ${feed.url}, not a valid feed ${
+          info.contentType ? `(${info.contentType})` : ''
+        }`
       );
+<<<<<<< HEAD
       // Transform the list of articles to a list of Post objects
       articles = articles.map(article => Post.fromArticle(article));
 
@@ -257,9 +309,13 @@ module.exports = async function processor(job) {
         throw error;
       }
 >>>>>>> more changes
+=======
+      articles = [];
+    } else {
+      logger.error({ error }, `Unable to process feed ${feed.url}`);
+      throw error;
+>>>>>>> some changes
     }
-  } else {
-    logger.info(`Ignoring ${feed.id} as it is an invalid feed`);
   }
   return articles;
 };
