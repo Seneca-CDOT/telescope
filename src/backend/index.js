@@ -54,6 +54,10 @@ function processFeeds(feeds) {
       const currentFeed = await updateFeed(feed);
       // Add a job to the feed queue to process all of this feed's posts.
       await feedQueue.addFeed(currentFeed);
+      // If failed, set the feed to invalid and save to Redis.
+      feedQueue.on('failed', (job, err) => {
+        feed.setInvalid(err);
+      });
     })
   );
 }
