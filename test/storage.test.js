@@ -69,6 +69,10 @@ describe('Storage tests for feeds', () => {
     expect(feeds[3].lastModified).toBe('last-modified');
   });
 
+  it('feed4 should be a valid feed', async () => {
+    expect(await isInvalid(feed4.id)).toBe(0);
+  });
+
   it('feed5 should be an invalid feed', async () => {
     expect(await isInvalid(feed5.id)).toBe(1);
   });
