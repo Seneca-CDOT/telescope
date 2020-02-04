@@ -8,6 +8,7 @@ const {
   getPosts,
   getPostsCount,
   setInvalidFeed,
+  isInvalid,
 } = require('../src/backend/utils/storage');
 
 const Feed = require('../src/backend/data/feed');
@@ -31,7 +32,7 @@ describe('Storage tests for feeds', () => {
       addFeed(feed2),
       addFeed(feed3),
       addFeed(feed4),
-      setInvalidFeed(feed5, 'This just fails'),
+      setInvalidFeed(feed5.id, 'This just fails'),
     ])
   );
 
@@ -68,8 +69,8 @@ describe('Storage tests for feeds', () => {
     expect(feeds[3].lastModified).toBe('last-modified');
   });
 
-  it('feed5 feed is invalid', () => {
-    expect(feed5.isInvalid).toBe(1);
+  it('feed5 should be an invalid feed', async () => {
+    expect(await isInvalid(feed5.id)).toBe(1);
   });
 });
 
