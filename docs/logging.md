@@ -4,24 +4,17 @@ This project uses [Pino](http://getpino.io/#/) to provide support for logging in
 
 ## How to use the logger
 
-1. In the module, import the parent logger using the require statement at the top of the file.
-2. Create a child logger from the parent logger instance and pass the "module" key with the value of your module name.
-3. Use the child logger to log important events.
-
-When you’re logging, it’s often handy or even necessary to categorize or sub-categorize the logs so more context can be added to the information that’s logged. Child loggers specialize the parent logger object, effectively adding more context to the information which is logged. For example, let’s say we want to know which module printed a certain log record. To do that, we call the parent’s logger.child method and pass in the new field in the constructor as shown in the code examples below.
-
 ```javascript
-const parentLogger = require('../src/backend/utils/logger');
-const log = parentLogger.child({ module: 'module-name' });
+const { logger } = require('../src/backend/utils/logger');
 
-log.info('Important information...');
+logger.info('Important information...');
+//...
+logger.error({ error }, 'There was an error doing some operation...');
 ```
-
-![childLoggerExample](./images/childLoggerExample.png)
 
 ## Logger Configuration
 
-The properties for the logger instance are configured according to the environment and the log level. The **NODE_ENV** and **LOG_LEVEL** enviroment variables can be set in the **.env** file. Also, the **LOG_FILE** environment variable can specify a file path where the logs will be written (for production mode only). When LOG_FILE is not specified, the logs are written to the console using the pino-pretty option.
+The properties for the logger instance are configured according to the environment and the log level. The **NODE_ENV** and **LOG_LEVEL** environment variables can be set in the **.env** file. Also, the **LOG_FILE** environment variable can specify a file path where the logs will be written (for production mode only). When LOG_FILE is not specified, the logs are written to the console using the pino-pretty option.
 
 ### Production Environment:
 
@@ -51,6 +44,6 @@ If **NODE_ENV = Development**, then the code:
 - Enables prettyPrint option and translates time from epoch time to local time.
 - Sets the log level to the LOG_LEVEL environment variable with 'debug' as the default level.
 
-In development mode, logs are formattted using pino-pretty module and are printed to the console (see image below).
+In development mode, logs are formatted using pino-pretty module and are printed to the console (see image below).
 
 ![logToConsole](./images/logToConsole.png)

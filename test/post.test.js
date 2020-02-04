@@ -5,11 +5,12 @@ const Post = require('../src/backend/data/post');
 const hash = require('../src/backend/data/hash');
 
 describe('Post data class tests', () => {
+  const text = 'post text';
+
   const data = {
     author: 'Post Author',
     title: 'Post Title',
     html: '<p>post text</p>',
-    text: 'post text',
     published: new Date('Thu, 20 Nov 2014 18:59:18 UTC'),
     updated: new Date('Thu, 20 Nov 2014 18:59:18 UTC'),
     url: 'https://user.post.com/?post-id=123',
@@ -23,7 +24,6 @@ describe('Post data class tests', () => {
       data.author,
       data.title,
       data.html,
-      data.text,
       data.published,
       data.updated,
       data.url,
@@ -41,6 +41,14 @@ describe('Post data class tests', () => {
 
   test('Post.parse() should be able to parse an Object into a Post', () => {
     expect(Post.parse(data)).toEqual(createPost());
+  });
+
+  test('Posts should have a (dynamic) text property', () => {
+    const post1 = Post.parse(data);
+    const post2 = createPost();
+
+    expect(post1.text).toEqual(text);
+    expect(post2.text).toEqual(text);
   });
 
   test('Post.parse() should work with missing fields', () => {
