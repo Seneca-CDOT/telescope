@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Post from '../Post/Post.jsx';
 
-import './textArea.css';
+import './TextArea.css';
 
 const TextArea = ({ className, posts }) => {
   return (

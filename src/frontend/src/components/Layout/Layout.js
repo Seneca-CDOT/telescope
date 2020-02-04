@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 
-import Header from '../Header/Header';
-import SideDrawer from '../SideDrawer/SideDrawer';
+import Header from '../Header';
+import SideDrawer from '../SideDrawer';
 import Backdrop from '../Backdrop';
-import TextArea from '../TextArea/TextArea';
-import Logo from '../Logo/Logo';
+import TextArea from '../TextArea';
+import Logo from '../Logo';
 
 import logo from '../../images/logo.svg';
 
 import data from '../../../../../dummyData.json';
 
-import './layout.css';
+import './Layout.css';
 
 const items = [
   { link: '#', text: 'Home' },

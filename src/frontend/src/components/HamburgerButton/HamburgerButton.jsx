@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './hamburger.css';
+import './HamburgerButton.css';
 
 const HamburgerButton = props => {
   return (

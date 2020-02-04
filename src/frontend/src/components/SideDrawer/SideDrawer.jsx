@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import List from '../shared/List/List.jsx';
-import Logo from '../Logo/Logo.jsx';
+import List from '../shared/List';
+import Logo from '../Logo';
 
-import './sideDrawer.css';
+import './SideDrawer.css';
 
 const SideDrawer = ({ className, items, show, logo }) => (
   <nav className={`${className} ${show ? 'open' : ''}`}>

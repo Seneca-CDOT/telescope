@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import List from '../shared/List/List.jsx';
-import HamburgerButton from '../HamburgerButton/HamburgerButton.jsx';
+import HamburgerButton from '../HamburgerButton';
 
-import './header.css';
+import './Header.css';
 
 const items = [
   { link: '/', text: 'test' },

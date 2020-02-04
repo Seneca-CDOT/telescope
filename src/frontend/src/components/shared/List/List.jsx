@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import ListItem from './ListItem/ListItem';
+import ListItem from './ListItem';
 
 const List = ({ items, className }) => {
   return (
