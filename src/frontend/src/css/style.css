@@ -32,7 +32,7 @@ body {
   right: 0;
 }
 
-.header {
+/* .header {
   background-color: #242424;
   margin: 2rem 0;
   width: 100vw;
@@ -88,9 +88,9 @@ body {
 }
 .header__title a:visited {
   color: #a4d4ff;
-}
+} */
 
-.sidedrawer {
+/* .sidedrawer {
   background-color: rgba(36, 36, 36, 0.9);
   width: 20vw;
   height: 100vh;
@@ -131,9 +131,9 @@ body {
   font-size: 1.7rem;
   text-decoration: none;
   border-bottom: 1px solid rgba(204, 204, 204, 0.2);
-}
+} */
 
-.backdrop {
+/* .backdrop {
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -145,9 +145,9 @@ body {
 }
 .backdrop.open {
   display: none;
-}
+} */
 
-.text-area {
+/* .text-area {
   width: 80vw;
   background: rgba(255, 255, 255, 0.7);
   margin: 3rem auto 0;
@@ -157,9 +157,9 @@ body {
 .text-area .post {
   padding: 3rem;
   text-align: center;
-}
+} */
 
-.main {
+/* .main {
   margin-top: 10rem;
   justify-content: center;
 }
@@ -170,4 +170,4 @@ body {
 .main__logo img {
   max-height: 30rem;
   margin: auto;
-}
+} */

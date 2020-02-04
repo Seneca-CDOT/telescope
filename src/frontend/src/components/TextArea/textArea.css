@@ -1,0 +1,11 @@
+.text-area {
+  width: 80vw;
+  background: rgba(255, 255, 255, 0.7);
+  margin: 3rem auto 0;
+  font-size: 1.7rem;
+  padding: rem 10rem;
+}
+.text-area .post {
+  padding: 3rem;
+  text-align: center;
+}

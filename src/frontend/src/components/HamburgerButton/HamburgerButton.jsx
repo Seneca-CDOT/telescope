@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './hamburger.css';
+
 const HamburgerButton = props => {
   return (
     <button className="hamburger-button" onClick={props.click}>
