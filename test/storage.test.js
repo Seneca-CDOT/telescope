@@ -1,5 +1,3 @@
-const RedisMock = require('ioredis-mock');
-
 const {
   addFeed,
   getFeed,
@@ -9,17 +7,10 @@ const {
   getPost,
   getPosts,
   getPostsCount,
-  isInvalid,
 } = require('../src/backend/utils/storage');
 
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
-
-const redis = new RedisMock({
-  data: {
-    't:feed:testInvalidFeed:invalid': 'invalid',
-  },
-});
 
 describe('Storage tests for feeds', () => {
   const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith');
