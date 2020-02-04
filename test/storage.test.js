@@ -9,7 +9,6 @@ const {
   getPost,
   getPosts,
   getPostsCount,
-  setInvalidFeed,
   isInvalid,
 } = require('../src/backend/utils/storage');
 
@@ -27,23 +26,8 @@ describe('Storage tests for feeds', () => {
   const feed2 = new Feed('James Smith 2', 'http://seneca.co/jsmith/2');
   const feed3 = new Feed('James Smith 2', 'http://seneca.co/jsmith/3', 'etag');
   const feed4 = new Feed('James Smith 2', 'http://seneca.co/jsmith/4', 'etag', 'last-modified');
-  const feed5 = new Feed(
-    'James Smith Invalid Feed',
-    'http://seneca.co/jsmith/4',
-    'etag',
-    'last-modified'
-  );
 
-  beforeAll(() =>
-    Promise.all([
-      addFeed(feed1),
-      addFeed(feed2),
-      addFeed(feed3),
-      addFeed(feed4),
-      addFeed(feed5),
-      setInvalidFeed(feed5.id, 'This just fails'),
-    ])
-  );
+  beforeAll(() => Promise.all([addFeed(feed1), addFeed(feed2), addFeed(feed3), addFeed(feed4)]));
 
   it('should allow retrieving a feed by id after inserting', async () => {
     const feed = await getFeed(feed1.id);
@@ -76,14 +60,6 @@ describe('Storage tests for feeds', () => {
     expect(feeds[1].lastModified).toBe('');
     expect(feeds[2].lastModified).toBe('');
     expect(feeds[3].lastModified).toBe('last-modified');
-  });
-
-  it('feed4 should be a valid feed', async () => {
-    expect(await isInvalid(feed4.id)).toBe(null);
-  });
-
-  it('feed5 should be an invalid feed', async () => {
-    expect(await redis.get('t:feed:testInvalidFeed:invalid')).toBe('invalid');
   });
 });
 
