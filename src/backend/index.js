@@ -56,7 +56,7 @@ function processFeeds(feeds) {
       await feedQueue.addFeed(currentFeed);
       // If failed, set the feed to invalid and save to Redis.
       feedQueue.on('failed', (job, err) => {
-        feed.setInvalid(err.message);
+        currentFeed.setInvalid(err.message);
       });
     })
   );

@@ -120,7 +120,6 @@ module.exports = async function processor(job) {
   const feed = Feed.parse(job.data);
   let articles = [];
   let info;
-<<<<<<< HEAD
 
   const invalid = feed.isInvalid();
   if (invalid) {
@@ -191,6 +190,10 @@ module.exports = async function processor(job) {
       throw error;
 =======
   if (!feed.isInvalid()) {
+=======
+  const valid = await feed.isInvalid();
+  if (!valid) {
+>>>>>>> updated index.js
     try {
       info = await getFeedInfo(feed);
       // If we get no new version info, there's nothing left to do.
@@ -257,7 +260,8 @@ module.exports = async function processor(job) {
       }
 >>>>>>> more changes
     }
-    logger.debug(`Skipping ${feed.id} as it is an invalid feed`);
+  } else {
+    logger.debug(`Ignoring ${feed.id} as it is an invalid feed`);
   }
   return articles;
 };
