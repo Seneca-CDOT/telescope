@@ -47,7 +47,8 @@
     "webhint": "cross-env PORT=3000 npm-run-all -r -p server hint",
     "lighthouse-index": "lighthouse http://localhost:3000 --output-path=./lighthouse-report.html --view",
     "lighthouse": "cross-env PORT=3000 npm-run-all -r -p server lighthouse-index",
-    "test-ci": "run-s prettier-check test"
+    "test-ci": "run-s prettier-check test",
+    "now-build": "npm run build"
   },
   "husky": {
     "hooks": {
@@ -102,6 +103,7 @@
   },
   "devDependencies": {
     "@hint/configuration-all": "2.0.0",
+    "@now/node": "1.4.0",
     "cross-env": "6.0.3",
     "eslint": "6.7.2",
     "eslint-config-airbnb-base": "14.0.0",
