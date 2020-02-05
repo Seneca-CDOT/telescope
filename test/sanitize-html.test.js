@@ -38,7 +38,7 @@ describe('Sanitize HTML', () => {
     const data = sanitizeHTML(
       '<iframe src="https://www.telescope.com" style="border:none;">Telescope</iframe>'
     );
-    expect(data).toBe('<iframe>Telescope</iframe>');
+    expect(data).toBe('Telescope');
   });
 
   test('<pre> with inline style, sanitize strips inline style', () => {
