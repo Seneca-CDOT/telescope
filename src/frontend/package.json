@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "telescope",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
@@ -31,8 +31,8 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "start": "npm run develop",
     "serve": "gatsby serve",
+<<<<<<< HEAD
     "clean": "gatsby clean"
   },
   "repository": {
@@ -41,5 +41,9 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
+=======
+    "clean": "gatsby clean",
+    "compile-sass": "node-sass src/sass/main.scss src/css/style.css -w"
+>>>>>>> Fix #580: updating package.json, package.json in src/frontend and gatsby-config.js
   }
 }
