@@ -34,6 +34,13 @@ describe('Sanitize HTML', () => {
     );
   });
 
+  test('<iframe> gets removed after run through sanitizeHTML', () => {
+    const data = sanitizeHTML(
+      '<iframe src="https://www.telescope.com" style="border:none;">Telescope</iframe>'
+    );
+    expect(data).toBe('<iframe>Telescope</iframe>');
+  });
+
   test('<pre> with inline style, sanitize strips inline style', () => {
     const data = sanitizeHTML('<pre class="brush: plain; title: ; notranslate">Hello World</pre>');
     expect(data).toBe('<pre>Hello World</pre>');
