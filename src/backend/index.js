@@ -45,11 +45,15 @@ async function updateFeed(feed) {
 
 /**
  * Invalidates a feed
- * @param {Feed} feed
+ * @param feedData - Object containing feed data
  */
 async function invalidateFeed(feedData) {
   const feed = Feed.parse(feedData);
   await feed.setInvalid(feedData.reason || 'unknown reason');
+  logger.info(
+    `Invalidating feed ${feedData.url} for the following reason: ${feedData.reason ||
+      'unknown reason'}`
+  );
 }
 
 /**
