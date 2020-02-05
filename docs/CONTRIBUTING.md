@@ -23,19 +23,18 @@ Please submit pull requests in response to open issues. If you have a bug or fea
 
 For instructions on how to setup your Telescope environment, please see [Environment Setup](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md).
 
-### Frontend Development
+## Technologies
 
-The Telescope frontend app lives in [`src/frontend`](../src/frontend) and is
-built using the React frontend framework [GatsbyJS](https://www.gatsbyjs.org/).
-You are encouraged to read the [GatsbyJS docs](https://www.gatsbyjs.org/docs/)
-in order to understand how everything works, and what the [files and folders](https://www.gatsbyjs.org/docs/gatsby-project-structure/#folders) mean.
+Telescope uses quite a few different technologies, and we have some project specific
+docs available for each, including our:
 
-From the root of the project, you can run a number of GatsbyJS specific npm scripts:
+- database [Redis](redis.md)
+- frontend framework [GatsbyJS](gatsbyjs.md)
+- frontend query language [GraphQL](graphql.md)
+- single-sign-on (SSO) [login](login.md) using SAML2
+- backend logging framework [Pino](logging.md)
 
-1. [`npm run develop`](https://www.gatsbyjs.org/docs/gatsby-cli/#develop) to start the development server
-1. [`npm run build`](https://www.gatsbyjs.org/docs/gatsby-cli/#build) to build the site in `src/frontend/public` for production
-1. [`npm run serve`](https://www.gatsbyjs.org/docs/gatsby-cli/#serve) to serve the production site in `src/frontend/public` for testing
-1. [`npm run clean`](https://www.gatsbyjs.org/docs/gatsby-cli/#clean) to delete generated build files and folders
+If you're unsure about how something works, talk to one of us on [#telescope Slack channel](https://seneca-open-source.slack.com/archives/CS5DGCAE5).
 
 ## Workflow in git and GitHub
 
@@ -105,7 +104,7 @@ Then use `add-feed`
 
 Before creating your pull request you may want to squash all your commits down to one. Ideally this should be done before you rebase on the upstream master.
 
-Before you begin make sure you are in your own branch and any and all changes you wish to make are commited.
+Before you begin make sure you are in your own branch and any and all changes you wish to make are committed.
 
 1. The first step is to find the base commit where your branch began. To find this you can run `git log` and look through the history for the commit before your first commit. Copy the hash from this commit.
 1. Run `git rebase -i` followed by the base commit's hash.
@@ -171,10 +170,6 @@ If you are doing any work that relates to the `package.json` file, you need to d
 - don't hand-edit this file to add packages. Instead, use `npm install --save package-name` or `npm install --save-dev package-name` to add packages to the `dependencies` or `devDependencies` sections.
 - if you touch `package.json`, always re-run `npm install`.
 
-## Logging
-
-The logger.js module, in the lib directory under the src folder of the repository, exports a logger instance that can be imported in other files and used to log important events in production as well as help in debugging during development. Refer to [logging.md](logging.md) for more details.
-
 ## Reports
 
 There are a number of reports that get generated, and can aid in developer understanding.
@@ -197,18 +192,3 @@ npm run webhint
 
 This will start the web server and run webhint in a browser. A text summary will
 be printed to the console, and a dynamic HTML version created in `hint-report/http-localhost-3000/index.html`.
-
-## MVP Features
-
-These features are the basic elements of what we are trying to accomplish, and are explained in further detail in [overview.md](https://github.com/Seneca-CDOT/telescope/blob/master/docs/overview.md#mvp-features):
-
-- [ ] Written in one of node.js or Python, or a mix of the two if that makes sense
-- [ ] Able to parse and use the existing [Planet Feed List format](https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List), especially RSS and Atom feeds
-- [ ] Static HTML generated from current feed posts, shown in chronological order
-- [ ] Logging, especially of errors or other issues when downloading and parsing feeds
-- [ ] Process should be automatic, running continually, restart itself if it crashes
-- [ ] Ability to send emails to admins, users when things go wrong or need attention
-- [ ] Everything is configurable. It should be easy for the admin(s) to turn features on and off via "feature flags." It should be easy to merge new features and flag them off until they are ready to be used.
-- [ ] Test harness and an initial set of tests
-- [ ] Use of CI/CD, running tests and doing automatic deploys
-- [ ] Running on Seneca's [Kubernetes](https://kubernetes.io/) container cloud
