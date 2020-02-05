@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import List from './shared/List/List';
 import HamburgerButton from './shared/HamburgerButton';
+import { Link } from 'gatsby';
+import { ProfilePage } from '../pages/profile';
 
 const items = [
   { link: '/', text: 'test' },
@@ -17,6 +19,7 @@ const Header = ({ className, drawerHandler, scrolled }) => (
       </div>
       <div className={`${className}__title`}>
         <a href="/">Telescope</a>
+        <Link to="/profile">Profile Page</Link>
       </div>
       <div className="spacer" />
       <List items={items} className={`${className}__navigation`} />
