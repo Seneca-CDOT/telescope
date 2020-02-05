@@ -1,7 +1,7 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "gatsby-for-telescope",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Site generator for Telescope project",
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
@@ -37,12 +37,5 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "compile-sass": "node-sass src/sass/main.scss src/css/style.css -w"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
