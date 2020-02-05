@@ -19,11 +19,12 @@ services:
       - login
     ports:
       - '$PORT:$PORT'
-    restart_policy:
-      condition: any
-      delay: 5s
-      max_attempts: 3
-      window: 120s
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 3
+        window: 120s
 
   redis:
     image: redis:latest
