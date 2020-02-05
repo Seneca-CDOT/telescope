@@ -8,7 +8,8 @@
 
 html {
   /*assuming browser font default is 16px*/
-  font-size: 62.5%; /*translates to 10px -> root font*/
+  font-size: 62.5%;
+  /*translates to 10px -> root font*/
 }
 
 /* font properties are stated here
