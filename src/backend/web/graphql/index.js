@@ -43,9 +43,8 @@ module.exports.typeDefs = graphql`
   # Post filters
   input PostFilter {
     author: String
-    fromDate: String
-    toDate: String
-    date: String
+    fromDate: Int
+    toDate: Int
     url: String
   }
 
@@ -132,12 +131,10 @@ module.exports.resolvers = {
             return result.filter(post => post.author === filter.author);
           }
           // check if published date is between two provided dates
-          if (filter.fromDate && filter.toDate) {
-            const fromDate = new Date(filter.fromDate);
-            const toDate = new Date(filter.toDate);
-            return result.filter(
-              posts => parseInt(posts.published, 10) >= fromDate && posts.published <= toDate
-            );
+          if (filter.fromDate || filter.toDate) {
+            const fromDate = filter.fromDate ? new Date(filter.fromDate * 1000) : new Date();
+            const toDate = filter.toDate ? new Date(filter.toDate * 1000) : new Date();
+            return result.filter(post => post.published >= fromDate && post.published <= toDate);
           }
           // check if url is equal to what we're searching for
           if (filter.url) {
