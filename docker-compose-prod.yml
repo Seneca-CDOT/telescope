@@ -19,23 +19,13 @@ services:
       - login
     ports:
       - '$PORT:$PORT'
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
 
   redis:
     image: redis:latest
     ports:
       - '$REDIS_PORT:$REDIS_PORT'
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
 
   # SSO Identity Provider test service, https://simplesamlphp.org
   # Access to the authentication page via http://localhost:8080/simplesaml or https://localhost:8443/simplesaml
@@ -51,12 +41,7 @@ services:
       - '8080:8080'
       # https port
       - '8443:8443'
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
 
   nginx:
     image: nginx:latest
@@ -67,15 +52,11 @@ services:
     ports:
       - 80:80
       - 443:443
-    deploy:
-      restart_policy:
-        condition: any
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
     # This makes nginx reload its configuration (and certificates) every six hours in the background and
     # launches nginx in the foreground
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+
   certbot:
     image: certbot/certbot
     volumes:
