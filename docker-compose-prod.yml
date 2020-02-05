@@ -3,7 +3,6 @@
 version: '3'
 
 services:
-  # First service
   telescope:
     build:
       context: .
@@ -17,20 +16,28 @@ services:
       - REDIS_URL=redis://redis:${REDIS_PORT}
     depends_on:
       - redis
+      - login
     ports:
       - '$PORT:$PORT'
-    restart: always
+    restart_policy:
+      condition: any
+      delay: 5s
+      max_attempts: 3
+      window: 120s
 
-  # Second service
   redis:
     image: redis:latest
     ports:
       - '$REDIS_PORT:$REDIS_PORT'
+    restart_policy:
+      condition: any
+      delay: 5s
+      max_attempts: 3
+      window: 120s
 
-  # Third service
   # SSO Identity Provider test service, https://simplesamlphp.org
   # Access to the authentication page via http://localhost:8080/simplesaml or https://localhost:8443/simplesaml
-  ssoipd:
+  login:
     environment:
       - SIMPLESAMLPHP_SP_ENTITY_ID=${SAML2_CLIENT_ID:-saml-poc}
       - SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=${SAML2_REDIRECT_URI}
@@ -42,10 +49,14 @@ services:
       - '8080:8080'
       # https port
       - '8443:8443'
-    restart: always
+    restart_policy:
+      condition: any
+      delay: 5s
+      max_attempts: 3
+      window: 120s
+
   nginx:
     image: nginx:latest
-    container_name: production_nginx
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ../certbot/conf:/etc/letsencrypt
@@ -53,11 +64,18 @@ services:
     ports:
       - 80:80
       - 443:443
-    restart: always
+    restart_policy:
+      condition: any
+      delay: 5s
+      max_attempts: 3
+      window: 120s
+    # This makes nginx reload its configuration (and certificates) every six hours in the background and
+    # launches nginx in the foreground
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
   certbot:
     image: certbot/certbot
     volumes:
       - ../certbot/conf:/etc/letsencrypt
       - ../certbot/www:/var/www/certbot
+    # This will check if your certificate is up for renewal every 12 hours as recommended by Let’s Encrypt
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
