@@ -16,7 +16,7 @@ const Header = ({ className, drawerHandler, scrolled }) => (
         <HamburgerButton click={drawerHandler} />
       </div>
       <div className={`${className}__title`}>
-        <a href="/">Telescope</a>
+        <a href="/">Hot Pants</a>
       </div>
       <div className="spacer" />
       <List items={items} className={`${className}__navigation`} />
