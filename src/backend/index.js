@@ -67,12 +67,6 @@ function processFeeds(feeds) {
       const currentFeed = await updateFeed(feed);
       // Add a job to the feed queue to process all of this feed's posts.
       await feedQueue.addFeed(currentFeed);
-      // If failed, set the feed to invalid and save to Redis.
-      feedQueue.on('failed', job =>
-        invalidateFeed(job.data).catch(error =>
-          logger.error({ error }, 'Unable to invalidate feed')
-        )
-      );
     })
   );
 }
@@ -104,6 +98,11 @@ function loadFeedsIntoQueue() {
  * restart the process again, and repeat forever.
  */
 feedQueue.on('drained', loadFeedsIntoQueue);
+
+// If failed, set the feed to invalid and save to Redis.
+feedQueue.on('failed', job =>
+  invalidateFeed(job.data).catch(error => logger.error({ error }, 'Unable to invalidate feed'))
+);
 
 /**
  * Also load all feeds now and begin processing.
