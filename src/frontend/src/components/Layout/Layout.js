@@ -54,7 +54,7 @@ class Layout extends Component {
       postsData = await Promise.all(
         postsUrls.map(async ({ url }) => {
           const tmp = await fetch(`http://dev.telescope.cdot.systems${url}`);
-          const post = tmp.json();
+          const post = await tmp.json();
           return post;
         })
       );
