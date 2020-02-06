@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import List from './shared/List/List';
-import HamburgerButton from './shared/HamburgerButton';
-import { Link } from 'gatsby';
-import { ProfilePage } from '../pages/profile';
+import List from '../shared/List/List.jsx';
+import HamburgerButton from '../HamburgerButton';
+
+import './Header.css';
 
 const items = [
   { link: '/', text: 'test' },

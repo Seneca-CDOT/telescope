@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import Post from './shared/Post';
+import Post from '../Post/Post.jsx';
+
+import './TextArea.css';
 
 const TextArea = ({ className, posts }) => {
   return (
