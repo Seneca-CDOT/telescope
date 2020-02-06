@@ -99,7 +99,10 @@ function loadFeedsIntoQueue() {
  */
 feedQueue.on('drained', loadFeedsIntoQueue);
 
-// If failed, set the feed to invalid and save to Redis.
+/**
+ * If there is a failure in the queue for a job, set the feed to invalid
+ * and save to Redis
+ */
 feedQueue.on('failed', job =>
   invalidateFeed(job.data).catch(error => logger.error({ error }, 'Unable to invalidate feed'))
 );
