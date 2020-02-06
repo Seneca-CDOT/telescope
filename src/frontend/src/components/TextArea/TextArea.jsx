@@ -13,7 +13,7 @@ const TextArea = ({ className, posts }) => {
           <Post
             author={author}
             url={url}
-            content={html}
+            html={html}
             title={title}
             className={`${className}-item`}
           />
