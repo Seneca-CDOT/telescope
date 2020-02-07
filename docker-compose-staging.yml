@@ -4,6 +4,7 @@ version: '3'
 
 services:
   telescope:
+    container_name: telescope_staging
     build:
       context: .
       dockerfile: Dockerfile
@@ -53,6 +54,7 @@ services:
       - 80:80
       - 443:443
     restart: always
+    depends_on: telescope
     # This makes nginx reload its configuration (and certificates) every six hours in the background and
     # launches nginx in the foreground
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
