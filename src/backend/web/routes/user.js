@@ -15,6 +15,7 @@ router.get('/info', authenticate, (req, res) => {
     });
   }
   return res.json(req.user);
+
 });
 
 module.exports = router;

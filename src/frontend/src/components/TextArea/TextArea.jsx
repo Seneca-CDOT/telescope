@@ -8,9 +8,15 @@ import './TextArea.css';
 const TextArea = ({ className, posts }) => {
   return (
     <div className={className}>
-      {posts.map(({ name, url, text, title }, index) => (
+      {posts.map(({ author, html, published, title, site, url }, index) => (
         <Fragment key={index}>
-          <Post author={name} url={url} text={text} title={title} className={`${className}-item`} />
+          <Post
+            author={author}
+            url={url}
+            html={html}
+            title={title}
+            className={`${className}-item`}
+          />
         </Fragment>
       ))}
       <Post text={'this is a test'} />

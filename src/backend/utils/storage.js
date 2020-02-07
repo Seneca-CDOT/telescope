@@ -7,11 +7,15 @@ const postsKey = 't:posts';
 // Namespaces
 const feedNamespace = 't:feed:';
 const postNamespace = 't:post:';
+// Suffix
+const invalidSuffix = ':invalid';
 
 // "6Xoj0UXOW3" to "t:post:6Xoj0UXOW3"
 const createPostKey = id => postNamespace.concat(id);
 // "NirlSYranl" to "t:feed:NirlSYranl"
 const createFeedKey = id => feedNamespace.concat(id);
+// "NirlSYranl" to "t:feed:NirlSYranl:invalid"
+const createInvalidFeedKey = id => createFeedKey(id).concat(invalidSuffix);
 
 module.exports = {
   /**
@@ -46,6 +50,13 @@ module.exports = {
   getFeed: id => redis.hgetall(feedNamespace.concat(id)),
 
   getFeedsCount: () => redis.scard(feedsKey),
+
+  setInvalidFeed: (id, reason) => {
+    const key = createInvalidFeedKey(id);
+    redis.set(key, reason);
+  },
+
+  isInvalid: id => redis.exists(createInvalidFeedKey(id)),
 
   /**
    * Posts
