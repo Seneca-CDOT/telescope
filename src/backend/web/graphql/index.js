@@ -1,6 +1,14 @@
+const { GraphQLDate } = require('graphql-iso-date');
+
 const { gql: graphql } = require('apollo-server-express');
 
-const { getFeedsCount, getFeeds, getPostsCount, getPosts } = require('../../utils/storage');
+const {
+  getFeedsCount,
+  getFeeds,
+  getPostsCount,
+  getPosts,
+  getPostsByDate,
+} = require('../../utils/storage');
 
 const Post = require('../../data/post');
 const Feed = require('../../data/feed');
@@ -43,8 +51,8 @@ module.exports.typeDefs = graphql`
   # Post filters
   input PostFilter {
     author: String
-    fromDate: Int
-    toDate: Int
+    fromDate: Date
+    toDate: Date
     url: String
   }
 
@@ -55,22 +63,11 @@ module.exports.typeDefs = graphql`
     url: String
   }
 
-  # Input filters
-  input StringFilter {
-    eq: String
-    ne: String
-    in: String
-    nin: String
-    regex: String
-  }
-
-  input IntFilter {
-    eq: Int
-    ne: Int
-  }
+  scalar Date
 `;
 
 module.exports.resolvers = {
+  Date: GraphQLDate,
   Query: {
     /**
      * @description Takes an id and returns a Feed object
@@ -132,9 +129,10 @@ module.exports.resolvers = {
           }
           // check if published date is between two provided dates
           if (filter.fromDate || filter.toDate) {
-            const fromDate = filter.fromDate ? new Date(filter.fromDate * 1000) : new Date();
-            const toDate = filter.toDate ? new Date(filter.toDate * 1000) : new Date();
-            return result.filter(post => post.published >= fromDate && post.published <= toDate);
+            const fromDate = filter.fromDate ? filter.fromDate : new Date();
+            const toDate = filter.toDate ? filter.toDate : new Date();
+            const datePostIds = await getPostsByDate(fromDate, toDate);
+            return result.filter(post => datePostIds.includes(post.id));
           }
           // check if url is equal to what we're searching for
           if (filter.url) {
