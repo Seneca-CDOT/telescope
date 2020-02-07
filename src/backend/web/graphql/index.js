@@ -1,5 +1,4 @@
 const { GraphQLDate } = require('graphql-iso-date');
-
 const { gql: graphql } = require('apollo-server-express');
 
 const {
