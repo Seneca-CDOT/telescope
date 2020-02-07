@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Header from '../Header';
+import Banner from '../Banner';
 import SideDrawer from '../SideDrawer';
 import Backdrop from '../Backdrop';
 import TextArea from '../TextArea';
@@ -83,6 +84,7 @@ class Layout extends Component {
   render() {
     return (
       <>
+        <Banner className="banner" />
         <Logo logo={logo} className="main" />
         <Header
           className="header"

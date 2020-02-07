@@ -2,6 +2,20 @@
   "name": "@seneca/telescope-frontend",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
+    "@fortawesome/fontawesome-svg-core": "1.2.27",
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "@fortawesome/free-regular-svg-icons": "5.12.1",
+=======
+>>>>>>> added arrow button but not styled
+=======
+    "@fortawesome/free-regular-svg-icons": "5.12.1",
+>>>>>>> attempt of styling the button I guess
+    "@fortawesome/free-solid-svg-icons": "5.12.1",
+    "@fortawesome/react-fontawesome": "0.1.8",
+=======
+>>>>>>> updated work for banner
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.8.2",
