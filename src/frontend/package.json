@@ -1,9 +1,5 @@
 {
   "name": "telescope",
-  "private": true,
-  "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",

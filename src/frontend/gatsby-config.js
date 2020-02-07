@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Telescope`,
     description: `A tool for tracking blogs in orbit around Seneca's open source involvement`,
-    author: `ICT Students and professors`,
+    author: `SDDS Students and professors`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
