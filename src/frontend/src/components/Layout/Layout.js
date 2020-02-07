@@ -93,7 +93,7 @@ class Layout extends Component {
         />
         <Backdrop click={this.backdropClick} show={this.state.sideDrawerOpen} />
         <main className="main">
-          <TextArea className="text-area" style="height: 100%" posts={this.state.posts} />
+          <TextArea className="text-area" style={{ height: '100%' }} posts={this.state.posts} />
         </main>
         <footer>© {new Date().getFullYear()}</footer>
       </>
