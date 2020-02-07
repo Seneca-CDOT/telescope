@@ -67,7 +67,9 @@ module.exports.typeDefs = graphql`
 `;
 
 module.exports.resolvers = {
+  // Custom Date scalar from package
   Date: GraphQLDate,
+
   Query: {
     /**
      * @description Takes an id and returns a Feed object
@@ -127,7 +129,7 @@ module.exports.resolvers = {
           if (filter.author) {
             return result.filter(post => post.author === filter.author);
           }
-          // check if published date is between two provided dates
+          // check if post's date is between two provided dates
           if (filter.fromDate || filter.toDate) {
             const fromDate = filter.fromDate ? filter.fromDate : new Date();
             const toDate = filter.toDate ? filter.toDate : new Date();
