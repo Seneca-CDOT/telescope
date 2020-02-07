@@ -103,9 +103,10 @@ feedQueue.on('drained', loadFeedsIntoQueue);
  * If there is a failure in the queue for a job, set the feed to invalid
  * and save to Redis
  */
-feedQueue.on('failed', job =>
+// Commenting out below for now as it is suspected to be crashing staging server
+/* feedQueue.on('failed', job =>
   invalidateFeed(job.data).catch(error => logger.error({ error }, 'Unable to invalidate feed'))
-);
+); */
 
 /**
  * Also load all feeds now and begin processing.
