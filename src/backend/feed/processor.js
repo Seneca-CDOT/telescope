@@ -120,7 +120,11 @@ module.exports = async function processor(job) {
   const feed = Feed.parse(job.data);
   let articles = [];
   let info;
-
+  const invalid = await feed.isInvalid();
+  if (invalid) {
+    logger.info(`Skipping resource at ${feed.url}. Feed previously marked invalid`);
+    return [];
+  }
   try {
     info = await getFeedInfo(feed);
     // If we get no new version info, there's nothing left to do.

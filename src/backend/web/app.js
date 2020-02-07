@@ -16,6 +16,10 @@ const router = require('./routes');
 const secret = authentication.init(passport);
 const app = express();
 
+// Allow CORS on our routes
+app.use(cors());
+app.options('*', cors());
+
 // Add the Apollo server to app and define the `/graphql` endpoint
 const server = new ApolloServer({
   typeDefs,
@@ -40,8 +44,6 @@ app.use(session({ secret, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Allow CORS on our routes
-app.use(cors());
 // Provide a standard `/health` endpoint to check on state of the app
 app.use('/health', healthcheck());
 // Include our router with all endpoints

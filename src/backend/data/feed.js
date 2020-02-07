@@ -1,6 +1,6 @@
 const normalizeUrl = require('normalize-url');
 
-const { getFeed, addFeed } = require('../utils/storage');
+const { getFeed, addFeed, setInvalidFeed, isInvalid } = require('../utils/storage');
 const hash = require('./hash');
 
 const urlToId = url => hash(normalizeUrl(url));
@@ -28,6 +28,20 @@ class Feed {
    */
   save() {
     addFeed(this);
+  }
+
+  /**
+   * Adds the current Feed to the database with the specified reason
+   */
+  setInvalid(reason) {
+    setInvalidFeed(this.id, reason);
+  }
+
+  /**
+   * Checks whether the current feed is valid or not
+   */
+  isInvalid() {
+    return isInvalid(this.id);
   }
 
   /**
