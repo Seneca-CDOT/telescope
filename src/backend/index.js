@@ -47,14 +47,16 @@ async function updateFeed(feed) {
  * Invalidates a feed
  * @param feedData - Object containing feed data
  */
-async function invalidateFeed(feedData) {
+// Commented out as of now as it is breaking the staging server. Uncomment
+// this block and 109 to enable invalidating feeds
+/* async function invalidateFeed(feedData) {
   const feed = Feed.parse(feedData);
   await feed.setInvalid(feedData.reason || 'unknown reason');
   logger.info(
     `Invalidating feed ${feedData.url} for the following reason: ${feedData.reason ||
       'unknown reason'}`
   );
-}
+} */
 
 /**
  * Process all of these Feed objects into Redis and the feed queue.
@@ -103,9 +105,10 @@ feedQueue.on('drained', loadFeedsIntoQueue);
  * If there is a failure in the queue for a job, set the feed to invalid
  * and save to Redis
  */
-feedQueue.on('failed', job =>
+// Commenting out below for now as it is suspected to be crashing staging server
+/* feedQueue.on('failed', job =>
   invalidateFeed(job.data).catch(error => logger.error({ error }, 'Unable to invalidate feed'))
-);
+); */
 
 /**
  * Also load all feeds now and begin processing.
