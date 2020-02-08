@@ -115,7 +115,6 @@ module.exports.resolvers = {
     getPosts: async (parent, { filter, page, perPage }) => {
       const prPage = perPage > maxPostsPerPage ? maxPostsPerPage : perPage;
 
-      // For Date Filter
       if (!filter) {
         const numOfPosts = await getPostsCount();
         const first = page * prPage;
@@ -131,7 +130,7 @@ module.exports.resolvers = {
       if (filter.fromDate || filter.toDate) {
         const fromDate = filter.fromDate ? filter.fromDate : new Date();
         const toDate = filter.toDate ? filter.toDate : new Date();
-        const postIds = await getPostsByDate(fromDate, toDate); // Get all results within the date
+        const postIds = await getPostsByDate(fromDate, toDate);
         // check if # of filtered results are less than max results allowed per page.
         if (postIds.length < prPage) {
           return Promise.all(postIds.map(Post.byId)); // return all the posts' info
