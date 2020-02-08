@@ -8,11 +8,3 @@ describe('Health Check', () => {
     expect(res.body).toHaveProperty('uptime');
   });
 });
-
-describe('GET "/" endpoint', () => {
-  it('should return status 200 and content-type of text/html', async () => {
-    const res = await request(app).get('/');
-    expect(res.status).toEqual(200);
-    expect(res.get('Content-type')).toContain('text/html');
-  });
-});

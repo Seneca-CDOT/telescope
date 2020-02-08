@@ -14,7 +14,7 @@ const user = require('./user');
 
 const router = express.Router();
 
-router.use(express.static(path.join(__dirname, '../../../frontend')));
+router.use(express.static(path.join(__dirname, '../../../frontend/public')));
 
 // Legacy CDOT Planet static assets
 router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
