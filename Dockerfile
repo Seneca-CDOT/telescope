@@ -21,12 +21,16 @@ WORKDIR "/telescope"
 # Copy before bundle app source to make sure package-lock.json never gets involved
 COPY package.json ./
 COPY .npmrc ./
+# Bundle app source
+COPY . .
 
 # Install all Node.js modules on the image
 RUN npm install --no-package-lock
 
-# Bundle app source
-COPY . .
+# Build Frontend before deployment
+RUN npm run build
+
+# ADD . src/frontend/public
 
 # User is root by default (only for development)
 

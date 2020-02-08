@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Login from '../Login';
 
 import List from '../shared/List/List.jsx';
 import HamburgerButton from '../HamburgerButton';
@@ -19,6 +20,7 @@ const Header = ({ className, drawerHandler, scrolled }) => (
       </div>
       <div className={`${className}__title`}>
         <a href="/">Telescope</a>
+        <Login />
       </div>
       <div className="spacer" />
       <List items={items} className={`${className}__navigation`} />
