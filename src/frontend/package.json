@@ -28,7 +28,6 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "compile-sass": "node-sass src/sass/main.scss src/css/style.css -w"
+    "clean": "gatsby clean"
   }
 }
