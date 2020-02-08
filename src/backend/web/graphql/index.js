@@ -126,7 +126,6 @@ module.exports.resolvers = {
 
           return Promise.all(postIds.map(Post.byId));
         }
-        return [];
       }
 
       if (filter.fromDate || filter.toDate) {
@@ -162,6 +161,7 @@ module.exports.resolvers = {
         }
         return urlResults.slice(page - 1 * perPage, page * prPage);
       }
+      return [];
     },
 
     /**
