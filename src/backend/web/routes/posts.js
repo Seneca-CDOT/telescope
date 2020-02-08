@@ -98,7 +98,11 @@ posts.get('/:id', async (req, res) => {
           res.append('Content-type', 'text/html').send(post.html);
           break;
         default:
-          res.append('Content-type', 'application/json').json(post);
+          if (accept.type() !== 'json' || accept.type() !== 'text' || accept.type() !== 'html') {
+            res.status(406).json({
+              message: 'Invalid content type',
+            });
+          }
           break;
       }
     }
