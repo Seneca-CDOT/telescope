@@ -135,11 +135,13 @@ module.exports.resolvers = {
         if (postIds.length < prPage) {
           return Promise.all(postIds.map(Post.byId)); // return all the posts' info
         }
+        console.log(postIds.length);
         // Otherwise do some pagination here
         const pageResult = postIds.slice(
-          page * perPage - 1 < 0 ? 0 : page * perPage,
+          page * perPage < 0 ? 0 : page * perPage,
           (page + 1) * prPage
         );
+        console.log(pageResult.length);
         return Promise.all(pageResult.map(Post.byId));
       }
       // Other filters use the getPosts() instead of getPostsByDate()
@@ -153,10 +155,7 @@ module.exports.resolvers = {
         if (authorResults.length < prPage) {
           return authorResults;
         }
-        return authorResults.slice(
-          page * perPage - 1 < 0 ? 0 : page * perPage,
-          (page + 1) * prPage
-        );
+        return authorResults.slice(page * perPage < 0 ? 0 : page * perPage, (page + 1) * prPage);
       }
 
       if (filter.url) {
@@ -165,7 +164,7 @@ module.exports.resolvers = {
         if (urlResults.length < prPage) {
           return urlResults;
         }
-        return urlResults.slice(page * perPage - 1 < 0 ? 0 : page * perPage, (page + 1) * prPage);
+        return urlResults.slice(page * perPage < 0 ? 0 : page * perPage, (page + 1) * prPage);
       }
       return [];
     },
