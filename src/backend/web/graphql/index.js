@@ -113,11 +113,11 @@ module.exports.resolvers = {
      * @return Array of 'perPage' number of Post objects
      */
     getPosts: async (parent, { filter, page, perPage }) => {
-      const numOfPosts = await getPostsCount();
       const prPage = perPage > maxPostsPerPage ? maxPostsPerPage : perPage;
 
       // For Date Filter
       if (!filter) {
+        const numOfPosts = await getPostsCount();
         const first = page * prPage;
 
         if (first < numOfPosts) {
@@ -141,6 +141,7 @@ module.exports.resolvers = {
         return Promise.all(pageResult.map(Post.byId));
       }
       // Other filters use the getPosts() instead of getPostsByDate()
+      const numOfPosts = await getPostsCount();
       const postIds = await getPosts(0, numOfPosts);
       const posts = await Promise.all(postIds.map(Post.byId));
 
