@@ -1,0 +1,12 @@
+.main {
+  margin-top: 10rem;
+  justify-content: center;
+}
+.main__logo {
+  text-align: center;
+  width: 100%;
+}
+.main__logo img {
+  max-height: 30rem;
+  margin: auto;
+}

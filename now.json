@@ -5,5 +5,9 @@
       "use": "@now/static-build",
       "config": { "distDir": "src/frontend/public" }
     }
-  ]
+  ],
+  "public": true,
+  "github": {
+    "silent": true
+  }
 }
