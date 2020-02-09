@@ -17,8 +17,6 @@ services:
     depends_on:
       - redis
       - login
-    ports:
-      - '$PORT:$PORT'
 
   redis:
     image: redis:latest
