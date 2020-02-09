@@ -49,11 +49,11 @@ class Layout extends Component {
   async getPosts(pageNum = 1) {
     let postsData = [];
     try {
-      const res = await fetch(`http://dev.telescope.cdot.systems/posts?page=${pageNum}`);
+      const res = await fetch(`https://dev.telescope.cdot.systems/posts?page=${pageNum}`);
       const postsUrls = await res.json();
       postsData = await Promise.all(
         postsUrls.map(async ({ url }) => {
-          const tmp = await fetch(`http://dev.telescope.cdot.systems${url}`);
+          const tmp = await fetch(`https://dev.telescope.cdot.systems${url}`);
           const post = await tmp.json();
           return post;
         })

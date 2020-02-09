@@ -24,8 +24,6 @@ services:
 
   redis:
     image: redis:latest
-    ports:
-      - '$REDIS_PORT:$REDIS_PORT'
     restart: always
 
   # SSO Identity Provider test service, https://simplesamlphp.org
@@ -34,6 +32,7 @@ services:
     environment:
       - SIMPLESAMLPHP_SP_ENTITY_ID=${SAML2_CLIENT_ID:-saml-poc}
       - SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=${SAML2_REDIRECT_URI}
+      - SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=${SLO_LOGOUT_CALLBACK_URL}
     # image owner's blog post https://medium.com/disney-streaming/setup-a-single-sign-on-saml-test-environment-with-docker-and-nodejs-c53fc1a984c9
     image: kristophjunge/test-saml-idp
     ports:
@@ -54,7 +53,8 @@ services:
       - 80:80
       - 443:443
     restart: always
-    depends_on: telescope
+    depends_on:
+      - telescope
     # This makes nginx reload its configuration (and certificates) every six hours in the background and
     # launches nginx in the foreground
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
