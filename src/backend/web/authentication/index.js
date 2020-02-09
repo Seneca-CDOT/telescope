@@ -1,9 +1,26 @@
+/**
+ * Allow switching between a real SAML2 SSO authentication strategy
+ * and a mock strategy via the MOCK_SSO environment variable.
+ *
+ * Set MOCK_SSO=1 to use the mock strategy.
+ */
+
 const SamlStrategy = require('passport-saml').Strategy;
 const fs = require('fs');
 const path = require('path');
 
-const { logger } = require('../utils/logger');
-const hash = require('../data/hash');
+const { logger } = require('../../utils/logger');
+const MockSamlStrategy = require('./mock-saml-strategy');
+const hash = require('../../data/hash');
+
+let Strategy;
+
+if (process.env.MOCK_SSO) {
+  logger.warn('Using Mock SSO authentication passport strategy');
+  Strategy = MockSamlStrategy;
+} else {
+  Strategy = SamlStrategy;
+}
 
 const telescopeLoginUrl = '/auth/login';
 
@@ -64,12 +81,6 @@ function getCert() {
   return cert;
 }
 
-try {
-  cert = fs.readFileSync(path.resolve(process.cwd(), './certs/key.pem'), 'utf8');
-} catch (error) {
-  logger.error({ error }, 'Unable to load certs/key.pem');
-}
-
 // Our SamlStrategy instance. Created by init() and exposed as `.strategy`
 let strategy;
 
@@ -102,7 +113,7 @@ function init(passport) {
   });
 
   // Setup SAML authentication strategy
-  strategy = new SamlStrategy(
+  strategy = new Strategy(
     {
       // See param details at https://github.com/bergie/passport-saml#config-parameter-details
       logoutUrl: SLO_LOGOUT_URL,
