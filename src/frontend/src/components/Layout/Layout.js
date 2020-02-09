@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Header from '../Header';
 import SideDrawer from '../SideDrawer';
@@ -33,7 +34,10 @@ class Layout extends Component {
   }
 
   componentDidMount() {
-    this.getPosts(this.state.numPages);
+    const { telescopeUrl } = this.props;
+    const { numPages } = this.state;
+
+    this.getPosts(numPages, telescopeUrl);
     window.addEventListener('scroll', () => {
       const isTop = window.scrollY > 320;
       if (isTop) this.setState({ scrolled: true });
@@ -41,19 +45,19 @@ class Layout extends Component {
 
       if (isScrollBottom()) {
         this.setState(prevState => ({ numPages: prevState.numPages + 1 }));
-        this.getPosts(this.state.numPages);
+        this.getPosts(numPages);
       }
     });
   }
 
-  async getPosts(pageNum = 1) {
+  async getPosts(pageNum = 1, telescopeUrl) {
     let postsData = [];
     try {
-      const res = await fetch(`https://dev.telescope.cdot.systems/posts?page=${pageNum}`);
+      const res = await fetch(`${telescopeUrl}/posts?page=${pageNum}`);
       const postsUrls = await res.json();
       postsData = await Promise.all(
         postsUrls.map(async ({ url }) => {
-          const tmp = await fetch(`https://dev.telescope.cdot.systems${url}`);
+          const tmp = await fetch(`${telescopeUrl}${url}`);
           const post = await tmp.json();
           return post;
         })
@@ -100,5 +104,9 @@ class Layout extends Component {
     );
   }
 }
+
+Layout.propTypes = {
+  telescopeUrl: PropTypes.string.isRequired,
+};
 
 export default Layout;
