@@ -1,5 +1,5 @@
-# This Docker file tends to be used only
-# for `development` and `test` stage
+# This Docker file is used  for
+# `development`, `test`, and `staging` enviornments
 #
 # CLI command to run this file: script="some-name" docker-compose up --build
 # `some-name` is one of the names provided under `scripts` tag in `package.json` file
@@ -8,37 +8,45 @@
 
 
 # Dockerfile
+#
+# -------------------------------------
+# Context: Build Context
+FROM node:lts-alpine as build
 
-# Use `node` long term stable image as the parent to build this image
-FROM node:lts
+# Tini Entrypoint for Alpine
+RUN apk add --no-cache tini
+ENTRYPOINT [ "/sbin/tini", "--"]
 
-# Use Redis image via compose-file
-
-# Change working directory on the image
+# Set Working Directory Context
 WORKDIR "/telescope"
 
-# Copy package.json and .npmrc from local to the image
-# Copy before bundle app source to make sure package-lock.json never gets involved
-COPY package.json ./
-COPY .npmrc ./
-# Bundle app source
+# Copy shared context
+COPY package.json .
+
+# -------------------------------------
+# Context: Dependencies
+FROM build AS dependencies
+
+# Get Entire Codebase
 COPY . .
 
-# Install all Node.js modules on the image
-RUN npm install --no-package-lock
-
-# Build Frontend before deployment
+# Install Production Modules, Build!
+RUN npm install --only=production --no-package-lock
 RUN npm run build
 
-# ADD . src/frontend/public
 
-# User is root by default (only for development)
+# -------------------------------------
+# Context: Release
+FROM build AS release
 
-# Expose the server port from compose file
+# GET deployment code from previous containers
+COPY --from=dependencies /telescope/node_modules /telescope/node_modules
+COPY --from=dependencies /telescope/src/frontend/public /telescope/src/frontend/public
+COPY ./src/backend ./src/backend
 
 # Environment variable with default value
 ENV script=start
 
 # Running telescope when the image gets built using a script
-# `script` is one of the scripts from `packege.json`, passed to the image
+# `script` is one of the scripts from `package.json`, passed to the image
 CMD ["sh", "-c", "npm run ${script}"]
