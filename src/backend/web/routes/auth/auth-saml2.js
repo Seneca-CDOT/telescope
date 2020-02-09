@@ -1,8 +1,8 @@
 const express = require('express');
 const passport = require('passport');
 
-const { samlMetadata, strategy } = require('../authentication');
-const { logger } = require('../../utils/logger');
+const { samlMetadata, strategy } = require('../../authentication');
+const { logger } = require('../../../utils/logger');
 
 const router = express.Router();
 const telescopeHomeUrl = '/';
@@ -41,7 +41,6 @@ function logout(req, res) {
         res.redirect(requestUrl);
       }
       req.session = null;
-      res.end();
       res.redirect('/');
     });
   } catch (error) {
@@ -58,7 +57,6 @@ router.post('/logout/callback', (req, res) => {
   req.logout();
   // TODO: Destroy the cookie session, this isn't working yet...
   req.session = null;
-  res.end();
   res.redirect('/');
 });
 
