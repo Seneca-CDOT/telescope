@@ -16,11 +16,10 @@ const router = require('./routes');
 const secret = authentication.init(passport);
 const app = express();
 
-// Disable Powered-By in the request header
-
 // Enable CORS and preflight checks on all routes
 app.use(cors());
 app.options('*', cors());
+// Disable Powered-By in the request header
 app.disable('x-powered-by');
 
 // Add the Apollo server to app and define the `/graphql` endpoint
