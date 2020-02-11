@@ -1,8 +1,8 @@
 const express = require('express');
 const passport = require('passport');
 
-const { samlMetadata, strategy } = require('../../authentication');
-const { logger } = require('../../../utils/logger');
+const { samlMetadata, strategy } = require('../authentication');
+const { logger } = require('../../utils/logger');
 
 const router = express.Router();
 const telescopeHomeUrl = '/';
