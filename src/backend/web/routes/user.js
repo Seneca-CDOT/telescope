@@ -1,12 +1,12 @@
 const express = require('express');
-const passport = require('passport');
 
+const { protect } = require('../authentication');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
 
 // Only authenticated users can use this route
-router.get('/info', passport.authenticate('saml'), (req, res) => {
+router.get('/info', protect, (req, res) => {
   if (!req.user) {
     logger.error('missing req.user!');
     return res.status(503).json({
