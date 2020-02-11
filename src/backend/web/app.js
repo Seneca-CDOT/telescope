@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const healthcheck = require('express-healthcheck');
 const cors = require('cors');
-const { hidePoweredBy } = require('helmet');
 const { ApolloServer } = require('apollo-server-express');
 
 const { typeDefs, resolvers } = require('./graphql');
@@ -18,11 +17,11 @@ const secret = authentication.init(passport);
 const app = express();
 
 // Disable Powered-By in the request header
-app.use(hidePoweredBy);
 
 // Enable CORS and preflight checks on all routes
 app.use(cors());
 app.options('*', cors());
+app.disable('x-powered-by');
 
 // Add the Apollo server to app and define the `/graphql` endpoint
 const server = new ApolloServer({
