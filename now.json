@@ -1,4 +1,9 @@
 {
+  "build": {
+    "env": {
+      "API_URL": "https://dev.telescope.cdot.systems"
+    }
+  },
   "builds": [
     {
       "src": "package.json",

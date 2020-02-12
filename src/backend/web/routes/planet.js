@@ -72,8 +72,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/compare', (req, res) => {
-  res.render('compare-planets');
-});
-
 module.exports = router;

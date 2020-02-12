@@ -1,6 +1,14 @@
+const { GraphQLDate } = require('graphql-iso-date');
 const { gql: graphql } = require('apollo-server-express');
+const normalize = require('normalize-url');
 
-const { getFeedsCount, getFeeds, getPostsCount, getPosts } = require('../../utils/storage');
+const {
+  getFeedsCount,
+  getFeeds,
+  getPostsCount,
+  getPosts,
+  getPostsByDate,
+} = require('../../utils/storage');
 
 const Post = require('../../data/post');
 const Feed = require('../../data/feed');
@@ -36,12 +44,32 @@ module.exports.typeDefs = graphql`
     getFeeds: [Feed]
     getFeedsCount: Int
     getPost(id: ID!): Post
-    getPosts(page: Int, perPage: Int): [Post]
+    getPosts(filter: PostFilter, page: Int, perPage: Int): [Post]
     getPostsCount: Int
   }
+
+  # Post filters
+  input PostFilter {
+    author: String
+    fromDate: Date
+    toDate: Date
+    url: String
+  }
+
+  # Feed filters
+  input FeedFilter {
+    id: String
+    author: String
+    url: String
+  }
+
+  scalar Date
 `;
 
 module.exports.resolvers = {
+  // Custom Date scalar from package
+  Date: GraphQLDate,
+
   Query: {
     /**
      * @description Takes an id and returns a Feed object
@@ -84,17 +112,57 @@ module.exports.resolvers = {
      * @param perPage Number of Post objects in every page
      * @return Array of 'perPage' number of Post objects
      */
-    getPosts: async (parent, { page, perPage }) => {
+    getPosts: async (parent, { filter, page, perPage }) => {
       const prPage = perPage > maxPostsPerPage ? maxPostsPerPage : perPage;
 
-      const numOFPosts = await getPostsCount();
-      const first = page * prPage;
+      if (!filter) {
+        const numOfPosts = await getPostsCount();
+        const first = page * prPage;
 
-      if (first < numOFPosts) {
-        const last = first + prPage < numOFPosts ? first + prPage : numOFPosts;
-        const postIds = await getPosts(first, last);
+        if (first < numOfPosts) {
+          const last = first + prPage < numOfPosts ? first + prPage : numOfPosts;
+          const postIds = await getPosts(first, last);
 
-        return Promise.all(postIds.map(id => Post.byId(id)));
+          return Promise.all(postIds.map(Post.byId));
+        }
+      }
+
+      if (filter.fromDate || filter.toDate) {
+        const fromDate = filter.fromDate ? filter.fromDate : new Date();
+        const toDate = filter.toDate ? filter.toDate : new Date();
+        const postIds = await getPostsByDate(fromDate, toDate);
+        // check if # of filtered results are less than max results allowed per page.
+        if (postIds.length < prPage) {
+          return Promise.all(postIds.map(Post.byId)); // return all the posts' info
+        }
+        // Otherwise do some pagination here
+        const pageResult = postIds.slice(
+          page * perPage === 0 ? 0 : page * perPage,
+          (page + 1) * prPage
+        );
+        return Promise.all(pageResult.map(Post.byId));
+      }
+      // Other filters use the getPosts() instead of getPostsByDate()
+      const numOfPosts = await getPostsCount();
+      const postIds = await getPosts(0, numOfPosts);
+      const posts = await Promise.all(postIds.map(Post.byId));
+
+      if (filter.author) {
+        const authorResults = posts.filter(post => post.author === filter.author);
+        // check if # of filtered results are less than max results allowed per page.
+        if (authorResults.length < prPage) {
+          return authorResults;
+        }
+        return authorResults.slice(page * perPage === 0 ? 0 : page * perPage, (page + 1) * prPage);
+      }
+
+      if (filter.url) {
+        const urlResults = posts.filter(post => normalize(post.url) === normalize(filter.url));
+        // check if # of filtered results are less than max results allowed per page.
+        if (urlResults.length < prPage) {
+          return urlResults;
+        }
+        return urlResults.slice(page * perPage === 0 ? 0 : page * perPage, (page + 1) * prPage);
       }
       return [];
     },
