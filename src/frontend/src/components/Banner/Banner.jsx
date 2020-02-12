@@ -1,13 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { faArrowAltCircleDown } from '@fortawesome/free-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-=======
->>>>>>> updated work for banner
 
 import './Banner.css';
 
@@ -31,49 +23,11 @@ const Banner = props => (
         ></path>
       </svg>
     </div>
-=======
-import banner from '../../images/hero-banner.png';
-=======
-import { faArrowAltCircleDown } from '@fortawesome/free-solid-svg-icons';
-=======
-import { faArrowAltCircleDown } from '@fortawesome/free-regular-svg-icons';
->>>>>>> attempt of styling the button I guess
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
->>>>>>> added arrow button but not styled
-
-import './Banner.css';
-
-const Banner = props => (
-  <div className="heroBanner">
-    <div className="h1">Telescope</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> basic banner, background and text not scaled properly
-=======
-    <button>
-      <FontAwesomeIcon icon={faArrowAltCircleDown} />
-    </button>
->>>>>>> added arrow button but not styled
-=======
-    <div className="button">
-      <button className="button" onClick={() => alert('Help')}>
-        <FontAwesomeIcon icon={faArrowAltCircleDown} size="5x" color="#335A7E" />
-      </button>
-    </div>
->>>>>>> attempt of styling the button I guess
   </div>
 );
 
 Banner.propTypes = {
   className: PropTypes.string,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  drawerHandler: PropTypes.func,
-  scrolled: PropTypes.bool,
->>>>>>> basic banner, background and text not scaled properly
-=======
->>>>>>> added arrow button but not styled
 };
 
 export default Banner;

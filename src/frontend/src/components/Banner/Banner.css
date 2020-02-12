@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 .heroBanner {
   background-color: black;
   height: 100vh;
@@ -12,37 +10,7 @@
   background-attachment: scroll;
   background-size: cover;
   height: 100vh;
-<<<<<<< HEAD
-}
-
-@media (min-width: 992px) {
-  .heroBanner {
-=======
-.heroBanner {
-  background-image: url(../../images/hero-banner.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: cover;
-  height: 100vh;
-}
-
-@media (min-width: 992px) {
-<<<<<<< HEAD
-  .banner {
->>>>>>> basic banner, background and text not scaled properly
-=======
-  .heroBanner {
->>>>>>> added arrow button but not styled
-    height: 100vh;
-    min-height: 40rem;
-  }
-  h1 {
-    font-size: 3rem;
-  }
-=======
   opacity: 0.7;
->>>>>>> updated work for banner
 }
 
 .h1 {
@@ -51,45 +19,6 @@
   font-family: 'Roboto';
   font-size: 17rem;
   font-weight: bold;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.button {
-  text-align: center;
-=======
-img {
-  height: 100vh;
-  width: 100vh;
-  object-fit: cover;
->>>>>>> initial work for banner
-=======
-  position: absolute;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-<<<<<<< HEAD
-  top: 25rem;
-  left: 15rem;
->>>>>>> basic banner, background and text not scaled properly
-=======
-  top: 24rem;
-  left: 22rem;
->>>>>>> added arrow button but not styled
-=======
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.button {
-  text-align: center;
->>>>>>> attempt of styling the button I guess
-=======
   top: 30%;
   left: 8%;
   opacity: 0.85;
@@ -101,5 +30,4 @@ img {
   position: absolute;
   top: 90%;
   left: 50%;
->>>>>>> updated work for banner
 }
