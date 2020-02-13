@@ -2,6 +2,7 @@ const { getPost, addPost } = require('../utils/storage');
 const { logger } = require('../utils/logger');
 const sanitizeHTML = require('../utils/sanitize-html');
 const textParser = require('../utils/text-parser');
+const Feed = require('./feed');
 const hash = require('./hash');
 const ArticleError = require('./article-error');
 
@@ -10,6 +11,16 @@ function toDate(date) {
     return date;
   }
   return new Date(date);
+}
+
+/**
+ * Makes sure that the given feed is a Feed and not just an id.  If the latter
+ * it gets the full feed.
+ * @param {Feed|String} feed a Feed object or feed id
+ * Returns a Promise<Feed>
+ */
+function ensureFeed(feed) {
+  return feed instanceof Feed ? Promise.resolve(feed) : Feed.byId(feed);
 }
 
 class Post {
@@ -22,15 +33,24 @@ class Post {
     this.updated = dateUpdated ? toDate(dateUpdated) : new Date();
     this.url = postUrl;
     this.guid = guid;
+
+    // We expect to get a real Feed vs. a feed id
+    if (!(feed instanceof Feed)) {
+      throw new Error(`expected feed to be a Feed Object, got '${feed}'`);
+    }
     this.feed = feed;
   }
 
   /**
-   * Save the current Post to the database.
+   * Save the current Post to the database, swapping the feed's id
+   * for the entire Feed object.
    * Returns a Promise.
    */
   save() {
-    addPost(this);
+    addPost({
+      ...this,
+      feed: this.feed.id,
+    });
   }
 
   /**
@@ -47,7 +67,7 @@ class Post {
    *
    * If data is missing, throws an error.
    */
-  static fromArticle(article, feed) {
+  static async createFromArticle(article, feed) {
     // Validate the properties we get, and if we don't have them all, throw
     if (!article) {
       throw new Error('unable to parse, missing article');
@@ -95,7 +115,7 @@ class Post {
 
     // NOTE: feedparser article properties are documented here:
     // https://www.npmjs.com/package/feedparser#list-of-article-properties
-    return new Post(
+    const post = new Post(
       article.title,
       // sanitized HTML version of the post
       sanitizedHTML,
@@ -108,14 +128,30 @@ class Post {
       article.guid,
       feed
     );
+    await post.save();
+    return post.id;
   }
 
   /**
-   * Creates a Post by extracting data from the given post-like object.
-   * @param {Object} o - an Object containing the necessary fields
+   * Creates a new Post object by extracting data from the given post-like object.
+   * @param {Object} postData - an Object containing the necessary fields.  The
+   * feed property can be an id or a full Feed Object.
+   * Returns the newly created Post's id.
    */
-  static parse(o) {
-    return new Post(o.title, o.html, o.published, o.updated, o.url, o.guid, o.feed);
+  static async create(postData) {
+    // If we only have a feed id, get the full Feed Object instead.
+    const feed = await ensureFeed(postData.feed);
+    const post = new Post(
+      postData.title,
+      postData.html,
+      postData.published,
+      postData.updated,
+      postData.url,
+      postData.guid,
+      feed
+    );
+    await post.save();
+    return post.id;
   }
 
   /**
@@ -123,12 +159,23 @@ class Post {
    * @param {String} id - the id of a post (hashed guid) to get from Redis.
    */
   static async byId(id) {
-    const post = await getPost(id);
+    const data = await getPost(id);
     // No post found using this id
-    if (!(post && post.id)) {
+    if (!(data && data.id)) {
       return null;
     }
-    return Post.parse(post);
+
+    const feed = await ensureFeed(data.feed);
+    const post = new Post(
+      data.title,
+      data.html,
+      data.published,
+      data.updated,
+      data.url,
+      data.guid,
+      feed
+    );
+    return post;
   }
 }
 

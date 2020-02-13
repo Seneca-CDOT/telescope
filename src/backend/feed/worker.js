@@ -3,7 +3,6 @@ const path = require('path');
 
 const feedQueue = require('./queue');
 const { logger } = require('../utils/logger');
-const Post = require('../data/post');
 
 /**
  * We determine the number of parallel feed processor functions to run
@@ -30,17 +29,5 @@ exports.start = function() {
   const concurrency = getFeedWorkersCount();
   logger.info(`Starting ${concurrency} instance${concurrency > 1 ? 's' : ''} of feed processor.`);
   feedQueue.process(concurrency, path.resolve(__dirname, 'processor.js'));
-
-  // When posts are returned from the queue, save them to the database
-  feedQueue.on('completed', async (job, posts) => {
-    try {
-      // The posts we get back will be Objects, and we need to convert
-      // to a full Post, then save to Redis.
-      await Promise.all(posts.map(post => Post.parse(post).save()));
-    } catch (error) {
-      logger.error({ error }, 'Error inserting posts into database');
-    }
-  });
-
   return feedQueue;
 };

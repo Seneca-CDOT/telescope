@@ -30,10 +30,6 @@ describe('Fost data class tests', () => {
     expect(() => new Feed(undefined, undefined)).toThrow();
   });
 
-  test('Feed.parse() should be able to parse an Object into a Feed', () => {
-    expect(Feed.parse(data)).toEqual(createFeed());
-  });
-
   describe('Get and Set Feed objects from database', () => {
     beforeAll(() => createFeed().save());
 

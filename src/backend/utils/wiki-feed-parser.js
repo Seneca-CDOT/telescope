@@ -4,7 +4,6 @@ const { isWebUri } = require('valid-url');
 
 require('../lib/config');
 const { logger } = require('../utils/logger');
-const Feed = require('../data/feed');
 
 const { JSDOM } = jsdom;
 
@@ -82,7 +81,7 @@ module.exports = async function() {
           `Skipping invalid wiki feed url ${currentFeedInfo.url} for author ${currentFeedInfo.author}`
         );
       } else {
-        feeds.push(Feed.parse(currentFeedInfo));
+        feeds.push(currentFeedInfo);
       }
 
       currentFeedInfo = {};

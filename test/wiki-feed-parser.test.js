@@ -1,7 +1,6 @@
 global.fetch = require('node-fetch');
 
 const getWikiFeeds = require('../src/backend/utils/wiki-feed-parser');
-const Feed = require('../src/backend/data/feed');
 
 const mockFeed = `################# Failing Feeds Commented Out [Start] #################
 
@@ -48,22 +47,16 @@ test('Testing wiki-feed-parser.parseData', async () => {
   fetch.mockResponseOnce(mockBody);
 
   const expectedData = [
-    Feed.parse({
+    {
       author: 'Pirathapan Sivalingam',
       url: 'http://kopay.wordpress.com/category/sbr600-win2011/feed',
-    }),
-    Feed.parse({
-      author: 'Jesse Fulton',
-      url: 'http://jessefulton.wordpress.com/category/SBR600/feed/',
-    }),
-    Feed.parse({
-      author: 'Eric Ferguson',
-      url: 'http://eric-spo600.blogspot.com/feeds/posts/default',
-    }),
-    Feed.parse({
+    },
+    { author: 'Jesse Fulton', url: 'http://jessefulton.wordpress.com/category/SBR600/feed/' },
+    { author: 'Eric Ferguson', url: 'http://eric-spo600.blogspot.com/feeds/posts/default' },
+    {
       author: 'Armen Zambrano G. (armenzg)',
       url: 'http://armenzg.blogspot.com/feeds/posts/default/-/open%20source',
-    }),
+    },
   ];
 
   const response = await getWikiFeeds();
