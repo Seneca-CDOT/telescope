@@ -1,0 +1,33 @@
+.heroBanner {
+  background-color: black;
+  height: 100vh;
+}
+
+.bannerImg {
+  background-image: url(../../images/hero-banner.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  height: 100vh;
+  opacity: 0.4;
+}
+
+.h1 {
+  position: absolute;
+  color: white;
+  font-family: 'Roboto';
+  font-size: 17rem;
+  font-weight: bold;
+  top: 30%;
+  left: 8%;
+  opacity: 0.85;
+}
+
+.icon {
+  height: 7rem;
+  width: 7rem;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+}
