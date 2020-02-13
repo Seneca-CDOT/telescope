@@ -1,5 +1,6 @@
 const express = require('express');
 const Feed = require('../../data/feed');
+const { protect } = require('../authentication');
 const { getFeeds } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 
@@ -47,6 +48,21 @@ feeds.get('/:id', async (req, res) => {
     logger.error({ err }, 'Unable to get feeds from Redis');
     res.status(503).json({
       message: 'Unable to connect to database',
+    });
+  }
+});
+
+feeds.post('/', protect, async (req, res) => {
+  const { newFeed, email } = req.body;
+  try {
+    /* check if email has a key in redis
+  if not create key
+  if user has a key in redis, check if feed already exists, (not sure how fast this is? or if its necessary), if not store feed in feeds.
+  */
+  } catch (error) {
+    logger.error({ error }, 'Unable to add feed to redis');
+    res.status(503).json({
+      message: 'Unable to add feed to database.',
     });
   }
 });
