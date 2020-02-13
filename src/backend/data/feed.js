@@ -45,39 +45,40 @@ class Feed {
   }
 
   /**
-   * Creates a Feed by extracting data from the given feed-like object.
-   * @param {Object} o - an Object containing the necessary fields for a feed
+   * Creates a new Feed object by extracting data from the given feed-like object.
+   * @param {Object} feedData - an Object containing the necessary fields.
+   * Returns the newly created Feed's id.
    */
-  static parse(o) {
-    return new Feed(o.author, o.url, o.etag, o.lastModified);
+  static async create(feedData) {
+    const feed = new Feed(feedData.author, feedData.url, feedData.etag, feedData.lastModified);
+    await feed.save();
+    return feed.id;
   }
 
   /**
    * Returns a Feed from the database using the given id
    * @param {String} id - the id of a feed (hashed, normalized url) to get from Redis.
+   * Returns a Promise<Feed>
    */
   static async byId(id) {
-    const feed = await getFeed(id);
+    const data = await getFeed(id);
     // No feed found using this id
-    if (!(feed && feed.id)) {
+    if (!(data && data.id)) {
       return null;
     }
-    return Feed.parse(feed);
+
+    return new Feed(data.author, data.url, data.etag, data.lastModified);
   }
 
   /**
    * Returns a Feed from the database using the given url
    * @param {String} url - the url of a feed to get from Redis.
+   * Returns a Promise<Feed>
    */
-  static async byUrl(url) {
+  static byUrl(url) {
     // Use the URL to generate an id
     const id = urlToId(url);
-    const feed = await this.byId(id);
-    // No feed found using this url's id
-    if (!(feed && feed.id)) {
-      return null;
-    }
-    return Feed.parse(feed);
+    return this.byId(id);
   }
 }
 

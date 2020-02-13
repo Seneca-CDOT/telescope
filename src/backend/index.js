@@ -22,22 +22,22 @@ process.on('uncaughtException', shutdown('UNCAUGHT EXCEPTION'));
 /**
  * Adds the feed to the database if necessary, or gets a more complete
  * version of the feed if we have better data already.
- * @param {Feed} feed - a feed Object parsed from the wiki feed list.
- * Returns the most appropriate Feed Object to use.
+ * @param {Object} feedData - feed data parsed from the wiki feed list.
+ * Returns Promise<Feed>, with the most appropriate Feed Object to use.
  */
-async function updateFeed(feed) {
+async function updateFeed(feedData) {
   let currentFeed;
 
-  // If we have an existing feed in the database for this id, prefer that,
-  // since it might have updated cache info (e.g., etag)
-  const existingFeed = await Feed.byId(feed.id);
+  // If we have an existing feed in the database for this URL, prefer that,
+  // since it might have updated cache info (e.g., etag).
+  const existingFeed = await Feed.byUrl(feedData.url);
   if (existingFeed) {
     // We have a version of this feed in the database already, prefer that
     currentFeed = existingFeed;
   } else {
     // First time we're seeing this feed, add it to the database
-    currentFeed = feed;
-    await currentFeed.save();
+    const id = await Feed.create(feedData);
+    currentFeed = await Feed.byId(id);
   }
 
   return currentFeed;
@@ -47,13 +47,11 @@ async function updateFeed(feed) {
  * Invalidates a feed
  * @param feedData - Object containing feed data
  */
-async function invalidateFeed(feedData) {
-  const feed = Feed.parse(feedData);
-  await feed.setInvalid(feedData.reason || 'unknown reason');
-  logger.info(
-    `Invalidating feed ${feedData.url} for the following reason: ${feedData.reason ||
-      'unknown reason'}`
-  );
+async function invalidateFeed(id) {
+  const feed = await Feed.byId(id);
+  // TODO: we need to bubble up the reason for the failure
+  await feed.setInvalid('unknown reason');
+  logger.info(`Invalidating feed ${feed.url} for the following reason: ${'unknown reason'}`);
 }
 
 /**
@@ -66,7 +64,7 @@ function processFeeds(feeds) {
       // Save this feed into the database if necessary.
       const currentFeed = await updateFeed(feed);
       // Add a job to the feed queue to process all of this feed's posts.
-      await feedQueue.addFeed(currentFeed);
+      await feedQueue.addFeed({ id: currentFeed.id });
     })
   );
 }
@@ -104,7 +102,7 @@ feedQueue.on('drained', loadFeedsIntoQueue);
  * and save to Redis
  */
 feedQueue.on('failed', job =>
-  invalidateFeed(job.data).catch(error => logger.error({ error }, 'Unable to invalidate feed'))
+  invalidateFeed(job.data.id).catch(error => logger.error({ error }, 'Unable to invalidate feed'))
 );
 
 /**
