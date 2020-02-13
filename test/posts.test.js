@@ -68,27 +68,25 @@ describe('test /posts/:id responses', () => {
 
   // Post Object
   const addedPost1 = new Post(
-    'author',
     'title',
     'html',
     new Date('2009-09-07T22:20:00.000Z'),
     new Date('2009-09-07T22:23:00.000Z'),
     'url',
-    'site',
-    existingGuid
+    existingGuid,
+    'feed-id'
   );
 
   // Raw JS Object, expected to be returned by a correct query
   const receivedPost1 = {
-    author: 'author',
     title: 'title',
     html: 'html',
     published: '2009-09-07T22:20:00.000Z',
     updated: '2009-09-07T22:23:00.000Z',
     url: 'url',
-    site: 'site',
     guid: 'http://existing-guid',
     id: hash('http://existing-guid'),
+    feed: 'feed-id',
   };
 
   // add the post to the storage

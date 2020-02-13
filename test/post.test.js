@@ -8,28 +8,18 @@ describe('Post data class tests', () => {
   const text = 'post text';
 
   const data = {
-    author: 'Post Author',
     title: 'Post Title',
     html: '<p>post text</p>',
     published: new Date('Thu, 20 Nov 2014 18:59:18 UTC'),
     updated: new Date('Thu, 20 Nov 2014 18:59:18 UTC'),
     url: 'https://user.post.com/?post-id=123',
-    site: 'https://user.post.com',
     guid: 'https://user.post.com/?post-id=123&guid',
     id: hash('https://user.post.com/?post-id=123&guid'),
+    feed: 'fake-feed-id',
   };
 
   const createPost = () =>
-    new Post(
-      data.author,
-      data.title,
-      data.html,
-      data.published,
-      data.updated,
-      data.url,
-      data.site,
-      data.guid
-    );
+    new Post(data.title, data.html, data.published, data.updated, data.url, data.guid, data.feed);
 
   test('Post should be a function', () => {
     expect(typeof Post).toBe('function');
@@ -95,9 +85,8 @@ describe('Post data class tests', () => {
 
     test('Post.fromArticle() should work with real world RSS', () => {
       const article = articles[0];
-      const post = Post.fromArticle(article);
+      const post = Post.fromArticle(article, 'feed-id');
 
-      expect(post.author).toEqual('David Humphrey');
       expect(post.title).toEqual('Teaching Open Source, Fall 2019');
       expect(
         post.html.startsWith(`<p>Today I've completed another semester of teaching open source`)
@@ -106,15 +95,9 @@ describe('Post data class tests', () => {
       expect(post.published).toEqual(new Date('Mon, 16 Dec 2019 20:37:14 GMT'));
       expect(post.updated).toEqual(new Date('Mon, 16 Dec 2019 20:37:14 GMT'));
       expect(post.url).toEqual('https://blog.humphd.org/open-source-fall-2019/');
-      expect(post.site).toEqual('https://blog.humphd.org/');
       expect(post.guid).toEqual('5df7bbd924511e03496b4734');
       expect(post.id).toEqual(hash(post.guid));
-    });
-
-    test('Post.fromArticle() with missing author should throw', () => {
-      const article = articles[0];
-      delete article.author;
-      expect(() => Post.fromArticle(article)).toThrow();
+      expect(post.feed).toEqual('feed-id');
     });
 
     test('Post.fromArticle() with missing description should throw', () => {
@@ -144,19 +127,6 @@ describe('Post data class tests', () => {
     test('Post.fromArticle() with missing guid should throw', () => {
       const article = articles[0];
       delete article.guid;
-      expect(() => Post.fromArticle(article)).toThrow();
-    });
-
-    test('Post.fromArticle() with missing meta should throw', () => {
-      const article = articles[0];
-      delete article.meta;
-      expect(() => Post.fromArticle(article)).toThrow();
-    });
-
-    test('Post.fromArticle() with missing meta.link should throw', () => {
-      const article = articles[0];
-      delete article.meta;
-      article.meta = {};
       expect(() => Post.fromArticle(article)).toThrow();
     });
 

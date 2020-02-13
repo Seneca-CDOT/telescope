@@ -26,15 +26,14 @@ module.exports.typeDefs = graphql`
   # 'Post' matches our Post type used with redis
   type Post {
     id: String
-    author: String
     title: String
     html: String
     text: String
     published: String
     updated: String
     url: String
-    site: String
     guid: String
+    feed: String
   }
 
   # Queries to fetch data from redis

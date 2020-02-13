@@ -13,17 +13,16 @@ function toDate(date) {
 }
 
 class Post {
-  constructor(author, title, html, datePublished, dateUpdated, postUrl, siteUrl, guid) {
+  constructor(title, html, datePublished, dateUpdated, postUrl, guid, feed) {
     // Use the post's guid as our unique identifier
     this.id = hash(guid);
-    this.author = author;
     this.title = title;
     this.html = html;
     this.published = datePublished ? toDate(datePublished) : new Date();
     this.updated = dateUpdated ? toDate(dateUpdated) : new Date();
     this.url = postUrl;
-    this.site = siteUrl;
     this.guid = guid;
+    this.feed = feed;
   }
 
   /**
@@ -48,7 +47,7 @@ class Post {
    *
    * If data is missing, throws an error.
    */
-  static fromArticle(article) {
+  static fromArticle(article, feed) {
     // Validate the properties we get, and if we don't have them all, throw
     if (!article) {
       throw new Error('unable to parse, missing article');
@@ -57,11 +56,9 @@ class Post {
     // A valid RSS/Atom feed can have missing fields that we care about.
     // Keep track of any that are missing, and throw if necessary.
     const missing = [];
-    if (!article.author) missing.push('author');
     if (!article.description) missing.push('description');
     if (!article.link) missing.push('link');
     if (!article.guid) missing.push('guid');
-    if (!(article.meta && article.meta.link)) missing.push('meta.link');
 
     if (missing.length) {
       const message = `invalid article: missing ${missing.join(', ')}`;
@@ -99,7 +96,6 @@ class Post {
     // NOTE: feedparser article properties are documented here:
     // https://www.npmjs.com/package/feedparser#list-of-article-properties
     return new Post(
-      article.author,
       article.title,
       // sanitized HTML version of the post
       sanitizedHTML,
@@ -109,9 +105,8 @@ class Post {
       article.date,
       // link is the url to the post
       article.link,
-      // meta.link is the url to the site
-      article.meta.link,
-      article.guid
+      article.guid,
+      feed
     );
   }
 
@@ -120,7 +115,7 @@ class Post {
    * @param {Object} o - an Object containing the necessary fields
    */
   static parse(o) {
-    return new Post(o.author, o.title, o.html, o.published, o.updated, o.url, o.site, o.guid);
+    return new Post(o.title, o.html, o.published, o.updated, o.url, o.guid, o.feed);
   }
 
   /**

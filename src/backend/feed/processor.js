@@ -97,13 +97,13 @@ async function getFeedInfo(feed) {
  * Convert an array of Articles from the feed parser into Post objects.
  * @param {Array<article>} articles to process into posts
  */
-function articlesToPosts(articles) {
+function articlesToPosts(articles, feed) {
   const posts = [];
 
   articles.forEach(article => {
     if (!article) return;
     try {
-      const post = Post.fromArticle(article);
+      const post = Post.fromArticle(article, feed);
       posts.push(post);
     } catch (error) {
       // If this is just some missing data, ignore the post, otherwise throw.
@@ -170,7 +170,7 @@ module.exports = async function processor(job) {
       )
     );
     // Transform the list of articles to a list of Post objects
-    articles = articlesToPosts(articles);
+    articles = articlesToPosts(articles, feed.id);
 
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;
