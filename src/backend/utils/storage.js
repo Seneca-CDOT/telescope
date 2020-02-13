@@ -69,8 +69,6 @@ module.exports = {
         key,
         'id',
         post.id,
-        'author',
-        post.author,
         'title',
         post.title,
         'html',
@@ -81,10 +79,10 @@ module.exports = {
         post.updated,
         'url',
         post.url,
-        'site',
-        post.site,
         'guid',
-        post.guid
+        post.guid,
+        'feed',
+        post.feed
       )
       // sort set by published date as scores
       .zadd(postsKey, post.published.getTime(), post.id)
