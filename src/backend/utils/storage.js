@@ -3,10 +3,12 @@ const { redis } = require('../lib/redis');
 // Redis Keys
 const feedsKey = 't:feeds';
 const postsKey = 't:posts';
+const usersKey = 't:users';
 
 // Namespaces
 const feedNamespace = 't:feed:';
 const postNamespace = 't:post:';
+const userNamespace = 't:users';
 // Suffix
 const invalidSuffix = ':invalid';
 
@@ -16,6 +18,8 @@ const createPostKey = id => postNamespace.concat(id);
 const createFeedKey = id => feedNamespace.concat(id);
 // "NirlSYranl" to "t:feed:NirlSYranl:invalid"
 const createInvalidFeedKey = id => createFeedKey(id).concat(invalidSuffix);
+// "ABDFC44447" to "t:user:ABDFC44447"
+const createUserKey = id => userNamespace.concat(id);
 
 module.exports = {
   /**
@@ -111,4 +115,21 @@ module.exports = {
   getPostsCount: () => redis.zcard(postsKey),
 
   getPost: id => redis.hgetall(postNamespace.concat(id)),
+
+  addUser: async user => {
+    // not sure if this should be id or email or even name (for when we switch to seneca))
+    const key = createUserKey(user.id);
+    await redis
+      .multi()
+      // Using hmset() until hset() fully supports multiple fields:
+      // https://github.com/stipsan/ioredis-mock/issues/345
+      // https://github.com/luin/ioredis/issues/551
+      .hmset(key, 'id', user.id, 'feedUrl', user.feedUrl)
+      .sadd(usersKey, user.id)
+      .exec();
+  },
+
+  getUserFeed: id => redis.hgetall(userNamespace.concat(id)),
+
+  getUsersFeeds: () => redis.smembers(usersKey),
 };
