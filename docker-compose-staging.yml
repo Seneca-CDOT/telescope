@@ -15,13 +15,26 @@ services:
       - script=${script:-start}
       # override the .env variable for `REDIS_URL`
       - REDIS_URL=redis://redis:${REDIS_PORT}
+      # variables for elasticsearch
+      - ES_HOST=elasticsearch
+      - ELASTIC_URL=http://elasticsearch
     depends_on:
       - redis
       - login
+      - elasticsearch
     restart: always
 
   redis:
     image: redis:latest
+    restart: always
+
+  elasticsearch:
+    container_name: tqd-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+    environment:
+      - bootstrap.memory_lock=true
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+      - discovery.type=single-node
     restart: always
 
   # SSO Identity Provider test service, https://simplesamlphp.org
