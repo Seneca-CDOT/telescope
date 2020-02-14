@@ -6,9 +6,7 @@ const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
 
 describe('Post data class tests', () => {
-  const text = 'post text';
-
-  const feed = new Feed('feed-author', 'http://feed-url.com/rss');
+  let feed;
 
   const data = {
     title: 'Post Title',
@@ -18,8 +16,20 @@ describe('Post data class tests', () => {
     url: 'https://user.post.com/?post-id=123',
     guid: 'https://user.post.com/?post-id=123&guid',
     id: hash('https://user.post.com/?post-id=123&guid'),
-    feed,
   };
+
+  beforeAll(async () => {
+    const id = await Feed.create({
+      author: 'Feed Author',
+      url: 'http://feed-url.com/',
+    });
+    feed = await Feed.byId(id);
+
+    // Set the feed property for our data to this feed
+    data.feed = feed;
+  });
+
+  const text = 'post text';
 
   const createPost = () =>
     new Post(data.title, data.html, data.published, data.updated, data.url, data.guid, feed);
@@ -29,7 +39,14 @@ describe('Post data class tests', () => {
   });
 
   test('Post constructor should populate all expected properties', () => {
-    expect(createPost()).toEqual(data);
+    const post = createPost();
+    expect(post.id).toEqual(data.id);
+    expect(post.title).toEqual(data.title);
+    expect(post.html).toEqual(data.html);
+    expect(post.published).toEqual(data.published);
+    expect(post.updated).toEqual(data.updated);
+    expect(post.guid).toEqual(data.guid);
+    expect(post.feed).toEqual(feed);
   });
 
   test('Post constructor should work with with published and updated as Strings', () => {
@@ -74,7 +91,7 @@ describe('Post data class tests', () => {
     expect(() => createPostWithFeed(feed)).not.toThrow();
   });
 
-  test.only('Post.create() should be able to parse an Object into a Post', async () => {
+  test('Post.create() should be able to parse an Object into a Post', async () => {
     const id = await Post.create(data);
     const expectedId = 'a371654c75';
     expect(id).toEqual(expectedId);
@@ -90,12 +107,13 @@ describe('Post data class tests', () => {
   });
 
   test('Post.create() should work with missing fields', async () => {
-    const missingData = { ...data, updated: null };
+    const missingData = { ...data, updated: null, feed };
 
     // Make sure that updated was turned into a date
     const id = await Post.create(missingData);
     const parsed = await Post.byId(id);
-    expect(parsed.updated instanceof Date).toBe(true);
+    expect(parsed.updated).toBeDefined();
+    expect(typeof parsed.updated.getTime).toEqual('function');
   });
 
   test('Post.save() and Post.byId() should both work as expected', async () => {
@@ -120,7 +138,7 @@ describe('Post data class tests', () => {
     expect(result).toBe(null);
   });
 
-  describe('Post.fromArticle() tests', () => {
+  describe('Post.createFromArticle() tests', () => {
     let articles;
     beforeEach(async () => {
       nockRealWorldRssResponse();
@@ -129,15 +147,32 @@ describe('Post data class tests', () => {
       expect(articles.length).toBe(15);
     });
 
-    test('Post.fromArticle() should throw if passed nothing', () => {
-      expect(() => Post.fromArticle(null, feed)).toThrow();
-      expect(() => Post.fromArticle()).toThrow();
+    test('should throw if passed no article', async () => {
+      let err;
+      try {
+        await Post.createFromArticle(null, feed);
+      } catch (error) {
+        err = error;
+      }
+      expect(err).toBeDefined();
     });
 
-    test('Post.fromArticle() should work with real world RSS', () => {
-      const article = articles[0];
-      const post = Post.fromArticle(article, feed);
+    test('should throw if passed nothing', async () => {
+      let err;
+      try {
+        await Post.createFromArticle();
+      } catch (error) {
+        err = error;
+      }
+      expect(err).toBeDefined();
+    });
 
+    test('should work with real world RSS', async () => {
+      const article = articles[0];
+      const id = await Post.createFromArticle(article, feed);
+      const post = await Post.byId(id);
+
+      expect(post instanceof Post).toBe(true);
       expect(post.title).toEqual('Teaching Open Source, Fall 2019');
       expect(
         post.html.startsWith(`<p>Today I've completed another semester of teaching open source`)
@@ -151,40 +186,52 @@ describe('Post data class tests', () => {
       expect(post.feed).toEqual(feed);
     });
 
-    test('Post.fromArticle() with missing description should throw', () => {
+    test('when missing description should throw', async () => {
       const article = articles[0];
       delete article.description;
-      expect(() => Post.fromArticle(article, feed)).toThrow();
+      await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
 
-    test('Post.fromArticle() with missing pubdate should not throw', () => {
+    test('Post.createFromArticle() with missing pubdate should not throw', async () => {
       const article = articles[0];
       delete article.pubdate;
-      expect(() => Post.fromArticle(article, feed)).not.toThrow();
+      const id = await Post.createFromArticle(article, feed);
+      expect(typeof id).toEqual('string');
     });
 
-    test('Post.fromArticle() with missing date should not throw', () => {
+    test('Post.createFromArticle() with missing date should not throw', async () => {
       const article = articles[0];
       delete article.date;
-      expect(() => Post.fromArticle(article, feed)).not.toThrow();
+      const id = await Post.createFromArticle(article, feed);
+      const post = await Post.byId(id);
+      expect(post.published).toBeDefined();
+      expect(typeof post.published.getTime).toEqual('function');
     });
 
-    test('Post.fromArticle() with missing link should throw', () => {
+    test('Post.createFromArticle() with missing link should throw', async () => {
       const article = articles[0];
       delete article.link;
-      expect(() => Post.fromArticle(article, feed)).toThrow();
+
+      let err;
+      try {
+        await Post.createFromArticle(article, feed);
+      } catch (error) {
+        err = error;
+      }
+      expect(err).toBeDefined();
     });
 
-    test('Post.fromArticle() with missing guid should throw', () => {
+    test('Post.createFromArticle() with missing guid should throw', async () => {
       const article = articles[0];
       delete article.guid;
-      expect(() => Post.fromArticle(article, feed)).toThrow();
+      await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
 
-    test('Post.fromArticle() with missing title should use Untitled', () => {
+    test('Post.createFromArticle() with missing title should use Untitled', async () => {
       const article = articles[0];
       delete article.title;
-      const post = Post.fromArticle(article, feed);
+      const id = await Post.createFromArticle(article, feed);
+      const post = await Post.byId(id);
       expect(post.title).toEqual('Untitled');
     });
   });

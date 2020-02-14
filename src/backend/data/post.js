@@ -76,8 +76,11 @@ class Post {
     // A valid RSS/Atom feed can have missing fields that we care about.
     // Keep track of any that are missing, and throw if necessary.
     const missing = [];
+    // description is the content of the post
     if (!article.description) missing.push('description');
+    // link is the URL of the post
     if (!article.link) missing.push('link');
+    // guid is the unique identifier of the post
     if (!article.guid) missing.push('guid');
 
     if (missing.length) {

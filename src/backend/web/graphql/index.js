@@ -33,7 +33,7 @@ module.exports.typeDefs = graphql`
     updated: String
     url: String
     guid: String
-    feed: String
+    feed: Feed
   }
 
   # Queries to fetch data from redis
