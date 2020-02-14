@@ -15,7 +15,7 @@ const { logger } = require('../../utils/logger');
 const Feed = require('../../data/feed');
 const Post = require('../../data/post');
 
-const { BASE_URL } = process.env;
+const { API_URL } = process.env;
 
 const router = express.Router();
 
@@ -30,17 +30,17 @@ const feedRoute = type => async (req, res) => {
   const feed = new FeedMeta({
     title: 'Telescope',
     description: "The Seneca College open source community's blog feed",
-    id: BASE_URL,
-    link: `${BASE_URL}/feed/${type}`,
+    id: API_URL,
+    link: `${API_URL}/feed/${type}`,
     language: 'en',
     // TODO: https://github.com/Seneca-CDOT/telescope/issues/637
     // image: 'http://example.com/image.png',
     // favicon: 'http://example.com/favicon.ico',
     copyright: 'Copyright original authors',
     feedLinks: {
-      rss: `${BASE_URL}/feed/rss`,
-      json: `${BASE_URL}/feed/json`,
-      atom: `${BASE_URL}/feed/atom`,
+      rss: `${API_URL}/feed/rss`,
+      json: `${API_URL}/feed/json`,
+      atom: `${API_URL}/feed/atom`,
     },
   });
 
@@ -48,7 +48,7 @@ const feedRoute = type => async (req, res) => {
   let posts;
   try {
     const ids = await getPosts(0, 50);
-    posts = await Promise.all(ids.map(id => Post.byId(id)));
+    posts = await Promise.all(ids.map(Post.byId));
   } catch (err) {
     logger.error({ err }, 'Error processing posts from Redis');
     res.status(503).send({
@@ -67,8 +67,8 @@ const feedRoute = type => async (req, res) => {
       content: post.html,
       author: [
         {
-          name: post.author,
-          link: post.site,
+          name: post.feed.author,
+          // TODO: add site info for this feed https://github.com/Seneca-CDOT/telescope/issues/724
         },
       ],
       date: post.updated,

@@ -33,7 +33,7 @@ module.exports.typeDefs = graphql`
     updated: String
     url: String
     guid: String
-    feed: Feed
+    feed: Feed!
   }
 
   # Queries to fetch data from redis
@@ -147,7 +147,11 @@ module.exports.resolvers = {
       const posts = await Promise.all(postIds.map(Post.byId));
 
       if (filter.author) {
-        const authorResults = posts.filter(post => post.author === filter.author);
+        // Find all post's where the author contains our search term, ignoring case.
+        const authorSearchTerm = filter.author.toLowerCase();
+        const authorResults = posts.filter(post =>
+          post.feed.author.toLowerCase().includes(authorSearchTerm)
+        );
         // check if # of filtered results are less than max results allowed per page.
         if (authorResults.length < prPage) {
           return authorResults;
