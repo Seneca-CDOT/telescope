@@ -32,6 +32,7 @@ class Feed {
 
   /**
    * Adds the current Feed to the database with the specified reason
+   * Returns a Promise.
    */
   setInvalid(reason) {
     setInvalidFeed(this.id, reason);
@@ -39,6 +40,7 @@ class Feed {
 
   /**
    * Checks whether the current feed is valid or not
+   * Returns a Promise<Boolean>.
    */
   isInvalid() {
     return isInvalid(this.id);
@@ -47,7 +49,7 @@ class Feed {
   /**
    * Creates a new Feed object by extracting data from the given feed-like object.
    * @param {Object} feedData - an Object containing the necessary fields.
-   * Returns the newly created Feed's id.
+   * Returns the newly created Feed's id as a Promise<String>
    */
   static async create(feedData) {
     const feed = new Feed(feedData.author, feedData.url, feedData.etag, feedData.lastModified);

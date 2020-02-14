@@ -1,52 +1,59 @@
 const fixtures = require('./fixtures');
 const processor = require('../src/backend/feed/processor');
+const Feed = require('../src/backend/data/feed');
 
 describe('Feed Processor Tests', () => {
-  beforeAll(async () => {});
+  const createFeed = url =>
+    Feed.create({
+      author: 'author',
+      url,
+    });
 
   test('Passing a valid Atom feed URI should pass', async () => {
-    const feedURL = fixtures.getAtomUri();
+    const url = fixtures.getAtomUri();
+    const id = await createFeed(url);
     fixtures.nockValidAtomResponse();
-    const job = fixtures.createMockJobObjectFromURL(feedURL);
-    await expect(processor(job)).resolves.toBeTruthy();
+    const job = fixtures.createMockJobObjectFromFeedId(id);
+    await expect(processor(job)).resolves.not.toBeDefined();
   });
 
   test('Passing a valid RSS feed URI should pass', async () => {
-    const feedURL = fixtures.getRssUri();
+    const url = fixtures.getRssUri();
+    const id = await createFeed(url);
     fixtures.nockValidRssResponse();
-    const job = fixtures.createMockJobObjectFromURL(feedURL);
-    await expect(processor(job)).resolves.toBeTruthy();
+    const job = fixtures.createMockJobObjectFromFeedId(id);
+    await expect(processor(job)).resolves.not.toBeDefined();
   });
 
-  test('Passing a valid URI with HTML response should return an empty Array', async () => {
+  test('Passing a valid URI with HTML response should work', async () => {
     const url = fixtures.getHtmlUri();
+    const id = await createFeed(url);
     fixtures.nockValidHtmlResponse();
-    const job = fixtures.createMockJobObjectFromURL(url);
-    const result = await processor(job);
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBe(0);
+    const job = fixtures.createMockJobObjectFromFeedId(id);
+    await expect(processor(job)).resolves.not.toBeDefined();
   });
 
   test('Passing an invalid RSS category feed should pass', async () => {
-    const feedURL = fixtures.getRssUri();
+    const url = fixtures.getRssUri();
+    const id = await createFeed(url);
     fixtures.nockInvalidRssResponse();
-    const job = fixtures.createMockJobObjectFromURL(feedURL);
-    await expect(processor(job)).resolves.toBeTruthy();
+    const job = fixtures.createMockJobObjectFromFeedId(id);
+    await expect(processor(job)).resolves.not.toBeDefined();
   });
 
   test('Passing a valid RSS category feed should pass', async () => {
-    const feedURL = fixtures.getRssUri();
+    const url = fixtures.getRssUri();
+    const id = await createFeed(url);
     fixtures.nockValidRssResponse();
-    const job = fixtures.createMockJobObjectFromURL(feedURL);
-    await expect(processor(job)).resolves.toBeTruthy();
+    const job = fixtures.createMockJobObjectFromFeedId(id);
+    await expect(processor(job)).resolves.not.toBeDefined();
   });
 
-  test('Non existent feed failure case: 404 should return an empty Array', async () => {
+  test('Non existent feed failure case: 404 should work', async () => {
     const url = fixtures.getHtmlUri();
+    const id = await createFeed(url);
     fixtures.nock404Response();
-    const job = fixtures.createMockJobObjectFromURL(url);
-    const result = await processor(job);
-    expect(Array.isArray(result)).toBe(true);
-    expect(result.length).toBe(0);
+    const job = fixtures.createMockJobObjectFromFeedId(id);
+    await expect(processor(job)).resolves.not.toBeDefined();
   });
 });

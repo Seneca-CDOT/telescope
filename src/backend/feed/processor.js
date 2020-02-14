@@ -120,7 +120,6 @@ function articlesToPosts(articles, feed) {
  * We expect the Feed to already exist in the system at this point.
  */
 module.exports = async function processor(job) {
-  logger.debug('processor', { id: job.data.id });
   const feed = await Feed.byId(job.data.id);
   if (!feed) {
     throw new Error(`unable to get Feed for id=${job.data.id}`);
