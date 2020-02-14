@@ -19,7 +19,7 @@ function formatDate(date) {
  */
 async function getPostDataGrouped() {
   const ids = await getPosts(0, 50);
-  const posts = await Promise.all(ids.map(id => Post.byId(id)));
+  const posts = await Promise.all(ids.map(Post.byId));
 
   // We group the posts into nested objects: days > authors > posts
   const grouped = { days: {} };
@@ -36,12 +36,12 @@ async function getPostDataGrouped() {
 
     // Days contain Author strings
     const day = grouped.days[formatted];
-    if (!day[post.author]) {
-      day[post.author] = {};
+    if (!day[post.feed.author]) {
+      day[post.feed.author] = {};
     }
 
     // Authors contain guid strings, which are references to post Objects
-    const author = day[post.author];
+    const author = day[post.feed.author];
     if (!author[post.guid]) {
       author[post.guid] = post;
     }

@@ -100,15 +100,15 @@ async function getFeedInfo(feed) {
  */
 function articlesToPosts(articles, feed) {
   return Promise.all(
-    articles.map(article => {
+    articles.map(async article => {
       try {
-        return Post.createFromArticle(article, feed);
+        await Post.createFromArticle(article, feed);
       } catch (error) {
         // If this is just some missing data, ignore the post, otherwise throw.
-        if (!(error instanceof ArticleError)) {
-          throw error;
+        if (error instanceof ArticleError) {
+          return;
         }
-        return Promise.resolve();
+        throw error;
       }
     })
   );
@@ -176,7 +176,7 @@ module.exports = async function processor(job) {
       )
     );
     // Transform the list of articles to a list of Post objects
-    articlesToPosts(articles, feed);
+    await articlesToPosts(articles, feed);
 
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;

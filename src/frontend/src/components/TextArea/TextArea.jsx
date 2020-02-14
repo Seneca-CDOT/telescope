@@ -8,10 +8,10 @@ import './TextArea.css';
 const TextArea = ({ className, posts }) => {
   return (
     <div className={className}>
-      {posts.map(({ author, html, published, title, site, url }, index) => (
+      {posts.map(({ feed, html, title, url }, index) => (
         <Fragment key={index}>
           <Post
-            author={author}
+            author={feed.author}
             url={url}
             html={html}
             title={title}
