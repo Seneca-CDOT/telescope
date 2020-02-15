@@ -7,8 +7,9 @@ const postsKey = 't:posts';
 // Namespaces
 const feedNamespace = 't:feed:';
 const postNamespace = 't:post:';
-// Suffix
+// Suffixes
 const invalidSuffix = ':invalid';
+const delayedSuffix = ':delayed';
 
 // "6Xoj0UXOW3" to "t:post:6Xoj0UXOW3"
 const createPostKey = id => postNamespace.concat(id);
@@ -16,6 +17,8 @@ const createPostKey = id => postNamespace.concat(id);
 const createFeedKey = id => feedNamespace.concat(id);
 // "NirlSYranl" to "t:feed:NirlSYranl:invalid"
 const createInvalidFeedKey = id => createFeedKey(id).concat(invalidSuffix);
+// "NirlSYranl" to "t:feed:NirlSYranl:delayed"
+const createDelayedFeedKey = id => createFeedKey(id).concat(delayedSuffix);
 
 module.exports = {
   /**
@@ -57,6 +60,13 @@ module.exports = {
   },
 
   isInvalid: id => redis.exists(createInvalidFeedKey(id)),
+
+  setDelayedFeed: (id, seconds) => {
+    const key = createDelayedFeedKey(id);
+    redis.set(key, seconds, 1);
+  },
+
+  isDelayed: id => redis.exists(createDelayedFeedKey(id)),
 
   /**
    * Posts

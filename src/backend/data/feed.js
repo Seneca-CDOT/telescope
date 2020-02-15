@@ -1,6 +1,13 @@
 const normalizeUrl = require('normalize-url');
 
-const { getFeed, addFeed, setInvalidFeed, isInvalid } = require('../utils/storage');
+const {
+  getFeed,
+  addFeed,
+  setInvalidFeed,
+  isInvalid,
+  setDelayedFeed,
+  isDelayed,
+} = require('../utils/storage');
 const hash = require('./hash');
 
 const urlToId = url => hash(normalizeUrl(url));
@@ -45,9 +52,29 @@ class Feed {
   }
 
   /**
+<<<<<<< HEAD
    * Creates a new Feed object by extracting data from the given feed-like object.
    * @param {Object} feedData - an Object containing the necessary fields.
    * Returns the newly created Feed's id.
+=======
+   * Flags a feed in the database, indicating that its processing should be delayed
+   * @param {Number} seconds - duration in seconds for which processing should wait
+   */
+  setDelayed(seconds) {
+    setDelayedFeed(this.id, seconds);
+  }
+
+  /**
+   * Checks whether the current feed is delayed or not
+   */
+  isDelayed() {
+    return isDelayed(this.id);
+  }
+
+  /**
+   * Creates a Feed by extracting data from the given feed-like object.
+   * @param {Object} o - an Object containing the necessary fields for a feed
+>>>>>>> delay feed processing in response to rate limitation
    */
   static async create(feedData) {
     const feed = new Feed(feedData.author, feedData.url, feedData.etag, feedData.lastModified);
