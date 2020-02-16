@@ -1,3 +1,4 @@
+const normalizeUrl = require('normalize-url');
 require('./lib/config.js');
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
@@ -6,6 +7,9 @@ const { getFeeds, removeFeedById } = require('./utils/storage');
 const getWikiFeeds = require('./utils/wiki-feed-parser');
 const shutdown = require('./lib/shutdown');
 const Feed = require('./data/feed');
+const hash = require('./data/hash');
+
+const urlToId = url => hash(normalizeUrl(url));
 
 // Start the web server
 require('./web/server');
@@ -62,13 +66,18 @@ async function invalidateFeed(feedData) {
  * @param {Array<Feed>} feeds - the parsed feed Objects to be processed.
  */
 async function processFeeds(feeds) {
+  // Get array of feed IDs stored in Redis, e.g. [ '6Xoj0UXOW3', '8feFJd9s0e', ... ]
   const redisFeedIds = await getFeeds();
-  const wikiFeedIds = feeds.map(feed => feed.id);
 
+  // Get array of Redis feed IDs of feeds stored in the Wiki
+  const wikiFeedIds = feeds.map(feed => urlToId(feed.url));
+
+  // Remove all Redis feeds that are not found within the Wiki feed list
   Promise.all(
     redisFeedIds.reduce((removed, feedId) => {
+      // if Redis is storing a feed not found on the Wiki feed list
       if (!wikiFeedIds.includes(feedId)) {
-        // Remove all Redis feeds that have been deleted from the Wiki
+        // accumulate that feed for removal from Redis
         removed.concat(removeFeedById(feedId));
       }
       return removed;
@@ -78,6 +87,7 @@ async function processFeeds(feeds) {
   });
 
   return Promise.all(
+    // Save and queue all feeds on the Wiki feed list
     feeds.map(async feed => {
       // Save this feed into the database if necessary.
       const currentFeed = await updateFeed(feed);

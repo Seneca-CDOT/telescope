@@ -46,6 +46,9 @@ module.exports = {
   },
 
   removeFeedById: async id => {
+    // Remove the feed key itself (t:feed:{feed-id})
+    await redis.del(`${feedsKey}:${id}`);
+    // Remove the feed's id from the feeds set (t:feeds)
     await redis
       .multi()
       .srem(feedsKey, id)
