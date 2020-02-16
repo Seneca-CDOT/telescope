@@ -4,7 +4,7 @@ const app = require('../src/backend/web/app');
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
 
-describe('test /feeds endpoint', () => {
+describe('test GET /feeds endpoint', () => {
   const createdItems = 150;
 
   // Array of feeds
@@ -60,5 +60,61 @@ describe('test /feeds/:id responses', () => {
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body).toEqual(receivedFeed);
     expect(res.body instanceof Array).toBe(false);
+  });
+});
+
+// https://github.com/Seneca-CDOT/telescope/issues/734 Tests below will need to have authorization to pass.
+describe('test POST /feeds endpoint', () => {
+  it('responds with json', async () => {
+    const feedData = {
+      author: 'foo',
+      url: 'http://telescope200.cdot.systems',
+    };
+    const res = await request(app)
+      .post('/feeds')
+      .send(feedData)
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+    const { id } = res.body;
+    const feed = await Feed.byId(id);
+    expect(feed.author).toEqual(feedData.author);
+    expect(feed.url).toEqual(feedData.url);
+  });
+
+  it('no author being sent', async () => {
+    const feedData = {
+      author: null,
+      url: 'http://telescope200.cdot.systems',
+    };
+    const res = await request(app)
+      .post('/feeds')
+      .send(feedData)
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+  });
+
+  it('no url being sent', async () => {
+    const feedData = {
+      author: 'foo',
+      url: null,
+    };
+    const res = await request(app)
+      .post('/feeds')
+      .send(feedData)
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+  });
+
+  it('url already in the feed list', async () => {
+    const feedData = {
+      author: 'foo',
+      url: 'http://telescope0.cdot.systems',
+    };
+    await Feed.create(feedData);
+    const res = await request(app)
+      .post('/feeds')
+      .send(feedData)
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(409);
   });
 });
