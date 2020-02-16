@@ -77,11 +77,11 @@ describe('Fost data class tests', () => {
       expect(persisted.etag).toBe(null);
     });
 
-    test('Feed.isDelayed() should return truthy only after Feed.setDelayed()', async () => {
+    test('Feed.isDelayed() should return true only after Feed.setDelayed() is called', async () => {
       const feed = await Feed.byUrl(data.url);
-      expect(await feed.isDelayed()).toBeFalsy();
+      expect(feed.isDelayed()).resolves.toBe(false);
       await feed.setDelayed(60);
-      expect(await feed.isDelayed()).toBeTruthy();
+      expect(feed.isDelayed()).resolves.toBe(true);
     });
   });
 });

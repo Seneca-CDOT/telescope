@@ -66,8 +66,8 @@ class Feed {
    * Checks whether the current feed is delayed or not
    * Returns a Promise<Boolean>
    */
-  isDelayed() {
-    return isDelayed(this.id);
+  async isDelayed() {
+    return (await isDelayed(this.id)) === '1';
   }
 
   /**

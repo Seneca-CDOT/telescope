@@ -61,9 +61,10 @@ module.exports = {
 
   isInvalid: id => redis.exists(createInvalidFeedKey(id)),
 
-  setDelayedFeed: (id, seconds) => {
+  setDelayedFeed: async (id, seconds) => {
     const key = createDelayedFeedKey(id);
-    return redis.set(key, seconds, 1);
+    const msg = await redis.set(key, seconds, 1);
+    return msg === 'OK';
   },
 
   isDelayed: id => redis.exists(createDelayedFeedKey(id)),
