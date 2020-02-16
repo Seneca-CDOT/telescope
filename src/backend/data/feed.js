@@ -53,11 +53,6 @@ class Feed {
   }
 
   /**
-<<<<<<< HEAD
-   * Creates a new Feed object by extracting data from the given feed-like object.
-   * @param {Object} feedData - an Object containing the necessary fields.
-   * Returns the newly created Feed's id.
-=======
    * Flags a feed in the database, indicating that its processing should be delayed
    * @param {Number} seconds - duration in seconds for which processing should wait
    * Returns a Promise
@@ -75,9 +70,9 @@ class Feed {
   }
 
   /**
-   * Creates a Feed by extracting data from the given feed-like object.
-   * @param {Object} o - an Object containing the necessary fields for a feed
->>>>>>> delay feed processing in response to rate limitation
+   * Creates a new Feed object by extracting data from the given feed-like object.
+   * @param {Object} feedData - an Object containing the necessary fields.
+   * Returns the newly created Feed's id.
    */
   static async create(feedData) {
     const feed = new Feed(feedData.author, feedData.url, feedData.etag, feedData.lastModified);
