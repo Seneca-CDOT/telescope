@@ -39,9 +39,10 @@ class Feed {
 
   /**
    * Adds the current Feed to the database with the specified reason
+   * Returns a Promise
    */
   setInvalid(reason) {
-    setInvalidFeed(this.id, reason);
+    return setInvalidFeed(this.id, reason);
   }
 
   /**
@@ -59,13 +60,15 @@ class Feed {
 =======
    * Flags a feed in the database, indicating that its processing should be delayed
    * @param {Number} seconds - duration in seconds for which processing should wait
+   * Returns a Promise
    */
   setDelayed(seconds) {
-    setDelayedFeed(this.id, seconds);
+    return setDelayedFeed(this.id, seconds);
   }
 
   /**
    * Checks whether the current feed is delayed or not
+   * Returns a Promise<Boolean>
    */
   isDelayed() {
     return isDelayed(this.id);

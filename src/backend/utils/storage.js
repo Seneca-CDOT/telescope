@@ -56,14 +56,14 @@ module.exports = {
 
   setInvalidFeed: (id, reason) => {
     const key = createInvalidFeedKey(id);
-    redis.set(key, reason);
+    return redis.set(key, reason);
   },
 
   isInvalid: id => redis.exists(createInvalidFeedKey(id)),
 
   setDelayedFeed: (id, seconds) => {
     const key = createDelayedFeedKey(id);
-    redis.set(key, seconds, 1);
+    return redis.set(key, seconds, 1);
   },
 
   isDelayed: id => redis.exists(createDelayedFeedKey(id)),
