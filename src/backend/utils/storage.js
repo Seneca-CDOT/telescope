@@ -45,6 +45,13 @@ module.exports = {
       .exec();
   },
 
+  removeFeedById: async id => {
+    await redis
+      .multi()
+      .srem(feedsKey, id)
+      .exec();
+  },
+
   getFeeds: () => redis.smembers(feedsKey),
 
   getFeed: id => redis.hgetall(feedNamespace.concat(id)),

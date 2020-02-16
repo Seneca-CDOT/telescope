@@ -2,6 +2,7 @@ require('./lib/config.js');
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
 const { logger } = require('./utils/logger');
+const { getFeeds, removeFeedById } = require('./utils/storage');
 const getWikiFeeds = require('./utils/wiki-feed-parser');
 const shutdown = require('./lib/shutdown');
 const Feed = require('./data/feed');
@@ -60,7 +61,22 @@ async function invalidateFeed(feedData) {
  * Process all of these Feed objects into Redis and the feed queue.
  * @param {Array<Feed>} feeds - the parsed feed Objects to be processed.
  */
-function processFeeds(feeds) {
+async function processFeeds(feeds) {
+  const redisFeedIds = await getFeeds();
+  const wikiFeedIds = feeds.map(feed => feed.id);
+
+  Promise.all(
+    redisFeedIds.reduce((removed, feedId) => {
+      if (!wikiFeedIds.includes(feedId)) {
+        // Remove all Redis feeds that have been deleted from the Wiki
+        removed.concat(removeFeedById(feedId));
+      }
+      return removed;
+    }, [])
+  ).catch(error => {
+    logger.error({ error }, 'Error removing deleted feeds from Redis');
+  });
+
   return Promise.all(
     feeds.map(async feed => {
       // Save this feed into the database if necessary.
