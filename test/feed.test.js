@@ -76,5 +76,12 @@ describe('Fost data class tests', () => {
       expect(persisted.lastModified).toEqual('lastModified');
       expect(persisted.etag).toBe(null);
     });
+
+    test('Feed.isDelayed() should return true only after Feed.setDelayed() is called', async () => {
+      const feed = await Feed.byUrl(data.url);
+      expect(feed.isDelayed()).resolves.toBe(false);
+      await feed.setDelayed(60);
+      expect(feed.isDelayed()).resolves.toBe(true);
+    });
   });
 });

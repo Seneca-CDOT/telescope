@@ -147,7 +147,8 @@ module.exports = async function processor(job) {
           logger.warn(`${info.status} Feed no longer available: ${feed.url}`);
           break;
         case 429:
-          logger.warn(`${info.status} Feed requested too many times: ${feed.url}`);
+          logger.warn(`${info.status} Feed requested too many times, setting delay: ${feed.url}`);
+          await feed.setDelayed(process.env.FEED_PROCESSING_DELAY_SEC || 3600);
           break;
         case 500:
         case 599:

@@ -1,6 +1,13 @@
 const normalizeUrl = require('normalize-url');
 
-const { getFeed, addFeed, setInvalidFeed, isInvalid } = require('../utils/storage');
+const {
+  getFeed,
+  addFeed,
+  setInvalidFeed,
+  isInvalid,
+  setDelayedFeed,
+  isDelayed,
+} = require('../utils/storage');
 const hash = require('./hash');
 
 const urlToId = url => hash(normalizeUrl(url));
@@ -32,10 +39,10 @@ class Feed {
 
   /**
    * Adds the current Feed to the database with the specified reason
-   * Returns a Promise.
+   * Returns a Promise
    */
   setInvalid(reason) {
-    setInvalidFeed(this.id, reason);
+    return setInvalidFeed(this.id, reason);
   }
 
   /**
@@ -44,6 +51,23 @@ class Feed {
    */
   isInvalid() {
     return isInvalid(this.id);
+  }
+
+  /**
+   * Flags a feed in the database, indicating that its processing should be delayed
+   * @param {Number} seconds - duration in seconds for which processing should wait
+   * Returns a Promise
+   */
+  setDelayed(seconds) {
+    return setDelayedFeed(this.id, seconds);
+  }
+
+  /**
+   * Checks whether the current feed is delayed or not
+   * Returns a Promise<Boolean>
+   */
+  async isDelayed() {
+    return (await isDelayed(this.id)) === '1';
   }
 
   /**
