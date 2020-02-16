@@ -126,9 +126,13 @@ module.exports = async function processor(job) {
   }
 
   let info;
-  const invalid = await feed.isInvalid();
+  const [invalid, delayed] = await Promise.all([feed.isInvalid(), feed.isDelayed()]);
   if (invalid) {
     logger.info(`Skipping resource at ${feed.url}. Feed previously marked invalid`);
+    return;
+  }
+  if (delayed) {
+    logger.info(`Skipping resource at ${feed.url}. Feed previously marked for delayed processing`);
     return;
   }
   try {
