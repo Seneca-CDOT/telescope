@@ -39,7 +39,7 @@ function Login() {
     }
 
     getUserInfo();
-  }, []);
+  }, [telescopeUrl]);
 
   return email ? <LoggedIn email={email} /> : <LoggedOut />;
 }

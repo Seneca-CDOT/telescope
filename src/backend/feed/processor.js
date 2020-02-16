@@ -100,15 +100,15 @@ async function getFeedInfo(feed) {
  */
 function articlesToPosts(articles, feed) {
   return Promise.all(
-    articles.map(article => {
+    articles.map(async article => {
       try {
-        return Post.createFromArticle(article, feed);
+        await Post.createFromArticle(article, feed);
       } catch (error) {
         // If this is just some missing data, ignore the post, otherwise throw.
-        if (!(error instanceof ArticleError)) {
-          throw error;
+        if (error instanceof ArticleError) {
+          return;
         }
-        return Promise.resolve();
+        throw error;
       }
     })
   );
@@ -120,7 +120,6 @@ function articlesToPosts(articles, feed) {
  * We expect the Feed to already exist in the system at this point.
  */
 module.exports = async function processor(job) {
-  logger.debug('processor', { id: job.data.id });
   const feed = await Feed.byId(job.data.id);
   if (!feed) {
     throw new Error(`unable to get Feed for id=${job.data.id}`);
@@ -178,7 +177,7 @@ module.exports = async function processor(job) {
       )
     );
     // Transform the list of articles to a list of Post objects
-    articlesToPosts(articles, feed);
+    await articlesToPosts(articles, feed);
 
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;

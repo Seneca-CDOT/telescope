@@ -2,6 +2,7 @@ const request = require('supertest');
 
 const app = require('../src/backend/web/app');
 const Post = require('../src/backend/data/post');
+const Feed = require('../src/backend/data/feed');
 const { addPost } = require('../src/backend/utils/storage');
 const hash = require('../src/backend/data/hash');
 
@@ -66,33 +67,6 @@ describe('test /posts/:id responses', () => {
   const existingGuid = 'http://existing-guid';
   const missingGuid = 'http://missing-guid';
 
-  // Post Object
-  const addedPost1 = new Post(
-    'title',
-    'html',
-    new Date('2009-09-07T22:20:00.000Z'),
-    new Date('2009-09-07T22:23:00.000Z'),
-    'url',
-    existingGuid,
-    'feed-id'
-  );
-
-  // Raw JS Object, expected to be returned by a correct query
-  const receivedPost1 = {
-    title: 'title',
-    html: 'html',
-    published: '2009-09-07T22:20:00.000Z',
-    updated: '2009-09-07T22:23:00.000Z',
-    url: 'url',
-    guid: 'http://existing-guid',
-    id: hash('http://existing-guid'),
-    feed: 'feed-id',
-  };
-
-  // add the post to the storage
-  beforeAll(() => addedPost1.save());
-
-  // tests
   it("pass an id that doesn't exist", async () => {
     const res = await request(app).get(`/posts/${hash(missingGuid)}`);
 
@@ -102,11 +76,34 @@ describe('test /posts/:id responses', () => {
   });
 
   it('pass an id that does exist', async () => {
-    const res = await request(app).get(`/posts/${hash(existingGuid)}`);
+    // Create a feed
+    const feedId = await Feed.create({
+      author: 'Feed Author',
+      url: 'https://feed-url.com/',
+    });
+    const feed = await Feed.byId(feedId);
 
+    // Create a post that uses this feed
+    const postId = await Post.create({
+      title: 'title',
+      html: 'html',
+      published: '2009-09-07T22:20:00.000Z',
+      updated: '2009-09-07T22:23:00.000Z',
+      url: 'https://feed-url.com/post',
+      guid: existingGuid,
+      feed,
+    });
+    const post = await Post.byId(postId);
+
+    // Our post's id should be what we expect
+    expect(postId).toEqual(hash(existingGuid));
+
+    // Make sure we can get back this post/feed data via the REST api
+    const res = await request(app)
+      .get(`/posts/${postId}`)
+      .set('Accept', 'application/json');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body).toEqual(receivedPost1);
-    expect(res.body instanceof Array).toBe(false);
+    expect(res.body).toEqual(JSON.parse(JSON.stringify(post)));
   });
 });
