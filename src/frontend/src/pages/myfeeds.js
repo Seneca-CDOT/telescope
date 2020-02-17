@@ -29,7 +29,7 @@ export default function MyFeeds() {
                     <AccountCircle />
                   </Grid>
                   <Grid item>
-                    <TextField disabled label="John Doe" />
+                    <TextField id="author" label="John Doe" disabled />
                   </Grid>
                 </Grid>
               </Grid>
@@ -39,7 +39,7 @@ export default function MyFeeds() {
                     <RssFeed />
                   </Grid>
                   <Grid item>
-                    <TextField label="Blog feed URL" />
+                    <TextField id="url" label="Blog feed URL" />
                   </Grid>
                   <Grid item>
                     <IconButton color="primary" classes={{ root: classes.button }}>
