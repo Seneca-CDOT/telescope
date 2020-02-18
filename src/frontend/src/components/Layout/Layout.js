@@ -6,6 +6,7 @@ import Banner from '../Banner';
 import SideDrawer from '../SideDrawer';
 import Backdrop from '../Backdrop';
 import TextArea from '../TextArea';
+import ScrollToTop from '../ScrollToTop';
 
 import logo from '../../images/logo.svg';
 
@@ -84,6 +85,7 @@ class Layout extends Component {
     return (
       <>
         <Banner className="banner" />
+        <ScrollToTop />
         <Header
           className="header"
           drawerHandler={this.drawerToggle}
