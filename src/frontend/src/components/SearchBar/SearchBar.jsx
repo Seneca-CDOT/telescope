@@ -5,7 +5,6 @@ import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
@@ -29,21 +28,20 @@ const useStyles = makeStyles(theme => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 60,
   },
 }));
 
 export default function CustomizedInputBase() {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    age: '',
-    name: 'hai',
+    filter: '',
   });
 
-  const handleChange = name => event => {
+  const handleChange = filter => event => {
     setState({
       ...state,
-      [name]: event.target.value,
+      [filter]: event.target.value,
     });
   };
 
@@ -51,11 +49,11 @@ export default function CustomizedInputBase() {
     <Paper component="form" className={classes.root}>
       <FormControl className={classes.formControl}>
         <NativeSelect
-          value={state.age}
-          onChange={handleChange('age')}
-          name="age"
+          value={state.filter}
+          onChange={handleChange('filter')}
+          name="filter"
           className={classes.selectEmpty}
-          inputProps={{ 'aria-label': 'age' }}
+          inputProps={{ 'aria-label': 'filter' }}
         >
           <option value="">None</option>
           <option value="author">Author</option>
