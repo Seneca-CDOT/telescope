@@ -48,5 +48,6 @@ module.exports = {
         icon: `src/images/logo.svg`, // This path is relative to the root of the site.
       },
     },
+    `gatsby-theme-material-ui`,
   ],
 };
