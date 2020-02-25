@@ -49,15 +49,6 @@ module.exports = {
       },
     },
     `gatsby-theme-material-ui`,
-    /*{
-      resolve: `gatsby-source-graphql`,
-      options: {
-        typeName: `FEEDS`,
-        fieldName: 'feeds',
-        url: 'http://localhost:3000/graphql',
-        refetchInterval: 60,
-      },
-    },*/
     {
       resolve: `gatsby-source-graphql`,
       options: {
