@@ -12,8 +12,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function addFeed(feedAuthor, feedUrl) {
+  const http = new XMLHttpRequest();
+  const url = 'http://localhost:3000/feeds/';
+  const params = `author=${feedAuthor}&url=${feedUrl}`;
+  http.open('POST', url, true);
+  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  http.send(params);
+}
+
 export default function MyFeeds() {
   const classes = useStyles();
+
   return (
     <div className={classes.margin}>
       <Container maxWidth="xs" bgcolor="aliceblue">
@@ -39,7 +49,14 @@ export default function MyFeeds() {
                     <RssFeed />
                   </Grid>
                   <Grid item>
-                    <TextField id="url" label="Blog feed URL" />
+                    <TextField
+                      id="url"
+                      label="Blog feed URL"
+                      onBlur={addFeed(
+                        document.getElementById('id'),
+                        document.getElementById('url')
+                      )}
+                    />
                   </Grid>
                   <Grid item>
                     <IconButton color="primary" classes={{ root: classes.button }}>
