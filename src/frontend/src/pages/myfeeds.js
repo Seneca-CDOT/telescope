@@ -26,11 +26,8 @@ export default function MyFeeds() {
   }
 
   async function addFeed() {
-    // if testing local dev use the first one, otherwise please use the second apiUrl
-    const telescopeUrl = 'http://localhost:3000';
-    // const telescopeUrl = 'dev.telescope.cdot.systems'
     try {
-      const response = await fetch(`${telescopeUrl}/feeds/`, {
+      const response = await fetch(`${process.env.telescopeUrl}/feeds/`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
