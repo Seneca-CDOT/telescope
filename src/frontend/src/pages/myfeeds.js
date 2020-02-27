@@ -25,15 +25,27 @@ export default function MyFeeds() {
     setFeedUrl(url);
   }
 
-  function addFeed(author, url) {
-    const http = new XMLHttpRequest();
+  async function addFeed() {
     // if testing local dev use the first one, otherwise please use the second apiUrl
-    const apiUrl = 'http://localhost:3000/feeds/';
-    // const apiUrl = 'dev.telescope.cdot.systems/feeds/'
-    const params = `author=${author}&url=${url}`;
-    http.open('POST', apiUrl, true);
-    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    http.send(params);
+    const telescopeUrl = 'http://localhost:3000';
+    // const telescopeUrl = 'dev.telescope.cdot.systems'
+    try {
+      const response = await fetch(`${telescopeUrl}/feeds/`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          author: feedAuthor,
+          url: feedUrl,
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log({ error });
+      return { error };
+    }
   }
 
   return (
@@ -79,10 +91,7 @@ export default function MyFeeds() {
                 </Grid>
                 <Grid container spacing={2}>
                   <Grid item>
-                    <IconButton
-                      classes={{ root: classes.button }}
-                      onClick={() => addFeed({ feedAuthor }, { feedUrl })}
-                    >
+                    <IconButton classes={{ root: classes.button }} onClick={() => addFeed()}>
                       <Add />
                     </IconButton>
                   </Grid>
