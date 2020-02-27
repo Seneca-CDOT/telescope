@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Box, Typography, TextField, Grid, Card, IconButton } from '@material-ui/core';
 import { AccountCircle, RssFeed, HelpOutline, Add } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,17 +12,29 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function addFeed(feedAuthor, feedUrl) {
-  const http = new XMLHttpRequest();
-  const url = 'http://localhost:3000/feeds/';
-  const params = `author=${feedAuthor}&url=${feedUrl}`;
-  http.open('POST', url, true);
-  http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  http.send(params);
-}
-
 export default function MyFeeds() {
   const classes = useStyles();
+  const [feedAuthor, setFeedAuthor] = useState('');
+  const [feedUrl, setFeedUrl] = useState('');
+
+  function handleAuthorChange(author) {
+    setFeedAuthor(author);
+  }
+
+  function handleUrlChange(url) {
+    setFeedUrl(url);
+  }
+
+  function addFeed(author, url) {
+    const http = new XMLHttpRequest();
+    // if testing local dev use the first one, otherwise please use the second apiUrl
+    const apiUrl = 'http://localhost:3000/feeds/';
+    // const apiUrl = 'dev.telescope.cdot.systems/feeds/'
+    const params = `author=${author}&url=${url}`;
+    http.open('POST', apiUrl, true);
+    http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    http.send(params);
+  }
 
   return (
     <div className={classes.margin}>
@@ -39,7 +51,12 @@ export default function MyFeeds() {
                     <AccountCircle />
                   </Grid>
                   <Grid item>
-                    <TextField id="author" label="John Doe" disabled />
+                    <TextField
+                      id="author"
+                      label="John Doe"
+                      defaultValue="John"
+                      onBlur={event => handleAuthorChange(event.target.value)}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
@@ -52,10 +69,8 @@ export default function MyFeeds() {
                     <TextField
                       id="url"
                       label="Blog feed URL"
-                      onBlur={addFeed(
-                        document.getElementById('id'),
-                        document.getElementById('url')
-                      )}
+                      defaultValue="https://c3ho.blogspot.com/feeds/posts/default/-/open-source"
+                      onBlur={event => handleUrlChange(event.target.value)}
                     />
                   </Grid>
                   <Grid item>
@@ -66,7 +81,10 @@ export default function MyFeeds() {
                 </Grid>
                 <Grid container spacing={2}>
                   <Grid item>
-                    <IconButton classes={{ root: classes.button }}>
+                    <IconButton
+                      classes={{ root: classes.button }}
+                      onClick={() => addFeed({ feedAuthor }, { feedUrl })}
+                    >
                       <Add />
                     </IconButton>
                   </Grid>
