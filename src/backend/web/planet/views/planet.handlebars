@@ -7,7 +7,7 @@
       {{#each .}}
         <div class="channelgroup">
           <br clear="both">
-          <h3 class="planetauthor"><a href="{{post.site}}" title="Stories by {{post.author}}">{{@key}}</a></h3>
+          <h3 class="planetauthor"><a href="{{post.site}}" title="Stories by {{post.feed.author}}">{{@key}}</a></h3>
 
           {{#each this as | post |}}
             <div class="entrygroup" id="{{post.guid}}">
@@ -17,7 +17,7 @@
                   {{{post.html}}}
                 </div>
                 <p class="date">
-                  <a href="{{post.url}}">by {{post.author}} at {{post.updated}}</a>
+                  <a href="{{post.url}}">by {{post.feed.author}} at {{post.updated}}</a>
                 </p>
               </div>
             </div>

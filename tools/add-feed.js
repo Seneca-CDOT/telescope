@@ -5,8 +5,8 @@ require('../src/backend/lib/config');
 const args = require('minimist')(process.argv.slice(2));
 const isValidUrl = require('valid-url');
 
+const Feed = require('../src/backend/data/feed');
 const { logger } = require('../src/backend/utils/logger');
-const feedQueue = require('../src/backend/feed/queue');
 
 const log = logger.child({ module: 'add-feed' });
 
@@ -24,10 +24,8 @@ async function add() {
     process.exit(1);
   }
 
-  const feedInfo = { name, url };
-
   try {
-    await feedQueue.addFeed(feedInfo);
+    await Feed.create({ author: name, url });
     process.exit(0);
   } catch (err) {
     process.exit(1);

@@ -1,6 +1,13 @@
 const normalizeUrl = require('normalize-url');
 
-const { getFeed, addFeed, setInvalidFeed, isInvalid } = require('../utils/storage');
+const {
+  getFeed,
+  addFeed,
+  setInvalidFeed,
+  isInvalid,
+  setDelayedFeed,
+  isDelayed,
+} = require('../utils/storage');
 const hash = require('./hash');
 
 const urlToId = url => hash(normalizeUrl(url));
@@ -32,52 +39,72 @@ class Feed {
 
   /**
    * Adds the current Feed to the database with the specified reason
+   * Returns a Promise
    */
   setInvalid(reason) {
-    setInvalidFeed(this.id, reason);
+    return setInvalidFeed(this.id, reason);
   }
 
   /**
    * Checks whether the current feed is valid or not
+   * Returns a Promise<Boolean>.
    */
   isInvalid() {
     return isInvalid(this.id);
   }
 
   /**
-   * Creates a Feed by extracting data from the given feed-like object.
-   * @param {Object} o - an Object containing the necessary fields for a feed
+   * Flags a feed in the database, indicating that its processing should be delayed
+   * @param {Number} seconds - duration in seconds for which processing should wait
+   * Returns a Promise
    */
-  static parse(o) {
-    return new Feed(o.author, o.url, o.etag, o.lastModified);
+  setDelayed(seconds) {
+    return setDelayedFeed(this.id, seconds);
+  }
+
+  /**
+   * Checks whether the current feed is delayed or not
+   * Returns a Promise<Boolean>
+   */
+  async isDelayed() {
+    return (await isDelayed(this.id)) === '1';
+  }
+
+  /**
+   * Creates a new Feed object by extracting data from the given feed-like object.
+   * @param {Object} feedData - an Object containing the necessary fields.
+   * Returns the newly created Feed's id as a Promise<String>
+   */
+  static async create(feedData) {
+    const feed = new Feed(feedData.author, feedData.url, feedData.etag, feedData.lastModified);
+    await feed.save();
+    return feed.id;
   }
 
   /**
    * Returns a Feed from the database using the given id
    * @param {String} id - the id of a feed (hashed, normalized url) to get from Redis.
+   * Returns a Promise<Feed>
    */
   static async byId(id) {
-    const feed = await getFeed(id);
+    const data = await getFeed(id);
     // No feed found using this id
-    if (!(feed && feed.id)) {
+    if (!(data && data.id)) {
       return null;
     }
-    return Feed.parse(feed);
+
+    return new Feed(data.author, data.url, data.etag, data.lastModified);
   }
 
   /**
    * Returns a Feed from the database using the given url
    * @param {String} url - the url of a feed to get from Redis.
+   * Returns a Promise<Feed>
    */
-  static async byUrl(url) {
+  static byUrl(url) {
     // Use the URL to generate an id
     const id = urlToId(url);
-    const feed = await this.byId(id);
-    // No feed found using this url's id
-    if (!(feed && feed.id)) {
-      return null;
-    }
-    return Feed.parse(feed);
+    return this.byId(id);
   }
 }
 

@@ -94,36 +94,46 @@ async function getFeedInfo(feed) {
 }
 
 /**
- * Convert an array of Articles from the feed parser into Post objects.
+ * Convert an array of Articles from the feed parser into Post objects
+ * and stores them in Redis.
  * @param {Array<article>} articles to process into posts
  */
-function articlesToPosts(articles) {
-  const posts = [];
-
-  articles.forEach(article => {
-    if (!article) return;
-    try {
-      const post = Post.fromArticle(article);
-      posts.push(post);
-    } catch (error) {
-      // If this is just some missing data, ignore the post, otherwise throw.
-      if (!(error instanceof ArticleError)) {
+function articlesToPosts(articles, feed) {
+  return Promise.all(
+    articles.map(async article => {
+      try {
+        await Post.createFromArticle(article, feed);
+      } catch (error) {
+        // If this is just some missing data, ignore the post, otherwise throw.
+        if (error instanceof ArticleError) {
+          return;
+        }
         throw error;
       }
-    }
-  });
-
-  return posts;
+    })
+  );
 }
 
+/**
+ * The processor for the feed queue receives feed jobs, where
+ * the job to process is an Object with the `id` of the feed.
+ * We expect the Feed to already exist in the system at this point.
+ */
 module.exports = async function processor(job) {
-  const feed = Feed.parse(job.data);
-  let articles = [];
+  const feed = await Feed.byId(job.data.id);
+  if (!feed) {
+    throw new Error(`unable to get Feed for id=${job.data.id}`);
+  }
+
   let info;
-  const invalid = await feed.isInvalid();
+  const [invalid, delayed] = await Promise.all([feed.isInvalid(), feed.isDelayed()]);
   if (invalid) {
     logger.info(`Skipping resource at ${feed.url}. Feed previously marked invalid`);
-    return [];
+    return;
+  }
+  if (delayed) {
+    logger.info(`Skipping resource at ${feed.url}. Feed previously marked for delayed processing`);
+    return;
   }
   try {
     info = await getFeedInfo(feed);
@@ -141,7 +151,8 @@ module.exports = async function processor(job) {
           logger.warn(`${info.status} Feed no longer available: ${feed.url}`);
           break;
         case 429:
-          logger.warn(`${info.status} Feed requested too many times: ${feed.url}`);
+          logger.warn(`${info.status} Feed requested too many times, setting delay: ${feed.url}`);
+          await feed.setDelayed(process.env.FEED_PROCESSING_DELAY_SEC || 3600);
           break;
         case 500:
         case 599:
@@ -152,13 +163,13 @@ module.exports = async function processor(job) {
           break;
       }
 
-      // No posts were processed, return an empty list.
-      return articles;
+      // No posts were processed.
+      return;
     }
 
     // Download the updated feed contents
     logger.info(`${info.status} Feed has new content: ${feed.url}`);
-    articles = await parse(
+    const articles = await parse(
       addHeaders(
         {
           url: feed.url,
@@ -170,7 +181,7 @@ module.exports = async function processor(job) {
       )
     );
     // Transform the list of articles to a list of Post objects
-    articles = articlesToPosts(articles);
+    await articlesToPosts(articles, feed);
 
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;
@@ -189,6 +200,4 @@ module.exports = async function processor(job) {
       throw error;
     }
   }
-
-  return articles;
 };

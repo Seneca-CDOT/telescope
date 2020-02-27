@@ -1,15 +1,14 @@
 require('../../lib/config');
 const express = require('express');
+const passport = require('passport');
 const { UI } = require('bull-board');
 const fs = require('fs');
 const { logger } = require('../../utils/logger');
 
-const { authenticateWithRedirect } = require('../authentication');
-
 const router = express.Router();
 
 // Only authenticated users can use this route
-router.use('/queues', authenticateWithRedirect, UI);
+router.use('/queues', passport.authenticate('saml'), UI);
 
 router.get('/log', (req, res) => {
   let readStream;

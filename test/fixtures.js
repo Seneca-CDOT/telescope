@@ -3,8 +3,6 @@ const url = require('url');
 const fs = require('fs');
 const path = require('path');
 
-const Feed = require('../src/backend/data/feed');
-
 /**
  * This is a fixture module for telescope tests which contains measures to
  * maintain a reproducible environment for system testing
@@ -154,4 +152,4 @@ exports.nockRealWorldRssResponse = function(headers = {}) {
   nockResponse(getRealWorldRssUri(), getRealWorldRssBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.createMockJobObjectFromURL = feedUrl => ({ data: new Feed('author', feedUrl) });
+exports.createMockJobObjectFromFeedId = id => ({ data: { id } });
