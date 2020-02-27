@@ -54,7 +54,6 @@ export default function MyFeeds() {
                     <TextField
                       id="author"
                       label="John Doe"
-                      defaultValue="John"
                       onBlur={event => handleAuthorChange(event.target.value)}
                     />
                   </Grid>
@@ -69,7 +68,6 @@ export default function MyFeeds() {
                     <TextField
                       id="url"
                       label="Blog feed URL"
-                      defaultValue="https://c3ho.blogspot.com/feeds/posts/default/-/open-source"
                       onBlur={event => handleUrlChange(event.target.value)}
                     />
                   </Grid>
