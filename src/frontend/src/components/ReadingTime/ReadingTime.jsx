@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ReadingTime = props => {
-  const calc = () => {
-    const wc = props.text.replace(/[^\w ]/g, '').split(/\s+/).length;
+const calc = text => {
+  const wc = text.replace(/[^\w ]/g, '').split(/\s+/).length;
+  const readingTimeInMinutes = Math.floor(wc / 228) + 1;
+  return readingTimeInMinutes;
+};
 
-    const readingTimeInMinutes = Math.floor(wc / 228) + 1;
-    return readingTimeInMinutes;
-  };
+const ReadingTime = props => {
   return (
     <div>
-      <h5>{calc}</h5>
+      <h5>Reading Time: {calc(props.text)} minutes</h5>
     </div>
   );
 };

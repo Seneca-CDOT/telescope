@@ -89,7 +89,7 @@ posts.get('/:id', async (req, res) => {
 
       switch (accept.type(['json', 'text', 'html'])) {
         case 'json':
-          res.append('Content-type', 'application/json').json(post);
+          res.append('Content-type', 'application/json').json({ ...post, text: post.text });
           break;
         case 'text':
           res.append('Content-type', 'text/plain').send(post.text);
