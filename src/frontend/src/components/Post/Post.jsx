@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './telescope-post-content.css';
-// import ReadingTime from '../ReadingTime';
 
 const Post = ({ html, author, url, title }) => {
   return (
