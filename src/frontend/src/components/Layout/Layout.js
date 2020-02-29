@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import Header from '../Header';
 import Banner from '../Banner';
+import SearchBar from '../SearchBar';
 import SideDrawer from '../SideDrawer';
 import Backdrop from '../Backdrop';
 import TextArea from '../TextArea';
-import Logo from '../Logo';
 
 import logo from '../../images/logo.svg';
 
@@ -84,6 +84,8 @@ class Layout extends Component {
   render() {
     return (
       <>
+        <Banner className="banner" />
+        <SearchBar />
         <Header
           className="header"
           drawerHandler={this.drawerToggle}

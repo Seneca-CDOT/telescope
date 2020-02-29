@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './telescope-post-content.css';
 
 const Post = ({ html, author, url, title }) => {
   return (
     <div className="post">
       <div className="">
-        <h2>
+        <h2 className="title">
           <a href={url}>{title}</a>
         </h2>
-        <h3>{author}</h3>
+        <h3 className="author">{author}</h3>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <div dangerouslySetInnerHTML={{ __html: html }} className="telescope-post-content" />
     </div>
   );
 };
