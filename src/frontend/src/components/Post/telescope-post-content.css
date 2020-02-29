@@ -1,0 +1,46 @@
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  height: auto;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+code,
+pre {
+  background: rgb(239, 240, 241);
+  border-bottom-color: rgb(57, 51, 24);
+  color: rgb(57, 51, 24);
+  page-break-inside: avoid;
+  font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono';
+  font-size: 1.5rem;
+  line-height: 1.6;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em 1.5em;
+  display: block;
+  word-wrap: break-word;
+}
+h1 {
+  font-size: 2.5em;
+  max-width: 670px;
+  margin-right: auto;
+  margin-left: auto;
+  line-height: 1.6;
+  font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
+    Arial;
+}
+ol,
+ul {
+  padding: 1em 1.5em;
+  line-height: 25px;
+  font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
+    Arial;
+}
+.post {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  padding: 3rem;
+  text-align: left;
+}
