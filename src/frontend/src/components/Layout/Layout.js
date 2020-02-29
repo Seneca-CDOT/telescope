@@ -7,6 +7,7 @@ import SearchBar from '../SearchBar';
 import SideDrawer from '../SideDrawer';
 import Backdrop from '../Backdrop';
 import TextArea from '../TextArea';
+import ScrollToTop from '../ScrollToTop';
 
 import logo from '../../images/logo.svg';
 
@@ -84,21 +85,16 @@ class Layout extends Component {
   render() {
     return (
       <>
+        <Header className="header" />
         <Banner className="banner" />
+        <ScrollToTop />
         <SearchBar />
-        <Header
-          className="header"
-          drawerHandler={this.drawerToggle}
-          scrolled={this.state.scrolled}
-        />
         <SideDrawer
           className="sidedrawer"
           show={this.state.sideDrawerOpen}
           items={items}
           logo={logo}
         />
-        <Banner className="banner" />
-        <Logo logo={logo} className="main" />
         <Backdrop click={this.backdropClick} show={this.state.sideDrawerOpen} />
         <main className="main">
           <TextArea className="text-area" style={{ height: '100%' }} posts={this.state.posts} />
