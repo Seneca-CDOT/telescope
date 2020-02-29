@@ -1,11 +1,16 @@
 img {
-  display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 70%;
-  height: auto;
+  max-width: 100%;
   padding-top: 1.5rem;
   padding-bottom: 1rem;
+}
+img[src*='emoji'],
+img[src*='smileys'] {
+  display: inline;
+  width: 1.6rem;
+  padding: 0;
+  vertical-align: text-top;
 }
 code,
 pre {
