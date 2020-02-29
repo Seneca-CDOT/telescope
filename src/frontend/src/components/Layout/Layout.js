@@ -84,8 +84,6 @@ class Layout extends Component {
   render() {
     return (
       <>
-        <Banner className="banner" />
-        <Logo logo={logo} className="main" />
         <Header
           className="header"
           drawerHandler={this.drawerToggle}
@@ -97,6 +95,8 @@ class Layout extends Component {
           items={items}
           logo={logo}
         />
+        <Banner className="banner" />
+        <Logo logo={logo} className="main" />
         <Backdrop click={this.backdropClick} show={this.state.sideDrawerOpen} />
         <main className="main">
           <TextArea className="text-area" style={{ height: '100%' }} posts={this.state.posts} />
