@@ -85,14 +85,10 @@ class Layout extends Component {
   render() {
     return (
       <>
+        <Header className="header" />
         <Banner className="banner" />
         <ScrollToTop />
         <SearchBar />
-        <Header
-          className="header"
-          drawerHandler={this.drawerToggle}
-          scrolled={this.state.scrolled}
-        />
         <SideDrawer
           className="sidedrawer"
           show={this.state.sideDrawerOpen}
