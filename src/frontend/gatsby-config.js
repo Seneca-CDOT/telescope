@@ -54,7 +54,7 @@ module.exports = {
       options: {
         typeName: `Telescope`,
         fieldName: 'telescope',
-        url: 'https://dev.telescope.cdot.systems/graphql',
+        url: `${telescopeUrl}/graphql`,
         refetchInterval: 60,
       },
     },
