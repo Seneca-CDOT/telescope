@@ -27,7 +27,8 @@ export default function MyFeeds() {
 
   async function addFeed() {
     try {
-      const response = await fetch(`${process.env.telescopeUrl}/feeds/`, {
+      const telescopeUrl = process.env.API_URL || `http://localhost:${process.env.PORT || 3000}`;
+      const response = await fetch(`${telescopeUrl}/feeds`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json',
