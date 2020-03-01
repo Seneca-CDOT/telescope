@@ -1,6 +1,7 @@
 import React from 'react';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
+import './Login.css';
 
 function LoggedOut() {
   const { telescopeUrl } = useSiteMetadata();
@@ -8,7 +9,9 @@ function LoggedOut() {
 
   return (
     <div>
-      <a href={loginUrl}>Login</a>
+      <a href={loginUrl} className="login-button">
+        LOGIN
+      </a>
     </div>
   );
 }
