@@ -1,43 +1,73 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
+import { makeStyles } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Button, Typography, IconButton } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Login from '../Login';
-import List from '../shared/List/List.jsx';
-import HamburgerButton from '../HamburgerButton';
 
-import './Header.css';
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    backgroundColor: '#242424',
+  },
+  menuIcon: {
+    fontSize: '2.5rem',
+  },
+  searchIcon: {
+    fontSize: '2.5rem',
+    color: 'white',
+  },
+  title: {
+    flexGrow: 1,
+    marginLeft: '1rem',
+    color: '#a4d4ff',
+  },
+  links: {
+    color: 'white',
+    fontFamily: 'Roboto, sans-serif',
+    textDecoration: 'none',
+    fontSize: '1.5rem',
+    margin: '0 0.5rem 0 0.5rem',
+  },
+  button: {
+    float: 'right',
+    margin: '0 0.5rem 0 0.5rem',
+  },
+});
 
-const items = [
-  { link: '/', text: 'test' },
-  { link: '/', text: 'test2' },
-];
-
-const Header = ({ className, drawerHandler, scrolled }) => {
+const Header = () => {
   const { title } = useSiteMetadata();
+  const classes = useStyles();
 
   return (
-    <header className={`${className} ${scrolled ? 'sticky' : ''}`}>
-      <nav className={`${className}__navigation`}>
-        <div>
-          <HamburgerButton click={drawerHandler} />
-        </div>
-        <div className={`${className}__title`}>
-          <a href="/">{title}</a>
+    <div>
+      <AppBar position="fixed" className={classes.root}>
+        <Toolbar>
+          <Typography variant="h3" className={classes.title}>
+            {title}
+          </Typography>
+          <IconButton color="inherit" className={classes.button}>
+            <Link to="/search">
+              <SearchIcon className={classes.searchIcon} />
+            </Link>
+          </IconButton>
+          <Button color="inherit" size="medium" className={classes.button}>
+            <Link to="/" className={classes.links}>
+              Home
+            </Link>
+          </Button>
           <Login />
-        </div>
-        <div className="spacer" />
-        <List items={items} className={`${className}__navigation`} />
-      </nav>
-    </header>
+          <IconButton edge="start" color="inherit" aria-label="menu" className={classes.button}>
+            <MenuIcon className={classes.menuIcon} />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
-};
-
-Header.propTypes = {
-  className: PropTypes.string,
-  drawerHandler: PropTypes.func,
-  scrolled: PropTypes.bool,
 };
 
 export default Header;

@@ -6,6 +6,7 @@ import Banner from '../Banner';
 import SideDrawer from '../SideDrawer';
 import Backdrop from '../Backdrop';
 import TextArea from '../TextArea';
+import ScrollToTop from '../ScrollToTop';
 
 import logo from '../../images/logo.svg';
 
@@ -83,12 +84,9 @@ class Layout extends Component {
   render() {
     return (
       <>
+        <Header className="header" />
         <Banner className="banner" />
-        <Header
-          className="header"
-          drawerHandler={this.drawerToggle}
-          scrolled={this.state.scrolled}
-        />
+        <ScrollToTop />
         <SideDrawer
           className="sidedrawer"
           show={this.state.sideDrawerOpen}
