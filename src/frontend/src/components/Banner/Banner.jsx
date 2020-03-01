@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Version from '../../../../../package.json';
 import './Banner.css';
 
 const Banner = props => (
   <div className="heroBanner">
     <div className="bannerImg"></div>
     <div className="h1">Telescope</div>
+    <div className="version">v {Version.version}</div>
     <div className="icon">
       <svg
         aria-hidden="true"
