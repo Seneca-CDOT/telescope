@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import Header from '../Header';
 import Banner from '../Banner';
-import SearchBar from '../SearchBar';
 import SideDrawer from '../SideDrawer';
 import Backdrop from '../Backdrop';
 import TextArea from '../TextArea';
@@ -88,7 +87,6 @@ class Layout extends Component {
         <Header className="header" />
         <Banner className="banner" />
         <ScrollToTop />
-        <SearchBar />
         <SideDrawer
           className="sidedrawer"
           show={this.state.sideDrawerOpen}

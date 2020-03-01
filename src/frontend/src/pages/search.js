@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
 
 class Search extends Component {
   constructor(props) {
@@ -10,7 +11,12 @@ class Search extends Component {
   }
 
   render() {
-    return <Header className="header" scrolled={this.state.scrolled} />;
+    return (
+      <>
+        <Header className="header" scrolled={this.state.scrolled} />
+        <SearchBar />
+      </>
+    );
   }
 }
 
