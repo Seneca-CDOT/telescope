@@ -31,3 +31,12 @@
   top: 90%;
   left: 50%;
 }
+
+.version {
+  position: absolute;
+  opacity: 0.85;
+  top: 95%;
+  left: 2.5%;
+  font-size: 1.75rem;
+  color: white;
+}
