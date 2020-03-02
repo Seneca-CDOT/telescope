@@ -12,6 +12,11 @@ html {
   /*translates to 10px -> root font*/
 }
 
+.MuiPaper-root.MuiCard-root.MuiPaper-elevation1.MuiPaper-rounded {
+  font-size: 100%;
+  height: auto;
+}
+
 /* font properties are stated here
 because they will get inherited by
 child components */
