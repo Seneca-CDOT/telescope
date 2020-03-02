@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Box, Typography, TextField, Grid, Card, IconButton } from '@material-ui/core';
 import { AccountCircle, RssFeed, HelpOutline, Add } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,6 +14,38 @@ const useStyles = makeStyles(theme => ({
 
 export default function MyFeeds() {
   const classes = useStyles();
+  const [feedAuthor, setFeedAuthor] = useState('');
+  const [feedUrl, setFeedUrl] = useState('');
+
+  function handleAuthorChange(author) {
+    setFeedAuthor(author);
+  }
+
+  function handleUrlChange(url) {
+    setFeedUrl(url);
+  }
+
+  async function addFeed() {
+    try {
+      const telescopeUrl = process.env.API_URL || `http://localhost:${process.env.PORT || 3000}`;
+      const response = await fetch(`${telescopeUrl}/feeds`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          author: feedAuthor,
+          url: feedUrl,
+        }),
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log({ error });
+      return { error };
+    }
+  }
+
   return (
     <div className={classes.margin}>
       <Container maxWidth="xs" bgcolor="aliceblue">
@@ -29,7 +61,11 @@ export default function MyFeeds() {
                     <AccountCircle />
                   </Grid>
                   <Grid item>
-                    <TextField id="author" label="John Doe" disabled />
+                    <TextField
+                      id="author"
+                      label="John Doe"
+                      onBlur={event => handleAuthorChange(event.target.value)}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
@@ -39,7 +75,11 @@ export default function MyFeeds() {
                     <RssFeed />
                   </Grid>
                   <Grid item>
-                    <TextField id="url" label="Blog feed URL" />
+                    <TextField
+                      id="url"
+                      label="Blog feed URL"
+                      onBlur={event => handleUrlChange(event.target.value)}
+                    />
                   </Grid>
                   <Grid item>
                     <IconButton color="primary" classes={{ root: classes.button }}>
@@ -49,7 +89,7 @@ export default function MyFeeds() {
                 </Grid>
                 <Grid container spacing={2}>
                   <Grid item>
-                    <IconButton classes={{ root: classes.button }}>
+                    <IconButton classes={{ root: classes.button }} onClick={() => addFeed()}>
                       <Add />
                     </IconButton>
                   </Grid>
