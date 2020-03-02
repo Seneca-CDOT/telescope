@@ -1,3 +1,10 @@
 .avatar {
   height: 1em;
 }
+
+.login-button {
+  color: white;
+  text-decoration: none;
+  margin: 0 0.5rem 0 0.5rem;
+  font-size: 1.5rem;
+}
