@@ -49,14 +49,5 @@ module.exports = {
       },
     },
     `gatsby-theme-material-ui`,
-    {
-      resolve: `gatsby-source-graphql`,
-      options: {
-        typeName: `Telescope`,
-        fieldName: 'telescope',
-        url: `${telescopeUrl}/graphql`,
-        refetchInterval: 60,
-      },
-    },
   ],
 };
