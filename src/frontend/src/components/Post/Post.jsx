@@ -29,12 +29,7 @@ const useStyles = makeStyles({
     color: '#A4D4FF',
   },
   content: {
-    paddingTop: '1em',
-  },
-  sidebar: {
-    paddingTop: '1em',
-    backgroundColor: '#707070',
-    display: 'flex',
+    padding: '2em 4em',
   },
 });
 
@@ -61,10 +56,9 @@ const Post = ({ id, html, author, url, title, date }) => {
       </header>
 
       <Grid container>
-        <Grid item sm={12} md={9} className={classes.content}>
+        <Grid item xs={12} className={classes.content}>
           <section className="telescope-post-content" dangerouslySetInnerHTML={{ __html: html }} />
         </Grid>
-        <Grid item sm={false} md={3} className={classes.sidebar}></Grid>
       </Grid>
     </Container>
   );
