@@ -18,9 +18,14 @@ module.exports = {
 
   settings: {
     react: {
-      version: 'detect',
+      version: '16.13',
     },
   },
+
+  /**
+   * Ignore the MUI gatsby plugin
+   */
+  ignorePatterns: ['src/frontend/plugins/gatsby-plugin-top-layout/'],
 
   rules: {
     'prettier/prettier': ['error'],
