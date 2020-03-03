@@ -3,20 +3,10 @@ import PropTypes from 'prop-types';
 
 import Header from '../Header';
 import Banner from '../Banner';
-import SideDrawer from '../SideDrawer';
-import Backdrop from '../Backdrop';
 import Posts from '../Posts';
 import ScrollToTop from '../ScrollToTop';
 
-import logo from '../../images/logo.svg';
-
 import './Layout.css';
-
-const items = [
-  { link: '#', text: 'Home' },
-  { link: '#', text: 'Participants' },
-  { link: '#', text: 'About' },
-];
 
 const isScrollBottom = () =>
   window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
@@ -25,13 +15,10 @@ class Layout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sideDrawerOpen: false,
       scrolled: false,
       numPages: 1,
       posts: [],
     };
-    this.drawerToggle = this.drawerToggle.bind(this);
-    this.backdropClick = this.backdropClick.bind(this);
   }
 
   componentDidMount() {
@@ -73,27 +60,12 @@ class Layout extends Component {
     }));
   }
 
-  drawerToggle() {
-    this.setState(prevState => ({ sideDrawerOpen: !prevState.sideDrawerOpen }));
-  }
-
-  backdropClick() {
-    this.setState({ sideDrawerOpen: false });
-  }
-
   render() {
     return (
       <>
         <Header className="header" />
         <Banner className="banner" />
         <ScrollToTop />
-        <SideDrawer
-          className="sidedrawer"
-          show={this.state.sideDrawerOpen}
-          items={items}
-          logo={logo}
-        />
-        <Backdrop click={this.backdropClick} show={this.state.sideDrawerOpen} />
         <main className="main">
           <Posts posts={this.state.posts} />
         </main>
