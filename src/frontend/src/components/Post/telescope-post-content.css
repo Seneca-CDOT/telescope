@@ -1,19 +1,31 @@
-img {
+.telescope-post-content {
+  padding: 1.5em;
+  font-size: 1.7rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.telescope-post-content p {
+  margin: 1.2rem 0;
+}
+
+.telescope-post-content img {
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
   padding-top: 1.5rem;
   padding-bottom: 1rem;
 }
-img[src*='emoji'],
-img[src*='smileys'] {
-  display: inline;
+.telescope-post-content img[src*='emoji'],
+.telescope-post-content img[src*='smileys'] {
+  display: inline-block;
   width: 1.6rem;
   padding: 0;
   vertical-align: text-top;
 }
-code,
-pre {
+
+.telescope-post-content code,
+.telescope-post-content pre {
   background: rgb(239, 240, 241);
   border-bottom-color: rgb(57, 51, 24);
   color: rgb(57, 51, 24);
@@ -27,7 +39,8 @@ pre {
   display: block;
   word-wrap: break-word;
 }
-h1 {
+
+.telescope-post-content h1 {
   font-size: 2.5em;
   max-width: 670px;
   margin-right: auto;
@@ -36,16 +49,11 @@ h1 {
   font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
     Arial;
 }
-ol,
-ul {
+
+.telescope-post-content ol,
+.telescope-post-content ul {
   padding: 1em 1.5em;
   line-height: 25px;
   font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
     Arial;
-}
-.post {
-  font-size: 1.5rem;
-  line-height: 1.6;
-  padding: 3rem;
-  text-align: left;
 }
