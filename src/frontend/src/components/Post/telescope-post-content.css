@@ -46,18 +46,16 @@
  */
 .telescope-post-content code,
 .telescope-post-content pre {
-  font-family: Consolas, Menlo, Monaco, 'Lucida Console', 'Liberation Mono', monospace;
+  font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
+  background: rgb(239, 240, 241);
+  color: rgb(57, 51, 24);
 }
 
 .telescope-post-content code {
-  background: #8a8a8a;
-  color: #242424;
   padding: 2px 4px;
 }
 
 .telescope-post-content pre {
-  color: rgb(57, 51, 24);
-  background: rgb(239, 240, 241);
   border: 1px solid rgb(57, 51, 24);
   page-break-inside: avoid;
   font-size: 1.5rem;
@@ -66,8 +64,4 @@
   overflow: auto;
   padding: 0.5em 1.5em;
   word-wrap: break-word;
-}
-
-.telescope-post-content pre > code {
-  background: rgb(239, 240, 241);
 }
