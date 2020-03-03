@@ -19,10 +19,10 @@ const useStyles = makeStyles({
     padding: '1.5em',
   },
   title: {
-    fontSize: '2.5em',
+    fontSize: '2em',
   },
   author: {
-    fontSize: '1.5em',
+    fontSize: '1.2em',
   },
   published: {
     textDecoration: 'none',

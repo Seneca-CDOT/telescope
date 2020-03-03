@@ -8,6 +8,7 @@ import Post from '../Post/Post.jsx';
 const useStyles = makeStyles({
   root: {
     padding: 0,
+    maxWidth: '785px',
   },
 });
 
@@ -15,7 +16,7 @@ const Posts = ({ posts }) => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="md" className={classes.root}>
+    <Container className={classes.root}>
       {posts.map(({ id, feed, html, title, url, updated }) => (
         <Post
           key={id}
