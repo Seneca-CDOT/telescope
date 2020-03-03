@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Box, Typography, TextField, Grid, Card, IconButton } from '@material-ui/core';
 import { AccountCircle, RssFeed, HelpOutline, Add } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import useSiteMetadata from '../hooks/use-site-metadata';
 
 const useStyles = makeStyles(theme => ({
   margin: {
@@ -16,6 +17,7 @@ export default function MyFeeds() {
   const classes = useStyles();
   const [feedAuthor, setFeedAuthor] = useState('');
   const [feedUrl, setFeedUrl] = useState('');
+  const { telescopeUrl } = useSiteMetadata();
 
   function handleAuthorChange(author) {
     setFeedAuthor(author);
@@ -27,7 +29,6 @@ export default function MyFeeds() {
 
   async function addFeed() {
     try {
-      const telescopeUrl = process.env.API_URL || `http://localhost:${process.env.PORT || 3000}`;
       const response = await fetch(`${telescopeUrl}/feeds`, {
         method: 'post',
         headers: {
