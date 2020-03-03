@@ -61,10 +61,10 @@ const Post = ({ id, html, author, url, title, date }) => {
       </header>
 
       <Grid container>
-        <Grid item xs={9} className={classes.content}>
+        <Grid item sm={12} md={9} className={classes.content}>
           <section className="telescope-post-content" dangerouslySetInnerHTML={{ __html: html }} />
         </Grid>
-        <Grid item xs={3} className={classes.sidebar}></Grid>
+        <Grid item sm={false} md={3} className={classes.sidebar}></Grid>
       </Grid>
     </Container>
   );
