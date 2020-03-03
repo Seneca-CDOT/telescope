@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Header from '../Header';
 import Banner from '../Banner';
-import TextArea from '../TextArea';
+import Posts from '../Posts';
 import ScrollToTop from '../ScrollToTop';
 
 import './Layout.css';
@@ -67,7 +67,7 @@ class Layout extends Component {
         <Banner className="banner" />
         <ScrollToTop />
         <main className="main">
-          <TextArea className="text-area" style={{ height: '100%' }} posts={this.state.posts} />
+          <Posts posts={this.state.posts} />
         </main>
         <footer>© {new Date().getFullYear()}</footer>
       </>
