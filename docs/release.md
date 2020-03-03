@@ -29,11 +29,11 @@ To help automate this process, we use the [release-it](https://www.npmjs.com/pac
 To create a new release, follow these steps:
 
 1. Make sure you've done everything in the Setup section above, including your `GITHUB_TOKEN`.
+1. Make sure your `master` branch is up-to-date, and you have the most recent git tags in your repo: `git pull upstream master --tags`.
 1. Run `npm outdated` to see a report of [outdated npm packages](https://docs.npmjs.com/cli-commands/outdated.html). Examine this list and decide whether we need to update
    anything now, or before the next release. _Please file a new Issue to update
    anything that is outdated_.
 1. Determine what the new version number should be based on [semantic versioning](https://docs.npmjs.com/about-semantic-versioning).
-1. Use `npm run release --dry-run` to see what would happen if you did a release
 1. Use `npm run release` to actually do the full release
 
 As part of the process, [release-it](https://www.npmjs.com/package/release-it) will
