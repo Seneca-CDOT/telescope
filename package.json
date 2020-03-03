@@ -96,11 +96,8 @@
     "passport-saml": "1.2.0",
     "pino": "5.13.6",
     "pino-pretty": "3.4.0",
-    "react": "16.12.0",
     "reading-level": "0.0.7",
     "sanitize-html": "1.20.1",
-    "sentiment": "5.0.2",
-    "spam-filter": "1.1.1",
     "stoppable": "1.1.0",
     "valid-url": "1.0.9",
     "wordcount": "1.1.1"

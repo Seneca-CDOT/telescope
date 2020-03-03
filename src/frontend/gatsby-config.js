@@ -26,7 +26,17 @@ module.exports = {
     telescopeUrl,
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-top-layout',
+    {
+      resolve: 'gatsby-plugin-material-ui',
+      // If you want to use styled components you should change the injection order.
+      options: {
+        // stylesProvider: {
+        //   injectFirst: true,
+        // },
+      },
+    },
+    'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -39,15 +49,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-for-telescope`,
-        short_name: `starter`,
+        name: 'Telescope',
+        short_name: `Telescope`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#242424`,
+        theme_color: `#242424`,
         display: `minimal-ui`,
         icon: `src/images/logo.svg`, // This path is relative to the root of the site.
       },
     },
-    `gatsby-theme-material-ui`,
   ],
 };
