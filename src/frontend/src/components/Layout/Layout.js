@@ -5,7 +5,7 @@ import Header from '../Header';
 import Banner from '../Banner';
 import SideDrawer from '../SideDrawer';
 import Backdrop from '../Backdrop';
-import TextArea from '../TextArea';
+import Posts from '../Posts';
 import ScrollToTop from '../ScrollToTop';
 
 import logo from '../../images/logo.svg';
@@ -95,7 +95,7 @@ class Layout extends Component {
         />
         <Backdrop click={this.backdropClick} show={this.state.sideDrawerOpen} />
         <main className="main">
-          <TextArea className="text-area" style={{ height: '100%' }} posts={this.state.posts} />
+          <Posts posts={this.state.posts} />
         </main>
         <footer>© {new Date().getFullYear()}</footer>
       </>
