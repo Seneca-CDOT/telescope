@@ -1,16 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, Typography } from '@material-ui/core';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
+
+const useStyles = makeStyles({
+  button: {
+    float: 'right',
+    margin: '0 0.5rem 0 0.5rem',
+  },
+  link: {
+    textDecoration: 'none',
+    fontSize: '1.5rem',
+    color: 'white',
+  },
+  avatar: {
+    height: '1em',
+  },
+});
 
 function LoggedIn(props) {
   const { telescopeUrl } = useSiteMetadata();
   const logoutUrl = `${telescopeUrl}/auth/logout`;
+  const classes = useStyles();
 
   return (
     <div>
-      Welcome {props.email} <a href={logoutUrl}> Logout </a>
-      <img className="avatar" src={`https://unavatar.now.sh/${props.email}`} alt={props.email} />
+      <Button className={classes.button}>
+        <a href={logoutUrl} className={classes.link}>
+          Logout
+        </a>
+      </Button>
+      <Typography variant="h4">| Welcome {props.email}</Typography>
+      <img
+        className={classes.avatar}
+        src={`https://unavatar.now.sh/${props.email}`}
+        alt={props.email}
+      />
     </div>
   );
 }

@@ -3,8 +3,6 @@ import LoggedIn from './LoggedIn.jsx';
 import LoggedOut from './LoggedOut.jsx';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
-import './Login.css';
-
 /**
  * Show either a Login button (if user isn't authenticated)
  * or a welcome message and Logout button.
