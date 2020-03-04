@@ -1,18 +1,32 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
-import './Login.css';
+
+const useStyles = makeStyles({
+  button: {
+    float: 'right',
+    margin: '0 0.5rem 0 0.5rem',
+  },
+  link: {
+    textDecoration: 'none',
+    fontSize: '1.5rem',
+    color: 'white',
+  },
+});
 
 function LoggedOut() {
   const { telescopeUrl } = useSiteMetadata();
   const loginUrl = `${telescopeUrl}/auth/login`;
+  const classes = useStyles();
 
   return (
-    <div>
-      <a href={loginUrl} className="login-button">
+    <Button className={classes.button}>
+      <a href={loginUrl} className={classes.link}>
         LOGIN
       </a>
-    </div>
+    </Button>
   );
 }
 
