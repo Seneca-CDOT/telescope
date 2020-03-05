@@ -52,6 +52,7 @@ async function getFeedInfo(feed) {
     status: null,
     etag: null,
     lastModified: null,
+    site: null,
     contentType: null,
     shouldDownload: true,
   };

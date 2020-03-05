@@ -42,7 +42,9 @@ module.exports = {
         'etag',
         feed.etag,
         'lastModified',
-        feed.lastModified
+        feed.lastModified,
+        'site',
+        feed.site
       )
       .sadd(feedsKey, feed.id)
       .exec();
