@@ -157,6 +157,6 @@ Run `redis-server`
 
 Run `npm start` and open `localhost:3000`
 
-### If experiencing error such as "Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use"
+#### If experiencing error such as "Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use"
 
 Check if an existing instance of redis is running already (Docker/Native) and stop it before starting another instance.
