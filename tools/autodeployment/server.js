@@ -26,6 +26,6 @@ handler.on('push', event => {
   const { name } = event.payload.repository;
 
   if (name === REPO_NAME) {
-    shell.exec('./deploy_stage');
+    shell.exec('./deploy_stage.sh');
   }
 });
