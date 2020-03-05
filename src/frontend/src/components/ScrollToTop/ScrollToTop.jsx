@@ -60,7 +60,7 @@ export default function BackToTop(props) {
       <CssBaseline />
       <Toolbar id="back-to-top-anchor" />
       <ScrollTop {...props}>
-        <Fab color="primary" size="small" aria-label="scroll back to top">
+        <Fab color="primary" aria-label="scroll back to top">
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>
