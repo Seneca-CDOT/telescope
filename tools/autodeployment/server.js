@@ -9,10 +9,7 @@ const handler = createHandler({ path: '/', secret: SECRET });
 
 http
   .createServer((req, res) => {
-    handler(req, res, _err => {
-      res.statusCode = 404;
-      res.end('Page not found');
-    });
+    handler(req, res);
   })
   .listen(DEPLOY_PORT, () => {
     console.log(`Server listening on port ${DEPLOY_PORT}`);
