@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid } from '@material-ui/core';
 
+import syntaxHighlight from './syntax-highlight';
 import './telescope-post-content.css';
 
 const useStyles = makeStyles({
@@ -42,6 +43,10 @@ function formatPublishedDate(dateString) {
 
 const Post = ({ id, html, author, url, title, date }) => {
   const classes = useStyles();
+  // We need a ref to our post content, which we inject into a <section> below.
+  const sectionEl = useRef(null);
+  // When we initialize, find and highlight all <pre> elements contained within.
+  useEffect(() => syntaxHighlight(sectionEl.current), [sectionEl]);
 
   return (
     <Container className={classes.root}>
@@ -57,7 +62,11 @@ const Post = ({ id, html, author, url, title, date }) => {
 
       <Grid container>
         <Grid item xs={12} className={classes.content}>
-          <section className="telescope-post-content" dangerouslySetInnerHTML={{ __html: html }} />
+          <section
+            ref={sectionEl}
+            className="telescope-post-content"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
         </Grid>
       </Grid>
     </Container>
