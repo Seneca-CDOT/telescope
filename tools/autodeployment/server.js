@@ -7,17 +7,19 @@ const { SECRET, REPO_NAME, DEPLOY_PORT } = process.env;
 
 const handler = createHandler({ path: '/', secret: SECRET });
 
-http.createServer((req, res) => {
-  handler(req, res, err => {
-    res.statusCode = 404
-    res.end('Page not found');
+http
+  .createServer((req, res) => {
+    handler(req, res, _err => {
+      res.statusCode = 404;
+      res.end('Page not found');
+    });
   })
-}).listen(CD_PORT, () => {
+  .listen(DEPLOY_PORT, () => {
     console.log(`Server listening on port ${DEPLOY_PORT}`);
-});
+  });
 
 handler.on('error', err => {
-  console.error('Error:', err.message)
+  console.error('Error:', err.message);
 });
 
 handler.on('push', event => {
