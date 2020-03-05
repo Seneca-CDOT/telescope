@@ -138,7 +138,7 @@ _Note: The `env.example` file has examples commented on top of each variable_
 
 ### Now you can start Redis without errors using one of the following methods:
 
-#### Make sure only one of the below options are used when starting Telescope
+_Note: Make sure only one of the below options are used when starting Telescope_
 
 #### Option 1: Using Docker
 
@@ -157,6 +157,6 @@ Run `redis-server`
 
 Run `npm start` and open `localhost:3000`
 
-### If experiencing error such as `Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use`
+### If experiencing error such as "Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use"
 
-Check if an existing instance of redis is running already and stop it before starting another instance.
+Check if an existing instance of redis is running already (Docker/Native) and stop it before starting another instance.
