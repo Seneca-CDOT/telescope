@@ -138,7 +138,9 @@ _Note: The `env.example` file has examples commented on top of each variable_
 
 ### Now you can start Redis without errors using one of the following methods:
 
-#### Using Docker
+#### Make sure only one of the below options are used when starting Telescope
+
+#### Option 1: Using Docker
 
 ```
 sudo systemctl start docker
@@ -147,10 +149,14 @@ docker-compose up --build redis
 
 _Note: You may need to add your user to the docker group in Linux to use `docker-compose` without `sudo`. To do this, try `groups $USER` in a terminal and check if docker is in the list of groups. If not, add it with `usermod -aG docker $USER` and reboot._
 
-#### Natively installed Redis:
+#### Option 2: Natively installed Redis:
 
 Run `redis-server`
 
 ### Finally
 
 Run `npm start` and open `localhost:3000`
+
+### If experiencing error such as `Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use`
+
+Check if another instance of redis is running at the moment.
