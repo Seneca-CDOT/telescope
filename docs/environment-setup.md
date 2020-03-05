@@ -153,7 +153,7 @@ _Note: You may need to add your user to the docker group in Linux to use `docker
 
 Run `redis-server`
 
-_Note: If experiencing error such as `Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use` Check if an existing instance of redis is already running (Docker/Native) and stop it before starting another instance_
+_Note: If experiencing an error such as `Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use` when using either option to start Redis. Check if an existing instance of redis is already running (Docker/Native) and stop it before starting another instance_
 
 ### Finally
 
