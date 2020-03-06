@@ -20,6 +20,7 @@ function getAuthEnv() {
     SSO_LOGIN_CALLBACK_URL,
     SLO_LOGOUT_URL,
     SLO_LOGOUT_CALLBACK_URL,
+    CERTS_PATH,
   } = process.env;
 
   if (
@@ -29,7 +30,8 @@ function getAuthEnv() {
       SSO_LOGIN_URL &&
       SSO_LOGIN_CALLBACK_URL &&
       SLO_LOGOUT_URL &&
-      SLO_LOGOUT_CALLBACK_URL
+      SLO_LOGOUT_CALLBACK_URL &&
+      CERTS_PATH
     )
   ) {
     logger.error(
@@ -46,19 +48,20 @@ function getAuthEnv() {
     SSO_LOGIN_CALLBACK_URL,
     SLO_LOGOUT_URL,
     SLO_LOGOUT_CALLBACK_URL,
+    CERTS_PATH,
   };
 }
 
 // TODO: figure out our cert/key loading
 let cert;
 
-function getCert() {
+function getCert(certPath) {
   if (cert) {
     return cert;
   }
 
   try {
-    cert = fs.readFileSync(path.resolve(process.cwd(), './certs/key.pem'), 'utf8');
+    cert = fs.readFileSync(path.resolve(process.cwd(), `${certPath}/key.pem`), 'utf8');
   } catch (error) {
     logger.error({ error }, 'Unable to load certs/key.pem');
   }
@@ -78,6 +81,7 @@ function init(passport) {
     SSO_LOGIN_CALLBACK_URL,
     SLO_LOGOUT_URL,
     SLO_LOGOUT_CALLBACK_URL,
+    CERTS_PATH,
   } = getAuthEnv();
 
   // Add session user object de/serialize functions
@@ -107,8 +111,8 @@ function init(passport) {
       callbackUrl: SSO_LOGIN_CALLBACK_URL,
       issuer: SAML2_CLIENT_ID,
       // TODO: this isn't right yet.  See https://github.com/bergie/passport-saml#security-and-signatures
-      decryptionPvk: getCert(),
-      privateCert: getCert(),
+      decryptionPvk: getCert(CERTS_PATH),
+      privateCert: getCert(CERTS_PATH),
     },
     function(profile, done) {
       // TODO: we can probably pick off the user data we actually need here...
