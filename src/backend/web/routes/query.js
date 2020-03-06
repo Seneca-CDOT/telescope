@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
   // return a validation failed message
   if (req.query.q.length > 256 || req.query.q.match(/&& | \|\| | !/g).length > 5) {
     res.send('Validation failed');
+    logger.info('Validation failed');
   }
 });
 
