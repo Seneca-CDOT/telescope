@@ -11,10 +11,16 @@ const planet = require('./planet');
 const posts = require('./posts');
 const stats = require('./stats');
 const user = require('./user');
+const query = require('./query');
 
 const router = express.Router();
 
 router.use(express.static(path.join(__dirname, '../../../frontend/public')));
+
+router.get('/', (req, res) => {
+  res.send('hi');
+  console.log('hi');
+});
 
 // Legacy CDOT Planet static assets
 router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
@@ -27,5 +33,6 @@ router.use('/planet', planet);
 router.use('/posts', posts);
 router.use('/stats', stats);
 router.use('/user', user);
+router.use('/query', query);
 
 module.exports = router;
