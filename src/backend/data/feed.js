@@ -24,10 +24,10 @@ class Feed {
     this.id = urlToId(url);
     this.author = author;
     this.url = url;
+    this.site = site === '' ? null : site;
     // We may or may not have these cache values when we create a feed.
     this.etag = etag === '' ? null : etag;
     this.lastModified = lastModified === '' ? null : lastModified;
-    this.site = site === '' ? null : site;
   }
 
   /**
@@ -80,9 +80,9 @@ class Feed {
     const feed = new Feed(
       feedData.author,
       feedData.url,
+      feedData.site,
       feedData.etag,
-      feedData.lastModified,
-      feedData.site
+      feedData.lastModified
     );
     await feed.save();
     return feed.id;
@@ -100,7 +100,7 @@ class Feed {
       return null;
     }
 
-    return new Feed(data.author, data.url, data.etag, data.lastModified, data.site);
+    return new Feed(data.author, data.url, data.site, data.etag, data.lastModified);
   }
 
   /**

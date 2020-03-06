@@ -39,12 +39,12 @@ module.exports = {
         feed.author,
         'url',
         feed.url,
+        'site',
+        feed.site,
         'etag',
         feed.etag,
         'lastModified',
-        feed.lastModified,
-        'site',
-        feed.site
+        feed.lastModified
       )
       .sadd(feedsKey, feed.id)
       .exec();

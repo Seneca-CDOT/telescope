@@ -63,6 +63,7 @@ async function getFeedInfo(feed) {
     response = await fetch(feed.url, addHeaders({ method: 'HEAD' }, feed));
     info.status = `[HTTP ${response.status} - ${response.statusText}]`;
     info.contentType = response.headers.get('Content-Type');
+    info.site = feed.site;
   } catch (error) {
     logger.error({ error }, `Unable to fetch HEAD info for feed ${feed.url}`);
     throw error;
