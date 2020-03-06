@@ -6,8 +6,8 @@ const SamlStrategy = require('passport-saml').Strategy;
 const fs = require('fs');
 const path = require('path');
 
-const { logger } = require('../utils/logger');
-const hash = require('../data/hash');
+const { logger } = require('../../utils/logger');
+const hash = require('../../data/hash');
 
 /**
  * Get our SSO/SLO/SAML/Auth env variables, and warn if any are missing
@@ -134,28 +134,6 @@ function samlMetadata() {
   return strategy.generateServiceProviderMetadata(getCert(), getCert());
 }
 
-/**
- * Middleware to make sure that a route is authenticated. If the user is
- * already authenticated, your route will be called. If the user is already
- * authenticated, the next() route will be be called, otherwise an HTTP 401
- * Unauthorized will be returned on the response. This is probably what you
- * want for a REST API endpoint.
- *
- * To use:
- *
- * router.get('/your/route', protect, function(res, res) { ... }))
- */
-function protect(req, res, next) {
-  // If the user is already authenticated, let this pass to next route
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    // TODO: should probably send appropriate response type (HTML, JSON, etc.)
-    res.status(401).send('Unauthorized');
-  }
-}
-
 module.exports.init = init;
-module.exports.protect = protect;
 module.exports.strategy = strategy;
 module.exports.samlMetadata = samlMetadata;

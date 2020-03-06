@@ -1,12 +1,12 @@
 const express = require('express');
 
-const { protect } = require('../authentication');
+const { protect } = require('../authentication/middleware');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
 
 // Only authenticated users can use this route
-router.get('/info', protect, (req, res) => {
+router.get('/info', protect(), (req, res) => {
   if (!req.user) {
     logger.error('missing req.user!');
     return res.status(503).json({

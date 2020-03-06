@@ -1,7 +1,7 @@
 const express = require('express');
-const passport = require('passport');
 
 const { samlMetadata, strategy } = require('../authentication');
+const { authenticate } = require('../authentication/middleware');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
@@ -10,23 +10,19 @@ const telescopeHomeUrl = '/';
 /**
  * /auth/login/callback is where the external SAML SSO provider will redirect
  * users upon successful login.  We redirect the user back to wherever
- * they were trying to go, or to the home page
+ * they were trying to go, or to the home page.
  */
-router.post('/login/callback', passport.authenticate('saml'), (req, res) => {
-  let returnTo;
-  if (req.session) {
-    returnTo = req.session.returnTo;
-    delete req.session.returnTo;
-  }
-
-  res.redirect(returnTo || telescopeHomeUrl);
+router.post('/login/callback', (req, res) => {
+  // If there's referrer information on the body, use that for our redirect.
+  const referrer = req.body.RelayState;
+  res.redirect(referrer || telescopeHomeUrl);
 });
 
 /**
  * /auth/login will allow users to authenticate with the external
- * SAML SSO provider
+ * SAML SSO provider. We add an extra middleware to grab the originating URL.
  */
-router.get('/login', passport.authenticate('saml'));
+router.get('/login', authenticate());
 
 /**
  * Expose a logout method, to provide idP-initiated SLO
@@ -40,12 +36,10 @@ function logout(req, res) {
         logger.error({ error }, 'logout error - unable to generate logout URL');
         res.redirect(requestUrl);
       }
-      req.session = null;
-      res.redirect('/');
     });
   } catch (error) {
     logger.error({ error }, 'logout error');
-    res.redirect('/');
+    res.redirect(telescopeHomeUrl);
   }
 }
 
@@ -55,15 +49,21 @@ function logout(req, res) {
  */
 router.post('/logout/callback', (req, res) => {
   req.logout();
+
   // TODO: Destroy the cookie session, this isn't working yet...
   req.session = null;
-  res.redirect('/');
+
+  // If there's referrer information on the body, use that for our redirect.
+  const referrer = req.body.RelayState;
+  res.redirect(referrer || telescopeHomeUrl);
 });
 
 /**
- * /auth/logout allows users to clear login tokens from their session
+ * /auth/logout allows users to clear login tokens from their session.
+ * We add an extra middleware to grab the originating URL info if passed
+ * to us on referrer.
  */
-router.get('/logout', passport.authenticate('saml'), logout);
+router.get('/logout', authenticate(), logout);
 
 /**
  * Provide SAML Metadata for our SP
