@@ -28,6 +28,8 @@ import kotlin from 'highlight.js/lib/languages/kotlin';
 import xml from 'highlight.js/lib/languages/xml';
 import shell from 'highlight.js/lib/languages/shell';
 import yaml from 'highlight.js/lib/languages/yaml';
+import php from 'highlight.js/lib/languages/php';
+import dos from 'highlight.js/lib/languages/dos';
 
 import 'highlight.js/styles/github.css';
 
@@ -58,6 +60,8 @@ hljs.registerLanguage('kotlin', kotlin);
 hljs.registerLanguage('xml', xml);
 hljs.registerLanguage('shell', shell);
 hljs.registerLanguage('yaml', yaml);
+hljs.registerLanguage('php', php);
+hljs.registerLanguage('dos', dos);
 
 export default function(node) {
   if (node) {
