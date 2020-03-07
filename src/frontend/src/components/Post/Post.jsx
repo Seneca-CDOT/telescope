@@ -16,8 +16,9 @@ const useStyles = makeStyles({
   },
   header: {
     backgroundColor: '#335A7E',
-    color: '#002944',
+    color: '#97d5ff',
     padding: '2em',
+    lineHeight: '1.3',
   },
   title: {
     fontSize: '2em',
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
   },
   published: {
     textDecoration: 'none',
-    color: '#A4D4FF',
+    color: '#002944',
   },
   content: {
     padding: '2em',
