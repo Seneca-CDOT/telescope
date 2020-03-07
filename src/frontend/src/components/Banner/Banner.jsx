@@ -14,31 +14,9 @@ theme.typography.h1 = {
   fontFamily: 'Roboto',
   fontWeight: 'bold',
   opacity: 0.85,
-  fontSize: '8rem',
-  // screens under 600px
-  [theme.breakpoints.down('xs')]: {
-    fontSize: '8rem',
-    top: theme.spacing(35),
-    left: theme.spacing(3),
-  },
-  // screens over 600px
-  [theme.breakpoints.up('sm')]: {
-    fontSize: '10rem',
-    top: theme.spacing(35),
-    left: theme.spacing(10),
-  },
-  // screens over 960px
-  [theme.breakpoints.up('md')]: {
-    fontSize: '12rem',
-    top: theme.spacing(32),
-    left: theme.spacing(10),
-  },
-  // screens over 1280px
-  [theme.breakpoints.up('lg')]: {
-    fontSize: '15rem',
-    top: theme.spacing(30),
-    left: theme.spacing(10),
-  },
+  fontSize: '12vw',
+  top: theme.spacing(25),
+  left: theme.spacing(8),
 };
 
 export default function Banner() {
