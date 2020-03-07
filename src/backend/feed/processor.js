@@ -63,7 +63,7 @@ async function getFeedInfo(feed) {
     response = await fetch(feed.url, addHeaders({ method: 'HEAD' }, feed));
     info.status = `[HTTP ${response.status} - ${response.statusText}]`;
     info.contentType = response.headers.get('Content-Type');
-    info.site = feed.site;
+    info.site = feed.link;
   } catch (error) {
     logger.error({ error }, `Unable to fetch HEAD info for feed ${feed.url}`);
     throw error;
@@ -186,6 +186,7 @@ module.exports = async function processor(job) {
     await articlesToPosts(articles, feed);
 
     // Version info for this feed changed, so update the database
+    feed.link = 'trash';
     feed.etag = feed.etag || info.etag;
     feed.lastModified = feed.lastModified || info.lastModified;
     await feed.save();
