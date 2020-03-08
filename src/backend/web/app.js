@@ -13,7 +13,6 @@ const logger = require('../utils/logger');
 const authentication = require('./authentication');
 const router = require('./routes');
 
-const secret = authentication.init(passport);
 const app = express();
 
 // Enable CORS and preflight checks on all routes
@@ -37,9 +36,11 @@ app.set('view engine', 'handlebars');
 app.set('logger', logger);
 app.use(logger);
 
-// Setup Passport SAML based Authentication
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Setup Passport SAML based Authentication
+const secret = authentication.init(passport);
 // TODO: decide if we should do resave=false, https://www.npmjs.com/package/express-session#resave
 app.use(session({ secret, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());

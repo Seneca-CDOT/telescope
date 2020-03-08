@@ -45,39 +45,68 @@ from `src/backend/web/authentication.js`.
 We use a test SAML SSO provider via a [docker image](kristophjunge/test-saml-idp).
 You can [read more about how it works here](https://medium.com/disney-streaming/setup-a-single-sign-on-saml-test-environment-with-docker-and-nodejs-c53fc1a984c9).
 
-To get this to run locally, you need to follow these steps.
+### Setup
 
-1. From your project root directory, run the shell script in `tools/generate_ssl_certs.sh` to generate SSL certificates.
+To get this to run locally, you need to create three `.pem` files:
 
-2. You will also need to create a `idp_key.pem` file in the `certs/` folder that gets created with the following key:
+1. a private key for localhost
+1. a public certificate for localhost
+1. a public key for the test SAML provider
 
-`MIIDXTCCAkWgAwIBAgIJALmVVuDWu4NYMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwHhcNMTYxMjMxMTQzNDQ3WhcNNDgwNjI1MTQzNDQ3WjBFMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzUCFozgNb1h1M0jzNRSCjhOBnR`
+For good background on what each of these are, see [this explanation](https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs).
 
-3. Update your `.env` file (copy `env.example` if you don't have one) to ensure all related SAML2 SSO variables are defined. You need the following to be set:
+From the root of the project, follow these steps:
 
-   ```ini
-   # The Single Sign On (SSO) login service URL
-   SSO_LOGIN_URL=http://localhost:8080/simplesaml/saml2/idp/SSOService.php
+```bash
+$ mkdir certs
+$ cd certs
+$ ../tools/generate-ssl-certs.sh
+Generating a 4096 bit RSA private key
+..................................................................................................................................................................................................++
+......................................................................................................................................................................................................++
+writing new private key to 'privkey.pem'
+-----
+```
 
-   # The callback URL endpoint to be used by the SSO login service (see the /auth route)
-   SSO_LOGIN_CALLBACK_URL=http://localhost:3000/auth/login/callback
+You will now have the following three files:
 
-   # The Single Logout (SLO) service URL
-   SLO_LOGOUT_URL=http://localhost:8080/simplesaml/saml2/idp/SingleLogoutService.php
+1. `certs/cert.pem` your public certificate
+1. `certs/privkey.pem` your private key
+1. `certs/idp_pubkey.pem` the public key for the Dockerized SSO Identify Provider
 
-   # The callback URL endpoint to be used by the SLO logout service (see the /auth route)
-   SLO_LOGOUT_CALLBACK_URL=http://localhost:3000/auth/logout/callback
+### Environment Variables
 
-   # SAML2_CLIENT_ID = CLIENT ID obtained from SAML Strategy default: saml-poc
-   SAML2_CLIENT_ID=saml-poc
+With the necessary `.pem` files created, update your `.env` file (copy `env.example`
+if you don't have one) to ensure all related SAML2 SSO variables are defined.
+You need the following to be set:
 
-   # SAML2_CLIENT_SECRET = CLIENT SECRET obtained from SAML Strategy, default : secret;
-   SAML2_CLIENT_SECRET=secret
-   ```
+```ini
+# The Single Sign On (SSO) login service URL
+SSO_LOGIN_URL=http://localhost:8080/simplesaml/saml2/idp/SSOService.php
 
-4. Start the backend apps using `docker-compose up –build`. This will build the SAML2 server that is being used as a local service for testing purposes, and Telescope (express). From there, you should be able to click on the login button at `http://localhost:3000/` that will redirect you to the proper login page.
+# The callback URL endpoint to be used by the SSO login service (see the /auth route)
+SSO_LOGIN_CALLBACK_URL=http://localhost:3000/auth/login/callback
 
-5. The test SSO server uses the following fake user accounts:
+# The Single Logout (SLO) service URL
+SLO_LOGOUT_URL=http://localhost:8080/simplesaml/saml2/idp/SingleLogoutService.php
+
+# The callback URL endpoint to be used by the SLO logout service (see the /auth route)
+SLO_LOGOUT_CALLBACK_URL=http://localhost:3000/auth/logout/callback
+
+# SAML2_CLIENT_ID = CLIENT ID obtained from SAML Strategy default
+SAML2_CLIENT_ID=telescope
+
+# SAML2_CLIENT_SECRET = CLIENT SECRET obtained from SAML Strategy, default : secret;
+SAML2_CLIENT_SECRET=secret
+```
+
+### Running the SSO Identify Provider
+
+Start the backend apps using `docker-compose up –build`. This will build the SAML2 server that is being used as a local service for testing purposes, and Telescope (express). From there, you should be able to click on the login button at `http://localhost:3000/` that will redirect you to the proper login page.
+
+## SSO Fake user Accounts
+
+The test SSO server uses the following fake user accounts:
 
 | Username | Password  |
 | -------- | --------- |
