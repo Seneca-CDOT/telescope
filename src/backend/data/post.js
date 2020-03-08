@@ -6,13 +6,6 @@ const Feed = require('./feed');
 const hash = require('./hash');
 const ArticleError = require('./article-error');
 
-function toDate(date) {
-  if (date instanceof Date) {
-    return date;
-  }
-  return new Date(date);
-}
-
 /**
  * Makes sure that the given feed is a Feed and not just an id.  If the latter
  * it gets the full feed.
@@ -29,8 +22,16 @@ class Post {
     this.id = hash(guid);
     this.title = title;
     this.html = html;
-    this.published = datePublished ? toDate(datePublished) : new Date();
-    this.updated = dateUpdated ? toDate(dateUpdated) : new Date();
+    try {
+      this.published = new Date(datePublished);
+    } catch (error) {
+      throw new Error(`post has invalid publication date : ${datePublished}'`);
+    }
+    try {
+      this.updated = new Date(dateUpdated);
+    } catch (error) {
+      throw new Error(`post has invalid date of last update: ${dateUpdated}'`);
+    }
     this.url = postUrl;
     this.guid = guid;
 
@@ -82,6 +83,7 @@ class Post {
     if (!article.link) missing.push('link');
     // guid is the unique identifier of the post
     if (!article.guid) missing.push('guid');
+    if (!article.pubdate) missing.push('pubdate');
 
     if (missing.length) {
       const message = `invalid article: missing ${missing.join(', ')}`;
@@ -95,15 +97,10 @@ class Post {
       article.title = 'Untitled';
     }
 
-    // If we're missing dates, assign current date
-    const today = new Date();
-    if (!article.pubdate) {
-      logger.debug('article missing pubdate, substituting current date');
-      article.pubdate = today;
-    }
+    // Allow for missing date of most recent update, use original publication date instead
     if (!article.date) {
-      logger.debug('article missing date, substituting current date');
-      article.date = today;
+      logger.debug('article missing date of last update, substituting publication date');
+      article.date = article.pubdate;
     }
 
     let sanitizedHTML;
