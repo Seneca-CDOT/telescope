@@ -71,7 +71,8 @@ function CustomizedInputBase() {
     // setResults(data.getPosts);
   }
 
-  function handleOnClick() {
+  function handleOnClick(event) {
+    event.preventDefault();
     getResults();
   }
 
@@ -102,7 +103,7 @@ function CustomizedInputBase() {
           type="submit"
           className={classes.iconButton}
           aria-label="search"
-          onClick={() => getResults()}
+          onClick={event => handleOnClick(event)}
         >
           <SearchIcon />
         </IconButton>
