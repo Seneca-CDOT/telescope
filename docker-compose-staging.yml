@@ -28,7 +28,7 @@ services:
   # Access to the authentication page via http://localhost:8080/simplesaml or https://localhost:8443/simplesaml
   login:
     environment:
-      - SIMPLESAMLPHP_SP_ENTITY_ID=${SAML2_CLIENT_ID:-saml-poc}
+      - SIMPLESAMLPHP_SP_ENTITY_ID=${SAML2_CLIENT_ID}
       - SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=${SSO_LOGIN_CALLBACK_URL}
       - SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=${SLO_LOGOUT_CALLBACK_URL}
     # image owner's blog post https://medium.com/disney-streaming/setup-a-single-sign-on-saml-test-environment-with-docker-and-nodejs-c53fc1a984c9

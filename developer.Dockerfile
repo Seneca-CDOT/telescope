@@ -24,6 +24,8 @@ COPY package.json ./
 COPY .npmrc ./
 # Bundle app source
 COPY . .
+# Copy the certs/ directory
+COPY ./certs ./certs
 
 # Install all Node.js modules on the image
 RUN npm install --no-package-lock

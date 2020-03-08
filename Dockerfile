@@ -29,6 +29,8 @@ FROM build AS dependencies
 
 # Get Entire Codebase
 COPY . .
+# Copy certs into container
+COPY ./certs ./certs
 
 # Install Production Modules, Build!
 RUN npm install --only=production --no-package-lock
@@ -43,6 +45,8 @@ FROM build AS release
 COPY --from=dependencies /telescope/node_modules /telescope/node_modules
 COPY --from=dependencies /telescope/src/frontend/public /telescope/src/frontend/public
 COPY ./src/backend ./src/backend
+# Copy certs into container
+COPY ./certs ./certs
 
 # Environment variable with default value
 ENV script=start
