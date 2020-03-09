@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -11,16 +11,19 @@ import Version from '../../../../../package.json';
 import './Banner.css';
 
 const theme = createMuiTheme();
-theme.typography.h1 = {
-  position: 'absolute',
-  color: 'white',
-  fontFamily: 'Roboto',
-  fontWeight: 'bold',
-  opacity: 0.85,
-  fontSize: '12vw',
-  top: theme.spacing(25),
-  left: theme.spacing(8),
-};
+
+const useStyles = makeStyles({
+  h1: {
+    position: 'absolute',
+    color: 'white',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    opacity: 0.85,
+    fontSize: '12vw',
+    top: theme.spacing(25),
+    left: theme.spacing(8),
+  },
+});
 
 function ScrollDown(props) {
   const { children } = props;
@@ -53,14 +56,17 @@ ScrollDown.propTypes = {
 };
 
 export default function Banner() {
+  const classes = useStyles();
   return (
     <React.Fragment>
       <CssBaseline />
       <Toolbar id="scroll-down-anchor" />
       <div className="heroBanner">
         <div className="bannerImg"></div>
-        <ThemeProvider theme={theme}>
-          <Typography variant="h1">{'Telescope'}</Typography>
+        <ThemeProvider>
+          <Typography variant="h1" className={classes.h1}>
+            {'Telescope'}
+          </Typography>
         </ThemeProvider>
         <div className="version">v {Version.version}</div>
         <div className="icon">
