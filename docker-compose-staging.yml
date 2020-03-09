@@ -22,7 +22,7 @@ services:
       - redis
       - elasticsearch
     volumes:
-      - static:./src/frontend/public
+      - static:/telescope/src/frontend/public
     restart: always
 
   redis:
