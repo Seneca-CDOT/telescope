@@ -85,6 +85,7 @@
     "feedparser-promised": "2.0.1",
     "get-urls": "9.2.0",
     "graphql-iso-date": "3.6.1",
+    "graphql-passport": "0.6.1",
     "helmet": "3.21.2",
     "ioredis": "4.16.0",
     "ioredis-mock": "4.19.0",
