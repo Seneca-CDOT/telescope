@@ -7,6 +7,28 @@ const hash = require('./hash');
 const ArticleError = require('./article-error');
 
 /**
+ * Makes sure that a given date can be constructed as a Date object
+ * Returns a constructed Date object, if possible
+ * Otherwise throws an Error
+ * @param {Object} date an Object to construct as a Date object
+ * @param {Date} [fallbackDate] an optional second Date to construct in case the first fails to do so
+ */
+function ensureDate(date, fallbackDate) {
+  if (
+    date &&
+    (Object.prototype.toString.call(date) === '[object String]' ||
+      (Object.prototype.toString.call(date) === '[object Date]' && !Number.isNaN(date)))
+  ) {
+    return new Date(date);
+  }
+  if (Object.prototype.toString.call(fallbackDate) === '[object Date]') {
+    return new Date(fallbackDate);
+  }
+
+  throw new Error(`post has an invalid date: ${date}'`);
+}
+
+/**
  * Makes sure that the given feed is a Feed and not just an id.  If the latter
  * it gets the full feed.
  * @param {Feed|String} feed a Feed object or feed id
@@ -22,16 +44,8 @@ class Post {
     this.id = hash(guid);
     this.title = title;
     this.html = html;
-    try {
-      this.published = new Date(datePublished);
-    } catch (error) {
-      throw new Error(`post has invalid publication date : ${datePublished}'`);
-    }
-    try {
-      this.updated = new Date(dateUpdated);
-    } catch (error) {
-      throw new Error(`post has invalid date of last update: ${dateUpdated}'`);
-    }
+    this.published = ensureDate(datePublished);
+    this.updated = ensureDate(dateUpdated, datePublished);
     this.url = postUrl;
     this.guid = guid;
 
