@@ -44,7 +44,7 @@ function CustomizedInputBase(props) {
   const [state, setState] = React.useState({
     filter: '',
   });
-  const { searchText, onClickHandler } = props;
+  const { searchText, onChangeHandler, onClickHandler } = props;
 
   const handleChange = filter => event => {
     setState({
@@ -56,6 +56,10 @@ function CustomizedInputBase(props) {
   const handleClick = event => {
     event.preventDefault();
     onClickHandler();
+  };
+
+  const onTextChange = event => {
+    onChangeHandler(event);
   };
 
   return (
@@ -80,6 +84,8 @@ function CustomizedInputBase(props) {
           className={classes.input}
           placeholder="Search Telescope"
           inputProps={{ 'aria-label': 'search telescope' }}
+          value={searchText}
+          onChange={event => onTextChange(event)}
         />
         <IconButton
           type="submit"

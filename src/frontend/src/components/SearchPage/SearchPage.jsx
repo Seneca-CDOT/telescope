@@ -14,7 +14,7 @@ const SearchPage = () => {
     }
   `;
 
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState('This is a test query');
   const [results, setResults] = useState([]);
 
   let queryResults;
@@ -26,12 +26,16 @@ const SearchPage = () => {
   });
 
   useEffect(() => {
-    setResults([...results, queryResults]);
+    setResults(queryResults);
     console.log(results);
   }, queryResults);
 
   function onClickHandler() {
     executeSearch();
+  }
+
+  function onChangeHandler(event) {
+    setSearchText(event.target.value);
   }
 
   return (
@@ -42,7 +46,11 @@ const SearchPage = () => {
           height: '12vh',
         }}
       ></div>
-      <SearchBar onClickHandler={onClickHandler} searchText={searchText} />
+      <SearchBar
+        onClickHandler={onClickHandler}
+        searchText={searchText}
+        onChangeHandler={onChangeHandler}
+      />
     </div>
   );
 };
