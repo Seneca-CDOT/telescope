@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -66,7 +66,7 @@ export default function Banner() {
         <div className="icon">
           <ScrollDown>
             <Fab color="primary" size="medium" aria-label="scroll-down">
-              <ArrowDownwardIcon />
+              <KeyboardArrowDownIcon />
             </Fab>
           </ScrollDown>
         </div>
