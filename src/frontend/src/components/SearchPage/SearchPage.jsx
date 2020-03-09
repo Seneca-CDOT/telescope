@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-// import { InMemoryCache } from 'apollo-cache-inmemory';
 import Header from '../Header';
 import SearchBar from '../SearchBar';
 
@@ -20,10 +19,11 @@ const SearchPage = () => {
   let queryResults;
 
   const [executeSearch, { data }] = useLazyQuery(SEARCH_QUERY, {
-    onCompleted: () => {
-      queryResults = data.getPosts;
-    },
+    onCompleted: () => {},
   });
+  if (data) {
+    queryResults = data.getPosts;
+  }
 
   useEffect(() => {
     setResults(queryResults);
