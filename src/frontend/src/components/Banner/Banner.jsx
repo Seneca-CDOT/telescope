@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createMuiTheme, ThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -9,8 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 import Version from '../../../../../package.json';
 import './Banner.css';
-
-const theme = createMuiTheme();
+import theme from '../../theme';
 
 const useStyles = makeStyles({
   h1: {
