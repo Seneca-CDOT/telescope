@@ -12,7 +12,7 @@ const index = 'posts';
 const type = 'post';
 
 /**
- * Indexes the text  and id from a post
+ * Indexes the text and id from a post
  * @param text from a post
  * @param postId same id used to store on redis the post object where the text is from
  */

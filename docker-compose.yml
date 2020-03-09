@@ -30,7 +30,6 @@ services:
       - ${REDIS_PORT}:${REDIS_PORT}
 
   elasticsearch:
-    container_name: tqd-elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
     environment:
       - bootstrap.memory_lock=true
