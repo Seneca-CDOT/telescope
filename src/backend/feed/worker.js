@@ -54,7 +54,7 @@ exports.start = async function() {
     logger.info('Connected to elasticsearch!');
   } catch (error) {
     logger.error(
-      `Unable to connect to initialize Elasticsearch before deployment, some posts might not have been indexed: ${error}`
+      `Unable to connect Elasticsearch before deployment, some posts might not have been indexed: ${error}`
     );
   }
   clearInterval(intervalId);
