@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient, InMemoryCache } from 'apollo-boost';
-// import { InMemoryCache } from 'apollo-cache-inmemory';
 import { createHttpLink } from 'apollo-link-http';
+<<<<<<< HEAD
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import SEO from '../components/SEO';
+=======
+import SearchPage from '../components/SearchPage';
+>>>>>>> changes based on humphd feedback
 
 const Search = () => {
   const httpLink = createHttpLink({
@@ -18,6 +21,7 @@ const Search = () => {
   });
 
   return (
+<<<<<<< HEAD
     <div>
       <SEO title="Search" />
       <Header />
@@ -30,6 +34,11 @@ const Search = () => {
         <SearchBar />
       </ApolloProvider>
     </div>
+=======
+    <ApolloProvider client={client}>
+      <SearchPage />
+    </ApolloProvider>
+>>>>>>> changes based on humphd feedback
   );
 };
 

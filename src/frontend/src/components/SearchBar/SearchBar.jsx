@@ -1,21 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { useLazyQuery, useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
-
-const SEARCH_QUERY = gql`
-  query testQuery {
-    getPosts(page: 0, perPage: 5) {
-      title
-    }
-  }
-`;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,12 +39,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function CustomizedInputBase() {
+function CustomizedInputBase(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     filter: '',
   });
-  const [results, setResults] = React.useState([]);
+  const { searchText, onClickHandler } = props;
 
   const handleChange = filter => event => {
     setState({
@@ -63,18 +53,10 @@ function CustomizedInputBase() {
     });
   };
 
-  const [getResults, { loading, error, data }] = useLazyQuery(SEARCH_QUERY);
-  if (error) console.log('error!');
-  if (!loading && data) {
-    const res = data.getPosts;
-    res.forEach(element => console.log(element));
-    // setResults(data.getPosts);
-  }
-
-  function handleOnClick(event) {
+  const handleClick = event => {
     event.preventDefault();
-    getResults();
-  }
+    onClickHandler();
+  };
 
   return (
     <div className={classes.root}>
@@ -103,7 +85,7 @@ function CustomizedInputBase() {
           type="submit"
           className={classes.iconButton}
           aria-label="search"
-          onClick={event => handleOnClick(event)}
+          onClick={event => handleClick(event)}
         >
           <SearchIcon />
         </IconButton>
