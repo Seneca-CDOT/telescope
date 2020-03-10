@@ -4,6 +4,8 @@ const app = require('../src/backend/web/app');
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
 
+jest.mock('../src/backend/lib/elastic');
+
 describe('test GET /feeds endpoint', () => {
   const createdItems = 150;
 
