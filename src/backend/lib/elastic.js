@@ -16,9 +16,9 @@ const type = 'post';
  * @param text from a post
  * @param postId same id used to store on redis the post object where the text is from
  */
-const indexPost = (text, postId) => {
+const indexPost = async (text, postId) => {
   try {
-    esClient.index({
+    await esClient.index({
       index,
       type,
       id: postId,
