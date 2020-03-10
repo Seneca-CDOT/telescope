@@ -6,7 +6,7 @@ const { Client } = require('@elastic/elasticsearch');
 const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}` || 'http://localhost:9200';
 const esClient = new Client({ node: elasticUrl });
 
-const logger = require('../utils/logger');
+const { logger } = require('../utils/logger');
 
 const index = 'posts';
 const type = 'post';
