@@ -1,35 +1,74 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Fab from '@material-ui/core/Fab';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import Version from '../../../../../package.json';
 import './Banner.css';
 
-const Banner = props => (
-  <div className="heroBanner">
-    <div className="bannerImg"></div>
-    <div className="h1">Telescope</div>
-    <div className="version">v {Version.version}</div>
-    <div className="icon">
-      <svg
-        aria-hidden="true"
-        focusable="false"
-        data-prefix="far"
-        data-icon="arrow-alt-circle-down"
-        role="img"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 512 512"
-      >
-        <path
-          fill="#335a7e"
-          d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm-32-316v116h-67c-10.7 0-16 12.9-8.5 20.5l99 99c4.7 4.7 12.3 4.7 17 0l99-99c7.6-7.6 2.2-20.5-8.5-20.5h-67V140c0-6.6-5.4-12-12-12h-40c-6.6 0-12 5.4-12 12z"
-        ></path>
-      </svg>
-    </div>
-  </div>
-);
+const useStyles = makeStyles(theme => ({
+  h1: {
+    position: 'absolute',
+    color: 'white',
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    opacity: 0.85,
+    fontSize: '12vw',
+    top: theme.spacing(35),
+    left: theme.spacing(8),
+  },
+}));
 
-Banner.propTypes = {
-  className: PropTypes.string,
+function ScrollDown(props) {
+  const { children } = props;
+
+  const handleClick = event => {
+    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+
+    if (anchor) {
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  return (
+    <div onClick={handleClick} role="presentation">
+      {children}
+    </div>
+  );
+}
+
+ScrollDown.propTypes = {
+  children: PropTypes.element.isRequired,
+
+  window: PropTypes.func,
 };
 
-export default Banner;
+export default function Banner() {
+  const classes = useStyles();
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <Toolbar id="scroll-down-anchor" />
+      <div className="heroBanner">
+        <div className="bannerImg"></div>
+        <ThemeProvider>
+          <Typography variant="h1" className={classes.h1}>
+            {'Telescope'}
+          </Typography>
+        </ThemeProvider>
+        <div className="version">v {Version.version}</div>
+        <div className="icon">
+          <ScrollDown>
+            <Fab color="primary" size="medium" aria-label="scroll-down">
+              <KeyboardArrowDownIcon />
+            </Fab>
+          </ScrollDown>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+}
