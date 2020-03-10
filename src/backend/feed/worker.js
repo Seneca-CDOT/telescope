@@ -33,7 +33,7 @@ exports.start = async function() {
    * Here we set a timer using 'setTimeout' and check for connectivity during the countdown so elasticsearch
    * has time to be fully prepared to start indexing posts.
    */
-  const DELAY = process.env.ELASTIC_DELAY || 10000;
+  const DELAY = process.env.ELASTIC_DELAY_MS || 10000;
   let intervalId;
   let timerId;
 
