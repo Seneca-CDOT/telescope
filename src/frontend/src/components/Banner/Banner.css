@@ -13,17 +13,6 @@
   opacity: 0.4;
 }
 
-.h1 {
-  position: absolute;
-  color: white;
-  font-family: 'Roboto';
-  font-size: 17rem;
-  font-weight: bold;
-  top: 30%;
-  left: 8%;
-  opacity: 0.85;
-}
-
 .icon {
   height: 7rem;
   width: 7rem;
