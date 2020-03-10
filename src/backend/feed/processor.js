@@ -7,7 +7,6 @@
 const { parse } = require('feedparser-promised');
 const fetch = require('node-fetch');
 
-const { indexPost } = require('../lib/elastic');
 const { logger } = require('../utils/logger');
 const Post = require('../data/post');
 const Feed = require('../data/feed');
@@ -103,10 +102,7 @@ function articlesToPosts(articles, feed) {
   return Promise.all(
     articles.map(async article => {
       try {
-        const id = await Post.createFromArticle(article, feed);
-        // Use the returned id to get the 'text' from the post and index it
-        const { text } = await Post.byId(id);
-        await indexPost(text, id);
+        await Post.createFromArticle(article, feed);
       } catch (error) {
         // If this is just some missing data, ignore the post, otherwise throw.
         if (error instanceof ArticleError) {
