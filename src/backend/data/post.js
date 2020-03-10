@@ -6,11 +6,26 @@ const Feed = require('./feed');
 const hash = require('./hash');
 const ArticleError = require('./article-error');
 
-function toDate(date) {
-  if (date instanceof Date) {
-    return date;
+/**
+ * Makes sure that a given date can be constructed as a Date object
+ * Returns a constructed Date object, if possible
+ * Otherwise throws an Error
+ * @param {Object} date an Object to construct as a Date object
+ * @param {Date} [fallbackDate] an optional second Date to construct in case the first fails to do so
+ */
+function ensureDate(date, fallbackDate) {
+  if (
+    date &&
+    (Object.prototype.toString.call(date) === '[object String]' ||
+      (Object.prototype.toString.call(date) === '[object Date]' && !Number.isNaN(date)))
+  ) {
+    return new Date(date);
   }
-  return new Date(date);
+  if (Object.prototype.toString.call(fallbackDate) === '[object Date]') {
+    return new Date(fallbackDate);
+  }
+
+  throw new Error(`post has an invalid date: ${date}'`);
 }
 
 /**
@@ -29,8 +44,8 @@ class Post {
     this.id = hash(guid);
     this.title = title;
     this.html = html;
-    this.published = datePublished ? toDate(datePublished) : new Date();
-    this.updated = dateUpdated ? toDate(dateUpdated) : new Date();
+    this.published = ensureDate(datePublished);
+    this.updated = ensureDate(dateUpdated, datePublished);
     this.url = postUrl;
     this.guid = guid;
 
@@ -82,6 +97,8 @@ class Post {
     if (!article.link) missing.push('link');
     // guid is the unique identifier of the post
     if (!article.guid) missing.push('guid');
+    // pubdate is the publication date of the post
+    if (!article.pubdate) missing.push('pubdate');
 
     if (missing.length) {
       const message = `invalid article: missing ${missing.join(', ')}`;
@@ -95,15 +112,10 @@ class Post {
       article.title = 'Untitled';
     }
 
-    // If we're missing dates, assign current date
-    const today = new Date();
-    if (!article.pubdate) {
-      logger.debug('article missing pubdate, substituting current date');
-      article.pubdate = today;
-    }
+    // Allow for missing date of most recent update, use original publication date instead
     if (!article.date) {
-      logger.debug('article missing date, substituting current date');
-      article.date = today;
+      logger.debug('article missing date of last update, substituting publication date');
+      article.date = article.pubdate;
     }
 
     let sanitizedHTML;

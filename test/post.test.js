@@ -192,11 +192,10 @@ describe('Post data class tests', () => {
       await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
 
-    test('Post.createFromArticle() with missing pubdate should not throw', async () => {
+    test('Post.createFromArticle() with missing pubdate should throw', async () => {
       const article = articles[0];
       delete article.pubdate;
-      const id = await Post.createFromArticle(article, feed);
-      expect(typeof id).toEqual('string');
+      await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
 
     test('Post.createFromArticle() with missing date should not throw', async () => {
