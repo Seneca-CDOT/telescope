@@ -55,9 +55,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function AuthorResult() {
+export default function AuthorResult(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const { author, posts, lastPostDate } = props;
 
   const handleClick = () => {
     setOpen(!open);
@@ -70,7 +71,7 @@ export default function AuthorResult() {
           <Grid item xs={3} className={classes.imageBox}>
             <Avatar className={classes.avatar}>CS</Avatar>
           </Grid>
-          <Grid xs container direction="column" spacing={0} className={classes.infoBox}>
+          <Grid item xs container direction="column" spacing={0} className={classes.infoBox}>
             <Grid container direction="row" spacing={0}>
               <List
                 component="nav"
@@ -81,19 +82,22 @@ export default function AuthorResult() {
                   <ListItemIcon className={classes.icons}>
                     <PermContactCalendarIcon />
                   </ListItemIcon>
-                  <ListItemText className={classes.font} primary="Username" />
+                  <ListItemText className={classes.font} primary={`Username: ${author}`} />
                 </ListItem>
                 <ListItem button className={classes.infoLine}>
                   <ListItemIcon className={classes.icons}>
                     <EventIcon />
                   </ListItemIcon>
-                  <ListItemText className={classes.font} primary="Date of Last Post: " />
+                  <ListItemText
+                    className={classes.font}
+                    primary={`Date of Last Post: ${lastPostDate}`}
+                  />
                 </ListItem>
                 <ListItem button className={classes.infoLine} onClick={handleClick}>
                   <ListItemIcon className={classes.icons}>
                     <CreateIcon />
                   </ListItemIcon>
-                  <ListItemText className={classes.font} primary="Latest Post: " />
+                  <ListItemText className={classes.font} primary={`Latest Post: ${posts}`} />
                   <Typography>More</Typography>
                   {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
