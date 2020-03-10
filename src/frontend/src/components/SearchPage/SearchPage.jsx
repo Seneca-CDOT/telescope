@@ -7,7 +7,7 @@ import AuthorResult from '../AuthorResult';
 
 const SearchPage = () => {
   const SEARCH_QUERY = gql`
-    query testQuery($author: String!) {
+    query SearchAuthorQuery($author: String!) {
       getPosts(page: 0, perPage: 5, filter: { author: $author }) {
         title
         published
@@ -27,6 +27,8 @@ const SearchPage = () => {
     variables: { author: searchText },
     onCompleted: () => {
       const returnedIds = [];
+      // We only want to display an author once, this would avoid the issue if
+      // there are multiple posts by the same author returned in our query
       const finalResults = data.getPosts
         .map(result => {
           if (!returnedIds.includes(result.feed.id)) {
@@ -39,12 +41,13 @@ const SearchPage = () => {
             };
           }
         })
-        // filters undefined items that might have been pushed when we're checking for duplicate author results
+        // Filters undefined items that might have been pushed/mapped when we're checking for duplicate author results
         .filter(item => item);
       setResults(finalResults);
     },
   });
 
+  // Hook that will re-render the page only if the state of results changes
   useEffect(() => {}, [results]);
 
   function onClickHandler() {
@@ -68,7 +71,10 @@ const SearchPage = () => {
         searchText={searchText}
         onChangeHandler={onChangeHandler}
       />
-      {results.length > 0 ? (
+      {// The initial state of results is going to be 0 and we can't map 0,
+      //  this will check if there are any results and return AuthorResult component
+      //  for each with feed guid as key, otherwise default to "No Results"
+      results.length > 0 ? (
         results.map(result => {
           console.log(results);
           return (
