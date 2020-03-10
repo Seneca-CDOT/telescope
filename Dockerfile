@@ -20,20 +20,32 @@ ENTRYPOINT [ "/sbin/tini", "--"]
 # Set Working Directory Context
 WORKDIR "/telescope"
 
-# Copy shared context
+# Copy package.jsons for each service
 COPY package.json .
+COPY ./tools/autodeployment/package.json ./tools/autodeployment/package.json
+COPY ./src/frontend/package.json ./src/frontend/package.json
 
 # -------------------------------------
 # Context: Dependencies
 FROM build AS dependencies
 
-# Get Entire Codebase
-COPY . .
+# Install Production Modules! 
+# Disable postinstall hook in this case since we are being explict with installs
+RUN npm install --only=production --no-package-lock --ignore-scripts
 
-# Install Production Modules, Build!
-RUN npm install --only=production --no-package-lock
+# Install Frontend Modules!
+RUN cd ./src/frontend && npm install --no-package-lock
+
+# Install Deployment Microservice Modules!
+RUN cd /telescope/tools/autodeployment && npm install --no-package-lock
+
+# -------------------------------------
+# Context: Front-end Builder
+FROM dependencies as builder
+
+COPY ./src/frontend ./src/frontend
+
 RUN npm run build
-
 
 # -------------------------------------
 # Context: Release
@@ -41,7 +53,8 @@ FROM build AS release
 
 # GET deployment code from previous containers
 COPY --from=dependencies /telescope/node_modules /telescope/node_modules
-COPY --from=dependencies /telescope/src/frontend/public /telescope/src/frontend/public
+COPY --from=dependencies /telescope/tools/autodeployment /telescope/tools/autodeployment
+COPY --from=builder /telescope/src/frontend/public /telescope/src/frontend/public
 COPY ./src/backend ./src/backend
 
 # Environment variable with default value
@@ -50,3 +63,4 @@ ENV script=start
 # Running telescope when the image gets built using a script
 # `script` is one of the scripts from `package.json`, passed to the image
 CMD ["sh", "-c", "npm run ${script}"]
+
