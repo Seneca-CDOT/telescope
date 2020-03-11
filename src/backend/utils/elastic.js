@@ -36,7 +36,7 @@ const indexPost = async (text, postId) => {
  * @param textToSearch
  * @return all the results matching the passed text
  */
-const getIndexResults = async textToSearch => {
+const search = async textToSearch => {
   const query = {
     query: {
       match: {
@@ -111,6 +111,6 @@ const waitOnReady = async () => {
 module.exports = {
   indexPost,
   checkConnection,
-  getIndexResults,
+  search,
   waitOnReady,
 };
