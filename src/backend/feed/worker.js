@@ -45,6 +45,6 @@ exports.start = async function() {
      * is safer than calling process.exit()"
      */
     logger.error(error);
-    throw new Error();
+    throw error;
   }
 };
