@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
+const redis = require('redis');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -8,7 +9,9 @@ const healthcheck = require('express-healthcheck');
 const cors = require('cors');
 const helmet = require('helmet');
 const { ApolloServer } = require('apollo-server-express');
+const RedisStore = require('connect-redis')(session);
 
+const redisClient = redis.createClient();
 const { typeDefs, resolvers } = require('./graphql');
 const logger = require('../utils/logger');
 const authentication = require('./authentication');
@@ -45,7 +48,13 @@ app.use(logger);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // TODO: decide if we should do resave=false, https://www.npmjs.com/package/express-session#resave
-app.use(session({ secret, resave: false, saveUninitialized: true }));
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret,
+    resave: false,
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
