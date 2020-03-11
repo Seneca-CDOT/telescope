@@ -17,7 +17,7 @@ import SearchPage from '../components/SearchPage';
 const Search = () => {
   const httpLink = createHttpLink({
     fetch,
-    uri: 'https://localhost:3000/graphql',
+    uri: 'http://localhost:3000/graphql',
   });
 
   const client = new ApolloClient({
