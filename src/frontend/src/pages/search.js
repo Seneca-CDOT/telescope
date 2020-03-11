@@ -3,16 +3,21 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient, InMemoryCache } from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import SEO from '../components/SEO';
 =======
+=======
+import fetch from 'node-fetch';
+>>>>>>> added fetch so npm build will not error
 import SearchPage from '../components/SearchPage';
 >>>>>>> changes based on humphd feedback
 
 const Search = () => {
   const httpLink = createHttpLink({
-    uri: `http://localhost:3000/graphql`,
+    fetch,
+    uri: 'https://localhost:3000/graphql',
   });
 
   const client = new ApolloClient({
