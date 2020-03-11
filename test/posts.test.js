@@ -6,7 +6,7 @@ const Feed = require('../src/backend/data/feed');
 const { addPost } = require('../src/backend/utils/storage');
 const hash = require('../src/backend/data/hash');
 
-jest.mock('../src/backend/lib/elastic');
+jest.mock('../src/backend/utils/elastic');
 
 describe('test /posts endpoint', () => {
   const defaultItems = 30;

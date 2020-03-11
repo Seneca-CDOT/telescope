@@ -5,7 +5,7 @@ const Post = require('../src/backend/data/post');
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
 
-jest.mock('../src/backend/lib/elastic');
+jest.mock('../src/backend/utils/elastic');
 
 describe('Post data class tests', () => {
   let feed;

@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../src/backend/web/app');
 const Feed = require('../src/backend/data/feed');
 
-jest.mock('../src/backend/lib/elastic');
+jest.mock('../src/backend/utils/elastic');
 
 describe('GET "/feed/wiki" endpoint', () => {
   let response;

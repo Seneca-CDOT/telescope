@@ -4,7 +4,7 @@ const path = require('path');
 
 const feedQueue = require('./queue');
 const { logger } = require('../utils/logger');
-const { checkConnection } = require('../lib/elastic');
+const { checkConnection } = require('../utils/elastic');
 
 /**
  * We determine the number of parallel feed processor functions to run

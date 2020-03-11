@@ -5,7 +5,7 @@ const textParser = require('../utils/text-parser');
 const Feed = require('./feed');
 const hash = require('./hash');
 const ArticleError = require('./article-error');
-const { indexPost } = require('../lib/elastic');
+const { indexPost } = require('../utils/elastic');
 
 /**
  * Makes sure that a given date can be constructed as a Date object
