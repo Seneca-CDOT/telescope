@@ -78,8 +78,39 @@ const getIndexResults = async textToSearch => {
  */
 const checkConnection = () => esClient.cluster.health();
 
+const waitOnReady = async () => {
+  /**
+   * Elasticsearch needs time after deployment for setting up all its components.
+   * Here we set a timer using 'setTimeout' and check for connectivity during the countdown so elasticsearch
+   * has time to be fully prepared to start indexing posts.
+   */
+  const DELAY = process.env.ELASTIC_DELAY_MS || 10000;
+  let intervalId;
+  let timerId;
+
+  const timer = new Promise((resolve, reject) => {
+    timerId = setTimeout(() => {
+      reject(new Error('Unable to connect to Elasticsearch'));
+    }, DELAY);
+  });
+
+  const connectivity = new Promise(resolve => {
+    intervalId = setInterval(() => {
+      checkConnection()
+        .then(resolve)
+        .catch(() => logger.info('Attempting to connect to elasticsearch...'));
+    }, 500);
+  });
+
+  await Promise.race([timer, connectivity]);
+
+  clearInterval(intervalId);
+  clearTimeout(timerId);
+};
+
 module.exports = {
   indexPost,
   checkConnection,
   getIndexResults,
+  waitOnReady,
 };
