@@ -27,7 +27,7 @@ const indexPost = async (text, postId) => {
       },
     });
   } catch (error) {
-    logger.error(`There was an error indexing a post for id ${postId}: ${error}`);
+    logger.error({ error }, `There was an error indexing a post for id ${postId}`);
   }
 };
 
