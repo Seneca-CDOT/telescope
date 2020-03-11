@@ -5,6 +5,7 @@ const textParser = require('../utils/text-parser');
 const Feed = require('./feed');
 const hash = require('./hash');
 const ArticleError = require('./article-error');
+const { indexPost } = require('../utils/elastic');
 
 /**
  * Makes sure that a given date can be constructed as a Date object
@@ -143,7 +144,7 @@ class Post {
       article.guid,
       feed
     );
-    await post.save();
+    await Promise.all([post.save(), indexPost(post.text, post.id)]);
     return post.id;
   }
 

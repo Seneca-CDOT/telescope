@@ -2,6 +2,8 @@ const fixtures = require('./fixtures');
 const processor = require('../src/backend/feed/processor');
 const Feed = require('../src/backend/data/feed');
 
+jest.mock('../src/backend/utils/elastic');
+
 describe('Feed Processor Tests', () => {
   const createFeed = url =>
     Feed.create({

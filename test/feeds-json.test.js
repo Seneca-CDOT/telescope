@@ -1,6 +1,8 @@
 const request = require('supertest');
 const app = require('../src/backend/web/app');
 
+jest.mock('../src/backend/utils/elastic');
+
 describe('GET "/feed/json" endpoint', () => {
   let response;
 

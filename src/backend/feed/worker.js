@@ -1,8 +1,10 @@
+require('../lib/config');
 const { cpus } = require('os');
 const path = require('path');
 
 const feedQueue = require('./queue');
 const { logger } = require('../utils/logger');
+const elastic = require('../utils/elastic');
 
 /**
  * We determine the number of parallel feed processor functions to run
@@ -25,9 +27,24 @@ function getFeedWorkersCount() {
   return Math.min(count, cpuCount);
 }
 
-exports.start = function() {
-  const concurrency = getFeedWorkersCount();
-  logger.info(`Starting ${concurrency} instance${concurrency > 1 ? 's' : ''} of feed processor.`);
-  feedQueue.process(concurrency, path.resolve(__dirname, 'processor.js'));
-  return feedQueue;
+exports.start = async function() {
+  try {
+    await elastic.waitOnReady();
+    logger.info('Connected to elasticsearch!');
+
+    const concurrency = getFeedWorkersCount();
+    logger.info(`Starting ${concurrency} instance${concurrency > 1 ? 's' : ''} of feed processor.`);
+    feedQueue.process(concurrency, path.resolve(__dirname, 'processor.js'));
+    return feedQueue;
+  } catch (error) {
+    /**
+     * If elasticsearch is not initialized, we throw again to terminate Telescope.
+     * According to nodejs.org:
+     * "If it is necessary to terminate the Node.js process due to an error condition,
+     * throwing an uncaught error and allowing the process to terminate accordingly
+     * is safer than calling process.exit()"
+     */
+    logger.error(error);
+    throw error;
+  }
 };
