@@ -21,6 +21,7 @@ module.exports.typeDefs = graphql`
     id: String
     author: String
     url: String
+    posts: [Post]
   }
 
   # 'Post' matches our Post type used with redis
@@ -69,6 +70,13 @@ module.exports.resolvers = {
   // Custom Date scalar from package
   Date: GraphQLDate,
 
+  Feed: {
+    posts: async ({ id }) => {
+      const postIds = await getPosts(0, 0);
+      const processed = await Promise.all(postIds.map(Post.byId));
+      return processed.filter(post => post.feed.id === id);
+    },
+  },
   Query: {
     /**
      * @description Takes an id and returns a Feed object
