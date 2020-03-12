@@ -45,3 +45,5 @@ curl -XGET --header 'Content-Type: application/json' http://localhost:9200/posts
 ```sh
 curl -X DELETE 'http://localhost:9200/posts'
 ```
+
+- You can find a list of all available parameters for querying Elasticsearch [here](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html#search-search-api-query-params).
