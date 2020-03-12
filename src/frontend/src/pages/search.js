@@ -12,12 +12,18 @@ import SEO from '../components/SEO';
 import fetch from 'node-fetch';
 >>>>>>> added fetch so npm build will not error
 import SearchPage from '../components/SearchPage';
+<<<<<<< HEAD
 >>>>>>> changes based on humphd feedback
+=======
+import useSiteMetadata from '../hooks/use-site-metadata';
+>>>>>>> changed URI to use custom hook
 
 const Search = () => {
+  const { telescopeUrl } = useSiteMetadata();
+
   const httpLink = createHttpLink({
     fetch,
-    uri: 'http://localhost:3000/graphql',
+    uri: `${telescopeUrl}/graphql`,
   });
 
   const client = new ApolloClient({
