@@ -6,6 +6,9 @@
 - [Redis](https://redis.io/) (2 methods)
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
   - Install as a [native application](https://redis.io/topics/quickstart)
+- [Elasticsearch](https://www.elastic.co/what-is/elasticsearch) (2 methods)
+  - Use [Docker and docker-compose](https://docs.docker.com/install/)
+  - Install as a [native application](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
 ### Install Redis as a native application
 
@@ -30,6 +33,10 @@ We are using [Chocolatey package manager](https://chocolatey.org/) to install Re
 1. To set Redis as a windows service: `redis-server --service-install`
 1. To start Redis: `redis-server --service-start`
 1. To check if running and display server information: `redis-cli info`
+
+### Install Elasticsearch as a native application
+
+To install Elasticsearch as a native application, follow the instructions for your OS [here](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
 ### Docker and Docker-Compose Set Up
 
@@ -136,7 +143,7 @@ Docker Desktop for Windows is not available on Home Edition, and you cannot run 
 
 _Note: The `env.example` file has examples commented on top of each variable_
 
-### Now you can start Redis without errors using one of the following methods:
+### Now you can start Redis and Elasticsearch without errors using one of the following methods:
 
 _Note: Make sure only one of the below options are used when starting Telescope_
 
@@ -144,16 +151,22 @@ _Note: Make sure only one of the below options are used when starting Telescope_
 
 ```
 sudo systemctl start docker
-docker-compose up --build redis
+docker-compose up --build redis elasticsearch
 ```
 
 _Note: You may need to add your user to the docker group in Linux to use `docker-compose` without `sudo`. To do this, try `groups $USER` in a terminal and check if docker is in the list of groups. If not, add it with `usermod -aG docker $USER` and reboot._
 
-#### Option 2: Natively installed Redis:
+#### Option 2: Natively installed:
+
+#### Redis:
 
 Run `redis-server`
 
 _Note: If experiencing an error such as `Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use` when using either option to start Redis. Check if an existing instance of redis is already running (Docker/Native) and stop it before starting another instance_
+
+#### Elasticsearch:
+
+To run Elasticsearch natively, follow the instructions for your OS [here](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
 ### Finally
 
