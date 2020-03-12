@@ -10,7 +10,7 @@
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
   - Install as a [native application](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
-** Important: Both Redis and Elasticsearch must be running in order for Telescope to work. Otherwise, it will crash.**
+**Important: Both Redis and Elasticsearch must be running in order for Telescope to work. Otherwise, it will crash.**
 
 ### Install Redis as a native application
 
