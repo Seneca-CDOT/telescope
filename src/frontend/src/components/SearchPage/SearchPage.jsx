@@ -8,9 +8,10 @@ import AuthorResult from '../AuthorResult';
 const SearchPage = () => {
   const SEARCH_QUERY = gql`
     query SearchAuthorQuery($author: String!) {
-      getPosts(page: 0, perPage: 5, filter: { author: $author }) {
+      getPosts(page: 0, perPage: 25, filter: { author: $author }) {
         title
         published
+        url
         feed {
           id
           author
@@ -35,9 +36,13 @@ const SearchPage = () => {
             returnedIds.push(result.feed.id);
             return {
               id: result.feed.id,
+              // The post will contain information about their most recent post to be used for author results
               author: result.feed.author,
-              title: result.title,
-              lastPostDate: result.published,
+              post: {
+                title: result.title,
+                postLink: result.url,
+                postDate: result.published,
+              },
             };
           }
         })
@@ -77,14 +82,7 @@ const SearchPage = () => {
       results.length > 0 ? (
         results.map(result => {
           console.log(results);
-          return (
-            <AuthorResult
-              key={result.id}
-              posts={result.title}
-              author={result.author}
-              lastPostDate={result.lastPostDate}
-            />
-          );
+          return <AuthorResult key={result.id} author={result.author} post={result.post} />;
         })
       ) : (
         <h1>No Results</h1>
