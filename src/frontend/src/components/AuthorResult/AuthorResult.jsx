@@ -57,7 +57,7 @@ export default function AuthorResult(props) {
   const { postDate, title, postLink } = props.post;
 
   const handleLatestPostClick = () => {
-    window.location.assign(postLink);
+    window.open(postLink);
   };
 
   return (
