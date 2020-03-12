@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 const expressHandlebars = require('express-handlebars');
-const Redis = require('ioredis');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -10,8 +9,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { ApolloServer } = require('apollo-server-express');
 const RedisStore = require('connect-redis')(session);
-
-const redis = new Redis();
+const { redis } = require('../lib/redis');
 const { typeDefs, resolvers } = require('./graphql');
 const logger = require('../utils/logger');
 const authentication = require('./authentication');
