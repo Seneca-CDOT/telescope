@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     lineHeight: '1.3',
   },
   title: {
-    fontSize: '2em',
+    fontSize: '2.5em',
   },
   author: {
     fontSize: '1.2em',
@@ -52,9 +52,9 @@ const Post = ({ id, html, author, url, title, date }) => {
   return (
     <Container className={classes.root}>
       <header className={classes.header}>
-        <h2 id={id} className={classes.title}>
+        <h1 id={id} className={classes.title}>
           {title}
-        </h2>
+        </h1>
         <h3 className={classes.author}>By {author}</h3>
         <a href={url} rel="bookmark" className={classes.published}>
           <time dateTime={date}>{formatPublishedDate(date)}</time>
