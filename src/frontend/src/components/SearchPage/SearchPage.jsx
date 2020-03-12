@@ -36,8 +36,8 @@ const SearchPage = () => {
             returnedIds.push(result.feed.id);
             return {
               id: result.feed.id,
-              // The post will contain information about their most recent post to be used for author results
               author: result.feed.author,
+              // The post will contain information about their most recent post to be used for AuthorResult component
               post: {
                 title: result.title,
                 postLink: result.url,
