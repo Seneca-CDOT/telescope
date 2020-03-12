@@ -70,11 +70,15 @@ module.exports.resolvers = {
   // Custom Date scalar from package
   Date: GraphQLDate,
 
+  /**
+   * This resolver defines how to return the 'posts' field
+   * in the Feed type.
+   */
   Feed: {
     posts: async ({ id }) => {
       const postIds = await getPosts(0, 0);
-      const processed = await Promise.all(postIds.map(Post.byId));
-      return processed.filter(post => post.feed.id === id);
+      const posts = await Promise.all(postIds.map(Post.byId));
+      return posts.filter(post => post.feed.id === id);
     },
   },
   Query: {
