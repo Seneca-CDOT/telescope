@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.85,
     fontSize: '12vw',
     display: 'block',
-    top: theme.spacing(35),
+    top: theme.spacing(20),
     left: theme.spacing(8),
   },
   stats: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '6vw',
     width: '75%',
     display: 'block',
-    bottom: theme.spacing(24),
+    bottom: theme.spacing(20),
     left: theme.spacing(8),
     transition: 'linear 250ms all',
     lineHeight: 'inherit',
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
   version: {
     position: 'absolute',
     opacity: 0.85,
-    bottom: theme.spacing(14),
+    bottom: theme.spacing(10),
     left: theme.spacing(8),
     fontSize: '1.75rem',
     color: 'white',
@@ -81,12 +81,12 @@ function RetrieveStats() {
         }
 
         const stat = await response.json();
-        const locale_stats = {
+        const localeStats = {
           posts: stat.posts.toLocaleString(),
           authors: stat.authors.toLocaleString(),
           words: stat.words.toLocaleString(),
         };
-        setStats(locale_stats);
+        setStats(localeStats);
       } catch (error) {
         console.error('Error getting user info', error);
       }
@@ -125,14 +125,12 @@ export default function Banner() {
             <RetrieveStats />
           </Typography>
         </ThemeProvider>
-        <div className="version" className={classes.version}>
-          v {Version.version}
-        </div>
+        <div className={classes.version}>v {Version.version}</div>
 
         <div className="icon">
           <ScrollDown>
             <Fab color="primary" aria-label="scroll-down">
-              <KeyboardArrowDownIcon />
+              <KeyboardArrowDownIcon fontSize="large" />
             </Fab>
           </ScrollDown>
         </div>
