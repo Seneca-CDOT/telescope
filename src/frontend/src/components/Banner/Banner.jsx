@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -6,6 +6,8 @@ import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
+
+import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Version from '../../../../../package.json';
 import './Banner.css';
@@ -18,8 +20,33 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     opacity: 0.85,
     fontSize: '12vw',
+    display: 'block',
     top: theme.spacing(35),
     left: theme.spacing(8),
+  },
+  stats: {
+    position: 'absolute',
+    color: 'white',
+    fontFamily: 'Roboto',
+    fontWeight: '400',
+    opacity: 0.85,
+    fontSize: '6vw',
+    width: '75%',
+    display: 'block',
+    bottom: theme.spacing(24),
+    left: theme.spacing(8),
+    transition: 'linear 250ms all',
+    lineHeight: 'inherit',
+    letterSpacing: 'inherit',
+  },
+
+  version: {
+    position: 'absolute',
+    opacity: 0.85,
+    bottom: theme.spacing(14),
+    left: theme.spacing(8),
+    fontSize: '1.75rem',
+    color: 'white',
   },
 }));
 
@@ -37,6 +64,40 @@ function ScrollDown(props) {
   return (
     <div onClick={handleClick} role="presentation">
       {children}
+    </div>
+  );
+}
+
+function RetrieveStats() {
+  const { telescopeUrl } = useSiteMetadata();
+  const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
+
+  useEffect(() => {
+    async function getStats() {
+      try {
+        const response = await fetch(`${telescopeUrl}/stats/year`);
+        if (response.status !== 200) {
+          throw new Error(response.statusText);
+        }
+
+        const stat = await response.json();
+        const locale_stats = {
+          posts: stat.posts.toLocaleString(),
+          authors: stat.authors.toLocaleString(),
+          words: stat.words.toLocaleString(),
+        };
+        setStats(locale_stats);
+      } catch (error) {
+        console.error('Error getting user info', error);
+      }
+    }
+
+    getStats();
+  }, [telescopeUrl]);
+
+  return (
+    <div className="stats">
+      This year, {stats.authors} of us wrote {stats.words} words and counting!
     </div>
   );
 }
@@ -59,11 +120,18 @@ export default function Banner() {
           <Typography variant="h1" className={classes.h1}>
             {'Telescope'}
           </Typography>
+
+          <Typography variant="caption" className={classes.stats}>
+            <RetrieveStats />
+          </Typography>
         </ThemeProvider>
-        <div className="version">v {Version.version}</div>
+        <div className="version" className={classes.version}>
+          v {Version.version}
+        </div>
+
         <div className="icon">
           <ScrollDown>
-            <Fab color="primary" size="medium" aria-label="scroll-down">
+            <Fab color="primary" aria-label="scroll-down">
               <KeyboardArrowDownIcon />
             </Fab>
           </ScrollDown>
