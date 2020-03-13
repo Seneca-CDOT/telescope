@@ -186,7 +186,7 @@ module.exports = async function processor(job) {
     await articlesToPosts(articles, feed);
 
     // Version info for this feed changed, so update the database
-    feed.link = 'trash';
+    feed.link = feed.url.replace(/(\.com|\.ca|\.dev|\.me|\.org|\.net).*/, '$1');
     feed.etag = feed.etag || info.etag;
     feed.lastModified = feed.lastModified || info.lastModified;
     await feed.save();
