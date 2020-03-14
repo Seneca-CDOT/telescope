@@ -19,18 +19,36 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Roboto',
     fontWeight: 'bold',
     opacity: 0.85,
-    fontSize: '12vw',
+    fontSize: '12rem',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '4rem',
+    },
+    [theme.breakpoints.between('md', 'lg')]: {
+      fontSize: '8rem',
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '12rem',
+    },
     display: 'block',
     top: theme.spacing(20),
     left: theme.spacing(8),
+    transition: 'linear 250ms all',
   },
   stats: {
     position: 'absolute',
     color: 'white',
     fontFamily: 'Roboto',
-    fontWeight: '400',
     opacity: 0.85,
-    fontSize: '6vw',
+    fontSize: '2rem',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '2rem',
+    },
+    [theme.breakpoints.between('md', 'lg')]: {
+      fontSize: '4rem',
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '8rem',
+    },
     width: '75%',
     display: 'block',
     bottom: theme.spacing(20),
@@ -46,6 +64,16 @@ const useStyles = makeStyles(theme => ({
     bottom: theme.spacing(10),
     left: theme.spacing(8),
     fontSize: '1.75rem',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '1.75rem',
+    },
+    [theme.breakpoints.between('md', 'lg')]: {
+      fontSize: '2rem',
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '4rem',
+    },
+
     color: 'white',
   },
 }));
@@ -97,7 +125,7 @@ function RetrieveStats() {
 
   return (
     <div className="stats">
-      This year, {stats.authors} of us wrote {stats.words} words and counting!
+      This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
     </div>
   );
 }
