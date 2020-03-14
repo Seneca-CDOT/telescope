@@ -15,7 +15,7 @@ For information about installing Redis, see [our environment setup guide](enviro
 - If you want to see the state of the cluster (`cURL`):
 
 ```sh
- curl -X GET 'localhost:9200/\_cluster/health?pretty'
+ curl -X GET 'localhost:9200/_cluster/health?pretty'
 ```
 
 - For listing all the indexes (`Browser`):
