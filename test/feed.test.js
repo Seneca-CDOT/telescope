@@ -10,12 +10,12 @@ describe('Fost data class tests', () => {
     author: 'Post Author',
     url: 'https://user.feed.com/feed.rss',
     id: urlToId('https://user.feed.com/feed.rss'),
+    site: 'site',
     etag: null,
     lastModified: null,
-    site: 'site',
   };
 
-  const createFeed = () => new Feed(data.author, data.url, null, null, data.site);
+  const createFeed = () => new Feed(data.author, data.url, data.site, null, null);
 
   test('Feed should be a function', () => {
     expect(typeof Feed).toBe('function');

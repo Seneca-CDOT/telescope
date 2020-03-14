@@ -18,14 +18,14 @@ async function add() {
     log.error('Usage: add-feed --name <name of the blog author> --url <the feed of the url>');
     process.exit(1);
   }
-  const { name, url, link } = args;
+  const { name, url, site } = args;
   if (!isValidUrl(url)) {
     log.error('INVALID URL');
     process.exit(1);
   }
 
   try {
-    await Feed.create({ author: name, url, link });
+    await Feed.create({ author: name, url, site });
     process.exit(0);
   } catch (err) {
     process.exit(1);

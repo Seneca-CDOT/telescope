@@ -13,7 +13,7 @@ const hash = require('./hash');
 const urlToId = url => hash(normalizeUrl(url));
 
 class Feed {
-  constructor(author, url, link, etag, lastModified) {
+  constructor(author, url, site, etag, lastModified) {
     if (!url) {
       throw new Error('missing url for feed');
     }
@@ -24,7 +24,7 @@ class Feed {
     this.id = urlToId(url);
     this.author = author;
     this.url = url;
-    this.link = link === '' ? null : link;
+    this.site = site === '' ? null : site;
     // We may or may not have these cache values when we create a feed.
     this.etag = etag === '' ? null : etag;
     this.lastModified = lastModified === '' ? null : lastModified;
