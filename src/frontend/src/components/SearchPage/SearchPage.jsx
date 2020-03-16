@@ -68,14 +68,14 @@ const SearchPage = () => {
     },
   });
 
-  // Hook that will re-render the page only if the state of results changes
+  // Hook that will re-render the page only if the state of searchText changes
   useEffect(() => {
     executeSearch();
   }, [searchText]);
 
   // Displays one of three options depending on whether there is a search string, results and no results
   const displayResults = () => {
-    if (searchText.length === 0) {
+    if (searchText.length === 0 && results.length < 1) {
       return <h1 className={classes.searchReply}>No search terms entered</h1>;
     }
     //  The initial state of results is going to be 0 and we can't map 0,
@@ -88,10 +88,6 @@ const SearchPage = () => {
     return <h1 className={classes.searchReply}>No results found</h1>;
   };
 
-  function onClickHandler() {
-    executeSearch();
-  }
-
   function onChangeHandler(event) {
     setSearchText(event.target.value);
   }
@@ -100,11 +96,7 @@ const SearchPage = () => {
     <div>
       <Header />
       <div className={classes.divAfterHeader}></div>
-      <SearchBar
-        onClickHandler={onClickHandler}
-        searchText={searchText}
-        onChangeHandler={onChangeHandler}
-      />
+      <SearchBar searchText={searchText} onChangeHandler={onChangeHandler} />
       {displayResults()}
     </div>
   );

@@ -87,14 +87,6 @@ function CustomizedInputBase(props) {
           value={searchText}
           onChange={event => onTextChange(event)}
         />
-        <IconButton
-          type="submit"
-          className={classes.iconButton}
-          aria-label="search"
-          onClick={event => handleClick(event)}
-        >
-          <SearchIcon />
-        </IconButton>
       </Paper>
     </div>
   );
