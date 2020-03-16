@@ -37,7 +37,6 @@ const SearchPage = () => {
 
   const [searchText, setSearchText] = useState('');
   const [results, setResults] = useState([]);
-  const [searchTextIsEmpty, setSearchTextIsEmpty] = useState(true);
 
   const [executeSearch, { data }] = useLazyQuery(SEARCH_QUERY, {
     // setting author variable here to use in the query above
@@ -70,31 +69,31 @@ const SearchPage = () => {
   });
 
   // Hook that will re-render the page only if the state of results changes
-  useEffect(() => {}, []);
+  useEffect(() => {
+    executeSearch();
+  }, [searchText]);
 
-  function onChangeHandler(event) {
-    setSearchText(event.target.value);
-    if (searchText.length > 0) {
-      setSearchTextIsEmpty(false);
-    } else {
-      setSearchTextIsEmpty(true);
-    }
-  }
-
+  // Displays one of three options depending on whether there is a search string, results and no results
   const displayResults = () => {
-    // The initial state of results is going to be 0 and we can't map 0,
+    if (searchText.length === 0) {
+      return <h1 className={classes.searchReply}>No search terms entered</h1>;
+    }
+    //  The initial state of results is going to be 0 and we can't map 0,
     //  this will check if there are any results and return AuthorResult component
-    //  for each with feed guid as key, otherwise default to "No Results"
+    //  for each with feed guid as key
     if (results.length > 0)
       return results.map(result => (
         <AuthorResult key={result.id} author={result.author} post={result.post} />
       ));
-    if (searchText.length > 0 && results.length < 1)
-      return <h1 className={classes.searchReply}>No results found</h1>;
+    return <h1 className={classes.searchReply}>No results found</h1>;
   };
 
   function onClickHandler() {
     executeSearch();
+  }
+
+  function onChangeHandler(event) {
+    setSearchText(event.target.value);
   }
 
   return (
@@ -106,11 +105,7 @@ const SearchPage = () => {
         searchText={searchText}
         onChangeHandler={onChangeHandler}
       />
-      {!searchTextIsEmpty ? (
-        displayResults()
-      ) : (
-        <h1 className={classes.searchReply}>No search terms entered</h1>
-      )}
+      {displayResults()}
     </div>
   );
 };
