@@ -5,10 +5,13 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CssBaseline from '@material-ui/core/CssBaseline';
+<<<<<<< HEAD
 
+=======
+import Toolbar from '@material-ui/core/Toolbar';
+>>>>>>> 755e450... Include version info on header banner
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
-import Version from '../../../../../package.json';
 import './Banner.css';
 
 const useStyles = makeStyles(theme => ({
@@ -218,6 +221,7 @@ ScrollDown.propTypes = {
 
 export default function Banner() {
   const classes = useStyles();
+  const { version, sha } = useSiteMetadata();
   return (
     <React.Fragment>
       <CssBaseline />
@@ -229,8 +233,12 @@ export default function Banner() {
             {'Telescope'}
           </Typography>
         </ThemeProvider>
+<<<<<<< HEAD
 
         <div className={classes.version}>v {Version.version}</div>
+=======
+        <div className={classes.version}>v {`${version} SHA:${sha}`}</div>
+>>>>>>> 755e450... Include version info on header banner
 
         <div className={classes.icon}>
           <ScrollDown>

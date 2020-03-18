@@ -1,5 +1,11 @@
 const path = require('path');
 
+const Version = require('../../package.json');
+
+const getRepoInfo = require('../../node_modules/git-repo-info');
+
+const info = getRepoInfo();
+
 /**
  * Try to load an .env from the root telescope project
  */
@@ -17,6 +23,9 @@ require('dotenv').config({
  * in our now.json file.
  */
 const telescopeUrl = process.env.API_URL || `http://localhost:${process.env.PORT || 3000}`;
+// const telescopeSha = info.sha;
+const { sha } = info;
+const { version } = Version;
 
 module.exports = {
   siteMetadata: {
@@ -24,6 +33,8 @@ module.exports = {
     description: `A tool for tracking blogs in orbit around Seneca's open source involvement`,
     author: `SDDS Students and professors`,
     telescopeUrl,
+    sha,
+    version,
   },
   plugins: [
     'gatsby-plugin-top-layout',
