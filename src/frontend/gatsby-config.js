@@ -23,7 +23,6 @@ require('dotenv').config({
  * in our now.json file.
  */
 const telescopeUrl = process.env.API_URL || `http://localhost:${process.env.PORT || 3000}`;
-// const telescopeSha = info.sha;
 const { sha } = info;
 const { version } = Version;
 
