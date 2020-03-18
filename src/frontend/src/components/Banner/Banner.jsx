@@ -82,6 +82,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '4rem',
     },
+<<<<<<< HEAD
   },
   icon: {
     height: '5.6rem',
@@ -94,6 +95,9 @@ const useStyles = makeStyles(theme => ({
       left: '80%',
       bottom: theme.spacing(18),
     },
+=======
+    color: 'white',
+>>>>>>> 06f75d5... spacing changes
   },
 }));
 
