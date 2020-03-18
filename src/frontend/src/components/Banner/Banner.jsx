@@ -234,11 +234,21 @@ export default function Banner() {
           </Typography>
         </ThemeProvider>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         <div className={classes.version}>v {Version.version}</div>
 =======
         <div className={classes.version}>v {`${version} SHA:${sha}`}</div>
 >>>>>>> 755e450... Include version info on header banner
+=======
+        <a
+          href={`https://github.com/Seneca-CDOT/telescope/commit/${sha}`}
+          title={`git commit ${sha}`}
+          className={classes.version}
+        >
+          v {version}
+        </a>
+>>>>>>> fb053d4... removed sha turned it into a link
 
         <div className={classes.icon}>
           <ScrollDown>
