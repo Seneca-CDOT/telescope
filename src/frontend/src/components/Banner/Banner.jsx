@@ -97,7 +97,14 @@ const useStyles = makeStyles(theme => ({
     },
 =======
     color: 'white',
+<<<<<<< HEAD
 >>>>>>> 06f75d5... spacing changes
+=======
+    textDecorationLine: 'none',
+    '&:hover': {
+      textDecorationLine: 'underline',
+    },
+>>>>>>> 7125a51... added css recommendation by cindeledev
   },
 }));
 
