@@ -8,7 +8,7 @@
 
 # Adding/Modifying Resolvers for GraphQL
 
-1. Our resolvers can be found in [src/backend/web//graphql/index.js](../src/backend/web/graphql/index.js) under `module.exports.resolvers`.
+1. Our resolvers can be found in [src/backend/web/graphql/index.js](../src/backend/web/graphql/index.js) under `module.exports.resolvers`.
 
 ## Step-by-step Guide
 
