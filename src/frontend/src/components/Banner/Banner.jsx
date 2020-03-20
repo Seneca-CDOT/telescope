@@ -97,8 +97,8 @@ function ScrollDown(props) {
 }
 
 function RetrieveBackgroundImage() {
-  const [backgroundImgSrc, setBackgroundImgSrc] = useState('../../images/hero-banner.png');
-  const [transitionBackground, setTransitionBackground] = useState(false);
+  const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
+  const [transitionBackground, setTransitionBackground] = useState(true);
 
   useEffect(() => {
     async function getBackgroundImgSrc() {
@@ -109,16 +109,24 @@ function RetrieveBackgroundImage() {
         - https://unsplash.com/collections/1538150/milkyway
         - https://unsplash.com/collections/291422/night-lights
         */
-        const response = await fetch(`https://source.unsplash.com/collection/1538150/1920x1080/`);
+
+        // Ensure we are using an image which fits correctly to user's viewspace
+        const dimensions = `${window.innerWidth}x${window.innerHeight}`;
+        const response = await fetch(`https://source.unsplash.com/collection/894/${dimensions}/`);
+
         if (response.status !== 200) {
           throw new Error(response.statusText);
         }
 
-        const src = await response.url;
+        const src = response.url;
+
+        // Ease in Background
         setBackgroundImgSrc(src);
-        setTransitionBackground(true);
+        setTransitionBackground(false);
       } catch (error) {
         console.error('Error getting user info', error);
+        // Fallback to default image
+        setBackgroundImgSrc('../../images/hero-banner.png');
       }
     }
 
@@ -126,10 +134,16 @@ function RetrieveBackgroundImage() {
   }, []);
 
   return (
-    <div>
-      {/* <div className={`bannerImg ${transitionBackground ? 'defaultBannerTransparent' : ' '}`}></div> */}
-      <div className={'bannerImg'} style={{ backgroundImage: `url(${backgroundImgSrc})` }}></div>
-    </div>
+    <div
+      className="bannerImg"
+      style={{
+        backgroundImage:
+          backgroundImgSrc === '../../images/hero-banner.png'
+            ? backgroundImgSrc
+            : `url(${backgroundImgSrc})`,
+        opacity: transitionBackground ? 0 : 0.4,
+      }}
+    ></div>
   );
 }
 
