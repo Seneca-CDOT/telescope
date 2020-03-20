@@ -2,6 +2,9 @@
   font-size: 1.8rem;
   line-height: 1.6;
   text-align: left;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .telescope-post-content p {
