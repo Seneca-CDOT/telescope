@@ -16,7 +16,6 @@ const useSiteMetadata = () => {
             description
             author
             telescopeUrl
-            sha
             version
           }
         }

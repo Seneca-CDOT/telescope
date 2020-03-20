@@ -5,11 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CssBaseline from '@material-ui/core/CssBaseline';
-<<<<<<< HEAD
-
-=======
-import Toolbar from '@material-ui/core/Toolbar';
->>>>>>> 755e450... Include version info on header banner
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import './Banner.css';
@@ -82,7 +77,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '4rem',
     },
-<<<<<<< HEAD
   },
   icon: {
     height: '5.6rem',
@@ -95,16 +89,11 @@ const useStyles = makeStyles(theme => ({
       left: '80%',
       bottom: theme.spacing(18),
     },
-=======
     color: 'white',
-<<<<<<< HEAD
->>>>>>> 06f75d5... spacing changes
-=======
     textDecorationLine: 'none',
     '&:hover': {
       textDecorationLine: 'underline',
     },
->>>>>>> 7125a51... added css recommendation by cindeledev
   },
 }));
 
@@ -160,7 +149,7 @@ function RetrieveBannerDynamicAssets() {
   useEffect(() => {
     async function getBackgroundImgSrc() {
       // Uses https://unsplash.com/collections/894/earth-%26-planets collection
-      /* Other Options: 
+      /* Other Options:
         - https://unsplash.com/collections/2411320/trend%3A-extreme-neon
         - https://unsplash.com/collections/1538150/milkyway
         - https://unsplash.com/collections/291422/night-lights
@@ -232,7 +221,24 @@ ScrollDown.propTypes = {
 
 export default function Banner() {
   const classes = useStyles();
-  const { version, sha } = useSiteMetadata();
+  const { version, telescopeUrl } = useSiteMetadata();
+  const [sha, setSha] = useState('');
+
+  async function getSha() {
+    try {
+      const res = await fetch(`${telescopeUrl}/health`);
+      const data = await res.json();
+      return data.info.sha;
+    } catch (error) {
+      console.error(`Error retrieving site's health info`, error);
+      return error;
+    }
+  }
+
+  useEffect(async () => {
+    setSha(await getSha());
+  }, []);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -244,14 +250,7 @@ export default function Banner() {
             {'Telescope'}
           </Typography>
         </ThemeProvider>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-        <div className={classes.version}>v {Version.version}</div>
-=======
-        <div className={classes.version}>v {`${version} SHA:${sha}`}</div>
->>>>>>> 755e450... Include version info on header banner
-=======
         <a
           href={`https://github.com/Seneca-CDOT/telescope/commit/${sha}`}
           title={`git commit ${sha}`}
@@ -259,8 +258,6 @@ export default function Banner() {
         >
           v {version}
         </a>
->>>>>>> fb053d4... removed sha turned it into a link
-
         <div className={classes.icon}>
           <ScrollDown>
             <Fab color="primary" aria-label="scroll-down">

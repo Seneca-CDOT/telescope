@@ -16,11 +16,7 @@
     "gatsby-plugin-sharp": "2.4.5",
     "gatsby-source-filesystem": "2.1.48",
     "gatsby-transformer-sharp": "2.3.16",
-<<<<<<< HEAD
     "graphql-tag": "2.10.3",
-=======
-    "git-repo-info": "2.1.1",
->>>>>>> 7450a17... changed to use package in frontend
     "highlight.js": "9.18.1",
     "node-fetch": "2.6.0",
     "prop-types": "15.7.2",

@@ -84,6 +84,7 @@
     "feed": "4.1.0",
     "feedparser-promised": "2.0.1",
     "get-urls": "9.2.0",
+    "git-repo-info": "2.1.1",
     "graphql-iso-date": "3.6.1",
     "graphql-passport": "0.6.1",
     "helmet": "3.21.2",

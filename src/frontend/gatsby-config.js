@@ -1,6 +1,5 @@
 const path = require('path');
-const getRepoInfo = require('git-repo-info');
-const Version = require('../../package.json');
+const { version } = require('../../package.json');
 
 /**
  * Try to load an .env from the root telescope project
@@ -19,8 +18,6 @@ require('dotenv').config({
  * in our now.json file.
  */
 const telescopeUrl = process.env.API_URL || `http://localhost:${process.env.PORT || 3000}`;
-const { sha } = getRepoInfo();
-const { version } = Version;
 
 module.exports = {
   siteMetadata: {
@@ -28,7 +25,6 @@ module.exports = {
     description: `A tool for tracking blogs in orbit around Seneca's open source involvement`,
     author: `SDDS Students and professors`,
     telescopeUrl,
-    sha,
     version,
   },
   plugins: [
