@@ -78,7 +78,7 @@ export default function AuthorResult(props) {
                   <ListItemIcon className={classes.icons}>
                     <PermContactCalendarIcon />
                   </ListItemIcon>
-                  <ListItemText className={classes.font} primary={`Username: ${author}`} />
+                  <ListItemText className={classes.font} primary={`Author: ${author}`} />
                 </ListItem>
                 <ListItem button className={classes.infoLine}>
                   <ListItemIcon className={classes.icons}>

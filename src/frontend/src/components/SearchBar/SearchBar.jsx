@@ -2,8 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
@@ -44,18 +42,13 @@ function CustomizedInputBase(props) {
   const [state, setState] = React.useState({
     filter: '',
   });
-  const { searchText, onChangeHandler, onClickHandler } = props;
+  const { searchText, onChangeHandler } = props;
 
   const handleChange = filter => event => {
     setState({
       ...state,
       [filter]: event.target.value,
     });
-  };
-
-  const handleClick = event => {
-    event.preventDefault();
-    onClickHandler();
   };
 
   const onTextChange = event => {

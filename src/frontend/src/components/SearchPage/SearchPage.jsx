@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import gql from 'graphql-tag';
 import Header from '../Header';
 import SearchBar from '../SearchBar';
 import AuthorResult from '../AuthorResult';
+import SEO from '../SEO';
 
 const useStyles = makeStyles(() => ({
   searchReply: {
@@ -13,9 +15,9 @@ const useStyles = makeStyles(() => ({
     color: 'coral',
     fontWeight: 400,
   },
-  divAfterHeader: {
-    height: '12vh',
+  boxAfterHeader: {
     minHeight: '12em',
+    display: 'flex',
   },
 }));
 
@@ -43,27 +45,25 @@ const SearchPage = () => {
     variables: { author: searchText },
 
     onCompleted: () => {
-      const returnedIds = [];
-      // We only want to display an author once, this would avoid the issue if
+      // We only want to display a feed once, this would avoid the issue if
       // there are multiple posts by the same author returned in our query
       const finalResults = data.getPosts
+        .filter(
+          (element, index, self) =>
+            self.findIndex(result => result.feed.id === element.feed.id) === index
+        )
         .map(result => {
-          if (!returnedIds.includes(result.feed.id)) {
-            returnedIds.push(result.feed.id);
-            return {
-              id: result.feed.id,
-              author: result.feed.author,
-              // The post will contain information about their most recent post to be used for AuthorResult component
-              post: {
-                title: result.title,
-                postLink: result.url,
-                postDate: result.published,
-              },
-            };
-          }
-        })
-        // Filters undefined items that might have been pushed/mapped when we're checking for duplicate author results
-        .filter(item => item);
+          return {
+            id: result.feed.id,
+            author: result.feed.author,
+            // The post will contain information about their most recent post to be used for AuthorResult component
+            post: {
+              title: result.title,
+              postLink: result.url,
+              postDate: new Intl.DateTimeFormat('en-US').format(result.published),
+            },
+          };
+        });
       setResults(finalResults);
     },
   });
@@ -94,8 +94,9 @@ const SearchPage = () => {
 
   return (
     <div>
+      <SEO title="Search" />
       <Header />
-      <div className={classes.divAfterHeader}></div>
+      <Box className={classes.boxAfterHeader}></Box>
       <SearchBar searchText={searchText} onChangeHandler={onChangeHandler} />
       {displayResults()}
     </div>
