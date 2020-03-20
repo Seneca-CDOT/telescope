@@ -11,6 +11,7 @@ const planet = require('./planet');
 const posts = require('./posts');
 const stats = require('./stats');
 const user = require('./user');
+const query = require('./query');
 
 const router = express.Router();
 
@@ -27,5 +28,6 @@ router.use('/planet', planet);
 router.use('/posts', posts);
 router.use('/stats', stats);
 router.use('/user', user);
+router.use('/query', query);
 
 module.exports = router;
