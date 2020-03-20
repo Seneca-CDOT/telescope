@@ -96,6 +96,43 @@ function ScrollDown(props) {
   );
 }
 
+function RetrieveBackgroundImage() {
+  const [backgroundImgSrc, setBackgroundImgSrc] = useState('../../images/hero-banner.png');
+  const [transitionBackground, setTransitionBackground] = useState(false);
+
+  useEffect(() => {
+    async function getBackgroundImgSrc() {
+      try {
+        // Uses https://unsplash.com/collections/894/earth-%26-planets collection
+        /* Other Options: 
+        - https://unsplash.com/collections/2411320/trend%3A-extreme-neon
+        - https://unsplash.com/collections/1538150/milkyway
+        - https://unsplash.com/collections/291422/night-lights
+        */
+        const response = await fetch(`https://source.unsplash.com/collection/1538150/1920x1080/`);
+        if (response.status !== 200) {
+          throw new Error(response.statusText);
+        }
+
+        const src = await response.url;
+        setBackgroundImgSrc(src);
+        setTransitionBackground(true);
+      } catch (error) {
+        console.error('Error getting user info', error);
+      }
+    }
+
+    getBackgroundImgSrc();
+  }, []);
+
+  return (
+    <div>
+      {/* <div className={`bannerImg ${transitionBackground ? 'defaultBannerTransparent' : ' '}`}></div> */}
+      <div className={'bannerImg'} style={{ backgroundImage: `url(${backgroundImgSrc})` }}></div>
+    </div>
+  );
+}
+
 function RetrieveStats() {
   const { telescopeUrl } = useSiteMetadata();
   const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
@@ -143,7 +180,8 @@ export default function Banner() {
       <CssBaseline />
       <Toolbar id="scroll-down-anchor" />
       <div className="heroBanner">
-        <div className="bannerImg"></div>
+        <RetrieveBackgroundImage />
+
         <ThemeProvider>
           <Typography variant="h1" className={classes.h1}>
             {'Telescope'}
