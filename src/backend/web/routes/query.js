@@ -5,28 +5,27 @@ const { search } = require('../../utils/elastic');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
-  // Github rule, query is greater than 256 chars return a validation failed message
-  const maxSearchLength = 256;
-
-  if (!req.query.search) {
-    const error = new Error('Required query param missing when using query route');
-    logger.error({ error });
-    error.status = 400;
-    res.status(error);
-    return next(error);
-  }
-
-  if (req.query.search.length > maxSearchLength) {
-    const error = 'Validation failed, query length is greater than 256 characters.';
-    res.send(error);
-    logger.error(error);
-  }
-
+router.get('/', async (req, res) => {
   try {
+    const maxSearchLength = 256;
+
+    if (!req.query.search) {
+      const error = 'Validation failed, query parameter search length is empty or undefined';
+      res.status(400);
+      throw error;
+    }
+
+    // Github rule, query is greater than 256 chars return a validation failed message
+    if (req.query.search.length > maxSearchLength) {
+      const error =
+        'Validation failed, query parameter search length is greater than 256 characters.';
+      res.status(400);
+      throw error;
+    }
+
     res.send(await search(req.query.search));
   } catch (error) {
-    res.send('There was an error while executing your query.');
+    res.send(`There was an error while executing your query: ${error}`);
     logger.error({ error }, 'Something went wrong with search indexing');
   }
 });
