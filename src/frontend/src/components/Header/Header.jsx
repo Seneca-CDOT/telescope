@@ -60,6 +60,11 @@ const Header = () => {
               Home
             </Link>
           </Button>
+          <Button color="inherit" size="medium" className={classes.button}>
+            <Link to="/about" className={classes.links}>
+              About
+            </Link>
+          </Button>
           <Login />
           <IconButton edge="start" color="inherit" aria-label="menu" className={classes.button}>
             <MenuIcon className={classes.menuIcon} />
