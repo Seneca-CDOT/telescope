@@ -1,7 +1,17 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button, Typography, IconButton } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  IconButton,
+  List,
+  ListItem,
+  Drawer,
+  Divider,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -37,11 +47,52 @@ const useStyles = makeStyles({
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
   },
+  list: {
+    width: 250,
+  },
+  paper: {
+    background: '#242424',
+  },
+  line: {
+    backgroundColor: '#525252',
+  },
+  item: {
+    textAlign: 'center',
+  },
 });
 
 const Header = () => {
   const { title } = useSiteMetadata();
   const classes = useStyles();
+  const [state, setState] = React.useState({
+    right: false,
+  });
+
+  const toggleDrawer = (side, open) => event => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [side]: open });
+  };
+
+  const sideList = side => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+        <ListItem className={classes.item}>
+          <Link to="/search" className={classes.links}>
+            Search
+          </Link>
+        </ListItem>
+        <Divider className={classes.line} />
+      </List>
+    </div>
+  );
 
   return (
     <div>
@@ -61,9 +112,23 @@ const Header = () => {
             </Link>
           </Button>
           <Login />
-          <IconButton edge="start" color="inherit" aria-label="menu" className={classes.button}>
+          <IconButton
+            onClick={toggleDrawer('right', true)}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            className={classes.button}
+          >
             <MenuIcon className={classes.menuIcon} />
           </IconButton>
+          <Drawer
+            classes={{ paper: classes.paper }}
+            anchor="right"
+            open={state.right}
+            onClose={toggleDrawer('right', false)}
+          >
+            {sideList('right')}
+          </Drawer>
         </Toolbar>
       </AppBar>
     </div>
