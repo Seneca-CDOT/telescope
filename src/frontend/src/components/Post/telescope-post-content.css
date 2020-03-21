@@ -49,6 +49,8 @@
  */
 .telescope-post-content code,
 .telescope-post-content pre {
+  overflow-wrap: unset;
+  word-wrap: none;
   font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
   background: rgb(239, 240, 241);
   color: rgb(57, 51, 24);
