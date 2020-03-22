@@ -9,7 +9,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { ApolloServer } = require('apollo-server-express');
 const RedisStore = require('connect-redis')(session);
+const { buildContext } = require('graphql-passport');
 const { redis } = require('../lib/redis');
+
 const { typeDefs, resolvers } = require('./graphql');
 const logger = require('../utils/logger');
 const authentication = require('./authentication');
@@ -25,10 +27,27 @@ app.use(helmet());
 app.use(cors());
 app.options('*', cors());
 
+// TODO: decide if we should do resave=false, https://www.npmjs.com/package/express-session#resave
+app.use(
+  session({
+    store: new RedisStore({ client: redis }),
+    secret,
+    resave: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Add the Apollo server to app and define the `/graphql` endpoint
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req, res }) => buildContext({ req, res }),
+  playground: {
+    settings: {
+      'request.credentials': 'same-origin',
+    },
+  },
 });
 
 server.applyMiddleware({ app, path: '/graphql' });
@@ -45,16 +64,6 @@ app.use(logger);
 // Setup Passport SAML based Authentication
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// TODO: decide if we should do resave=false, https://www.npmjs.com/package/express-session#resave
-app.use(
-  session({
-    store: new RedisStore({ client: redis }),
-    secret,
-    resave: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Provide a standard `/health` endpoint to check on state of the app
 app.use('/health', healthcheck());
