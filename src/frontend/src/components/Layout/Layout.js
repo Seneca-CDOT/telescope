@@ -6,8 +6,6 @@ import Banner from '../Banner';
 import Posts from '../Posts';
 import ScrollToTop from '../ScrollToTop';
 
-import './Layout.css';
-
 const isScrollBottom = () =>
   window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
 
