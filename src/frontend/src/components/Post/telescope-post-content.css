@@ -2,6 +2,9 @@
   font-size: 1.8rem;
   line-height: 1.6;
   text-align: left;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .telescope-post-content p {
@@ -46,6 +49,8 @@
  */
 .telescope-post-content code,
 .telescope-post-content pre {
+  overflow-wrap: unset;
+  word-wrap: none;
   font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
   background: #eff0f1;
   color: #242424;
