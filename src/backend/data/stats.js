@@ -16,7 +16,7 @@ const countWords = posts => posts.reduce((total, post) => total + count(post.tex
  * Get the total number of unique feeds in the posts in the array
  * @param {Array<Post>} posts the array of post objects
  */
-const countFeeds = posts => new Set(posts.map(post => post.feed)).size;
+const countFeeds = posts => new Set(posts.map(post => post.feed.author)).size;
 
 class Stats {
   constructor(startDate, endDate) {
@@ -28,7 +28,7 @@ class Stats {
   }
 
   /**
-   * Returns a Promise<Array> of post ids
+   * Returns a Promise<Object> with counts for posts, authors, and words.
    */
   async calculate() {
     const ids = await getPostsByDate(this.startDate, this.endDate);
