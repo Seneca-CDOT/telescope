@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
@@ -141,7 +140,6 @@ export default function Banner() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Toolbar id="scroll-down-anchor" />
       <div className="heroBanner">
         <div className="bannerImg"></div>
         <ThemeProvider>

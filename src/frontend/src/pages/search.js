@@ -6,11 +6,6 @@ const Search = () => {
   return (
     <div>
       <Header />
-      <div
-        style={{
-          height: '12vh',
-        }}
-      ></div>
       <SearchBar />
     </div>
   );
