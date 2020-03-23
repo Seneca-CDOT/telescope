@@ -5,6 +5,7 @@ import Header from '../Header';
 import Banner from '../Banner';
 import Posts from '../Posts';
 import ScrollToTop from '../ScrollToTop';
+import SEO from '../SEO';
 
 const isScrollBottom = () =>
   window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
@@ -61,6 +62,7 @@ class Layout extends Component {
   render() {
     return (
       <>
+        <SEO title="Home" />
         <Header className="header" />
         <Banner className="banner" />
         <ScrollToTop />

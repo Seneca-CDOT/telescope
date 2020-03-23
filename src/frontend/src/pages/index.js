@@ -12,6 +12,7 @@ export default function IndexPage() {
           site(buildTime: {}) {
             siteMetadata {
               telescopeUrl
+              title
             }
           }
         }
