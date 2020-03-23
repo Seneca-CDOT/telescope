@@ -19,11 +19,12 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Login from '../Login';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: '#242424',
   },
+  toolbar: theme.mixins.toolbar,
   menuIcon: {
     fontSize: '2.5rem',
   },
@@ -59,7 +60,7 @@ const useStyles = makeStyles({
   item: {
     textAlign: 'center',
   },
-});
+}));
 
 const Header = () => {
   const { title } = useSiteMetadata();
@@ -136,6 +137,7 @@ const Header = () => {
           </Drawer>
         </Toolbar>
       </AppBar>
+      <Toolbar className={classes.toolbar}></Toolbar>
     </div>
   );
 };
