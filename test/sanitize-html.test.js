@@ -34,11 +34,21 @@ describe('Sanitize HTML', () => {
     );
   });
 
-  test('<iframe> gets removed after run through sanitizeHTML', () => {
+  test('<iframe> to Telescope returns an empty iframe tag', () => {
     const data = sanitizeHTML(
       '<iframe src="https://www.telescope.com" style="border:none;">Telescope</iframe>'
     );
-    expect(data).toBe('Telescope');
+    expect(data).toBe('<iframe>Telescope</iframe>');
+  });
+
+  test('<iframe> tag to a youtube embed should not get removed', () => {
+    const data = sanitizeHTML('<iframe src="https://www.youtube.com/embed/nGeKSiCQkPw"></iframe>');
+    expect(data).toBe('<iframe src="https://www.youtube.com/embed/nGeKSiCQkPw"></iframe>');
+  });
+
+  test('<iframe> tag to a vimeo player should not get removed', () => {
+    const data = sanitizeHTML('<iframe src="https://player.vimeo.com/video/395927811"></iframe>');
+    expect(data).toBe('<iframe src="https://player.vimeo.com/video/395927811"></iframe>');
   });
 
   test('<pre> with inline style, sanitize strips inline style', () => {

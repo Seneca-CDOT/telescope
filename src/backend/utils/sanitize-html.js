@@ -25,6 +25,7 @@ module.exports = function(dirty) {
       'h6',
       'hr',
       'i',
+      'iframe',
       'img',
       'li',
       'ol',
@@ -40,5 +41,11 @@ module.exports = function(dirty) {
       'tr',
       'ul',
     ],
+    allowedAttributes: {
+      iframe: ['src'],
+      img: ['src'],
+      a: ['href'],
+    },
+    allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com'],
   });
 };
