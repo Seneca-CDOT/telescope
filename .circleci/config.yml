@@ -8,8 +8,8 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Create default env variables
-        command: cp env.example .env
+          name: Create default env variables
+          command: cp env.example .env
       - run:
           name: Generate SSL Certs
           command: ./tools/generate-ssl-certs.sh
