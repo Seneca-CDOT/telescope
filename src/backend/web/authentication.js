@@ -92,6 +92,8 @@ function init(passport) {
       callbackUrl: SSO_LOGIN_CALLBACK_URL,
       issuer: SAML_ENTITY_ID,
       cert: SSO_IDP_PUBLIC_KEY_CERT,
+      // https://github.com/bergie/passport-saml/issues/226
+      disableRequestedAuthnContext: true,
       signatureAlgorithm: 'sha256',
     },
     function(profile, done) {
