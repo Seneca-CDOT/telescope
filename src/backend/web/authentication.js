@@ -3,8 +3,6 @@
  */
 
 const SamlStrategy = require('passport-saml').Strategy;
-const fs = require('fs');
-const path = require('path');
 
 const { logger } = require('../utils/logger');
 const hash = require('../data/hash');
@@ -14,8 +12,9 @@ const hash = require('../data/hash');
  */
 function getAuthEnv() {
   const {
-    SAML2_CLIENT_ID,
+    SAML_ENTITY_ID,
     SAML2_CLIENT_SECRET,
+    SSO_IDP_PUBLIC_KEY_CERT,
     SSO_LOGIN_URL,
     SSO_LOGIN_CALLBACK_URL,
     SLO_LOGOUT_URL,
@@ -24,8 +23,9 @@ function getAuthEnv() {
 
   if (
     !(
-      SAML2_CLIENT_ID &&
+      SAML_ENTITY_ID &&
       SAML2_CLIENT_SECRET &&
+      SSO_IDP_PUBLIC_KEY_CERT &&
       SSO_LOGIN_URL &&
       SSO_LOGIN_CALLBACK_URL &&
       SLO_LOGOUT_URL &&
@@ -40,30 +40,14 @@ function getAuthEnv() {
   }
 
   return {
-    SAML2_CLIENT_ID,
+    SAML_ENTITY_ID,
     SAML2_CLIENT_SECRET,
+    SSO_IDP_PUBLIC_KEY_CERT,
     SSO_LOGIN_URL,
     SSO_LOGIN_CALLBACK_URL,
     SLO_LOGOUT_URL,
     SLO_LOGOUT_CALLBACK_URL,
   };
-}
-
-// TODO: figure out our cert/key loading
-let cert;
-
-function getCert() {
-  if (cert) {
-    return cert;
-  }
-
-  try {
-    cert = fs.readFileSync(path.resolve(process.cwd(), './certs/key.pem'), 'utf8');
-  } catch (error) {
-    logger.error({ error }, 'Unable to load certs/key.pem');
-  }
-
-  return cert;
 }
 
 // Our SamlStrategy instance. Created by init() and exposed as `.strategy`
@@ -72,8 +56,9 @@ let strategy;
 function init(passport) {
   // Confirm we have all the environment variables we expect
   const {
-    SAML2_CLIENT_ID,
+    SAML_ENTITY_ID,
     SAML2_CLIENT_SECRET,
+    SSO_IDP_PUBLIC_KEY_CERT,
     SSO_LOGIN_URL,
     SSO_LOGIN_CALLBACK_URL,
     SLO_LOGOUT_URL,
@@ -105,10 +90,8 @@ function init(passport) {
       logoutCallbackUrl: SLO_LOGOUT_CALLBACK_URL,
       entryPoint: SSO_LOGIN_URL,
       callbackUrl: SSO_LOGIN_CALLBACK_URL,
-      issuer: SAML2_CLIENT_ID,
-      // TODO: this isn't right yet.  See https://github.com/bergie/passport-saml#security-and-signatures
-      decryptionPvk: getCert(),
-      privateCert: getCert(),
+      issuer: SAML_ENTITY_ID,
+      cert: SSO_IDP_PUBLIC_KEY_CERT,
     },
     function(profile, done) {
       // TODO: we can probably pick off the user data we actually need here...
@@ -131,7 +114,7 @@ function init(passport) {
 function samlMetadata() {
   // I need to get the decryptionCert vs signingCert sorted out here...
   // https://github.com/bergie/passport-saml#generateserviceprovidermetadata-decryptioncert-signingcert-
-  return strategy.generateServiceProviderMetadata(getCert(), getCert());
+  return strategy.generateServiceProviderMetadata();
 }
 
 /**
