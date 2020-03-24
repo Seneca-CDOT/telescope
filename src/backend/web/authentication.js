@@ -92,6 +92,7 @@ function init(passport) {
       callbackUrl: SSO_LOGIN_CALLBACK_URL,
       issuer: SAML_ENTITY_ID,
       cert: SSO_IDP_PUBLIC_KEY_CERT,
+      signatureAlgorithm: 'sha256',
     },
     function(profile, done) {
       // TODO: we can probably pick off the user data we actually need here...
