@@ -22,6 +22,7 @@ services:
       - redis
       - elasticsearch
     volumes:
+      # Volume to be shared with nginx for serving static content
       - static:/telescope/src/frontend/public
     restart: always
 
@@ -46,6 +47,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - ../certbot/conf:/etc/letsencrypt
       - ../certbot/www:/var/www/certbot
+      # Volume to be shared with nginx for serving static content
       - static:/var/www/data
     ports:
       - 80:80
