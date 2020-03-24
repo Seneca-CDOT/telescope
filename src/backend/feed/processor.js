@@ -186,17 +186,18 @@ module.exports = async function processor(job) {
     await articlesToPosts(articles, feed);
 
     // Version info for this feed changed, so update the database
-    // feed.link = feed.url.replace(/(\.com|\.ca|\.dev|\.me|\.org|\.net).*/, '$1');
     feed.etag = feed.etag || info.etag;
     feed.lastModified = feed.lastModified || info.lastModified;
     // If feed.link is undefined or empty add a link
     if (!feed.link) {
       const linkSet = new Set();
       articles.forEach(article => {
+        // We only want to grab the link of the blog once
         if (linkSet.size === 0) {
           linkSet.add(article.meta.link);
         }
       });
+      // Destructuring to get the value from the set
       [feed.link] = linkSet;
     }
     await feed.save();
