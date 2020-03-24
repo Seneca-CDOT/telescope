@@ -10,12 +10,12 @@ describe('Fost data class tests', () => {
     author: 'Post Author',
     url: 'https://user.feed.com/feed.rss',
     id: urlToId('https://user.feed.com/feed.rss'),
-    site: 'site',
+    link: 'link',
     etag: null,
     lastModified: null,
   };
 
-  const createFeed = () => new Feed(data.author, data.url, data.site, null, null);
+  const createFeed = () => new Feed(data.author, data.url, data.link, null, null);
 
   test('Feed should be a function', () => {
     expect(typeof Feed).toBe('function');
@@ -42,7 +42,7 @@ describe('Fost data class tests', () => {
       expect(feed.author).toEqual(data.author);
       expect(feed.url).toEqual(data.url);
       expect(feed.id).toEqual(data.id);
-      expect(feed.site).toEqual(data.site);
+      expect(feed.link).toEqual(data.link);
     });
 
     test('Feed.byId() for an invalid id should return null', async () => {
@@ -56,7 +56,7 @@ describe('Fost data class tests', () => {
       expect(feed.author).toEqual(data.author);
       expect(feed.url).toEqual(data.url);
       expect(feed.id).toEqual(data.id);
-      expect(feed.site).toEqual(data.site);
+      expect(feed.link).toEqual(data.link);
     });
 
     test('Feed.byId() for an invalid url should return null', async () => {

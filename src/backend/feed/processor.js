@@ -52,7 +52,7 @@ async function getFeedInfo(feed) {
     status: null,
     etag: null,
     lastModified: null,
-    site: null,
+    link: null,
     contentType: null,
     shouldDownload: true,
   };
@@ -63,7 +63,7 @@ async function getFeedInfo(feed) {
     response = await fetch(feed.url, addHeaders({ method: 'HEAD' }, feed));
     info.status = `[HTTP ${response.status} - ${response.statusText}]`;
     info.contentType = response.headers.get('Content-Type');
-    info.site = feed.link;
+    info.link = feed.link;
   } catch (error) {
     logger.error({ error }, `Unable to fetch HEAD info for feed ${feed.url}`);
     throw error;
@@ -186,9 +186,19 @@ module.exports = async function processor(job) {
     await articlesToPosts(articles, feed);
 
     // Version info for this feed changed, so update the database
-    feed.site = feed.url.replace(/(\.com|\.ca|\.dev|\.me|\.org|\.net).*/, '$1');
+    // feed.link = feed.url.replace(/(\.com|\.ca|\.dev|\.me|\.org|\.net).*/, '$1');
     feed.etag = feed.etag || info.etag;
     feed.lastModified = feed.lastModified || info.lastModified;
+    // If feed.link is undefined or empty add a link
+    if (!feed.link) {
+      const linkSet = new Set();
+      articles.forEach(article => {
+        if (linkSet.size === 0) {
+          linkSet.add(article.meta.link);
+        }
+      });
+      [feed.link] = linkSet;
+    }
     await feed.save();
   } catch (error) {
     // If the feedparser can't parse this, we get a 'Not a feed' error

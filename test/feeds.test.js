@@ -41,7 +41,7 @@ describe('test /feeds/:id responses', () => {
     id: hash(existingUrl),
     etag: null,
     lastModified: null,
-    site: null,
+    link: null,
   };
 
   // add the feed to the storage
