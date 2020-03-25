@@ -14,6 +14,7 @@ module.exports = function(dirty) {
       'br',
       'caption',
       'code',
+      'del',
       'div',
       'em',
       'figure',
