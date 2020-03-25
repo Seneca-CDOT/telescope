@@ -28,6 +28,7 @@ const useStyles = makeStyles(theme => ({
       textAlign: 'left',
       left: theme.spacing(4),
       right: theme.spacing(4),
+      top: theme.spacing(14),
     },
     [theme.breakpoints.between('md', 'lg')]: {
       fontSize: '8rem',
@@ -43,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.85,
     fontSize: '2rem',
     display: 'block',
-    bottom: theme.spacing(20),
+    bottom: theme.spacing(12),
     left: theme.spacing(8),
     transition: 'linear 250ms all',
     lineHeight: 'inherit',
@@ -65,7 +66,7 @@ const useStyles = makeStyles(theme => ({
   version: {
     position: 'absolute',
     opacity: 0.85,
-    bottom: theme.spacing(10),
+    bottom: theme.spacing(6),
     left: theme.spacing(8),
     fontSize: '1.75rem',
     color: 'white',
@@ -82,12 +83,14 @@ const useStyles = makeStyles(theme => ({
     },
   },
   icon: {
-    height: '7rem',
-    width: '7rem',
+    height: '5.6rem',
+    width: '5.6rem',
     position: 'relative',
-    left: '45%',
-    right: '45%',
+    left: '49.5%',
     bottom: theme.spacing(18),
+    [theme.breakpoints.between('xs', 'sm')]: {
+      left: '45%',
+    },
   },
 }));
 
