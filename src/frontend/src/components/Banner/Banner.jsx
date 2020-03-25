@@ -22,7 +22,6 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     top: theme.spacing(20),
     left: theme.spacing(8),
-    transition: 'linear 250ms all',
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '4rem',
       textAlign: 'left',
@@ -46,7 +45,6 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     bottom: theme.spacing(12),
     left: theme.spacing(8),
-    transition: 'linear 250ms all',
     lineHeight: 'inherit',
     letterSpacing: 'inherit',
     [theme.breakpoints.between('xs', 'sm')]: {
@@ -87,11 +85,9 @@ const useStyles = makeStyles(theme => ({
     width: '5.6rem',
     position: 'relative',
     left: '49.5%',
-    transition: 'linear 500ms all',
     bottom: theme.spacing(20),
     [theme.breakpoints.between('xs', 'sm')]: {
       right: theme.spacing(4),
-      transition: 'linear 500ms all',
       left: '80%',
       bottom: theme.spacing(18),
     },
