@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 
-const { samlMetadata, strategy } = require('../authentication');
+const { strategy } = require('../authentication');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
@@ -64,13 +64,5 @@ router.post('/logout/callback', (req, res) => {
  * /auth/logout allows users to clear login tokens from their session
  */
 router.get('/logout', passport.authenticate('saml'), logout);
-
-/**
- * Provide SAML Metadata for our SP
- */
-router.get('/metadata', (req, res) => {
-  res.type('application/xml');
-  res.status(200).send(samlMetadata());
-});
 
 module.exports = router;
