@@ -10,7 +10,7 @@ describe('Fost data class tests', () => {
     author: 'Post Author',
     url: 'https://user.feed.com/feed.rss',
     id: urlToId('https://user.feed.com/feed.rss'),
-    link: 'link',
+    link: 'https://user.feed.com/',
     etag: null,
     lastModified: null,
   };
