@@ -11,6 +11,7 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 function Login() {
   const { telescopeUrl } = useSiteMetadata();
   const [email, setEmail] = useState(null);
+  const [name, setName] = useState(null);
 
   useEffect(() => {
     // Try to get user session info from the server.
@@ -28,8 +29,9 @@ function Login() {
         }
 
         const user = await response.json();
-        if (user && user.email) {
+        if (user && user.email && user.name) {
           setEmail(user.email);
+          setName(user.name);
         }
       } catch (error) {
         console.error('Error getting user info', error);
@@ -39,7 +41,7 @@ function Login() {
     getUserInfo();
   }, [telescopeUrl]);
 
-  return email ? <LoggedIn email={email} /> : <LoggedOut />;
+  return email ? <LoggedIn name={name} /> : <LoggedOut />;
 }
 
 export default Login;

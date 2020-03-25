@@ -32,10 +32,10 @@ function LoggedIn(props) {
           Logout
         </a>
       </Button>
-      <Typography variant="h4">| Welcome {props.email}</Typography>
+      <Typography variant="h4">| Welcome {props.name}</Typography>
       <img
         className={classes.avatar}
-        src={`https://unavatar.now.sh/${props.email}`}
+        src={`https://unavatar.now.sh/${props.name}`}
         alt={props.email}
       />
     </div>
@@ -43,6 +43,7 @@ function LoggedIn(props) {
 }
 
 LoggedIn.propTypes = {
+  name: PropTypes.string,
   email: PropTypes.string,
 };
 
