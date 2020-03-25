@@ -67,8 +67,14 @@ function init(passport) {
 
   // Add session user object de/serialize functions
   passport.serializeUser(function(user, done) {
-    // TODO: is it necessary to use JSON vs. Object?
-    done(null, JSON.stringify(user));
+    done(
+      null,
+      JSON.stringify({
+        name: user['http://schemas.microsoft.com/identity/claims/displayname'],
+        email: user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+        nameID: hash(user.nameID),
+      })
+    );
   });
 
   passport.deserializeUser(function(json, done) {
