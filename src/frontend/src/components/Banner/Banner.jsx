@@ -19,8 +19,15 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     opacity: 0.85,
     fontSize: '12rem',
+    display: 'block',
+    top: theme.spacing(20),
+    left: theme.spacing(8),
+    transition: 'linear 250ms all',
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '4rem',
+      textAlign: 'left',
+      left: theme.spacing(4),
+      right: theme.spacing(4),
     },
     [theme.breakpoints.between('md', 'lg')]: {
       fontSize: '8rem',
@@ -28,10 +35,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '12rem',
     },
-    display: 'block',
-    top: theme.spacing(20),
-    left: theme.spacing(8),
-    transition: 'linear 250ms all',
   },
   stats: {
     position: 'absolute',
@@ -39,8 +42,17 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Roboto',
     opacity: 0.85,
     fontSize: '2rem',
+    display: 'block',
+    bottom: theme.spacing(20),
+    left: theme.spacing(8),
+    transition: 'linear 250ms all',
+    lineHeight: 'inherit',
+    letterSpacing: 'inherit',
     [theme.breakpoints.between('xs', 'sm')]: {
+      textAlign: 'left',
       fontSize: '2rem',
+      left: theme.spacing(4),
+      right: theme.spacing(4),
     },
     [theme.breakpoints.between('md', 'lg')]: {
       fontSize: '4rem',
@@ -48,13 +60,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '8rem',
     },
-    width: '75%',
-    display: 'block',
-    bottom: theme.spacing(20),
-    left: theme.spacing(8),
-    transition: 'linear 250ms all',
-    lineHeight: 'inherit',
-    letterSpacing: 'inherit',
   },
 
   version: {
@@ -63,7 +68,10 @@ const useStyles = makeStyles(theme => ({
     bottom: theme.spacing(10),
     left: theme.spacing(8),
     fontSize: '1.75rem',
+    color: 'white',
     [theme.breakpoints.between('xs', 'sm')]: {
+      left: theme.spacing(4),
+      right: theme.spacing(4),
       fontSize: '1.75rem',
     },
     [theme.breakpoints.between('md', 'lg')]: {
@@ -72,8 +80,14 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '4rem',
     },
-
-    color: 'white',
+  },
+  icon: {
+    height: '7rem',
+    width: '7rem',
+    position: 'relative',
+    left: '45%',
+    right: '45%',
+    bottom: theme.spacing(18),
   },
 }));
 
@@ -153,7 +167,7 @@ export default function Banner() {
         </ThemeProvider>
         <div className={classes.version}>v {Version.version}</div>
 
-        <div className="icon">
+        <div className={classes.icon}>
           <ScrollDown>
             <Fab color="primary" aria-label="scroll-down">
               <KeyboardArrowDownIcon fontSize="large" />
