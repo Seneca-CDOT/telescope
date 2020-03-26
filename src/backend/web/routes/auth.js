@@ -1,7 +1,6 @@
 const express = require('express');
 const passport = require('passport');
 
-const { strategy } = require('../authentication');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
@@ -29,40 +28,32 @@ router.post('/login/callback', passport.authenticate('saml'), (req, res) => {
 router.get('/login', passport.authenticate('saml'));
 
 /**
- * Expose a logout method, to provide idP-initiated SLO
- * https://github.com/bergie/passport-saml/issues/221#issuecomment-338896096
- */
-function logout(req, res) {
-  try {
-    // TODO: confirm I can use strategy above... was: const strategy = passport._strategy('saml');
-    strategy.logout(req, (error, requestUrl) => {
-      if (error) {
-        logger.error({ error }, 'logout error - unable to generate logout URL');
-        res.redirect(requestUrl);
-      }
-      req.session = null;
-      res.redirect('/');
-    });
-  } catch (error) {
-    logger.error({ error }, 'logout error');
-    res.redirect('/');
-  }
-}
-
-/**
  * /auth/logout/callback is where the external SAML SSO provider will redirect
  * users upon successful logout.
  */
-router.post('/logout/callback', (req, res) => {
+router.get('/logout/callback', (req, res) => {
   req.logout();
-  // TODO: Destroy the cookie session, this isn't working yet...
-  req.session = null;
   res.redirect('/');
 });
 
 /**
  * /auth/logout allows users to clear login tokens from their session
  */
-router.get('/logout', passport.authenticate('saml'), logout);
+router.get('/logout', (req, res) => {
+  try {
+    // eslint-disable-next-line no-underscore-dangle
+    passport._strategy('saml').logout(req, (error, requestUrl) => {
+      if (error) {
+        logger.error({ error }, 'logout error - unable to generate logout URL');
+        res.redirect('/');
+      }
+      req.logout();
+      res.redirect(requestUrl);
+    });
+  } catch (error) {
+    logger.error({ error }, 'logout error');
+    res.redirect('/');
+  }
+});
 
 module.exports = router;

@@ -129,19 +129,7 @@ Docker Desktop for Windows is not available on Home Edition, and you cannot run 
 
 ## After installing the prerequisites:
 
-### SAML Setup
-
-1. Run `./tools/generate_ssl_certs.sh` in terminal, this will create a `certs` directory and two pem files `key.pem` and `cert.pem` inside. On Windows, only `key.pem` will be created in /certs.
-2. You will also need to create a `idp_key.pem` file in the certs folder, copy and paste the following key into `idp_key.pem`:
-
-`MIIDXTCCAkWgAwIBAgIJALmVVuDWu4NYMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwHhcNMTYxMjMxMTQzNDQ3WhcNNDgwNjI1MTQzNDQ3WjBFMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzUCFozgNb1h1M0jzNRSCjhOBnR`
-
-3. In the root directory, run `cp env.example .env` on Linux/Mac or `copy env.example .env` on Windows. In your newly created .env file, ensure all related SAML2 information is filled out.
-
-- SAML2_BASE_URI
-- SAML2_CLIENT_ID
-- SAML2_CLIENT_SECRET
-- SAML2_REDIRECT_URI
+In the root directory, run `cp env.example .env` on Linux/Mac or `copy env.example .env`.
 
 _Note: The `env.example` file has examples commented on top of each variable_
 

@@ -4,7 +4,6 @@ const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-const healthcheck = require('express-healthcheck');
 const cors = require('cors');
 const helmet = require('helmet');
 const { ApolloServer } = require('apollo-server-express');
@@ -17,7 +16,6 @@ const logger = require('../utils/logger');
 const authentication = require('./authentication');
 const router = require('./routes');
 
-const secret = authentication.init(passport);
 const app = express();
 
 // Using helmet for the app
@@ -27,12 +25,16 @@ app.use(helmet());
 app.use(cors());
 app.options('*', cors());
 
-// TODO: decide if we should do resave=false, https://www.npmjs.com/package/express-session#resave
+// Setup session and passport for authentication
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+authentication.init(passport);
 app.use(
   session({
     store: new RedisStore({ client: redis }),
-    secret,
+    secret: process.env.SECRET || `telescope-has-many-secrets-${Date.now()}!`,
     resave: false,
+    saveUninitialized: false,
   })
 );
 app.use(passport.initialize());
@@ -49,7 +51,6 @@ const server = new ApolloServer({
     },
   },
 });
-
 server.applyMiddleware({ app, path: '/graphql' });
 
 // Template rendering for legacy "planet" view of posts
@@ -60,13 +61,6 @@ app.set('view engine', 'handlebars');
 // Add our logger to the app
 app.set('logger', logger);
 app.use(logger);
-
-// Setup Passport SAML based Authentication
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// Provide a standard `/health` endpoint to check on state of the app
-app.use('/health', healthcheck());
 
 // Include our router with all endpoints
 app.use('/', router);

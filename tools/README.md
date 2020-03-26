@@ -69,10 +69,3 @@ Processing 194,922 elements...
 
 NOTE: this will only work after you have processed posts into Redis using
 `npm start` to run the server for a while.
-
-### [generate-ssl-certs](generate-ssl-certs.sh)
-
-`generate-ssl-certs` is used to generate SSL Certificates necessary for our
-login routes. See the [login docs](../docs/Local_Login.md) for more details.
-
-NOTE: this script currently only works in Linux and macOS.
