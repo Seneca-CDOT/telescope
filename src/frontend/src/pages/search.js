@@ -1,15 +1,28 @@
 import React from 'react';
-import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
-import SEO from '../components/SEO';
+import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloClient, InMemoryCache } from 'apollo-boost';
+import { createHttpLink } from 'apollo-link-http';
+import fetch from 'node-fetch';
+import SearchPage from '../components/SearchPage';
+import useSiteMetadata from '../hooks/use-site-metadata';
 
 const Search = () => {
+  const { telescopeUrl } = useSiteMetadata();
+
+  const httpLink = createHttpLink({
+    fetch,
+    uri: `${telescopeUrl}/graphql`,
+  });
+
+  const client = new ApolloClient({
+    link: httpLink,
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <div>
-      <SEO title="Search" />
-      <Header />
-      <SearchBar />
-    </div>
+    <ApolloProvider client={client}>
+      <SearchPage />
+    </ApolloProvider>
   );
 };
 

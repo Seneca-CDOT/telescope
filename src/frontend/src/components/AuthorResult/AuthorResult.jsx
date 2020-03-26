@@ -6,14 +6,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -55,12 +51,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function AuthorResult() {
+export default function AuthorResult(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const { author } = props;
+  const { postDate, title, postLink } = props.post;
 
-  const handleClick = () => {
-    setOpen(!open);
+  const handleLatestPostClick = () => {
+    window.open(postLink);
   };
 
   return (
@@ -70,7 +67,7 @@ export default function AuthorResult() {
           <Grid item xs={3} className={classes.imageBox}>
             <Avatar className={classes.avatar}>CS</Avatar>
           </Grid>
-          <Grid xs container direction="column" spacing={0} className={classes.infoBox}>
+          <Grid item xs container direction="column" spacing={0} className={classes.infoBox}>
             <Grid container direction="row" spacing={0}>
               <List
                 component="nav"
@@ -81,30 +78,23 @@ export default function AuthorResult() {
                   <ListItemIcon className={classes.icons}>
                     <PermContactCalendarIcon />
                   </ListItemIcon>
-                  <ListItemText className={classes.font} primary="Username" />
+                  <ListItemText className={classes.font} primary={`Author: ${author}`} />
                 </ListItem>
                 <ListItem button className={classes.infoLine}>
                   <ListItemIcon className={classes.icons}>
                     <EventIcon />
                   </ListItemIcon>
-                  <ListItemText className={classes.font} primary="Date of Last Post: " />
+                  <ListItemText
+                    className={classes.font}
+                    primary={`Date of Last Post: ${postDate}`}
+                  />
                 </ListItem>
-                <ListItem button className={classes.infoLine} onClick={handleClick}>
+                <ListItem button className={classes.infoLine} onClick={handleLatestPostClick}>
                   <ListItemIcon className={classes.icons}>
                     <CreateIcon />
                   </ListItemIcon>
-                  <ListItemText className={classes.font} primary="Latest Post: " />
-                  <Typography>More</Typography>
-                  {open ? <ExpandLess /> : <ExpandMore />}
+                  <ListItemText className={classes.font} primary={`Latest Post: ${title}`} />
                 </ListItem>
-                <Collapse in={open} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    <ListItem button className={classes.nested}>
-                      <ListItemIcon />
-                      <ListItemText className={classes.font} primary="Another Post" />
-                    </ListItem>
-                  </List>
-                </Collapse>
               </List>
             </Grid>
           </Grid>

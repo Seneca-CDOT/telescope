@@ -2,8 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
@@ -39,17 +37,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CustomizedInputBase() {
+function CustomizedInputBase(props) {
   const classes = useStyles();
   const [state, setState] = React.useState({
     filter: '',
   });
+  const { searchText, onChangeHandler } = props;
 
   const handleChange = filter => event => {
     setState({
       ...state,
       [filter]: event.target.value,
     });
+  };
+
+  const onTextChange = event => {
+    onChangeHandler(event);
   };
 
   return (
@@ -74,11 +77,12 @@ export default function CustomizedInputBase() {
           className={classes.input}
           placeholder="Search Telescope"
           inputProps={{ 'aria-label': 'search telescope' }}
+          value={searchText}
+          onChange={event => onTextChange(event)}
         />
-        <IconButton type="submit" className={classes.iconButton} aria-label="search">
-          <SearchIcon />
-        </IconButton>
       </Paper>
     </div>
   );
 }
+
+export default CustomizedInputBase;
