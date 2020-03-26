@@ -188,17 +188,12 @@ module.exports = async function processor(job) {
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;
     feed.lastModified = feed.lastModified || info.lastModified;
-    // If feed.link is undefined or empty add a link
-    if (!feed.link) {
-      const linkSet = new Set();
-      articles.forEach(article => {
-        // We only want to grab the link of the blog once
-        if (linkSet.size === 0) {
-          linkSet.add(article.meta.link);
-        }
-      });
-      // Destructuring to get the value from the set
-      [feed.link] = linkSet;
+    // If feed.link is empty or there are blog posts
+    if (!feed.link && articles.length) {
+      // Assign link from first post to feed's link
+      const article = articles[0];
+      const { meta } = article;
+      feed.link = meta ? meta.link : null;
     }
     await feed.save();
   } catch (error) {
