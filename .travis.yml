@@ -24,26 +24,17 @@ before_install:
   - echo $PATH
   - |
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-      # Generate ssl certs
-      ./tools/generate-ssl-certs.sh
       # Install Redis
       brew update && brew install redis && brew services start redis
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
-      # Generate ssl certs
-      ./tools/generate-ssl-certs.sh
       # Install Redis
       redis-server --daemonize yes
       redis-cli info
     else
       # Install Redis
       choco install redis-64 -v
-      # Install Open SSL to run Scripts
-      choco install openssl.light
-      # Make certs folder if it doesn't exist.
-      mkdir -p certs
-      ./tools/generate-ssl-certs.sh
       redis-server --service-install
       redis-server --service-start
       redis-cli info

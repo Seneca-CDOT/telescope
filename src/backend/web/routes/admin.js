@@ -1,16 +1,17 @@
 require('../../lib/config');
 const express = require('express');
-const passport = require('passport');
 const { UI } = require('bull-board');
 const fs = require('fs');
+
+const { protect } = require('../authentication');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
 
-// Only authenticated users can use this route
-router.use('/queues', passport.authenticate('saml'), UI);
+// Only authenticated users can use these routes
+router.use('/queues', protect, UI);
 
-router.get('/log', (req, res) => {
+router.get('/log', protect, (req, res) => {
   let readStream;
   if (!process.env.LOG_FILE) {
     res.send('LOG_FILE undefined in .env file');

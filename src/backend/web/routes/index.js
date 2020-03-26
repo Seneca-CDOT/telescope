@@ -7,6 +7,7 @@ const auth = require('./auth');
 const feeds = require('./feeds');
 // The /feed router allows access to generated feeds (RSS, ATOM, etc)
 const feed = require('./feed');
+const health = require('./health');
 const planet = require('./planet');
 const posts = require('./posts');
 const serviceProvider = require('./service-provider');
@@ -25,6 +26,7 @@ router.use('/admin', admin);
 router.use('/auth', auth);
 router.use('/feeds', feeds);
 router.use('/feed', feed);
+router.use('/health', health);
 router.use('/planet', planet);
 router.use('/posts', posts);
 router.use('/sp', serviceProvider);

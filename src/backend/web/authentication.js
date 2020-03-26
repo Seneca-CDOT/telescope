@@ -13,7 +13,6 @@ const hash = require('../data/hash');
 function getAuthEnv() {
   const {
     SAML_ENTITY_ID,
-    SAML2_CLIENT_SECRET,
     SSO_IDP_PUBLIC_KEY_CERT,
     SSO_LOGIN_URL,
     SSO_LOGIN_CALLBACK_URL,
@@ -24,7 +23,6 @@ function getAuthEnv() {
   if (
     !(
       SAML_ENTITY_ID &&
-      SAML2_CLIENT_SECRET &&
       SSO_IDP_PUBLIC_KEY_CERT &&
       SSO_LOGIN_URL &&
       SSO_LOGIN_CALLBACK_URL &&
@@ -41,7 +39,6 @@ function getAuthEnv() {
 
   return {
     SAML_ENTITY_ID,
-    SAML2_CLIENT_SECRET,
     SSO_IDP_PUBLIC_KEY_CERT,
     SSO_LOGIN_URL,
     SSO_LOGIN_CALLBACK_URL,
@@ -57,7 +54,6 @@ function init(passport) {
   // Confirm we have all the environment variables we expect
   const {
     SAML_ENTITY_ID,
-    SAML2_CLIENT_SECRET,
     SSO_IDP_PUBLIC_KEY_CERT,
     SSO_LOGIN_URL,
     SSO_LOGIN_CALLBACK_URL,
@@ -65,27 +61,13 @@ function init(passport) {
     SLO_LOGOUT_CALLBACK_URL,
   } = getAuthEnv();
 
-  // Add session user object de/serialize functions
+  // Add session user object de/serialize functions. We put the whole
+  // user object on the session unaltered.
   passport.serializeUser(function(user, done) {
-    done(
-      null,
-      JSON.stringify({
-        name: user['http://schemas.microsoft.com/identity/claims/displayname'],
-        email: user['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
-        nameID: hash(user.nameID),
-      })
-    );
+    done(null, user);
   });
-
-  passport.deserializeUser(function(json, done) {
-    // TODO: is it necessary to use JSON vs. Object?
-    try {
-      const user = JSON.parse(json);
-      done(null, user);
-    } catch (error) {
-      logger.error({ error }, `Error deserializing user json: got '${json}'`);
-      done(error);
-    }
+  passport.deserializeUser(function(user, done) {
+    done(null, user);
   });
 
   // Setup SAML authentication strategy
@@ -105,19 +87,21 @@ function init(passport) {
     function(profile, done) {
       // TODO: we can probably pick off the user data we actually need here...
       if (!profile) {
-        const error = new Error('SAML Strategy verify callback missing profile');
+        const error = new Error('SAML Strategy verify callback missing user profile');
         logger.error({ error });
         done(error);
       } else {
-        done(null, profile);
+        // We only use the displayname, emailaddress, and nameID (hashed, for use in our db)
+        done(null, {
+          name: profile['http://schemas.microsoft.com/identity/claims/displayname'],
+          email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+          nameID: hash(profile.nameID),
+        });
       }
     }
   );
 
   passport.use(strategy);
-
-  // Give back the session secret to use
-  return SAML2_CLIENT_SECRET || hash(`secret-${Date.now()}!`);
 }
 
 function samlMetadata() {
