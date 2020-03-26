@@ -25,6 +25,9 @@ services:
 
   redis:
     image: redis:latest
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ../redis-data:/data
     restart: always
 
   elasticsearch:

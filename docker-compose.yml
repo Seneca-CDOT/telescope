@@ -28,6 +28,9 @@ services:
     image: redis:latest
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ./redis-data:/data
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0

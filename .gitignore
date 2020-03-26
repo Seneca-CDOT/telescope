@@ -46,3 +46,6 @@ certs/
 
 # gatsby public folder
 public/
+
+# Redis data storage
+redis-data/
