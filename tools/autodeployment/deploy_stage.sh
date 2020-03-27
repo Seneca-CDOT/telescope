@@ -13,7 +13,7 @@ cd ..
 
 rm -rf telescope
 
-git clone https://github.com/Seneca-CDOT/telescope.git
+git clone https://github.com/Seneca-CDOT/telescope.git --depth=1
 
 
 # Deploy
