@@ -6,7 +6,8 @@
     "pushRepo": "upstream"
   },
   "github": {
-    "release": true
+    "release": true,
+    "pushRepo": "upstream"
   },
   "npm": {
     "publish": false
