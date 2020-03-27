@@ -126,7 +126,7 @@
     "npm-run-all": "4.1.5",
     "prettier": "1.19.1",
     "pretty-quick": "2.0.1",
-    "release-it": "12.6.3",
+    "release-it": "13.4.0",
     "run.env": "1.1.0",
     "stylelint": "13.2.0",
     "stylelint-config-prettier": "8.0.1",
