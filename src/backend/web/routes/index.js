@@ -21,7 +21,9 @@ const router = express.Router();
  * In staging and production, our reverse proxy takes care of serving the content in the public folder.
  * We're keeping this route for development.
  */
-router.use(express.static(path.join(__dirname, '../../../frontend/public')));
+if (process.env.NODE_ENV === 'development') {
+  router.use(express.static(path.join(__dirname, '../../../frontend/public')));
+}
 
 // Legacy CDOT Planet static assets
 router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
