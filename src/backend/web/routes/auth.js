@@ -32,12 +32,14 @@ router.get('/login', passport.authenticate('saml'));
  * users upon successful logout.
  */
 router.get('/logout/callback', (req, res) => {
+  // Clear session passport.js user info
   req.logout();
-  res.redirect('/');
+  res.redirect(telescopeHomeUrl);
 });
 
 /**
- * /auth/logout allows users to clear login tokens from their session
+ * /auth/logout allows users to use Single Logout and clear login tokens
+ * from their passport.js session.
  */
 router.get('/logout', (req, res) => {
   try {
@@ -45,14 +47,14 @@ router.get('/logout', (req, res) => {
     passport._strategy('saml').logout(req, (error, requestUrl) => {
       if (error) {
         logger.error({ error }, 'logout error - unable to generate logout URL');
-        res.redirect('/');
+        res.redirect(telescopeHomeUrl);
+      } else {
+        res.redirect(requestUrl);
       }
-      req.logout();
-      res.redirect(requestUrl);
     });
   } catch (error) {
     logger.error({ error }, 'logout error');
-    res.redirect('/');
+    res.redirect(telescopeHomeUrl);
   }
 });
 

@@ -6,7 +6,7 @@ const { logger } = require('../../utils/logger');
 const router = express.Router();
 
 // Only authenticated users can use this route
-router.get('/info', protect, (req, res) => {
+router.get('/info', protect(), (req, res) => {
   if (!req.user) {
     logger.error('missing req.user!');
     return res.status(503).json({

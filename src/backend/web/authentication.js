@@ -1,7 +1,10 @@
 /**
- * SAML2 SSO Passport.js authentication strategy
+ * SAML2 SSO Passport.js authentication strategy. See this post for details:
+ *
+ * https://blog.humphd.org/not-so-simple-saml/
  */
 
+const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
 
 const { logger } = require('../utils/logger');
@@ -50,7 +53,7 @@ function getAuthEnv() {
 // Our SamlStrategy instance. Created by init() and exposed as `.strategy`
 let strategy;
 
-function init(passport) {
+function init() {
   // Confirm we have all the environment variables we expect
   const {
     SAML_ENTITY_ID,
@@ -85,50 +88,81 @@ function init(passport) {
       signatureAlgorithm: 'sha256',
     },
     function(profile, done) {
-      // TODO: we can probably pick off the user data we actually need here...
       if (!profile) {
         const error = new Error('SAML Strategy verify callback missing user profile');
         logger.error({ error });
-        done(error);
-      } else {
-        // We only use the displayname, emailaddress, and nameID (hashed, for use in our db)
-        done(null, {
-          name: profile['http://schemas.microsoft.com/identity/claims/displayname'],
-          email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
-          nameID: hash(profile.nameID),
-        });
+        return done(error);
       }
+
+      // We only use the displayname, emailaddress, and nameID (hashed, for use in our db)
+      return done(null, {
+        name: profile['http://schemas.microsoft.com/identity/claims/displayname'],
+        email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+        id: hash(profile.nameID),
+      });
     }
   );
 
   passport.use(strategy);
 }
 
+/**
+ * Generate SAML metadata XML
+ */
 function samlMetadata() {
-  // I need to get the decryptionCert vs signingCert sorted out here...
-  // https://github.com/bergie/passport-saml#generateserviceprovidermetadata-decryptioncert-signingcert-
   return strategy.generateServiceProviderMetadata();
 }
 
 /**
  * Middleware to make sure that a route is authenticated. If the user is
  * already authenticated, your route will be called. If the user is already
- * authenticated, the next() route will be be called, otherwise an HTTP 401
- * Unauthorized will be returned on the response. This is probably what you
- * want for a REST API endpoint.
+ * authenticated, the next() route will be be called, otherwise an HTTP 403
+ * will be returned on the response. This is probably what you want for a
+ * REST API endpoint.
+ *
+ * If you want to give the user a chance to log in (e.g., web page vs. REST
+ * API endpoint), you can pass `true` to protect
  *
  * To use:
  *
- * router.get('/your/route', protect, function(res, res) { ... }))
+ * router.get('/rest/api', protect(), function(res, res) { ... }))
+ *
+ * router.get('/protected/html/page', protect(true), function(res, res) { ... }))
  */
-function protect(req, res, next) {
-  // If the user is already authenticated, let this pass to next route
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    // TODO: should probably send appropriate response type (HTML, JSON, etc.)
-    res.status(401).send('Unauthorized');
+function protectWithRedirect(req, res, next) {
+  // If user is not authenticated, remember where they were trying to go
+  // and let passport do full authentication and give chance to log in.
+  if (req.session) {
+    req.session.returnTo = req.originalUrl;
   }
+  passport.authenticate('saml')(req, res, next);
+}
+
+function protectWithoutRedirect(req, res) {
+  // If user is not authenticated, return an appropriate 400 error type
+  if (req.accepts('json')) {
+    res.status(403).json({
+      message: 'Forbidden: you need to login first.',
+    });
+  } else {
+    // TODO: https://github.com/Seneca-CDOT/telescope/issues/890
+    res.status(403).send('Forbidden');
+  }
+}
+
+function protect(redirect) {
+  return function(req, res, next) {
+    // If the user is already authenticated, let this pass to next route
+    if (req.isAuthenticated()) {
+      next();
+    }
+    // If not authenticated, pick the right way to handle this
+    else if (redirect) {
+      protectWithRedirect(req, res, next);
+    } else {
+      protectWithoutRedirect(req, res, next);
+    }
+  };
 }
 
 module.exports.init = init;
