@@ -58,7 +58,7 @@ FROM build AS release
 COPY --from=dependencies /telescope/node_modules /telescope/node_modules
 COPY --from=dependencies /telescope/tools/autodeployment /telescope/tools/autodeployment
 COPY --from=builder /telescope/src/frontend/public /telescope/src/frontend/public
-COPY --from=dependencies /telescope/.git /telescope/.git
+COPY --from=builder /telescope/.git /telescope/.git
 COPY ./src/backend ./src/backend
 
 # Environment variable with default value
