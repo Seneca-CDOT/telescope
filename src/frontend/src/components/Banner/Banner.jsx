@@ -95,6 +95,57 @@ function ScrollDown(props) {
   );
 }
 
+function RetrieveBackgroundImage() {
+  const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
+  const [transitionBackground, setTransitionBackground] = useState(true);
+
+  useEffect(() => {
+    async function getBackgroundImgSrc() {
+      try {
+        // Uses https://unsplash.com/collections/894/earth-%26-planets collection
+        /* Other Options: 
+        - https://unsplash.com/collections/2411320/trend%3A-extreme-neon
+        - https://unsplash.com/collections/1538150/milkyway
+        - https://unsplash.com/collections/291422/night-lights
+        */
+
+        // Ensure we are using an image which fits correctly to user's viewspace
+        const dimensions = `${window.innerWidth}x${window.innerHeight}`;
+        const response = await fetch(`https://source.unsplash.com/collection/894/${dimensions}/`);
+
+        if (response.status !== 200) {
+          throw new Error(response.statusText);
+        }
+
+        const src = response.url;
+
+        // Ease in Background
+        setBackgroundImgSrc(src);
+        setTransitionBackground(false);
+      } catch (error) {
+        console.error('Error getting user info', error);
+        // Fallback to default image
+        setBackgroundImgSrc('../../images/hero-banner.png');
+      }
+    }
+
+    getBackgroundImgSrc();
+  }, []);
+
+  return (
+    <div
+      className="bannerImg"
+      style={{
+        backgroundImage:
+          backgroundImgSrc === '../../images/hero-banner.png'
+            ? backgroundImgSrc
+            : `url(${backgroundImgSrc})`,
+        opacity: transitionBackground ? 0 : 0.4,
+      }}
+    ></div>
+  );
+}
+
 function RetrieveStats() {
   const { telescopeUrl } = useSiteMetadata();
   const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
@@ -141,7 +192,8 @@ export default function Banner() {
     <React.Fragment>
       <CssBaseline />
       <div className="heroBanner">
-        <div className="bannerImg"></div>
+        <RetrieveBackgroundImage />
+
         <ThemeProvider>
           <Typography variant="h1" className={classes.h1}>
             {'Telescope'}
