@@ -18,7 +18,7 @@ const query = require('./query');
 const router = express.Router();
 
 /**
- * In staging and production, our revers proxy takes care of serving the content in the public folder.
+ * In staging and production, our reverse proxy takes care of serving the content in the public folder.
  * We're keeping this route for development.
  */
 router.use(express.static(path.join(__dirname, '../../../frontend/public')));
