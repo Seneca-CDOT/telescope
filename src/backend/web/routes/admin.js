@@ -9,9 +9,9 @@ const { logger } = require('../../utils/logger');
 const router = express.Router();
 
 // Only authenticated users can use these routes
-router.use('/queues', protect, UI);
+router.use('/queues', protect(true), UI);
 
-router.get('/log', protect, (req, res) => {
+router.get('/log', protect(true), (req, res) => {
   let readStream;
   if (!process.env.LOG_FILE) {
     res.send('LOG_FILE undefined in .env file');

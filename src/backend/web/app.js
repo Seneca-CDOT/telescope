@@ -28,7 +28,6 @@ app.options('*', cors());
 // Setup session and passport for authentication
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-authentication.init(passport);
 app.use(
   session({
     store: new RedisStore({ client: redis }),
@@ -37,6 +36,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+authentication.init();
 app.use(passport.initialize());
 app.use(passport.session());
 
