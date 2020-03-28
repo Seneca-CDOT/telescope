@@ -15,11 +15,3 @@
   -o-transition: opacity 1s ease-in-out;
   transition: opacity 1s ease-in-out;
 }
-
-.icon {
-  height: 7rem;
-  width: 7rem;
-  position: absolute;
-  top: 92.5%;
-  left: 50%;
-}
