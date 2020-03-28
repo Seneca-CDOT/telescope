@@ -17,11 +17,19 @@ const query = require('./query');
 
 const router = express.Router();
 
+/**
+ * In staging and production, our revers proxy takes care of serving the content in the public folder.
+ * We're keeping this route for development.
+ */
 router.use(express.static(path.join(__dirname, '../../../frontend/public')));
 
 // Legacy CDOT Planet static assets
 router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
 
+/**
+ * In staging and production, all routes are being cached in our reverse proxy except for admin, user, health and auth.
+ * Please check https://github.com/Seneca-CDOT/telescope/blob/master/nginx.conf for more details about it.
+ */
 router.use('/admin', admin);
 router.use('/auth', auth);
 router.use('/feeds', feeds);
