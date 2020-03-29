@@ -40,13 +40,13 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     color: 'white',
     fontFamily: 'Roboto',
-    opacity: 0.85,
     fontSize: '2rem',
     display: 'block',
     bottom: theme.spacing(12),
     left: theme.spacing(8),
     lineHeight: 'inherit',
     letterSpacing: 'inherit',
+    transition: 'all linear 350ms',
     [theme.breakpoints.between('xs', 'sm')]: {
       textAlign: 'left',
       fontSize: '2rem',
@@ -166,6 +166,7 @@ function RetrieveBackgroundImage() {
 function RetrieveStats() {
   const { telescopeUrl } = useSiteMetadata();
   const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
+  const [transitionBackground, setTransitionBackground] = useState(true);
 
   useEffect(() => {
     async function getStats() {
@@ -182,6 +183,7 @@ function RetrieveStats() {
           words: stat.words.toLocaleString(),
         };
         setStats(localeStats);
+        setTransitionBackground(false);
       } catch (error) {
         console.error('Error getting user info', error);
       }
@@ -191,7 +193,12 @@ function RetrieveStats() {
   }, [telescopeUrl]);
 
   return (
-    <div className="stats">
+    <div
+      className="stats"
+      style={{
+        opacity: transitionBackground ? 0 : 0.85,
+      }}
+    >
       This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
     </div>
   );
