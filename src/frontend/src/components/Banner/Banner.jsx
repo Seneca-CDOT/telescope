@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     left: theme.spacing(8),
     lineHeight: 'inherit',
     letterSpacing: 'inherit',
-    transition: 'all linear 350ms',
+    transition: 'all linear 1s',
     [theme.breakpoints.between('xs', 'sm')]: {
       textAlign: 'left',
       fontSize: '2rem',
@@ -112,9 +112,13 @@ function ScrollDown(props) {
   );
 }
 
-function RetrieveBackgroundImage() {
+function RetrieveBannerDynamicAssets() {
   const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
   const [transitionBackground, setTransitionBackground] = useState(true);
+  const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
+
+  const classes = useStyles();
+  const { telescopeUrl } = useSiteMetadata();
 
   useEffect(() => {
     async function getBackgroundImgSrc() {
@@ -138,7 +142,6 @@ function RetrieveBackgroundImage() {
 
         // Ease in Background
         setBackgroundImgSrc(src);
-        setTransitionBackground(false);
       } catch (error) {
         console.error('Error getting user info', error);
         // Fallback to default image
@@ -146,29 +149,6 @@ function RetrieveBackgroundImage() {
       }
     }
 
-    getBackgroundImgSrc();
-  }, []);
-
-  return (
-    <div
-      className="bannerImg"
-      style={{
-        backgroundImage:
-          backgroundImgSrc === '../../images/hero-banner.png'
-            ? backgroundImgSrc
-            : `url(${backgroundImgSrc})`,
-        opacity: transitionBackground ? 0 : 0.4,
-      }}
-    ></div>
-  );
-}
-
-function RetrieveStats() {
-  const { telescopeUrl } = useSiteMetadata();
-  const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
-  const [transitionBackground, setTransitionBackground] = useState(true);
-
-  useEffect(() => {
     async function getStats() {
       try {
         const response = await fetch(`${telescopeUrl}/stats/year`);
@@ -189,17 +169,30 @@ function RetrieveStats() {
       }
     }
 
-    getStats();
+    getBackgroundImgSrc().then(getStats());
   }, [telescopeUrl]);
 
   return (
-    <div
-      className="stats"
-      style={{
-        opacity: transitionBackground ? 0 : 0.85,
-      }}
-    >
-      This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
+    <div>
+      <div
+        className="bannerImg"
+        style={{
+          backgroundImage:
+            backgroundImgSrc === '../../images/hero-banner.png'
+              ? backgroundImgSrc
+              : `url(${backgroundImgSrc})`,
+          opacity: transitionBackground ? 0 : 0.4,
+        }}
+      ></div>
+      <Typography
+        variant="caption"
+        className={classes.stats}
+        style={{
+          opacity: transitionBackground ? 0 : 0.85,
+        }}
+      >
+        This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
+      </Typography>
     </div>
   );
 }
@@ -216,17 +209,14 @@ export default function Banner() {
     <React.Fragment>
       <CssBaseline />
       <div className="heroBanner">
-        <RetrieveBackgroundImage />
+        <RetrieveBannerDynamicAssets />
 
         <ThemeProvider>
           <Typography variant="h1" className={classes.h1}>
             {'Telescope'}
           </Typography>
-
-          <Typography variant="caption" className={classes.stats}>
-            <RetrieveStats />
-          </Typography>
         </ThemeProvider>
+
         <div className={classes.version}>v {Version.version}</div>
 
         <div className={classes.icon}>
