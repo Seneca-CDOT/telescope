@@ -1,7 +1,7 @@
 ---
-path: '/blog/my-first-post'
+path: '/about'
 date: '2019-05-04'
-title: 'My first blog post'
+title: 'About'
 ---
 
 # Telescope <img align="left" width="100" height="100" src=https://github.com/Seneca-CDOT/telescope/blob/master/images/telescope-logo.png>
