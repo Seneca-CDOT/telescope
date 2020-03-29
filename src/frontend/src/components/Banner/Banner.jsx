@@ -112,6 +112,28 @@ function ScrollDown(props) {
   );
 }
 
+async function getDynamicAsset(url, callback, errorCB) {
+  try {
+    const response = await fetch(url);
+
+    if (response.status !== 200) {
+      throw new Error(response.statusText);
+    }
+
+    if (response.headers.get('content-type').includes('application/json')) {
+      callback(await response.json());
+    }
+
+    callback(response);
+  } catch (error) {
+    console.error('Error getting dynamic asset', error);
+
+    if (errorCB) {
+      errorCB();
+    }
+  }
+}
+
 function RetrieveBannerDynamicAssets() {
   const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
   const [transitionBackground, setTransitionBackground] = useState(true);
@@ -122,54 +144,44 @@ function RetrieveBannerDynamicAssets() {
 
   useEffect(() => {
     async function getBackgroundImgSrc() {
-      try {
-        // Uses https://unsplash.com/collections/894/earth-%26-planets collection
-        /* Other Options: 
+      // Uses https://unsplash.com/collections/894/earth-%26-planets collection
+      /* Other Options: 
         - https://unsplash.com/collections/2411320/trend%3A-extreme-neon
         - https://unsplash.com/collections/1538150/milkyway
         - https://unsplash.com/collections/291422/night-lights
         */
 
-        // Ensure we are using an image which fits correctly to user's viewspace
-        const dimensions = `${window.innerWidth}x${window.innerHeight}`;
-        const response = await fetch(`https://source.unsplash.com/collection/894/${dimensions}/`);
+      // Ensure we are using an image which fits correctly to user's viewspace
+      const dimensions = `${window.innerWidth}x${window.innerHeight}`;
 
-        if (response.status !== 200) {
-          throw new Error(response.statusText);
+      await getDynamicAsset(
+        `https://source.unsplash.com/collection/894/${dimensions}/`,
+        response => {
+          // Ease in Background
+          setBackgroundImgSrc(response.url);
+        },
+        () => {
+          // Fallback to default image
+          setBackgroundImgSrc('../../images/hero-banner.png');
         }
-
-        const src = response.url;
-
-        // Ease in Background
-        setBackgroundImgSrc(src);
-      } catch (error) {
-        console.error('Error getting user info', error);
-        // Fallback to default image
-        setBackgroundImgSrc('../../images/hero-banner.png');
-      }
+      );
     }
 
     async function getStats() {
-      try {
-        const response = await fetch(`${telescopeUrl}/stats/year`);
-        if (response.status !== 200) {
-          throw new Error(response.statusText);
-        }
-
-        const stat = await response.json();
+      await getDynamicAsset(`${telescopeUrl}/stats/year`, response => {
         const localeStats = {
-          posts: stat.posts.toLocaleString(),
-          authors: stat.authors.toLocaleString(),
-          words: stat.words.toLocaleString(),
+          posts: response.posts.toLocaleString(),
+          authors: response.authors.toLocaleString(),
+          words: response.words.toLocaleString(),
         };
         setStats(localeStats);
-        setTransitionBackground(false);
-      } catch (error) {
-        console.error('Error getting user info', error);
-      }
+      });
+
+      setTransitionBackground(false);
     }
 
-    getBackgroundImgSrc().then(getStats());
+    getBackgroundImgSrc();
+    getStats();
   }, [telescopeUrl]);
 
   return (
