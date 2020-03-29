@@ -5,7 +5,7 @@ cd ../telescope
 
 docker-compose -f docker-compose-staging.yml down
 
-docker system prune -af
+docker system prune -af --volumes
 
 
 # Delete and clone
