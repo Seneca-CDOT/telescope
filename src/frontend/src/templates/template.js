@@ -1,15 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
 import { graphql } from 'gatsby';
 
 import Header from '../components/Header';
+import AboutFooter from '../components/AboutFooter';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+  },
+}));
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
 }) {
   const { markdownRemark } = data; // data.markdownRemark holds your post data
   const { frontmatter, html } = markdownRemark;
+  const classes = useStyles();
+
   return (
-    <div>
+    <div className={classes.root}>
       <Header />
       <div className="blog-post-container">
         <div className="blog-post">
@@ -18,9 +29,22 @@ export default function Template({
           <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: html }} />
         </div>
       </div>
+      <AboutFooter />
     </div>
   );
 }
+
+// Is this how you do PropTypes??
+/*
+Template.PropTypes = {
+  data: PropTypes.string,
+  markdownRemark: PropTypes.string,
+  frontmatter: PropTypes.string,
+  html: PropTypes.string,
+  title: PropTypes.string,
+  date: PropTypes.string,
+};
+*/
 
 export const pageQuery = graphql`
   query($path: String!) {
