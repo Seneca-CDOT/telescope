@@ -40,13 +40,13 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     color: 'white',
     fontFamily: 'Roboto',
-    opacity: 0.85,
     fontSize: '2rem',
     display: 'block',
     bottom: theme.spacing(12),
     left: theme.spacing(8),
     lineHeight: 'inherit',
     letterSpacing: 'inherit',
+    transition: 'all linear 1s',
     [theme.breakpoints.between('xs', 'sm')]: {
       textAlign: 'left',
       fontSize: '2rem',
@@ -112,87 +112,100 @@ function ScrollDown(props) {
   );
 }
 
-function RetrieveBackgroundImage() {
+async function getDynamicAsset(url, success, failure) {
+  try {
+    const response = await fetch(url);
+
+    if (response.status !== 200) {
+      throw new Error(response.statusText);
+    }
+
+    if (response.headers.get('content-type').includes('application/json')) {
+      success(await response.json());
+      return;
+    }
+
+    success(response);
+  } catch (error) {
+    console.error('Error getting dynamic asset', error);
+
+    if (failure) {
+      failure();
+    }
+  }
+}
+
+function RetrieveBannerDynamicAssets() {
   const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
   const [transitionBackground, setTransitionBackground] = useState(true);
+  const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
+
+  const classes = useStyles();
+  const { telescopeUrl } = useSiteMetadata();
 
   useEffect(() => {
     async function getBackgroundImgSrc() {
-      try {
-        // Uses https://unsplash.com/collections/894/earth-%26-planets collection
-        /* Other Options: 
+      // Uses https://unsplash.com/collections/894/earth-%26-planets collection
+      /* Other Options: 
         - https://unsplash.com/collections/2411320/trend%3A-extreme-neon
         - https://unsplash.com/collections/1538150/milkyway
         - https://unsplash.com/collections/291422/night-lights
         */
 
-        // Ensure we are using an image which fits correctly to user's viewspace
-        const dimensions = `${window.innerWidth}x${window.innerHeight}`;
-        const response = await fetch(`https://source.unsplash.com/collection/894/${dimensions}/`);
+      // Ensure we are using an image which fits correctly to user's viewspace
+      const dimensions = `${window.innerWidth}x${window.innerHeight}`;
 
-        if (response.status !== 200) {
-          throw new Error(response.statusText);
+      await getDynamicAsset(
+        `https://source.unsplash.com/collection/894/${dimensions}/`,
+        response => {
+          setBackgroundImgSrc(response.url);
+          getStats();
+        },
+        () => {
+          // Fallback to default image
+          setBackgroundImgSrc('../../images/hero-banner.png');
         }
+      );
+    }
 
-        const src = response.url;
+    async function getStats() {
+      await getDynamicAsset(`${telescopeUrl}/stats/year`, response => {
+        const localeStats = {
+          posts: response.posts.toLocaleString(),
+          authors: response.authors.toLocaleString(),
+          words: response.words.toLocaleString(),
+        };
+        setStats(localeStats);
 
         // Ease in Background
-        setBackgroundImgSrc(src);
         setTransitionBackground(false);
-      } catch (error) {
-        console.error('Error getting user info', error);
-        // Fallback to default image
-        setBackgroundImgSrc('../../images/hero-banner.png');
-      }
+      });
     }
 
     getBackgroundImgSrc();
-  }, []);
-
-  return (
-    <div
-      className="bannerImg"
-      style={{
-        backgroundImage:
-          backgroundImgSrc === '../../images/hero-banner.png'
-            ? backgroundImgSrc
-            : `url(${backgroundImgSrc})`,
-        opacity: transitionBackground ? 0 : 0.4,
-      }}
-    ></div>
-  );
-}
-
-function RetrieveStats() {
-  const { telescopeUrl } = useSiteMetadata();
-  const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
-
-  useEffect(() => {
-    async function getStats() {
-      try {
-        const response = await fetch(`${telescopeUrl}/stats/year`);
-        if (response.status !== 200) {
-          throw new Error(response.statusText);
-        }
-
-        const stat = await response.json();
-        const localeStats = {
-          posts: stat.posts.toLocaleString(),
-          authors: stat.authors.toLocaleString(),
-          words: stat.words.toLocaleString(),
-        };
-        setStats(localeStats);
-      } catch (error) {
-        console.error('Error getting user info', error);
-      }
-    }
-
-    getStats();
   }, [telescopeUrl]);
 
   return (
-    <div className="stats">
-      This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
+    <div>
+      <div
+        className="bannerImg"
+        style={{
+          backgroundImage:
+            backgroundImgSrc === '../../images/hero-banner.png'
+              ? backgroundImgSrc
+              : `url(${backgroundImgSrc})`,
+          opacity: transitionBackground ? 0 : 0.4,
+        }}
+      ></div>
+      <Typography
+        variant="caption"
+        className={classes.stats}
+        style={{
+          opacity: transitionBackground ? 0 : 0.85,
+        }}
+      >
+        This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
+      </Typography>
     </div>
   );
 }
@@ -209,17 +222,14 @@ export default function Banner() {
     <React.Fragment>
       <CssBaseline />
       <div className="heroBanner">
-        <RetrieveBackgroundImage />
+        <RetrieveBannerDynamicAssets />
 
         <ThemeProvider>
           <Typography variant="h1" className={classes.h1}>
             {'Telescope'}
           </Typography>
-
-          <Typography variant="caption" className={classes.stats}>
-            <RetrieveStats />
-          </Typography>
         </ThemeProvider>
+
         <div className={classes.version}>v {Version.version}</div>
 
         <div className={classes.icon}>
