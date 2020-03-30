@@ -39,6 +39,7 @@ app.use(
 authentication.init();
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(authentication.administration());
 
 // Add the Apollo server to app and define the `/graphql` endpoint
 const server = new ApolloServer({

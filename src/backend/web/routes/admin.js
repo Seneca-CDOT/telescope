@@ -3,7 +3,7 @@ const express = require('express');
 const { UI } = require('bull-board');
 const fs = require('fs');
 
-const { protect } = require('../authentication');
+const { protect, protectAdmin } = require('../authentication');
 const { logger } = require('../../utils/logger');
 
 const router = express.Router();
@@ -11,7 +11,8 @@ const router = express.Router();
 // Only authenticated users can use these routes
 router.use('/queues', protect(true), UI);
 
-router.get('/log', protect(true), (req, res) => {
+// Only authenticated admin users can see this route
+router.get('/log', protectAdmin(true), (req, res) => {
   let readStream;
   if (!process.env.LOG_FILE) {
     res.send('LOG_FILE undefined in .env file');

@@ -50,6 +50,7 @@ services:
       - SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=${SLO_LOGOUT_CALLBACK_URL}
     volumes:
       - ./simplesamlphp-users.php:/var/www/simplesamlphp/config/authsources.php
+      - ./saml20-idp-hosted.php:/var/www/simplesamlphp/metadata/saml20-idp-hosted.php
     # image owner's blog post https://medium.com/disney-streaming/setup-a-single-sign-on-saml-test-environment-with-docker-and-nodejs-c53fc1a984c9
     image: kristophjunge/test-saml-idp
     ports:
