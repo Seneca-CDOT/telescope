@@ -37,8 +37,8 @@ router.use('/secure/route', passport.authenticate('saml'), (req, res) => {
 });
 ```
 
-If you need to protect an HTTP REST API route, use the `protect` middleware
-from `src/backend/web/authentication.js`.
+If you need to protect an HTTP REST API route, use the `protect` (regular
+users) or `protectAdmin` (admin users) middleware from `src/backend/web/authentication.js`.
 
 ## Running an SSO Identity Provider
 
