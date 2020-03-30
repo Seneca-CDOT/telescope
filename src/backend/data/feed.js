@@ -24,7 +24,7 @@ class Feed {
     this.id = urlToId(url);
     this.author = author;
     this.url = url;
-    this.link = link === '' ? null : link;
+    this.link = link;
     // We may or may not have these cache values when we create a feed.
     this.etag = etag === '' ? null : etag;
     this.lastModified = lastModified === '' ? null : lastModified;

@@ -21,7 +21,11 @@ module.exports.typeDefs = graphql`
     id: String
     author: String
     url: String
+<<<<<<< HEAD
     posts: [Post]
+=======
+    link: String
+>>>>>>> f7a50d1... added graphql field, updated feeds.test.js
   }
 
   # 'Post' matches our Post type used with redis
