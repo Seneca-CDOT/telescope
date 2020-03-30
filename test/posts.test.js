@@ -70,7 +70,7 @@ describe('test /posts/:id responses', () => {
   const missingGuid = 'http://missing-guid';
   const randomGuid = 'http://random-guid';
 
-  const feed1 = new Feed('Feed Author', 'http://feed-url.com/', null, null);
+  const feed1 = new Feed('Feed Author', 'http://feed-url.com/', 'user', null, null);
 
   beforeAll(() => Promise.resolve(addFeed(feed1)));
 
@@ -113,6 +113,7 @@ describe('test /posts/:id responses', () => {
     // Create a feed
     const feedId = await Feed.create({
       author: 'Feed Author',
+      user: 'user',
       url: 'https://feed-url.com/',
     });
     const feed = await Feed.byId(feedId);

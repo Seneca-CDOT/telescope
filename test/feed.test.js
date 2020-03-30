@@ -5,14 +5,15 @@ const hash = require('../src/backend/data/hash');
 
 const urlToId = url => hash(normalizeUrl(url));
 
-describe('Fost data class tests', () => {
+describe('Post data class tests', () => {
   const data = {
     author: 'Post Author',
     url: 'https://user.feed.com/feed.rss',
+    user: 'user',
     id: urlToId('https://user.feed.com/feed.rss'),
   };
 
-  const createFeed = () => new Feed(data.author, data.url);
+  const createFeed = () => new Feed(data.author, data.url, data.user);
 
   test('Feed should be a function', () => {
     expect(typeof Feed).toBe('function');
@@ -39,6 +40,7 @@ describe('Fost data class tests', () => {
       expect(feed.author).toEqual(data.author);
       expect(feed.url).toEqual(data.url);
       expect(feed.id).toEqual(data.id);
+      expect(feed.user).toEqual(data.user);
     });
 
     test('Feed.byId() for an invalid id should return null', async () => {
@@ -52,6 +54,7 @@ describe('Fost data class tests', () => {
       expect(feed.author).toEqual(data.author);
       expect(feed.url).toEqual(data.url);
       expect(feed.id).toEqual(data.id);
+      expect(feed.user).toEqual(data.user);
     });
 
     test('Feed.byId() for an invalid url should return null', async () => {

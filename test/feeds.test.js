@@ -32,12 +32,13 @@ describe('test /feeds/:id responses', () => {
   const missingUrl = 'http://missing-url';
 
   // an object to be added for testing purposes
-  const addedFeed = new Feed('foo', existingUrl);
+  const addedFeed = new Feed('foo', existingUrl, 'user');
 
   // an object, expected to be returned by a correct query
   const receivedFeed = {
     author: 'foo',
     url: existingUrl,
+    user: 'user',
     id: hash(existingUrl),
     etag: null,
     lastModified: null,
@@ -71,6 +72,7 @@ describe('test POST /feeds endpoint', () => {
     const feedData = {
       author: 'foo',
       url: 'http://telescope200.cdot.systems',
+      user: 'user',
     };
     const res = await request(app)
       .post('/feeds')
@@ -86,6 +88,7 @@ describe('test POST /feeds endpoint', () => {
   it('no author being sent', async () => {
     const feedData = {
       author: null,
+      user: 'user',
       url: 'http://telescope200.cdot.systems',
     };
     const res = await request(app)
@@ -98,6 +101,7 @@ describe('test POST /feeds endpoint', () => {
   it('no url being sent', async () => {
     const feedData = {
       author: 'foo',
+      user: 'user',
       url: null,
     };
     const res = await request(app)
@@ -111,6 +115,7 @@ describe('test POST /feeds endpoint', () => {
     const feedData = {
       author: 'foo',
       url: 'http://telescope0.cdot.systems',
+      user: 'user',
     };
     await Feed.create(feedData);
     const res = await request(app)

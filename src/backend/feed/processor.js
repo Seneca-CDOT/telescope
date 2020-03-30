@@ -54,6 +54,8 @@ async function getFeedInfo(feed) {
     lastModified: null,
     contentType: null,
     shouldDownload: true,
+    // We do not have user-info at this stage currently, once feeds get added it will include passport.js information here.
+    user: null,
   };
 
   let response;
