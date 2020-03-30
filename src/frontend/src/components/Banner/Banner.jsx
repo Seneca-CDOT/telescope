@@ -112,7 +112,7 @@ function ScrollDown(props) {
   );
 }
 
-async function getDynamicAsset(url, callback, errorCB) {
+async function getDynamicAsset(url, success, failure) {
   try {
     const response = await fetch(url);
 
@@ -121,15 +121,16 @@ async function getDynamicAsset(url, callback, errorCB) {
     }
 
     if (response.headers.get('content-type').includes('application/json')) {
-      callback(await response.json());
+      success(await response.json());
+      return;
     }
 
-    callback(response);
+    success(response);
   } catch (error) {
     console.error('Error getting dynamic asset', error);
 
-    if (errorCB) {
-      errorCB();
+    if (failure) {
+      failure();
     }
   }
 }
@@ -157,8 +158,8 @@ function RetrieveBannerDynamicAssets() {
       await getDynamicAsset(
         `https://source.unsplash.com/collection/894/${dimensions}/`,
         response => {
-          // Ease in Background
           setBackgroundImgSrc(response.url);
+          getStats();
         },
         () => {
           // Fallback to default image
@@ -175,13 +176,13 @@ function RetrieveBannerDynamicAssets() {
           words: response.words.toLocaleString(),
         };
         setStats(localeStats);
-      });
 
-      setTransitionBackground(false);
+        // Ease in Background
+        setTransitionBackground(false);
+      });
     }
 
     getBackgroundImgSrc();
-    getStats();
   }, [telescopeUrl]);
 
   return (
