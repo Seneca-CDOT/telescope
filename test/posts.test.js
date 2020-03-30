@@ -22,7 +22,6 @@ describe('test /posts endpoint', () => {
       guid,
       author: 'author',
       title: 'title',
-      link: 'link',
       html: 'html',
       updated: new Date('2009-09-07T22:23:00.544Z'),
       published: new Date('2009-09-07T22:20:00.000Z'),
