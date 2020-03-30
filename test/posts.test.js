@@ -69,7 +69,13 @@ describe('test /posts/:id responses', () => {
   const missingGuid = 'http://missing-guid';
   const randomGuid = 'http://random-guid';
 
-  const feed1 = new Feed('Feed Author', 'http://feed-url.com/', null, null);
+  const feed1 = new Feed(
+    'Feed Author',
+    'http://feed-url.com/',
+    'https://feed-link.com/',
+    null,
+    null
+  );
 
   beforeAll(() => Promise.resolve(addFeed(feed1)));
 
