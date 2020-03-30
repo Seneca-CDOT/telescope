@@ -19,8 +19,15 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     opacity: 0.85,
     fontSize: '12rem',
+    display: 'block',
+    top: theme.spacing(20),
+    left: theme.spacing(8),
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '4rem',
+      textAlign: 'left',
+      left: theme.spacing(4),
+      right: theme.spacing(4),
+      top: theme.spacing(14),
     },
     [theme.breakpoints.between('md', 'lg')]: {
       fontSize: '8rem',
@@ -28,10 +35,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '12rem',
     },
-    display: 'block',
-    top: theme.spacing(20),
-    left: theme.spacing(8),
-    transition: 'linear 250ms all',
   },
   stats: {
     position: 'absolute',
@@ -39,8 +42,16 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Roboto',
     opacity: 0.85,
     fontSize: '2rem',
+    display: 'block',
+    bottom: theme.spacing(12),
+    left: theme.spacing(8),
+    lineHeight: 'inherit',
+    letterSpacing: 'inherit',
     [theme.breakpoints.between('xs', 'sm')]: {
+      textAlign: 'left',
       fontSize: '2rem',
+      left: theme.spacing(4),
+      right: theme.spacing(4),
     },
     [theme.breakpoints.between('md', 'lg')]: {
       fontSize: '4rem',
@@ -48,22 +59,18 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '8rem',
     },
-    width: '75%',
-    display: 'block',
-    bottom: theme.spacing(20),
-    left: theme.spacing(8),
-    transition: 'linear 250ms all',
-    lineHeight: 'inherit',
-    letterSpacing: 'inherit',
   },
 
   version: {
     position: 'absolute',
     opacity: 0.85,
-    bottom: theme.spacing(10),
+    bottom: theme.spacing(6),
     left: theme.spacing(8),
     fontSize: '1.75rem',
+    color: 'white',
     [theme.breakpoints.between('xs', 'sm')]: {
+      left: theme.spacing(4),
+      right: theme.spacing(4),
       fontSize: '1.75rem',
     },
     [theme.breakpoints.between('md', 'lg')]: {
@@ -72,8 +79,18 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '4rem',
     },
-
-    color: 'white',
+  },
+  icon: {
+    height: '5.6rem',
+    width: '5.6rem',
+    position: 'relative',
+    left: '49.5%',
+    bottom: theme.spacing(20),
+    [theme.breakpoints.between('xs', 'sm')]: {
+      right: theme.spacing(4),
+      left: '80%',
+      bottom: theme.spacing(18),
+    },
   },
 }));
 
@@ -92,6 +109,57 @@ function ScrollDown(props) {
     <div onClick={handleClick} role="presentation">
       {children}
     </div>
+  );
+}
+
+function RetrieveBackgroundImage() {
+  const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
+  const [transitionBackground, setTransitionBackground] = useState(true);
+
+  useEffect(() => {
+    async function getBackgroundImgSrc() {
+      try {
+        // Uses https://unsplash.com/collections/894/earth-%26-planets collection
+        /* Other Options: 
+        - https://unsplash.com/collections/2411320/trend%3A-extreme-neon
+        - https://unsplash.com/collections/1538150/milkyway
+        - https://unsplash.com/collections/291422/night-lights
+        */
+
+        // Ensure we are using an image which fits correctly to user's viewspace
+        const dimensions = `${window.innerWidth}x${window.innerHeight}`;
+        const response = await fetch(`https://source.unsplash.com/collection/894/${dimensions}/`);
+
+        if (response.status !== 200) {
+          throw new Error(response.statusText);
+        }
+
+        const src = response.url;
+
+        // Ease in Background
+        setBackgroundImgSrc(src);
+        setTransitionBackground(false);
+      } catch (error) {
+        console.error('Error getting user info', error);
+        // Fallback to default image
+        setBackgroundImgSrc('../../images/hero-banner.png');
+      }
+    }
+
+    getBackgroundImgSrc();
+  }, []);
+
+  return (
+    <div
+      className="bannerImg"
+      style={{
+        backgroundImage:
+          backgroundImgSrc === '../../images/hero-banner.png'
+            ? backgroundImgSrc
+            : `url(${backgroundImgSrc})`,
+        opacity: transitionBackground ? 0 : 0.4,
+      }}
+    ></div>
   );
 }
 
@@ -141,7 +209,8 @@ export default function Banner() {
     <React.Fragment>
       <CssBaseline />
       <div className="heroBanner">
-        <div className="bannerImg"></div>
+        <RetrieveBackgroundImage />
+
         <ThemeProvider>
           <Typography variant="h1" className={classes.h1}>
             {'Telescope'}
@@ -153,7 +222,7 @@ export default function Banner() {
         </ThemeProvider>
         <div className={classes.version}>v {Version.version}</div>
 
-        <div className="icon">
+        <div className={classes.icon}>
           <ScrollDown>
             <Fab color="primary" aria-label="scroll-down">
               <KeyboardArrowDownIcon fontSize="large" />
