@@ -15,8 +15,14 @@ const hash = require('../src/backend/data/hash');
 describe('Storage tests for feeds', () => {
   const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith');
   const feed2 = new Feed('James Smith 2', 'http://seneca.co/jsmith/2');
-  const feed3 = new Feed('James Smith 2', 'http://seneca.co/jsmith/3', 'etag');
-  const feed4 = new Feed('James Smith 2', 'http://seneca.co/jsmith/4', 'etag', 'last-modified');
+  const feed3 = new Feed('James Smith 2', 'http://seneca.co/jsmith/3', null, 'etag');
+  const feed4 = new Feed(
+    'James Smith 2',
+    'http://seneca.co/jsmith/4',
+    'http://seneca.co/jsmith',
+    'etag',
+    'last-modified'
+  );
 
   beforeAll(() => Promise.all([addFeed(feed1), addFeed(feed2), addFeed(feed3), addFeed(feed4)]));
 
@@ -51,6 +57,14 @@ describe('Storage tests for feeds', () => {
     expect(feeds[1].lastModified).toBe('');
     expect(feeds[2].lastModified).toBe('');
     expect(feeds[3].lastModified).toBe('last-modified');
+  });
+
+  it('feed4 should have a link value', async () => {
+    const feeds = await Promise.all((await getFeeds()).map(id => getFeed(id)));
+    expect(feeds[0].link).toBe('');
+    expect(feeds[1].link).toBe('');
+    expect(feeds[2].link).toBe('');
+    expect(feeds[3].link).toBe('http://seneca.co/jsmith');
   });
 });
 
