@@ -33,12 +33,13 @@ describe('test /feeds/:id responses', () => {
   const missingUrl = 'http://missing-url';
 
   // an object to be added for testing purposes
-  const addedFeed = new Feed('foo', existingUrl, existingLink);
+  const addedFeed = new Feed('foo', existingUrl, 'user', existingLink);
 
   // an object, expected to be returned by a correct query
   const receivedFeed = {
     author: 'foo',
     url: existingUrl,
+    user: 'user',
     link: existingLink,
     id: hash(existingUrl),
     etag: null,
@@ -51,7 +52,7 @@ describe('test /feeds/:id responses', () => {
   // tests
   it("pass an id that doesn't exist", async () => {
     const res = await request(app).get(`/feeds/${hash(missingUrl)}`);
-
+    
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body instanceof Array).toBe(false);
@@ -73,6 +74,7 @@ describe('test POST /feeds endpoint', () => {
     const feedData = {
       author: 'foo',
       url: 'http://telescope200.cdot.systems',
+      user: 'user',
     };
     const res = await request(app)
       .post('/feeds')
@@ -88,6 +90,7 @@ describe('test POST /feeds endpoint', () => {
   it('no author being sent', async () => {
     const feedData = {
       author: null,
+      user: 'user',
       url: 'http://telescope200.cdot.systems',
     };
     const res = await request(app)
@@ -100,6 +103,7 @@ describe('test POST /feeds endpoint', () => {
   it('no url being sent', async () => {
     const feedData = {
       author: 'foo',
+      user: 'user',
       url: null,
     };
     const res = await request(app)
@@ -113,6 +117,7 @@ describe('test POST /feeds endpoint', () => {
     const feedData = {
       author: 'foo',
       url: 'http://telescope0.cdot.systems',
+      user: 'user',
     };
     await Feed.create(feedData);
     const res = await request(app)

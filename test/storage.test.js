@@ -13,12 +13,14 @@ const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
 
 describe('Storage tests for feeds', () => {
-  const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith');
-  const feed2 = new Feed('James Smith 2', 'http://seneca.co/jsmith/2');
-  const feed3 = new Feed('James Smith 2', 'http://seneca.co/jsmith/3', null, 'etag');
+
+  const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith', 'user');
+  const feed2 = new Feed('James Smith 2', 'http://seneca.co/jsmith/2', 'user');
+  const feed3 = new Feed('James Smith 2', 'http://seneca.co/jsmith/3', 'user', null, 'etag');
   const feed4 = new Feed(
     'James Smith 2',
     'http://seneca.co/jsmith/4',
+    'user',
     'http://seneca.co/jsmith',
     'etag',
     'last-modified'
@@ -33,6 +35,7 @@ describe('Storage tests for feeds', () => {
     expect(feed.url).toEqual(feed1.url);
     expect(feed.etag).toEqual('');
     expect(feed.lastModified).toEqual('');
+    expect(feed.user).toEqual(feed1.user);
   });
 
   it('should return expected feed count', async () => {

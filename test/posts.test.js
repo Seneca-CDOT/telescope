@@ -72,6 +72,7 @@ describe('test /posts/:id responses', () => {
   const feed1 = new Feed(
     'Feed Author',
     'http://feed-url.com/',
+    'user',
     'https://feed-link.com/',
     null,
     null
@@ -118,6 +119,7 @@ describe('test /posts/:id responses', () => {
     // Create a feed
     const feedId = await Feed.create({
       author: 'Feed Author',
+      user: 'user',
       url: 'https://feed-url.com/',
     });
     const feed = await Feed.byId(feedId);
