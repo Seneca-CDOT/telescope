@@ -41,6 +41,8 @@ module.exports = {
         feed.url,
         'user',
         feed.user,
+        'link',
+        feed.link,
         'etag',
         feed.etag,
         'lastModified',

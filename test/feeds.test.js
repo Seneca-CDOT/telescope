@@ -29,16 +29,18 @@ describe('test GET /feeds endpoint', () => {
 
 describe('test /feeds/:id responses', () => {
   const existingUrl = 'http://existing-url';
+  const existingLink = 'http://existing-link';
   const missingUrl = 'http://missing-url';
 
   // an object to be added for testing purposes
-  const addedFeed = new Feed('foo', existingUrl, 'user');
+  const addedFeed = new Feed('foo', existingUrl, 'user', existingLink);
 
   // an object, expected to be returned by a correct query
   const receivedFeed = {
     author: 'foo',
     url: existingUrl,
     user: 'user',
+    link: existingLink,
     id: hash(existingUrl),
     etag: null,
     lastModified: null,
@@ -50,7 +52,7 @@ describe('test /feeds/:id responses', () => {
   // tests
   it("pass an id that doesn't exist", async () => {
     const res = await request(app).get(`/feeds/${hash(missingUrl)}`);
-
+    
     expect(res.status).toEqual(404);
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body instanceof Array).toBe(false);

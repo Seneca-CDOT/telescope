@@ -22,7 +22,6 @@ describe('test /posts endpoint', () => {
       guid,
       author: 'author',
       title: 'title',
-      link: 'link',
       html: 'html',
       updated: new Date('2009-09-07T22:23:00.544Z'),
       published: new Date('2009-09-07T22:20:00.000Z'),
@@ -70,7 +69,14 @@ describe('test /posts/:id responses', () => {
   const missingGuid = 'http://missing-guid';
   const randomGuid = 'http://random-guid';
 
-  const feed1 = new Feed('Feed Author', 'http://feed-url.com/', 'user', null, null);
+  const feed1 = new Feed(
+    'Feed Author',
+    'http://feed-url.com/',
+    'user',
+    'https://feed-link.com/',
+    null,
+    null
+  );
 
   beforeAll(() => Promise.resolve(addFeed(feed1)));
 

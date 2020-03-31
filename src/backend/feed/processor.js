@@ -52,6 +52,7 @@ async function getFeedInfo(feed) {
     status: null,
     etag: null,
     lastModified: null,
+    link: null,
     contentType: null,
     shouldDownload: true,
     // We do not have user-info at this stage currently, once feeds get added it will include passport.js information here.
@@ -64,6 +65,7 @@ async function getFeedInfo(feed) {
     response = await fetch(feed.url, addHeaders({ method: 'HEAD' }, feed));
     info.status = `[HTTP ${response.status} - ${response.statusText}]`;
     info.contentType = response.headers.get('Content-Type');
+    info.link = feed.link;
   } catch (error) {
     logger.error({ error }, `Unable to fetch HEAD info for feed ${feed.url}`);
     throw error;
@@ -188,6 +190,13 @@ module.exports = async function processor(job) {
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;
     feed.lastModified = feed.lastModified || info.lastModified;
+    // If feed.link is empty or there are blog posts
+    if (!feed.link && articles.length) {
+      // Assign link from first post to feed's link
+      const article = articles[0];
+      const { meta } = article;
+      feed.link = meta ? meta.link : null;
+    }
     await feed.save();
   } catch (error) {
     // If the feedparser can't parse this, we get a 'Not a feed' error
