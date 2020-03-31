@@ -244,6 +244,7 @@ export default function Banner() {
       }
     } catch (error) {
       console.error(`Error retrieving site's health info`, error);
+      throw new Error('Error retrieving site health info', error);
     }
   }
 
