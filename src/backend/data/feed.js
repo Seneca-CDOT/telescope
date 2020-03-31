@@ -13,7 +13,7 @@ const hash = require('./hash');
 const urlToId = url => hash(normalizeUrl(url));
 
 class Feed {
-  constructor(author, url, etag, lastModified) {
+  constructor(author, url, link, etag, lastModified) {
     if (!url) {
       throw new Error('missing url for feed');
     }
@@ -24,6 +24,7 @@ class Feed {
     this.id = urlToId(url);
     this.author = author;
     this.url = url;
+    this.link = link;
     // We may or may not have these cache values when we create a feed.
     this.etag = etag === '' ? null : etag;
     this.lastModified = lastModified === '' ? null : lastModified;
@@ -76,7 +77,13 @@ class Feed {
    * Returns the newly created Feed's id as a Promise<String>
    */
   static async create(feedData) {
-    const feed = new Feed(feedData.author, feedData.url, feedData.etag, feedData.lastModified);
+    const feed = new Feed(
+      feedData.author,
+      feedData.url,
+      feedData.link,
+      feedData.etag,
+      feedData.lastModified
+    );
     await feed.save();
     return feed.id;
   }
@@ -93,7 +100,7 @@ class Feed {
       return null;
     }
 
-    return new Feed(data.author, data.url, data.etag, data.lastModified);
+    return new Feed(data.author, data.url, data.link, data.etag, data.lastModified);
   }
 
   /**

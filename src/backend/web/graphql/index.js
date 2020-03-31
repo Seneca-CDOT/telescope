@@ -21,6 +21,7 @@ module.exports.typeDefs = graphql`
     id: String
     author: String
     url: String
+    link: String
     posts: [Post]
   }
 
