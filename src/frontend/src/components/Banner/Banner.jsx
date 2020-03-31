@@ -235,13 +235,10 @@ export default function Banner() {
         throw new Error(res.statusText);
       }
 
-      // Checking whether content type is correct
-      if (res.headers.get('content-type').includes('application/json')) {
-        const data = await res.json();
-        setSha(data.info.sha);
-        setGitHubUrl(data.info.gitHubUrl);
-        setVersion(data.info.version);
-      }
+      const data = await res.json();
+      setSha(data.info.sha);
+      setGitHubUrl(data.info.gitHubUrl);
+      setVersion(data.info.version);
     } catch (error) {
       console.error(`Error retrieving site's health info`, error);
       throw new Error('Error retrieving site health info', error);
