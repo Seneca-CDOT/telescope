@@ -77,6 +77,10 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '4rem',
     },
+    textDecorationLine: 'none',
+    '&:hover': {
+      textDecorationLine: 'underline',
+    },
   },
   icon: {
     height: '5.6rem',
@@ -88,11 +92,6 @@ const useStyles = makeStyles(theme => ({
       right: theme.spacing(4),
       left: '80%',
       bottom: theme.spacing(18),
-    },
-    color: 'white',
-    textDecorationLine: 'none',
-    '&:hover': {
-      textDecorationLine: 'underline',
     },
   },
 }));
@@ -222,31 +221,25 @@ ScrollDown.propTypes = {
 export default function Banner() {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
-  const [sha, setSha] = useState('');
-  const [version, setVersion] = useState('');
-  const [githubUrl, setGitHubUrl] = useState('');
+  const [gitInfo, setGitInfo] = useState('');
 
-  async function getGitData() {
-    try {
-      const res = await fetch(`${telescopeUrl}/health`);
+  useEffect(() => {
+    async function getGitData() {
+      try {
+        const res = await fetch(`${telescopeUrl}/health`);
 
-      // Fetch failure
-      if (!res.ok) {
-        throw new Error(res.statusText);
+        // Fetch failure
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+
+        const data = await res.json();
+        setGitInfo(data.info);
+      } catch (error) {
+        console.error(`Error retrieving site's health info`, error);
       }
-
-      const data = await res.json();
-      setSha(data.info.sha);
-      setGitHubUrl(data.info.gitHubUrl);
-      setVersion(data.info.version);
-    } catch (error) {
-      console.error(`Error retrieving site's health info`, error);
-      throw new Error('Error retrieving site health info', error);
     }
-  }
-
-  useEffect(async () => {
-    await getGitData();
+    getGitData();
   }, [telescopeUrl]);
 
   return (
@@ -261,8 +254,12 @@ export default function Banner() {
           </Typography>
         </ThemeProvider>
 
-        <a href={`${githubUrl}`} title={`git commit ${sha}`} className={classes.version}>
-          v {version}
+        <a
+          href={`${gitInfo.gitHubUrl}`}
+          title={`git commit ${gitInfo.sha}`}
+          className={classes.version}
+        >
+          v {gitInfo.version}
         </a>
         <div className={classes.icon}>
           <ScrollDown>
