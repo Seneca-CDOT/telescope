@@ -1,5 +1,4 @@
 const path = require('path');
-const { version } = require('../../package.json');
 
 /**
  * Try to load an .env from the root telescope project
@@ -25,7 +24,6 @@ module.exports = {
     description: `A tool for tracking blogs in orbit around Seneca's open source involvement`,
     author: `SDDS Students and professors`,
     telescopeUrl,
-    version,
   },
   plugins: [
     'gatsby-plugin-top-layout',

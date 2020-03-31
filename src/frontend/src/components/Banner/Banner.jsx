@@ -221,23 +221,35 @@ ScrollDown.propTypes = {
 
 export default function Banner() {
   const classes = useStyles();
-  const { version, telescopeUrl } = useSiteMetadata();
+  const { telescopeUrl } = useSiteMetadata();
   const [sha, setSha] = useState('');
+  const [version, setVersion] = useState('');
+  const [githubUrl, setGitHubUrl] = useState('');
 
-  async function getSha() {
+  async function getGitData() {
     try {
       const res = await fetch(`${telescopeUrl}/health`);
-      const data = await res.json();
-      return data.info.sha;
+
+      // Fetch failure
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+
+      // Checking whether content type is correct
+      if (res.headers.get('content-type').includes('application/json')) {
+        const data = await res.json();
+        setSha(data.info.sha);
+        setGitHubUrl(data.info.gitHubUrl);
+        setVersion(data.info.version);
+      }
     } catch (error) {
       console.error(`Error retrieving site's health info`, error);
-      return error;
     }
   }
 
   useEffect(async () => {
-    setSha(await getSha());
-  }, []);
+    await getGitData();
+  }, [telescopeUrl]);
 
   return (
     <React.Fragment>
@@ -251,11 +263,7 @@ export default function Banner() {
           </Typography>
         </ThemeProvider>
 
-        <a
-          href={`https://github.com/Seneca-CDOT/telescope/commit/${sha}`}
-          title={`git commit ${sha}`}
-          className={classes.version}
-        >
+        <a href={`${githubUrl}`} title={`git commit ${sha}`} className={classes.version}>
           v {version}
         </a>
         <div className={classes.icon}>
