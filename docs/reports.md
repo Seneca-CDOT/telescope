@@ -26,15 +26,3 @@ npm run webhint
 
 This will start the web server and run webhint in a browser. A text summary will
 be printed to the console, and an HTML version created in `hint-report/http-localhost-3000/index.html`, which you can open in your web browser.
-
-## Lighthouse
-
-The third report is for [Lighthouse](https://developers.google.com/web/tools/lighthouse/)
-information about the frontend. To generate this report:
-
-```
-npm run lighthouse
-```
-
-This will start the web server and run Lighthouse in a browser. A text summary will
-be printed to the console, and an HTML version created in `./lighthouse-report.html`, which you can open in your web browser.

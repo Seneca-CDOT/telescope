@@ -3,7 +3,6 @@ package-lock.json
 node_modules/
 coverage/
 hint-report/
-lighthouse-report.html
 certs
 public
 .cache
