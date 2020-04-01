@@ -28,9 +28,6 @@ yarn-error.log*
 *.obj
 *.o
 
-# Webhint report `npm run webhint
-hint-report/
-
 # Redis dump file
 dump.rdb
 

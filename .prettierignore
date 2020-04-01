@@ -2,7 +2,6 @@ package.json
 package-lock.json
 node_modules/
 coverage/
-hint-report/
 certs
 public
 .cache

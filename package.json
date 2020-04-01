@@ -44,8 +44,6 @@
     "jest-watch": "cross-env MOCK_REDIS=1 jest --watch --",
     "start": "node src/backend",
     "server": "node src/backend/web/server",
-    "hint": "hint http://localhost:3000",
-    "webhint": "cross-env PORT=3000 npm-run-all -r -p server hint",
     "test-ci": "run-s prettier-check test",
     "now-build": "npm run build",
     "release": "run.env release-it --"
@@ -103,7 +101,6 @@
     "valid-url": "1.0.9"
   },
   "devDependencies": {
-    "@hint/configuration-all": "2.0.3",
     "@now/node": "1.4.1",
     "cross-env": "7.0.2",
     "eslint": "6.8.0",
@@ -114,7 +111,6 @@
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-react": "7.18.3",
     "fast-xml-parser": "3.16.0",
-    "hint": "6.0.0",
     "husky": "4.2.3",
     "jest": "25.1.0",
     "jest-fetch-mock": "3.0.2",
