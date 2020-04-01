@@ -38,6 +38,7 @@ async function getWikiText(url) {
  */
 module.exports = async function () {
   let url = process.env.FEED_URL;
+  const delay = process.env.FEED_URL_DELAY_MS || 30000;
 
   if (!url) {
     url = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
@@ -53,7 +54,7 @@ module.exports = async function () {
       getWikiText(url)
         .then(resolve)
         .catch(error => logger.info({ error }));
-    }, 5000);
+    }, delay);
   });
 
   const wikiText = await downloadFeedList;
