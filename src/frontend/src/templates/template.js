@@ -12,9 +12,13 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.post,
+    height: '100vh',
   },
   markdownBody: {
     padding: '2rem',
+  },
+  aboutFooter: {
+    margin: '10rem',
   },
 }));
 
@@ -33,8 +37,10 @@ export default function Template({
         <h1>{frontmatter.title}</h1>
         <h2>{frontmatter.date}</h2>
         <div dangerouslySetInnerHTML={{ __html: html }} />
+        <div className={classes.aboutFooter}>
+          <AboutFooter />
+        </div>
       </div>
-      <AboutFooter />
       <Footer />
     </div>
   );
