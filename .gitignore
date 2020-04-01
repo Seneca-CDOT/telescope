@@ -28,9 +28,6 @@ yarn-error.log*
 *.obj
 *.o
 
-# Lighthouse CI report `npm run lighthouse`
-lighthouse-report.html
-
 # Webhint report `npm run webhint
 hint-report/
 
