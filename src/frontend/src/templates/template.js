@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { graphql } from 'gatsby';
 
+import SEO from '../components/SEO';
 import Header from '../components/Header';
 import AboutFooter from '../components/AboutFooter';
 
@@ -21,6 +22,7 @@ export default function Template({
 
   return (
     <div className={classes.root}>
+      <SEO title={frontmatter.title} />
       <Header />
       <div className="blog-post-container">
         <div className="blog-post">
@@ -34,9 +36,7 @@ export default function Template({
   );
 }
 
-// Is this how you do PropTypes??
-/*
-Template.PropTypes = {
+Template.propTypes = {
   data: PropTypes.string,
   markdownRemark: PropTypes.string,
   frontmatter: PropTypes.string,
@@ -44,7 +44,6 @@ Template.PropTypes = {
   title: PropTypes.string,
   date: PropTypes.string,
 };
-*/
 
 export const pageQuery = graphql`
   query($path: String!) {
