@@ -62,12 +62,3 @@ test('Testing wiki-feed-parser.parseData', async () => {
   const response = await getWikiFeeds();
   expect(response).toStrictEqual(expectedData);
 });
-
-test('Testing wiki-feed-parser.parseData when getData fails with no pre tag', async () => {
-  const mockBody = `<html>${mockFeed}</html>`;
-  fetch.mockResponseOnce(mockBody);
-
-  await getWikiFeeds().catch((err) => {
-    expect(err).toStrictEqual(noPreErr);
-  });
-});
