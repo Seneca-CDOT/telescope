@@ -31,9 +31,7 @@
     "clean": "npm run clean --prefix src/frontend --",
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
-    "stylelint": "stylelint src/**/*.css",
     "lint": "npm run eslint",
-    "postlint": "npm run stylelint",
     "postinstall": "cd src/frontend && npm install && cd ../../tools/autodeployment && npm install",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
@@ -120,9 +118,6 @@
     "pretty-quick": "2.0.1",
     "release-it": "13.4.0",
     "run.env": "1.1.0",
-    "stylelint": "13.2.0",
-    "stylelint-config-prettier": "8.0.1",
-    "stylelint-prettier": "1.1.2",
     "supertest": "4.0.2"
   },
   "engines": {
