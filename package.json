@@ -83,7 +83,6 @@
     "ioredis": "4.16.0",
     "ioredis-mock": "4.19.0",
     "jsdom": "16.2.0",
-    "minimist": "1.2.5",
     "node-fetch": "2.6.0",
     "normalize-url": "5.0.0",
     "opml-generator": "1.1.1",
