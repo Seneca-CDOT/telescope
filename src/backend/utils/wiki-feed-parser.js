@@ -38,7 +38,7 @@ async function getWikiText(url) {
  */
 module.exports = async function () {
   let url = process.env.FEED_URL;
-  const delay = process.env.FEED_URL_DELAY_MS || 30000;
+  const interval = process.env.FEED_URL_INTERVAL_MS || 30000;
 
   if (!url) {
     url = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
@@ -48,13 +48,17 @@ module.exports = async function () {
   const nameCheck = /^\s*name/i;
   const commentCheck = /^\s*#/;
 
+  /**
+   * Try to fetch the feed list from 'url'.
+   * If not available, keep trying every 'interval' milliseconds.
+   */
   let intervalId;
   const downloadFeedList = new Promise(resolve => {
     intervalId = setInterval(() => {
       getWikiText(url)
         .then(resolve)
         .catch(error => logger.info({ error }));
-    }, delay);
+    }, interval);
   });
 
   const wikiText = await downloadFeedList;
