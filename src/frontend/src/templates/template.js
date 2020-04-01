@@ -6,10 +6,15 @@ import { graphql } from 'gatsby';
 import SEO from '../components/SEO';
 import Header from '../components/Header';
 import AboutFooter from '../components/AboutFooter';
+import Footer from '../components/Footer';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
+    backgroundColor: theme.palette.background.post,
+  },
+  markdownBody: {
+    padding: '2rem',
   },
 }));
 
@@ -24,14 +29,13 @@ export default function Template({
     <div className={classes.root}>
       <SEO title={frontmatter.title} />
       <Header />
-      <div className="blog-post-container">
-        <div className="blog-post">
-          <h1>{frontmatter.title}</h1>
-          <h2>{frontmatter.date}</h2>
-          <div className="blog-post-content" dangerouslySetInnerHTML={{ __html: html }} />
-        </div>
+      <div className={classes.markdownBody}>
+        <h1>{frontmatter.title}</h1>
+        <h2>{frontmatter.date}</h2>
+        <div dangerouslySetInnerHTML={{ __html: html }} />
       </div>
       <AboutFooter />
+      <Footer />
     </div>
   );
 }
