@@ -6,6 +6,11 @@ const hash = require('../src/backend/data/hash');
 
 jest.mock('../src/backend/utils/elastic');
 
+// Mock the internal authentication strategy
+jest.mock('../src/backend/web/authentication');
+// Use our authentication test helper
+const { login, logout } = require('./lib/authentication');
+
 describe('test GET /feeds endpoint', () => {
   const createdItems = 150;
 
@@ -68,8 +73,23 @@ describe('test /feeds/:id responses', () => {
   });
 });
 
-// https://github.com/Seneca-CDOT/telescope/issues/734 Tests below will need to have authorization to pass.
 describe('test POST /feeds endpoint', () => {
+  beforeEach(() => login());
+
+  it('fails if not logged in', async () => {
+    const feedData = {
+      author: 'foo',
+      url: 'http://telescope200.cdot.systems',
+      user: 'user',
+    };
+    logout();
+    const res = await request(app)
+      .post('/feeds')
+      .send(feedData)
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(403);
+  });
+
   it('responds with json', async () => {
     const feedData = {
       author: 'foo',
