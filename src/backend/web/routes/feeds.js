@@ -2,7 +2,7 @@ const express = require('express');
 const Feed = require('../../data/feed');
 const { getFeeds } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
-// const { protect } = require('../authentication'); https://github.com/Seneca-CDOT/telescope/issues/734
+const { protect } = require('../authentication');
 
 const feeds = express.Router();
 
@@ -51,9 +51,7 @@ feeds.get('/:id', async (req, res) => {
   }
 });
 
-// add protect here for development. https://github.com/Seneca-CDOT/telescope/issues/734
-
-feeds.post('/', async (req, res) => {
+feeds.post('/', protect(), async (req, res) => {
   const feedData = req.body;
   try {
     if (!(feedData.url && feedData.author)) {

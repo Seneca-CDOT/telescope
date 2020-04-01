@@ -246,5 +246,4 @@ module.exports.init = init;
 module.exports.protect = protect;
 module.exports.protectAdmin = protectAdmin;
 module.exports.administration = administration;
-module.exports.strategy = strategy;
 module.exports.samlMetadata = samlMetadata;
