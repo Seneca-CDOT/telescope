@@ -5,10 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
-import Version from '../../../../../package.json';
 import './Banner.css';
 
 const useStyles = makeStyles(theme => ({
@@ -79,6 +77,10 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '4rem',
     },
+    textDecorationLine: 'none',
+    '&:hover': {
+      textDecorationLine: 'underline',
+    },
   },
   icon: {
     height: '5.6rem',
@@ -146,7 +148,7 @@ function RetrieveBannerDynamicAssets() {
   useEffect(() => {
     async function getBackgroundImgSrc() {
       // Uses https://unsplash.com/collections/894/earth-%26-planets collection
-      /* Other Options: 
+      /* Other Options:
         - https://unsplash.com/collections/2411320/trend%3A-extreme-neon
         - https://unsplash.com/collections/1538150/milkyway
         - https://unsplash.com/collections/291422/night-lights
@@ -218,6 +220,28 @@ ScrollDown.propTypes = {
 
 export default function Banner() {
   const classes = useStyles();
+  const { telescopeUrl } = useSiteMetadata();
+  const [gitInfo, setGitInfo] = useState('');
+
+  useEffect(() => {
+    async function getGitData() {
+      try {
+        const res = await fetch(`${telescopeUrl}/health`);
+
+        // Fetch failure
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
+
+        const data = await res.json();
+        setGitInfo(data.info);
+      } catch (error) {
+        console.error(`Error retrieving site's health info`, error);
+      }
+    }
+    getGitData();
+  }, [telescopeUrl]);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -230,8 +254,13 @@ export default function Banner() {
           </Typography>
         </ThemeProvider>
 
-        <div className={classes.version}>v {Version.version}</div>
-
+        <a
+          href={`${gitInfo.gitHubUrl}`}
+          title={`git commit ${gitInfo.sha}`}
+          className={classes.version}
+        >
+          v {gitInfo.version}
+        </a>
         <div className={classes.icon}>
           <ScrollDown>
             <Fab color="primary" aria-label="scroll-down">
