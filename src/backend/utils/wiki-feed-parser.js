@@ -47,13 +47,18 @@ module.exports = async function () {
   const nameCheck = /^\s*name/i;
   const commentCheck = /^\s*#/;
 
-  let wikiText;
-  try {
-    wikiText = await getWikiText(url);
-  } catch (error) {
-    logger.error({ error }, `Unable to download wiki feed data from url ${url}`);
-    throw error;
-  }
+  let intervalId;
+  const downloadFeedList = new Promise(resolve => {
+    intervalId = setInterval(() => {
+      getWikiText(url)
+        .then(resolve)
+        .catch(error => logger.info({ error }));
+    }, 5000);
+  });
+
+  const wikiText = await downloadFeedList;
+
+  clearInterval(intervalId);
 
   const lines = wikiText.split(/\r\n|\r|\n/);
   const feeds = [];
