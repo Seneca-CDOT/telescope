@@ -38,7 +38,7 @@ async function getWikiText(url) {
  */
 module.exports = async function () {
   let url = process.env.FEED_URL;
-  const interval = process.env.FEED_URL_INTERVAL_MS || 30000;
+  const interval = process.env.FEED_URL_INTERVAL_MS || 2000;
 
   if (!url) {
     url = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
