@@ -62,19 +62,19 @@ function checkUser(requireAdmin, redirect, req, res, next) {
 
 // We'll deal with admin via init(), just let this pass
 function administration() {
-  return function(req, res, next) {
+  return function (req, res, next) {
     next();
   };
 }
 
 function protect(redirect) {
-  return function(req, res, next) {
+  return function (req, res, next) {
     checkUser(false, redirect, req, res, next);
   };
 }
 
 function protectAdmin(redirect) {
-  return function(req, res, next) {
+  return function (req, res, next) {
     checkUser(true, redirect, req, res, next);
   };
 }
