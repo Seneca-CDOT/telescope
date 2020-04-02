@@ -83,10 +83,7 @@ describe('test POST /feeds endpoint', () => {
       user: 'user',
     };
     logout();
-    const res = await request(app)
-      .post('/feeds')
-      .send(feedData)
-      .set('Accept', 'application/json');
+    const res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
     expect(res.status).toEqual(403);
   });
 
