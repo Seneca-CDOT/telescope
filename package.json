@@ -37,7 +37,7 @@
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
     "test": "npm run jest",
-    "jest": "cross-env LOG_LEVEL=error MOCK_REDIS=1 jest --",
+    "jest": "cross-env LOG_LEVEL=error MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --",
     "coverage": "cross-env LOG_LEVEL=silent MOCK_REDIS=1 jest --collectCoverage --",
     "jest-watch": "cross-env MOCK_REDIS=1 jest --watch --",
     "start": "node src/backend",
