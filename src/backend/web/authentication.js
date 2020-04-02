@@ -66,10 +66,10 @@ function init() {
 
   // Add session user object de/serialize functions. We put the whole
   // user object on the session unaltered.
-  passport.serializeUser(function(user, done) {
+  passport.serializeUser(function (user, done) {
     done(null, user);
   });
-  passport.deserializeUser(function(user, done) {
+  passport.deserializeUser(function (user, done) {
     done(null, user);
   });
 
@@ -87,7 +87,7 @@ function init() {
       disableRequestedAuthnContext: true,
       signatureAlgorithm: 'sha256',
     },
-    function(profile, done) {
+    function (profile, done) {
       if (!profile) {
         const error = new Error('SAML Strategy verify callback missing user profile');
         logger.error({ error });
@@ -183,7 +183,7 @@ const admins = getAdminList(process.env.ADMINISTRATORS);
 
 // See if this user id is in the admins env as a raw or hashed value
 function userIsAdmin(id) {
-  return admins.some(admin => id === admin || id === hash(admin));
+  return admins.some((admin) => id === admin || id === hash(admin));
 }
 
 /**
@@ -195,7 +195,7 @@ function userIsAdmin(id) {
  * or not a user is an administrator.
  */
 function administration() {
-  return function(req, res, next) {
+  return function (req, res, next) {
     if (req.user && req.user.id) {
       req.user.isAdmin = userIsAdmin(req.user.id);
     }
@@ -220,7 +220,7 @@ function administration() {
  * router.get('/protected/html/page', protect(true), function(res, res) { ... }))
  */
 function protect(redirect) {
-  return function(req, res, next) {
+  return function (req, res, next) {
     checkUser(false, redirect, req, res, next);
   };
 }
@@ -237,7 +237,7 @@ function protect(redirect) {
  * router.get('/protected/html/page/for/admins', protectAdmin(true), function(res, res) { ... }))
  */
 function protectAdmin(redirect) {
-  return function(req, res, next) {
+  return function (req, res, next) {
     checkUser(true, redirect, req, res, next);
   };
 }

@@ -10,7 +10,7 @@ const {
 } = require('../utils/storage');
 const hash = require('./hash');
 
-const urlToId = url => hash(normalizeUrl(url));
+const urlToId = (url) => hash(normalizeUrl(url));
 
 class Feed {
   constructor(author, url, user, link, etag, lastModified) {

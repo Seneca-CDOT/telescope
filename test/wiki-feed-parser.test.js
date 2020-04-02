@@ -67,7 +67,7 @@ test('Testing wiki-feed-parser.parseData when getData fails with no pre tag', as
   const mockBody = `<html>${mockFeed}</html>`;
   fetch.mockResponseOnce(mockBody);
 
-  await getWikiFeeds().catch(err => {
+  await getWikiFeeds().catch((err) => {
     expect(err).toStrictEqual(noPreErr);
   });
 });

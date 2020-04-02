@@ -10,13 +10,14 @@ const Post = require('./post');
  * Get the total number of words in the text of all posts in the array
  * @param {Array<Post>} posts the array of post objects
  */
-const countWords = posts => posts.reduce((total, post) => total + count(post.text, 'words', {}), 0);
+const countWords = (posts) =>
+  posts.reduce((total, post) => total + count(post.text, 'words', {}), 0);
 
 /**
  * Get the total number of unique feeds in the posts in the array
  * @param {Array<Post>} posts the array of post objects
  */
-const countFeeds = posts => new Set(posts.map(post => post.feed.author)).size;
+const countFeeds = (posts) => new Set(posts.map((post) => post.feed.author)).size;
 
 class Stats {
   constructor(startDate, endDate) {

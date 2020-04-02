@@ -10,11 +10,11 @@ describe('test GET /feeds endpoint', () => {
   const createdItems = 150;
 
   // Array of feeds
-  const feeds = [...Array(createdItems).keys()].map(item => {
+  const feeds = [...Array(createdItems).keys()].map((item) => {
     return new Feed('foo', `http://telescope${item}.cdot.systems`);
   });
 
-  beforeAll(() => Promise.all(feeds.map(feed => feed.save())));
+  beforeAll(() => Promise.all(feeds.map((feed) => feed.save())));
 
   it('requests feeds', async () => {
     const res = await request(app).get('/feeds');
@@ -76,10 +76,7 @@ describe('test POST /feeds endpoint', () => {
       url: 'http://telescope200.cdot.systems',
       user: 'user',
     };
-    const res = await request(app)
-      .post('/feeds')
-      .send(feedData)
-      .set('Accept', 'application/json');
+    const res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
     expect(res.status).toEqual(201);
     const { id } = res.body;
     const feed = await Feed.byId(id);
@@ -93,10 +90,7 @@ describe('test POST /feeds endpoint', () => {
       user: 'user',
       url: 'http://telescope200.cdot.systems',
     };
-    const res = await request(app)
-      .post('/feeds')
-      .send(feedData)
-      .set('Accept', 'application/json');
+    const res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
     expect(res.status).toEqual(400);
   });
 
@@ -106,10 +100,7 @@ describe('test POST /feeds endpoint', () => {
       user: 'user',
       url: null,
     };
-    const res = await request(app)
-      .post('/feeds')
-      .send(feedData)
-      .set('Accept', 'application/json');
+    const res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
     expect(res.status).toEqual(400);
   });
 
@@ -120,10 +111,7 @@ describe('test POST /feeds endpoint', () => {
       user: 'user',
     };
     await Feed.create(feedData);
-    const res = await request(app)
-      .post('/feeds')
-      .send(feedData)
-      .set('Accept', 'application/json');
+    const res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
     expect(res.status).toEqual(409);
   });
 });

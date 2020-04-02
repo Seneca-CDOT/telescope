@@ -5,7 +5,7 @@ const Feed = require('../src/backend/data/feed');
 jest.mock('../src/backend/utils/elastic');
 
 describe('Feed Processor Tests', () => {
-  const createFeed = url =>
+  const createFeed = (url) =>
     Feed.create({
       author: 'author',
       url,

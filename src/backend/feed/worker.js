@@ -27,7 +27,7 @@ function getFeedWorkersCount() {
   return Math.min(count, cpuCount);
 }
 
-exports.start = async function() {
+exports.start = async function () {
   try {
     await elastic.waitOnReady();
     logger.info('Connected to elasticsearch!');

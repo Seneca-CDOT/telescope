@@ -6,7 +6,7 @@ const { Client } = require('@elastic/elasticsearch');
 const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}` || 'http://localhost:9200';
 const esClient = new Client({ node: elasticUrl });
 
-const { logger } = require('../utils/logger');
+const { logger } = require('./logger');
 
 const index = 'posts';
 const type = 'post';
@@ -36,7 +36,7 @@ const indexPost = async (text, postId) => {
  * @param textToSearch
  * @return all the results matching the passed text
  */
-const search = async textToSearch => {
+const search = async (textToSearch) => {
   const query = {
     query: {
       match: {
@@ -94,7 +94,7 @@ const waitOnReady = async () => {
     }, DELAY);
   });
 
-  const connectivity = new Promise(resolve => {
+  const connectivity = new Promise((resolve) => {
     intervalId = setInterval(() => {
       checkConnection()
         .then(resolve)

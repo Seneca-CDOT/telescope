@@ -23,7 +23,7 @@ let redisConnectionRefusalLogged = false;
  */
 function createQueue(name) {
   const queue = new Bull(name, {
-    createClient: type => {
+    createClient: (type) => {
       switch (type) {
         case 'client':
           return client;
@@ -34,7 +34,7 @@ function createQueue(name) {
       }
     },
   })
-    .on('error', error => {
+    .on('error', (error) => {
       // An error occurred
       if (error.code === 'ECONNREFUSED' && !redisConnectionRefusalLogged) {
         logger.error(
@@ -47,15 +47,15 @@ function createQueue(name) {
         logger.error({ error }, `Queue ${name} error`);
       }
     })
-    .on('waiting', jobID => {
+    .on('waiting', (jobID) => {
       // A job is waiting for the next idling worker
       logger.debug(`Job ${jobID} is waiting.`);
     })
-    .on('active', job => {
+    .on('active', (job) => {
       // A job has started (use jobPromise.cancel() to abort it)
       logger.debug(`Job ${job.id} is active`);
     })
-    .on('stalled', job => {
+    .on('stalled', (job) => {
       // A job was marked as stalled. This is useful for debugging
       // which workers are crashing or pausing the event loop
       logger.debug(`Job ${job.id} has stalled.`);
@@ -64,7 +64,7 @@ function createQueue(name) {
       // A job's progress was updated
       logger.debug(`Job ${job.id} progress:`, progress);
     })
-    .on('completed', job => {
+    .on('completed', (job) => {
       // A job has been completed
       logger.debug(`Job ${job.id} completed.`);
     })
@@ -72,11 +72,11 @@ function createQueue(name) {
       // A job failed with an error
       logger.error({ error }, `Job ${job.id} failed.`);
     })
-    .on('paused', job => {
+    .on('paused', (job) => {
       // The queue was paused
       logger.debug(`Queue ${name} resumed. ID:`, job.id);
     })
-    .on('resumed', job => {
+    .on('resumed', (job) => {
       // The queue resumed
       logger.debug(`Queue ${name} resumed. ID: `, job.id);
     })
@@ -91,7 +91,7 @@ function createQueue(name) {
       // (the last item in the queue was returned by a worker)
       logger.debug(`Queue ${name} was drained.`);
     })
-    .on('removed', job => {
+    .on('removed', (job) => {
       logger.debug(`Job ${job.id} was removed.`);
     });
 

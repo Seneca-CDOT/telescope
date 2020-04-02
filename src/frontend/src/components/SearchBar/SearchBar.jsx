@@ -5,7 +5,7 @@ import InputBase from '@material-ui/core/InputBase';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -44,14 +44,14 @@ function CustomizedInputBase(props) {
   });
   const { searchText, onChangeHandler } = props;
 
-  const handleChange = filter => event => {
+  const handleChange = (filter) => (event) => {
     setState({
       ...state,
       [filter]: event.target.value,
     });
   };
 
-  const onTextChange = event => {
+  const onTextChange = (event) => {
     onChangeHandler(event);
   };
 
@@ -78,7 +78,7 @@ function CustomizedInputBase(props) {
           placeholder="Search Telescope"
           inputProps={{ 'aria-label': 'search telescope' }}
           value={searchText}
-          onChange={event => onTextChange(event)}
+          onChange={(event) => onTextChange(event)}
         />
       </Paper>
     </div>

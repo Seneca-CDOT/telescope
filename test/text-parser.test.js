@@ -3,7 +3,7 @@ const textParser = require('../src/backend/utils/text-parser');
 /**
  * textParser() will convert HTML fragments to plain text.
  */
-describe('text-parser tests', function() {
+describe('text-parser tests', function () {
   test('textParser() with doctype', () => {
     const result = textParser('<!DOCTYPE html><p>Hello World</p>');
     expect(result).toBe('Hello World');

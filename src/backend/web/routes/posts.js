@@ -66,7 +66,7 @@ posts.get('/', async (req, res) => {
   res.json(
     ids
       // Return id and url for a specific post
-      .map(id => ({
+      .map((id) => ({
         id,
         url: `/posts/${id}`,
       }))

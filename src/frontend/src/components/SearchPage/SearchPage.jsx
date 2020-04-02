@@ -50,9 +50,9 @@ const SearchPage = () => {
       const finalResults = data.getPosts
         .filter(
           (element, index, self) =>
-            self.findIndex(result => result.feed.id === element.feed.id) === index
+            self.findIndex((result) => result.feed.id === element.feed.id) === index
         )
-        .map(result => {
+        .map((result) => {
           return {
             id: result.feed.id,
             author: result.feed.author,
@@ -82,7 +82,7 @@ const SearchPage = () => {
     //  this will check if there are any results and return AuthorResult component
     //  for each with feed guid as key
     if (results.length > 0)
-      return results.map(result => (
+      return results.map((result) => (
         <AuthorResult key={result.id} author={result.author} post={result.post} />
       ));
     return <h1 className={classes.searchReply}>No results found</h1>;

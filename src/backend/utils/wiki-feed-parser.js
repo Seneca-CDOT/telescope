@@ -3,7 +3,7 @@ const jsdom = require('jsdom');
 const { isWebUri } = require('valid-url');
 
 require('../lib/config');
-const { logger } = require('../utils/logger');
+const { logger } = require('./logger');
 
 const { JSDOM } = jsdom;
 
@@ -36,7 +36,7 @@ async function getWikiText(url) {
  *   url: "feed url of user"
  * }
  */
-module.exports = async function() {
+module.exports = async function () {
   let url = process.env.FEED_URL;
 
   if (!url) {
@@ -60,7 +60,7 @@ module.exports = async function() {
   let currentFeedInfo = {};
 
   // Iterate through all lines and find url/name pairs, then add to feeds array.
-  lines.forEach(line => {
+  lines.forEach((line) => {
     if (commentCheck.test(line)) {
       // skip comments
       return;

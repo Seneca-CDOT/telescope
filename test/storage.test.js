@@ -46,7 +46,7 @@ describe('Storage tests for feeds', () => {
   });
 
   it('should deal with etag property correctly when available and missing', async () => {
-    const feeds = await Promise.all((await getFeeds()).map(id => getFeed(id)));
+    const feeds = await Promise.all((await getFeeds()).map((id) => getFeed(id)));
     expect(feeds[0].etag).toBe('');
     expect(feeds[1].etag).toBe('');
     expect(feeds[2].etag).toBe('etag');
@@ -54,7 +54,7 @@ describe('Storage tests for feeds', () => {
   });
 
   it('should deal with lastModified property correctly when available and missing', async () => {
-    const feeds = await Promise.all((await getFeeds()).map(id => getFeed(id)));
+    const feeds = await Promise.all((await getFeeds()).map((id) => getFeed(id)));
     expect(feeds[0].lastModified).toBe('');
     expect(feeds[1].lastModified).toBe('');
     expect(feeds[2].lastModified).toBe('');
@@ -62,7 +62,7 @@ describe('Storage tests for feeds', () => {
   });
 
   it('feed4 should have a link value', async () => {
-    const feeds = await Promise.all((await getFeeds()).map(id => getFeed(id)));
+    const feeds = await Promise.all((await getFeeds()).map((id) => getFeed(id)));
     expect(feeds[0].link).toBe('');
     expect(feeds[1].link).toBe('');
     expect(feeds[2].link).toBe('');
@@ -113,7 +113,7 @@ describe('Storage tests for posts', () => {
     site: 'foo',
   };
 
-  beforeAll(() => Promise.all([testPost, testPost2, testPost3].map(post => addPost(post))));
+  beforeAll(() => Promise.all([testPost, testPost2, testPost3].map((post) => addPost(post))));
 
   it('should allow retrieving a post by id after inserting', async () => {
     const posts = await getPosts(0, 0);

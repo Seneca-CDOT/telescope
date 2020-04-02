@@ -5,7 +5,7 @@ const { logger } = require('../../utils/logger');
 
 const stats = express.Router();
 
-const statsRoute = statsPeriod => async (req, res) => {
+const statsRoute = (statsPeriod) => async (req, res) => {
   try {
     const data = await statsPeriod.calculate();
     res.json(data);

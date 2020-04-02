@@ -38,7 +38,7 @@ async function cleanShutdown() {
 }
 
 function shutdown(signal) {
-  return async error => {
+  return async (error) => {
     if (isShuttingDown) {
       return;
     }

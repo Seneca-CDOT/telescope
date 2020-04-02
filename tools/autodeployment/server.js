@@ -15,11 +15,11 @@ http
     console.log(`Server listening on port ${DEPLOY_PORT}`);
   });
 
-handler.on('error', err => {
+handler.on('error', (err) => {
   console.error('Error:', err.message);
 });
 
-handler.on('push', event => {
+handler.on('push', (event) => {
   const { name } = event.payload.repository;
 
   if (name === REPO_NAME) {

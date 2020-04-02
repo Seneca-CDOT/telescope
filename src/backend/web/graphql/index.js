@@ -79,7 +79,7 @@ module.exports.resolvers = {
     posts: async ({ id }) => {
       const postIds = await getPosts(0, 0);
       const posts = await Promise.all(postIds.map(Post.byId));
-      return posts.filter(post => post.feed.id === id);
+      return posts.filter((post) => post.feed.id === id);
     },
   },
   Query: {
@@ -103,7 +103,7 @@ module.exports.resolvers = {
      */
     getFeeds: async () => {
       const feedIds = await getFeeds();
-      return Promise.all(feedIds.map(id => Feed.byId(id)));
+      return Promise.all(feedIds.map((id) => Feed.byId(id)));
     },
 
     /**
@@ -162,7 +162,7 @@ module.exports.resolvers = {
       if (filter.author) {
         // Find all post's where the author contains our search term, ignoring case.
         const authorSearchTerm = filter.author.toLowerCase();
-        const authorResults = posts.filter(post =>
+        const authorResults = posts.filter((post) =>
           post.feed.author.toLowerCase().includes(authorSearchTerm)
         );
         // check if # of filtered results are less than max results allowed per page.
@@ -173,7 +173,7 @@ module.exports.resolvers = {
       }
 
       if (filter.url) {
-        const urlResults = posts.filter(post => normalize(post.url) === normalize(filter.url));
+        const urlResults = posts.filter((post) => normalize(post.url) === normalize(filter.url));
         // check if # of filtered results are less than max results allowed per page.
         if (urlResults.length < prPage) {
           return urlResults;
