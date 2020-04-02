@@ -36,8 +36,6 @@ name=Eric Ferguson
 [http://armenzg.blogspot.com/feeds/posts/default/-/open%20source]
 name=Armen Zambrano G. (armenzg)`;
 
-const noPreErr = TypeError("Cannot read property 'textContent' of null");
-
 beforeEach(() => {
   fetch.resetMocks();
 });
