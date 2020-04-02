@@ -3,7 +3,6 @@ import { useLazyQuery } from '@apollo/react-hooks';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import gql from 'graphql-tag';
-import Header from '../Header';
 import SearchBar from '../SearchBar';
 import AuthorResult from '../AuthorResult';
 import SEO from '../SEO';
@@ -95,7 +94,6 @@ const SearchPage = () => {
   return (
     <div>
       <SEO title="Search" />
-      <Header />
       <Box className={classes.boxAfterHeader}></Box>
       <SearchBar searchText={searchText} onChangeHandler={onChangeHandler} />
       {displayResults()}
