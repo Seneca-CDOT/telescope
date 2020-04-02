@@ -53,11 +53,11 @@ module.exports = async function () {
    * If not available, keep trying every 'interval' milliseconds.
    */
   let intervalId;
-  const downloadFeedList = new Promise(resolve => {
+  const downloadFeedList = new Promise((resolve) => {
     intervalId = setInterval(() => {
       getWikiText(url)
         .then(resolve)
-        .catch(error => logger.info({ error }));
+        .catch((error) => logger.info({ error }));
     }, interval);
   });
 
