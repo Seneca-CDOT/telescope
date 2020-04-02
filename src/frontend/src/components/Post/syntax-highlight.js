@@ -63,8 +63,8 @@ hljs.registerLanguage('yaml', yaml);
 hljs.registerLanguage('php', php);
 hljs.registerLanguage('dos', dos);
 
-export default function(node) {
+export default function (node) {
   if (node) {
-    node.querySelectorAll('pre').forEach(pre => hljs.highlightBlock(pre));
+    node.querySelectorAll('pre').forEach((pre) => hljs.highlightBlock(pre));
   }
 }

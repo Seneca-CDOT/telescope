@@ -82,7 +82,7 @@ describe('Post data class tests', () => {
   });
 
   test('Post constructor should throw if feed is missing or not a Feed instance', () => {
-    const createPostWithFeed = f =>
+    const createPostWithFeed = (f) =>
       new Post(data.title, data.html, data.published, data.updated, data.url, data.guid, f);
 
     expect(() => createPostWithFeed(null)).toThrow();

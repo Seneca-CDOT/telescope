@@ -104,7 +104,7 @@ async function getFeedInfo(feed) {
  */
 function articlesToPosts(articles, feed) {
   return Promise.all(
-    articles.map(async article => {
+    articles.map(async (article) => {
       try {
         await Post.createFromArticle(article, feed);
       } catch (error) {

@@ -14,7 +14,7 @@ describe('test /posts endpoint', () => {
   const maxItems = 100;
   const createdItems = 150;
 
-  const posts = [...Array(createdItems).keys()].map(item => {
+  const posts = [...Array(createdItems).keys()].map((item) => {
     const guid = `http://telescope${item}.cdot.systems`;
     const id = hash(guid);
     return {
@@ -30,7 +30,7 @@ describe('test /posts endpoint', () => {
     };
   });
 
-  beforeAll(() => Promise.all(posts.map(post => addPost(post))));
+  beforeAll(() => Promise.all(posts.map((post) => addPost(post))));
 
   test('requests default number of items', async () => {
     const res = await request(app).get('/posts');
@@ -140,36 +140,28 @@ describe('test /posts/:id responses', () => {
     expect(postId).toEqual(hash(existingGuid));
 
     // Make sure we can get back this post/feed data via the REST api
-    const res = await request(app)
-      .get(`/posts/${postId}`)
-      .set('Accept', 'application/json');
+    const res = await request(app).get(`/posts/${postId}`).set('Accept', 'application/json');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body).toEqual(JSON.parse(JSON.stringify(post)));
   });
 
   test('requests text', async () => {
-    const res = await request(app)
-      .get(`/posts/${addedPost1.id}`)
-      .set('Accept', 'text/plain');
+    const res = await request(app).get(`/posts/${addedPost1.id}`).set('Accept', 'text/plain');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('text/plain');
     expect(res.text).toEqual(receivedPost1.text);
   });
 
   test('requests HTML', async () => {
-    const res = await request(app)
-      .get(`/posts/${addedPost1.id}`)
-      .set('Accept', 'text/html');
+    const res = await request(app).get(`/posts/${addedPost1.id}`).set('Accept', 'text/html');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('text/html');
     expect(res.text).toEqual(receivedPost1.html);
   });
 
   test('requests JSON', async () => {
-    const res = await request(app)
-      .get(`/posts/${addedPost1.id}`)
-      .set('Accept', 'application/json');
+    const res = await request(app).get(`/posts/${addedPost1.id}`).set('Accept', 'application/json');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body).toEqual(JSON.parse(JSON.stringify(receivedPost1)));

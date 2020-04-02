@@ -60,7 +60,7 @@ async function invalidateFeed(id) {
  */
 function processFeeds(feeds) {
   return Promise.all(
-    feeds.map(async feed => {
+    feeds.map(async (feed) => {
       // Save this feed into the database if necessary.
       const currentFeed = await updateFeed(feed);
       // Add a job to the feed queue to process all of this feed's posts.
@@ -86,7 +86,7 @@ async function processWikiFeeds() {
 
 function loadFeedsIntoQueue() {
   logger.info('Loading all feeds into feed queue for processing');
-  processWikiFeeds().catch(error => {
+  processWikiFeeds().catch((error) => {
     logger.error({ error }, 'Unable to enqueue wiki feeds');
   });
 }
@@ -101,8 +101,8 @@ feedQueue.on('drained', loadFeedsIntoQueue);
  * If there is a failure in the queue for a job, set the feed to invalid
  * and save to Redis
  */
-feedQueue.on('failed', job =>
-  invalidateFeed(job.data.id).catch(error => logger.error({ error }, 'Unable to invalidate feed'))
+feedQueue.on('failed', (job) =>
+  invalidateFeed(job.data.id).catch((error) => logger.error({ error }, 'Unable to invalidate feed'))
 );
 
 /**

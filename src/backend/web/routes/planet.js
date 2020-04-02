@@ -23,7 +23,7 @@ async function getPostDataGrouped() {
 
   // We group the posts into nested objects: days > authors > posts
   const grouped = { days: {} };
-  posts.forEach(post => {
+  posts.forEach((post) => {
     if (!post) {
       return;
     }

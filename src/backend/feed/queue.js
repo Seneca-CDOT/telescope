@@ -14,7 +14,7 @@ setQueues(queue);
  * Provide a helper for adding a feed with our desired default options.
  * The `job` contains an `id`, which refers to a Feed Object `id` already in Redis.
  */
-queue.addFeed = async function(job) {
+queue.addFeed = async function (job) {
   const options = {
     // Override the Job ID to use the feed id, so we don't duplicate jobs.
     // Bull will not add a job if there already exists a job with the same id.

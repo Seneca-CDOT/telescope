@@ -12,7 +12,7 @@ const getAtomUri = () => 'https://test321.blogspot.com/feeds/posts/default/-/ope
 const getRssUri = () => 'https://test321.blogspot.com/feeds/posts/default/-/open-source?alt=rss';
 const getHtmlUri = () => 'https://test321.blogspot.com/blog';
 // Remove leading protocol from a URI
-const stripProtocol = uri => uri.replace(/^https?:\/\//, '');
+const stripProtocol = (uri) => uri.replace(/^https?:\/\//, '');
 
 // Use blog.humphd.org as a more realistic test case
 const getRealWorldRssUri = () => 'https://blog.humphd.org/tag/seneca/rss/';
@@ -128,28 +128,28 @@ exports.getValidFeedBody = getValidFeedBody;
 exports.getEmptyFeedBody = getEmptyFeedBody;
 exports.getValidHtmlBody = getValidHtmlBody;
 
-exports.nockValidAtomResponse = function(headers = {}) {
+exports.nockValidAtomResponse = function (headers = {}) {
   nockResponse(getAtomUri(), getValidFeedBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.nockValidRssResponse = function(headers = {}) {
+exports.nockValidRssResponse = function (headers = {}) {
   nockResponse(getRssUri(), getValidFeedBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.nockInvalidRssResponse = function(headers = {}) {
+exports.nockInvalidRssResponse = function (headers = {}) {
   nockResponse(getRssUri(), getEmptyFeedBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.nockValidHtmlResponse = function(headers = {}) {
+exports.nockValidHtmlResponse = function (headers = {}) {
   nockResponse(getHtmlUri(), getValidHtmlBody(), 200, 'text/html', headers);
 };
 
-exports.nock404Response = function(headers = {}) {
+exports.nock404Response = function (headers = {}) {
   nockResponse(getHtmlUri(), 'Not Found', 404, 'text/html', headers);
 };
 
-exports.nockRealWorldRssResponse = function(headers = {}) {
+exports.nockRealWorldRssResponse = function (headers = {}) {
   nockResponse(getRealWorldRssUri(), getRealWorldRssBody(), 200, 'application/rss+xml', headers);
 };
 
-exports.createMockJobObjectFromFeedId = id => ({ data: { id } });
+exports.createMockJobObjectFromFeedId = (id) => ({ data: { id } });

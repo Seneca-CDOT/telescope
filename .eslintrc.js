@@ -1,5 +1,10 @@
 module.exports = {
-  extends: ['airbnb-base', 'prettier', 'plugin:promise/recommended', 'plugin:react/recommended'],
+  extends: [
+    'airbnb-base',
+    'plugin:prettier/recommended',
+    'plugin:promise/recommended',
+    'plugin:react/recommended',
+  ],
 
   plugins: ['prettier', 'promise', 'react'],
 

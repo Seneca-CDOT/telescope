@@ -19,7 +19,7 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Login from '../Login';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: '#242424',
@@ -69,7 +69,7 @@ const Header = () => {
     right: false,
   });
 
-  const toggleDrawer = (side, open) => event => {
+  const toggleDrawer = (side, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -77,7 +77,7 @@ const Header = () => {
     setState({ ...state, [side]: open });
   };
 
-  const sideList = side => (
+  const sideList = (side) => (
     <div
       className={classes.list}
       role="presentation"

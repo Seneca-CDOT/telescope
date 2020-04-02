@@ -9,7 +9,7 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import './Banner.css';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   h1: {
     position: 'absolute',
     color: 'white',
@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
 function ScrollDown(props) {
   const { children } = props;
 
-  const handleClick = event => {
+  const handleClick = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
 
     if (anchor) {
@@ -159,7 +159,7 @@ function RetrieveBannerDynamicAssets() {
 
       await getDynamicAsset(
         `https://source.unsplash.com/collection/894/${dimensions}/`,
-        response => {
+        (response) => {
           setBackgroundImgSrc(response.url);
           getStats();
         },
@@ -171,7 +171,7 @@ function RetrieveBannerDynamicAssets() {
     }
 
     async function getStats() {
-      await getDynamicAsset(`${telescopeUrl}/stats/year`, response => {
+      await getDynamicAsset(`${telescopeUrl}/stats/year`, (response) => {
         const localeStats = {
           posts: response.posts.toLocaleString(),
           authors: response.authors.toLocaleString(),

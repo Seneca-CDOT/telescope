@@ -15,9 +15,4 @@ const crypto = require('crypto');
  * This is fine for our needs, as we don't have enough
  * data to require the entire hash.
  */
-module.exports = input =>
-  crypto
-    .createHash('sha256')
-    .update(input)
-    .digest('hex')
-    .slice(0, 10);
+module.exports = (input) => crypto.createHash('sha256').update(input).digest('hex').slice(0, 10);

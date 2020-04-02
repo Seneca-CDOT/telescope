@@ -12,19 +12,19 @@ const invalidSuffix = ':invalid';
 const delayedSuffix = ':delayed';
 
 // "6Xoj0UXOW3" to "t:post:6Xoj0UXOW3"
-const createPostKey = id => postNamespace.concat(id);
+const createPostKey = (id) => postNamespace.concat(id);
 // "NirlSYranl" to "t:feed:NirlSYranl"
-const createFeedKey = id => feedNamespace.concat(id);
+const createFeedKey = (id) => feedNamespace.concat(id);
 // "NirlSYranl" to "t:feed:NirlSYranl:invalid"
-const createInvalidFeedKey = id => createFeedKey(id).concat(invalidSuffix);
+const createInvalidFeedKey = (id) => createFeedKey(id).concat(invalidSuffix);
 // "NirlSYranl" to "t:feed:NirlSYranl:delayed"
-const createDelayedFeedKey = id => createFeedKey(id).concat(delayedSuffix);
+const createDelayedFeedKey = (id) => createFeedKey(id).concat(delayedSuffix);
 
 module.exports = {
   /**
    * Feeds
    */
-  addFeed: async feed => {
+  addFeed: async (feed) => {
     const key = createFeedKey(feed.id);
     await redis
       .multi()
@@ -54,7 +54,7 @@ module.exports = {
 
   getFeeds: () => redis.smembers(feedsKey),
 
-  getFeed: id => redis.hgetall(feedNamespace.concat(id)),
+  getFeed: (id) => redis.hgetall(feedNamespace.concat(id)),
 
   getFeedsCount: () => redis.scard(feedsKey),
 
@@ -63,16 +63,16 @@ module.exports = {
     return redis.set(key, reason);
   },
 
-  isInvalid: id => redis.exists(createInvalidFeedKey(id)),
+  isInvalid: (id) => redis.exists(createInvalidFeedKey(id)),
 
   setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 1),
 
-  isDelayed: id => redis.exists(createDelayedFeedKey(id)),
+  isDelayed: (id) => redis.exists(createDelayedFeedKey(id)),
 
   /**
    * Posts
    */
-  addPost: async post => {
+  addPost: async (post) => {
     const key = createPostKey(post.id);
     await redis
       .multi()
@@ -119,5 +119,5 @@ module.exports = {
 
   getPostsCount: () => redis.zcard(postsKey),
 
-  getPost: id => redis.hgetall(postNamespace.concat(id)),
+  getPost: (id) => redis.hgetall(postNamespace.concat(id)),
 };

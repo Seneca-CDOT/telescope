@@ -26,7 +26,7 @@ const allFeeds = async () => Promise.all((await getFeeds()).map(Feed.byId));
  * Generate an express route for returning a feed type.
  * @param {String} type is the feed type, one of 'rss', 'json', or 'atom'
  */
-const feedRoute = type => async (req, res) => {
+const feedRoute = (type) => async (req, res) => {
   const feed = new FeedMeta({
     title: 'Telescope',
     description: "The Seneca College open source community's blog feed",
@@ -58,7 +58,7 @@ const feedRoute = type => async (req, res) => {
   }
 
   // Convert these posts to "feed" objects and add to our outgoing feed
-  posts.forEach(post =>
+  posts.forEach((post) =>
     feed.addItem({
       title: post.title,
       id: post.id,
@@ -123,7 +123,7 @@ router.get('/opml', async (req, res) => {
     return;
   }
 
-  const outlines = feeds.map(feed => ({
+  const outlines = feeds.map((feed) => ({
     text: feed.id,
     title: `${feed.author}'s blog`,
     type: feed.url.includes('atom') ? 'atom' : 'rss',
@@ -146,7 +146,7 @@ router.get('/wiki', async (req, res) => {
   let feeds;
   try {
     feeds = await allFeeds();
-    const wikiFeedList = feeds.map(feed => `[${feed.url}]\nname=${feed.author}\n`);
+    const wikiFeedList = feeds.map((feed) => `[${feed.url}]\nname=${feed.author}\n`);
 
     res.setHeader('Content-type', 'text/plain');
     res.send(wikiFeedList.join('\n'));

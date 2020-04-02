@@ -23,7 +23,7 @@ feeds.get('/', async (req, res) => {
   res.json(
     ids
       // Return id and url for a specific feed
-      .map(id => ({
+      .map((id) => ({
         id,
         url: `/feeds/${id}`,
       }))

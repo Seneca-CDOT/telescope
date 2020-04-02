@@ -17,7 +17,7 @@ export default function IndexPage() {
           }
         }
       `}
-      render={data => <Layout telescopeUrl={data.site.siteMetadata.telescopeUrl} />}
+      render={(data) => <Layout telescopeUrl={data.site.siteMetadata.telescopeUrl} />}
     />
   );
 }

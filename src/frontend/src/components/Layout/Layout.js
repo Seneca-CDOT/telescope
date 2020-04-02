@@ -31,7 +31,7 @@ class Layout extends Component {
       else this.setState({ scrolled: false });
 
       if (isScrollBottom()) {
-        this.setState(prevState => ({ numPages: prevState.numPages + 1 }));
+        this.setState((prevState) => ({ numPages: prevState.numPages + 1 }));
         this.getPosts(numPages);
       }
     });
@@ -53,7 +53,7 @@ class Layout extends Component {
       console.log({ err });
     }
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       posts: [...prevState.posts, ...postsData],
       numPages: prevState.numPages + 1,
     }));

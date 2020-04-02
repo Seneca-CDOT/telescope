@@ -4,7 +4,7 @@ import { AccountCircle, RssFeed, HelpOutline, Add } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import useSiteMetadata from '../hooks/use-site-metadata';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(2),
   },
@@ -65,7 +65,7 @@ export default function MyFeeds() {
                     <TextField
                       id="author"
                       label="John Doe"
-                      onBlur={event => handleAuthorChange(event.target.value)}
+                      onBlur={(event) => handleAuthorChange(event.target.value)}
                     />
                   </Grid>
                 </Grid>
@@ -79,7 +79,7 @@ export default function MyFeeds() {
                     <TextField
                       id="url"
                       label="Blog feed URL"
-                      onBlur={event => handleUrlChange(event.target.value)}
+                      onBlur={(event) => handleUrlChange(event.target.value)}
                     />
                   </Grid>
                   <Grid item>

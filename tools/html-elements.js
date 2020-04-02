@@ -31,7 +31,7 @@ async function processPost(id) {
     return [];
   }
   const frag = JSDOM.fragment(post.html);
-  return Array.from(frag.querySelectorAll('*')).map(elem => elem.tagName.toLowerCase());
+  return Array.from(frag.querySelectorAll('*')).map((elem) => elem.tagName.toLowerCase());
 }
 
 /**
@@ -40,7 +40,7 @@ async function processPost(id) {
  */
 function countTags(elements) {
   const tagCounts = {};
-  elements.forEach(elem => {
+  elements.forEach((elem) => {
     const count = tagCounts[elem] || 0;
     tagCounts[elem] = count + 1;
   });

@@ -22,12 +22,12 @@ router.get('/log', protectAdmin(true), (req, res) => {
     readStream = fs.createReadStream(process.env.LOG_FILE);
 
     res.append('Content-type', 'text/plain');
-    readStream.pipe(res).on('error', error => {
+    readStream.pipe(res).on('error', (error) => {
       logger.error({ error });
       readStream.destroy();
     });
 
-    res.on('error', error => {
+    res.on('error', (error) => {
       logger.error({ error });
       readStream.destroy();
     });

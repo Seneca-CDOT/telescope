@@ -3,7 +3,7 @@ const normalizeUrl = require('normalize-url');
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
 
-const urlToId = url => hash(normalizeUrl(url));
+const urlToId = (url) => hash(normalizeUrl(url));
 
 describe('Post data class tests', () => {
   const data = {
