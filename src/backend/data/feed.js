@@ -4,11 +4,18 @@ const {
   getFeed,
   getFeeds,
   addFeed,
+  removeFeed,
   setInvalidFeed,
   isInvalid,
   setDelayedFeed,
   isDelayed,
+  removePost,
+  getPost,
+  getPosts,
 } = require('../utils/storage');
+
+const { deletePost } = require('../utils/elastic');
+
 const hash = require('./hash');
 
 const urlToId = (url) => hash(normalizeUrl(url));
@@ -38,7 +45,37 @@ class Feed {
    * Returns a Promise.
    */
   save() {
-    addFeed(this);
+    return addFeed(this);
+  }
+
+  /**
+   * Removes current Feed + associated Posts from the databases.
+   * Returns a Promise
+   */
+  async delete() {
+    // Removing feeds and getting all posts, we'll be assigning all the Posts we get back to posts
+    let [, posts] = await Promise.all([removeFeed(this.id), getPosts(0, 0)]);
+
+    // Filter out all posts which do not contain feed id of feed being removed
+    posts = await Promise.all(posts.map((id) => getPost(id)));
+    posts = posts.filter((post) => post.feed === this.id);
+
+    // Remove the post from Redis + ElasticSearch
+    await Promise.all(
+      [].concat(
+        posts.map((post) => removePost(post.id)),
+        posts.map((post) => deletePost(post.id))
+      )
+    );
+  }
+
+  /**
+   * Updates current Feed in the database.
+   * Returns a Promise.
+   */
+  async update() {
+    await this.delete();
+    await this.save();
   }
 
   /**

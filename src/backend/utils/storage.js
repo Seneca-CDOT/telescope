@@ -63,6 +63,19 @@ module.exports = {
     return redis.set(key, reason);
   },
 
+  /**
+   * Removes a feed entry from redis
+   * @param id id of feed to be removed
+   */
+  removeFeed: async (id) => {
+    const key = createFeedKey(id);
+    await redis
+      .multi()
+      .hdel(key, 'id', 'author', 'url', 'user', 'link', 'etag', 'lastModified')
+      .srem(feedsKey, id)
+      .exec();
+  },
+
   isInvalid: (id) => redis.exists(createInvalidFeedKey(id)),
 
   setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 1),
@@ -120,4 +133,18 @@ module.exports = {
   getPostsCount: () => redis.zcard(postsKey),
 
   getPost: (id) => redis.hgetall(postNamespace.concat(id)),
+
+  /**
+   * Removes a post entry from redis
+   * NOTE: removing a post from redis should also require the post to be removed from ElasticSearch
+   * @param id id of post to be removed
+   */
+  removePost: async (id) => {
+    const key = createPostKey(id);
+    await redis
+      .multi()
+      .hdel(key, 'id', 'title', 'html', 'published', 'updated', 'url', 'guid', 'feed')
+      .zrem(postsKey, id)
+      .exec();
+  },
 };

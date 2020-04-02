@@ -63,7 +63,7 @@ class Post {
    * Returns a Promise.
    */
   save() {
-    addPost({
+    return addPost({
       ...this,
       feed: this.feed.id,
     });

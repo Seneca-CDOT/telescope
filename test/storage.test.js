@@ -3,10 +3,12 @@ const {
   getFeed,
   getFeeds,
   getFeedsCount,
+  removeFeed,
   addPost,
   getPost,
   getPosts,
   getPostsCount,
+  removePost,
 } = require('../src/backend/utils/storage');
 
 const Feed = require('../src/backend/data/feed');
@@ -67,6 +69,16 @@ describe('Storage tests for feeds', () => {
     expect(feeds[1].link).toBe('');
     expect(feeds[2].link).toBe('');
     expect(feeds[3].link).toBe('http://seneca.co/jsmith');
+  });
+
+  it('feed4 should not exist after being removed', async () => {
+    const feed = await getFeed(feed4.id);
+    await removeFeed(feed.id);
+    const removedFeed = await getFeed(feed.id);
+    // This should return an empty Object {} (no id)
+    const feeds = await getFeeds();
+    expect(removedFeed.id).toBe(undefined);
+    expect(feeds.includes(feed.id)).toBe(false);
   });
 });
 
@@ -137,5 +149,19 @@ describe('Storage tests for posts', () => {
   it('check post count', async () => {
     const count = await getPostsCount();
     expect(count).toEqual(3);
+  });
+
+  it('testPost and testPost2 should not appear in results after being removed', async () => {
+    const initPostCount = getPostsCount();
+    await Promise.all([removePost(testPost.id), removePost(testPost2.id)]);
+    const postCount = getPostsCount();
+    const posts = await getPosts(0, 0);
+    // Counts should not be the same after removing two posts
+    expect(postCount).not.toBe(initPostCount);
+    // id of testPost1 + testPost2 should not be in the array of postId returned by getPosts()
+    expect(posts.includes(testPost.id)).toBe(false);
+    expect(posts.includes(testPost2.id)).toBe(false);
+    // Checking to make sure testPost3 id is in there just to make sure
+    expect(posts.includes(testPost3.id)).toBe(true);
   });
 });
