@@ -14,21 +14,28 @@ export default function IndexPage() {
 
   useEffect(() => {
     async function getPosts(pageNum = 1) {
-      let postsData = [];
       try {
         const res = await fetch(`${telescopeUrl}/posts?page=${pageNum}`);
+
+        if (!res.ok) {
+          throw new Error(res.statusText);
+        }
         const postsUrls = await res.json();
-        postsData = await Promise.all(
+        const postsData = await Promise.all(
           postsUrls.map(async ({ url }) => {
             const tmp = await fetch(`${telescopeUrl}${url}`);
+
+            if (!tmp.ok) {
+              throw new Error(tmp.statusText);
+            }
             const post = await tmp.json();
             return post;
           })
         );
         setPosts([...posts, ...postsData]);
         setNumPages(numPages + 1);
-      } catch (err) {
-        console.log({ err });
+      } catch (error) {
+        console.log('Something went wrong when fetching data', error);
       }
     }
 
