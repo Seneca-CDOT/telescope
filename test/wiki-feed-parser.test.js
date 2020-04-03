@@ -36,8 +36,6 @@ name=Eric Ferguson
 [http://armenzg.blogspot.com/feeds/posts/default/-/open%20source]
 name=Armen Zambrano G. (armenzg)`;
 
-const noPreErr = TypeError("Cannot read property 'textContent' of null");
-
 beforeEach(() => {
   fetch.resetMocks();
 });
@@ -61,13 +59,4 @@ test('Testing wiki-feed-parser.parseData', async () => {
 
   const response = await getWikiFeeds();
   expect(response).toStrictEqual(expectedData);
-});
-
-test('Testing wiki-feed-parser.parseData when getData fails with no pre tag', async () => {
-  const mockBody = `<html>${mockFeed}</html>`;
-  fetch.mockResponseOnce(mockBody);
-
-  await getWikiFeeds().catch((err) => {
-    expect(err).toStrictEqual(noPreErr);
-  });
 });
