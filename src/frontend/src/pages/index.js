@@ -1,23 +1,25 @@
 import React from 'react';
 import { StaticQuery, graphql } from 'gatsby';
 
+import PageBase from './PageBase';
 import Layout from '../components/Layout/Layout';
-import './index.css';
 
 export default function IndexPage() {
   return (
-    <StaticQuery
-      query={graphql`
-        query TelescopeUrl {
-          site(buildTime: {}) {
-            siteMetadata {
-              telescopeUrl
-              title
+    <PageBase>
+      <StaticQuery
+        query={graphql`
+          query TelescopeUrl {
+            site(buildTime: {}) {
+              siteMetadata {
+                telescopeUrl
+                title
+              }
             }
           }
-        }
-      `}
-      render={(data) => <Layout telescopeUrl={data.site.siteMetadata.telescopeUrl} />}
-    />
+        `}
+        render={(data) => <Layout telescopeUrl={data.site.siteMetadata.telescopeUrl} />}
+      />
+    </PageBase>
   );
 }

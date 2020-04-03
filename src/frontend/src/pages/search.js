@@ -3,6 +3,8 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ApolloClient, InMemoryCache } from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http';
 import fetch from 'node-fetch';
+
+import PageBase from './PageBase';
 import SearchPage from '../components/SearchPage';
 import useSiteMetadata from '../hooks/use-site-metadata';
 
@@ -20,9 +22,11 @@ const Search = () => {
   });
 
   return (
-    <ApolloProvider client={client}>
-      <SearchPage />
-    </ApolloProvider>
+    <PageBase>
+      <ApolloProvider client={client}>
+        <SearchPage />
+      </ApolloProvider>
+    </PageBase>
   );
 };
 
