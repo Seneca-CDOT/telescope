@@ -8,11 +8,10 @@ import SEO from '../components/SEO';
 import Header from '../components/Header';
 import AboutFooter from '../components/AboutFooter';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.post,
-    height: '100vh',
   },
   markdownBody: {
     padding: '2rem',
