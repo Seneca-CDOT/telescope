@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../Header';
 import Banner from '../Banner';
 import Posts from '../Posts';
@@ -10,10 +10,11 @@ const isScrollBottom = () =>
   window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
 
 function Layout() {
-  const [scrolled, setScrolled] = React.useState(false);
-  const [numPages, setNumPages] = React.useState(1);
-  const [posts, setPosts] = React.useState([]);
+  const [scrolled, setScrolled] = useState(false);
+  const [numPages, setNumPages] = useState(1);
+  const [posts, setPosts] = useState([]);
   const { telescopeUrl } = useSiteMetaData();
+
   useEffect(() => {
     async function getPosts(pageNum = 1) {
       let postsData = [];
