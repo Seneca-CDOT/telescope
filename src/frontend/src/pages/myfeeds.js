@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container, Box, Typography, TextField, Grid, Card, IconButton } from '@material-ui/core';
 import { AccountCircle, RssFeed, HelpOutline, Add } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+
+import PageBase from './PageBase';
 import useSiteMetadata from '../hooks/use-site-metadata';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,58 +50,60 @@ export default function MyFeeds() {
   }
 
   return (
-    <div className={classes.margin}>
-      <Container maxWidth="xs" bgcolor="aliceblue">
-        <Card>
-          <Box px={2} py={1}>
-            <Typography variant="h3" component="h3" align="center">
-              My Feeds
-            </Typography>
-            <Grid container spacing={5}>
-              <Grid item>
-                <Grid container spacing={1} alignItems="flex-end">
-                  <Grid item>
-                    <AccountCircle />
+    <PageBase>
+      <div className={classes.margin}>
+        <Container maxWidth="xs" bgcolor="aliceblue">
+          <Card>
+            <Box px={2} py={1}>
+              <Typography variant="h3" component="h3" align="center">
+                My Feeds
+              </Typography>
+              <Grid container spacing={5}>
+                <Grid item>
+                  <Grid container spacing={1} alignItems="flex-end">
+                    <Grid item>
+                      <AccountCircle />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        id="author"
+                        label="John Doe"
+                        onBlur={(event) => handleAuthorChange(event.target.value)}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <TextField
-                      id="author"
-                      label="John Doe"
-                      onBlur={(event) => handleAuthorChange(event.target.value)}
-                    />
+                </Grid>
+                <Grid item>
+                  <Grid container spacing={1} alignItems="flex-end">
+                    <Grid item>
+                      <RssFeed />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        id="url"
+                        label="Blog feed URL"
+                        onBlur={(event) => handleUrlChange(event.target.value)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <IconButton color="primary" classes={{ root: classes.button }}>
+                        <HelpOutline />
+                      </IconButton>
+                    </Grid>
+                  </Grid>
+                  <Grid container spacing={2}>
+                    <Grid item>
+                      <IconButton classes={{ root: classes.button }} onClick={() => addFeed()}>
+                        <Add />
+                      </IconButton>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid item>
-                <Grid container spacing={1} alignItems="flex-end">
-                  <Grid item>
-                    <RssFeed />
-                  </Grid>
-                  <Grid item>
-                    <TextField
-                      id="url"
-                      label="Blog feed URL"
-                      onBlur={(event) => handleUrlChange(event.target.value)}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <IconButton color="primary" classes={{ root: classes.button }}>
-                      <HelpOutline />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                  <Grid item>
-                    <IconButton classes={{ root: classes.button }} onClick={() => addFeed()}>
-                      <Add />
-                    </IconButton>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Box>
-        </Card>
-      </Container>
-    </div>
+            </Box>
+          </Card>
+        </Container>
+      </div>
+    </PageBase>
   );
 }
