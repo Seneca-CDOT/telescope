@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-
 import Header from '../Header';
 import Banner from '../Banner';
 import Posts from '../Posts';
@@ -17,8 +15,6 @@ function Layout() {
   const [posts, setPosts] = React.useState([]);
   const { telescopeUrl } = useSiteMetaData();
   useEffect(() => {
-    // const { numPages } = this.state;
-
     async function getPosts(pageNum = 1) {
       let postsData = [];
       try {
@@ -67,9 +63,5 @@ function Layout() {
     </>
   );
 }
-
-Layout.propTypes = {
-  telescopeUrl: PropTypes.string.isRequired,
-};
 
 export default Layout;
