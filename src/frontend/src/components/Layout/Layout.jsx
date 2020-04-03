@@ -15,12 +15,10 @@ function Layout() {
     async function getPosts(pageNum = 1) {
       let postsData = [];
       try {
-        // should be using telescopeUrl here
         const res = await fetch(`${telescopeUrl}/posts?page=${pageNum}`);
         const postsUrls = await res.json();
         postsData = await Promise.all(
           postsUrls.map(async ({ url }) => {
-            // should be using telescopeUrl here
             const tmp = await fetch(`${telescopeUrl}${url}`);
             const post = await tmp.json();
             return post;
