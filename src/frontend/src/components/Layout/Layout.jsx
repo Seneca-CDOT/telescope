@@ -6,11 +6,7 @@ import ScrollToTop from '../ScrollToTop';
 import SEO from '../SEO';
 import useSiteMetaData from '../../hooks/use-site-metadata';
 
-const isScrollBottom = () =>
-  window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
-
 function Layout() {
-  const [scrolled, setScrolled] = useState(false);
   const [numPages, setNumPages] = useState(1);
   const [posts, setPosts] = useState([]);
   const { telescopeUrl } = useSiteMetaData();
@@ -20,12 +16,12 @@ function Layout() {
       let postsData = [];
       try {
         // should be using telescopeUrl here
-        const res = await fetch(`https://dev.telescope.cdot.systems/posts?page=${pageNum}`);
+        const res = await fetch(`${telescopeUrl}/posts?page=${pageNum}`);
         const postsUrls = await res.json();
         postsData = await Promise.all(
           postsUrls.map(async ({ url }) => {
             // should be using telescopeUrl here
-            const tmp = await fetch(`https://dev.telescope.cdot.systems${url}`);
+            const tmp = await fetch(`${telescopeUrl}${url}`);
             const post = await tmp.json();
             return post;
           })
@@ -39,17 +35,7 @@ function Layout() {
     }
 
     getPosts(numPages);
-    window.addEventListener('scroll', () => {
-      const isTop = window.scrollY > 320;
-      if (isTop) setScrolled(true);
-      else setScrolled(false);
-
-      if (isScrollBottom()) {
-        setNumPages(numPages + 1);
-        getPosts(numPages);
-      }
-    });
-  }, []);
+  }, [telescopeUrl]);
 
   return (
     <>
