@@ -50,7 +50,7 @@ export default function MyFeeds() {
   }
 
   return (
-    <PageBase>
+    <PageBase title="My Feeds">
       <div className={classes.margin}>
         <Container maxWidth="xs" bgcolor="aliceblue">
           <Card>
