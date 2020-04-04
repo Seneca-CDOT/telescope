@@ -4,8 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, ButtonBase } from '@material-ui/core';
 import { graphql } from 'gatsby';
 
-import SEO from '../components/SEO';
-import Header from '../components/Header';
+import PageBase from '../pages/PageBase';
 import AboutFooter from '../components/AboutFooter';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,25 +35,25 @@ export default function Template({
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <SEO title={frontmatter.title} />
-      <Header />
-      <Grid container>
-        <Grid item xs={12} sm={6}>
-          <ButtonBase className={classes.image}>
-            <img className={classes.img} alt="photo" src="/src/frontend/src/images/photo1.jpg" />
-          </ButtonBase>
+    <PageBase title={frontmatter.title}>
+      <div className={classes.root}>
+        <Grid container>
+          <Grid item xs={12} sm={6}>
+            <ButtonBase className={classes.image}>
+              <img className={classes.img} alt="photo" src="/src/frontend/src/images/photo1.jpg" />
+            </ButtonBase>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div className={classes.markdownBody}>
+              <h1>{frontmatter.title}</h1>
+              <h2>{frontmatter.date}</h2>
+              <div dangerouslySetInnerHTML={{ __html: html }} />
+            </div>
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <div className={classes.markdownBody}>
-            <h1>{frontmatter.title}</h1>
-            <h2>{frontmatter.date}</h2>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
-          </div>
-        </Grid>
-      </Grid>
-      <AboutFooter />
-    </div>
+        <AboutFooter />
+      </div>
+    </PageBase>
   );
 }
 
