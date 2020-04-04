@@ -12,6 +12,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import SEO from '../components/SEO';
 import Header from '../components/Header';
 
 const styles = {
@@ -23,10 +24,11 @@ const styles = {
   },
 };
 
-function PageBase({ children }) {
+function PageBase({ children, title }) {
   return (
     <>
       <CssBaseline />
+      <SEO title={title} />
       <Header />
       {children}
     </>
@@ -35,6 +37,7 @@ function PageBase({ children }) {
 
 PageBase.propTypes = {
   children: PropTypes.node,
+  title: PropTypes.string,
 };
 
 export default withStyles(styles)(PageBase);

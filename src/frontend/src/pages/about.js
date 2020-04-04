@@ -3,7 +3,7 @@ import React from 'react';
 import PageBase from './PageBase';
 
 const About = () => {
-  return <PageBase></PageBase>;
+  return <PageBase title="About"></PageBase>;
 };
 
 export default About;

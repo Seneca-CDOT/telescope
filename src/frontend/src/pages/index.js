@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PageBase from './PageBase';
-import Header from '../components/Header';
 import Banner from '../components/Banner';
 import Posts from '../components/Posts';
 import ScrollToTop from '../components/ScrollToTop';
-import SEO from '../components/SEO';
 import useSiteMetaData from '../hooks/use-site-metadata';
 
 export default function IndexPage() {
@@ -43,15 +41,11 @@ export default function IndexPage() {
   }, [telescopeUrl]);
 
   return (
-    <PageBase>
-      <>
-        <SEO title="Home" />
-        <Header className="header" />
-        <Banner className="banner" />
-        <ScrollToTop />
-        <main className="main">{posts.length > 0 ? <Posts posts={posts} /> : null}</main>
-        <footer>© {new Date().getFullYear()}</footer>
-      </>
+    <PageBase title="Home">
+      <Banner className="banner" />
+      <ScrollToTop />
+      <main className="main">{posts.length > 0 ? <Posts posts={posts} /> : null}</main>
+      <footer>© {new Date().getFullYear()}</footer>
     </PageBase>
   );
 }

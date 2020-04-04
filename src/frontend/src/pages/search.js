@@ -22,7 +22,7 @@ const Search = () => {
   });
 
   return (
-    <PageBase>
+    <PageBase title="Search">
       <ApolloProvider client={client}>
         <SearchPage />
       </ApolloProvider>
