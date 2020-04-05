@@ -67,4 +67,16 @@ app.use(logger);
 // Include our router with all endpoints
 app.use('/', router);
 
+/**
+ * 404 Handler, Pass to front-end
+ * Leverage .status because adding the `404` status in redirect causes "Not Found. Redirecting to /404?search=" to display.
+ */
+app.use((req, res, _) => {
+  const originalUrl = encodeURIComponent(req.originalUrl.trim());
+  const redirectUrl = `/404?search=${originalUrl}`;
+  res
+    .status(404)
+    .redirect(redirectUrl)
+});
+
 module.exports = app;

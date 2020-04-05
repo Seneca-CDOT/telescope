@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '../components/Header';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
 
@@ -57,16 +56,10 @@ const useStyles = makeStyles((theme) => ({
 const ErrorPage = (props) => {
   const classes = useStyles();
   const params = new URLSearchParams(props.location.search);
-  let originalUrl = params
-    .get('search')
-    ?.replace('/', '')
-    ?.match(/([A-Z]?[^A-Z]*)/g)
-    ?.slice(0, -1)
-    ?.join(' ');
+  let originalUrl = decodeURIComponent(params.get('search')).replace('/', '');
 
   return (
     <div>
-      <Header />
       <ThemeProvider>
         <Typography variant="h1" className={classes.h1}>
           Sorry!
