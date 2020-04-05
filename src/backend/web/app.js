@@ -22,8 +22,10 @@ const app = express();
 app.use(helmet());
 
 // Enable CORS and preflight checks on all routes
-app.use(cors());
-app.options('*', cors());
+const corsOptions = {
+  exposedHeaders: 'X-Total-Count',
+};
+app.use(cors(corsOptions));
 
 // Setup session and passport for authentication
 app.use(bodyParser.json());
