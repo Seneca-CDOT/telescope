@@ -5,6 +5,9 @@ import Box from '@material-ui/core/Box';
 import gql from 'graphql-tag';
 import SearchBar from '../SearchBar';
 import AuthorResult from '../AuthorResult';
+import Spinner from '../Spinner';
+import Posts from '../Posts';
+import useSiteMetadata from '../../hooks/use-site-metadata';
 
 const useStyles = makeStyles(() => ({
   searchReply: {
@@ -17,9 +20,14 @@ const useStyles = makeStyles(() => ({
     minHeight: '12em',
     display: 'flex',
   },
+  spinner: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
 const SearchPage = () => {
+  const { telescopeUrl } = useSiteMetadata();
   const classes = useStyles();
   const SEARCH_QUERY = gql`
     query SearchAuthorQuery($author: String!) {
@@ -36,15 +44,16 @@ const SearchPage = () => {
   `;
 
   const [searchText, setSearchText] = useState('');
-  const [results, setResults] = useState([]);
-
-  const [executeSearch, { data }] = useLazyQuery(SEARCH_QUERY, {
-    // setting author variable here to use in the query above
+  const [results, setResults] = useState(undefined);
+  const [filter, setFilter] = useState('post');
+  const [fetchLoading, setFetchLoading] = useState(false);
+  const [searchAuthors, { loading, data }] = useLazyQuery(SEARCH_QUERY, {
+    // Setting author variable here to use in the query above
     variables: { author: searchText },
-
     onCompleted: () => {
-      // We only want to display a feed once, this would avoid the issue if
-      // there are multiple posts by the same author returned in our query
+      // We only want to display a feed once when searching posts for
+      // author, this would avoid the issue if there are duplicate
+      // feed results returned in our query
       const finalResults = data.getPosts
         .filter(
           (element, index, self) =>
@@ -62,38 +71,107 @@ const SearchPage = () => {
             },
           };
         });
-      setResults(finalResults);
+      setResults({ type: 'author', searchResults: finalResults });
     },
   });
 
   // Hook that will re-render the page only if the state of searchText changes
   useEffect(() => {
-    executeSearch();
-  }, [searchText]);
+    async function searchPosts() {
+      // Setting to check length > 3, as the component will trying to fetch with 0 length causing error
+      if (searchText.length > 3) {
+        const encodedSearchText = encodeURIComponent(searchText);
+        try {
+          setFetchLoading(true);
+          let res = await fetch(`${telescopeUrl}/query?search=${encodedSearchText}`);
+          if (!res.ok) {
+            throw new Error(res.statusText);
+          }
+          let contentType = res.headers.get('content-type');
+          if (!contentType || !contentType.includes('application/json')) {
+            throw new Error('Response was not json');
+          }
+          const searchResults = await res.json();
+          // ES values property contains an array of objects with a (feed) id property
+          const postIds = searchResults.values.map((result) => result.id);
+          const posts = await Promise.all(
+            postIds.map(async (id) => {
+              res = await fetch(`${telescopeUrl}/posts/${id}`);
+              if (!res.ok) {
+                throw new Error(res.statusText);
+              }
+              contentType = res.headers.get('content-type');
+              if (!contentType || !contentType.includes('application/json')) {
+                throw new Error('Response was not json');
+              }
+              return res.json();
+            })
+          );
+          setFetchLoading(false);
+          setResults({ type: 'post', searchResults: posts });
+        } catch (error) {
+          console.log('Something went wrong while fetching data', error);
+        }
+      } else {
+        setResults({ type: 'post', searchResults: [] });
+      }
+    }
+
+    if (filter === 'author') {
+      searchAuthors();
+    } else if (filter === 'post') {
+      searchPosts();
+    }
+  }, [searchText, filter, telescopeUrl, searchAuthors]);
 
   // Displays one of three options depending on whether there is a search string, results and no results
   const displayResults = () => {
-    if (searchText.length === 0 && results.length < 1) {
+    if (searchText.length > 0 && (loading || fetchLoading)) {
+      return (
+        <h1 className={classes.spinner}>
+          <Spinner />
+        </h1>
+      );
+    }
+
+    if (searchText.length === 0) {
       return <h1 className={classes.searchReply}>No search terms entered</h1>;
     }
-    //  The initial state of results is going to be 0 and we can't map 0,
-    //  this will check if there are any results and return AuthorResult component
+
+    if (searchText.length > 0 && results.searchResults.length === 0) {
+      return <h1 className={classes.searchReply}>No results found</h1>;
+    }
+    //  If result type is author return AuthorResult component
     //  for each with feed guid as key
-    if (results.length > 0)
-      return results.map((result) => (
+    if (results.type === 'author') {
+      return results.searchResults.map((result) => (
         <AuthorResult key={result.id} author={result.author} post={result.post} />
       ));
-    return <h1 className={classes.searchReply}>No results found</h1>;
+    }
+    // If result type is post return Posts component for each result
+    if (results.type === 'post') {
+      return <Posts posts={results.searchResults} />;
+    }
+    return null;
   };
 
-  function onChangeHandler(event) {
-    setSearchText(event.target.value);
+  function onChangeHandler(value) {
+    setSearchText(value);
+  }
+
+  function onFilterChangeHandler(value) {
+    setFilter(value);
   }
 
   return (
     <div>
       <Box className={classes.boxAfterHeader}></Box>
-      <SearchBar searchText={searchText} onChangeHandler={onChangeHandler} />
+      <SearchBar
+        searchText={searchText}
+        onChangeHandler={onChangeHandler}
+        filter={filter}
+        onFilterChangeHandler={onFilterChangeHandler}
+      />
       {displayResults()}
     </div>
   );
