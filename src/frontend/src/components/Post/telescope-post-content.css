@@ -83,7 +83,8 @@
   color: #35001d;
 }
 
-.telescope-post-content blockquote .telescope-post-content q {
+.telescope-post-content blockquote,
+.telescope-post-content q {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
   font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
@@ -95,6 +96,7 @@
 .telescope-post-content q:before {
   content: open-quote;
 }
-.telescope-post-content blockquote:after .telescope-post-content q:after {
+.telescope-post-content blockquote:after,
+.telescope-post-content q:after {
   content: close-quote;
 }
