@@ -1,6 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Box, Typography, Grid, Card, IconButton, Popover } from '@material-ui/core';
-import { AccountCircle, RssFeed, HelpOutline, Add } from '@material-ui/icons';
+import PropTypes from 'prop-types';
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
+  DialogTitle,
+  Grid,
+  IconButton,
+  Popover,
+  Typography,
+} from '@material-ui/core';
+import { AccountCircle, AddCircle, Delete, HelpOutline, RssFeed } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
@@ -27,7 +42,7 @@ function HelpPopoverButton() {
       {(popupState) => (
         <div>
           <IconButton
-            color="primary"
+            color="secondary"
             classes={{ root: classes.button }}
             {...bindTrigger(popupState)}
           >
@@ -61,21 +76,79 @@ function HelpPopoverButton() {
   );
 }
 
+function DeleteDialogButton({ feed }) {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const removeFeed = () => {
+    console.log(`Removing feed hosted at URL ${feed.url}`);
+    // TODO
+    window.location.reload(false);
+  };
+
+  return (
+    <div>
+      <IconButton classes={{ root: classes.button }} onClick={handleClickOpen}>
+        <Delete color="secondary" />
+      </IconButton>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{`Remove feed hosted at ${feed.url}?`}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Telescope will no longer display blog posts from this feed.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary" variant="outlined" autoFocus>
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              handleClose();
+              removeFeed();
+            }}
+            color="primary"
+            variant="contained"
+          >
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
+DeleteDialogButton.propTypes = {
+  feed: PropTypes.object,
+};
+
 export default function MyFeeds() {
   const classes = useStyles();
-  const [feedAuthor, setFeedAuthor] = useState('');
-  const [feedUrl, setFeedUrl] = useState('');
+  const [newFeedAuthor, setNewFeedAuthor] = useState('');
+  const [newFeedUrl, setNewFeedUrl] = useState('');
   const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
   const [userInfo, setUserInfo] = useState({});
-  const [userFeeds, setUserFeeds] = useState([]);
+  const [feedHash, updateFeedHash] = useState({}); // { id1: {author: '...', url: '...'} }, ... ]
 
   const { telescopeUrl } = useSiteMetadata();
 
-  const feedAuthorRef = React.createRef();
-  const feedUrlRef = React.createRef();
-  const formRef = React.createRef();
+  const newFeedAuthorRef = React.createRef();
+  const newFeedUrlRef = React.createRef();
 
-  async function fetchUserFeeds() {
+  async function hashUserFeeds() {
     const [user, feedItems] = await Promise.all([
       fetch(`${telescopeUrl}/user/info`).then((res) => res.json()),
       fetch(`${telescopeUrl}/feeds`).then((res) => res.json()),
@@ -84,36 +157,30 @@ export default function MyFeeds() {
       feedItems.map((item) => fetch(`${telescopeUrl}${item.url}`))
     ).then((responses) => Promise.all(responses.map((res) => res.json())));
 
-    console.log(allFeeds.length, user.id);
-
     if (allFeeds.length && user) {
-      const feeds = allFeeds.filter((feed) => {
+      const userFeeds = allFeeds.filter((feed) => {
         return feed.user === user.id;
       });
-      setUserInfo(user);
-      setUserFeeds(feeds);
+
+      const userFeedHash = userFeeds.reduce((hash, feed) => {
+        hash[feed.id] = { author: feed.author, url: feed.url };
+        return hash;
+      }, {});
+
+      return Promise.all([updateFeedHash(userFeedHash), setUserInfo(user)]);
     }
+    return Promise.reject();
   }
 
   useEffect(() => {
-    (async function () {
-      await fetchUserFeeds();
-    })();
+    hashUserFeeds();
     ValidatorForm.addValidationRule('isUrl', (value) => !!isWebUri(value));
     return ValidatorForm.removeValidationRule.bind('isUrl');
   }, []);
 
-  function handleAuthorChange(author) {
-    setFeedAuthor(author);
-  }
-
-  function handleUrlChange(url) {
-    setFeedUrl(url);
-  }
-
-  async function saveFeeds() {
+  async function addFeed() {
+    setSubmitStatus({ message: 'Adding new feed, please wait...' });
     try {
-      setSubmitStatus({ message: 'Saving feeds, please wait...' });
       const response = await fetch(`${telescopeUrl}/feeds`, {
         method: 'post',
         headers: {
@@ -121,46 +188,41 @@ export default function MyFeeds() {
         },
         body: JSON.stringify({
           user: userInfo.id,
-          author: feedAuthor,
-          url: feedUrl,
+          author: newFeedAuthor,
+          url: newFeedUrl,
         }),
       });
-      console.log(response);
-      setSubmitStatus(
+      await setSubmitStatus(
         response.ok
-          ? { message: 'Feeds updated successfully' }
+          ? { message: 'Feed added successfully' }
           : { message: `Error: ${response.status} ${response.statusText}`, isError: true }
       );
-      return response;
+      if (response.ok) {
+        window.location.reload(false);
+      }
     } catch (error) {
       setSubmitStatus({ message: error.message, isError: true });
       console.log({ error });
-      return { error };
     }
   }
 
   function handleChange(event) {
     const { name, value } = event.target;
     if (name === 'author') {
-      handleAuthorChange(value);
+      setNewFeedAuthor(value);
     } else {
-      handleUrlChange(value);
+      setNewFeedUrl(value);
     }
   }
 
-  function handleBlur(event) {
-    const { name, value } = event.target;
-    if (name === 'author') {
-      feedAuthorRef.current.validate(value, true);
-    } else {
-      feedUrlRef.current.validate(value, true);
-    }
+  function handleBlur(event, ref) {
+    ref.current.validate(event.target.value, true);
   }
 
-  function buildFormControls() {
-    if (userFeeds.length > 0) {
-      return userFeeds.map((feed) => (
-        <Grid container spacing={5} key={feed.id}>
+  function listExistingFeeds() {
+    if (Object.keys(feedHash).length) {
+      return Object.keys(feedHash).map((id) => (
+        <Grid container spacing={5} key={id}>
           <Grid item>
             <Grid container spacing={1} alignItems="flex-end">
               <Grid item>
@@ -168,16 +230,11 @@ export default function MyFeeds() {
               </Grid>
               <Grid item>
                 <TextValidator
-                  disabled={!userInfo.isAdmin}
+                  disabled
                   label="Blog feed author"
                   name="author"
-                  // ref={feedAuthorRef}
-                  value={feed.author}
-                  // onBlur={handleBlur}
-                  // onChange={handleChange}
+                  value={feedHash[id].author}
                   type="string"
-                  validators={['required', 'trim']}
-                  errorMessages={"Please enter the blog's author."}
                 />
               </Grid>
             </Grid>
@@ -189,19 +246,15 @@ export default function MyFeeds() {
               </Grid>
               <Grid item>
                 <TextValidator
+                  disabled
                   label="Blog feed URL"
                   name="url"
-                  // ref={feedUrlRef}
-                  value={feed.url}
-                  // onBlur={handleBlur}
-                  // onChange={handleChange}
+                  value={feedHash[id].url}
                   type="url"
-                  validators={['required', 'isUrl']}
-                  errorMessages={"Please enter the blog's feed URL."}
                 />
               </Grid>
               <Grid item>
-                <HelpPopoverButton />
+                <DeleteDialogButton feed={feedHash[id]} />
               </Grid>
             </Grid>
           </Grid>
@@ -219,14 +272,14 @@ export default function MyFeeds() {
   return (
     <PageBase title="My Feeds">
       <div className={classes.margin}>
-        <ValidatorForm ref={formRef} onSubmit={saveFeeds}>
+        <ValidatorForm onSubmit={addFeed}>
           <Container maxWidth="xs" bgcolor="aliceblue">
             <Card>
               <Box px={2} py={1}>
                 <Typography variant="h3" component="h3" align="center">
                   My Feeds
                 </Typography>
-                {buildFormControls()}
+                {listExistingFeeds()}
                 <Grid container spacing={5}>
                   <Grid item>
                     <Grid container spacing={1} alignItems="flex-end">
@@ -238,9 +291,9 @@ export default function MyFeeds() {
                           disabled={!userInfo.isAdmin}
                           label="Blog feed author"
                           name="author"
-                          ref={feedAuthorRef}
-                          value={feedAuthor}
-                          onBlur={handleBlur}
+                          ref={newFeedAuthorRef}
+                          value={newFeedAuthor}
+                          onBlur={(event) => handleBlur(event, newFeedAuthorRef)}
                           onChange={handleChange}
                           type="string"
                           validators={['required', 'trim']}
@@ -258,9 +311,9 @@ export default function MyFeeds() {
                         <TextValidator
                           label="Blog feed URL"
                           name="url"
-                          ref={feedUrlRef}
-                          value={feedUrl}
-                          onBlur={handleBlur}
+                          ref={newFeedUrlRef}
+                          value={newFeedUrl}
+                          onBlur={(event) => handleBlur(event, newFeedUrlRef)}
                           onChange={handleChange}
                           type="url"
                           validators={['required', 'isUrl']}
@@ -274,7 +327,7 @@ export default function MyFeeds() {
                     <Grid container spacing={2}>
                       <Grid item>
                         <IconButton classes={{ root: classes.button }} type="submit">
-                          <Add />
+                          <AddCircle color="secondary" />
                         </IconButton>
                         <Typography color={submitStatus.isError ? 'error' : 'textPrimary'}>
                           {submitStatus.message}
