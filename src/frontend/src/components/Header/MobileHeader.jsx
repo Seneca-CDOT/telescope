@@ -16,7 +16,9 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
-import Login from '../Login';
+import Login from './Login.jsx';
+import LoggedOut from './LoggedOut.jsx';
+import LoggedIn from './LoggedIn.jsx';
 import Footer from '../Footer';
 
 const useStyles = makeStyles((theme) => ({
@@ -80,6 +82,7 @@ const MobileHeader = () => {
   const [state, setState] = React.useState({
     right: false,
   });
+  const username = Login();
 
   const toggleDrawer = (side, open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -106,7 +109,38 @@ const MobileHeader = () => {
         </ListItem>
         <Divider className={classes.line} />
         <ListItem button className={classes.item}>
-          <Login />
+          <LoggedOut />
+        </ListItem>
+        <Divider className={classes.line} />
+        <div className={classes.footer}>
+          <Footer />
+        </div>
+      </List>
+    </div>
+  );
+
+  const sideListLogged = (side) => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List>
+        <ListItem button component={Link} className={classes.item}>
+          HOME
+        </ListItem>
+        <Divider className={classes.line} />
+        <ListItem button component={Link} to="/about" className={classes.item}>
+          ABOUT
+        </ListItem>
+        <Divider className={classes.line} />
+        <ListItem button component={Link} to="/myfeeds" className={classes.item}>
+          {username}
+        </ListItem>
+        <Divider className={classes.line} />
+        <ListItem className={classes.item}>
+          <LoggedIn />
         </ListItem>
         <Divider className={classes.line} />
         <div className={classes.footer}>
@@ -137,14 +171,25 @@ const MobileHeader = () => {
           >
             <MenuIcon className={classes.menuIcon} />
           </IconButton>
-          <Drawer
-            classes={{ paper: classes.paper }}
-            anchor="right"
-            open={state.right}
-            onClose={toggleDrawer('right', false)}
-          >
-            {sideList('right')}
-          </Drawer>
+          {username ? (
+            <Drawer
+              classes={{ paper: classes.paper }}
+              anchor="right"
+              open={state.right}
+              onClose={toggleDrawer('right', false)}
+            >
+              {sideListLogged('right')}
+            </Drawer>
+          ) : (
+            <Drawer
+              classes={{ paper: classes.paper }}
+              anchor="right"
+              open={state.right}
+              onClose={toggleDrawer('right', false)}
+            >
+              {sideList('right')}
+            </Drawer>
+          )}
         </Toolbar>
       </AppBar>
       <Toolbar className={classes.toolbar}></Toolbar>
