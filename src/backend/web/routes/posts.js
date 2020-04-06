@@ -1,6 +1,5 @@
 require('../../lib/config');
 const express = require('express');
-const accepts = require('accepts');
 const Post = require('../../data/post');
 const { getPosts, getPostsCount } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
@@ -85,9 +84,7 @@ posts.get('/:id', async (req, res) => {
         message: `Post not found for id ${id}`,
       });
     } else {
-      const accept = accepts(req);
-
-      switch (accept.type(['json', 'text', 'html'])) {
+      switch (req.accepts(['json', 'text', 'html'])) {
         case 'json':
           res.append('Content-type', 'application/json').json(post);
           break;
