@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
     '-o-transition': 'opacity 1s ease-in-out',
     transition: 'opacity 1s ease-in-out',
   },
+  heroBanner: {
+    height: '100vh',
+  },
   stats: {
     position: 'absolute',
     color: 'white',
@@ -255,7 +258,7 @@ export default function Banner() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <div className="heroBanner" height="100vh">
+      <div className={classes.heroBanner}>
         <RetrieveBannerDynamicAssets />
         <ThemeProvider>
           <Typography variant="h1" className={classes.h1}>
