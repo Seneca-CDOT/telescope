@@ -5,6 +5,8 @@
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica,
+    Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
 }
 
 .telescope-post-content p {
@@ -32,16 +34,12 @@
   margin-right: auto;
   margin-left: auto;
   line-height: 1.6;
-  font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
-    Arial;
 }
 
 .telescope-post-content ol,
 .telescope-post-content ul {
   padding: 1em 1.5em;
   line-height: 25px;
-  font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
-    Arial;
 }
 
 /**
