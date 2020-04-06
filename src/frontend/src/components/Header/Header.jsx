@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     marginLeft: '1rem',
     color: '#a4d4ff',
+    textDecoration: 'none',
   },
   links: {
     color: 'white',
@@ -61,7 +62,6 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
 }));
-
 const Header = () => {
   const { title } = useSiteMetadata();
   const classes = useStyles();
@@ -100,7 +100,9 @@ const Header = () => {
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Typography variant="h3" className={classes.title}>
-            {title}
+            <Link to="/" className={classes.title}>
+              {title}
+            </Link>
           </Typography>
           <IconButton color="inherit" className={classes.button}>
             <Link to="/search">
