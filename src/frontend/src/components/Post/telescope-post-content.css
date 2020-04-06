@@ -39,7 +39,7 @@
 .telescope-post-content ol,
 .telescope-post-content ul {
   padding: 1em 1.5em;
-  line-height: 25px;
+  line-height: 10px;
   font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
     Arial;
 }
@@ -85,18 +85,10 @@
 
 .telescope-post-content blockquote,
 .telescope-post-content q {
-  background: #f9f9f9;
-  border-left: 10px solid #ccc;
-  font-family: Palatino, Georgia, Cambrai, 'Times New Roman', Times, 'Helvetica Neue', Helvetica,
-    Arial;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-}
-.telescope-post-content blockquote:before,
-.telescope-post-content q:before {
-  content: open-quote;
-}
-.telescope-post-content blockquote:after,
-.telescope-post-content q:after {
-  content: close-quote;
+  font: 14px/22px normal helvetica, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  padding-left: 15px;
+  border-left: 3px solid #a4d4ff;
 }
