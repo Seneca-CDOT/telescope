@@ -7,8 +7,6 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
-import './Banner.css';
-
 const useStyles = makeStyles((theme) => ({
   h1: {
     position: 'absolute',
@@ -33,6 +31,21 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '12rem',
     },
+  },
+  bannerImg: {
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'scroll',
+    backgroundSize: 'cover',
+    height: '100vh',
+    opacity: 0.4,
+    '-webkit-transition': 'opacity 1s ease-in-out',
+    '-moz-transition': 'opacity 1s ease-in-out',
+    '-o-transition': 'opacity 1s ease-in-out',
+    transition: 'opacity 1s ease-in-out',
+  },
+  heroBanner: {
+    height: '100vh',
   },
   stats: {
     position: 'absolute',
@@ -190,7 +203,7 @@ function RetrieveBannerDynamicAssets() {
   return (
     <div>
       <div
-        className="bannerImg"
+        className={classes.bannerImg}
         style={{
           backgroundImage:
             backgroundImgSrc === '../../images/hero-banner.png'
@@ -245,9 +258,8 @@ export default function Banner() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <div className="heroBanner">
+      <div className={classes.heroBanner}>
         <RetrieveBannerDynamicAssets />
-
         <ThemeProvider>
           <Typography variant="h1" className={classes.h1}>
             {'Telescope'}
