@@ -107,10 +107,21 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 1. Get [Docker for Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
 1. Docker for Desktop comes with docker-compose installed.
 
-#### Windows 10 Pro, Enterprise, or Education
+#### Windows 10 Pro, Enterprise, or Education (Hyper-V)
 
 1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 1. Docker for Desktop comes with docker-compose installed.
+
+#### Windows 10 Pro, Enterprise, or Education (Insiders / WSL 2 / Docker)
+
+1. If your Windows build is below 1941, join the [insiders program](https://insider.windows.com/en-us/). Then, update your machine to a newer build through Automatic Updates.
+2. Once installed successfully, install [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install).
+3. Leverage the command `wsl --set-default-version 2`, and install Ubuntu from the Windows Store.
+4. Use `wsl -l -v` to see your Ubuntu instance version, if it's still using WSL version 1, convert it to WSL 2 using `wsl --set-version Ubuntu 2`.
+5. Install The Prerequisties listed on [Docker Desktop WSL Preview](https://docs.docker.com/docker-for-windows/wsl-tech-preview/).
+6. Download and install [Docker Desktop Edge Latest](https://download.docker.com/win/edge/Docker%20Desktop%20Installer.exe)
+7. Follow the instructions on the Docker Desktop WSL Preview to configure the WSL based engine. Docker-compose is installed with the Docker desktop application.
+8. Follow the Docker commands `docker-compose up --build` listed below in greater detail to start hacking.
 
 #### Windows 10 Home Edition and Windows Subsystem for Linux (WSL)
 
