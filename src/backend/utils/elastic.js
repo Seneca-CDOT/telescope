@@ -32,6 +32,22 @@ const indexPost = async (text, postId) => {
 };
 
 /**
+ * Deletes a previously indexed post by its id
+ * @param postId same id used to store on redis the post object where the text is from
+ */
+const deletePost = async (postId) => {
+  try {
+    await esClient.delete({
+      index,
+      type,
+      id: postId,
+    });
+  } catch (error) {
+    logger.error({ error }, `There was an error deleting the post with id ${postId}`);
+  }
+};
+
+/**
  * Searches text in elasticsearch
  * @param textToSearch
  * @return all the results matching the passed text
@@ -110,6 +126,7 @@ const waitOnReady = async () => {
 
 module.exports = {
   indexPost,
+  deletePost,
   checkConnection,
   search,
   waitOnReady,
