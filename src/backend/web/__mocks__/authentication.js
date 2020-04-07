@@ -21,6 +21,7 @@ function init(name, email, isAdmin = false) {
     // Log out
     loggedInUser = null;
   }
+  return loggedInUser;
 }
 
 function samlMetadata() {
