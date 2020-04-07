@@ -9,6 +9,7 @@
     "apollo-boost": "0.4.7",
     "apollo-link-http": "1.5.16",
     "dotenv": "8.2.0",
+    "eslint-plugin-react-hooks": "3.0.0",
     "gatsby": "2.20.10",
     "gatsby-plugin-manifest": "2.3.3",
     "gatsby-plugin-material-ui": "2.1.6",

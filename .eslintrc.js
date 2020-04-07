@@ -4,9 +4,10 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:promise/recommended',
     'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
   ],
 
-  plugins: ['prettier', 'promise', 'react'],
+  plugins: ['prettier', 'promise', 'react', 'react-hooks'],
 
   env: {
     jest: true,
@@ -109,5 +110,7 @@ module.exports = {
      * https://eslint.org/docs/rules/class-methods-use-this
      */
     'class-methods-use-this': 'off',
+
+    'import/no-extraneous-dependencies': 'off',
   },
 };
