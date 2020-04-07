@@ -26,6 +26,7 @@ const Posts = ({ posts }) => {
           html={html}
           title={title}
           date={updated}
+          link={feed.link}
         />
       ))}
     </Container>

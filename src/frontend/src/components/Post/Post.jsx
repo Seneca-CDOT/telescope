@@ -33,6 +33,18 @@ const useStyles = makeStyles({
   content: {
     padding: '2em',
   },
+  link: {
+    textDecoration: 'none',
+    color: '#97d5ff',
+    '&:hover': {
+      textDecorationLine: 'underline',
+    },
+  },
+  time: {
+    '&:hover': {
+      textDecorationLine: 'underline',
+    },
+  },
 });
 
 function formatPublishedDate(dateString) {
@@ -42,7 +54,7 @@ function formatPublishedDate(dateString) {
   return `Last Updated ${formatted}`;
 }
 
-const Post = ({ id, html, author, url, title, date }) => {
+const Post = ({ id, html, author, url, title, date, link }) => {
   const classes = useStyles();
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef(null);
@@ -55,9 +67,16 @@ const Post = ({ id, html, author, url, title, date }) => {
         <h1 id={id} className={classes.title}>
           {title}
         </h1>
-        <h3 className={classes.author}>By {author}</h3>
+        <h3 className={classes.author}>
+          By{' '}
+          <a className={classes.link} href={link}>
+            {author}
+          </a>
+        </h3>
         <a href={url} rel="bookmark" className={classes.published}>
-          <time dateTime={date}>{formatPublishedDate(date)}</time>
+          <time className={classes.time} dateTime={date}>
+            {formatPublishedDate(date)}
+          </time>
         </a>
       </header>
 
@@ -81,6 +100,7 @@ Post.propTypes = {
   html: PropTypes.any,
   title: PropTypes.string,
   date: PropTypes.string,
+  link: PropTypes.string,
 };
 
 export default Post;
