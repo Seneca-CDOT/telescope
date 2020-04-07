@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const admin = require('./admin');
 const auth = require('./auth');
@@ -18,17 +19,6 @@ const query = require('./query');
 const router = express.Router();
 
 /**
- * In staging and production, our reverse proxy takes care of serving the content in the public folder.
- * We're keeping this route for development.
- */
-if (process.env.NODE_ENV === 'development') {
-  router.use(express.static(path.join(__dirname, '../../../frontend/public')));
-}
-
-// Legacy CDOT Planet static assets
-router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
-
-/**
  * In staging and production, all routes are being cached in our reverse proxy except for admin, user, health and auth.
  * Please check https://github.com/Seneca-CDOT/telescope/blob/master/nginx.conf for more details about it.
  */
@@ -43,5 +33,22 @@ router.use('/sp', serviceProvider);
 router.use('/stats', stats);
 router.use('/user', user);
 router.use('/query', query);
+
+// Legacy CDOT Planet static assets
+router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
+
+/**
+ * In staging and production, our reverse proxy takes care of serving the content in the public folder.
+ * We're keeping this route for development.
+ */
+if (process.env.NODE_ENV === 'development') {
+  if (process.env.PROXY_GATSBY) {
+    // Allow proxying the Gatsby dev server through our backend if PROXY_GATSBY=1 is set in env
+    router.use('/', createProxyMiddleware({ target: 'http://localhost:8000', changeOrigin: true }));
+  } else {
+    // Or serve the static files in the Gatsby build directory
+    router.use(express.static(path.join(__dirname, '../../../frontend/public')));
+  }
+}
 
 module.exports = router;
