@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   markdownBody: {
     padding: '2rem',
+    fontSize: '14px',
   },
   image: {
     width: 128,

@@ -37,11 +37,11 @@ const AboutFooter = () => {
       <Box width={1} pb={5}>
         <Grid container direction="row" justify="space-between" alignItems="flex-start">
           <Grid container item xs={12} sm={3}>
-            <Grid container item xs={12} sm={6}>
-              <Typography variant="h6" className={classes.heading}>
+            <Grid container direction="column" item xs={12} sm={6}>
+              <Typography variant="h5" className={classes.heading}>
                 DOCS
               </Typography>
-              <Typography>
+              <Typography variant="h6">
                 <a
                   href="https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md"
                   className={classes.links}
@@ -50,11 +50,11 @@ const AboutFooter = () => {
                 </a>
               </Typography>
             </Grid>
-            <Grid container item xs={12} sm={6}>
-              <Typography variant="h6" className={classes.heading}>
+            <Grid container direction="column" item xs={12} sm={6}>
+              <Typography variant="h5" className={classes.heading}>
                 MORE
               </Typography>
-              <Typography>
+              <Typography variant="h6">
                 <a
                   href="https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List"
                   className={classes.links}
@@ -65,32 +65,34 @@ const AboutFooter = () => {
             </Grid>
           </Grid>
           <Grid container item xs={12} sm={6} justify={'center'}>
-            <Typography variant="h6" className={classes.heading}>
+            <Typography variant="h5" className={classes.heading}>
               LOGO
             </Typography>
             <SvgIcon fontSize="large">
               <img src={Logo}></img>
             </SvgIcon>
           </Grid>
-          <Grid container item xs={12} sm={3} justify={'flex-end'}>
-            <Typography variant="h6" className={classes.heading}>
+          <Grid container direction="column" item xs={12} sm={3} justify="flex-end">
+            <Typography variant="h5" className={classes.heading}>
               COMMUNITY
             </Typography>
-            <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
-              {' '}
-              <GitHubIcon></GitHubIcon>
-            </a>
-            <a
-              href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
-              className={classes.links}
-            >
-              Slack
-            </a>
+            <Grid container direction="row">
+              <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
+                {' '}
+                <GitHubIcon fontSize="large"></GitHubIcon>
+              </a>
+              <a
+                href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
+                className={classes.links}
+              >
+                Slack
+              </a>
+            </Grid>
           </Grid>
         </Grid>
       </Box>
       <Grid item xs={12}>
-        <Typography className={classes.footer}>
+        <Typography variant="h6" className={classes.footer}>
           Copyright © 2020 Seneca’s Centre for Development of Open Technology
         </Typography>
       </Grid>
