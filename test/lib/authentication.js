@@ -8,12 +8,12 @@ const defaultEmail = 'user1@example.com';
 
 // Login as a regular user
 module.exports.login = function (name, email, isAdmin = false) {
-  init(name || defaultName, email || defaultEmail, isAdmin);
+  return init(name || defaultName, email || defaultEmail, isAdmin);
 };
 
 // Login as an Admin
 module.exports.loginAdmin = function (name, email) {
-  module.exports.login(name, email, true);
+  return module.exports.login(name, email, true);
 };
 
 // Logout
