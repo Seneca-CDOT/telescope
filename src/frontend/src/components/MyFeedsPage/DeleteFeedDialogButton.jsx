@@ -33,7 +33,6 @@ function DeleteFeedDialogButton({ feed }) {
   const removeFeed = () => {
     console.log(`Removing feed hosted at URL ${feed.url}`);
     // TODO https://github.com/Seneca-CDOT/telescope/issues/946
-    window.location.reload(false);
   };
 
   return (
