@@ -79,6 +79,7 @@
     "graphql-iso-date": "3.6.1",
     "graphql-passport": "0.6.3",
     "helmet": "3.22.0",
+    "http-proxy-middleware": "1.0.3",
     "ioredis": "4.16.1",
     "ioredis-mock": "4.19.0",
     "jsdom": "16.2.2",

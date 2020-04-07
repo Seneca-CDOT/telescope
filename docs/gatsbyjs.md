@@ -35,9 +35,12 @@ and re-run the command above.
 
 ### 2. Frontend With Gatsby Dev Server and Local Backend with Docker
 
-In your `.env` file, set `API_URL=http://localhost:3000` to tell the frontend
-to connect to a backend API server running at `http://localhost:3000`. Now
-you need to run Redis (natively or via docker-compose, see [Environment Setup docs](environment-setup.md)), then start the node app natively:
+In your `.env` file, you need to make a few changes:
+
+1. set `API_URL=http://localhost:3000` to tell the frontend to connect to a backend API server running at `http://localhost:3000`.
+2. set `PROXY_GATSBY=1` so that our node server will proxy the frontend to the Gatsby development server
+
+Now you need to run Redis (natively or via docker-compose, see [Environment Setup docs](environment-setup.md)), then start the node app natively:
 
 ```
 docker-compose up redis
@@ -50,8 +53,7 @@ In a second terminal, start the Gatsby dev server:
 npm run develop
 ```
 
-This will run the Gatsby app with hot-reloading on `http://localhost:8000` and
-use `http://localhost:3000` as your backend api.
+Browse to `http://localhost:3000/`. The backend will proxy the Gatsby app with hot-reloading from `http://localhost:8000`.
 
 ### 3. Frontend With Gatsby Dev Server and Staging Server Backend
 
