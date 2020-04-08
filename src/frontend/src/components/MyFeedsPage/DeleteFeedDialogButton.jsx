@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import useSiteMetadata from '../../hooks/use-site-metadata';
 
 const useStyles = makeStyles(() => ({
   button: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles(() => ({
 
 function DeleteFeedDialogButton({ feed }) {
   const classes = useStyles();
+  const { telescopeUrl } = useSiteMetadata();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -30,9 +32,20 @@ function DeleteFeedDialogButton({ feed }) {
     setOpen(false);
   };
 
-  const removeFeed = () => {
-    console.log(`Removing feed hosted at URL ${feed.url}`);
-    // TODO https://github.com/Seneca-CDOT/telescope/issues/946
+  const removeFeed = async () => {
+    console.log(`Removing feed hosted at URL ${feed.url}...`);
+    try {
+      const response = await fetch(`${telescopeUrl}/feeds/${feed.id}`, { method: 'DELETE' });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      console.log(`Feed removed successfully`);
+    } catch (error) {
+      console.log(`Error removing feed with ID ${feed.id}`, error);
+      throw error;
+    }
   };
 
   return (
