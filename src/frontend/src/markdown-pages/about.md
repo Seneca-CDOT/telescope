@@ -3,8 +3,6 @@ path: '/about'
 title: 'About'
 ---
 
-## Introduction
-
 One of the key features of Seneca's open source involvement has been the
 emphasis on sharing what we're working on, teaching, and learning through blogging.
 We believe that one of the most rewarding parts of learning to work in the
