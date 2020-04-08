@@ -53,6 +53,8 @@ feeds.get('/:id', async (req, res) => {
 
 feeds.post('/', protect(), async (req, res) => {
   const feedData = req.body;
+  const { user } = req;
+  feedData.user = user.id;
   try {
     if (!(feedData.url && feedData.author)) {
       return res.status(400).json({ message: `URL and Author must be submitted` });
@@ -68,6 +70,27 @@ feeds.post('/', protect(), async (req, res) => {
     logger.error({ error }, 'Unable to add feed to Redis');
     return res.status(503).json({
       message: 'Unable to add to Feed',
+    });
+  }
+});
+
+feeds.delete('/:id', protect(), async (req, res) => {
+  const { user } = req;
+  const { id } = req.params;
+  try {
+    const feed = await Feed.byId(id);
+    if (!feed) {
+      return res.status(404).json({ message: `Feed for Feed ID ${id} doesn't exist.` });
+    }
+    if (!user.owns(feed)) {
+      return res.status(403).json({ message: `User does not own this feed.` });
+    }
+    await feed.delete();
+    return res.status(204).json({ message: `Feed ${id} was successfully deleted.` });
+  } catch (error) {
+    logger.error({ error }, 'Unable to delete feed to Redis');
+    return res.status(503).json({
+      message: 'Unable to delete to Feed',
     });
   }
 });

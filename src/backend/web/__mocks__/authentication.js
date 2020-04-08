@@ -2,6 +2,8 @@
  * Mock SAML2 SSO Passport.js authentication strategy.
  */
 const hash = require('../../data/hash');
+const User = require('../../data/user');
+const Admin = require('../../data/admin');
 
 let loggedInUser;
 
@@ -70,12 +72,18 @@ function administration() {
 
 function protect(redirect) {
   return function (req, res, next) {
+    if (loggedInUser) {
+      req.user = new User(loggedInUser.name, loggedInUser.email, loggedInUser.id);
+    }
     checkUser(false, redirect, req, res, next);
   };
 }
 
 function protectAdmin(redirect) {
   return function (req, res, next) {
+    if (loggedInUser) {
+      req.user = new Admin(loggedInUser.name, loggedInUser.email, loggedInUser.id);
+    }
     checkUser(true, redirect, req, res, next);
   };
 }
