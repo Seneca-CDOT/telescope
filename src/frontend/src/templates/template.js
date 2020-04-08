@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
   markdownBody: {
     padding: '2rem',
     fontSize: '16px',
+    maxWidth: '785px',
   },
   image: {
     width: 128,
@@ -37,19 +38,17 @@ export default function Template({
 
   return (
     <PageBase title={frontmatter.title}>
-      <div className={classes.root}>
-        <Grid container>
-          <Grid item xs></Grid>
-          <Grid item xs={6}>
+      <Grid container className={classes.root}>
+        <Grid container direction="column" item xs={12} justify="center" alignItems="center">
+          <Grid item xs={12}>
             <div className={classes.markdownBody}>
               <h1>{frontmatter.title}</h1>
               <div dangerouslySetInnerHTML={{ __html: html }} />
             </div>
           </Grid>
-          <Grid item xs></Grid>
         </Grid>
         <AboutFooter />
-      </div>
+      </Grid>
     </PageBase>
   );
 }

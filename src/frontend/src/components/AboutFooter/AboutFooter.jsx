@@ -52,7 +52,7 @@ const AboutFooter = () => {
       <Box width={1} pb={5}>
         <Grid container direction="row" justify="space-between" alignItems="flex-start">
           <Grid container item xs={12} sm={3}>
-            <Grid container direction="column" item xs={12} sm={6}>
+            <Grid container direction="column" item xs={6}>
               <Typography variant="h5" className={classes.heading}>
                 DOCS
               </Typography>
@@ -74,7 +74,7 @@ const AboutFooter = () => {
                 </a>
               </Typography>
             </Grid>
-            <Grid container direction="column" item xs={12} sm={6}>
+            <Grid container direction="column" item xs={6}>
               <Typography variant="h5" className={classes.heading}>
                 MORE
               </Typography>
