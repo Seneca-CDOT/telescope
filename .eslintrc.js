@@ -103,5 +103,11 @@ module.exports = {
     'react/jsx-uses-vars': 'error',
 
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+
+    /**
+     * Allow ES6 classes to override methods without using this
+     * https://eslint.org/docs/rules/class-methods-use-this
+     */
+    'class-methods-use-this': 'off',
   },
 };

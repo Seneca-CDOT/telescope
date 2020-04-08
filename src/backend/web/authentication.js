@@ -10,6 +10,7 @@ const SamlStrategy = require('passport-saml').Strategy;
 const { logger } = require('../utils/logger');
 const hash = require('../data/hash');
 const User = require('../data/user');
+const Admin = require('../data/admin');
 
 /**
  * Get our SSO/SLO/SAML/Auth env variables, and warn if any are missing
@@ -189,16 +190,20 @@ function userIsAdmin(id) {
 
 /**
  * Middleware to determine if a user on the session is an administrator or not.
- * In both cases, we add an `.isAdmin` property, and set it to `true` only if
- * the current user's id (i.e. ,nameID in SAML) matches what we have set in the
- * env for ADMINISTRATORS.  There can be more than one admin user.  After this
- * middleware updates the `user`, you can use `req.user.isAdmin` to check whether
- * or not a user is an administrator.
+ * If this is an admin, we upgrade the User type to an Admin type.  We determine this
+ * based on the current user's id (i.e. ,nameID in SAML) matching what we have set
+ * in the env for ADMINISTRATORS.  There can be more than one admin user.  After
+ * this middleware updates the `user`, you can use `req.user.isAdmin` to check
+ * whether or not a user is an administrator.
  */
 function administration() {
   return function (req, res, next) {
     if (req.user && req.user.id) {
-      req.user.isAdmin = userIsAdmin(req.user.id);
+      const { user } = req;
+      if (userIsAdmin(user.id)) {
+        // Upgrade User to an Admin
+        req.user = new Admin(user.name, user.email, user.id);
+      }
     }
     next();
   };
