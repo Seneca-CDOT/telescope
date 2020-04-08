@@ -15,6 +15,7 @@ const theme = createMuiTheme({
     },
     background: {
       default: '#2e2e2e',
+      post: '#9E9E9E',
     },
   },
 });
