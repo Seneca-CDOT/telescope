@@ -107,22 +107,25 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 1. Get [Docker for Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
 1. Docker for Desktop comes with docker-compose installed.
 
-#### Windows 10 Pro, Enterprise, or Education (Hyper-V)
+#### Windows 10 Pro, Enterprise, or Education
 
 1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 1. Docker for Desktop comes with docker-compose installed.
 
-#### Windows 10 Home, Pro, Enterprise, or Education (Insiders / WSL 2 / Docker)
+#### Windows 10 Home Edition and Windows Subsystem for Linux (WSL)
 
-1. If your [Windows build number](https://www.windowscentral.com/how-check-your-windows-10-build) is below [18917](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install/), join the [insiders program](https://insider.windows.com/en-us/). Then, update your machine to a newer build through Automatic Updates.
-2. Once installed successfully, install [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install).
-3. Open a Windows PowerShell window for the next few commands.
-4. Leverage the command `wsl --set-default-version 2`, and install Ubuntu from the Windows Store.
-5. Use `wsl -l -v` to see your Ubuntu instance version, if it's still using WSL version 1, convert it to WSL 2 using `wsl --set-version Ubuntu 2`.
-6. Install any other prerequisites listed on [Docker Desktop WSL Preview](https://docs.docker.com/docker-for-windows/wsl-tech-preview/).
-7. Download and install [Docker Desktop Edge Latest](https://download.docker.com/win/edge/Docker%20Desktop%20Installer.exe)
-8. Follow the instructions on the [Docker Desktop WSL Preview](https://docs.docker.com/docker-for-windows/wsl-tech-preview/) to configure the WSL based engine. Docker-compose is installed with the Docker desktop application.
-9. Follow the Docker commands `docker-compose up --build` listed below in greater detail to start hacking.
+Docker Desktop for Windows is not available on Home Edition, and you cannot run docker in WSL (Windows Subsystem for Linux). You can get the environment set up using **one** of these three methods:
+
+- Get [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/) instead of Docker Desktop for Windows. Make sure that your system can do virtualization and enable virtualization.
+- Set up a virtual machine to run Linux Ubuntu
+  1. Make sure your system can do virtualization and enable it.
+  1. [Download VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+  1. [Follow this helpful youtube tutorial to create a virtual machine with Ubuntu](https://www.youtube.com/watch?v=ThsxqznrgCw&t=401s)
+  1. Use the Linux installation instructions [below](#linux-Ubuntu).
+- Update your home edition to Windows 10 Education Edition
+  1. Download Windows 10 Education Edition from the [Seneca Software Center](https://senecacollege.onthehub.com/WebStore/OfferingDetails.aspx?o=c0bd2c36-a530-e511-940e-b8ca3a5db7a1)
+  1. Update your OS using the installation instructions.
+  1. Use [Windows 10 Education Edition](#Windows-10-Pro,-Enterprise,-or-Education) set up instructions.
 
 ## After installing the prerequisites:
 

@@ -46,8 +46,7 @@ RUN cd /telescope/tools/autodeployment && npm install --no-package-lock --ignore
 # Context: Front-end Builder
 FROM dependencies as builder
 
-COPY ./src/frontend ./src/frontend
-COPY ./.git ./.git
+COPY . .
 
 RUN npm run build
 
