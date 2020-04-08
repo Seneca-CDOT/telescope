@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function DeleteFeedDialogButton({ feed }) {
+function DeleteFeedDialogButton({ id, url }) {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
   const [open, setOpen] = useState(false);
@@ -33,9 +33,9 @@ function DeleteFeedDialogButton({ feed }) {
   };
 
   const removeFeed = async () => {
-    console.log(`Removing feed hosted at URL ${feed.url}...`);
+    console.log(`Removing feed hosted at URL ${url}...`);
     try {
-      const response = await fetch(`${telescopeUrl}/feeds/${feed.id}`, { method: 'DELETE' });
+      const response = await fetch(`${telescopeUrl}/feeds/${id}`, { method: 'DELETE' });
 
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -43,7 +43,7 @@ function DeleteFeedDialogButton({ feed }) {
 
       console.log(`Feed removed successfully`);
     } catch (error) {
-      console.log(`Error removing feed with ID ${feed.id}`, error);
+      console.log(`Error removing feed with ID ${id}`, error);
       throw error;
     }
   };
@@ -59,7 +59,7 @@ function DeleteFeedDialogButton({ feed }) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{`Remove feed hosted at ${feed.url}?`}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{`Remove feed hosted at ${url}?`}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Telescope will no longer display blog posts from this feed.
@@ -86,7 +86,8 @@ function DeleteFeedDialogButton({ feed }) {
 }
 
 DeleteFeedDialogButton.propTypes = {
-  feed: PropTypes.object,
+  id: PropTypes.string,
+  url: PropTypes.string,
 };
 
 export default DeleteFeedDialogButton;

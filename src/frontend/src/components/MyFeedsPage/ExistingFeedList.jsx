@@ -40,7 +40,7 @@ function ExistingFeedList({ feedHash }) {
               />
             </Grid>
             <Grid item>
-              <DeleteFeedDialogButton feed={feedHash[id]} />
+              <DeleteFeedDialogButton feed={{ id, ...feedHash[id] }} />
             </Grid>
           </Grid>
         </Grid>
