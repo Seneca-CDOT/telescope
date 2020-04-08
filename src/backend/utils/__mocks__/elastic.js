@@ -1,22 +1,26 @@
 // Mock storage for our es data
-const db = {};
+const db = {
+  results: 0,
+  values: [],
+};
 
 const indexPost = (text, postId) => {
-  db[postId] = text;
+  db.values.push({
+    id: postId,
+    text,
+    score: 10,
+  });
+  db.results = db.values.length;
   return Promise.resolve();
 };
 
 const deletePost = (postId) => {
-  delete db[postId];
+  db.values = db.values.filter((value) => Object.values(value).includes(postId));
+  db.results = db.values.length;
   return Promise.resolve();
 };
 
-// TODO
-const search = () =>
-  Promise.resolve({
-    results: 0,
-    values: [],
-  });
+const search = () => Promise.resolve(db);
 
 const checkConnection = () => Promise.resolve();
 
