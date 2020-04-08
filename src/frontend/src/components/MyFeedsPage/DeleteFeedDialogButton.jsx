@@ -19,7 +19,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function DeleteFeedDialogButton({ id, url }) {
+function DeleteFeedDialogButton({ feed }) {
+  const { id, url } = feed;
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
   const [open, setOpen] = useState(false);
@@ -86,8 +87,9 @@ function DeleteFeedDialogButton({ id, url }) {
 }
 
 DeleteFeedDialogButton.propTypes = {
-  id: PropTypes.string,
-  url: PropTypes.string,
+  feed: PropTypes.object,
+  // 'feed.id': PropTypes.string,
+  // 'feed.url': PropTypes.string,
 };
 
 export default DeleteFeedDialogButton;
