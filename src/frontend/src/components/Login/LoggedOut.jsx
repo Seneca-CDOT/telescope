@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     textDecoration: 'none',
     fontSize: '1.5rem',
     color: 'white',
+    lineHeight: 1,
   },
 });
 
