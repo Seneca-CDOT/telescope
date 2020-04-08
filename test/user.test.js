@@ -13,6 +13,7 @@ describe.skip('test GET /user/feeds endpoint', () => {
   afterAll(() => logout());
 
   it('should respond with a 403 status when not logged in', async () => {
+    logout();
     const res = await request(app).get(`/user/feeds`);
     expect(res.status).toEqual(403);
   });
