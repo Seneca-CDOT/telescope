@@ -1,10 +1,7 @@
 ---
 path: '/about'
-date: '2019-05-04'
 title: 'About'
 ---
-
-# Telescope Overview
 
 ## Introduction
 
@@ -22,14 +19,14 @@ something unique to "me."
 To better enable the discovery of blogs within our community, we set up an open
 source blog [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>): an aggregated
 feed of blog posts from Seneca faculty and students working on open source in a
-single page. Our blog Planet currently lives at [http://zenit.senecac.on.ca/~chris.tyler/planet/](http://zenit.senecac.on.ca/~chris.tyler/planet/).
+single page. Our old blog Planet used to live at http://zenit.senecac.on.ca/~chris.tyler/planet/, and was run faithfully by Chris Tyler for more than a decade. We've made a re-creation of what it looked like at [http://telescope.cdot.systems/planet](http://telescope.cdot.systems/planet) if you want to see it..
 
 ## What is a Planet?
 
 > Planet is a feed aggregator application designed to collect posts from the weblogs of members of an Internet community and display them on a single page. Planet runs on a web server. It creates pages with entries from the original feeds in chronological order, most recent entries first. --[Wikipedia](<https://en.wikipedia.org/wiki/Planet_(software)>)
 
 In the early 2000s, before the rise of social media apps like Twitter and Facebook,
-Planet solved a important problem in the free and open source community. It used
+Planet solved an important problem in the free and open source community. It used
 various "feed" technologies (RSS, Atom, CDF) to allow blog posts from different
 platforms to be aggregated into a single page that was constantly updated with
 the latest posts by people within a particular community.
@@ -41,14 +38,14 @@ the specified feeds.
 
 ## In Search of a New Planet
 
-Our current Planet is dying. The [software we use was last updated 13 years ago](https://people.gnome.org/~jdub/bzr/planet/devel/trunk/).
-While the underlying code as drifted further into the past, our needs have moved
+Our original Planet was shutdown in January 2020. The [software we use was last updated 13 years ago](https://people.gnome.org/~jdub/bzr/planet/devel/trunk/).
+While the underlying code has drifted further into the past, our needs have moved
 forward. Maintaining the existing system, especially with the number of students
 involved in open source at Seneca, has become too difficult. Our current site
 often breaks, and needs manual interventions on a regular basis. Going forward,
 we need a new planet to call home.
 
-As we get ready to enter the year 2020, we have decided it is time to consider moving to
+We have decided it is time to consider moving to
 a new system. Unfortunately, almost every system that came to replace Planet has
 itself become unmaintained.
 

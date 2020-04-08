@@ -47,7 +47,6 @@ export default function Template({
           <Grid item xs={12} sm={6}>
             <div className={classes.markdownBody}>
               <h1>{frontmatter.title}</h1>
-              <h2>{frontmatter.date}</h2>
               <div dangerouslySetInnerHTML={{ __html: html }} />
             </div>
           </Grid>
@@ -64,7 +63,6 @@ Template.propTypes = {
   frontmatter: PropTypes.string,
   html: PropTypes.string,
   title: PropTypes.string,
-  date: PropTypes.string,
 };
 
 export const pageQuery = graphql`
@@ -72,7 +70,6 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
         path
         title
       }
