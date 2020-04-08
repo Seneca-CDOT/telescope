@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Card, Container, Grid, IconButton, Typography } from '@material-ui/core';
 import { AccountCircle, AddCircle, RssFeed } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -54,38 +54,60 @@ export default function MyFeeds() {
     return ValidatorForm.removeValidationRule.bind('isUrl');
   }, [telescopeUrl]);
 
+  const getUserFeeds = useCallback(async () => {
+    try {
+      const response = await fetch(`${telescopeUrl}/user/feeds`);
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.log('Failed to fetch /user/feeds', error);
+    }
+    // TODO remove the following try/catch block once GET /user/feeds is implemented
+    try {
+      console.log('Attempting to fetch user feeds via /feeds endpoint');
+      const response = await fetch(`${telescopeUrl}/feeds`);
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const feedItems = await response.json();
+
+      const allFeedsData = await Promise.all(
+        feedItems.map((item) => fetch(`${telescopeUrl}${item.url}`))
+      );
+      const allFeeds = await Promise.all(allFeedsData.map((res) => res.json()));
+
+      return allFeeds.filter((feed) => feed.user === userInfo.id);
+    } catch (error) {
+      console.log('Failed to fetch user feeds via /feeds endpoint', error);
+      throw error;
+    }
+  }, [telescopeUrl, userInfo]);
+
   useEffect(() => {
-    (async function hashUserFeeds() {
-      try {
-        if (userInfo.id || submitStatus.isError === false) {
-          const response = await fetch(`${telescopeUrl}/feeds`);
+    if (userInfo.id || submitStatus.isError === false) {
+      (async function hashUserFeeds() {
+        try {
+          const userFeeds = await getUserFeeds();
 
-          if (!response.ok) {
-            throw new Error(response.statusText);
-          }
-
-          const feedItems = await response.json();
-
-          const allFeedsData = await Promise.all(
-            feedItems.map((item) => fetch(`${telescopeUrl}${item.url}`))
-          );
-          const allFeeds = await Promise.all(allFeedsData.map((res) => res.json()));
-
-          const userFeedHash = allFeeds.reduce((hash, feed) => {
-            if (feed.user === userInfo.id) {
-              hash[feed.id] = { author: feed.author, url: feed.url };
-            }
+          const userFeedHash = userFeeds.reduce((hash, feed) => {
+            hash[feed.id] = { author: feed.author, url: feed.url };
             return hash;
           }, {});
 
           updateFeedHash(userFeedHash);
+        } catch (error) {
+          console.log('Error hashing user feeds', error);
+          throw error;
         }
-      } catch (error) {
-        console.log('Error fetching feeds', error);
-        throw error;
-      }
-    })();
-  }, [telescopeUrl, userInfo, submitStatus]);
+      })();
+    }
+  }, [telescopeUrl, userInfo, submitStatus, getUserFeeds]);
 
   async function addFeed() {
     try {
