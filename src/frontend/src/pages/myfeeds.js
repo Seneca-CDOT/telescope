@@ -45,8 +45,8 @@ export default function MyFeeds() {
         setUserInfo(user);
         setNewFeedAuthor(user.name);
       } catch (error) {
-        console.log('Error fetching user info, redirecting to login page', error);
-        window.location.href = `${telescopeUrl}/auth/login`;
+        console.log('Failed to fetch user information', error);
+        window.location.href = `${telescopeUrl}/404`;
       }
     })();
 
@@ -124,7 +124,7 @@ export default function MyFeeds() {
     ref.current.validate(event.target.value, true);
   }
 
-  return (
+  return userInfo.id ? (
     <PageBase title="My Feeds">
       <div className={classes.margin}>
         <ValidatorForm onSubmit={addFeed}>
@@ -199,5 +199,7 @@ export default function MyFeeds() {
         </ValidatorForm>
       </div>
     </PageBase>
+  ) : (
+    <></>
   );
 }
