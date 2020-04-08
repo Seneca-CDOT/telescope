@@ -1,10 +1,11 @@
-const Feed = require('./feed.js');
+const Feed = require('./feed');
 
 class User {
   constructor(name, email, id) {
     this.name = name;
     this.email = email;
     this.id = id;
+    this.isAdmin = false;
   }
 
   toJSON() {
