@@ -80,3 +80,14 @@
 .telescope-post-content a:visited {
   color: #35001d;
 }
+
+.telescope-post-content blockquote,
+.telescope-post-content q {
+  line-height: 1.5;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 50px;
+  padding-left: 15px;
+  display: block;
+  font-style: italic;
+}
