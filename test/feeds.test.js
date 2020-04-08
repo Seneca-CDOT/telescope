@@ -132,3 +132,45 @@ describe('test POST /feeds endpoint', () => {
     expect(res.status).toEqual(409);
   });
 });
+
+describe.skip('test DELETE /feeds/:id endpoint', () => {
+  let feedId;
+
+  beforeEach(async () => {
+    logout();
+    const user = login('Johannes Kepler', 'user1@example.com');
+    const feedData = {
+      author: user.name,
+      url: 'http://telescope200.cdot.systems',
+      user: user.id,
+    };
+    const res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+    feedId = res.id;
+  });
+
+  afterAll(() => logout());
+
+  it('should respond with a 403 status when not logged in', async () => {
+    logout();
+    const res = await request(app).delete(`/feeds/${feedId}`);
+    expect(res.status).toEqual(403);
+  });
+
+  it('should respond with a 403 status when targeted feed is not owned by user', async () => {
+    logout();
+    login('Galileo Galilei', 'user2@example.com');
+    const res = await request(app).delete(`/feeds/${feedId}`);
+    expect(res.status).toEqual(403);
+  });
+
+  it('should respond with a 204 status when targeted feed is owned by user', async () => {
+    login('Johannes Kepler', 'user1@example.com');
+
+    let res = await request(app).delete(`/feeds/${feedId}`);
+    expect(res.status).toEqual(204);
+
+    res = await request(app).get(`/feeds/${feedId}`);
+    expect(res.status).toEqual(404);
+  });
+});
