@@ -2,6 +2,7 @@ const normalizeUrl = require('normalize-url');
 
 const {
   getFeed,
+  getFeeds,
   addFeed,
   setInvalidFeed,
   isInvalid,
@@ -114,6 +115,15 @@ class Feed {
     // Use the URL to generate an id
     const id = urlToId(url);
     return this.byId(id);
+  }
+
+  /**
+   * Returns all the feeds
+   * Returns a Promise<Feeds>
+   */
+  static async all() {
+    const ids = await getFeeds();
+    return Promise.all(ids.map(Feed.byId));
   }
 }
 

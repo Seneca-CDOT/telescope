@@ -9,6 +9,7 @@ const SamlStrategy = require('passport-saml').Strategy;
 
 const { logger } = require('../utils/logger');
 const hash = require('../data/hash');
+const User = require('../data/user');
 
 /**
  * Get our SSO/SLO/SAML/Auth env variables, and warn if any are missing
@@ -70,7 +71,7 @@ function init() {
     done(null, user);
   });
   passport.deserializeUser(function (user, done) {
-    done(null, user);
+    done(null, new User(user.name, user.email, user.id));
   });
 
   // Setup SAML authentication strategy
