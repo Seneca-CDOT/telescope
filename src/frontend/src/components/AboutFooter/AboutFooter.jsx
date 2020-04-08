@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Box, Typography, SvgIcon } from '@material-ui/core';
+import { Grid, Box, Typography, SvgIcon, Divider } from '@material-ui/core';
 
 import GitHubIcon from '@material-ui/icons/GitHub';
 
@@ -14,7 +14,22 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     color: 'white',
-    textDecorationLine: 'underline',
+  },
+  leftDivider: {
+    backgroundColor: 'white',
+    height: '2px',
+    marginBottom: '8px',
+    marginRight: '1rem',
+    marginTop: '5px',
+    width: '30%',
+  },
+  rightDivider: {
+    backgroundColor: 'white',
+    height: '2px',
+    marginBottom: '10px',
+    marginLight: '1rem',
+    marginTop: '5px',
+    width: '30%',
   },
   links: {
     color: 'white',
@@ -41,6 +56,7 @@ const AboutFooter = () => {
               <Typography variant="h5" className={classes.heading}>
                 DOCS
               </Typography>
+              <Divider className={classes.leftDivider} />
               <Typography variant="h6">
                 <a
                   href="https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md"
@@ -49,11 +65,20 @@ const AboutFooter = () => {
                   Get Started
                 </a>
               </Typography>
+              <Typography variant="h6">
+                <a
+                  href="https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md"
+                  className={classes.links}
+                >
+                  Contribute
+                </a>
+              </Typography>
             </Grid>
             <Grid container direction="column" item xs={12} sm={6}>
               <Typography variant="h5" className={classes.heading}>
                 MORE
               </Typography>
+              <Divider className={classes.leftDivider} />
               <Typography variant="h6">
                 <a
                   href="https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List"
@@ -72,21 +97,26 @@ const AboutFooter = () => {
               <img src={Logo}></img>
             </SvgIcon>
           </Grid>
-          <Grid container direction="column" item xs={12} sm={3} justify="flex-end">
+          <Grid container direction="column" item xs={12} sm={3} alignItems="flex-end">
             <Typography variant="h5" className={classes.heading}>
               COMMUNITY
             </Typography>
-            <Grid container direction="row">
-              <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
-                {' '}
-                <GitHubIcon fontSize="large"></GitHubIcon>
-              </a>
-              <a
-                href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
-                className={classes.links}
-              >
-                Slack
-              </a>
+            <Divider className={classes.rightDivider} />
+            <Grid container direction="row" justify={'flex-end'}>
+              <Grid item>
+                <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
+                  {' '}
+                  <GitHubIcon fontSize="large"></GitHubIcon>
+                </a>
+              </Grid>
+              <Grid item>
+                <a
+                  href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
+                  className={classes.links}
+                >
+                  Slack
+                </a>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
