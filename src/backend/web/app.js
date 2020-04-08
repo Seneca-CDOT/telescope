@@ -68,11 +68,23 @@ app.use(logger);
 app.use('/', router);
 
 /**
+ * Error Handler, Pass to front-end
+ */
+app.use((err, req, res, next) => {
+  logger.logger.error(err);
+  const status = err.status || 500;
+  res
+    .status(status)
+    .redirect(`/error?status=${status}${err.message ? `&message=${encodeURI(err.message)}` : ``}`);
+});
+
+/**
  * 404 Handler, Pass to front-end
  * Leverage .status because adding the `404` status in redirect causes "Not Found. Redirecting to /404?search=" to display.
  */
 app.use((req, res) => {
-  res.status(404).redirect(`/404`);
+  logger.logger.warn(req.url);
+  res.status(404).redirect(`/error?status=404`);
 });
 
 module.exports = app;

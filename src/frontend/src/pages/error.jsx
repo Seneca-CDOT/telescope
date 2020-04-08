@@ -9,9 +9,12 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import DynamicBackgroundContainer from '../components/DynamicBackgroundContainer';
+import url from 'url';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    fontFamily: 'Roboto',
+    display: 'block',
     zIndex: 100,
     padding: theme.spacing(2, 4, 2, 4),
     position: 'relative',
@@ -24,12 +27,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   h1: {
-    fontFamily: 'Roboto',
     fontWeight: 'bold',
     opacity: 0.85,
     color: theme.palette.grey[100],
     fontSize: '12rem',
-    display: 'block',
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '4rem',
     },
@@ -41,9 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   h2: {
-    fontFamily: 'Roboto',
     fontSize: '2rem',
-    display: 'block',
     color: theme.palette.grey[200],
     marginTop: '1.75rem',
     lineHeight: 'inherit',
@@ -58,6 +57,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '8rem',
     },
+  },
+  h3: {
+    fontFamily: 'monospace',
+    fontSize: '2rem',
+    padding: theme.spacing(4),
+    color: theme.palette.grey[300],
+    // backgroundColor: theme.palette.error.light,
+    borderRadius: theme.spacing(1),
   },
   link: {
     color: 'white',
@@ -91,23 +98,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ErrorPage = (props) => {
+function CreateInnerErrorContent(props) {
   const classes = useStyles();
 
+  const errorMessages = {
+    '400': 'We did not understand the request!',
+    '401': 'You are not authorized to view this page!',
+    '403': 'Access is not allowed for the requested page!',
+    '404': 'We could not find what you were looking for!',
+    '405': 'Method is not allowed!',
+  };
+
+  if (props.status != '500' && !props.message) {
+    return (
+      <Typography variant="body1" className={classes.h2}>
+        {errorMessages[props.status]}{' '}
+      </Typography>
+    );
+  }
   return (
-    <PageBase title="404">
+    <Typography variant="body1" className={classes.h3}>
+      {props.message}
+    </Typography>
+  );
+}
+
+const ErrorPage = (props) => {
+  const classes = useStyles();
+  const params = new URLSearchParams(document.location.search);
+  const status = params.get('status');
+  const message = params.get('message');
+
+  console.log(message);
+
+  return (
+    <PageBase title={status}>
       <Grid container spacing={0} direction="column" alignItems="center" justify="center">
         <Grid item xs={8}>
           <ThemeProvider>
             <Card className={classes.root} elevation={6}>
               <CardContent>
                 <Typography variant="h1" className={classes.h1}>
-                  404
+                  {status}
                 </Typography>
-                <Typography variant="body1" className={classes.h2}>
-                  We Could Not Find What You Were Looking For!
-                </Typography>
+
+                <CreateInnerErrorContent status={status} message={message} />
               </CardContent>
+
               <CardActions
                 style={{
                   display: 'flex',

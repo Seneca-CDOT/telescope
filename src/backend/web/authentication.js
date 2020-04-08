@@ -132,16 +132,16 @@ function protectWithRedirect(req, res, next) {
   passport.authenticate('saml')(req, res, next);
 }
 
+function throwCustomError(message, status) {
+  let err = Error(message);
+  err.status = status;
+
+  throw err;
+}
+
 // If user is not authenticated, return an appropriate 400 error type
 function forbidden(req, res) {
-  if (req.accepts('json')) {
-    res.status(403).json({
-      message: 'Forbidden',
-    });
-  } else {
-    // TODO: https://github.com/Seneca-CDOT/telescope/issues/890
-    res.status(403).send('Forbidden');
-  }
+  throwCustomError('', 403);
 }
 
 // If we aren't redirecting, we're going to forbid this request

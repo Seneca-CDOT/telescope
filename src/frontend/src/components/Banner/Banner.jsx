@@ -6,6 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useSiteMetadata from '../../hooks/use-site-metadata';
+import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
 
 const useStyles = makeStyles((theme) => ({
   h1: {
@@ -31,18 +32,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('xl')]: {
       fontSize: '12rem',
     },
-  },
-  bannerImg: {
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundAttachment: 'scroll',
-    backgroundSize: 'cover',
-    height: '100vh',
-    opacity: 0.4,
-    '-webkit-transition': 'opacity 1s ease-in-out',
-    '-moz-transition': 'opacity 1s ease-in-out',
-    '-o-transition': 'opacity 1s ease-in-out',
-    transition: 'opacity 1s ease-in-out',
   },
   heroBanner: {
     height: '100vh',
@@ -101,6 +90,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     left: '49.5%',
     bottom: theme.spacing(20),
+    zIndex: 300,
     [theme.breakpoints.between('xs', 'sm')]: {
       right: theme.spacing(4),
       left: '80%',
@@ -127,74 +117,28 @@ function ScrollDown(props) {
   );
 }
 
-async function getDynamicAsset(url, success, failure) {
-  try {
-    const response = await fetch(url);
-
-    if (response.status !== 200) {
-      throw new Error(response.statusText);
-    }
-
-    if (response.headers.get('content-type').includes('application/json')) {
-      success(await response.json());
-      return;
-    }
-
-    success(response);
-  } catch (error) {
-    console.error('Error getting dynamic asset', error);
-
-    if (failure) {
-      failure();
-    }
-  }
-}
-
 function RetrieveBannerDynamicAssets() {
-  const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
-  const [transitionBackground, setTransitionBackground] = useState(true);
   const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
 
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
 
   useEffect(() => {
-    async function getBackgroundImgSrc() {
-      // Uses https://unsplash.com/collections/894/earth-%26-planets collection
-      /* Other Options:
-        - https://unsplash.com/collections/2411320/trend%3A-extreme-neon
-        - https://unsplash.com/collections/1538150/milkyway
-        - https://unsplash.com/collections/291422/night-lights
-        */
+    async function getStats() {
+      const response = await fetch(`${telescopeUrl}/stats/year`);
 
-      // Ensure we are using an image which fits correctly to user's viewspace
-      const dimensions = `${window.innerWidth}x${window.innerHeight}`;
-
-      async function getStats() {
-        await getDynamicAsset(`${telescopeUrl}/stats/year`, (response) => {
-          const localeStats = {
-            posts: response.posts.toLocaleString(),
-            authors: response.authors.toLocaleString(),
-            words: response.words.toLocaleString(),
-          };
-          setStats(localeStats);
-
-          // Ease in Background
-          setTransitionBackground(false);
-        });
+      if (response.status !== 200) {
+        throw new Error(response.statusText);
       }
 
-      await getDynamicAsset(
-        `https://source.unsplash.com/collection/894/${dimensions}/`,
-        (response) => {
-          setBackgroundImgSrc(response.url);
-          getStats();
-        },
-        () => {
-          // Fallback to default image
-          setBackgroundImgSrc('../../images/hero-banner.png');
-        }
-      );
+      const data = await response.json();
+
+      const localeStats = {
+        posts: data.posts.toLocaleString(),
+        authors: data.authors.toLocaleString(),
+        words: data.words.toLocaleString(),
+      };
+      setStats(localeStats);
     }
 
     getBackgroundImgSrc();
@@ -202,25 +146,14 @@ function RetrieveBannerDynamicAssets() {
 
   return (
     <div>
-      <div
-        className={classes.bannerImg}
-        style={{
-          backgroundImage:
-            backgroundImgSrc === '../../images/hero-banner.png'
-              ? backgroundImgSrc
-              : `url(${backgroundImgSrc})`,
-          opacity: transitionBackground ? 0 : 0.4,
-        }}
-      ></div>
-      <Typography
-        variant="caption"
-        className={classes.stats}
-        style={{
-          opacity: transitionBackground ? 0 : 0.85,
-        }}
-      >
-        This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
-      </Typography>
+      <DynamicBackgroundContainer>
+        {stats.authors !== 0 && (
+          <Typography variant="caption" className={classes.stats}>
+            This year {stats.authors} of us have written {stats.words} words and counting. Add
+            yours!
+          </Typography>
+        )}
+      </DynamicBackgroundContainer>
     </div>
   );
 }
@@ -271,13 +204,13 @@ export default function Banner() {
         >
           v {gitInfo.version}
         </a>
-        <div className={classes.icon}>
-          <ScrollDown>
-            <Fab color="primary" aria-label="scroll-down">
-              <KeyboardArrowDownIcon fontSize="large" />
-            </Fab>
-          </ScrollDown>
-        </div>
+      </div>
+      <div className={classes.icon}>
+        <ScrollDown>
+          <Fab color="primary" aria-label="scroll-down">
+            <KeyboardArrowDownIcon fontSize="large" />
+          </Fab>
+        </ScrollDown>
       </div>
     </>
   );
