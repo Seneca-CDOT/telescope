@@ -165,6 +165,8 @@ describe.skip('test DELETE /feeds/:id endpoint', () => {
   });
 
   it('should respond with a 204 status when targeted feed is owned by user', async () => {
+    login('Johannes Kepler', 'user1@example.com');
+
     let res = await request(app).delete(`/feeds/${feedId}`);
     expect(res.status).toEqual(204);
 
