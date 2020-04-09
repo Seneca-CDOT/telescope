@@ -9,6 +9,7 @@
     "apollo-boost": "0.4.7",
     "apollo-link-http": "1.5.16",
     "dotenv": "8.2.0",
+    "eslint-plugin-react-hooks": "3.0.0",
     "gatsby": "2.20.10",
     "gatsby-plugin-manifest": "2.3.3",
     "gatsby-plugin-material-ui": "2.1.6",
@@ -19,11 +20,13 @@
     "gatsby-transformer-sharp": "2.4.3",
     "graphql-tag": "2.10.3",
     "highlight.js": "9.18.1",
+    "material-ui-popup-state": "1.5.4",
     "node-fetch": "2.6.0",
     "prop-types": "15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-helmet": "5.2.1"
+    "react-helmet": "5.2.1",
+    "react-material-ui-form-validator": "2.0.10"
   },
   "devDependencies": {
     "json-loader": "0.5.7"
