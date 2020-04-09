@@ -88,8 +88,6 @@ function DeleteFeedDialogButton({ feed }) {
 
 DeleteFeedDialogButton.propTypes = {
   feed: PropTypes.object,
-  // 'feed.id': PropTypes.string,
-  // 'feed.url': PropTypes.string,
 };
 
 export default DeleteFeedDialogButton;
