@@ -10,7 +10,6 @@ import {
   ListItem,
   Drawer,
   Divider,
-  Grid,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
