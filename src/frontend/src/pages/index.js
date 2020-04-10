@@ -96,7 +96,7 @@ export default function IndexPage() {
       <Banner />
       <ScrollToTop />
       <main>
-        {posts.length > 0 ? <Posts posts={posts} /> : null}
+        <Posts posts={posts} />
         {currentNumPosts !== initNumPosts ? <CustomizedSnackBar posts={currentNumPosts} /> : null}
       </main>
       <footer>© {new Date().getFullYear()}</footer>

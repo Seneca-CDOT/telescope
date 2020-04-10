@@ -17,18 +17,20 @@ const Posts = ({ posts }) => {
 
   return (
     <Container className={classes.root}>
-      {posts.map(({ id, feed, html, title, url, updated }) => (
-        <Post
-          key={id}
-          id={id}
-          author={feed.author}
-          url={url}
-          html={html}
-          title={title}
-          date={updated}
-          link={feed.link}
-        />
-      ))}
+      {posts.length > 0
+        ? posts.map(({ id, feed, html, title, url, updated }) => (
+            <Post
+              key={id}
+              id={id}
+              author={feed.author}
+              url={url}
+              html={html}
+              title={title}
+              date={updated}
+              link={feed.link}
+            />
+          ))
+        : null}
     </Container>
   );
 };
