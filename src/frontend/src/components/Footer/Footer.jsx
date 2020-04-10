@@ -6,7 +6,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     top: 'auto',
     bottom: 0,
-    backgroundColor: theme.palette.primary.main,
   },
   footer: {
     textAlign: 'center',
@@ -20,8 +19,8 @@ const Footer = () => {
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12}>
-        <Typography className={classes.footer}>
-          Copyright © 2020 Seneca’s Centre for Development of Open Technology
+        <Typography variant="h6" className={classes.footer}>
+          Copyright © {new Date().getFullYear()} Seneca’s Centre for Development of Open Technology
         </Typography>
       </Grid>
     </Grid>

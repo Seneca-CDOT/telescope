@@ -99,7 +99,6 @@ export default function IndexPage() {
         <Posts posts={posts} />
         {currentNumPosts !== initNumPosts ? <CustomizedSnackBar posts={currentNumPosts} /> : null}
       </main>
-      <footer>© {new Date().getFullYear()}</footer>
     </PageBase>
   );
 }
