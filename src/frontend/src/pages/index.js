@@ -92,16 +92,14 @@ export default function IndexPage() {
   }, [currentNumPosts]);
 
   return (
-    <PageBase>
-      <>
-        <Banner className="banner" />
-        <ScrollToTop />
-        <main className="main">
-          {posts.length > 0 ? <Posts posts={posts} /> : null}
-          {currentNumPosts !== initNumPosts ? <CustomizedSnackBar posts={currentNumPosts} /> : null}
-        </main>
-        <footer>© {new Date().getFullYear()}</footer>
-      </>
+    <PageBase title="Home">
+      <Banner />
+      <ScrollToTop />
+      <main>
+        <Posts posts={posts} />
+        {currentNumPosts !== initNumPosts ? <CustomizedSnackBar posts={currentNumPosts} /> : null}
+      </main>
+      <footer>© {new Date().getFullYear()}</footer>
     </PageBase>
   );
 }
