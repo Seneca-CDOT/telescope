@@ -156,7 +156,6 @@ export default function MyFeeds() {
                 <Typography variant="h3" component="h3" align="center">
                   My Feeds
                 </Typography>
-                <ExistingFeedList feedHash={feedHash} />
                 <Grid container spacing={5}>
                   <Grid item>
                     <Grid container spacing={1} alignItems="flex-end">
@@ -215,6 +214,7 @@ export default function MyFeeds() {
                     </Grid>
                   </Grid>
                 </Grid>
+                <ExistingFeedList feedHash={feedHash} />
               </Box>
             </Card>
           </Container>
