@@ -48,6 +48,7 @@ FROM dependencies as builder
 
 COPY ./src/frontend ./src/frontend
 COPY ./.git ./.git
+COPY ./.env ./.env
 
 RUN npm run build
 
