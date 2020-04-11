@@ -9,7 +9,7 @@ jest.mock('../src/backend/utils/elastic');
 // Mock the internal authentication strategy
 jest.mock('../src/backend/web/authentication');
 // Use our authentication test helper
-const { login, logout } = require('./lib/authentication');
+const { login, loginAdmin, logout } = require('./lib/authentication');
 
 describe('test GET /feeds endpoint', () => {
   const createdItems = 150;
@@ -184,6 +184,25 @@ describe('test DELETE /feeds/:id endpoint', () => {
     expect(res.status).toEqual(204);
 
     // ensure deletion of the feed
+    res = await request(app).get(`/feeds/${feedId}`);
+    expect(res.status).toEqual(404);
+  });
+
+  it('should respond with a 204 status when admin deletes a feed owned by user', async () => {
+    // logging in as regular user
+    const user = login('Johannes Kepler', 'user1@example.com');
+    const feedData = generateFeedData(user);
+    let res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+    feedId = res.body.id;
+
+    // login as admin and delete the feed
+    loginAdmin();
+    res = await request(app).delete(`/feeds/${feedId}`);
+    expect(res.status).toEqual(204);
+
+    // ensure deletion of the feed
+    logout();
     res = await request(app).get(`/feeds/${feedId}`);
     expect(res.status).toEqual(404);
   });

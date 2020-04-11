@@ -63,27 +63,31 @@ function checkUser(requireAdmin, redirect, req, res, next) {
   }
 }
 
-// We'll deal with admin via init(), just let this pass
-function administration() {
-  return function (req, res, next) {
-    next();
-  };
+/**
+ * If we're logged in, build and return the appropriate user type (User vs. Admin).
+ * If we're not logged in, return null.
+ */
+function createUser() {
+  if (!loggedInUser) {
+    return null;
+  }
+
+  if (loggedInUser.isAdmin) {
+    return new Admin(loggedInUser.name, loggedInUser.email, loggedInUser.id);
+  }
+  return new User(loggedInUser.name, loggedInUser.email, loggedInUser.id);
 }
 
 function protect(redirect) {
   return function (req, res, next) {
-    if (loggedInUser) {
-      req.user = new User(loggedInUser.name, loggedInUser.email, loggedInUser.id);
-    }
+    req.user = createUser();
     checkUser(false, redirect, req, res, next);
   };
 }
 
 function protectAdmin(redirect) {
   return function (req, res, next) {
-    if (loggedInUser) {
-      req.user = new Admin(loggedInUser.name, loggedInUser.email, loggedInUser.id);
-    }
+    req.user = createUser();
     checkUser(true, redirect, req, res, next);
   };
 }
@@ -91,5 +95,4 @@ function protectAdmin(redirect) {
 module.exports.init = init;
 module.exports.protect = protect;
 module.exports.protectAdmin = protectAdmin;
-module.exports.administration = administration;
 module.exports.samlMetadata = samlMetadata;

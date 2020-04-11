@@ -13,6 +13,7 @@ class User {
       name: this.name,
       email: this.email,
       id: this.id,
+      isAdmin: this.isAdmin,
     };
   }
 
