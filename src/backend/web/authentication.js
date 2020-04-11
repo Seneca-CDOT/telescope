@@ -66,13 +66,21 @@ function init() {
     SLO_LOGOUT_CALLBACK_URL,
   } = getAuthEnv();
 
-  // Add session user object de/serialize functions. We put the whole
-  // user object on the session unaltered.
   passport.serializeUser(function (user, done) {
     done(null, user);
   });
   passport.deserializeUser(function (user, done) {
-    done(null, new User(user.name, user.email, user.id));
+    /**
+     * We need to rehydrate a full user Object, using one of User or Admin.  To do
+     * so we determine this based on the current user's id (i.e. nameID in SAML)
+     * matching what we have set in the env for ADMINISTRATORS.  There can be
+     * more than one admin user.
+     */
+    if (Admin.isAdmin(user.id)) {
+      done(null, new Admin(user.name, user.email, user.id));
+    } else {
+      done(null, new User(user.name, user.email, user.id));
+    }
   });
 
   // Setup SAML authentication strategy
@@ -174,42 +182,6 @@ function checkUser(requireAdmin, redirect, req, res, next) {
 }
 
 /**
- * We define an administrator as someone who is specified in the .env
- * ADMINISTRATORS variable list. We support bare email addresses and hashed.
- * See env.sample for more details.
- */
-function getAdminList(administrators) {
-  return administrators ? administrators.split(' ') : [];
-}
-const admins = getAdminList(process.env.ADMINISTRATORS);
-
-// See if this user id is in the admins env as a raw or hashed value
-function userIsAdmin(id) {
-  return admins.some((admin) => id === admin || id === hash(admin));
-}
-
-/**
- * Middleware to determine if a user on the session is an administrator or not.
- * If this is an admin, we upgrade the User type to an Admin type.  We determine this
- * based on the current user's id (i.e. ,nameID in SAML) matching what we have set
- * in the env for ADMINISTRATORS.  There can be more than one admin user.  After
- * this middleware updates the `user`, you can use `req.user.isAdmin` to check
- * whether or not a user is an administrator.
- */
-function administration() {
-  return function (req, res, next) {
-    if (req.user && req.user.id) {
-      const { user } = req;
-      if (userIsAdmin(user.id)) {
-        // Upgrade User to an Admin
-        req.user = new Admin(user.name, user.email, user.id);
-      }
-    }
-    next();
-  };
-}
-
-/**
  * Middleware to make sure that a route is authenticated. If the user is
  * already authenticated, your route will be called. If the user is already
  * authenticated, the next() route will be be called, otherwise an HTTP 403
@@ -251,5 +223,4 @@ function protectAdmin(redirect) {
 module.exports.init = init;
 module.exports.protect = protect;
 module.exports.protectAdmin = protectAdmin;
-module.exports.administration = administration;
 module.exports.samlMetadata = samlMetadata;
