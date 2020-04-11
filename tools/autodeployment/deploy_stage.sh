@@ -3,7 +3,7 @@
 # Shutdown
 cd ../telescope
 
-docker-compose -f docker-compose-staging.yml down
+docker-compose -f docker-compose-production.yml down
 
 docker system prune -af --volumes
 
@@ -21,4 +21,4 @@ cd telescope/
 
 cp env.staging .env
 
-docker-compose -f docker-compose-staging.yml up -d
+docker-compose -f docker-compose-production.yml up -d
