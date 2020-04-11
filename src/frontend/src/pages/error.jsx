@@ -1,15 +1,9 @@
 import React from 'react';
+import { Card, CardActions, CardContent, Fab, Grid, Typography } from '@material-ui/core';
 import PageBase from './PageBase';
-import Typography from '@material-ui/core/Typography';
-import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
-import { Fab } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import DynamicBackgroundContainer from '../components/DynamicBackgroundContainer';
-import url from 'url';
+import DynamicBackgroundContainer from '../components/DynamicBackgroundContainer.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2rem',
     padding: theme.spacing(4),
     color: theme.palette.grey[300],
-    // backgroundColor: theme.palette.error.light,
     borderRadius: theme.spacing(1),
   },
   link: {
@@ -101,18 +94,26 @@ const useStyles = makeStyles((theme) => ({
 function CreateInnerErrorContent(props) {
   const classes = useStyles();
 
-  const errorMessages = {
-    '400': 'We did not understand the request!',
-    '401': 'You are not authorized to view this page!',
-    '403': 'Access is not allowed for the requested page!',
-    '404': 'We could not find what you were looking for!',
-    '405': 'Method is not allowed!',
-  };
+  const errorMessages = new Proxy(
+    {
+      '400': 'We did not understand the request!',
+      '401': 'You are not authorized to view this page!',
+      '403': 'Access is not allowed for the requested page!',
+      '404': 'We could not find what you were looking for!',
+      '405': 'Method is not allowed!',
+    },
+    {
+      get: function (object, property) {
+        return object.hasOwnProperty(property) ? object[property] : 'Something went wrong!';
+      },
+    }
+  );
 
-  if (props.status != '500' && !props.message) {
+  // If server doesn't send us a custom message, use ones defined above.
+  if (!props.message) {
     return (
       <Typography variant="body1" className={classes.h2}>
-        {errorMessages[props.status]}{' '}
+        {errorMessages[props.status]}
       </Typography>
     );
   }
@@ -123,44 +124,40 @@ function CreateInnerErrorContent(props) {
   );
 }
 
-const ErrorPage = (props) => {
+const ErrorPage = ({ location }) => {
   const classes = useStyles();
-  const params = new URLSearchParams(document.location.search);
+  const params = new URLSearchParams(location.search);
   const status = params.get('status');
   const message = params.get('message');
-
-  console.log(message);
 
   return (
     <PageBase title={status}>
       <Grid container spacing={0} direction="column" alignItems="center" justify="center">
         <Grid item xs={8}>
-          <ThemeProvider>
-            <Card className={classes.root} elevation={6}>
-              <CardContent>
-                <Typography variant="h1" className={classes.h1}>
-                  {status}
+          <Card className={classes.root} elevation={6}>
+            <CardContent>
+              <Typography variant="h1" className={classes.h1}>
+                {status}
+              </Typography>
+
+              <CreateInnerErrorContent status={status} message={message} />
+            </CardContent>
+
+            <CardActions
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                transition: 'all linear 350ms',
+              }}
+            >
+              <Fab variant="extended" href="/" className={classes.fab}>
+                <ArrowBack />
+                <Typography variant="body2" className={classes.buttonText}>
+                  Let's Go Back
                 </Typography>
-
-                <CreateInnerErrorContent status={status} message={message} />
-              </CardContent>
-
-              <CardActions
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-end',
-                  transition: 'all linear 350ms',
-                }}
-              >
-                <Fab variant="extended" href="/" className={classes.fab}>
-                  <ArrowBack />
-                  <Typography variant="body2" className={classes.buttonText}>
-                    Let's Go Back
-                  </Typography>
-                </Fab>
-              </CardActions>
-            </Card>
-          </ThemeProvider>
+              </Fab>
+            </CardActions>
+          </Card>
         </Grid>
       </Grid>
       <DynamicBackgroundContainer />

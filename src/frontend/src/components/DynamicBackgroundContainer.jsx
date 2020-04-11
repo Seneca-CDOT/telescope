@@ -25,24 +25,27 @@ export default function DynamicBackgroundContainer(props) {
 
   useEffect(() => {
     async function getBackgroundImgSrc() {
-      // Uses https://unsplash.com/collections/1538150/milkyway collection
-      /* Other Options:
+      try {
+        // Uses https://unsplash.com/collections/1538150/milkyway collection
+        /* Other Options:
         - https://unsplash.com/collections/291422/night-lights
         */
 
-      // Ensure we are using an image which fits correctly to user's viewspace
-      const dimensions = `${window.innerWidth}x${window.innerHeight}`;
-      console.log(dimensions);
-      const response = await fetch(`https://source.unsplash.com/collection/894/${dimensions}`);
+        // Ensure we are using an image which fits correctly to user's viewspace
+        const dimensions = `${window.innerWidth}x${window.innerHeight}`;
+        const response = await fetch(`https://source.unsplash.com/collection/894/${dimensions}`);
 
-      if (response.status !== 200) {
+        if (response.status !== 200) {
+          throw new Error(response.statusText);
+        }
+
+        setBackgroundImgSrc(response.url);
+      } catch (error) {
         setBackgroundImgSrc('../../images/hero-banner.png');
+        console.error(error);
+      } finally {
         setTransitionBackground(false);
-        throw new Error(response.statusText);
       }
-
-      setBackgroundImgSrc(response.url);
-      setTransitionBackground(false);
     }
 
     getBackgroundImgSrc();

@@ -141,7 +141,7 @@ function RetrieveBannerDynamicAssets() {
       setStats(localeStats);
     }
 
-    getBackgroundImgSrc();
+    getStats();
   }, [telescopeUrl]);
 
   return (

@@ -133,20 +133,29 @@ function protectWithRedirect(req, res, next) {
 }
 
 function throwCustomError(message, status) {
-  let err = Error(message);
+  const err = Error(message);
   err.status = status;
 
   throw err;
 }
 
 // If user is not authenticated, return an appropriate 400 error type
-function forbidden(req, res) {
-  throwCustomError('', 403);
+/* eslint-disable no-unused-vars */
+function forbidden(req, res, next) {
+  if (req.accepts('json')) {
+    res.status(403).json({
+      message: 'Forbidden',
+    });
+
+    return;
+  }
+
+  throwCustomError('Forbidden: Access is not allowed for the requested page!', 403);
 }
 
 // If we aren't redirecting, we're going to forbid this request
-function protectWithoutRedirect(req, res) {
-  forbidden(req, res);
+function protectWithoutRedirect(req, res, next) {
+  forbidden(req, res, next);
 }
 
 /**
@@ -166,7 +175,7 @@ function checkUser(requireAdmin, redirect, req, res, next) {
       }
       // Not an admin, so fail this now using best response type
       else {
-        forbidden(req, res);
+        forbidden(req, res, next);
       }
     } else {
       // We don't need an admin, and this is a regular authenticated user, let it pass

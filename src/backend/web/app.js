@@ -70,8 +70,9 @@ app.use('/', router);
 /**
  * Error Handler, Pass to front-end
  */
+/* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
-  logger.logger.error(err);
+  logger.logger.error({ error: err });
   const status = err.status || 500;
   res
     .status(status)
@@ -83,7 +84,7 @@ app.use((err, req, res, next) => {
  * Leverage .status because adding the `404` status in redirect causes "Not Found. Redirecting to /404?search=" to display.
  */
 app.use((req, res) => {
-  logger.logger.warn(req.url);
+  logger.logger.warn(`Attempted to access the following unknown URL: ${req.url}`);
   res.status(404).redirect(`/error?status=404`);
 });
 
