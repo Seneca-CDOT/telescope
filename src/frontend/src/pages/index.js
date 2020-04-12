@@ -45,6 +45,7 @@ export default function IndexPage() {
   const [endOfPosts, setEndOfPosts] = useState(true);
   const { telescopeUrl } = useSiteMetaData();
   const savedCallback = useRef();
+  const snackbarMessage = 'There is new content available!';
 
   // Pagination
   const [nextPageLink, setNextPageLink] = useState(`/posts?page=${numPages}`);
@@ -151,7 +152,7 @@ export default function IndexPage() {
       <Banner />
       <ScrollToTop />
       <main className="main">
-        {posts.length > 0 ? <Posts posts={posts} /> : null}
+        <Posts posts={posts} />
 
         <Grid container spacing={0} direction="column" alignItems="center" justify="center">
           <Grid item xs={12} className={classes.content}>
@@ -167,7 +168,9 @@ export default function IndexPage() {
           </Grid>
         </Grid>
 
-        {currentNumPosts !== initNumPosts ? <CustomizedSnackBar posts={currentNumPosts} /> : null}
+        {currentNumPosts !== initNumPosts ? (
+          <CustomizedSnackBar posts={currentNumPosts} message={snackbarMessage} />
+        ) : null}
       </main>
     </PageBase>
   );
