@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,20 +40,14 @@ const useStyles = makeStyles((theme) => ({
 
 function CustomizedInputBase(props) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    filter: '',
-  });
-  const { searchText, onChangeHandler } = props;
+  const { searchText, onChangeHandler, onFilterChangeHandler, filter } = props;
 
-  const handleChange = (filter) => (event) => {
-    setState({
-      ...state,
-      [filter]: event.target.value,
-    });
+  const onFilterChange = (event) => {
+    onFilterChangeHandler(event.target.value);
   };
 
   const onTextChange = (event) => {
-    onChangeHandler(event);
+    onChangeHandler(event.target.value);
   };
 
   return (
@@ -61,16 +56,16 @@ function CustomizedInputBase(props) {
         <FormControl className={classes.formControl}>
           <NativeSelect
             disableUnderline
-            value={state.filter}
-            onChange={handleChange('filter')}
+            value={filter}
+            onChange={(event) => onFilterChange(event)}
             name="filter"
             className={classes.selectEmpty}
             inputProps={{ 'aria-label': 'filter' }}
           >
-            <option value="">None</option>
             <option value="author">Author</option>
-            <option value="filter2">Filter2</option>
-            <option value="filter3">Filter3</option>
+            <option selected value="post">
+              Post
+            </option>
           </NativeSelect>
         </FormControl>
         <InputBase
@@ -85,4 +80,10 @@ function CustomizedInputBase(props) {
   );
 }
 
+CustomizedInputBase.propTypes = {
+  searchText: PropTypes.string,
+  onChangeHandler: PropTypes.func,
+  onFilterChangeHandler: PropTypes.func,
+  filter: PropTypes.string,
+};
 export default CustomizedInputBase;
