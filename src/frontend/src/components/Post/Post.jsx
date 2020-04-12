@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid } from '@material-ui/core';
-
+import lozad from 'lozad';
 import './telescope-post-content.css';
 
+const observer = lozad();
 const useStyles = makeStyles({
   root: {
     backgroundColor: 'rgba(255,255,255,0.7)',
@@ -39,10 +40,20 @@ function formatPublishedDate(dateString) {
   const formatted = new Intl.DateTimeFormat('en-CA', options).format(date);
   return `Last Updated ${formatted}`;
 }
-
+function lazyLoad(text) {
+  const dom = document.createElement('template');
+  dom.innerHTML = text;
+  dom.content.querySelectorAll('img').forEach(img => {
+    img.setAttribute('data-src', img.src);
+    img.removeAttribute('src');
+  });
+  document.querySelector('#post-content').appendChild(dom.content);
+}
 const Post = ({ id, html, author, url, title, date }) => {
   const classes = useStyles();
-
+  useEffect(() => {
+    observer.observe();
+  });
   return (
     <Container className={classes.root}>
       <header className={classes.header}>
@@ -57,7 +68,13 @@ const Post = ({ id, html, author, url, title, date }) => {
 
       <Grid container>
         <Grid item xs={12} className={classes.content}>
-          <section className="telescope-post-content" dangerouslySetInnerHTML={{ __html: html }} />
+          <section
+            id="post-content"
+            className="telescope-post-content"
+            dangerouslySetInnerHTML={{ __html: html }}
+          >
+            {lazyLoad(html)}
+          </section>
         </Grid>
       </Grid>
     </Container>
