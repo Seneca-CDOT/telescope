@@ -18,6 +18,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Login from '../Login';
+import Footer from '../Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,6 +67,12 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     lineHeight: 1.75,
   },
+  footer: {
+    textAlign: 'center',
+    color: 'white',
+    bottom: 5,
+    position: 'fixed',
+  },
 }));
 
 const Header = () => {
@@ -95,6 +102,9 @@ const Header = () => {
           ABOUT
         </ListItem>
         <Divider className={classes.line} />
+        <div className={classes.footer}>
+          <Footer />
+        </div>
       </List>
     </div>
   );
