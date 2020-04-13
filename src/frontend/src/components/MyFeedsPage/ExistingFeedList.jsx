@@ -1,41 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Grid, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, RssFeed } from '@material-ui/icons';
-import useSiteMetadata from '../../hooks/use-site-metadata';
 import DeleteFeedDialogButton from './DeleteFeedDialogButton.jsx';
 
-function ExistingFeedList({ userInfo }) {
-  const [feedHash, updateFeedHash] = useState({}); // { id1: {author: '...', url: '...'}, id2: {...}, ... }
-  const { telescopeUrl } = useSiteMetadata();
-
-  useEffect(() => {
-    if (userInfo.id) {
-      return;
-    }
-
-    (async function hashUserFeeds() {
-      try {
-        const response = await fetch(`${telescopeUrl}/user/feeds`);
-
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-
-        const userFeeds = await response.json();
-        const userFeedHash = userFeeds.reduce((hash, feed) => {
-          hash[feed.id] = { author: feed.author, url: feed.url };
-          return hash;
-        }, {});
-
-        updateFeedHash(userFeedHash);
-      } catch (error) {
-        console.error('Error hashing user feeds', error);
-      }
-    })();
-  }, [telescopeUrl, userInfo.id]);
-
-  if (Object.keys(feedHash).length) {
+function ExistingFeedList({ feedHash, numFeeds }) {
+  if (numFeeds) {
     return Object.keys(feedHash).map((id) => (
       <Grid container spacing={5} key={id}>
         <Grid item>
@@ -84,7 +54,12 @@ function ExistingFeedList({ userInfo }) {
 }
 
 ExistingFeedList.propTypes = {
-  userInfo: PropTypes.object,
+  feedHash: PropTypes.object,
+  numFeeds: PropTypes.number,
 };
 
-export default React.memo(ExistingFeedList);
+const areEqual = (prevProps, nextProps) => {
+  return prevProps.numFeeds === nextProps.numFeeds;
+};
+
+export default React.memo(ExistingFeedList, areEqual);
