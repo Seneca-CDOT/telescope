@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Card, Container, Grid, IconButton, Typography } from '@material-ui/core';
 import { AccountCircle, AddCircle, RssFeed } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -51,21 +51,6 @@ export default function MyFeeds() {
     return ValidatorForm.removeValidationRule.bind('isUrl');
   }, [telescopeUrl]);
 
-  const getUserFeeds = useCallback(async () => {
-    try {
-      const response = await fetch(`${telescopeUrl}/user/feeds`);
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.log('Failed to fetch /user/feeds', error);
-      return [];
-    }
-  }, [telescopeUrl]);
-
   useEffect(() => {
     if (userInfo.id) {
       return;
@@ -73,7 +58,13 @@ export default function MyFeeds() {
 
     (async function hashUserFeeds() {
       try {
-        const userFeeds = await getUserFeeds();
+        const response = await fetch(`${telescopeUrl}/user/feeds`);
+
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+
+        const userFeeds = await response.json();
 
         const userFeedHash = userFeeds.reduce((hash, feed) => {
           hash[feed.id] = { author: feed.author, url: feed.url };
@@ -85,7 +76,7 @@ export default function MyFeeds() {
         console.log('Error hashing user feeds', error);
       }
     })();
-  }, [telescopeUrl, userInfo, submitStatus, getUserFeeds, feedHash]);
+  }, [telescopeUrl, userInfo, feedHash]);
 
   async function addFeed() {
     try {
@@ -124,11 +115,9 @@ export default function MyFeeds() {
   }
 
   function deletionCallback(id) {
-    if (delete feedHash[id]) {
-      updateFeedHash(feedHash);
-    } else {
-      console.error(`Failed to remove feed ${id} from hash`);
-    }
+    const updatedHash = { ...feedHash };
+    delete updatedHash[id];
+    updateFeedHash(updatedHash);
   }
 
   return userInfo.id ? (
