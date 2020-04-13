@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Card, Container, Grid, IconButton, Typography } from '@material-ui/core';
 import { AccountCircle, AddCircle, RssFeed } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,9 +29,6 @@ export default function MyFeeds() {
   const [numFeeds, setNumFeeds] = useState(0);
 
   const { telescopeUrl } = useSiteMetadata();
-
-  const newFeedAuthorRef = useRef();
-  const newFeedUrlRef = useRef();
 
   useEffect(() => {
     (async function fetchUserInfo() {
@@ -86,12 +83,11 @@ export default function MyFeeds() {
       return allFeeds.filter((feed) => feed.user === userInfo.id);
     } catch (error) {
       console.log('Failed to fetch user feeds via /feeds endpoint', error);
-      throw error;
+      return [];
     }
   }, [telescopeUrl, userInfo]);
 
   useEffect(() => {
-    console.log('feedHash updated, setting numFeeds to', Object.keys(feedHash).length);
     setNumFeeds(Object.keys(feedHash).length);
   }, [feedHash]);
 
@@ -112,7 +108,6 @@ export default function MyFeeds() {
         updateFeedHash(userFeedHash);
       } catch (error) {
         console.log('Error hashing user feeds', error);
-        throw error;
       }
     })();
   }, [telescopeUrl, userInfo, submitStatus, getUserFeeds, feedHash]);
@@ -174,7 +169,6 @@ export default function MyFeeds() {
                         <TextValidator
                           label="Blog feed author"
                           name="author"
-                          ref={newFeedAuthorRef}
                           value={newFeedAuthor}
                           onChange={handleChange}
                           type="string"
@@ -193,7 +187,6 @@ export default function MyFeeds() {
                         <TextValidator
                           label="Blog feed URL"
                           name="url"
-                          ref={newFeedUrlRef}
                           value={newFeedUrl}
                           onChange={handleChange}
                           type="url"

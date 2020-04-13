@@ -5,8 +5,8 @@ import { AccountCircle, RssFeed } from '@material-ui/icons';
 import DeleteFeedDialogButton from './DeleteFeedDialogButton.jsx';
 
 function ExistingFeedList({ feedHash, numFeeds }) {
-  if (numFeeds) {
-    return Object.keys(feedHash).map((id) => (
+  return numFeeds ? (
+    Object.keys(feedHash).map((id) => (
       <Grid container spacing={5} key={id}>
         <Grid item>
           <Grid container spacing={1} alignItems="flex-end">
@@ -44,9 +44,8 @@ function ExistingFeedList({ feedHash, numFeeds }) {
           </Grid>
         </Grid>
       </Grid>
-    ));
-  }
-  return (
+    ))
+  ) : (
     <Typography align="center">
       <em>(It looks like you have not added any blog feeds yet.)</em>
     </Typography>
