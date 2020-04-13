@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Box } from '@material-ui/core';
 import { Link } from 'gatsby';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
@@ -17,8 +17,14 @@ const useStyles = makeStyles({
     color: 'white',
     lineHeight: 1,
   },
-  avatar: {
-    height: '1em',
+  item: {
+    color: 'white',
+    fontFamily: 'Roboto, sans-serif',
+    textDecoration: 'none',
+    fontSize: '1.5rem',
+    justifyContent: 'center',
+    fontWeight: 500,
+    lineHeight: 1.75,
   },
 });
 
@@ -29,19 +35,18 @@ function LoggedIn(props) {
 
   return (
     <div>
-      <Button className={classes.button}>
-        <a href={logoutUrl} className={classes.link}>
-          Logout
-        </a>
-      </Button>
-      <Link to="/myfeeds" className={classes.links}>
-        <Typography variant="h4">| {props.name}</Typography>
-      </Link>
-      <img
-        className={classes.avatar}
-        src={`https://unavatar.now.sh/${props.name}`}
-        alt={props.email}
-      />
+      <Box component="div" display="inline">
+        <Button className={classes.button}>
+          <a href={logoutUrl} className={classes.link}>
+            Logout
+          </a>
+        </Button>
+      </Box>
+      <Box component="div" display="inline">
+        <Link to="/myfeeds" className={classes.item}>
+          | {props.name}
+        </Link>
+      </Box>
     </div>
   );
 }
