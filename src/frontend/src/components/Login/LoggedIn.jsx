@@ -25,6 +25,7 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     fontWeight: 500,
     lineHeight: 1.75,
+    textTransform: 'uppercase',
   },
 });
 
@@ -44,7 +45,7 @@ function LoggedIn(props) {
       </Box>
       <Box component="div" display="inline">
         <Link to="/myfeeds" className={classes.item}>
-          | {props.name}
+          {props.name}
         </Link>
       </Box>
     </div>

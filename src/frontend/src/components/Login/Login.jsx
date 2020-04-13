@@ -1,5 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import LoggedIn from './LoggedIn.jsx';
+import LoggedOut from './LoggedOut.jsx';
 import useSiteMetadata from '../../hooks/use-site-metadata';
+
+/**
+ * Show either a Login button (if user isn't authenticated)
+ * or a welcome message and Logout button.
+ */
 
 function Login() {
   const { telescopeUrl } = useSiteMetadata();
@@ -34,7 +41,7 @@ function Login() {
     getUserInfo();
   }, [telescopeUrl]);
 
-  return email ? { name } : false;
+  return email ? <LoggedIn name={name} /> : <LoggedOut />;
 }
 
 export default Login;
