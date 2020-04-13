@@ -4,11 +4,11 @@ set -u
 set -x
 
 # Set DOCKER_FILE + ENV_FILE
-if [ $1 = 'production']
+if [ $1 = 'production' ]
 then
   DOCKER_FILE=docker-compose-production.yml
   ENV_FILE=env.production
-elif [ $1 = 'staging']
+elif [ $1 = 'staging' ]
 then
   DOCKER_FILE=docker-compose-staging.yml
   ENV_FILE=env.staging
