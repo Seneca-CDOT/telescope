@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Card, Container, Grid, IconButton, Typography } from '@material-ui/core';
 import { AccountCircle, AddCircle, RssFeed } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,13 +24,13 @@ export default function MyFeeds() {
   const [newFeedAuthor, setNewFeedAuthor] = useState('');
   const [newFeedUrl, setNewFeedUrl] = useState('');
   const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
+  const [lastUpdated, setLastUpdated] = useState('');
   const [userInfo, setUserInfo] = useState({});
-  const [feedHash, updateFeedHash] = useState({}); // { id1: {author: '...', url: '...'}, id2: {...}, ... }
 
   const { telescopeUrl } = useSiteMetadata();
 
-  const newFeedAuthorRef = React.useRef();
-  const newFeedUrlRef = React.useRef();
+  const newFeedAuthorRef = useRef();
+  const newFeedUrlRef = useRef();
 
   useEffect(() => {
     (async function fetchUserInfo() {
@@ -54,61 +54,6 @@ export default function MyFeeds() {
     return ValidatorForm.removeValidationRule.bind('isUrl');
   }, [telescopeUrl]);
 
-  const getUserFeeds = useCallback(async () => {
-    try {
-      const response = await fetch(`${telescopeUrl}/user/feeds`);
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.log('Failed to fetch /user/feeds', error);
-    }
-    // TODO remove the following try/catch block once GET /user/feeds is implemented
-    try {
-      console.log('Attempting to fetch user feeds via /feeds endpoint');
-      const response = await fetch(`${telescopeUrl}/feeds`);
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      const feedItems = await response.json();
-
-      const allFeedsData = await Promise.all(
-        feedItems.map((item) => fetch(`${telescopeUrl}${item.url}`))
-      );
-      const allFeeds = await Promise.all(allFeedsData.map((res) => res.json()));
-
-      return allFeeds.filter((feed) => feed.user === userInfo.id);
-    } catch (error) {
-      console.log('Failed to fetch user feeds via /feeds endpoint', error);
-      throw error;
-    }
-  }, [telescopeUrl, userInfo]);
-
-  useEffect(() => {
-    if (userInfo.id || submitStatus.isError === false) {
-      (async function hashUserFeeds() {
-        try {
-          const userFeeds = await getUserFeeds();
-
-          const userFeedHash = userFeeds.reduce((hash, feed) => {
-            hash[feed.id] = { author: feed.author, url: feed.url };
-            return hash;
-          }, {});
-
-          updateFeedHash(userFeedHash);
-        } catch (error) {
-          console.log('Error hashing user feeds', error);
-          throw error;
-        }
-      })();
-    }
-  }, [telescopeUrl, userInfo, submitStatus, getUserFeeds]);
-
   async function addFeed() {
     try {
       const response = await fetch(`${telescopeUrl}/feeds`, {
@@ -122,14 +67,16 @@ export default function MyFeeds() {
           url: newFeedUrl,
         }),
       });
-      setSubmitStatus(
-        response.ok
-          ? { message: 'Feed added successfully', isError: false }
-          : { message: `Error: ${response.status} ${response.statusText}`, isError: true }
-      );
+      if (response.ok) {
+        setSubmitStatus({ message: 'Feed added successfully', isError: false });
+        setNewFeedUrl('');
+        setLastUpdated(Date.now());
+      } else {
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
     } catch (error) {
       setSubmitStatus({ message: error.message, isError: true });
-      console.log('Error adding feeds', error);
+      console.log('Error adding feed', error);
     }
   }
 
@@ -142,14 +89,10 @@ export default function MyFeeds() {
     }
   }
 
-  function handleBlur(event, ref) {
-    ref.current.validate(event.target.value, true);
-  }
-
   return userInfo.id ? (
     <PageBase title="My Feeds">
       <div className={classes.margin}>
-        <ValidatorForm onSubmit={addFeed}>
+        <ValidatorForm onSubmit={addFeed} instantValidate={false}>
           <Container maxWidth="xs" bgcolor="aliceblue">
             <Card>
               <Box px={2} py={1}>
@@ -168,7 +111,6 @@ export default function MyFeeds() {
                           name="author"
                           ref={newFeedAuthorRef}
                           value={newFeedAuthor}
-                          onBlur={(event) => handleBlur(event, newFeedAuthorRef)}
                           onChange={handleChange}
                           type="string"
                           validators={['required', 'trim']}
@@ -188,7 +130,6 @@ export default function MyFeeds() {
                           name="url"
                           ref={newFeedUrlRef}
                           value={newFeedUrl}
-                          onBlur={(event) => handleBlur(event, newFeedUrlRef)}
                           onChange={handleChange}
                           type="url"
                           validators={['required', 'isUrl']}
@@ -214,7 +155,7 @@ export default function MyFeeds() {
                     </Grid>
                   </Grid>
                 </Grid>
-                <ExistingFeedList feedHash={feedHash} />
+                <ExistingFeedList userInfo={userInfo} lastUpdated={lastUpdated} />
               </Box>
             </Card>
           </Container>

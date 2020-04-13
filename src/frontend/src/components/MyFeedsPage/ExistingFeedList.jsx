@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { TextValidator } from 'react-material-ui-form-validator';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, RssFeed } from '@material-ui/icons';
+import useSiteMetadata from '../../hooks/use-site-metadata';
 import DeleteFeedDialogButton from './DeleteFeedDialogButton.jsx';
 
-function ExistingFeedList({ feedHash }) {
+function ExistingFeedList({ userInfo }) {
+  const [feedHash, updateFeedHash] = useState({}); // { id1: {author: '...', url: '...'}, id2: {...}, ... }
+  const { telescopeUrl } = useSiteMetadata();
+
+  useEffect(() => {
+    if (userInfo.id) {
+      (async function hashUserFeeds() {
+        try {
+          const response = await fetch(`${telescopeUrl}/user/feeds`);
+
+          if (!response.ok) {
+            throw new Error(response.statusText);
+          }
+
+          const userFeeds = await response.json();
+          const userFeedHash = userFeeds.reduce((hash, feed) => {
+            hash[feed.id] = { author: feed.author, url: feed.url };
+            return hash;
+          }, {});
+
+          updateFeedHash(userFeedHash);
+        } catch (error) {
+          console.log('Error hashing user feeds', error);
+          throw error;
+        }
+      })();
+    }
+  }, [telescopeUrl, userInfo.id]);
+
   if (Object.keys(feedHash).length) {
     return Object.keys(feedHash).map((id) => (
       <Grid container spacing={5} key={id}>
@@ -15,7 +43,7 @@ function ExistingFeedList({ feedHash }) {
               <AccountCircle />
             </Grid>
             <Grid item>
-              <TextValidator
+              <TextField
                 disabled
                 label="Blog feed author"
                 name="author"
@@ -31,7 +59,7 @@ function ExistingFeedList({ feedHash }) {
               <RssFeed />
             </Grid>
             <Grid item>
-              <TextValidator
+              <TextField
                 disabled
                 label="Blog feed URL"
                 name="url"
@@ -55,7 +83,7 @@ function ExistingFeedList({ feedHash }) {
 }
 
 ExistingFeedList.propTypes = {
-  feedHash: PropTypes.object,
+  userInfo: PropTypes.object,
 };
 
-export default ExistingFeedList;
+export default React.memo(ExistingFeedList);
