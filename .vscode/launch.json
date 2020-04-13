@@ -4,8 +4,9 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/src/index.js",
+      "name": "Launch Telescope",
+      "program": "${workspaceFolder}/src/backend/index.js",
+      "envFile": "${workspaceRoot}/.env",
       "skipFiles": ["<node_internals>/**"]
     }
   ]
