@@ -62,6 +62,13 @@ Then use `add-feed`
 
 `add-feed --name "Bender Bending Rodriguez" --url futurama.wordpress.com/feed`
 
+## Debugging
+
+The Telescope backend can be debugged using VSCode. See the [VSCode Debugging docs](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) and use the Launch Telescope configuration to start the server and debugger within VSCode.
+
+The Telescope frontend can be debugged in the browser using dev tools and the
+React Developer Tools [for Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) and [for Firefox](https://addons.mozilla.org/en-CA/firefox/addon/react-devtools/).
+
 ## Squashing Commits
 
 Before creating your pull request you may want to squash all your commits down to one. Ideally this should be done before you rebase on the upstream master.
