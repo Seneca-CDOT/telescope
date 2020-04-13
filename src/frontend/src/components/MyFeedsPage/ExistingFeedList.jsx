@@ -11,27 +11,28 @@ function ExistingFeedList({ userInfo }) {
 
   useEffect(() => {
     if (userInfo.id) {
-      (async function hashUserFeeds() {
-        try {
-          const response = await fetch(`${telescopeUrl}/user/feeds`);
-
-          if (!response.ok) {
-            throw new Error(response.statusText);
-          }
-
-          const userFeeds = await response.json();
-          const userFeedHash = userFeeds.reduce((hash, feed) => {
-            hash[feed.id] = { author: feed.author, url: feed.url };
-            return hash;
-          }, {});
-
-          updateFeedHash(userFeedHash);
-        } catch (error) {
-          console.log('Error hashing user feeds', error);
-          throw error;
-        }
-      })();
+      return;
     }
+
+    (async function hashUserFeeds() {
+      try {
+        const response = await fetch(`${telescopeUrl}/user/feeds`);
+
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+
+        const userFeeds = await response.json();
+        const userFeedHash = userFeeds.reduce((hash, feed) => {
+          hash[feed.id] = { author: feed.author, url: feed.url };
+          return hash;
+        }, {});
+
+        updateFeedHash(userFeedHash);
+      } catch (error) {
+        console.error('Error hashing user feeds', error);
+      }
+    })();
   }, [telescopeUrl, userInfo.id]);
 
   if (Object.keys(feedHash).length) {
