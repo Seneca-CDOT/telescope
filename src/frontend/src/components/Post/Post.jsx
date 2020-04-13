@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid } from '@material-ui/core';
-
 import syntaxHighlight from './syntax-highlight';
 import './telescope-post-content.css';
 
@@ -54,12 +53,23 @@ function formatPublishedDate(dateString) {
   return `Last Updated ${formatted}`;
 }
 
+function lazyLoad(text) {
+  const dom = document.createElement('template');
+  dom.innerHTML = text;
+  dom.content.querySelectorAll('img').forEach((img) => {
+    img.setAttribute('loading', 'lazy');
+  });
+
+  return dom.innerHTML;
+}
 const Post = ({ id, html, author, url, title, date, link }) => {
   const classes = useStyles();
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef(null);
   // When we initialize, find and highlight all <pre> elements contained within.
-  useEffect(() => syntaxHighlight(sectionEl.current), [sectionEl]);
+  useEffect(() => {
+    syntaxHighlight(sectionEl.current);
+  }, [sectionEl]);
 
   return (
     <Container className={classes.root}>
@@ -85,7 +95,7 @@ const Post = ({ id, html, author, url, title, date, link }) => {
           <section
             ref={sectionEl}
             className="telescope-post-content"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: lazyLoad(html) }}
           />
         </Grid>
       </Grid>
