@@ -4,8 +4,8 @@ import { Grid, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, RssFeed } from '@material-ui/icons';
 import DeleteFeedDialogButton from './DeleteFeedDialogButton.jsx';
 
-function ExistingFeedList({ feedHash, numFeeds }) {
-  return numFeeds ? (
+function ExistingFeedList({ feedHash, deletionCallback }) {
+  return Object.keys(feedHash).length ? (
     Object.keys(feedHash).map((id) => (
       <Grid container spacing={5} key={id}>
         <Grid item>
@@ -39,7 +39,10 @@ function ExistingFeedList({ feedHash, numFeeds }) {
               />
             </Grid>
             <Grid item>
-              <DeleteFeedDialogButton feed={{ id, ...feedHash[id] }} />
+              <DeleteFeedDialogButton
+                feed={{ id, ...feedHash[id] }}
+                deletionCallback={deletionCallback}
+              />
             </Grid>
           </Grid>
         </Grid>
@@ -54,11 +57,11 @@ function ExistingFeedList({ feedHash, numFeeds }) {
 
 ExistingFeedList.propTypes = {
   feedHash: PropTypes.object,
-  numFeeds: PropTypes.number,
+  deletionCallback: PropTypes.func,
 };
 
 const areEqual = (prevProps, nextProps) => {
-  return prevProps.numFeeds === nextProps.numFeeds;
+  return Object.keys(prevProps.feedHash).length === Object.keys(nextProps.feedHash).length;
 };
 
 export default React.memo(ExistingFeedList, areEqual);

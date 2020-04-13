@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function DeleteFeedDialogButton({ feed }) {
+function DeleteFeedDialogButton({ feed, deletionCallback }) {
   const { id, url } = feed;
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
@@ -41,6 +41,8 @@ function DeleteFeedDialogButton({ feed }) {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
+
+      deletionCallback(id);
 
       console.log(`Feed removed successfully`);
     } catch (error) {
@@ -88,6 +90,7 @@ function DeleteFeedDialogButton({ feed }) {
 
 DeleteFeedDialogButton.propTypes = {
   feed: PropTypes.object,
+  deletionCallback: PropTypes.func,
 };
 
 export default DeleteFeedDialogButton;

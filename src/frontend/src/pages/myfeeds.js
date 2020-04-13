@@ -26,7 +26,6 @@ export default function MyFeeds() {
   const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
   const [userInfo, setUserInfo] = useState({});
   const [feedHash, updateFeedHash] = useState({});
-  const [numFeeds, setNumFeeds] = useState(0);
 
   const { telescopeUrl } = useSiteMetadata();
 
@@ -68,10 +67,6 @@ export default function MyFeeds() {
   }, [telescopeUrl]);
 
   useEffect(() => {
-    setNumFeeds(Object.keys(feedHash).length);
-  }, [feedHash]);
-
-  useEffect(() => {
     if (userInfo.id) {
       return;
     }
@@ -109,8 +104,7 @@ export default function MyFeeds() {
         setSubmitStatus({ message: 'Feed added successfully', isError: false });
         setNewFeedUrl('');
         const addedFeed = await response.json();
-        const { id, author, url } = addedFeed;
-        updateFeedHash({ [id]: { author, url }, ...feedHash });
+        updateFeedHash({ [addedFeed.id]: { author: newFeedAuthor, url: newFeedUrl }, ...feedHash });
       } else {
         throw new Error(`${response.status} ${response.statusText}`);
       }
@@ -126,6 +120,14 @@ export default function MyFeeds() {
       setNewFeedAuthor(value);
     } else {
       setNewFeedUrl(value);
+    }
+  }
+
+  function deletionCallback(id) {
+    if (delete feedHash[id]) {
+      updateFeedHash(feedHash);
+    } else {
+      console.error(`Failed to remove feed ${id} from hash`);
     }
   }
 
@@ -193,7 +195,7 @@ export default function MyFeeds() {
                     </Grid>
                   </Grid>
                 </Grid>
-                <ExistingFeedList feedHash={feedHash} numFeeds={numFeeds} />
+                <ExistingFeedList feedHash={feedHash} deletionCallback={deletionCallback} />
               </Box>
             </Card>
           </Container>
