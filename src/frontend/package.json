@@ -26,7 +26,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "5.2.1",
-    "react-material-ui-form-validator": "2.0.10"
+    "react-material-ui-form-validator": "2.0.10",
+    "parse-link-header": "1.0.1"
   },
   "devDependencies": {
     "json-loader": "0.5.7"

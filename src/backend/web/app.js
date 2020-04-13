@@ -23,7 +23,7 @@ app.use(helmet());
 
 // Enable CORS and preflight checks on all routes
 const corsOptions = {
-  exposedHeaders: 'X-Total-Count',
+  exposedHeaders: ['X-Total-Count', 'Link'],
 };
 app.use(cors(corsOptions));
 
