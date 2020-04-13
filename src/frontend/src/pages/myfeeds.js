@@ -63,29 +63,9 @@ export default function MyFeeds() {
       return await response.json();
     } catch (error) {
       console.log('Failed to fetch /user/feeds', error);
-    }
-    // TODO remove the following try/catch block once GET /user/feeds is implemented
-    try {
-      console.log('Attempting to fetch user feeds via /feeds endpoint');
-      const response = await fetch(`${telescopeUrl}/feeds`);
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      const feedItems = await response.json();
-
-      const allFeedsData = await Promise.all(
-        feedItems.map((item) => fetch(`${telescopeUrl}${item.url}`))
-      );
-      const allFeeds = await Promise.all(allFeedsData.map((res) => res.json()));
-
-      return allFeeds.filter((feed) => feed.user === userInfo.id);
-    } catch (error) {
-      console.log('Failed to fetch user feeds via /feeds endpoint', error);
       return [];
     }
-  }, [telescopeUrl, userInfo]);
+  }, [telescopeUrl]);
 
   useEffect(() => {
     setNumFeeds(Object.keys(feedHash).length);
