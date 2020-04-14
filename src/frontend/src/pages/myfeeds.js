@@ -42,7 +42,7 @@ export default function MyFeeds() {
         setUserInfo(user);
         setNewFeedAuthor(user.name);
       } catch (error) {
-        console.log('Failed to fetch user information', error);
+        console.error('Failed to fetch user information', error);
         window.location.href = `${telescopeUrl}/404`;
       }
     })();
@@ -73,7 +73,7 @@ export default function MyFeeds() {
 
         updateFeedHash(userFeedHash);
       } catch (error) {
-        console.log('Error hashing user feeds', error);
+        console.error('Error hashing user feeds', error);
       }
     })();
   }, [telescopeUrl, userInfo, feedHash]);
@@ -91,17 +91,18 @@ export default function MyFeeds() {
           url: newFeedUrl,
         }),
       });
+      const data = await response.json();
       if (response.ok) {
-        setSubmitStatus({ message: 'Feed added successfully', isError: false });
+        setSubmitStatus({ message: data.message, isError: false });
         setNewFeedUrl('');
-        const addedFeed = await response.json();
-        updateFeedHash({ [addedFeed.id]: { author: newFeedAuthor, url: newFeedUrl }, ...feedHash });
+        updateFeedHash({ [data.id]: { author: newFeedAuthor, url: newFeedUrl }, ...feedHash });
       } else {
-        throw new Error(`${response.status} ${response.statusText}`);
+        throw new Error(data.message);
       }
     } catch (error) {
+      console.log(error.message);
       setSubmitStatus({ message: error.message, isError: true });
-      console.log('Error adding feed', error);
+      console.error('Error adding feed', error);
     }
   }
 

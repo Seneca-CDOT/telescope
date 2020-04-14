@@ -52,7 +52,7 @@ function DeleteFeedDialogButton({ feed, deletionCallback }) {
 
       console.log(`Feed removed successfully`);
     } catch (error) {
-      console.log(`Error removing feed with ID ${id}`, error);
+      console.error(`Error removing feed with ID ${id}`, error);
       throw error;
     }
   };
