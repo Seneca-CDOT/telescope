@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -170,6 +170,20 @@ function RetrieveBannerDynamicAssets() {
       // Ensure we are using an image which fits correctly to user's viewspace
       const dimensions = `${window.innerWidth}x${window.innerHeight}`;
 
+      async function getStats() {
+        await getDynamicAsset(`${telescopeUrl}/stats/year`, (response) => {
+          const localeStats = {
+            posts: response.posts.toLocaleString(),
+            authors: response.authors.toLocaleString(),
+            words: response.words.toLocaleString(),
+          };
+          setStats(localeStats);
+
+          // Ease in Background
+          setTransitionBackground(false);
+        });
+      }
+
       await getDynamicAsset(
         `https://source.unsplash.com/collection/894/${dimensions}/`,
         (response) => {
@@ -181,20 +195,6 @@ function RetrieveBannerDynamicAssets() {
           setBackgroundImgSrc('../../images/hero-banner.png');
         }
       );
-    }
-
-    async function getStats() {
-      await getDynamicAsset(`${telescopeUrl}/stats/year`, (response) => {
-        const localeStats = {
-          posts: response.posts.toLocaleString(),
-          authors: response.authors.toLocaleString(),
-          words: response.words.toLocaleString(),
-        };
-        setStats(localeStats);
-
-        // Ease in Background
-        setTransitionBackground(false);
-      });
     }
 
     getBackgroundImgSrc();
@@ -256,15 +256,13 @@ export default function Banner() {
   }, [telescopeUrl]);
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       <div className={classes.heroBanner}>
         <RetrieveBannerDynamicAssets />
-        <ThemeProvider>
-          <Typography variant="h1" className={classes.h1}>
-            {'Telescope'}
-          </Typography>
-        </ThemeProvider>
+        <Typography variant="h1" className={classes.h1}>
+          {'Telescope'}
+        </Typography>
 
         <a
           href={`${gitInfo.gitHubUrl}`}
@@ -281,6 +279,6 @@ export default function Banner() {
           </ScrollDown>
         </div>
       </div>
-    </React.Fragment>
+    </>
   );
 }
