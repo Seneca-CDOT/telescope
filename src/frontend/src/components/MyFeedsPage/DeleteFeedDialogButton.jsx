@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -25,12 +25,18 @@ function DeleteFeedDialogButton({ feed, deletionCallback }) {
   const { telescopeUrl } = useSiteMetadata();
   const [open, setOpen] = useState(false);
 
+  const deleteBtnRef = useRef();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const disableBtn = () => {
+    deleteBtnRef.current.setAttribute('disabled', 'disabled');
   };
 
   const removeFeed = async () => {
@@ -69,11 +75,18 @@ function DeleteFeedDialogButton({ feed, deletionCallback }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary" variant="outlined" autoFocus>
+          <Button
+            ref={deleteBtnRef}
+            onClick={handleClose}
+            color="secondary"
+            variant="outlined"
+            autoFocus
+          >
             Cancel
           </Button>
           <Button
             onClick={() => {
+              disableBtn();
               handleClose();
               removeFeed();
             }}
