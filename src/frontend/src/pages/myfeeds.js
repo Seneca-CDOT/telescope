@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Card, Container, Grid, IconButton, Typography } from '@material-ui/core';
 import { AccountCircle, AddCircle, RssFeed } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,12 +25,9 @@ export default function MyFeeds() {
   const [newFeedUrl, setNewFeedUrl] = useState('');
   const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
   const [userInfo, setUserInfo] = useState({});
-  const [feedHash, updateFeedHash] = useState({}); // { id1: {author: '...', url: '...'}, id2: {...}, ... }
+  const [feedHash, updateFeedHash] = useState({});
 
   const { telescopeUrl } = useSiteMetadata();
-
-  const newFeedAuthorRef = React.useRef();
-  const newFeedUrlRef = React.useRef();
 
   useEffect(() => {
     (async function fetchUserInfo() {
@@ -45,7 +42,7 @@ export default function MyFeeds() {
         setUserInfo(user);
         setNewFeedAuthor(user.name);
       } catch (error) {
-        console.log('Failed to fetch user information', error);
+        console.error('Failed to fetch user information', error);
         window.location.href = `${telescopeUrl}/404`;
       }
     })();
@@ -54,60 +51,32 @@ export default function MyFeeds() {
     return ValidatorForm.removeValidationRule.bind('isUrl');
   }, [telescopeUrl]);
 
-  const getUserFeeds = useCallback(async () => {
-    try {
-      const response = await fetch(`${telescopeUrl}/user/feeds`);
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.log('Failed to fetch /user/feeds', error);
-    }
-    // TODO remove the following try/catch block once GET /user/feeds is implemented
-    try {
-      console.log('Attempting to fetch user feeds via /feeds endpoint');
-      const response = await fetch(`${telescopeUrl}/feeds`);
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      const feedItems = await response.json();
-
-      const allFeedsData = await Promise.all(
-        feedItems.map((item) => fetch(`${telescopeUrl}${item.url}`))
-      );
-      const allFeeds = await Promise.all(allFeedsData.map((res) => res.json()));
-
-      return allFeeds.filter((feed) => feed.user === userInfo.id);
-    } catch (error) {
-      console.log('Failed to fetch user feeds via /feeds endpoint', error);
-      throw error;
-    }
-  }, [telescopeUrl, userInfo]);
-
   useEffect(() => {
-    if (userInfo.id || submitStatus.isError === false) {
-      (async function hashUserFeeds() {
-        try {
-          const userFeeds = await getUserFeeds();
-
-          const userFeedHash = userFeeds.reduce((hash, feed) => {
-            hash[feed.id] = { author: feed.author, url: feed.url };
-            return hash;
-          }, {});
-
-          updateFeedHash(userFeedHash);
-        } catch (error) {
-          console.log('Error hashing user feeds', error);
-          throw error;
-        }
-      })();
+    if (userInfo.id) {
+      return;
     }
-  }, [telescopeUrl, userInfo, submitStatus, getUserFeeds]);
+
+    (async function hashUserFeeds() {
+      try {
+        const response = await fetch(`${telescopeUrl}/user/feeds`);
+
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+
+        const userFeeds = await response.json();
+
+        const userFeedHash = userFeeds.reduce((hash, feed) => {
+          hash[feed.id] = { author: feed.author, url: feed.url };
+          return hash;
+        }, {});
+
+        updateFeedHash(userFeedHash);
+      } catch (error) {
+        console.error('Error hashing user feeds', error);
+      }
+    })();
+  }, [telescopeUrl, userInfo, feedHash]);
 
   async function addFeed() {
     try {
@@ -122,14 +91,18 @@ export default function MyFeeds() {
           url: newFeedUrl,
         }),
       });
-      setSubmitStatus(
-        response.ok
-          ? { message: 'Feed added successfully', isError: false }
-          : { message: `Error: ${response.status} ${response.statusText}`, isError: true }
-      );
+      const data = await response.json();
+      if (response.ok) {
+        setSubmitStatus({ message: data.message, isError: false });
+        setNewFeedUrl('');
+        updateFeedHash({ [data.id]: { author: newFeedAuthor, url: newFeedUrl }, ...feedHash });
+      } else {
+        throw new Error(data.message);
+      }
     } catch (error) {
+      console.log(error.message);
       setSubmitStatus({ message: error.message, isError: true });
-      console.log('Error adding feeds', error);
+      console.error('Error adding feed', error);
     }
   }
 
@@ -142,14 +115,16 @@ export default function MyFeeds() {
     }
   }
 
-  function handleBlur(event, ref) {
-    ref.current.validate(event.target.value, true);
+  function deletionCallback(id) {
+    const updatedHash = { ...feedHash };
+    delete updatedHash[id];
+    updateFeedHash(updatedHash);
   }
 
   return userInfo.id ? (
     <PageBase title="My Feeds">
       <div className={classes.margin}>
-        <ValidatorForm onSubmit={addFeed}>
+        <ValidatorForm onSubmit={addFeed} instantValidate={false}>
           <Container maxWidth="xs" bgcolor="aliceblue">
             <Card>
               <Box px={2} py={1}>
@@ -166,9 +141,7 @@ export default function MyFeeds() {
                         <TextValidator
                           label="Blog feed author"
                           name="author"
-                          ref={newFeedAuthorRef}
                           value={newFeedAuthor}
-                          onBlur={(event) => handleBlur(event, newFeedAuthorRef)}
                           onChange={handleChange}
                           type="string"
                           validators={['required', 'trim']}
@@ -186,9 +159,7 @@ export default function MyFeeds() {
                         <TextValidator
                           label="Blog feed URL"
                           name="url"
-                          ref={newFeedUrlRef}
                           value={newFeedUrl}
-                          onBlur={(event) => handleBlur(event, newFeedUrlRef)}
                           onChange={handleChange}
                           type="url"
                           validators={['required', 'isUrl']}
@@ -214,7 +185,7 @@ export default function MyFeeds() {
                     </Grid>
                   </Grid>
                 </Grid>
-                <ExistingFeedList feedHash={feedHash} />
+                <ExistingFeedList feedHash={feedHash} deletionCallback={deletionCallback} />
               </Box>
             </Card>
           </Container>

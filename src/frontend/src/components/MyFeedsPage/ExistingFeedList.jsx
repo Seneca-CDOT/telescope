@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextValidator } from 'react-material-ui-form-validator';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, TextField, Typography } from '@material-ui/core';
 import { AccountCircle, RssFeed } from '@material-ui/icons';
 import DeleteFeedDialogButton from './DeleteFeedDialogButton.jsx';
 
-function ExistingFeedList({ feedHash }) {
-  if (Object.keys(feedHash).length) {
-    return Object.keys(feedHash).map((id) => (
+function ExistingFeedList({ feedHash, deletionCallback }) {
+  return Object.keys(feedHash).length ? (
+    Object.keys(feedHash).map((id) => (
       <Grid container spacing={5} key={id}>
         <Grid item>
           <Grid container spacing={1} alignItems="flex-end">
@@ -15,7 +14,7 @@ function ExistingFeedList({ feedHash }) {
               <AccountCircle />
             </Grid>
             <Grid item>
-              <TextValidator
+              <TextField
                 disabled
                 label="Blog feed author"
                 name="author"
@@ -31,7 +30,7 @@ function ExistingFeedList({ feedHash }) {
               <RssFeed />
             </Grid>
             <Grid item>
-              <TextValidator
+              <TextField
                 disabled
                 label="Blog feed URL"
                 name="url"
@@ -40,14 +39,16 @@ function ExistingFeedList({ feedHash }) {
               />
             </Grid>
             <Grid item>
-              <DeleteFeedDialogButton feed={{ id, ...feedHash[id] }} />
+              <DeleteFeedDialogButton
+                feed={{ id, ...feedHash[id] }}
+                deletionCallback={deletionCallback}
+              />
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    ));
-  }
-  return (
+    ))
+  ) : (
     <Typography align="center">
       <em>(It looks like you have not added any blog feeds yet.)</em>
     </Typography>
@@ -56,6 +57,11 @@ function ExistingFeedList({ feedHash }) {
 
 ExistingFeedList.propTypes = {
   feedHash: PropTypes.object,
+  deletionCallback: PropTypes.func,
 };
 
-export default ExistingFeedList;
+const areEqual = (prevProps, nextProps) => {
+  return Object.keys(prevProps.feedHash).length === Object.keys(nextProps.feedHash).length;
+};
+
+export default React.memo(ExistingFeedList, areEqual);

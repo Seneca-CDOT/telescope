@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -19,11 +19,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function DeleteFeedDialogButton({ feed }) {
+function DeleteFeedDialogButton({ feed, deletionCallback }) {
   const { id, url } = feed;
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
   const [open, setOpen] = useState(false);
+
+  const deleteBtnRef = useRef();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,6 +33,10 @@ function DeleteFeedDialogButton({ feed }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const disableBtn = () => {
+    deleteBtnRef.current.setAttribute('disabled', 'disabled');
   };
 
   const removeFeed = async () => {
@@ -42,9 +48,11 @@ function DeleteFeedDialogButton({ feed }) {
         throw new Error(response.statusText);
       }
 
+      deletionCallback(id);
+
       console.log(`Feed removed successfully`);
     } catch (error) {
-      console.log(`Error removing feed with ID ${id}`, error);
+      console.error(`Error removing feed with ID ${id}`, error);
       throw error;
     }
   };
@@ -67,11 +75,18 @@ function DeleteFeedDialogButton({ feed }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="secondary" variant="outlined" autoFocus>
+          <Button
+            ref={deleteBtnRef}
+            onClick={handleClose}
+            color="secondary"
+            variant="outlined"
+            autoFocus
+          >
             Cancel
           </Button>
           <Button
             onClick={() => {
+              disableBtn();
               handleClose();
               removeFeed();
             }}
@@ -88,6 +103,7 @@ function DeleteFeedDialogButton({ feed }) {
 
 DeleteFeedDialogButton.propTypes = {
   feed: PropTypes.object,
+  deletionCallback: PropTypes.func,
 };
 
 export default DeleteFeedDialogButton;
