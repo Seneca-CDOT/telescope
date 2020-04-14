@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
 const { isWebUri } = require('valid-url');
+const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
 require('../lib/config');
 const { logger } = require('./logger');
@@ -38,7 +39,8 @@ async function getWikiText(url) {
  */
 module.exports = async function () {
   let url = process.env.FEED_URL;
-  const interval = process.env.FEED_URL_INTERVAL_MS || 30000;
+  // without parseInt(), setIntervalAsync fails, possibly because it takes the value in interval as a string
+  const interval = parseInt(process.env.FEED_URL_INTERVAL_MS || 30000, 10);
 
   if (!url) {
     url = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
@@ -54,16 +56,18 @@ module.exports = async function () {
    */
   let intervalId;
   const downloadFeedList = new Promise((resolve) => {
-    intervalId = setInterval(() => {
-      getWikiText(url)
-        .then(resolve)
-        .catch((error) => logger.info({ error }));
+    intervalId = setIntervalAsync(async () => {
+      try {
+        resolve(await getWikiText(url));
+      } catch (error) {
+        logger.error({ error });
+      }
     }, interval);
   });
 
   const wikiText = await downloadFeedList;
 
-  clearInterval(intervalId);
+  await clearIntervalAsync(intervalId);
 
   const lines = wikiText.split(/\r\n|\r|\n/);
   const feeds = [];
