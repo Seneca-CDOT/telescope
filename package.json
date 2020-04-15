@@ -91,6 +91,7 @@
     "pino": "6.2.0",
     "pino-pretty": "4.0.0",
     "sanitize-html": "1.23.0",
+    "set-interval-async": "1.0.32",
     "stoppable": "1.1.0",
     "valid-url": "1.0.9"
   },
