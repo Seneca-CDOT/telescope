@@ -15,23 +15,23 @@ const useStyles = makeStyles({
 const Posts = ({ posts }) => {
   const classes = useStyles();
 
-  return (
+  return posts.length > 0 ? (
     <Container className={classes.root}>
-      {posts.length > 0
-        ? posts.map(({ id, feed, html, title, url, updated }) => (
-            <Post
-              key={id}
-              id={id}
-              author={feed.author}
-              url={url}
-              html={html}
-              title={title}
-              date={updated}
-              link={feed.link}
-            />
-          ))
-        : null}
+      {posts.map(({ id, feed, html, title, url, updated }) => (
+        <Post
+          key={id}
+          id={id}
+          author={feed.author}
+          url={url}
+          html={html}
+          title={title}
+          date={updated}
+          link={feed.link}
+        />
+      ))}
     </Container>
+  ) : (
+    <></>
   );
 };
 
