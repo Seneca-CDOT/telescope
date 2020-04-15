@@ -9,6 +9,7 @@ import PageBase from './PageBase';
 import useSiteMetadata from '../hooks/use-site-metadata';
 import ExistingFeedList from '../components/MyFeedsPage/ExistingFeedList.jsx';
 import HelpPopoverButton from '../components/MyFeedsPage/HelpPopoverButton.jsx';
+import CustomizedSnackBar from '../components/SnackBar';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -26,6 +27,7 @@ export default function MyFeeds() {
   const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
   const [userInfo, setUserInfo] = useState({});
   const [feedHash, updateFeedHash] = useState({});
+  const [alert, setAlert] = useState('false');
 
   const { telescopeUrl } = useSiteMetadata();
 
@@ -52,6 +54,7 @@ export default function MyFeeds() {
   }, [telescopeUrl]);
 
   useEffect(() => {
+    setAlert(true);
     if (userInfo.id) {
       return;
     }
@@ -76,7 +79,7 @@ export default function MyFeeds() {
         console.error('Error hashing user feeds', error);
       }
     })();
-  }, [telescopeUrl, userInfo, feedHash]);
+  }, [telescopeUrl, userInfo, feedHash, alert]);
 
   async function addFeed() {
     try {
@@ -100,10 +103,10 @@ export default function MyFeeds() {
         throw new Error(data.message);
       }
     } catch (error) {
-      console.log(error.message);
       setSubmitStatus({ message: error.message, isError: true });
       console.error('Error adding feed', error);
     }
+    setAlert(false);
   }
 
   function handleChange(event) {
@@ -118,13 +121,15 @@ export default function MyFeeds() {
   function deletionCallback(id) {
     const updatedHash = { ...feedHash };
     delete updatedHash[id];
+    setSubmitStatus({ message: 'Feed removed successfully', isError: false });
+    setAlert(false);
     updateFeedHash(updatedHash);
   }
 
   return userInfo.id ? (
     <PageBase title="My Feeds">
       <div className={classes.margin}>
-        <ValidatorForm onSubmit={addFeed} instantValidate={false}>
+        <ValidatorForm onSubmit={() => addFeed()} instantValidate={false}>
           <Container maxWidth="xs" bgcolor="aliceblue">
             <Card>
               <Box px={2} py={1}>
@@ -175,12 +180,9 @@ export default function MyFeeds() {
                         <IconButton classes={{ root: classes.button }} type="submit">
                           <AddCircle color="secondary" />
                         </IconButton>
-                        <Typography
-                          color={submitStatus.isError ? 'error' : 'textPrimary'}
-                          align="center"
-                        >
-                          {submitStatus.message}
-                        </Typography>
+                        {alert === true && submitStatus.message !== '' ? (
+                          <CustomizedSnackBar message={submitStatus.message} open={alert} />
+                        ) : null}
                       </Grid>
                     </Grid>
                   </Grid>
