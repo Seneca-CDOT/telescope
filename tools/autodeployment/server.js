@@ -2,9 +2,12 @@ require('dotenv').config();
 const http = require('http');
 const createHandler = require('github-webhook-handler');
 const shell = require('shelljs');
+const mergeStream = require('merge-stream');
 
 const { buildStart, buildStop, handleStatus } = require('./info');
 
+// Current build process output stream (if any)
+let out;
 const { SECRET, REPO_NAME, DEPLOY_PORT, DEPLOY_TYPE } = process.env;
 
 function handleError(req, res) {
@@ -12,21 +15,49 @@ function handleError(req, res) {
   res.end('Not Found');
 }
 
-const handler = createHandler({ path: '/', secret: SECRET });
+// If a build is in process, pipe stderr and stdout to the request
+function handleLog(req, res) {
+  if (!out) {
+    handleError(req, res);
+    return;
+  }
+
+  function end(message) {
+    if (message) {
+      res.write(message);
+    }
+    res.end();
+  }
+
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+
+  out.on('data', (data) => res.write(data));
+  out.on('error', () => end('Error, end of log.'));
+  out.on('end', () => end('Build Complete.'));
+}
+
+const handleGitPush = createHandler({ path: '/', secret: SECRET });
 
 http
   .createServer((req, res) => {
+    // Build Status Info as JSON
     if (req.url === '/status') {
       handleStatus(req, res);
-    } else {
-      handler(req, res, () => handleError(req, res));
+    }
+    // Build Log Stream (if build is happening)
+    else if (req.url === '/log') {
+      handleLog(req, res);
+    }
+    // Process GitHub Push Event, or error (404)
+    else {
+      handleGitPush(req, res, () => handleError(req, res));
     }
   })
   .listen(DEPLOY_PORT, () => {
-    console.log(`Server listening on port ${DEPLOY_PORT}. Use /status for status info.`);
+    console.log(`Server listening on port ${DEPLOY_PORT}.\nUse /status or /log for build info.`);
   });
 
-handler.on('error', (err) => {
+handleGitPush.on('error', (err) => {
   console.error('Error:', err.message);
 });
 
@@ -35,32 +66,40 @@ if (!(DEPLOY_TYPE === 'staging' || DEPLOY_TYPE === 'production')) {
   process.exit(1);
 }
 
-if (DEPLOY_TYPE === 'production') {
-  handler.on('release', (event) => {
+/**
+ * Create a handler for the particular GitHub push event and build type
+ * @param {String} gitHubEvent - the GitHub Push Event name
+ * @param {String} buildType - one of `production` or `staging`
+ */
+function handleEventType(gitHubEvent, buildType) {
+  if (DEPLOY_TYPE !== buildType) {
+    return;
+  }
+
+  handleGitPush.on(gitHubEvent, (event) => {
     const { name } = event.payload.repository;
 
     if (name === REPO_NAME) {
-      buildStart('production');
-      shell.exec(`./deploy.sh production`, (code, stdout, stderr) => {
-        buildStop(code);
-        console.log(stdout);
-        console.error(stderr);
-      });
+      buildStart(buildType);
+      const proc = shell.exec(
+        `./deploy.sh ${buildType}`,
+        { silent: true },
+        (code, stdout, stderr) => {
+          out = null;
+          buildStop(code);
+          console.log(stdout);
+          console.error(stderr);
+        }
+      );
+
+      // Combine stderr and stdout, like 2>&1
+      out = mergeStream(proc.stdout, proc.stderr);
     }
   });
 }
 
-if (DEPLOY_TYPE === 'staging') {
-  handler.on('push', (event) => {
-    const { name } = event.payload.repository;
+// Production builds happen when GitHub sends us a `release` event
+handleEventType('production', 'release');
 
-    if (name === REPO_NAME) {
-      buildStart('staging');
-      shell.exec(`./deploy.sh staging`, (code, stdout, stderr) => {
-        buildStop(code);
-        console.log(stdout);
-        console.error(stderr);
-      });
-    }
-  });
-}
+// Staging builds happen when GitHub sends us a `push` event
+handleEventType('staging', 'push');
