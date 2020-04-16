@@ -44,13 +44,11 @@ router.get('/logout/callback', (req, res) => {
 router.get('/logout', (req, res) => {
   try {
     // eslint-disable-next-line no-underscore-dangle
-    passport._strategy('saml').logout(req, (error, requestUrl) => {
+    passport._strategy('saml').logout(req, (error) => {
       if (error) {
         logger.error({ error }, 'logout error - unable to generate logout URL');
-        res.redirect(telescopeHomeUrl);
-      } else {
-        res.redirect(requestUrl);
       }
+      res.redirect(telescopeHomeUrl);
     });
   } catch (error) {
     logger.error({ error }, 'logout error');
