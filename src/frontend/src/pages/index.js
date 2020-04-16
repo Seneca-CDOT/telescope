@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress, Button, Grid } from '@material-ui/core';
 import parse from 'parse-link-header';
@@ -88,7 +88,7 @@ export default function IndexPage() {
     setNumPages(numPages + 1);
   }
 
-  async function getPostsCount() {
+  const getPostsCount = useCallback(async () => {
     try {
       const res = await fetch(`${telescopeUrl}/posts`, { method: 'HEAD' });
       if (!res.ok) {
@@ -99,43 +99,37 @@ export default function IndexPage() {
       console.log(error);
     }
     return null;
-  }
+  }, [telescopeUrl]);
 
-  function callback() {
-    getPostsCount()
-      .then(setCurrentNumPosts)
-      .catch((error) => console.log(error));
-  }
+  const callback = useCallback(async () => {
+    setCurrentNumPosts(await getPostsCount());
+  }, [getPostsCount]);
 
   useEffect(() => {
     savedCallback.current = callback;
   });
 
-  // Get the current + initial posts count when page loads
+  // Get the initial posts count when currentNumPosts value changes (re-render)
   useEffect(() => {
     async function setPostsInfo() {
       try {
-        await Promise.all([
-          setInitNumPosts(await getPostsCount()),
-          setCurrentNumPosts(await getPostsCount()),
-        ]);
+        setInitNumPosts(await getPostsCount());
       } catch (error) {
         console.log({ error });
       }
     }
     setPostsInfo();
-  }, []);
+  }, [getPostsCount, currentNumPosts]);
 
   useEffect(() => {
     function getCurrentNumPosts() {
       savedCallback.current();
     }
-
     savedCallback.current = callback;
     // Polls every 5 minutes
     const interval = setInterval(getCurrentNumPosts, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [currentNumPosts]);
+  }, [callback]);
 
   function GenerateLoadButtonContent() {
     if (endOfPosts) {
