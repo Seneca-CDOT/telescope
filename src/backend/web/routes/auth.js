@@ -48,6 +48,7 @@ router.get('/logout', (req, res) => {
       if (error) {
         logger.error({ error }, 'logout error - unable to generate logout URL');
       }
+      req.logout();
       res.redirect(telescopeHomeUrl);
     });
   } catch (error) {
