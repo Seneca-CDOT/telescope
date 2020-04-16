@@ -3,16 +3,27 @@ const http = require('http');
 const createHandler = require('github-webhook-handler');
 const shell = require('shelljs');
 
+const { buildStart, buildStop, handleStatus } = require('./info');
+
 const { SECRET, REPO_NAME, DEPLOY_PORT, DEPLOY_TYPE } = process.env;
+
+function handleError(req, res) {
+  res.statusCode = 404;
+  res.end('Not Found');
+}
 
 const handler = createHandler({ path: '/', secret: SECRET });
 
 http
   .createServer((req, res) => {
-    handler(req, res);
+    if (req.url === '/status') {
+      handleStatus(req, res);
+    } else {
+      handler(req, res, () => handleError(req, res));
+    }
   })
   .listen(DEPLOY_PORT, () => {
-    console.log(`Server listening on port ${DEPLOY_PORT}`);
+    console.log(`Server listening on port ${DEPLOY_PORT}. Use /status for status info.`);
   });
 
 handler.on('error', (err) => {
@@ -29,8 +40,12 @@ if (DEPLOY_TYPE === 'production') {
     const { name } = event.payload.repository;
 
     if (name === REPO_NAME) {
-      // Execute the shell script and pass two arguments, our deployment type and the .env file to use
-      shell.exec(`./deploy.sh production`);
+      buildStart('production');
+      shell.exec(`./deploy.sh production`, (code, stdout, stderr) => {
+        buildStop(code);
+        console.log(stdout);
+        console.error(stderr);
+      });
     }
   });
 }
@@ -40,8 +55,12 @@ if (DEPLOY_TYPE === 'staging') {
     const { name } = event.payload.repository;
 
     if (name === REPO_NAME) {
-      // Execute the shell script and pass two arguments, our deployment type and the .env file to use
-      shell.exec(`./deploy.sh staging`);
+      buildStart('staging');
+      shell.exec(`./deploy.sh staging`, (code, stdout, stderr) => {
+        buildStop(code);
+        console.log(stdout);
+        console.error(stderr);
+      });
     }
   });
 }
