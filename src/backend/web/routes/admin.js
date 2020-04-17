@@ -2,9 +2,7 @@ require('../../lib/config');
 const express = require('express');
 const { UI } = require('bull-board');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const path = require('path');
 const fs = require('fs');
-const dotenv = require('dotenv');
 
 const { protectAdmin } = require('../authentication');
 const { logger } = require('../../utils/logger');
