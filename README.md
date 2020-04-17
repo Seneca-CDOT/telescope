@@ -6,7 +6,8 @@
 
 ## What is Telescope?
 
-[Seneca College](https://www.senecacollege.ca/home.html) is active in the open source community. For more than a decade, faculty and students have been
+[Seneca College](https://www.senecacollege.ca/home.html) is active in the
+open source community. For more than a decade, faculty and students have been
 blogging about their open source research and development using a variety of
 platforms (WordPress, Medium, Blogger, and many others). In order to keep
 track of all these posts across so many different platforms, we created Telescope.
