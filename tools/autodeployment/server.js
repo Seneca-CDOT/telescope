@@ -68,10 +68,10 @@ if (!(DEPLOY_TYPE === 'staging' || DEPLOY_TYPE === 'production')) {
 
 /**
  * Create a handler for the particular GitHub push event and build type
- * @param {String} gitHubEvent - the GitHub Push Event name
  * @param {String} buildType - one of `production` or `staging`
+ * @param {String} gitHubEvent - the GitHub Push Event name
  */
-function handleEventType(gitHubEvent, buildType) {
+function handleEventType(buildType, gitHubEvent) {
   if (DEPLOY_TYPE !== buildType) {
     return;
   }
