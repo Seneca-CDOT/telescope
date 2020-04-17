@@ -8,6 +8,14 @@
       "program": "${workspaceFolder}/src/backend/index.js",
       "envFile": "${workspaceRoot}/.env",
       "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Auto Deployment",
+      "program": "${workspaceFolder}/tools/autodeployment/server.js",
+      "envFile": "${workspaceRoot}/tools/autodeployment/.env",
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
