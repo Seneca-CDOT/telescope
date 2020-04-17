@@ -1,7 +1,7 @@
 {
   "name": "@seneca/telescope",
   "private": true,
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "jest": {
     "testEnvironment": "node",
