@@ -43,6 +43,7 @@ export default function IndexPage() {
   const [initNumPosts, setInitNumPosts] = useState(0);
   const [currentNumPosts, setCurrentNumPosts] = useState(0);
   const [endOfPosts, setEndOfPosts] = useState(true);
+  const [alert, setAlert] = useState(false);
   const { telescopeUrl } = useSiteMetaData();
   const savedCallback = useRef();
   const snackbarMessage = 'There is new content available!';
@@ -131,6 +132,16 @@ export default function IndexPage() {
     return () => clearInterval(interval);
   }, [callback]);
 
+  useEffect(() => {
+    // Prevents alert from appearing upon page loading.
+    // Also checks whether there are new posts available
+    if (!loading && currentNumPosts !== initNumPosts && currentNumPosts !== 0) {
+      setAlert(true);
+    } else {
+      setAlert(false);
+    }
+  }, [currentNumPosts, initNumPosts, loading]);
+
   function GenerateLoadButtonContent() {
     if (endOfPosts) {
       return 'No more posts.  Your turn! Add your feed...';
@@ -162,9 +173,7 @@ export default function IndexPage() {
           </Grid>
         </Grid>
 
-        {currentNumPosts !== initNumPosts ? (
-          <CustomizedSnackBar posts={currentNumPosts} message={snackbarMessage} />
-        ) : null}
+        {alert ? <CustomizedSnackBar posts={currentNumPosts} message={snackbarMessage} /> : null}
       </main>
     </PageBase>
   );
