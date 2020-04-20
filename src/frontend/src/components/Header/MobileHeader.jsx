@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '1rem',
     color: '#a4d4ff',
     textDecoration: 'none',
+    '&:hover': {
+      color: 'white',
+    },
   },
   links: {
     color: 'white',
@@ -122,7 +125,7 @@ const MobileHeader = () => {
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <Typography variant="h3" className={classes.title}>
-            <Link to="/" className={classes.title}>
+            <Link to="/" title="Home" className={classes.title}>
               {title}
             </Link>
           </Typography>
