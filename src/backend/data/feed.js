@@ -162,6 +162,21 @@ class Feed {
     const ids = await getFeeds();
     return Promise.all(ids.map(Feed.byId));
   }
+
+  /**
+   * Sets all stored feeds' lastModified + etag field to null. Used for production
+   * Returns a Promise
+   */
+  static async clearCache() {
+    const allFeeds = await this.all();
+    await Promise.all(
+      allFeeds.map((feed) => {
+        feed.etag = null;
+        feed.lastModified = null;
+        return feed.save();
+      })
+    );
+  }
 }
 
 module.exports = Feed;
