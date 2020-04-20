@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   heroBanner: {
-    height: '100vh',
+    height: '90vh',
   },
   stats: {
     position: 'absolute',
@@ -88,12 +88,12 @@ const useStyles = makeStyles((theme) => ({
     width: '5.6rem',
     position: 'relative',
     left: '49.5%',
-    bottom: theme.spacing(20),
+    bottom: theme.spacing(10),
     zIndex: 300,
     [theme.breakpoints.between('xs', 'sm')]: {
       right: theme.spacing(4),
       left: '80%',
-      bottom: theme.spacing(18),
+      bottom: theme.spacing(8),
     },
   },
 }));
