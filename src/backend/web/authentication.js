@@ -93,8 +93,8 @@ function init() {
       callbackUrl: SSO_LOGIN_CALLBACK_URL,
       issuer: SAML_ENTITY_ID,
       cert: SSO_IDP_PUBLIC_KEY_CERT,
-      // https://github.com/bergie/passport-saml/issues/226
       disableRequestedAuthnContext: true,
+      authnRequestBinding: 'HTTP-Redirect',
       signatureAlgorithm: 'sha256',
     },
     function (profile, done) {
@@ -132,21 +132,30 @@ function protectWithRedirect(req, res, next) {
   passport.authenticate('saml')(req, res, next);
 }
 
+function throwCustomError(message, status) {
+  const err = Error(message);
+  err.status = status;
+
+  throw err;
+}
+
 // If user is not authenticated, return an appropriate 400 error type
-function forbidden(req, res) {
+/* eslint-disable no-unused-vars */
+function forbidden(req, res, next) {
   if (req.accepts('json')) {
     res.status(403).json({
       message: 'Forbidden',
     });
-  } else {
-    // TODO: https://github.com/Seneca-CDOT/telescope/issues/890
-    res.status(403).send('Forbidden');
+
+    return;
   }
+
+  throwCustomError('Forbidden: Access is not allowed for the requested page!', 403);
 }
 
 // If we aren't redirecting, we're going to forbid this request
-function protectWithoutRedirect(req, res) {
-  forbidden(req, res);
+function protectWithoutRedirect(req, res, next) {
+  forbidden(req, res, next);
 }
 
 /**
@@ -166,7 +175,7 @@ function checkUser(requireAdmin, redirect, req, res, next) {
       }
       // Not an admin, so fail this now using best response type
       else {
-        forbidden(req, res);
+        forbidden(req, res, next);
       }
     } else {
       // We don't need an admin, and this is a regular authenticated user, let it pass

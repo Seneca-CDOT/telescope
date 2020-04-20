@@ -56,10 +56,9 @@ function formatPublishedDate(dateString) {
 function lazyLoad(text) {
   const dom = document.createElement('template');
   dom.innerHTML = text;
-  dom.content.querySelectorAll('img').forEach((img) => {
-    img.setAttribute('loading', 'lazy');
+  dom.content.querySelectorAll('iframe,img').forEach(function (elem) {
+    elem.setAttribute('loading', 'lazy');
   });
-
   return dom.innerHTML;
 }
 const Post = ({ id, html, author, url, title, date, link }) => {

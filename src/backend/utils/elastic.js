@@ -2,6 +2,7 @@ require('../lib/config');
 
 const { ELASTIC_URL, ELASTIC_PORT, ELASTIC_MAX_RESULTS } = process.env;
 const { Client } = require('@elastic/elasticsearch');
+const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
 const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}` || 'http://localhost:9200';
 const esClient = new Client({ node: elasticUrl });
@@ -111,16 +112,19 @@ const waitOnReady = async () => {
   });
 
   const connectivity = new Promise((resolve) => {
-    intervalId = setInterval(() => {
-      checkConnection()
-        .then(resolve)
-        .catch(() => logger.info('Attempting to connect to elasticsearch...'));
+    intervalId = setIntervalAsync(async () => {
+      try {
+        await checkConnection();
+        resolve();
+      } catch (error) {
+        logger.info('Attempting to connect to elasticsearch...');
+      }
     }, 500);
   });
 
   await Promise.race([timer, connectivity]);
 
-  clearInterval(intervalId);
+  await clearIntervalAsync(intervalId);
   clearTimeout(timerId);
 };
 

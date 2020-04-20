@@ -70,24 +70,24 @@ function processFeeds(feeds) {
 }
 
 /**
- * Download and parse feed author/URL info from the wiki, and process
+ * Download and parse feed author/URL info from the wiki and redis, and process
  * these into Feed Objects to be added to the database and feed queue.
  */
-async function processWikiFeeds() {
+async function processAllFeeds() {
   try {
-    // Get an Array of Feed objects from the wiki feed list
-    const feeds = await getWikiFeeds();
+    // Get an Array of Feed objects from the wiki feed list and Redis
+    const [all, wiki] = await Promise.all([Feed.all(), getWikiFeeds()]);
     // Process these feeds into the database and feed queue
-    await processFeeds(feeds);
+    await processFeeds([...all, ...wiki]);
   } catch (err) {
-    logger.error({ err }, 'Error queuing wiki feeds');
+    logger.error({ err }, 'Error queuing feeds');
   }
 }
 
 function loadFeedsIntoQueue() {
   logger.info('Loading all feeds into feed queue for processing');
-  processWikiFeeds().catch((error) => {
-    logger.error({ error }, 'Unable to enqueue wiki feeds');
+  processAllFeeds().catch((error) => {
+    logger.error({ error }, 'Unable to enqueue feeds');
   });
 }
 

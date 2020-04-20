@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
-export default function SimpleSnackbar() {
+export default function SimpleSnackbar(props) {
+  const { message } = props;
   const [open, setOpen] = useState(true);
 
   const handleClose = (event, reason) => {
@@ -24,15 +26,19 @@ export default function SimpleSnackbar() {
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
-        message="There is new content available!"
+        message={message}
         action={
-          <React.Fragment>
+          <>
             <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
               <CloseIcon fontSize="small" />
             </IconButton>
-          </React.Fragment>
+          </>
         }
       />
     </div>
   );
 }
+
+SimpleSnackbar.propTypes = {
+  message: PropTypes.string,
+};

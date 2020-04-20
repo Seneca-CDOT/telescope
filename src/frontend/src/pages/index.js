@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress, Button, Grid } from '@material-ui/core';
 import parse from 'parse-link-header';
@@ -43,8 +43,10 @@ export default function IndexPage() {
   const [initNumPosts, setInitNumPosts] = useState(0);
   const [currentNumPosts, setCurrentNumPosts] = useState(0);
   const [endOfPosts, setEndOfPosts] = useState(true);
+  const [alert, setAlert] = useState(false);
   const { telescopeUrl } = useSiteMetaData();
   const savedCallback = useRef();
+  const snackbarMessage = 'There is new content available!';
 
   // Pagination
   const [nextPageLink, setNextPageLink] = useState(`/posts?page=${numPages}`);
@@ -87,7 +89,7 @@ export default function IndexPage() {
     setNumPages(numPages + 1);
   }
 
-  async function getPostsCount() {
+  const getPostsCount = useCallback(async () => {
     try {
       const res = await fetch(`${telescopeUrl}/posts`, { method: 'HEAD' });
       if (!res.ok) {
@@ -98,43 +100,47 @@ export default function IndexPage() {
       console.log(error);
     }
     return null;
-  }
+  }, [telescopeUrl]);
 
-  function callback() {
-    getPostsCount()
-      .then(setCurrentNumPosts)
-      .catch((error) => console.log(error));
-  }
+  const callback = useCallback(async () => {
+    setCurrentNumPosts(await getPostsCount());
+  }, [getPostsCount]);
 
   useEffect(() => {
     savedCallback.current = callback;
   });
 
-  // Get the current + initial posts count when page loads
+  // Get the initial posts count when currentNumPosts value changes (re-render)
   useEffect(() => {
     async function setPostsInfo() {
       try {
-        await Promise.all([
-          setInitNumPosts(await getPostsCount()),
-          setCurrentNumPosts(await getPostsCount()),
-        ]);
+        setInitNumPosts(await getPostsCount());
       } catch (error) {
         console.log({ error });
       }
     }
     setPostsInfo();
-  }, []);
+  }, [getPostsCount, currentNumPosts]);
 
   useEffect(() => {
     function getCurrentNumPosts() {
       savedCallback.current();
     }
-
     savedCallback.current = callback;
     // Polls every 5 minutes
     const interval = setInterval(getCurrentNumPosts, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [currentNumPosts]);
+  }, [callback]);
+
+  useEffect(() => {
+    // Prevents alert from appearing upon page loading.
+    // Also checks whether there are new posts available
+    if (!loading && currentNumPosts !== initNumPosts && currentNumPosts !== 0) {
+      setAlert(true);
+    } else {
+      setAlert(false);
+    }
+  }, [currentNumPosts, initNumPosts, loading]);
 
   function GenerateLoadButtonContent() {
     if (endOfPosts) {
@@ -151,7 +157,7 @@ export default function IndexPage() {
       <Banner />
       <ScrollToTop />
       <main className="main">
-        {posts.length > 0 ? <Posts posts={posts} /> : null}
+        <Posts posts={posts} />
 
         <Grid container spacing={0} direction="column" alignItems="center" justify="center">
           <Grid item xs={12} className={classes.content}>
@@ -167,7 +173,7 @@ export default function IndexPage() {
           </Grid>
         </Grid>
 
-        {currentNumPosts !== initNumPosts ? <CustomizedSnackBar posts={currentNumPosts} /> : null}
+        {alert ? <CustomizedSnackBar posts={currentNumPosts} message={snackbarMessage} /> : null}
       </main>
     </PageBase>
   );

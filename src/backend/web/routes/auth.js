@@ -29,13 +29,16 @@ router.get('/login', passport.authenticate('saml'));
 
 /**
  * /auth/logout/callback is where the external SAML SSO provider will redirect
- * users upon successful logout.
+ * users upon successful logout.  We support both GET and POST, since different
+ * IdPs do it different ways.
  */
-router.get('/logout/callback', (req, res) => {
+function logoutCallback(req, res) {
   // Clear session passport.js user info
   req.logout();
   res.redirect(telescopeHomeUrl);
-});
+}
+router.get('/logout/callback', logoutCallback);
+router.post('/logout/callback', logoutCallback);
 
 /**
  * /auth/logout allows users to use Single Logout and clear login tokens
@@ -47,7 +50,8 @@ router.get('/logout', (req, res) => {
     passport._strategy('saml').logout(req, (error, requestUrl) => {
       if (error) {
         logger.error({ error }, 'logout error - unable to generate logout URL');
-        res.redirect(telescopeHomeUrl);
+        // Logout on the SP, since we can't do a full IdP logout for some reason.
+        logoutCallback(req, res);
       } else {
         res.redirect(requestUrl);
       }
