@@ -42,7 +42,7 @@ export default function IndexPage() {
   const [posts, setPosts] = useState([]);
   const [initNumPosts, setInitNumPosts] = useState(0);
   const [currentNumPosts, setCurrentNumPosts] = useState(0);
-  const [endOfPosts, setEndOfPosts] = useState(true);
+  const [endOfPosts, setEndOfPosts] = useState(false);
   const [alert, setAlert] = useState(false);
   const { telescopeUrl } = useSiteMetaData();
   const savedCallback = useRef();
