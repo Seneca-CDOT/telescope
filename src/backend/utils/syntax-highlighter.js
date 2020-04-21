@@ -40,6 +40,10 @@ hljs.registerLanguage('dos', require('highlight.js/lib/languages/dos'));
  * and apply syntax highlight markup.
  */
 module.exports = function (html) {
+  if (typeof html !== 'string') {
+    return html;
+  }
+
   try {
     const dom = new JSDOM(html);
     const doc = dom.window.document;
@@ -47,7 +51,12 @@ module.exports = function (html) {
     doc.querySelectorAll('pre code').forEach((code) => {
       const { value, language } = hljs.highlightAuto(code.innerHTML);
 
-      // Decorate the <pre> with class names for highlighting this language
+      // If the language wasn't detected, return the HTML untouched
+      if (!language) {
+        return;
+      }
+
+      // Otherwise, decorate the <pre> with class names for highlighting this language
       const pre = code.parentNode;
       pre.classList.add('hljs', language);
 
@@ -58,7 +67,7 @@ module.exports = function (html) {
     return doc.body.innerHTML;
   } catch (err) {
     logger.error({ err, html }, 'syntax highlight error');
-    // Return the html untouched.
+    // Return the HTML untouched.
     return html;
   }
 };
