@@ -86,7 +86,6 @@ function HideOnScroll(props) {
 
   const trigger = useScrollTrigger({
     target: window ? window() : undefined,
-    disableHysteresis: true,
     threshold: 700,
   });
 
@@ -99,7 +98,6 @@ function HideOnScroll(props) {
 
 HideOnScroll.propTypes = {
   children: PropTypes.element.isRequired,
-
   window: PropTypes.func,
 };
 

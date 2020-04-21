@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: '3.5em',
     fontWeight: 'bold',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '2.5em',
     },
@@ -81,7 +84,7 @@ const Post = ({ id, html, author, url, title, date, link }) => {
   return (
     <Container className={classes.root}>
       <ListSubheader className={classes.header}>
-        <Typography variant="h1" id={id} className={classes.title}>
+        <Typography variant="h1" title={title} id={id} className={classes.title}>
           {title}
         </Typography>
         <Typography variant="h3" className={classes.author}>
