@@ -8,6 +8,30 @@ const syntaxHighlighter = require('../src/backend/utils/syntax-highlighter');
  * syntaxHighlighter() will markup code so it can be styled as code with CSS
  */
 describe('syntax-highlighter tests', () => {
+  test('Objects are returned untouched', () => {
+    const original = {};
+    const result = syntaxHighlighter(original);
+    expect(result).toEqual(original);
+  });
+
+  test('undefined is returned untouched', () => {
+    const original = undefined;
+    const result = syntaxHighlighter(original);
+    expect(result).toEqual(original);
+  });
+
+  test('null is returned untouched', () => {
+    const original = null;
+    const result = syntaxHighlighter(original);
+    expect(result).toEqual(original);
+  });
+
+  test('empty code blocks are left untouched', () => {
+    const original = '';
+    const result = syntaxHighlighter(original);
+    expect(result).toEqual(original);
+  });
+
   test('regular prose is left untouched', () => {
     const original = 'This should stay identical.';
     const result = syntaxHighlighter(original);
