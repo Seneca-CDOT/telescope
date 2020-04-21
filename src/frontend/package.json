@@ -19,7 +19,6 @@
     "gatsby-transformer-remark": "2.7.1",
     "gatsby-transformer-sharp": "2.4.4",
     "graphql-tag": "2.10.3",
-    "highlight.js": "9.18.1",
     "material-ui-popup-state": "1.5.4",
     "node-fetch": "2.6.0",
     "prop-types": "15.7.2",

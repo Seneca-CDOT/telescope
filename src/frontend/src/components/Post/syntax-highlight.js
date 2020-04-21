@@ -65,6 +65,8 @@ hljs.registerLanguage('dos', dos);
 
 export default function (node) {
   if (node) {
-    node.querySelectorAll('pre').forEach((pre) => hljs.highlightBlock(pre));
+    // We're moving to doing this in the backend, so skip if it's already done.
+    // We'll rip this out once there's a way to trigger a rebuild of all post content.
+    node.querySelectorAll('pre:not(.hljs)').forEach((pre) => hljs.highlightBlock(pre));
   }
 }

@@ -1,6 +1,7 @@
 const { getPost, addPost } = require('../utils/storage');
 const { logger } = require('../utils/logger');
 const sanitizeHTML = require('../utils/sanitize-html');
+const syntaxHighlight = require('../utils/syntax-highlighter');
 const textParser = require('../utils/text-parser');
 const Feed = require('./feed');
 const hash = require('./hash');
@@ -124,6 +125,8 @@ class Post {
       // The article.description is frequently the full HTML article content.
       // Sanitize it of any scripts or other dangerous attributes/elements
       sanitizedHTML = sanitizeHTML(article.description);
+      // We also add syntax highlighting for <pre>...</pre> blocks
+      sanitizedHTML = syntaxHighlight(sanitizedHTML);
     } catch (error) {
       logger.error({ error }, 'Unable to sanitize and parse HTML for feed');
       throw error;
