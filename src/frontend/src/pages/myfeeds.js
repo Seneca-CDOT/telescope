@@ -130,19 +130,19 @@ export default function MyFeeds() {
     <PageBase title="My Feeds">
       <div className={classes.margin}>
         <ValidatorForm onSubmit={() => addFeed()} instantValidate={false}>
-          <Container maxWidth="xs" bgcolor="aliceblue">
+          <Container maxWidth="md" bgcolor="aliceblue">
             <Card>
               <Box px={2} py={1}>
                 <Typography variant="h3" component="h3" align="center">
                   My Feeds
                 </Typography>
                 <Grid container spacing={5}>
-                  <Grid item>
+                  <Grid item xs={5} sm={4} md={3}>
                     <Grid container spacing={1} alignItems="flex-end">
-                      <Grid item>
+                      <Grid item xs={'auto'}>
                         <AccountCircle />
                       </Grid>
-                      <Grid item>
+                      <Grid item xs={8} sm={10}>
                         <TextValidator
                           label="Blog feed author"
                           name="author"
@@ -151,16 +151,17 @@ export default function MyFeeds() {
                           type="string"
                           validators={['required', 'trim']}
                           errorMessages={"Please enter the blog's author."}
+                          fullWidth
                         />
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid item>
+                  <Grid item xs={7} sm={8} md={9}>
                     <Grid container spacing={1} alignItems="flex-end">
-                      <Grid item>
+                      <Grid item xs={'auto'}>
                         <RssFeed />
                       </Grid>
-                      <Grid item>
+                      <Grid item xs={8} sm={10} md={11}>
                         <TextValidator
                           label="Blog feed URL"
                           name="url"
@@ -169,9 +170,10 @@ export default function MyFeeds() {
                           type="url"
                           validators={['required', 'isUrl']}
                           errorMessages={"Please enter the blog's feed URL."}
+                          fullWidth
                         />
                       </Grid>
-                      <Grid item>
+                      <Grid item xs={'auto'}>
                         <HelpPopoverButton />
                       </Grid>
                     </Grid>
