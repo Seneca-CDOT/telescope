@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -10,6 +11,8 @@ import {
   ListItem,
   Drawer,
   Divider,
+  useScrollTrigger,
+  Slide,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -78,6 +81,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function HideOnScroll(props) {
+  const { children, window } = props;
+
+  const trigger = useScrollTrigger({
+    target: window ? window() : undefined,
+    disableHysteresis: true,
+    threshold: 700,
+  });
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {children}
+    </Slide>
+  );
+}
+
+HideOnScroll.propTypes = {
+  children: PropTypes.element.isRequired,
+
+  window: PropTypes.func,
+};
+
 const MobileHeader = () => {
   const { title } = useSiteMetadata();
   const classes = useStyles();
@@ -121,40 +146,42 @@ const MobileHeader = () => {
   );
 
   return (
-    <div>
-      <AppBar position="fixed" className={classes.root}>
-        <Toolbar>
-          <Typography variant="h3" className={classes.title}>
-            <Link to="/" title="Home" className={classes.title}>
-              {title}
-            </Link>
-          </Typography>
-          <IconButton color="inherit" className={classes.button}>
-            <Link to="/search">
-              <SearchIcon className={classes.searchIcon} />
-            </Link>
-          </IconButton>
-          <IconButton
-            onClick={toggleDrawer('right', true)}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            className={classes.button}
-          >
-            <MenuIcon className={classes.menuIcon} />
-          </IconButton>
-          <Drawer
-            classes={{ paper: classes.paper }}
-            anchor="right"
-            open={state.right}
-            onClose={toggleDrawer('right', false)}
-          >
-            {sideList('right')}
-          </Drawer>
-        </Toolbar>
-      </AppBar>
+    <>
+      <HideOnScroll>
+        <AppBar position="fixed" className={classes.root}>
+          <Toolbar>
+            <Typography variant="h3" className={classes.title}>
+              <Link to="/" title="Home" className={classes.title}>
+                {title}
+              </Link>
+            </Typography>
+            <IconButton color="inherit" className={classes.button}>
+              <Link to="/search">
+                <SearchIcon className={classes.searchIcon} />
+              </Link>
+            </IconButton>
+            <IconButton
+              onClick={toggleDrawer('right', true)}
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              className={classes.button}
+            >
+              <MenuIcon className={classes.menuIcon} />
+            </IconButton>
+            <Drawer
+              classes={{ paper: classes.paper }}
+              anchor="right"
+              open={state.right}
+              onClose={toggleDrawer('right', false)}
+            >
+              {sideList('right')}
+            </Drawer>
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
       <Toolbar className={classes.toolbar}></Toolbar>
-    </div>
+    </>
   );
 };
 

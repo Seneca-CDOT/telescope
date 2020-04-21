@@ -16,11 +16,9 @@ const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: '#335A7E',
     color: '#97d5ff',
-    top: '7em',
     padding: '3em',
     lineHeight: '1.3',
     [theme.breakpoints.between('xs', 'sm')]: {
-      top: '6em',
       paddingTop: '2em',
       paddingBottom: '2em',
     },
