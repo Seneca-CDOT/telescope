@@ -6,7 +6,7 @@ import { Container, Grid, Typography, ListSubheader } from '@material-ui/core';
 import syntaxHighlight from './syntax-highlight';
 import './telescope-post-content.css';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: 'rgba(255,255,255,0.7)',
     padding: 0,
@@ -19,19 +19,33 @@ const useStyles = makeStyles({
     top: '7em',
     padding: '3em',
     lineHeight: '1.3',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      top: '6em',
+      paddingTop: '2em',
+      paddingBottom: '2em',
+    },
   },
   title: {
     fontSize: '3.5em',
     fontWeight: 'bold',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '2.5em',
+    },
   },
   author: {
     fontSize: '1.5em',
     fontWeight: 'bold',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '1.2em',
+    },
   },
   published: {
     fontSize: '1.2em',
     textDecoration: 'none',
     color: '#002944',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '1em',
+    },
   },
   content: {
     padding: '2em',
@@ -48,7 +62,7 @@ const useStyles = makeStyles({
       textDecorationLine: 'underline',
     },
   },
-});
+}));
 
 function formatPublishedDate(dateString) {
   const date = new Date(dateString);
