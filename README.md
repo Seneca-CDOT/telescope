@@ -1,4 +1,4 @@
-# Telescope <img align="left" width="100" height="100" src=https://github.com/Seneca-CDOT/telescope/blob/master/images/telescope-logo.png>
+# Telescope <img align="left" width="150" height="150" src=https://github.com/Seneca-CDOT/telescope/blob/master/src/frontend/src/images/logo.svg>
 
 [![Build Status](https://travis-ci.org/Seneca-CDOT/telescope.svg?branch=master)](https://travis-ci.org/Seneca-CDOT/telescope)
 [![CircleCI](https://circleci.com/gh/Seneca-CDOT/telescope.svg?style=svg)](https://circleci.com/gh/Seneca-CDOT/telescope)
