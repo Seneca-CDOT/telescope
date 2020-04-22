@@ -6,13 +6,15 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import DynamicBackgroundContainer from '../components/DynamicBackgroundContainer.jsx';
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    position: 'absolute',
+    top: '45vh',
+  },
   root: {
     fontFamily: 'Roboto',
-    display: 'block',
     zIndex: 100,
     padding: theme.spacing(2, 4, 2, 4),
     position: 'relative',
-    top: '40vh',
     margin: 'auto',
     backgroundColor: theme.palette.primary.main,
     overflow: 'visible',
@@ -89,6 +91,11 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  backgroundAdjust: {
+    position: 'relative',
+    top: '-20vh',
+    border: 'solid 2px red',
+  },
 }));
 
 function CreateInnerErrorContent(props) {
@@ -132,7 +139,16 @@ const ErrorPage = ({ location }) => {
 
   return (
     <PageBase title={status}>
-      <Grid container spacing={0} direction="column" alignItems="center" justify="center">
+      <DynamicBackgroundContainer />
+
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        className={classes.container}
+      >
         <Grid item xs={8}>
           <Card className={classes.root} elevation={6}>
             <CardContent>
@@ -160,7 +176,6 @@ const ErrorPage = ({ location }) => {
           </Card>
         </Grid>
       </Grid>
-      <DynamicBackgroundContainer />
     </PageBase>
   );
 };
