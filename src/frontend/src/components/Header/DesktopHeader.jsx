@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -12,8 +11,6 @@ import {
   ListItem,
   Drawer,
   Divider,
-  useScrollTrigger,
-  Slide,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
@@ -22,6 +19,7 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Login from '../Login';
 import Footer from '../Footer';
+import HideOnScroll from '../HideOnScroll';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -81,26 +79,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
   },
 }));
-
-function HideOnScroll(props) {
-  const { children, window } = props;
-
-  const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
-    threshold: 700,
-  });
-
-  return (
-    <Slide appear={false} direction="down" in={!trigger}>
-      {children}
-    </Slide>
-  );
-}
-
-HideOnScroll.propTypes = {
-  children: PropTypes.element.isRequired,
-  window: PropTypes.func,
-};
 
 const Header = () => {
   const { title } = useSiteMetadata();
