@@ -104,8 +104,46 @@ function init() {
         return done(error);
       }
 
-      // We only use the displayname, emailaddress, and nameID (hashed, for use in our db)
+      /**
+       * The object we get back from Seneca takes this form:
+       * {
+       *   "issuer": "https://sts.windows.net/...",
+       *   "inResponseTo": "_851650d2472d2921c6ac",
+       *   "sessionIndex": "_dfa0c21c-b4d6-43cb-a277-2cf456d43600",
+       *   "nameID": "first.last@senecacollege.ca",
+       *   "nameIDFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+       *   "http://schemas.microsoft.com/identity/claims/tenantid": "3dd...",
+       *   "http://schemas.microsoft.com/identity/claims/objectidentifier": "4b4a05ff-04a4-49d9-91b8-1f92d2077f80",
+       *   "http://schemas.microsoft.com/identity/claims/displayname": "First Last",
+       *   "http://schemas.microsoft.com/identity/claims/identityprovider": "https://sts...",
+       *   "http://schemas.microsoft.com/claims/authnmethodsreferences": "http://schemas.microsoft.com/ws/2008/06/identity/authenticationmethod/password",
+       *   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname": "First",
+       *   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname": "Last",
+       *   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress": "first.last@senecacollege.ca",
+       *   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": "first.last@senecacollege.ca",
+       * }
+       *
+       * The SimpleSamlPHP testing IdP looks like this:
+       *
+       * {
+       *   "issuer": "https://localhost:8443/simplesaml/saml2/idp/metadata.php",
+       *   "sessionIndex": "_db0e7ecb9c82615a9abf21f0fc97c39b5b3e5857d0",
+       *   "nameID": "_566172266563daa8980f7a8fa73a6ef45172aac020",
+       *   "nameIDFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
+       *   "spNameQualifier": "...",
+       *   "uid": "1",
+       *   "eduPersonAffiliation": "group1",
+       *   "http://schemas.microsoft.com/identity/claims/displayname": "First Last",
+       *   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress": "first.last@email.com"
+       *   "email": "first.last@email.com"
+       * }
+       */
+
+      // We only use the displayname, emailaddress, and nameID info (hashed, for use in our db)
       return done(null, {
+        // Include nameID so we can use it for Logout Requests back to the IdP.
+        nameID: profile.nameID,
+        nameIDFormat: profile.nameIDFormat,
         name: profile['http://schemas.microsoft.com/identity/claims/displayname'],
         email: profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
         id: hash(profile.nameID),

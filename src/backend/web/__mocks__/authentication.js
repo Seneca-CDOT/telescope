@@ -72,10 +72,14 @@ function createUser() {
     return null;
   }
 
+  // Hard-code required fields that we need internally, but don't use in mocks
+  const nameID = loggedInUser.email;
+  const nameIDFormat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
+
   if (loggedInUser.isAdmin) {
-    return new Admin(loggedInUser.name, loggedInUser.email, loggedInUser.id);
+    return new Admin(loggedInUser.name, loggedInUser.email, loggedInUser.id, nameID, nameIDFormat);
   }
-  return new User(loggedInUser.name, loggedInUser.email, loggedInUser.id);
+  return new User(loggedInUser.name, loggedInUser.email, loggedInUser.id, nameID, nameIDFormat);
 }
 
 function protect(redirect) {

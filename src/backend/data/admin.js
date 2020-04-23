@@ -6,8 +6,8 @@ const hash = require('./hash');
 const administrators = process.env.ADMINISTRATORS ? process.env.ADMINISTRATORS.split(' ') : [];
 
 class Admin extends User {
-  constructor(name, email, id) {
-    super(name, email, id);
+  constructor(name, email, id, nameID, nameIDFormat) {
+    super(name, email, id, nameID, nameIDFormat);
     this.isAdmin = true;
   }
 
