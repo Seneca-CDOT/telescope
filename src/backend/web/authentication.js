@@ -77,9 +77,9 @@ function init() {
      * more than one admin user.
      */
     if (Admin.isAdmin(user.id)) {
-      done(null, new Admin(user.name, user.email, user.id));
+      done(null, new Admin(user.name, user.email, user.id, user.nameID, user.nameIDFormat));
     } else {
-      done(null, new User(user.name, user.email, user.id));
+      done(null, new User(user.name, user.email, user.id, user.nameID, user.nameIDFormat));
     }
   });
 
