@@ -4,15 +4,22 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import MobileHeader from './MobileHeader.jsx';
 import DesktopHeader from './DesktopHeader.jsx';
+import HideOnScroll from '../HideOnScroll';
 
 function Header() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <div>
-      {matches ? <MobileHeader className="mobile-header" /> : <DesktopHeader className="header" />}
-    </div>
+    <>
+      <HideOnScroll>
+        {matches ? (
+          <MobileHeader className="mobile-header" />
+        ) : (
+          <DesktopHeader className="header" />
+        )}
+      </HideOnScroll>
+    </>
   );
 }
 
