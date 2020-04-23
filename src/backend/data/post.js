@@ -1,7 +1,6 @@
 const { getPost, addPost } = require('../utils/storage');
 const { logger } = require('../utils/logger');
-const sanitizeHTML = require('../utils/sanitize-html');
-const syntaxHighlight = require('../utils/syntax-highlighter');
+const processHTML = require('../utils/html');
 const textParser = require('../utils/text-parser');
 const Feed = require('./feed');
 const hash = require('./hash');
@@ -120,15 +119,15 @@ class Post {
       article.date = article.pubdate;
     }
 
-    let sanitizedHTML;
+    let html;
     try {
       // The article.description is frequently the full HTML article content.
-      // Sanitize it of any scripts or other dangerous attributes/elements
-      sanitizedHTML = sanitizeHTML(article.description);
-      // We also add syntax highlighting for <pre>...</pre> blocks
-      sanitizedHTML = syntaxHighlight(sanitizedHTML);
+      // Sanitize it of any scripts or other dangerous attributes/elements,
+      // add lazy loading for <img> and <iframe>, and syntax highlight all
+      // <pre><code>...</code></pre> blocks.
+      html = processHTML(article.description);
     } catch (error) {
-      logger.error({ error }, 'Unable to sanitize and parse HTML for feed');
+      logger.error({ error }, 'Unable to process HTML for feed');
       throw error;
     }
 
@@ -136,8 +135,8 @@ class Post {
     // https://www.npmjs.com/package/feedparser#list-of-article-properties
     const post = new Post(
       article.title,
-      // sanitized HTML version of the post
-      sanitizedHTML,
+      // processed HTML version of the post
+      html,
       // pubdate (original published date)
       article.pubdate,
       // date (most recent update)

@@ -2,30 +2,19 @@
  * @jest-environment jsdom
  */
 
-const syntaxHighlighter = require('../src/backend/utils/syntax-highlighter');
+const toDOM = require('../src/backend/utils/html/dom');
+const highlight = require('../src/backend/utils/html/syntax-highlight');
+
+function syntaxHighlighter(html) {
+  const dom = toDOM(html);
+  highlight(dom);
+  return dom.window.document.body.innerHTML;
+}
 
 /**
  * syntaxHighlighter() will markup code so it can be styled as code with CSS
  */
-describe('syntax-highlighter tests', () => {
-  test('Objects are returned untouched', () => {
-    const original = {};
-    const result = syntaxHighlighter(original);
-    expect(result).toEqual(original);
-  });
-
-  test('undefined is returned untouched', () => {
-    const original = undefined;
-    const result = syntaxHighlighter(original);
-    expect(result).toEqual(original);
-  });
-
-  test('null is returned untouched', () => {
-    const original = null;
-    const result = syntaxHighlighter(original);
-    expect(result).toEqual(original);
-  });
-
+describe('syntax-highlight tests', () => {
   test('empty code blocks are left untouched', () => {
     const original = '';
     const result = syntaxHighlighter(original);

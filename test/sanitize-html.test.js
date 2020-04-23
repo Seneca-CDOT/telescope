@@ -1,4 +1,4 @@
-const sanitizeHTML = require('../src/backend/utils/sanitize-html');
+const sanitizeHTML = require('../src/backend/utils/html/sanitize');
 
 describe('Sanitize HTML', () => {
   test('<img> should work, but inline js should not', () => {

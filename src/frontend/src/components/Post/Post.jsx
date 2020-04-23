@@ -53,14 +53,6 @@ function formatPublishedDate(dateString) {
   return `Last Updated ${formatted}`;
 }
 
-function lazyLoad(text) {
-  const dom = document.createElement('template');
-  dom.innerHTML = text;
-  dom.content.querySelectorAll('iframe,img').forEach(function (elem) {
-    elem.setAttribute('loading', 'lazy');
-  });
-  return dom.innerHTML;
-}
 const Post = ({ id, html, author, url, title, date, link }) => {
   const classes = useStyles();
   // We need a ref to our post content, which we inject into a <section> below.
@@ -94,7 +86,7 @@ const Post = ({ id, html, author, url, title, date, link }) => {
           <section
             ref={sectionEl}
             className="telescope-post-content"
-            dangerouslySetInnerHTML={{ __html: lazyLoad(html) }}
+            dangerouslySetInnerHTML={{ __html: html }}
           />
         </Grid>
       </Grid>
