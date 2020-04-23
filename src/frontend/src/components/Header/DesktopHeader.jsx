@@ -19,7 +19,6 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Login from '../Login';
 import Footer from '../Footer';
-import HideOnScroll from '../HideOnScroll';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -116,45 +115,43 @@ const Header = () => {
 
   return (
     <>
-      <HideOnScroll>
-        <AppBar position="fixed" className={classes.root}>
-          <Toolbar>
-            <Typography variant="h3" className={classes.title}>
-              <Link to="/" title="Home" className={classes.title}>
-                {title}
-              </Link>
-            </Typography>
-            <IconButton color="inherit" className={classes.button}>
-              <Link to="/search">
-                <SearchIcon className={classes.searchIcon} />
-              </Link>
-            </IconButton>
-            <Button color="inherit" size="medium" className={classes.button}>
-              <Link to="/" className={classes.links}>
-                Home
-              </Link>
-            </Button>
-            <Login />
-            <IconButton
-              onClick={toggleDrawer('right', true)}
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              className={classes.button}
-            >
-              <MenuIcon className={classes.menuIcon} />
-            </IconButton>
-            <Drawer
-              classes={{ paper: classes.paper }}
-              anchor="right"
-              open={state.right}
-              onClose={toggleDrawer('right', false)}
-            >
-              {sideList('right')}
-            </Drawer>
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
+      <AppBar position="fixed" className={classes.root}>
+        <Toolbar>
+          <Typography variant="h3" className={classes.title}>
+            <Link to="/" title="Home" className={classes.title}>
+              {title}
+            </Link>
+          </Typography>
+          <IconButton color="inherit" className={classes.button}>
+            <Link to="/search">
+              <SearchIcon className={classes.searchIcon} />
+            </Link>
+          </IconButton>
+          <Button color="inherit" size="medium" className={classes.button}>
+            <Link to="/" className={classes.links}>
+              Home
+            </Link>
+          </Button>
+          <Login />
+          <IconButton
+            onClick={toggleDrawer('right', true)}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            className={classes.button}
+          >
+            <MenuIcon className={classes.menuIcon} />
+          </IconButton>
+          <Drawer
+            classes={{ paper: classes.paper }}
+            anchor="right"
+            open={state.right}
+            onClose={toggleDrawer('right', false)}
+          >
+            {sideList('right')}
+          </Drawer>
+        </Toolbar>
+      </AppBar>
       <Toolbar className={classes.toolbar}></Toolbar>
     </>
   );
