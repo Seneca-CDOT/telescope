@@ -94,7 +94,6 @@ function init() {
       issuer: SAML_ENTITY_ID,
       cert: SSO_IDP_PUBLIC_KEY_CERT,
       disableRequestedAuthnContext: true,
-      authnRequestBinding: 'HTTP-Redirect',
       signatureAlgorithm: 'sha256',
     },
     function (profile, done) {
