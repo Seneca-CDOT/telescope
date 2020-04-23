@@ -50,9 +50,11 @@ module.exports = function (dom) {
 
     // Otherwise, decorate the <pre> with class names for highlighting this language
     const pre = code.parentNode;
-    pre.classList.add('hljs', language);
+    if (pre) {
+      pre.classList.add('hljs', language);
+    }
 
-    // Replace the contents with newly marked up syntax highligting
+    // Replace the contents with newly marked up syntax highlighting
     code.innerHTML = value;
   });
 };
