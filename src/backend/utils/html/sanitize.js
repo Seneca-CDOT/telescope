@@ -5,7 +5,6 @@ const sanitizeHtml = require('sanitize-html');
 
 module.exports = function (dirty) {
   return sanitizeHtml(dirty, {
-    // Add <img> to the list of allowed tags, see:
     // https://github.com/apostrophecms/sanitize-html#what-are-the-default-options
     allowedTags: [
       'a',

@@ -1,8 +1,4 @@
 const hljs = require('highlight.js/lib/highlight');
-const jsdom = require('jsdom');
-const { logger } = require('./logger');
-
-const { JSDOM } = jsdom;
 
 // Tweak the language list here, see https://highlightjs.org/usage/
 hljs.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'));
@@ -36,38 +32,27 @@ hljs.registerLanguage('php', require('highlight.js/lib/languages/php'));
 hljs.registerLanguage('dos', require('highlight.js/lib/languages/dos'));
 
 /**
- * Given a String of HTML, find all <pre>...</pre> code blocks
+ * Given a parsed JSDOM Object, find all <pre>...</pre> code blocks
  * and apply syntax highlight markup.
  */
-module.exports = function (html) {
-  if (typeof html !== 'string') {
-    return html;
+module.exports = function (dom) {
+  if (!(dom && dom.window && dom.window.document)) {
+    return;
   }
 
-  try {
-    const dom = new JSDOM(html);
-    const doc = dom.window.document;
+  dom.window.document.querySelectorAll('pre code').forEach((code) => {
+    const { value, language } = hljs.highlightAuto(code.innerHTML);
 
-    doc.querySelectorAll('pre code').forEach((code) => {
-      const { value, language } = hljs.highlightAuto(code.innerHTML);
+    // If the language wasn't detected, return the HTML untouched
+    if (!language) {
+      return;
+    }
 
-      // If the language wasn't detected, return the HTML untouched
-      if (!language) {
-        return;
-      }
+    // Otherwise, decorate the <pre> with class names for highlighting this language
+    const pre = code.parentNode;
+    pre.classList.add('hljs', language);
 
-      // Otherwise, decorate the <pre> with class names for highlighting this language
-      const pre = code.parentNode;
-      pre.classList.add('hljs', language);
-
-      // Replace the contents with newly marked up syntax highligting
-      code.innerHTML = value;
-    });
-
-    return doc.body.innerHTML;
-  } catch (err) {
-    logger.error({ err, html }, 'syntax highlight error');
-    // Return the HTML untouched.
-    return html;
-  }
+    // Replace the contents with newly marked up syntax highligting
+    code.innerHTML = value;
+  });
 };
