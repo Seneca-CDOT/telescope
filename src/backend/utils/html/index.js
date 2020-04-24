@@ -1,4 +1,5 @@
 const sanitize = require('./sanitize');
+const fixIFrameWidth = require('./fix-iframe-width');
 const lazyLoad = require('./lazy-load');
 const syntaxHighlight = require('./syntax-highlight');
 const toDOM = require('./dom');
@@ -21,6 +22,8 @@ module.exports = function process(html) {
   const dom = toDOM(clean);
   // Look for and syntax highlight <pre><code>...</code></pre> blocks
   syntaxHighlight(dom);
+  // Wrap <iframe> elements in a <div> so we can style their width
+  fixIFrameWidth(dom);
   // Update <img> and <iframe> elements to use native lazy loading.
   lazyLoad(dom);
 
