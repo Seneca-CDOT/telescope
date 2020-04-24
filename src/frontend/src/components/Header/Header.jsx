@@ -10,9 +10,9 @@ function Header() {
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <div>
+    <>
       {matches ? <MobileHeader className="mobile-header" /> : <DesktopHeader className="header" />}
-    </div>
+    </>
   );
 }
 

@@ -2,32 +2,51 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Typography, ListSubheader } from '@material-ui/core';
 import syntaxHighlight from './syntax-highlight';
 import './telescope-post-content.css';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: 'rgba(255,255,255,0.7)',
     padding: 0,
     fontSize: '1.5rem',
-    marginBottom: '8em',
+    marginBottom: '4em',
   },
   header: {
     backgroundColor: '#335A7E',
     color: '#97d5ff',
-    padding: '2em',
+    padding: '3em',
     lineHeight: '1.3',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      paddingTop: '2em',
+      paddingBottom: '2em',
+    },
   },
   title: {
-    fontSize: '2.5em',
+    fontSize: '3.5em',
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '2.5em',
+    },
   },
   author: {
-    fontSize: '1.2em',
+    fontSize: '1.5em',
+    fontWeight: 'bold',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '1.2em',
+    },
   },
   published: {
+    fontSize: '1.2em',
     textDecoration: 'none',
     color: '#002944',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '1em',
+    },
   },
   content: {
     padding: '2em',
@@ -44,7 +63,7 @@ const useStyles = makeStyles({
       textDecorationLine: 'underline',
     },
   },
-});
+}));
 
 function formatPublishedDate(dateString) {
   const date = new Date(dateString);
@@ -64,22 +83,22 @@ const Post = ({ id, html, author, url, title, date, link }) => {
 
   return (
     <Container className={classes.root}>
-      <header className={classes.header}>
-        <h1 id={id} className={classes.title}>
+      <ListSubheader className={classes.header}>
+        <Typography variant="h1" title={title} id={id} className={classes.title}>
           {title}
-        </h1>
-        <h3 className={classes.author}>
+        </Typography>
+        <Typography variant="h3" className={classes.author}>
           By{' '}
           <a className={classes.link} href={link}>
             {author}
           </a>
-        </h3>
+        </Typography>
         <a href={url} rel="bookmark" className={classes.published}>
           <time className={classes.time} dateTime={date}>
             {formatPublishedDate(date)}
           </time>
         </a>
-      </header>
+      </ListSubheader>
 
       <Grid container>
         <Grid item xs={12} className={classes.content}>
