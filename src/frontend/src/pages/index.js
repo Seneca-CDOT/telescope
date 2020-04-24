@@ -44,6 +44,7 @@ export default function IndexPage() {
   const [currentNumPosts, setCurrentNumPosts] = useState(0);
   const [endOfPosts, setEndOfPosts] = useState(false);
   const [alert, setAlert] = useState(false);
+  const [shouldCheckForNewPosts, setShouldCheckForNewPosts] = useState(false);
   const { telescopeUrl } = useSiteMetaData();
   const savedCallback = useRef();
   const snackbarMessage = 'There is new content available!';
@@ -90,6 +91,9 @@ export default function IndexPage() {
   }
 
   const getPostsCount = useCallback(async () => {
+    if (!shouldCheckForNewPosts) {
+      return null;
+    }
     try {
       const res = await fetch(`${telescopeUrl}/posts`, { method: 'HEAD' });
       if (!res.ok) {
@@ -98,9 +102,11 @@ export default function IndexPage() {
       return res.headers.get('x-total-count');
     } catch (error) {
       console.log(error);
+    } finally {
+      setShouldCheckForNewPosts(false);
     }
     return null;
-  }, [telescopeUrl]);
+  }, [telescopeUrl, shouldCheckForNewPosts]);
 
   const callback = useCallback(async () => {
     setCurrentNumPosts(await getPostsCount());
@@ -124,6 +130,7 @@ export default function IndexPage() {
 
   useEffect(() => {
     function getCurrentNumPosts() {
+      setShouldCheckForNewPosts(true);
       savedCallback.current();
     }
     savedCallback.current = callback;
