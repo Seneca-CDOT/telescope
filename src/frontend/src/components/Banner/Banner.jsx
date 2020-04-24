@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
 
@@ -190,7 +189,6 @@ export default function Banner() {
 
   return (
     <>
-      <CssBaseline />
       <div className={classes.heroBanner}>
         <RetrieveBannerDynamicAssets />
         <Typography variant="h1" className={classes.h1}>
