@@ -57,7 +57,6 @@ export default function BackToTop(props) {
   const classes = useStyles();
   return (
     <>
-      <CssBaseline />
       <Toolbar id="back-to-top-anchor" className={classes.anchor} />
       <ScrollTop {...props}>
         <Fab color="primary" aria-label="scroll back to top">
