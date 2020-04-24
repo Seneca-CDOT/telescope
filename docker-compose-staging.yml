@@ -39,6 +39,11 @@ services:
       - bootstrap.memory_lock=true
       - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
       - discovery.type=single-node
+    volumes:
+      # The directory in the host where the data from elasticsearch will be stored
+      # needs to be owned by 1000:1000
+      # https://discuss.elastic.co/t/elastic-elasticsearch-docker-not-assigning-permissions-to-data-directory-on-run/65812/3
+      - ../elastic-data:/usr/share/elasticsearch/data:rw
     restart: always
 
   nginx:
