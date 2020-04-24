@@ -19,6 +19,24 @@ describe('Post data class tests', () => {
     lastModified: null,
   };
 
+  const data2 = {
+    author: 'Post Author2',
+    url: 'https://user2.feed.com/feed.rss',
+    user: 'user2',
+    link: 'https://user2.feed.com/',
+    etag: null,
+    lastModified: null,
+  };
+
+  const data3 = {
+    author: 'Post Author3',
+    url: 'https://user3.feed.com/feed.rss',
+    user: 'user3',
+    link: 'https://user3.feed.com/',
+    etag: null,
+    lastModified: null,
+  };
+
   const createFeed = () => new Feed(data.author, data.url, data.user, data.link, null, null);
 
   const articleData1 = {
@@ -171,6 +189,35 @@ describe('Post data class tests', () => {
       expect(removedPosts[0]).toBe(null);
       expect(esSearchDelete.values).toStrictEqual([]);
       expect(esSearchDelete.results).toBe(0);
+    });
+
+    test('clearCache should set lastModified and etag to null', async () => {
+      let feed = new Feed(data.author, data.url, data.user, data.link, 'etag', 'lastModified');
+      let feed2 = new Feed(data2.author, data2.url, data2.user, data2.link, 'etag', 'lastModified');
+      let feed3 = new Feed(data3.author, data3.url, data3.user, data3.link, 'etag', 'lastModified');
+
+      feed = await Feed.byId(await Feed.create(feed));
+      feed2 = await Feed.byId(await Feed.create(feed2));
+      feed3 = await Feed.byId(await Feed.create(feed3));
+      // Basic check
+      expect(feed.etag).toBe('etag');
+      expect(feed.lastModified).toBe('lastModified');
+      expect(feed2.etag).toBe('etag');
+      expect(feed2.lastModified).toBe('lastModified');
+      expect(feed3.etag).toBe('etag');
+      expect(feed3.lastModified).toBe('lastModified');
+
+      // Test clearCache()
+      await Feed.clearCache();
+      const clearedFeed = await Feed.byId(feed.id);
+      const clearedFeed2 = await Feed.byId(feed2.id);
+      const clearedFeed3 = await Feed.byId(feed3.id);
+      expect(clearedFeed.etag).toBe(null);
+      expect(clearedFeed.lastModified).toBe(null);
+      expect(clearedFeed2.etag).toBe(null);
+      expect(clearedFeed2.lastModified).toBe(null);
+      expect(clearedFeed3.etag).toBe(null);
+      expect(clearedFeed3.lastModified).toBe(null);
     });
   });
 });

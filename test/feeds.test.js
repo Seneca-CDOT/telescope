@@ -133,6 +133,78 @@ describe('test POST /feeds endpoint', () => {
   });
 });
 
+describe('test DELETE /feeds/cache endpoint', () => {
+  it('should respond with a 403 status trying to clear cache without logging in', async () => {
+    const res = await request(app).delete('/feeds/cache').send().set('Accept', 'application/json');
+    expect(res.status).toEqual(403);
+  });
+
+  it('should respond with a 403 status trying to clear cache when logged in as normal user', async () => {
+    login('Johannes Kepler', 'user1@example.com');
+    const res = await request(app).delete('/feeds/cache').send().set('Accept', 'application/json');
+    expect(res.status).toEqual(403);
+  });
+
+  it('should respond with a 204 status trying to clear cache when logged in as admin user', async () => {
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app).delete('/feeds/cache').send().set('Accept', 'application/json');
+    expect(res.status).toEqual(204);
+  });
+
+  it('should respond with a 204 and all existing feed etag + lastModified be null', async () => {
+    const data = {
+      author: 'Post Author',
+      url: 'https://user.feed.com/feed.rss',
+      user: 'user',
+      link: 'https://user.feed.com/',
+      etag: 'etag',
+      lastModified: 'lastModified',
+    };
+
+    const data2 = {
+      author: 'Post Author2',
+      url: 'https://user2.feed.com/feed.rss',
+      user: 'user2',
+      link: 'https://user2.feed.com/',
+      etag: 'etag',
+      lastModified: 'lastModified',
+    };
+
+    const data3 = {
+      author: 'Post Author3',
+      url: 'https://user3.feed.com/feed.rss',
+      user: 'user',
+      link: 'https://user3.feed.com/',
+      etag: 'etag',
+      lastModified: 'lastModified',
+    };
+
+    const feedIds = await Promise.all([Feed.create(data), Feed.create(data2), Feed.create(data3)]);
+    const feeds = await Promise.all(feedIds.map(Feed.byId));
+
+    // Checking db against data
+    expect(feeds[0].etag).toBe('etag');
+    expect(feeds[1].etag).toBe('etag');
+    expect(feeds[2].etag).toBe('etag');
+    expect(feeds[0].lastModified).toBe('lastModified');
+    expect(feeds[1].lastModified).toBe('lastModified');
+    expect(feeds[2].lastModified).toBe('lastModified');
+
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app).delete('/feeds/cache').send().set('Accept', 'application/json');
+    expect(res.status).toBe(204);
+
+    // Checking db for updated values after put route
+    const clearedFeeds = await Promise.all(feedIds.map(Feed.byId));
+    expect(clearedFeeds[0].etag).toBe(null);
+    expect(clearedFeeds[1].etag).toBe(null);
+    expect(clearedFeeds[2].etag).toBe(null);
+    expect(clearedFeeds[0].lastModified).toBe(null);
+    expect(clearedFeeds[1].lastModified).toBe(null);
+    expect(clearedFeeds[2].lastModified).toBe(null);
+  });
+});
+
 describe('test DELETE /feeds/:id endpoint', () => {
   let feedId;
   function generateFeedData(user) {

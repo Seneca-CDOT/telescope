@@ -3,6 +3,7 @@ const Feed = require('../../data/feed');
 const { getFeeds } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 const { protect } = require('../authentication');
+const { protectAdmin } = require('../authentication');
 
 const feeds = express.Router();
 
@@ -70,6 +71,18 @@ feeds.post('/', protect(), async (req, res) => {
     logger.error({ error }, 'Unable to add feed to Redis');
     return res.status(503).json({
       message: 'Unable to add to Feed',
+    });
+  }
+});
+
+feeds.delete('/cache', protectAdmin(true), async (req, res) => {
+  try {
+    await Feed.clearCache();
+    return res.status(204).send();
+  } catch (error) {
+    logger.error({ error }, 'Unable to reset Feed data in Redis');
+    return res.status(503).json({
+      message: 'Unable to reset data for Feeds',
     });
   }
 });
