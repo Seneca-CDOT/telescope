@@ -10,7 +10,9 @@
 }
 
 .telescope-post-content p {
-  margin: 1.2rem 0;
+  padding: 0;
+  margin: 0;
+  display: inline;
 }
 
 .telescope-post-content img {
@@ -19,7 +21,14 @@
   max-width: 100%;
   padding-top: 1.5rem;
   padding-bottom: 1rem;
+  width: 100%;
 }
+.telescope-post-content figure {
+  display: block;
+  margin: 0;
+  text-align: center;
+}
+
 .telescope-post-content img[src*='emoji'],
 .telescope-post-content img[src*='smileys'] {
   display: inline-block;
