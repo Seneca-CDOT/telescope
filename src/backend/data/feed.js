@@ -12,6 +12,9 @@ const {
   removePost,
   getPost,
   getPosts,
+  getFlaggedFeeds,
+  setFlaggedFeed,
+  unsetFlaggedFeed,
 } = require('../utils/storage');
 
 const { deletePost } = require('../utils/elastic');
@@ -112,6 +115,22 @@ class Feed {
   }
 
   /**
+   * Flags the feed, preventing posts from the feed to be displayed
+   * Returns a Promise<Boolean>
+   */
+  flag() {
+    return setFlaggedFeed(this.id);
+  }
+
+  /**
+   * Unflags the feed, allowing posts from the feed to be displayed
+   * Returns a Promise<Boolean>
+   */
+  unflag() {
+    return unsetFlaggedFeed(this.id);
+  }
+
+  /**
    * Creates a new Feed object by extracting data from the given feed-like object.
    * @param {Object} feedData - an Object containing the necessary fields.
    * Returns the newly created Feed's id as a Promise<String>
@@ -155,11 +174,20 @@ class Feed {
   }
 
   /**
-   * Returns all the feeds
+   * Returns all unflagged feeds
    * Returns a Promise<Feeds>
    */
   static async all() {
     const ids = await getFeeds();
+    return Promise.all(ids.map(Feed.byId));
+  }
+
+  /**
+   * Returns all flagged feeds
+   * Returns a Promise<Feeds>
+   */
+  static async flagged() {
+    const ids = await getFlaggedFeeds();
     return Promise.all(ids.map(Feed.byId));
   }
 

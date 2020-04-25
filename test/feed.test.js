@@ -117,6 +117,8 @@ describe('Post data class tests', () => {
       const persisted = await Feed.byId(feed.id);
       expect(persisted.etag).toEqual('etag');
       expect(persisted.lastModified).toBe(null);
+      // Teardown removing the added feed
+      await feed.delete();
     });
 
     test('Setting lastModified on a feed should persist', async () => {
@@ -126,6 +128,8 @@ describe('Post data class tests', () => {
       const persisted = await Feed.byId(feed.id);
       expect(persisted.lastModified).toEqual('lastModified');
       expect(persisted.etag).toBe(null);
+      // Teardown removing the added feed
+      await feed.delete();
     });
 
     test('Feed.isDelayed() should return true only after Feed.setDelayed() is called', async () => {
@@ -149,6 +153,8 @@ describe('Post data class tests', () => {
       expect(modifiedFeed.url).toBe(feed.url);
       expect(modifiedFeed.author).toBe(feed.author);
       expect(modifiedFeed.id).toBe(urlToId(feed.url));
+      // Teardown removing the added feed
+      await feed.delete();
     });
 
     test('Removing feeds should also remove posts', async () => {
@@ -218,6 +224,57 @@ describe('Post data class tests', () => {
       expect(clearedFeed2.lastModified).toBe(null);
       expect(clearedFeed3.etag).toBe(null);
       expect(clearedFeed3.lastModified).toBe(null);
+      // Teardown removing the added feed
+      await Promise.all([await feed.delete(), await feed2.delete(), await feed3.delete()]);
+    });
+
+    test('Flagged feed should appear in t:feeds:flagged and not t:feeds', async () => {
+      const feedData = new Feed(data.author, data.url, data.user, data.link);
+      const feedData2 = new Feed(data2.author, data2.url, data2.user, data2.link);
+      const feedData3 = new Feed(data3.author, data3.url, data3.user, data3.link);
+
+      // Check all three feeds are created
+      const feed = await Feed.byId(await Feed.create(feedData));
+      const feed2 = await Feed.byId(await Feed.create(feedData2));
+      const feed3 = await Feed.byId(await Feed.create(feedData3));
+
+      let unFlaggedFeeds = await Feed.all();
+      expect(unFlaggedFeeds.length).toBe(3);
+
+      // Test flag()
+      await Promise.all([feed.flag(), feed2.flag()]);
+      unFlaggedFeeds = await Feed.all();
+      expect(unFlaggedFeeds.length).toBe(1);
+
+      let flaggedFeeds = await Feed.flagged();
+      expect(flaggedFeeds.length).toBe(2);
+
+      // Feed should not appear in unflagged set if Feed is flagged and added again
+      await Feed.create(feedData);
+      unFlaggedFeeds = await Feed.all();
+      expect(unFlaggedFeeds.length).toBe(1);
+
+      // Flagged feeds should have same data as feed + feed2
+      expect(flaggedFeeds.some((flaggedFeed) => flaggedFeed.id === feed.id)).toBe(true);
+      expect(flaggedFeeds.some((flaggedFeed) => flaggedFeed.id === feed2.id)).toBe(true);
+
+      // Test unflag();
+      await feed2.unflag();
+      unFlaggedFeeds = await Feed.all();
+      expect(unFlaggedFeeds.length).toBe(2);
+
+      flaggedFeeds = await Feed.flagged();
+      expect(flaggedFeeds.length).toBe(1);
+
+      // Testing delete() as part of teardown, feed should be removed from t:feeds:flagged
+      await feed.delete();
+      flaggedFeeds = await Feed.flagged();
+      expect(flaggedFeeds.length).toBe(0);
+      await feed2.delete();
+      await feed3.delete();
+
+      // Testing whether removing an already removed feed will error
+      await feed.delete();
     });
   });
 });

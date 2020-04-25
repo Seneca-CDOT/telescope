@@ -2,8 +2,11 @@ const {
   addFeed,
   getFeed,
   getFeeds,
+  getFlaggedFeeds,
   getFeedsCount,
   removeFeed,
+  setFlaggedFeed,
+  unsetFlaggedFeed,
   addPost,
   getPost,
   getPosts,
@@ -74,11 +77,31 @@ describe('Storage tests for feeds', () => {
   it('feed4 should not exist after being removed', async () => {
     const feed = await getFeed(feed4.id);
     await removeFeed(feed.id);
+    // Removing an already removed Feed should not error
+    await removeFeed(feed.id);
     const removedFeed = await getFeed(feed.id);
     // This should return an empty Object {} (no id)
     const feeds = await getFeeds();
     expect(removedFeed.id).toBe(undefined);
     expect(feeds.includes(feed.id)).toBe(false);
+  });
+
+  it('feed3 should appear in flaggedFeed set after being flagged', async () => {
+    const feed = await getFeed(feed3.id);
+    await setFlaggedFeed(feed3.id);
+    const feeds = await getFeeds();
+    const flaggedFeeds = await getFlaggedFeeds();
+    expect(flaggedFeeds.includes(feed.id)).toBe(true);
+    expect(feeds.includes(feed.id)).toBe(false);
+  });
+
+  it('feed3 should not appear in flaggedFeed set after being unflagged', async () => {
+    const feed = await getFeed(feed3.id);
+    await unsetFlaggedFeed(feed3.id);
+    const feeds = await getFeeds();
+    const flaggedFeeds = await getFlaggedFeeds();
+    expect(feeds.includes(feed.id)).toBe(true);
+    expect(flaggedFeeds.includes(feed.id)).toBe(false);
   });
 });
 
