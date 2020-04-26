@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Fab from '@material-ui/core/Fab';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
+import { Fab, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   h1: {
@@ -87,7 +86,6 @@ const useStyles = makeStyles((theme) => ({
     height: '5.6rem',
     width: '5.6rem',
     position: 'relative',
-    left: '49.5%',
     bottom: theme.spacing(20),
     zIndex: 300,
     [theme.breakpoints.between('xs', 'sm')]: {
@@ -118,7 +116,7 @@ function ScrollDown(props) {
 
 function RetrieveBannerDynamicAssets() {
   const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
-
+  const [transitionBackground, setTransitionBackground] = useState(true);
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
 
@@ -138,23 +136,29 @@ function RetrieveBannerDynamicAssets() {
         words: data.words.toLocaleString(),
       };
       setStats(localeStats);
+      setTransitionBackground(false);
     }
 
     getStats();
   }, [telescopeUrl]);
 
-  return (
-    <div>
-      <DynamicBackgroundContainer>
-        {stats.authors !== 0 && (
-          <Typography variant="caption" className={classes.stats}>
-            This year {stats.authors} of us have written {stats.words} words and counting. Add
-            yours!
-          </Typography>
-        )}
-      </DynamicBackgroundContainer>
-    </div>
-  );
+  if (stats.authors !== 0) {
+    return (
+      <div
+        style={{
+          transition: 'opacity 1s ease-in-out',
+          opacity: transitionBackground ? 0 : 0.85,
+        }}
+      >
+        <DynamicBackgroundContainer />
+        <Typography variant="caption" className={classes.stats}>
+          This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
+        </Typography>
+      </div>
+    );
+  }
+
+  return null;
 }
 
 ScrollDown.propTypes = {
@@ -191,6 +195,7 @@ export default function Banner() {
     <>
       <div className={classes.heroBanner}>
         <RetrieveBannerDynamicAssets />
+
         <Typography variant="h1" className={classes.h1}>
           {'Telescope'}
         </Typography>
@@ -203,13 +208,24 @@ export default function Banner() {
           v {gitInfo.version}
         </a>
       </div>
-      <div className={classes.icon}>
-        <ScrollDown>
-          <Fab color="primary" aria-label="scroll-down">
-            <KeyboardArrowDownIcon fontSize="large" />
-          </Fab>
-        </ScrollDown>
-      </div>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        className={classes.container}
+      >
+        <Grid item xs={8}>
+          <div className={classes.icon}>
+            <ScrollDown>
+              <Fab color="primary" aria-label="scroll-down">
+                <KeyboardArrowDownIcon fontSize="large" />
+              </Fab>
+            </ScrollDown>
+          </div>
+        </Grid>
+      </Grid>
     </>
   );
 }

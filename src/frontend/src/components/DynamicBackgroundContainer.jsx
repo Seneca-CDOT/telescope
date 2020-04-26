@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Image from 'gatsby-image';
+import { StaticQuery, graphql } from 'gatsby';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -9,8 +11,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     transition: 'opacity 1s ease-in-out',
     position: 'absolute',
-    height: '100vh',
+    height: `calc(100vh - ${theme.spacing(8)}px)`,
     width: '100%',
+    opacity: '.45',
     top: 0,
   },
   child: {
@@ -18,56 +21,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DynamicBackgroundContainer(props) {
-  const [backgroundImgSrc, setBackgroundImgSrc] = useState('');
-  const [transitionBackground, setTransitionBackground] = useState(true);
+const randomGenerator = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+export default function DynamicBackgroundContainer() {
   const classes = useStyles();
 
-  useEffect(() => {
-    async function getBackgroundImgSrc() {
-      try {
-        // Uses https://unsplash.com/collections/1538150/milkyway collection
-        /* Other Options:
-        - https://unsplash.com/collections/291422/night-lights
-        */
-
-        // Ensure we are using an image which fits correctly to user's viewspace
-        const dimensions = `${window.innerWidth}x${window.innerHeight}`;
-        const response = await fetch(`https://source.unsplash.com/collection/894/${dimensions}`);
-
-        if (response.status !== 200) {
-          throw new Error(response.statusText);
-        }
-
-        setBackgroundImgSrc(response.url);
-      } catch (error) {
-        setBackgroundImgSrc('../../images/hero-banner.png');
-        console.error(error);
-      } finally {
-        setTransitionBackground(false);
-      }
-    }
-
-    getBackgroundImgSrc();
-  }, []);
-
   return (
-    <div>
-      <div
-        className={classes.background}
-        style={{
-          backgroundImage: `url(${backgroundImgSrc})`,
-          opacity: transitionBackground ? 0 : 0.45,
-        }}
-      ></div>
-      <div
-        className={classes.child}
-        style={{
-          opacity: transitionBackground ? 0 : 0.85,
-        }}
-      >
-        {props.children}
-      </div>
-    </div>
+    <StaticQuery
+      query={graphql`
+        {
+          allImageSharp {
+            edges {
+              node {
+                id
+                fluid(quality: 75) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+        }
+      `}
+      render={(data) => {
+        const { allImageSharp } = data;
+        const { edges } = allImageSharp;
+        const randomPosition = randomGenerator(0, edges.length - 1);
+        const randomizedImage = edges[randomPosition].node;
+        return <Image className={classes.background} fluid={randomizedImage.fluid} />;
+      }}
+    />
   );
 }
