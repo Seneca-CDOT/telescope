@@ -20,14 +20,14 @@ async function shouldDownload(filename) {
 }
 
 exports.onPreInit = async function () {
-  const clientId = process.env.unsplashClientId || '';
-  const collectionId = process.env.collectionId || '9975402';
+  const clientId = process.env.UNSPLASH_CLIENT_ID || '';
 
-  const frontEndPath = path.join('src', 'images', 'backgrounds');
-
-  if (!(clientId && collectionId)) {
+  if (!clientId) {
     return;
   }
+
+  const collectionId = process.env.UNSPLASH_COLLECTION_ID || '9975402';
+  const frontEndPath = path.join('src', 'images', 'backgrounds');
 
   // Get the list of photos from our Unsplash.com collection
   const res = await fetch(
