@@ -10,9 +10,7 @@
 }
 
 .telescope-post-content p {
-  padding: 0;
-  margin: 0;
-  display: inline;
+  margin: 1.2rem 0;
 }
 
 .telescope-post-content img {
