@@ -8,7 +8,7 @@ const { buildStart, buildStop, handleStatus } = require('./info');
 
 // Current build process output stream (if any)
 let out;
-const { SECRET, REPO_NAME, DEPLOY_PORT, DEPLOY_TYPE } = process.env;
+const { SECRET, REPO_NAME, DEPLOY_PORT, DEPLOY_TYPE, UNSPLASH_CLIENT_ID } = process.env;
 
 function handleError(req, res) {
   res.statusCode = 404;
@@ -82,7 +82,7 @@ function handleEventType(buildType, gitHubEvent) {
     if (name === REPO_NAME) {
       buildStart(buildType);
       const proc = shell.exec(
-        `./deploy.sh ${buildType}`,
+        `./deploy.sh ${buildType} ${UNSPLASH_CLIENT_ID}`,
         { silent: true },
         (code, stdout, stderr) => {
           out = null;
