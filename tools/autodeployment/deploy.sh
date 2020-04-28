@@ -39,4 +39,9 @@ cd telescope/
 # Takes the second argument the name of the env file to be used
 cp $ENV_FILE .env
 
+# We need a way to get the unsplash client id into Telescope's ENV without storing in git,
+# so we pass it through the autodeployment ENV, which is set up manually. We need a betters solution later.
+echo UNSPLASH_CLIENT_ID=$2  >> .env
+echo "" >> .env
+
 docker-compose -f $DOCKER_FILE up -d
