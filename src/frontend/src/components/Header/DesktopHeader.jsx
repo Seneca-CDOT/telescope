@@ -124,7 +124,7 @@ export default function DesktopHeader() {
                 {title}
               </Link>
             </Typography>
-            <IconButton color="inherit" className={classes.button}>
+            <IconButton color="inherit" className={classes.button} aria-label="search">
               <Link to="/search">
                 <SearchIcon className={classes.searchIcon} />
               </Link>
