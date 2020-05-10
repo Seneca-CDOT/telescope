@@ -47,6 +47,7 @@ const SearchPage = () => {
   const [results, setResults] = useState(undefined);
   const [filter, setFilter] = useState('post');
   const [fetchLoading, setFetchLoading] = useState(false);
+  const [searchEnabled, setSearchEnabled] = useState(false);
   const [searchAuthors, { loading, data }] = useLazyQuery(SEARCH_QUERY, {
     // Setting author variable here to use in the query above
     variables: { author: searchText },
@@ -75,7 +76,6 @@ const SearchPage = () => {
     },
   });
 
-  // Hook that will re-render the page only if the state of searchText changes
   useEffect(() => {
     async function searchPosts() {
       // Setting to check length > 3, as the component will trying to fetch with 0 length causing error
@@ -122,7 +122,9 @@ const SearchPage = () => {
     } else if (filter === 'post') {
       searchPosts();
     }
-  }, [searchText, filter, telescopeUrl, searchAuthors]);
+
+    setTimeout(() => setSearchEnabled(false), 500);
+  }, [telescopeUrl, searchEnabled]);
 
   // Displays one of three options depending on whether there is a search string, results and no results
   const displayResults = () => {
@@ -135,12 +137,13 @@ const SearchPage = () => {
     }
 
     if (searchText.length === 0) {
-      return <h1 className={classes.searchReply}>No search terms entered</h1>;
+      return null;
     }
 
     if (searchText.length > 0 && results.searchResults.length === 0) {
       return <h1 className={classes.searchReply}>No results found</h1>;
     }
+
     //  If result type is author return AuthorResult component
     //  for each with feed guid as key
     if (results.type === 'author') {
@@ -163,6 +166,10 @@ const SearchPage = () => {
     setFilter(value);
   }
 
+  function onFormSubmitHandler() {
+    setSearchEnabled(true);
+  }
+
   return (
     <div>
       <Box className={classes.boxAfterHeader}></Box>
@@ -170,8 +177,10 @@ const SearchPage = () => {
         searchText={searchText}
         onChangeHandler={onChangeHandler}
         filter={filter}
+        onFormSubmit={onFormSubmitHandler}
         onFilterChangeHandler={onFilterChangeHandler}
       />
+      <br />
       {displayResults()}
     </div>
   );

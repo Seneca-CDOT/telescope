@@ -8,7 +8,6 @@ import {
   Grid,
   MenuItem,
   TextField,
-  // Button,
   FormControl,
   Paper,
   IconButton,
@@ -16,69 +15,7 @@ import {
   CardContent,
   CardActions,
   Typography,
-  // Fab,
 } from '@material-ui/core';
-
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     color: theme.palette.text.secondary,
-//     padding: theme.spacing(2, 4, 2, 4),
-//     backgroundColor: '#335A7E',
-//     overflow: 'visible',
-//   },
-//   input: {
-//     width: '100%',
-//     paddingLeft: theme.spacing(2),
-//     '& > *': {
-//       color: 'white',
-//       fontSize: '1.6rem !important',
-//     },
-//   },
-//   selectControl: {
-//     '& > *': {
-//       color: 'white',
-//       fontSize: '1.4rem !important',
-//       textTransform: 'capitalize',
-//     },
-
-//     '& > * .MuiMenuItem-root': {
-//       backgroundColor: theme.palette.secondary.dark,
-//       textTransform: 'capitalize',
-//     },
-//   },
-//   h2: {
-//     fontSize: '1.4rem',
-//     color: theme.palette.grey[200],
-//     marginTop: '1.75rem',
-//     lineHeight: 'inherit',
-//     letterSpacing: 'inherit',
-//     transition: 'all linear 350ms',
-//     [theme.breakpoints.between('xs', 'sm')]: {
-//       fontSize: '1.4rem',
-//     },
-//     [theme.breakpoints.between('md', 'lg')]: {
-//       fontSize: '2rem',
-//     },
-//     [theme.breakpoints.up('xl')]: {
-//       fontSize: '4rem',
-//     },
-//   },
-//   fab: {
-//     position: 'relative',
-//     fontSize: '1.5rem',
-//     color: 'white',
-//     bottom: theme.spacing(-9),
-//     zIndex: 200,
-//     backgroundColor: theme.palette.secondary.light,
-//     transition: 'all linear 250ms',
-//     '&:hover': {
-//       backgroundColor: theme.palette.secondary.dark,
-//     },
-//     [theme.breakpoints.between('xs', 'sm')]: {
-//       right: '-2rem',
-//     },
-//   },
-// }));
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -110,10 +47,10 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: 'inherit',
     transition: 'all linear 350ms',
     [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: '1.6rem',
+      fontSize: '2rem',
     },
     [theme.breakpoints.between('md', 'lg')]: {
-      fontSize: '2rem',
+      fontSize: '3rem',
     },
     [theme.breakpoints.up('xl')]: {
       fontSize: '4rem',
@@ -158,7 +95,7 @@ function CustomizedInputBase(props) {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    onFormSubmit(event);
+    onFormSubmit();
   };
 
   const searchOptions = ['post', 'author'];
