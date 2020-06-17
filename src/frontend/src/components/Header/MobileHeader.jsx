@@ -102,7 +102,7 @@ export default function MobileHeader() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List className={classes.item}>
-        <ListItem button component={Link} className={classes.item}>
+        <ListItem button component={Link} to="/" className={classes.item}>
           HOME
         </ListItem>
         <Divider className={classes.line} />
