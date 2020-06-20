@@ -1,21 +1,11 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  List,
-  ListItem,
-  Drawer,
-  Divider,
-} from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, List, ListItem, Drawer, Divider } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
-import useSiteMetadata from '../../hooks/use-site-metadata';
-
+import LogoIcon from '../LogoIcon';
 import Login from '../Login';
 import Footer from '../Footer';
 import HideOnScroll from '../HideOnScroll';
@@ -33,14 +23,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2.5rem',
     color: 'white',
   },
-  title: {
+  logo: {
     flexGrow: 1,
-    marginLeft: '1rem',
-    color: '#a4d4ff',
-    textDecoration: 'none',
-    '&:hover': {
-      color: 'white',
-    },
+    margin: '0 0.5rem 0 0.5rem',
   },
   links: {
     color: 'white',
@@ -80,7 +65,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MobileHeader() {
-  const { title } = useSiteMetadata();
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false,
@@ -126,11 +110,9 @@ export default function MobileHeader() {
       <HideOnScroll>
         <AppBar position="fixed" className={classes.root}>
           <Toolbar>
-            <Typography variant="h3" className={classes.title}>
-              <Link to="/" title="Home" className={classes.title}>
-                {title}
-              </Link>
-            </Typography>
+            <Link to="/" title="Home" className={classes.logo}>
+              <LogoIcon height="45" width="45" />
+            </Link>
             <IconButton color="inherit" className={classes.button} aria-label="search">
               <Link to="/search">
                 <SearchIcon className={classes.searchIcon} />

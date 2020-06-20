@@ -73,5 +73,6 @@ module.exports = {
       },
     },
     `gatsby-transformer-remark`,
+    `gatsby-plugin-svgr`,
   ],
 };
