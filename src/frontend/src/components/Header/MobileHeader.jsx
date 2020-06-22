@@ -16,16 +16,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#242424',
   },
   toolbar: theme.mixins.toolbar,
-  menuIcon: {
-    fontSize: '2.5rem',
+  logoIcon: {
+    margin: '0 0.5rem 0 0.5rem',
+  },
+  grow: {
+    flexGrow: 1,
   },
   searchIcon: {
     fontSize: '2.5rem',
     color: 'white',
   },
-  logo: {
-    flexGrow: 1,
-    margin: '0 0.5rem 0 0.5rem',
+  menuIcon: {
+    fontSize: '2.5rem',
   },
   links: {
     color: 'white',
@@ -110,9 +112,10 @@ export default function MobileHeader() {
       <HideOnScroll>
         <AppBar position="fixed" className={classes.root}>
           <Toolbar>
-            <Link to="/" title="Home" className={classes.logo}>
+            <Link to="/" title="Home" className={classes.logoIcon}>
               <LogoIcon height="45" width="45" />
             </Link>
+            <div className={classes.grow} />
             <IconButton color="inherit" className={classes.button} aria-label="search">
               <Link to="/search">
                 <SearchIcon className={classes.searchIcon} />

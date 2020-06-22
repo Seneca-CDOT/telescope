@@ -14,15 +14,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#242424',
   },
   toolbar: theme.mixins.toolbar,
-  menuIcon: {
-    fontSize: '2.5rem',
+  logoIcon: {
+    margin: '0 0.5rem 0 0.5rem',
+  },
+  grow: {
+    flexGrow: 1,
   },
   searchIcon: {
     fontSize: '2.5rem',
     color: 'white',
   },
-  logo: {
-    flexGrow: 1,
+  button: {
+    float: 'right',
     margin: '0 0.5rem 0 0.5rem',
   },
   links: {
@@ -31,34 +34,6 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     fontSize: '1.5rem',
     margin: '0 0.5rem 0 0.5rem',
-  },
-  button: {
-    float: 'right',
-    margin: '0 0.5rem 0 0.5rem',
-  },
-  list: {
-    width: 250,
-  },
-  paper: {
-    background: '#242424',
-  },
-  line: {
-    backgroundColor: '#525252',
-  },
-  item: {
-    color: 'white',
-    fontFamily: 'Roboto, sans-serif',
-    textDecoration: 'none',
-    fontSize: '1.5rem',
-    justifyContent: 'center',
-    fontWeight: 500,
-    lineHeight: 1.75,
-  },
-  footer: {
-    textAlign: 'center',
-    color: 'white',
-    bottom: 5,
-    position: 'fixed',
   },
 }));
 
@@ -70,9 +45,10 @@ export default function DesktopHeader() {
       <HideOnScroll>
         <AppBar position="fixed" className={classes.root}>
           <Toolbar>
-            <Link to="/" title="Home" className={classes.logo}>
+            <Link to="/" title="Home" className={classes.logoIcon}>
               <LogoIcon height="45" width="45" />
             </Link>
+            <div className={classes.grow} />
             <IconButton color="inherit" className={classes.button} aria-label="search">
               <Link to="/search">
                 <SearchIcon className={classes.searchIcon} />
