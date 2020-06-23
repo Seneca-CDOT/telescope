@@ -190,7 +190,7 @@ const AboutFooter = () => {
       </Box>
       <Grid item xs={12}>
         <Typography variant="h6" className={classes.footer}>
-          Copyright © 2020 Seneca’s Centre for Development of Open Technology
+          Copyright © {new Date().getFullYear()} Seneca’s Centre for Development of Open Technology
         </Typography>
       </Grid>
     </Grid>
