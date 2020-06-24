@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Button, Grid, MobileStepper, Paper, Typography } from '@material-ui/core';
+import { Button, Grid, MobileStepper } from '@material-ui/core';
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@material-ui/icons';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
@@ -14,27 +14,22 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
   {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
     imgPath:
       'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
   },
   {
-    label: 'Bird',
     imgPath:
       'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
   },
   {
-    label: 'Bali, Indonesia',
     imgPath:
       'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
   },
   {
-    label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
     imgPath:
       'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
   },
   {
-    label: 'Goč, Serbia',
     imgPath:
       'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
   },
@@ -50,21 +45,16 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px',
     maxWidth: '785px',
   },
-  header: {
-    display: 'flex',
-    alignItems: 'center',
-    height: 50,
-    paddingLeft: theme.spacing(4),
-    backgroundColor: theme.palette.primary.main,
-    color: 'white',
+  carousel: {
+    paddingTop: '8rem',
+    padding: '4rem',
   },
   img: {
-    height: 255,
     display: 'block',
-    maxWidth: 400,
     overflow: 'hidden',
     width: '100%',
     justifyContent: 'center',
+    margin: 'auto',
   },
   stepper: {
     iconColor: 'white',
@@ -73,10 +63,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     height: 50,
-    backgroundColor: theme.palette.primary.main,
   },
   footerButton: {
-    color: 'white',
+    fontSize: '3rem',
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -106,10 +96,7 @@ export default function Template({
     <PageBase title={frontmatter.title}>
       <Grid container className={classes.root}>
         <Grid container>
-          <Grid item xs={12} md={6}>
-            <Paper square elevation={0} className={classes.header}>
-              <Typography variant="h4">{tutorialSteps[activeStep].label}</Typography>
-            </Paper>
+          <Grid item xs={12} md={6} className={classes.carousel}>
             <AutoPlaySwipeableViews
               axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
               index={activeStep}
@@ -137,7 +124,6 @@ export default function Template({
                   onClick={handleNext}
                   disabled={activeStep === maxSteps - 1}
                 >
-                  Next
                   {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
                 </Button>
               }
@@ -149,7 +135,6 @@ export default function Template({
                   disabled={activeStep === 0}
                 >
                   {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                  Back
                 </Button>
               }
             />
