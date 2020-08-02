@@ -89,15 +89,15 @@ exports.onPreInit = async function ({ reporter }) {
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions;
 
-  const pageTemplate = path.resolve(`src/templates/template.js`);
+  const pageTemplate = require.resolve(`./src/templates/template.js`);
 
   const result = await graphql(`
     {
-      allMarkdownRemark(sort: { order: DESC }, limit: 1000) {
+      allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___slug] }, limit: 1000) {
         edges {
           node {
             frontmatter {
-              path
+              slug
             }
           }
         }
@@ -113,9 +113,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
-      path: node.frontmatter.path,
+      path: node.frontmatter.slug,
       component: pageTemplate,
-      context: {}, // additional data can be passed via context
+      context: {
+        slug: node.frontmatter.slug,
+      }, // additional data can be passed via context
     });
   });
 };
