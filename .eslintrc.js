@@ -47,7 +47,7 @@ module.exports = {
      */
     'no-param-reassign': ['error', { props: false }],
 
-    /**Disallows unnecessary return await
+    /** Disallows unnecessary return await
      * https://eslint.org/docs/rules/no-return-await
      */
     'no-return-await': ['error'],
