@@ -1,10 +1,10 @@
-const hljs = require('highlight.js/lib/highlight');
+const hljs = require('highlight.js/lib/core');
 
 // Tweak the language list here, see https://highlightjs.org/usage/
-hljs.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'));
+hljs.registerLanguage('cLike', require('highlight.js/lib/languages/c-like'));
 hljs.registerLanguage('sql', require('highlight.js/lib/languages/sql'));
 hljs.registerLanguage('powershell', require('highlight.js/lib/languages/powershell'));
-hljs.registerLanguage('cs', require('highlight.js/lib/languages/cs'));
+hljs.registerLanguage('csharp', require('highlight.js/lib/languages/csharp'));
 hljs.registerLanguage('go', require('highlight.js/lib/languages/go'));
 hljs.registerLanguage('css', require('highlight.js/lib/languages/css'));
 hljs.registerLanguage('makefile', require('highlight.js/lib/languages/makefile'));
