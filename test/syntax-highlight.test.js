@@ -34,11 +34,11 @@ describe('syntax-highlight tests', () => {
   });
 
   test('code inside <pre><code>...</code></pre> should get marked up', () => {
-    // C++ code example, in regular text and as code
+    // C# code example, in regular text and as code
     const original = 'const int i = 5; <pre><code>const int i = 5;</code></pre>';
     const result = syntaxHighlighter(original);
     const expected =
-      'const int i = 5; <pre class="hljs cpp"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">5</span>;</code></pre>';
+      'const int i = 5; <pre class="hljs csharp"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">5</span>;</code></pre>';
     expect(result).toEqual(expected);
   });
 
@@ -46,7 +46,7 @@ describe('syntax-highlight tests', () => {
     const original = '<pre><code>cd foo</code></pre>';
     const result = syntaxHighlighter(original);
     const expected =
-      '<pre class="hljs bash"><code><span class="hljs-built_in">cd</span> foo</code></pre>';
+      '<pre class="hljs powershell"><code><span class="hljs-built_in">cd</span> foo</code></pre>';
     expect(result).toEqual(expected);
   });
 
