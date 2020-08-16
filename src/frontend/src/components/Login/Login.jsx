@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import LoggedIn from './LoggedIn.jsx';
 import LoggedOut from './LoggedOut.jsx';
 import useSiteMetadata from '../../hooks/use-site-metadata';
+import { UserStateContext, UserDispatchContext } from '../../contexts/User/UserContext';
 
 /**
  * Show either a Login button (if user isn't authenticated)
@@ -10,12 +11,13 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 
 function Login() {
   const { telescopeUrl } = useSiteMetadata();
-  const [email, setEmail] = useState(null);
-  const [name, setName] = useState(null);
+  const user = useContext(UserStateContext);
+  const dispatch = useContext(UserDispatchContext);
 
   useEffect(() => {
     // Try to get user session info from the server.
     async function getUserInfo() {
+      if (user && user.name) return;
       try {
         // See if the server has session info on this user
         const response = await fetch(`${telescopeUrl}/user/info`);
@@ -28,10 +30,9 @@ function Login() {
           throw new Error(response.statusText);
         }
 
-        const user = await response.json();
-        if (user && user.email && user.name) {
-          setEmail(user.email);
-          setName(user.name);
+        const userInfo = await response.json();
+        if (userInfo && userInfo.email && userInfo.name) {
+          dispatch({ type: 'LOGIN_USER', payload: userInfo });
         }
       } catch (error) {
         console.error('Error getting user info', error);
@@ -39,9 +40,9 @@ function Login() {
     }
 
     getUserInfo();
-  }, [telescopeUrl]);
+  }, [telescopeUrl, dispatch]);
 
-  return email ? <LoggedIn name={name} /> : <LoggedOut />;
+  return user && user.email ? <LoggedIn /> : <LoggedOut />;
 }
 
 export default Login;
