@@ -15,17 +15,14 @@ The steps to launch Telescope in staging or production mode are almost identical
 
 The project needs to be set up using a specific directory structure to make sure that Telescope has access to the SSL certificates, redis data and elasticsearch data, and to prevent the certificates and the stored data from being deleted during a redeployment.
 
-Parent directory<br>
-|<br>
-|\_\_autodeployment<br>
-|<br>
-|\_\_certbot<br>
-|<br>
-|\_\_elastic-data<br>
-|<br>
-|\_\_redis-data<br>
-|<br>
-|\_\_telescope<br>
+```sh
+├── parent-directory
+│   ├── autodeployment
+│   ├── certbot
+│   ├── elastic-data
+│   ├── redis-data
+│   └── telescope
+```
 
 ## Steps
 
