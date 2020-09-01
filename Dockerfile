@@ -29,7 +29,7 @@ COPY ./src/frontend/package.json ./src/frontend/package.json
 # Context: Dependencies
 FROM build AS dependencies
 
-# Install Production Modules! 
+# Install Production Modules!
 # Disable postinstall hook in this case since we are being explict with installs
 # `postinstall` typically goes on to install front-end and autodeployment modules
 # which though is logical for local development, breaks docker container caching trick.
@@ -62,6 +62,9 @@ COPY --from=dependencies /telescope/tools/autodeployment /telescope/tools/autode
 COPY --from=builder /telescope/src/frontend/public /telescope/src/frontend/public
 COPY --from=builder /telescope/.git /telescope/.git
 COPY ./src/backend ./src/backend
+
+# Directory for log files
+RUN mkdir /log
 
 # Environment variable with default value
 ENV script=start

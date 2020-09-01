@@ -3,6 +3,13 @@
 version: '3'
 
 services:
+  logrotate:
+    build:
+      context: ./tools/logrotate
+      dockerfile: Dockerfile
+    volumes:
+      - rotate:/var/log
+
   telescope:
     container_name: telescope_staging
     build:
@@ -24,6 +31,8 @@ services:
     volumes:
       # Volume to be shared with nginx for serving static content
       - static:/telescope/src/frontend/public
+      # Volume to be shared for log rotation
+      - rotate:/telescope/log
     restart: always
 
   redis:
@@ -74,3 +83,4 @@ services:
 
 volumes:
   static:
+  rotate:
