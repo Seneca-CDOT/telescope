@@ -34,7 +34,7 @@ before_install:
       redis-cli info
     else
       # Install Redis
-      choco install redis-64 -v
+      choco install redis-64 --version 3.0.503 -v
       redis-server --service-install
       redis-server --service-start
       redis-cli info
