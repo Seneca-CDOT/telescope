@@ -83,6 +83,8 @@ export default function IndexPage() {
     }
 
     getPosts();
+    // Disabling the eslint check as nextPageLink and posts will cause the page to not render properly
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [telescopeUrl, numPages]);
 
   function getNewPosts() {
