@@ -22,7 +22,7 @@ function Login() {
 
         if (!response.ok) {
           // Not an error, we're just not authenticated
-          if (response.status === 401) {
+          if (response.status === 403) {
             return;
           }
           throw new Error(response.statusText);
