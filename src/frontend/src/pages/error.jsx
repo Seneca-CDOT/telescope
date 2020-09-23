@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, CardActions, CardContent, Fab, Grid, Typography } from '@material-ui/core';
-import PageBase from './PageBase';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import PageBase from './PageBase';
 import DynamicBackgroundContainer from '../components/DynamicBackgroundContainer.jsx';
 
 const useStyles = makeStyles((theme) => ({
@@ -103,15 +104,15 @@ function CreateInnerErrorContent(props) {
 
   const errorMessages = new Proxy(
     {
-      '400': 'We did not understand the request!',
-      '401': 'You are not authorized to view this page!',
-      '403': 'Access is not allowed for the requested page!',
-      '404': 'We could not find what you were looking for!',
-      '405': 'Method is not allowed!',
+      400: 'We did not understand the request!',
+      401: 'You are not authorized to view this page!',
+      403: 'Access is not allowed for the requested page!',
+      404: 'We could not find what you were looking for!',
+      405: 'Method is not allowed!',
     },
     {
-      get: function (object, property) {
-        return object.hasOwnProperty(property) ? object[property] : 'Something went wrong!';
+      get: (object, property) => {
+        return property in object ? object[property] : 'Something went wrong!';
       },
     }
   );
@@ -130,6 +131,11 @@ function CreateInnerErrorContent(props) {
     </Typography>
   );
 }
+
+CreateInnerErrorContent.propTypes = {
+  message: PropTypes.string,
+  status: PropTypes.string,
+};
 
 const ErrorPage = ({ location }) => {
   const classes = useStyles();
@@ -169,7 +175,7 @@ const ErrorPage = ({ location }) => {
               <Fab variant="extended" href="/" className={classes.fab}>
                 <ArrowBack />
                 <Typography variant="body2" className={classes.buttonText}>
-                  Let's Go Back
+                  {"Let's Go Back"}
                 </Typography>
               </Fab>
             </CardActions>
@@ -178,6 +184,10 @@ const ErrorPage = ({ location }) => {
       </Grid>
     </PageBase>
   );
+};
+
+ErrorPage.propTypes = {
+  location: PropTypes.object,
 };
 
 export default ErrorPage;
