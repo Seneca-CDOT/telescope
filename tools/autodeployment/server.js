@@ -1,14 +1,31 @@
 require('dotenv').config();
-const http = require('http');
+const path = require('path');
+const https = require('https');
 const createHandler = require('github-webhook-handler');
 const shell = require('shelljs');
 const mergeStream = require('merge-stream');
+const fs = require('fs');
 
 const { buildStart, buildStop, handleStatus } = require('./info');
 
 // Current build process output stream (if any)
 let out;
-const { SECRET, REPO_NAME, DEPLOY_PORT, DEPLOY_TYPE, UNSPLASH_CLIENT_ID } = process.env;
+const {
+  SECRET,
+  REPO_NAME,
+  DEPLOY_PORT,
+  DEPLOY_TYPE,
+  UNSPLASH_CLIENT_ID,
+  PATH_TO_CERTS,
+} = process.env;
+
+const privateKey = fs.readFileSync(path.join(PATH_TO_CERTS, 'privkey.pem'));
+const certificate = fs.readFileSync(path.join(PATH_TO_CERTS, 'fullchain.pem'));
+
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+};
 
 function handleError(req, res) {
   res.statusCode = 404;
@@ -38,8 +55,8 @@ function handleLog(req, res) {
 
 const handleGitPush = createHandler({ path: '/', secret: SECRET });
 
-http
-  .createServer((req, res) => {
+https
+  .createServer(credentials, (req, res) => {
     // Build Status Info as JSON
     if (req.url === '/status') {
       handleStatus(req, res);
