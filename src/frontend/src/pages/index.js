@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress, Button, Grid } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import parse from 'parse-link-header';
 
 import PageBase from './PageBase';
@@ -9,6 +9,7 @@ import Posts from '../components/Posts';
 import ScrollToTop from '../components/ScrollToTop';
 import useSiteMetaData from '../hooks/use-site-metadata';
 import CustomizedSnackBar from '../components/SnackBar';
+import Spinner from '../components/Spinner';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -156,7 +157,7 @@ export default function IndexPage() {
       return 'No more posts.  Your turn! Add your feed...';
     }
     if (loading) {
-      return <CircularProgress color="secondary" size={24} />;
+      return <Spinner />;
     }
     return 'Load More Posts';
   }
