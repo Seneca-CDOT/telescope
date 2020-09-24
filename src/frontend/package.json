@@ -23,7 +23,7 @@
     "gatsby-transformer-sharp": "2.5.12",
     "graphql-tag": "2.11.0",
     "material-ui-popup-state": "1.6.1",
-    "node-fetch": "2.6.0",
+    "node-fetch": "2.6.1",
     "parse-link-header": "1.0.1",
     "prop-types": "15.7.2",
     "react": "16.13.1",
