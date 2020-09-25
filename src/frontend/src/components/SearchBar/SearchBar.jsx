@@ -11,61 +11,60 @@ import {
   FormControl,
   Paper,
   IconButton,
-  Card,
-  CardContent,
-  CardActions,
+  Container,
   Typography,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(2, 4, 2, 4),
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
+    overflow: 'visible',
+    maxWidth: '785px',
+    padding: 0,
   },
   card: {
-    color: theme.palette.text.secondary,
     padding: theme.spacing(2, 4, 2, 4),
-    backgroundColor: '#335A7E',
-    overflow: 'visible',
   },
   input: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    flex: 1,
     fontSize: '1.6rem',
     '& > *': {
       fontSize: '1.6rem !important',
     },
   },
-  h2: {
-    fontSize: '1.6rem',
-    color: theme.palette.grey[200],
+  header: {
+    padding: 0,
+    marginBottom: theme.spacing(2),
+    backgroundColor: '#335A7E',
+  },
+  h1: {
+    background: 'transparent',
+    display: 'block',
+    boxShadow: 'none',
     marginTop: '1.75rem',
     lineHeight: 'inherit',
     letterSpacing: 'inherit',
     transition: 'all linear 350ms',
+    fontWeight: 600,
+    color: '#97d5ff',
     [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: '2rem',
-    },
-    [theme.breakpoints.between('md', 'lg')]: {
       fontSize: '3rem',
     },
-    [theme.breakpoints.up('xl')]: {
+    [theme.breakpoints.between('md', 'lg')]: {
       fontSize: '4rem',
+    },
+    [theme.breakpoints.up('xl')]: {
+      fontSize: '5rem',
     },
   },
   iconButton: {
-    padding: 10,
-    width: 58,
-    height: 58,
-    fontSize: '1.5rem',
+    width: theme.spacing(7),
+    height: theme.spacing(7),
     color: theme.palette.grey['100'],
     backgroundColor: theme.palette.secondary.light,
-
     '&:hover': {
       backgroundColor: theme.palette.secondary.dark,
+    },
+    '& * > .MuiSvgIcon-root': {
+      fontSize: '2rem',
     },
   },
 
@@ -101,33 +100,44 @@ function CustomizedInputBase(props) {
   const searchOptions = ['post', 'author'];
 
   return (
-    <Grid container spacing={0} alignItems="center" justify="center">
-      <Grid item xs={4}>
-        <Card className={classes.card} elevation={6}>
-          <CardContent>
-            <Typography variant="h2" className={classes.h2}>
+    <Container className={classes.root}>
+      <Paper component="form" className={classes.card} elevation={0}>
+        <Grid
+          container
+          className={classes.header}
+          direction="row"
+          spacing={8}
+          alignItems="center"
+          justify="baseline"
+        >
+          <Grid item xs={12}>
+            <Typography variant="h1" className={classes.h1}>
               Search
             </Typography>
-            <br />
-            <Paper component="form" className={classes.root} elevation={0}>
-              <FormControl>
-                <TextField
-                  id="standard-select-search-type"
-                  select
-                  label="Filter"
-                  value={filter}
-                  variant="outlined"
-                  className={classes.selectControl}
-                  onChange={(event) => onFilterChange(event)}
-                >
-                  {searchOptions.map((option) => (
-                    <MenuItem key={option} value={option} className={classes.selectItem}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </FormControl>
-
+          </Grid>
+        </Grid>
+        <Grid container direction="row" spacing={2} alignItems="center" justify="baseline">
+          <Grid item xs={3} lg={2}>
+            <FormControl fullWidth={true}>
+              <TextField
+                id="standard-select-search-type"
+                select
+                label="Filter"
+                value={filter}
+                variant="outlined"
+                className={classes.selectControl}
+                onChange={(event) => onFilterChange(event)}
+              >
+                {searchOptions.map((option) => (
+                  <MenuItem key={option} value={option} className={classes.selectItem}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </FormControl>
+          </Grid>
+          <Grid item xs={9} lg={10}>
+            <FormControl fullWidth={true}>
               <TextField
                 className={classes.input}
                 placeholder="How to Get Started in Open Source"
@@ -136,29 +146,26 @@ function CustomizedInputBase(props) {
                 value={searchText}
                 onChange={(event) => onTextChange(event)}
               />
-
+            </FormControl>
+          </Grid>
+          <Grid item xs={10} sm={11}>
+            {/* Spacer trick to align to end */}
+          </Grid>
+          <Grid item xs={1}>
+            <FormControl>
               <IconButton
                 type="submit"
-                edge="end"
                 onClick={(event) => onSubmit(event)}
                 className={classes.iconButton}
                 aria-label="search"
               >
                 <SearchIcon />
               </IconButton>
-            </Paper>
-          </CardContent>
-
-          <CardActions
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              transition: 'all linear 350ms',
-            }}
-          ></CardActions>
-        </Card>
-      </Grid>
-    </Grid>
+            </FormControl>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Container>
   );
 }
 
