@@ -13,6 +13,7 @@ import {
   IconButton,
   Container,
   Typography,
+  Fab,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -38,10 +39,6 @@ const useStyles = makeStyles((theme) => ({
   h1: {
     background: 'transparent',
     display: 'block',
-    boxShadow: 'none',
-    marginTop: '1.75rem',
-    lineHeight: 'inherit',
-    letterSpacing: 'inherit',
     transition: 'all linear 350ms',
     fontWeight: 600,
     color: '#97d5ff',
@@ -56,8 +53,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   iconButton: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
     color: theme.palette.grey['100'],
     backgroundColor: theme.palette.secondary.light,
     '&:hover': {
@@ -66,16 +61,21 @@ const useStyles = makeStyles((theme) => ({
     '& * > .MuiSvgIcon-root': {
       fontSize: '2rem',
     },
+    margin: 0,
+    position: 'relative',
+    bottom: theme.spacing(6),
+    float: 'right',
+    marginBottom: theme.spacing(-5.5),
   },
 
   selectControl: {
     '& > *': {
-      fontSize: '1.4rem',
+      fontSize: '1.2rem',
       textTransform: 'capitalize',
     },
   },
   selectItem: {
-    fontSize: '1.2rem',
+    fontSize: '1.4rem',
     textTransform: 'capitalize',
   },
 }));
@@ -116,8 +116,15 @@ function CustomizedInputBase(props) {
             </Typography>
           </Grid>
         </Grid>
+        <Fab focusVisible={true} color="primary" size="large" className={classes.iconButton}>
+          <FormControl>
+            <IconButton type="submit" onClick={(event) => onSubmit(event)} aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          </FormControl>
+        </Fab>
         <Grid container direction="row" spacing={2} alignItems="center" justify="baseline">
-          <Grid item xs={3} lg={2}>
+          <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth={true}>
               <TextField
                 id="standard-select-search-type"
@@ -136,7 +143,7 @@ function CustomizedInputBase(props) {
               </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={9} lg={10}>
+          <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth={true}>
               <TextField
                 className={classes.input}
@@ -146,21 +153,6 @@ function CustomizedInputBase(props) {
                 value={searchText}
                 onChange={(event) => onTextChange(event)}
               />
-            </FormControl>
-          </Grid>
-          <Grid item xs={10} sm={11}>
-            {/* Spacer trick to align to end */}
-          </Grid>
-          <Grid item xs={1}>
-            <FormControl>
-              <IconButton
-                type="submit"
-                onClick={(event) => onSubmit(event)}
-                className={classes.iconButton}
-                aria-label="search"
-              >
-                <SearchIcon />
-              </IconButton>
             </FormControl>
           </Grid>
         </Grid>

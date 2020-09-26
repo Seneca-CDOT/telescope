@@ -124,7 +124,7 @@ const SearchPage = () => {
     }
 
     setTimeout(() => setSearchEnabled(false), 500);
-  }, [telescopeUrl, searchEnabled]);
+  }, [telescopeUrl, searchEnabled, searchText]);
 
   // Displays one of three options depending on whether there is a search string, results and no results
   const displayResults = () => {
@@ -134,10 +134,6 @@ const SearchPage = () => {
           <Spinner />
         </h1>
       );
-    }
-
-    if (searchText.length === 0) {
-      return null;
     }
 
     if (searchText.length > 0 && results.searchResults.length === 0) {
