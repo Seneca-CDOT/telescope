@@ -45,7 +45,7 @@ export default function MyFeeds() {
         setNewFeedAuthor(user.name);
       } catch (error) {
         console.error('Failed to fetch user information', error);
-        window.location.href = `${telescopeUrl}/404`;
+        window.location.href = `${telescopeUrl}/auth/login`;
       }
     })();
 
