@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
-import { Fab, Grid, Typography } from '@material-ui/core';
+import { Fab, Grid, Typography, Link } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   h1: {
@@ -94,6 +94,9 @@ const useStyles = makeStyles((theme) => ({
       bottom: theme.spacing(18),
     },
   },
+  addYours: {
+    color: 'white',
+  },
 }));
 
 function ScrollDown(props) {
@@ -152,7 +155,15 @@ function RetrieveBannerDynamicAssets() {
       >
         <DynamicBackgroundContainer />
         <Typography variant="caption" className={classes.stats}>
-          This year {stats.authors} of us have written {stats.words} words and counting. Add yours!
+          This year {stats.authors} of us have written {stats.words} words and counting.{' '}
+          <Link
+            className={classes.addYours}
+            href={`${telescopeUrl}/myfeeds`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Add yours!
+          </Link>
         </Typography>
       </div>
     );
