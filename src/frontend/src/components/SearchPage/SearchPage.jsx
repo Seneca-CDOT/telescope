@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
 import gql from 'graphql-tag';
-import SearchBar from '../SearchBar';
-import AuthorResult from '../AuthorResult';
-import Spinner from '../Spinner';
-import Posts from '../Posts';
+import React, { useEffect, useState } from 'react';
 import useSiteMetadata from '../../hooks/use-site-metadata';
+import AuthorResult from '../AuthorResult';
+import Posts from '../Posts';
+import SearchBar from '../SearchBar';
+import Spinner from '../Spinner';
 
 const useStyles = makeStyles(() => ({
   searchReply: {
@@ -140,17 +140,20 @@ const SearchPage = () => {
       return <h1 className={classes.searchReply}>No results found</h1>;
     }
 
-    //  If result type is author return AuthorResult component
-    //  for each with feed guid as key
-    if (results.type === 'author') {
-      return results.searchResults.map((result) => (
-        <AuthorResult key={result.id} author={result.author} post={result.post} />
-      ));
+    if (results) {
+      //  If result type is author return AuthorResult component
+      //  for each with feed guid as key
+      if (results.type === 'author') {
+        return results.searchResults.map((result) => (
+          <AuthorResult key={result.id} author={result.author} post={result.post} />
+        ));
+      }
+      // If result type is post return Posts component for each result
+      if (results.type === 'post') {
+        return <Posts posts={results.searchResults} />;
+      }
     }
-    // If result type is post return Posts component for each result
-    if (results.type === 'post') {
-      return <Posts posts={results.searchResults} />;
-    }
+
     return null;
   };
 

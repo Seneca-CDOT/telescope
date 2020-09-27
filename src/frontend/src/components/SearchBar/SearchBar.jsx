@@ -116,7 +116,7 @@ function CustomizedInputBase(props) {
             </Typography>
           </Grid>
         </Grid>
-        <Fab focusVisible={true} color="primary" size="large" className={classes.iconButton}>
+        <Fab color="primary" size="large" className={classes.iconButton}>
           <FormControl>
             <IconButton type="submit" onClick={(event) => onSubmit(event)} aria-label="search">
               <SearchIcon />
