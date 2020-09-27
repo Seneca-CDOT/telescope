@@ -59,7 +59,7 @@ services:
   nginx:
     image: nginx:latest
     volumes:
-      - ./nginx-production.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
       - ../certbot/conf:/etc/letsencrypt
       - ../certbot/www:/var/www/certbot
       # Volume to be shared with Telescope for serving static content
