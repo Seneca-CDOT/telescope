@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     bottom: theme.spacing(12),
     left: theme.spacing(8),
+    right: theme.spacing(8),
     lineHeight: 'inherit',
     letterSpacing: 'inherit',
     transition: 'all linear 1s',
