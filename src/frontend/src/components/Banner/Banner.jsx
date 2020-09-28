@@ -96,6 +96,7 @@ const useStyles = makeStyles((theme) => ({
   },
   addYours: {
     color: 'white',
+    textDecorationLine: 'underline',
   },
 }));
 
@@ -156,12 +157,7 @@ function RetrieveBannerDynamicAssets() {
         <DynamicBackgroundContainer />
         <Typography variant="caption" className={classes.stats}>
           This year {stats.authors} of us have written {stats.words} words and counting.{' '}
-          <Link
-            className={classes.addYours}
-            href={`${telescopeUrl}/myfeeds`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Link className={classes.addYours} href={`${telescopeUrl}/myfeeds`}>
             Add yours!
           </Link>
         </Typography>
