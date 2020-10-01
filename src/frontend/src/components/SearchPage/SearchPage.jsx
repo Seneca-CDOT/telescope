@@ -35,6 +35,7 @@ const SearchPage = () => {
         title
         published
         url
+        link
         feed {
           id
           author
@@ -63,6 +64,7 @@ const SearchPage = () => {
           return {
             id: result.feed.id,
             author: result.feed.author,
+            link: result.feed.link,
             // The post will contain information about their most recent post to be used for AuthorResult component
             post: {
               title: result.title,
@@ -145,7 +147,12 @@ const SearchPage = () => {
     //  for each with feed guid as key
     if (results.type === 'author') {
       return results.searchResults.map((result) => (
-        <AuthorResult key={result.id} author={result.author} post={result.post} />
+        <AuthorResult
+          key={result.id}
+          author={result.author}
+          link={result.link}
+          post={result.post}
+        />
       ));
     }
     // If result type is post return Posts component for each result

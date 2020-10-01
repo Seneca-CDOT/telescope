@@ -53,11 +53,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AuthorResult(props) {
   const classes = useStyles();
-  const { author } = props;
+  const { author, link } = props;
   const { postDate, title, postLink } = props.post;
 
   const handleLatestPostClick = () => {
     window.open(postLink);
+  };
+
+  const handleLinkClick = () => {
+    window.open(link);
   };
 
   return (
@@ -74,7 +78,7 @@ export default function AuthorResult(props) {
                 aria-labelledby="nested-list-subheader"
                 className={classes.root}
               >
-                <ListItem button className={classes.infoLine}>
+                <ListItem button className={classes.infoLine} onClick={handleLinkClick}>
                   <ListItemIcon className={classes.icons}>
                     <PermContactCalendarIcon />
                   </ListItemIcon>
