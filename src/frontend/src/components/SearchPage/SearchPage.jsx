@@ -35,10 +35,10 @@ const SearchPage = () => {
         title
         published
         url
-        link
         feed {
           id
           author
+          link
         }
       }
     }

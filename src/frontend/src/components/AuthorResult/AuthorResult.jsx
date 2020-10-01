@@ -84,7 +84,7 @@ export default function AuthorResult(props) {
                   </ListItemIcon>
                   <ListItemText className={classes.font} primary={`Author: ${author}`} />
                 </ListItem>
-                <ListItem button className={classes.infoLine}>
+                <ListItem disabled className={classes.infoLine}>
                   <ListItemIcon className={classes.icons}>
                     <EventIcon />
                   </ListItemIcon>
