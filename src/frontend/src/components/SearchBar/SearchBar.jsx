@@ -108,7 +108,7 @@ function CustomizedInputBase(props) {
           direction="row"
           spacing={8}
           alignItems="center"
-          justify="baseline"
+          justify="flex-start"
         >
           <Grid item xs={12}>
             <Typography variant="h1" className={classes.h1}>
@@ -123,7 +123,7 @@ function CustomizedInputBase(props) {
             </IconButton>
           </FormControl>
         </Fab>
-        <Grid container direction="row" spacing={2} alignItems="center" justify="baseline">
+        <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth={true}>
               <TextField

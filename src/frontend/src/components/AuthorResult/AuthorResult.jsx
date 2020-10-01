@@ -1,53 +1,72 @@
-import CreateIcon from '@material-ui/icons/Create';
 import EventIcon from '@material-ui/icons/Event';
 import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import {
+  CardActionArea,
+  CardContent,
+  Typography,
+  Card,
+  CardMedia,
+  Container,
+  Avatar,
+} from '@material-ui/core';
+import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    overflow: 'visible',
+    maxWidth: '785px',
+    padding: theme.spacing(2, 0, 2, 0),
   },
-  paper: {
-    color: theme.palette.text.secondary,
-    margin: `${theme.spacing(1)}px auto`,
-  },
-  imageBox: {
-    height: 110,
-    width: 128,
-    backgroundColor: '#444444',
-  },
+
   avatar: {
     height: 100,
     width: 100,
     margin: 'auto',
+    fontWeight: 500,
     backgroundColor: '#3670A5',
+    fontSize: '2.5rem',
+    color: theme.palette.grey[200],
+    letterSpacing: -1,
+    position: 'relative',
+    top: theme.spacing(8),
+    zIndex: 100,
   },
-  icons: {
-    color: '#3670A5',
-  },
+
   infoBox: {
-    backgroundColor: '#9E9E9E',
+    backgroundColor: theme.palette.grey[300],
   },
-  infoLine: {
-    paddingBottom: '5px',
-    marginTop: '-12px',
-    marginBottom: '-10px',
+
+  h2: {
+    fontSize: '2.4rem',
+    color: theme.palette.grey[200],
   },
-  font: {
-    color: '#002944',
-    fontFamily: 'Roboto',
-    marginLeft: '-15px',
+
+  body: {
+    fontSize: '1.8rem',
+    color: theme.palette.grey[300],
+
+    '& > *': {
+      fontSize: '1.8rem',
+      marginRight: theme.spacing(2),
+      position: 'relative',
+      top: theme.spacing(0.5),
+    },
   },
-  expand: {
-    marginBottom: '-20px',
+
+  card: {
+    backgroundColor: theme.palette.grey[400],
+  },
+
+  cardContent: {
+    backgroundColor: theme.palette.primary.main,
+  },
+
+  backgroundImage: {
+    height: 250,
+    overflow: 'hidden',
   },
 }));
 
@@ -60,46 +79,45 @@ export default function AuthorResult(props) {
     window.open(postLink);
   };
 
+  // Strip noncapital characters
+  // Ex. RayGervais -> R G
+  const authorInitials = author.replace(/[a-z]/g, '');
+
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <Grid container direction="row" spacing={1}>
-          <Grid item xs={3} className={classes.imageBox}>
-            <Avatar className={classes.avatar}>CS</Avatar>
-          </Grid>
-          <Grid item xs container direction="column" spacing={0} className={classes.infoBox}>
-            <Grid container direction="row" spacing={0}>
-              <List
-                component="nav"
-                aria-labelledby="nested-list-subheader"
-                className={classes.root}
-              >
-                <ListItem button className={classes.infoLine}>
-                  <ListItemIcon className={classes.icons}>
-                    <PermContactCalendarIcon />
-                  </ListItemIcon>
-                  <ListItemText className={classes.font} primary={`Author: ${author}`} />
-                </ListItem>
-                <ListItem button className={classes.infoLine}>
-                  <ListItemIcon className={classes.icons}>
-                    <EventIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    className={classes.font}
-                    primary={`Date of Last Post: ${postDate}`}
-                  />
-                </ListItem>
-                <ListItem button className={classes.infoLine} onClick={handleLatestPostClick}>
-                  <ListItemIcon className={classes.icons}>
-                    <CreateIcon />
-                  </ListItemIcon>
-                  <ListItemText className={classes.font} primary={`Latest Post: ${title}`} />
-                </ListItem>
-              </List>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Paper>
-    </div>
+    <Container className={classes.root}>
+      <Card className={classes.card}>
+        <CardActionArea onClick={handleLatestPostClick}>
+          <CardMedia className={classes.backgroundImage}>
+            {/* TODO: Pull Cover_Image from post metadata if availble */}
+            <DynamicBackgroundContainer />
+
+            <Avatar className={classes.avatar}>{authorInitials}</Avatar>
+          </CardMedia>
+          <CardContent className={classes.cardContent}>
+            <Typography gutterBottom variant="h5" component="h2" className={classes.h2}>
+              {author}
+            </Typography>
+            <Typography
+              variant="body1"
+              color="textSecondary"
+              component="p"
+              className={classes.body}
+            >
+              <PermContactCalendarIcon className={classes.icons} />
+              Latest Post: {title}
+            </Typography>
+            <Typography
+              variant="body1"
+              color="textSecondary"
+              component="p"
+              className={classes.body}
+            >
+              <EventIcon className={classes.icons} />
+              Post Date: {postDate}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Container>
   );
 }

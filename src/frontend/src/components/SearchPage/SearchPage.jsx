@@ -10,12 +10,6 @@ import SearchBar from '../SearchBar';
 import Spinner from '../Spinner';
 
 const useStyles = makeStyles(() => ({
-  searchReply: {
-    margin: 'auto',
-    padding: '2rem',
-    color: 'coral',
-    fontWeight: 400,
-  },
   boxAfterHeader: {
     minHeight: '12em',
     display: 'flex',
@@ -45,7 +39,7 @@ const SearchPage = () => {
 
   const [searchText, setSearchText] = useState('');
   const [results, setResults] = useState(undefined);
-  const [filter, setFilter] = useState('post');
+  const [filter, setFilter] = useState('');
   const [fetchLoading, setFetchLoading] = useState(false);
   const [searchEnabled, setSearchEnabled] = useState(false);
   const [searchAuthors, { loading, data }] = useLazyQuery(SEARCH_QUERY, {
@@ -110,7 +104,7 @@ const SearchPage = () => {
           setFetchLoading(false);
           setResults({ type: 'post', searchResults: posts });
         } catch (error) {
-          console.log('Something went wrong while fetching data', error);
+          console.error('Something went wrong while fetching data', error);
         }
       } else {
         setResults({ type: 'post', searchResults: [] });
@@ -136,8 +130,8 @@ const SearchPage = () => {
       );
     }
 
-    if (searchText.length > 0 && results.searchResults.length === 0) {
-      return <h1 className={classes.searchReply}>No results found</h1>;
+    if (!results) {
+      return null;
     }
 
     if (results) {
