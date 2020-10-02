@@ -11,7 +11,7 @@ function Header() {
 
   return (
     <>
-      {matches ? <MobileHeader className="mobile-header" /> : <DesktopHeader className="header" />}
+      {matches ? <MobileHeader/> : <DesktopHeader/>}
     </>
   );
 }
