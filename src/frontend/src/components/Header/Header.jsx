@@ -9,11 +9,7 @@ function Header() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
-  return (
-    <>
-      {matches ? <MobileHeader/> : <DesktopHeader/>}
-    </>
-  );
+  return <>{matches ? <MobileHeader /> : <DesktopHeader />}</>;
 }
 
 export default Header;
