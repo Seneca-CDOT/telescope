@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Box } from '@material-ui/core';
 import { Link } from 'gatsby';
+import { UserStateContext } from '../../contexts/User/UserContext';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
@@ -29,7 +30,8 @@ const useStyles = makeStyles({
   },
 });
 
-function LoggedIn(props) {
+function LoggedIn() {
+  const user = useContext(UserStateContext);
   const { telescopeUrl } = useSiteMetadata();
   const logoutUrl = `${telescopeUrl}/auth/logout`;
   const classes = useStyles();
@@ -45,7 +47,7 @@ function LoggedIn(props) {
       </Box>
       <Box component="div" display="inline">
         <Link to="/myfeeds" className={classes.item}>
-          {props.name}
+          {user.name}
         </Link>
       </Box>
     </div>
