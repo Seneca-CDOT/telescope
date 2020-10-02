@@ -1,9 +1,6 @@
 # Staging / Production Deployment
 
-The steps to launch Telescope in staging or production mode are almost identical. The only 2 differences between the 2 deployment types are:
-
-- Some of the variables in the `.env` files need to be manually set with the values `staging` or `production`
-- For the first deployment, Telescope must be launched using the appropriate `docker-compose.yml` file for staging or production.
+The steps to launch Telescope in staging or production mode are almost identical. The only difference between the 2 deployment types is that some of the variables in the `.env` files need to be manually set with the values `staging` or `production`
 
 ## Prerequisites
 
@@ -79,12 +76,8 @@ To launch telescope:
 - Copy the Telescope directory where the project is going to live
 - Inside `Telescope`, copy `env.staging` or `env.production` to `.env`
 - Make sure `UNSPSLAH_CLIENT_ID` var in `.env` has a valid value
-- Run docker-compose to launch telescope using the appropriate docker-compose file depending on the deployment:
+- Run docker-compose to launch telescope using the production docker-compose file:
 
   ```sh
-  docker-compose -f docker-compose-staging.yml up -d
-
-  or
-
   docker-compose -f docker-compose-production.yml up -d
   ```

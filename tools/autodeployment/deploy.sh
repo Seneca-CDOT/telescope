@@ -3,14 +3,15 @@ set -e
 set -u
 set -x
 
-# Set DOCKER_FILE + ENV_FILE
+DOCKER_FILE=docker-compose-production.yml
+
+# Set NGINX FILE + ENV_FILE
 if [ $1 = 'production' ]
 then
-  DOCKER_FILE=docker-compose-production.yml
   ENV_FILE=env.production
 elif [ $1 = 'staging' ]
 then
-  DOCKER_FILE=docker-compose-staging.yml
+  sed -i 's/telescope\./dev\.telescope\./g' ../telescope/nginx.conf
   ENV_FILE=env.staging
 else
   echo $1 is not a valid argument. Please use either production or staging.
