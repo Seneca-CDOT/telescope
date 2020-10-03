@@ -5,19 +5,6 @@ set -x
 
 DOCKER_FILE=docker-compose-production.yml
 
-# Set NGINX FILE + ENV_FILE
-if [ $1 = 'production' ]
-then
-  ENV_FILE=env.production
-elif [ $1 = 'staging' ]
-then
-  sed -i 's/telescope\./dev\.telescope\./g' ../telescope/nginx.conf
-  ENV_FILE=env.staging
-else
-  echo $1 is not a valid argument. Please use either production or staging.
-  exit 1
-fi
-
 # Shutdown
 cd ../telescope
 
@@ -36,6 +23,19 @@ git clone https://github.com/Seneca-CDOT/telescope.git --depth=1
 
 # Deploy
 cd telescope/
+
+# Set NGINX FILE + ENV_FILE
+if [ $1 = 'production' ]
+then
+  ENV_FILE=env.production
+elif [ $1 = 'staging' ]
+then
+  sed -i 's/telescope\./dev\.telescope\./g' nginx.conf
+  ENV_FILE=env.staging
+else
+  echo $1 is not a valid argument. Please use either production or staging.
+  exit 1
+fi
 
 # Takes the second argument the name of the env file to be used
 cp $ENV_FILE .env
