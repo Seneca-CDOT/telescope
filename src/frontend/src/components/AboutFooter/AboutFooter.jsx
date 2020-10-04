@@ -169,7 +169,7 @@ const AboutFooter = () => {
                 COMMUNITY
               </Typography>
               <Divider className={classes.leftDivider} />
-              <Grid container direction="row">
+              <Grid container direction="row" spacing={1}>
                 <Grid item>
                   <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
                     {' '}
@@ -181,7 +181,7 @@ const AboutFooter = () => {
                     href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
                     className={classes.links}
                   >
-                    Slack
+                    <img src={SlackLogo} alt="logo" height="20" width="20" />
                   </a>
                 </Grid>
               </Grid>
