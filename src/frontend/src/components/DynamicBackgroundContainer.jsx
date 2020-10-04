@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     transition: 'opacity 1s ease-in-out',
     position: 'absolute',
-    height: `calc(100vh - ${theme.spacing(8)}px)`,
+    height: '93vh',
     width: '100%',
     opacity: '.45',
     top: 0,
