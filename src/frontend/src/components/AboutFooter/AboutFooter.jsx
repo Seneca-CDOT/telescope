@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 
+import SlackLogo from '../../images/Slack_Mark_Monochrome_White.svg';
 import LogoIcon from '../LogoIcon';
 
 const useStyles = makeStyles((theme) => ({
@@ -102,7 +103,7 @@ const AboutFooter = () => {
                 COMMUNITY
               </Typography>
               <Divider className={classes.rightDivider} />
-              <Grid container direction="row" justify={'flex-end'}>
+              <Grid container direction="row" justify="flex-end" spacing={1}>
                 <Grid item>
                   <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
                     {' '}
@@ -114,7 +115,7 @@ const AboutFooter = () => {
                     href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
                     className={classes.links}
                   >
-                    Slack
+                    <img src={SlackLogo} alt="logo" height="20" width="20" />
                   </a>
                 </Grid>
               </Grid>
