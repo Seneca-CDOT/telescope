@@ -1,23 +1,34 @@
-const toDOM = require('../src/backend/utils/html/dom');
-const replaceEntity = require('../src/backend/utils/html/replace-entities');
+// const toDOM = require('../src/backend/utils/html/dom');
+// const replaceEntity = require('../src/backend/utils/html/replace-entities');
+const entities = require('entities');
+// function decodeHTML(html) {
+//   const dom = toDOM(html);
+//   replaceEntity(dom);
+//   console.log('decoded element = ');
+//   const codeEle = dom.window.document.querySelectorAll('code');
+//   const arrayFromCodeEle = Array.from(codeEle);
+//   return arrayFromCodeEle[0];
+// }
 
-function decodeHTML(html) {
-  const dom = toDOM(html);
-  return replaceEntity(dom, html);
+function decodeHTML(codeElement) {
+  // decode twice
+  const result = entities.decodeHTML(codeElement);
+  return entities.decodeHTML(result);
 }
 
-test('Encoded string with no entities should not be changed', () => {
-  const htmlData = '<p><b>Hello World</b></p>';
+test('Encoded string with no code block entities should not be changed', () => {
+  const htmlData = '<code><p><b>Hello World</b></p></code>';
+  const decoded = '<code><p><b>Hello World</b></p></code>';
   const data = decodeHTML(htmlData);
-  expect(data).toBe('<p><b>Hello World</b></p>');
+  expect(data).toBe(decoded);
 });
 
 test('Encoded string with non-breaking space entities should be decoded', () => {
   const htmlData =
-    '<p><b>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet,&nbsp;consectetur&nbsp;adipiscing&nbsp;elit.</b></p>';
+    '<code><p><b>Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet,&nbsp;consectetur&nbsp;adipiscing&nbsp;elit.</b></p></code>';
   const data = decodeHTML(htmlData);
   expect(data).toBe(
-    '<p><b>Lorem\xa0ipsum\xa0dolor\xa0sit\xa0amet,\xa0consectetur\xa0adipiscing\xa0elit.</b></p>'
+    '<code><p><b>Lorem\xa0ipsum\xa0dolor\xa0sit\xa0amet,\xa0consectetur\xa0adipiscing\xa0elit.</b></p></code>'
   );
 });
 
@@ -83,9 +94,11 @@ test('Encoded string with less than sign should be decoded twice (double encoded
 
 test('Encoded string with ampersand entities should be decoded', () => {
   const htmlData =
-    '<p><b>Lorem&amp;ipsum&amp;dolor&amp;sit&amp;amet,&amp;consectetur&amp;adipiscing&amp;elit.</b></p>';
+    '<code><p><b>Lorem&amp;ipsum&amp;dolor&amp;sit&amp;amet,&amp;consectetur&amp;adipiscing&amp;elit.</b></p></code>';
   const data = decodeHTML(htmlData);
-  expect(data).toBe('<p><b>Lorem&ipsum&dolor&sit&amet,&consectetur&adipiscing&elit.</b></p>');
+  const decoded =
+    '<code><p><b>Lorem&ipsum&dolor&sit&amet,&consectetur&adipiscing&elit.</b></p></code>';
+  expect(data).toBe(decoded);
 });
 
 // test('test to see if the string can get rid of double quote', () => {
@@ -102,16 +115,20 @@ test('Encoded string with ampersand entities should be decoded', () => {
 
 test('Encoded string with arrow function should be decoded', () => {
   const htmlData = `
-    <span class="hljs-string">', ...].map((number) =&gt;;
-      twilio.messages.create({
-        body: '...'
-    </span>`;
+    <code>
+      <span class="hljs-string">', ...].map((number) =&gt;;
+        twilio.messages.create({
+          body: '...'
+      </span>
+    </code>`;
   const data = decodeHTML(htmlData);
   expect(data).toBe(`
-    <span class="hljs-string">', ...].map((number) =>;
-      twilio.messages.create({
-        body: '...'
-    </span>`);
+    <code>
+      <span class="hljs-string">', ...].map((number) =>;
+        twilio.messages.create({
+          body: '...'
+      </span>
+    </code>`);
 });
 
 test('Encoded string with &amp;gt; should be decoded twice (double encoded)', () => {
