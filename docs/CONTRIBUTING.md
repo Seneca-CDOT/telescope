@@ -10,7 +10,6 @@ For community discussions, join our [#telescope Slack channel](https://seneca-op
 
 Before creating an issue:
 
-- Please look through the MVP Features listed below for inspiration.
 - Check [open issues](https://github.com/Seneca-CDOT/telescope/issues). Someone else may be working on the same thing!
 - If they are, reach out and try to help.
 - Use [our Labels](https://github.com/Seneca-CDOT/telescope/labels) to help others quickly understand what an issue is all about.
