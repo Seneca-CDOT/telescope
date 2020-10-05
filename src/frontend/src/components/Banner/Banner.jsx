@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import useSiteMetadata from '../../hooks/use-site-metadata';
-import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
 import { Fab, Grid, Typography, Link } from '@material-ui/core';
+import useSiteMetadata from '../../hooks/use-site-metadata';
+import DynamicBackgroundContainer from '../DynamicBackgroundContainer.jsx';
 
 const useStyles = makeStyles((theme) => ({
   h1: {

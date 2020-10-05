@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Container } from '@material-ui/core';
 import PageBase from './PageBase';
 import Banner from '../components/Banner';
 import Posts from '../components/Posts';
@@ -10,9 +11,9 @@ export default function IndexPage() {
     <PageBase title="Home">
       <Banner />
       <ScrollToTop />
-      <main className="main">
+      <Container className="main">
         <Posts />
-      </main>
+      </Container>
     </PageBase>
   );
 }

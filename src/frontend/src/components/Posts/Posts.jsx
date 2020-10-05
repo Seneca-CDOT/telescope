@@ -138,7 +138,9 @@ const Posts = () => {
     }
     savedCallback.current = callback;
     // Polls every 5 minutes
-    const interval = setInterval(getCurrentNumPosts, 5 * 60 * 1000);
+    const interval = setInterval(() => {
+      getCurrentNumPosts();
+    }, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, [callback]);
 
@@ -166,9 +168,6 @@ const Posts = () => {
   function GenerateLoadButtonContent() {
     if (endOfPosts) {
       return 'No more posts.  Your turn! Add your feed...';
-    }
-    if (loading) {
-      return <Spinner />;
     }
     return 'Load More Posts';
   }
@@ -208,7 +207,11 @@ const Posts = () => {
       </Container>
     </Container>
   ) : (
-    <></>
+    <>
+      <Grid container spacing={0} direction="column" alignItems="center" justify="center">
+        <Spinner className={classes.activeCircle} />
+      </Grid>
+    </>
   );
 };
 
