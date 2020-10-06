@@ -1,0 +1,44 @@
+language: node_js
+node_js:
+  - lts/*
+services:
+  - redis-server
+os:
+  - 'linux'
+  - 'osx'
+  - 'windows'
+cache:
+  directories:
+    # On OSX, cache homebrew - https://stackoverflow.com/questions/39930171/cache-brew-builds-with-travis-ci?answertab=active#tab-top
+    - $HOME/Library/Caches/Homebrew
+    - /usr/local/Homebrew
+before_cache:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cleanup; fi
+  # Cache only .git files under "/usr/local/Homebrew" so "brew update" does not take 5min every build
+  - if [ "${TRAVIS_OS_NAME}" = "osx" ]; then find /usr/local/Homebrew \! -regex ".+\.git.+" -delete; fi
+before_install:
+  # Create a default set of env variables
+  - cp env.example .env
+  # Deal with Redis install per-platform
+  - echo $TRAVIS_OS_NAME
+  - echo $PATH
+  - |
+    if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
+      # Install Redis
+      brew update && brew install redis && brew services start redis
+    fi
+  - |
+    if [[ "$TRAVIS_OS_NAME" != "windows" ]]; then
+      # Install Redis
+      redis-server --daemonize yes
+      redis-cli info
+    else
+      # Install Redis
+      choco install redis-64 --version 3.0.503 -v
+      redis-server --service-install
+      redis-server --service-start
+      redis-cli info
+    fi
+script:
+  - npm run test-ci
+matrix:

@@ -1,0 +1,18 @@
+{
+  "build": {
+    "env": {
+      "API_URL": "https://dev.telescope.cdot.systems"
+    }
+  },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "src/frontend/public" }
+    }
+  ],
+  "public": true,
+  "github": {
+    "silent": true
+  }
+}

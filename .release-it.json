@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "before:init": ["npm run test-ci"]
+  },
+  "git": {
+    "pushRepo": "upstream"
+  },
+  "github": {
+    "release": true,
+    "pushRepo": "upstream"
+  },
+  "npm": {
+    "publish": false
+  }
+}
