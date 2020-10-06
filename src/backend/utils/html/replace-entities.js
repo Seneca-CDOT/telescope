@@ -1,7 +1,7 @@
 const entities = require('entities');
 
 function decode(codeElement) {
-  // decode twice for double encoded entities
+  // decode twice for double encoded html entities
   const result = entities.decodeHTML(codeElement.innerHTML);
   return entities.decodeHTML(result);
 }
@@ -17,5 +17,5 @@ module.exports = function (dom) {
     fixedCodeElement = decode(code);
     code.innerHTML = fixedCodeElement;
   });
-  return String(fixedCodeElement); // return result to the tests
+  return `<code>${fixedCodeElement}</code>`; // return decoded string to the tests
 };
