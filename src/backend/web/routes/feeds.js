@@ -52,6 +52,27 @@ feeds.get('/:id', async (req, res) => {
   }
 });
 
+feeds.put('/:id/flag', protectAdmin(), async (req, res) => {
+  const { id } = req.params;
+  try {
+    const feed = await Feed.byId(id);
+    if (!feed) {
+      return res.status(404).json({
+        message: `Feed for Feed ID ${id} doesn't exist.`,
+      });
+    }
+    await feed.flag();
+    return res.status(200).json({
+      message: `Feed successfully flagged`,
+    });
+  } catch (error) {
+    logger.error({ error }, 'Unable to flag feed in Redis');
+    return res.status(503).json({
+      message: 'Unable to flag Feed',
+    });
+  }
+});
+
 feeds.post('/', protect(), async (req, res) => {
   const feedData = req.body;
   const { user } = req;
@@ -104,6 +125,23 @@ feeds.delete('/:id', protect(), async (req, res) => {
     logger.error({ error }, 'Unable to delete feed to Redis');
     return res.status(503).json({
       message: 'Unable to delete to Feed',
+    });
+  }
+});
+
+feeds.delete('/:id/flag', protectAdmin(), async (req, res) => {
+  const { id } = req.params;
+  try {
+    const feed = await Feed.byId(id);
+    if (!feed) {
+      return res.status(404).json({ message: `Feed for Feed ID ${id} doesn't exist.` });
+    }
+    await feed.unflag();
+    return res.status(204).json({ message: `Feed ${id} was successfully unflagged.` });
+  } catch (error) {
+    logger.error({ error }, 'Unable to unflag feed in Redis');
+    return res.status(503).json({
+      message: 'Unable to unflag Feed',
     });
   }
 });

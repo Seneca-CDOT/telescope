@@ -279,3 +279,126 @@ describe('test DELETE /feeds/:id endpoint', () => {
     expect(res.status).toEqual(404);
   });
 });
+
+describe('test PUT + DELETE /feeds/:id/flag endpoint', () => {
+  const data = {
+    author: 'Post Author',
+    url: 'https://user.feed.com/feed.rss',
+    user: 'user',
+    link: 'https://user.feed.com/',
+    etag: 'etag',
+    lastModified: 'lastModified',
+  };
+
+  const data2 = {
+    author: 'Post Author2',
+    url: 'https://user2.feed.com/feed.rss',
+    user: 'user2',
+    link: 'https://user2.feed.com/',
+    etag: 'etag',
+    lastModified: 'lastModified',
+  };
+
+  const data3 = {
+    author: 'Post Author3',
+    url: 'https://user3.feed.com/feed.rss',
+    user: 'user',
+    link: 'https://user3.feed.com/',
+    etag: 'etag',
+    lastModified: 'lastModified',
+  };
+
+  beforeAll(() => Promise.all([Feed.create(data), Feed.create(data2), Feed.create(data3)]));
+  beforeEach(() => logout());
+
+  // Testing PUT
+  it('should respond with a 403 status trying to flag feed without logging in', async () => {
+    const feeds = await Feed.all();
+    const res = await request(app)
+      .put(`/feeds/${feeds[0].id}/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(403);
+  });
+
+  it('should respond with a 403 status trying to flag feed when logged in as normal user', async () => {
+    const feeds = await Feed.all();
+    login('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .put(`/feeds/${feeds[0].id}/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(403);
+  });
+
+  it('should respond with a 404 status trying to flag feed that does not exist when logged in as admin user', async () => {
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .put(`/feeds/123456/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(404);
+  });
+
+  it('should respond with a 200 status trying to flag feed when logged in as admin user', async () => {
+    const feeds = await Feed.all();
+    // Initial check
+    const initflaggedFeeds = await Feed.flagged();
+    expect(initflaggedFeeds.length).toBe(0);
+
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .put(`/feeds/${feeds[0].id}/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(200);
+    // Check updated # of flagged feeds
+    const flaggedFeeds = await Feed.flagged();
+    expect(flaggedFeeds.length).toEqual(1);
+  });
+
+  // Testing DELETE
+  it('should respond with a 403 status trying to unflag feed without logging in', async () => {
+    const feeds = await Feed.all();
+    const res = await request(app)
+      .delete(`/feeds/${feeds[0].id}/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(403);
+  });
+
+  it('should respond with a 403 status trying to unflag feed when logged in as normal user', async () => {
+    const feeds = await Feed.all();
+    login('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .delete(`/feeds/${feeds[0].id}/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(403);
+  });
+
+  it('should respond with a 404 status trying to unflag feed that does not exist when logged in as admin user', async () => {
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .delete(`/feeds/123456/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(404);
+  });
+
+  it('should respond with a 204 status trying to unflag feed when logged in as admin user', async () => {
+    const initFlaggedFeeds = await Feed.flagged();
+    // Initial check
+    expect(initFlaggedFeeds.length).toBe(1);
+
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .delete(`/feeds/${initFlaggedFeeds[0].id}/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(204);
+    // Check updated # of flagged feeds
+    const flaggedFeeds = await Feed.flagged();
+    expect(flaggedFeeds.length).toEqual(0);
+  });
+});

@@ -1,7 +1,8 @@
 const { redis } = require('../lib/redis');
-
+const { logger } = require('./logger');
 // Redis Keys
 const feedsKey = 't:feeds';
+const flaggedFeedsKey = 't:feeds:flagged';
 const postsKey = 't:posts';
 
 // Namespaces
@@ -25,6 +26,10 @@ module.exports = {
    * Feeds
    */
   addFeed: async (feed) => {
+    // Check if feed being added already exists in flagged feeds set
+    // If it is, do nothing
+    if (await redis.sismember(flaggedFeedsKey, feed.id)) return;
+
     const key = createFeedKey(feed.id);
     await redis
       .multi()
@@ -54,6 +59,8 @@ module.exports = {
 
   getFeeds: () => redis.smembers(feedsKey),
 
+  getFlaggedFeeds: () => redis.smembers(flaggedFeedsKey),
+
   getFeed: (id) => redis.hgetall(feedNamespace.concat(id)),
 
   getFeedsCount: () => redis.scard(feedsKey),
@@ -69,12 +76,23 @@ module.exports = {
    */
   removeFeed: async (id) => {
     const key = createFeedKey(id);
-    await redis
-      .multi()
-      .hdel(key, 'id', 'author', 'url', 'user', 'link', 'etag', 'lastModified')
-      .srem(feedsKey, id)
-      .exec();
+    // Checks which set the feed is currently in
+    const redisKey = (await redis.sismember(feedsKey, id)) ? feedsKey : flaggedFeedsKey;
+    try {
+      await redis
+        .multi()
+        .hdel(key, 'id', 'author', 'url', 'user', 'link', 'etag', 'lastModified')
+        .srem(redisKey, id)
+        .exec();
+    } catch (error) {
+      logger.error({ error }, `Error removing Feed ${id} from Redis`);
+      throw new Error(`Error trying to remove feed from Redis`);
+    }
   },
+
+  setFlaggedFeed: (id) => redis.smove(feedsKey, flaggedFeedsKey, id),
+
+  unsetFlaggedFeed: (id) => redis.smove(flaggedFeedsKey, feedsKey, id),
 
   isInvalid: (id) => redis.exists(createInvalidFeedKey(id)),
 
