@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Fab, Grid, Typography, Link } from '@material-ui/core';
 import useSiteMetadata from '../../hooks/use-site-metadata';
-import DynamicBackgroundContainer from '../DynamicBackgroundContainer.jsx';
+import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
 
 const useStyles = makeStyles((theme) => ({
   h1: {
@@ -89,9 +89,9 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     bottom: theme.spacing(20),
     zIndex: 300,
+    margin: '0 auto',
     [theme.breakpoints.between('xs', 'sm')]: {
-      right: theme.spacing(4),
-      left: '80%',
+      left: '55%',
       bottom: theme.spacing(18),
     },
   },
@@ -219,7 +219,7 @@ export default function Banner() {
       <Grid
         container
         spacing={0}
-        direction="column"
+        direction="row"
         alignItems="center"
         justify="center"
         className={classes.container}
