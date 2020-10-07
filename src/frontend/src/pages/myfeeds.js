@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { navigate } from 'gatsby';
 import { Box, Card, Container, Grid, IconButton, Typography } from '@material-ui/core';
 import { AccountCircle, AddCircle, RssFeed } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,6 +34,7 @@ export default function MyFeeds() {
   const { telescopeUrl } = useSiteMetadata();
 
   useEffect(() => {
+    if (user.name === '') navigate(`${telescopeUrl}/auth/login`);
     setNewFeedAuthor(user.name);
     ValidatorForm.addValidationRule('isUrl', (value) => !!isWebUri(value));
     return ValidatorForm.removeValidationRule.bind('isUrl');
