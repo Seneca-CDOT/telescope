@@ -12,7 +12,7 @@ require('./web/server');
 /**
  * Shutting Down Logic for most Server Shutdown Cases
  */
-process.on('exit', shutdown('exit'));
+process.on('beforeExit', shutdown('beforeExit'));
 process.on('SIGTERM', shutdown('SIGTERM'));
 process.on('SIGINT', shutdown('SIGINT'));
 process.on('SIGQUIT', shutdown('SIGQUIT'));
