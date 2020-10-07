@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { Fab, Grid, Typography, Link } from '@material-ui/core';
+import { Fab, Grid, Typography } from '@material-ui/core';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
 
@@ -158,7 +159,7 @@ function RetrieveBannerDynamicAssets() {
         <DynamicBackgroundContainer />
         <Typography variant="caption" className={classes.stats}>
           This year {stats.authors} of us have written {stats.words} words and counting.{' '}
-          <Link className={classes.addYours} href={`${telescopeUrl}/myfeeds`}>
+          <Link className={classes.addYours} to="/myfeeds">
             Add yours!
           </Link>
         </Typography>
