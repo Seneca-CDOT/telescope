@@ -33,6 +33,7 @@ export default function MyFeeds() {
   const { telescopeUrl } = useSiteMetadata();
 
   useEffect(() => {
+    if (user.name === '') window.location.href = `${telescopeUrl}/auth/login`;
     setNewFeedAuthor(user.name);
     ValidatorForm.addValidationRule('isUrl', (value) => !!isWebUri(value));
     return ValidatorForm.removeValidationRule.bind('isUrl');
