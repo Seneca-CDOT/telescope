@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Badge, Button, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 import LogoIcon from '../LogoIcon';

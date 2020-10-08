@@ -1,7 +1,16 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, List, ListItem, Drawer, Divider } from '@material-ui/core';
+import {
+  AppBar,
+  Badge,
+  Drawer,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  Toolbar,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -92,7 +101,9 @@ export default function MobileHeader() {
         </ListItem>
         <Divider className={classes.line} />
         <ListItem button component={Link} to="/player" className={classes.item}>
-          PLAYER
+          <Badge badgeContent={'BETA'} color="error">
+            PLAYER
+          </Badge>
         </ListItem>
         <Divider className={classes.line} />
         <ListItem button component={Link} to="/about" className={classes.item}>
