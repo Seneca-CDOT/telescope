@@ -91,6 +91,10 @@ export default function MobileHeader() {
           HOME
         </ListItem>
         <Divider className={classes.line} />
+        <ListItem button component={Link} to="/player" className={classes.item}>
+          PLAYER
+        </ListItem>
+        <Divider className={classes.line} />
         <ListItem button component={Link} to="/about" className={classes.item}>
           ABOUT
         </ListItem>
