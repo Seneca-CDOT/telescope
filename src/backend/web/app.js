@@ -21,8 +21,7 @@ const app = express();
 /**
  * Use Helmet to secure our Express server.
  * To avoid CSP violations when loading GraphQL's playground,
- * 'cdn.jsdelivr.net' was added to scriptSrc, styleSrc and imgSrc
- * and 'unsafe-inline' to scriptSrc.
+ * 'cdn.jsdelivr.net' and 'unsafe-inline' were added to scriptSrc.
  * https://github.com/ctrlplusb/react-universally/issues/253#issuecomment-267669695
  */
 app.use(
@@ -32,12 +31,12 @@ app.use(
         ? {
             directives: {
               defaultSrc: ["'self'"],
-              baseUrl: ["'self'"],
               fontSrc: ["'self'", 'https:', 'data:'],
+              frameSrc: ["'self'", '*.youtube.com', '*.vimeo.com'],
               frameAncestors: ["'self'"],
-              imgSrc: ["'self'", 'data:', 'cdn.jsdelivr.net'],
+              imgSrc: ["'self'", 'data:', 'https:'],
               scriptSrc: ["'self'", 'cdn.jsdelivr.net', "'unsafe-inline'"],
-              styleSrc: ["'self'", 'https:', 'cdn.jsdelivr.net', "'unsafe-inline'"],
+              styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
               objectSrc: ["'none'"],
               upgradeInsecureRequests: [],
             },
