@@ -10,10 +10,9 @@ import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
 const useStyles = makeStyles((theme) => ({
   h1: {
     position: 'absolute',
-    color: 'white',
+    color: theme.palette.text.primary,
     fontFamily: 'Roboto',
     fontWeight: 'bold',
-    opacity: 0.85,
     fontSize: '12rem',
     display: 'block',
     top: theme.spacing(20),
@@ -37,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stats: {
     position: 'absolute',
-    color: 'white',
+    color: theme.palette.text.primary,
     fontFamily: 'Roboto',
     fontSize: '2rem',
     display: 'block',
@@ -67,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(6),
     left: theme.spacing(8),
     fontSize: '1.75rem',
-    color: 'white',
+    color: theme.palette.text.primary,
     [theme.breakpoints.between('xs', 'sm')]: {
       left: theme.spacing(4),
       right: theme.spacing(4),
@@ -97,8 +96,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   addYours: {
-    color: 'white',
+    color: theme.palette.text.primary,
     textDecorationLine: 'underline',
+  },
+  dynamic: {
+    transition: 'opacity 1s ease-in-out',
+    backgroundColor: theme.palette.primary.main,
   },
 }));
 
@@ -151,9 +154,9 @@ function RetrieveBannerDynamicAssets() {
   if (stats.authors !== 0) {
     return (
       <div
+        className={classes.dynamic}
         style={{
-          transition: 'opacity 1s ease-in-out',
-          opacity: transitionBackground ? 0 : 0.85,
+          opacity: transitionBackground ? 0 : 0.9,
         }}
       >
         <DynamicBackgroundContainer />
@@ -228,8 +231,8 @@ export default function Banner() {
         <Grid item xs={8}>
           <div className={classes.icon}>
             <ScrollDown>
-              <Fab color="primary" aria-label="scroll-down">
-                <KeyboardArrowDownIcon fontSize="large" />
+              <Fab color="secondary" aria-label="scroll-down">
+                <KeyboardArrowDownIcon fontSize="large" color="textPrimary" />
               </Fab>
             </ScrollDown>
           </div>

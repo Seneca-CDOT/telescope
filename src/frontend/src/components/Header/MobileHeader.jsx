@@ -13,7 +13,7 @@ import HideOnScroll from '../HideOnScroll';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#242424',
+    backgroundColor: 'primary',
   },
   toolbar: theme.mixins.toolbar,
   logoIcon: {
@@ -24,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
   },
   searchIcon: {
     fontSize: '2.5rem',
-    color: 'white',
+    color: theme.palette.background.default,
   },
   menuIcon: {
     fontSize: '2.5rem',
   },
   links: {
-    color: 'white',
+    color: theme.palette.background.default,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
@@ -44,13 +44,13 @@ const useStyles = makeStyles((theme) => ({
     width: 250,
   },
   paper: {
-    background: '#242424',
+    backgroundColor: theme.palette.primary.main,
   },
   line: {
-    backgroundColor: '#525252',
+    backgroundColor: theme.palette.background.default,
   },
   item: {
-    color: 'white',
+    color: theme.palette.background.default,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     textAlign: 'center',
-    color: 'white',
+    color: theme.palette.background.default,
     bottom: 5,
     position: 'fixed',
   },

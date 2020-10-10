@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     textAlign: 'center',
-    color: 'white',
+    color: theme.palette.text.primary,
   },
 }));
 
