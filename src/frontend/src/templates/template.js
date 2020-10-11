@@ -38,7 +38,6 @@ const tutorialSteps = [
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.post,
   },
   markdownBody: {
     padding: '2rem',
@@ -58,16 +57,19 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   stepper: {
-    iconColor: 'white',
+    iconColor: theme.palette.text.primary,
   },
   footer: {
     display: 'flex',
     alignItems: 'center',
     height: 50,
+    backgroundColor: theme.palette.secondary.main,
+    boxShadow:
+      'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
   },
   footerButton: {
     fontSize: '3rem',
-    color: theme.palette.primary.main,
+    color: theme.palette.text.default,
   },
 }));
 
@@ -125,7 +127,11 @@ export default function Template({
                   onClick={handleNext}
                   disabled={activeStep === maxSteps - 1}
                 >
-                  {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+                  {theme.direction === 'rtl' ? (
+                    <KeyboardArrowLeft fontSize="large" />
+                  ) : (
+                    <KeyboardArrowRight fontSize="large" />
+                  )}
                 </Button>
               }
               backButton={
@@ -135,7 +141,11 @@ export default function Template({
                   onClick={handleBack}
                   disabled={activeStep === 0}
                 >
-                  {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+                  {theme.direction === 'rtl' ? (
+                    <KeyboardArrowRight fontSize="large" />
+                  ) : (
+                    <KeyboardArrowLeft fontSize="large" />
+                  )}
                 </Button>
               }
             />
