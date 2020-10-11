@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Posts = () => {
+const Posts = (props) => {
   const classes = useStyles();
   const savedCallback = useRef();
   const [initNumPosts, setInitNumPosts] = useState(0);
@@ -46,6 +46,7 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [numPages, setNumPages] = useState(1);
   const [endOfPosts, setEndOfPosts] = useState(false);
+  const { searchPostResults } = props;
   const snackbarMessage = 'There is new content available!';
 
   // Pagination
@@ -78,8 +79,12 @@ const Posts = () => {
         setLoading(false);
       }
     }
+    if (searchPostResults) {
+      setPosts(searchPostResults);
+    } else {
+      getPosts();
+    }
 
-    getPosts();
     // Disabling the eslint check as nextPageLink and posts will cause the page to not render properly
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [telescopeUrl, numPages]);
@@ -186,15 +191,18 @@ const Posts = () => {
       <Container>
         <Grid container spacing={0} direction="column" alignItems="center" justify="center">
           <Grid item xs={12} className={classes.content}>
-            <Button
-              color="primary"
-              disabled={endOfPosts}
-              variant="outlined"
-              className={`${loading ? classes.activeCircle : ''}`}
-              onClick={() => getNewPosts()}
-            >
-              <GenerateLoadButtonContent />
-            </Button>
+            {/* If searching Posts, hide the load more posts button */}
+            {searchPostResults ? null : (
+              <Button
+                color="primary"
+                disabled={endOfPosts}
+                variant="outlined"
+                className={`${loading ? classes.activeCircle : ''}`}
+                onClick={() => getNewPosts()}
+              >
+                <GenerateLoadButtonContent />
+              </Button>
+            )}
           </Grid>
         </Grid>
 
@@ -212,7 +220,7 @@ const Posts = () => {
 
 Posts.propTypes = {
   className: PropTypes.string,
-  posts: PropTypes.array,
+  searchResults: PropTypes.array,
 };
 
 export default Posts;

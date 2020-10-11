@@ -144,7 +144,7 @@ const SearchPage = () => {
       }
       // If result type is post return Posts component for each result
       if (results.type === 'post') {
-        return <Posts posts={results.searchResults} />;
+        return <Posts searchPostResults={results.searchResults} />;
       }
     }
 
