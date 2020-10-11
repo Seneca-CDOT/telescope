@@ -97,21 +97,11 @@ export default function AuthorResult(props) {
             <Typography gutterBottom variant="h5" component="h2" className={classes.h2}>
               {author}
             </Typography>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              component="p"
-              className={classes.body}
-            >
+            <Typography variant="body1" color="textPrimary" component="p" className={classes.body}>
               <PermContactCalendarIcon className={classes.icons} />
               Latest Post: {title}
             </Typography>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              component="p"
-              className={classes.body}
-            >
+            <Typography variant="body1" color="textPrimary" component="p" className={classes.body}>
               <EventIcon className={classes.icons} />
               Post Date: {postDate}
             </Typography>

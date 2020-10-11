@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   button: {
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
@@ -12,10 +12,10 @@ const useStyles = makeStyles({
   link: {
     textDecoration: 'none',
     fontSize: '1.5rem',
-    color: 'white',
+    color: theme.palette.text.primary,
     lineHeight: 1,
   },
-});
+}));
 
 function LoggedOut() {
   const { telescopeUrl } = useSiteMetadata();
