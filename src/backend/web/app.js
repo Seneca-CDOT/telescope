@@ -18,8 +18,32 @@ const router = require('./routes');
 
 const app = express();
 
-// Using helmet for the app
-app.use(helmet());
+/**
+ * Use Helmet to secure our Express server.
+ * To avoid CSP violations when loading GraphQL's playground,
+ * 'cdn.jsdelivr.net' and 'unsafe-inline' were added to scriptSrc.
+ * https://github.com/ctrlplusb/react-universally/issues/253#issuecomment-267669695
+ */
+app.use(
+  helmet({
+    contentSecurityPolicy:
+      process.env.NODE_ENV === 'development'
+        ? {
+            directives: {
+              defaultSrc: ["'self'"],
+              fontSrc: ["'self'", 'https:', 'data:'],
+              frameSrc: ["'self'", '*.youtube.com', '*.vimeo.com'],
+              frameAncestors: ["'self'"],
+              imgSrc: ["'self'", 'data:', 'https:'],
+              scriptSrc: ["'self'", 'cdn.jsdelivr.net', "'unsafe-inline'"],
+              styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
+              objectSrc: ["'none'"],
+              upgradeInsecureRequests: [],
+            },
+          }
+        : undefined,
+  })
+);
 
 // Enable CORS and preflight checks on all routes
 const corsOptions = {
