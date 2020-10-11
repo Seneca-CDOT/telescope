@@ -13,13 +13,13 @@ const useStyles = makeStyles((theme) => ({
     padding: '2rem',
   },
   heading: {
-    color: 'white',
+    color: theme.palette.text.primary,
     [theme.breakpoints.down('md')]: {
       marginTop: '2rem',
     },
   },
   leftDivider: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.text.primary,
     height: '2px',
     marginBottom: '8px',
     marginRight: '1rem',
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
   },
   rightDivider: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.text.primary,
     height: '2px',
     marginBottom: '10px',
     marginLight: '1rem',
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     width: '30%',
   },
   links: {
-    color: 'white',
+    color: theme.palette.text.primary,
     textDecorationLine: 'none',
     '&:hover': {
       textDecorationLine: 'underline',
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'flex-start',
   },
   footer: {
-    color: 'white',
+    color: theme.palette.text.primary,
   },
 }));
 
