@@ -2,63 +2,40 @@
 
 Thank you for thinking to contribute to the look of the Telescope. This is a guide to the colour palette that we use to make our web site looks pretty and up-to-date.
 
-|  #FFFFFF, rgb (255,255,255)   | #A4D4FF, rgb (164, 212, 255)  |  #3670A5, rgb (54, 112, 165)  |
-| :---------------------------: | :---------------------------: | :---------------------------: |
-| ![#FFFFFF](images/ffffff.PNG) | ![#A4D4FF](images/A4D4FF.PNG) | ![#3670A5](images/3670A5.PNG) |
+![Palette](images/palette.png)
 
-| #9E9E9E, rgb (158, 158, 158)  |   #002944, rgb (0, 41, 68)    |
-| :---------------------------: | :---------------------------: |
-| ![#9E9E9E](images/9E9E9E.PNG) | ![#002944](images/002944.PNG) |
+## Palette
 
-## Header
+![#333E64](https://placehold.it/15/333E64/000000?text=+) **Primary**
 
-![#A4D4FF](https://placehold.it/15/A4D4FF/000000?text=+) **Title:**
+- hex: #333E64
+- rgb: (51, 62, 100)
 
-- hex: #A4D4FF
-- rgb: (164, 212, 255)
+![#0589D6](https://placehold.it/15/0589D6/000000?text=+) **Secondary**
 
-![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Search Icon:**
+- hex: #0589D6
+- rgb: (5, 137, 214)
 
-- hex: #FFFFFF
-- rgb: (255, 255, 255)
+![#E5E5E5](https://placehold.it/15/E5E5E5/000000?text=+) **Background**
 
-![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Menu Icons (Home, Login, About):**
+- hex: #E5E5E5
+- rgb: (229, 229, 229)
 
-- hex: #FFFFFF
-- rgb: (255, 255, 255)
+## Typography
 
-## Banner
+![#E5E5E5](https://placehold.it/15/E5E5E5/000000?text=+) **Primary**
 
-![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Name, statistics, version:**
+- hex: #E5E5E5
+- rgb: (229, 229, 229)
 
-- hex: #FFFFFF
-- rgb: (255, 255, 255)
+![#8BC2EB](https://placehold.it/15/8BC2EB/000000?text=+) **Secondary**
 
-## Search Bar
+- hex: #8BC2EB
+- rgb: (139, 194, 235)
 
-![#3670A5](https://placehold.it/15/3670A5/000000?text=+) **Filter name and search icon background:**
+![#181818](https://placehold.it/15/181818/000000?text=+) **Default**
 
-- hex: #3670A5
-- rgb: (54, 112, 165)
-
-![#9E9E9E](https://placehold.it/15/9E9E9E/000000?text=+) **Input background:**
-
-- hex: #9E9E9E
-- rgb: (158, 158, 158)
-
-![#002944](https://placehold.it/15/002944/000000?text=+) **Magnifying glass icon**
-
-- hex: #002944
-- rgb: (0,41,68)
-
-![#3670A5](https://placehold.it/15/3670A5/000000?text=+) **Magnifying glass icon background colour:**
-
-- hex: #3670A5
-- rgb: (54, 112, 165)
-
-![#3670A5](https://placehold.it/15/3670A5/000000?text=+) **Form control:**
-
-- hex: #3670A5
-- rgb: (54, 112, 165)
+- hex: #181818
+- rgb: (24, 24, 24)
 
 “The Free Image Placeholder Service Favoured By Designers.” Placeholder.com, 17 Dec. 2019, placeholder.com/.
