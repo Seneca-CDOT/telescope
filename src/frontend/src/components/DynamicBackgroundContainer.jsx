@@ -11,7 +11,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     transition: 'opacity 1s ease-in-out',
     position: 'absolute',
-    height: '93vh',
+    height: 'calc(100vh - 64px)',
+    [theme.breakpoints.between('xs', 'sm')]: {
+      height: 'calc(100vh - 56px)',
+    },
     width: '100%',
     opacity: '.45',
     top: 0,
