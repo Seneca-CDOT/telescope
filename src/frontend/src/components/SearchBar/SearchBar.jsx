@@ -11,7 +11,7 @@ import {
   FormControl,
   Paper,
   IconButton,
-  Container,
+  Box,
   Typography,
   Fab,
 } from '@material-ui/core';
@@ -21,27 +21,29 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'visible',
     maxWidth: '785px',
     padding: 0,
+    margin: 'auto',
   },
   card: {
     padding: theme.spacing(2, 4, 2, 4),
+    backgroundColor: theme.palette.background.default,
   },
   input: {
     fontSize: '1.6rem',
     '& > *': {
       fontSize: '1.6rem !important',
+      color: theme.palette.text.default,
     },
   },
   header: {
     padding: 0,
     marginBottom: theme.spacing(2),
-    backgroundColor: '#335A7E',
+    backgroundColor: theme.palette.primary.main,
   },
   h1: {
-    background: 'transparent',
     display: 'block',
     transition: 'all linear 350ms',
     fontWeight: 600,
-    color: '#97d5ff',
+    color: theme.palette.text.secondary,
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '3rem',
     },
@@ -53,13 +55,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   iconButton: {
-    color: theme.palette.grey['100'],
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.secondary.main,
     '&:hover': {
       backgroundColor: theme.palette.secondary.dark,
     },
     '& * > .MuiSvgIcon-root': {
       fontSize: '2rem',
+      color: theme.palette.text.primary,
     },
     margin: 0,
     position: 'relative',
@@ -72,11 +74,13 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       fontSize: '1.2rem',
       textTransform: 'capitalize',
+      color: theme.palette.primary.main,
     },
   },
   selectItem: {
     fontSize: '1.4rem',
     textTransform: 'capitalize',
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -100,7 +104,7 @@ function CustomizedInputBase(props) {
   const searchOptions = ['post', 'author'];
 
   return (
-    <Container className={classes.root}>
+    <Box className={classes.root} boxShadow={2}>
       <Paper component="form" className={classes.card} elevation={0}>
         <Grid
           container
@@ -116,7 +120,7 @@ function CustomizedInputBase(props) {
             </Typography>
           </Grid>
         </Grid>
-        <Fab color="primary" size="large" className={classes.iconButton}>
+        <Fab size="large" className={classes.iconButton}>
           <FormControl>
             <IconButton type="submit" onClick={(event) => onSubmit(event)} aria-label="search">
               <SearchIcon />
@@ -157,7 +161,7 @@ function CustomizedInputBase(props) {
           </Grid>
         </Grid>
       </Paper>
-    </Container>
+    </Box>
   );
 }
 

@@ -26,9 +26,8 @@ const useStyles = makeStyles((theme) => ({
     width: 100,
     margin: 'auto',
     fontWeight: 500,
-    backgroundColor: '#3670A5',
     fontSize: '2.5rem',
-    color: theme.palette.grey[200],
+    color: theme.palette.text.primary,
     letterSpacing: -1,
     position: 'relative',
     top: theme.spacing(8),
@@ -36,17 +35,17 @@ const useStyles = makeStyles((theme) => ({
   },
 
   infoBox: {
-    backgroundColor: theme.palette.grey[300],
+    backgroundColor: theme.palette.text.primary,
   },
 
   h2: {
     fontSize: '2.4rem',
-    color: theme.palette.grey[200],
+    color: theme.palette.text.secondary,
   },
 
   body: {
     fontSize: '1.8rem',
-    color: theme.palette.grey[300],
+    color: theme.palette.text.primary,
 
     '& > *': {
       fontSize: '1.8rem',
@@ -58,6 +57,8 @@ const useStyles = makeStyles((theme) => ({
 
   card: {
     backgroundColor: theme.palette.grey[400],
+    boxShadow:
+      'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
   },
 
   cardContent: {
@@ -97,21 +98,11 @@ export default function AuthorResult(props) {
             <Typography gutterBottom variant="h5" component="h2" className={classes.h2}>
               {author}
             </Typography>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              component="p"
-              className={classes.body}
-            >
+            <Typography variant="body1" color="textPrimary" component="p" className={classes.body}>
               <PermContactCalendarIcon className={classes.icons} />
               Latest Post: {title}
             </Typography>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              component="p"
-              className={classes.body}
-            >
+            <Typography variant="body1" color="textPrimary" component="p" className={classes.body}>
               <EventIcon className={classes.icons} />
               Post Date: {postDate}
             </Typography>

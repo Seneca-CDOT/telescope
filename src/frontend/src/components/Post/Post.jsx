@@ -2,20 +2,19 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography, ListSubheader } from '@material-ui/core';
+import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import syntaxHighlight from './syntax-highlight';
 import './telescope-post-content.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
     padding: 0,
     fontSize: '1.5rem',
     marginBottom: '4em',
   },
   header: {
-    backgroundColor: '#335A7E',
-    color: '#97d5ff',
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.text.secondary,
     padding: '3em',
     lineHeight: '1.3',
     [theme.breakpoints.between('xs', 'sm')]: {
@@ -36,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   author: {
     fontSize: '1.5em',
     fontWeight: 'bold',
+    color: theme.palette.text.primary,
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '1.2em',
     },
@@ -43,17 +43,18 @@ const useStyles = makeStyles((theme) => ({
   published: {
     fontSize: '1.2em',
     textDecoration: 'none',
-    color: '#002944',
+    color: theme.palette.text.primary,
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '1em',
     },
   },
   content: {
     padding: '2em',
+    color: theme.palette.text.default,
   },
   link: {
     textDecoration: 'none',
-    color: '#97d5ff',
+    color: theme.palette.text.primary,
     '&:hover': {
       textDecorationLine: 'underline',
     },
@@ -82,7 +83,7 @@ const Post = ({ id, html, author, url, title, date, link }) => {
   }, [sectionEl]);
 
   return (
-    <Container className={classes.root}>
+    <Box className={classes.root} boxShadow={2}>
       <ListSubheader className={classes.header}>
         <Typography variant="h1" title={title} id={id} className={classes.title}>
           {title}
@@ -109,7 +110,7 @@ const Post = ({ id, html, author, url, title, date, link }) => {
           />
         </Grid>
       </Grid>
-    </Container>
+    </Box>
   );
 };
 

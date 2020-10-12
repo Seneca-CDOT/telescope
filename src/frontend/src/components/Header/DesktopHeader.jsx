@@ -11,7 +11,7 @@ import HideOnScroll from '../HideOnScroll';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#242424',
+    backgroundColor: 'primary',
   },
   toolbar: theme.mixins.toolbar,
   logoIcon: {
@@ -22,14 +22,14 @@ const useStyles = makeStyles((theme) => ({
   },
   searchIcon: {
     fontSize: '2.5rem',
-    color: 'white',
+    color: theme.palette.text.primary,
   },
   button: {
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
   },
   links: {
-    color: 'white',
+    color: theme.palette.text.primary,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',

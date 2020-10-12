@@ -15,13 +15,8 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     '& > *': {
-      /**
-       * We, the implementors of this CSS realize how morally wrong it is
-       * to use !important in any case. That does not excuse the hour long
-       * Fight while finding other ways
-       */
-      color: `${theme.palette.secondary.light} !important`,
-      borderColor: `${theme.palette.secondary.light} !important`,
+      color: theme.palette.primary.main,
+      borderColor: theme.palette.primary.main,
       padding: theme.spacing(2),
       bottom: theme.spacing(4),
       fontSize: '2rem',
@@ -35,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   activeCircle: {
     borderRadius: '4rem',
     transition: 'all linear 250ms',
-    color: theme.palette.primary.light,
+    color: theme.palette.primary,
   },
 }));
 
