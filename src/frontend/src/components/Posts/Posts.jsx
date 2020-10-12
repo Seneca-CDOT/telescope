@@ -168,7 +168,7 @@ const Posts = () => {
   }
 
   return posts.length > 0 ? (
-    <Container>
+    <Container className={classes.root}>
       <Container className={classes.root}>
         {posts.map(({ id, feed, html, title, url, updated }) => (
           <Post
