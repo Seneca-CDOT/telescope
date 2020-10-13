@@ -1,30 +1,27 @@
 #!/bin/bash
+
 set -e
 set -u
 set -x
 
 DOCKER_FILE=docker-compose-production.yml
 
-# Shutdown
-cd ../telescope
+if [[ $(docker ps -f name=blue -q) ]]; then
+    ENV="green"
+    OLD="blue"
+else
+    ENV="blue"
+    OLD="green"
+fi
 
-docker-compose -f $DOCKER_FILE down
-
-docker system prune -af --volumes
-
-
-# Delete and clone
+# Delete and Clone Latest
 cd ..
-
 rm -rf telescope
-
 git clone https://github.com/Seneca-CDOT/telescope.git --depth=1
+cd telescope
 
 
-# Deploy
-cd telescope/
-
-# Set NGINX FILE + ENV_FILE
+# Set NGINX FILE + ENV_FILE Params
 if [ $1 = 'production' ]
 then
   ENV_FILE=env.production
@@ -45,4 +42,12 @@ cp $ENV_FILE .env
 echo UNSPLASH_CLIENT_ID=$2  >> .env
 echo "" >> .env
 
-docker-compose -f $DOCKER_FILE up -d
+echo "Building $ENV Container"
+docker-compose -f $DOCKER_FILE --project-name=$ENV build telescope
+
+echo "Stopping "$OLD" Environment"
+# Delete associated project orphans (services) and volumes
+docker-compose --project-name=$OLD down --remove-orphans --volumes
+
+echo "Starting $ENV Environment"
+docker-compose -f $DOCKER_FILE --project-name=$ENV up -d 
