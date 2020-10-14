@@ -2,7 +2,7 @@ const xmlParser = require('fast-xml-parser');
 const request = require('supertest');
 const app = require('../src/backend/web/app');
 
-jest.mock('../src/backend/utils/elastic');
+jest.mock('../src/backend/utils/indexer');
 
 describe('GET "/feed/opml" endpoint', () => {
   let response;

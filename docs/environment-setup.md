@@ -6,7 +6,8 @@
 - [Redis](https://redis.io/) (2 methods)
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
   - Install as a [native application](https://redis.io/topics/quickstart)
-- [Elasticsearch](https://www.elastic.co/what-is/elasticsearch) (2 methods)
+- [Elasticsearch](https://www.elastic.co/what-is/elasticsearch) (3 methods)
+  - Use `MOCK_ELASTIC=1` in your `.env` to use a mock in-memory Elastic (useful for local dev)
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
   - Install as a [native application](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
