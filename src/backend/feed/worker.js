@@ -4,7 +4,7 @@ const path = require('path');
 
 const feedQueue = require('./queue');
 const { logger } = require('../utils/logger');
-const elastic = require('../utils/elastic');
+const { waitOnReady } = require('../utils/indexer');
 
 /**
  * We determine the number of parallel feed processor functions to run
@@ -29,7 +29,7 @@ function getFeedWorkersCount() {
 
 exports.start = async function () {
   try {
-    await elastic.waitOnReady();
+    await waitOnReady();
     logger.info('Connected to elasticsearch!');
 
     const concurrency = getFeedWorkersCount();

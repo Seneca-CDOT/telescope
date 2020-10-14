@@ -2,7 +2,7 @@ const request = require('supertest');
 
 const app = require('../src/backend/web/app');
 
-jest.mock('../src/backend/utils/elastic');
+jest.mock('../src/backend/utils/indexer');
 
 // Mock the internal authentication strategy
 jest.mock('../src/backend/web/authentication');

@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { logger } = require('../../utils/logger');
-const { search } = require('../../utils/elastic');
+const { search } = require('../../utils/indexer');
 
 const router = express.Router();
 

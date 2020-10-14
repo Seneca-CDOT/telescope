@@ -17,7 +17,7 @@ const {
   unsetFlaggedFeed,
 } = require('../utils/storage');
 
-const { deletePost } = require('../utils/elastic');
+const { deletePost } = require('../utils/indexer');
 
 const hash = require('./hash');
 

@@ -1,7 +1,7 @@
 const request = require('supertest');
 const app = require('../src/backend/web/app');
 
-jest.mock('../src/backend/utils/elastic');
+jest.mock('../src/backend/utils/indexer');
 
 describe('Testing query route', () => {
   test('Testing with valid length of characters', async () => {

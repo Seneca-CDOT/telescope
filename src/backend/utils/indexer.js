@@ -1,12 +1,9 @@
 require('../lib/config');
 
-const { ELASTIC_URL, ELASTIC_PORT, ELASTIC_MAX_RESULTS } = process.env;
-const { Client } = require('@elastic/elasticsearch');
 const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
-const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}` || 'http://localhost:9200';
-const esClient = new Client({ node: elasticUrl });
-
+const { ELASTIC_MAX_RESULTS } = process.env;
+const { client } = require('../lib/elastic');
 const { logger } = require('./logger');
 
 const index = 'posts';
@@ -19,7 +16,7 @@ const type = 'post';
  */
 const indexPost = async (text, postId) => {
   try {
-    await esClient.index({
+    await client.index({
       index,
       type,
       id: postId,
@@ -38,7 +35,7 @@ const indexPost = async (text, postId) => {
  */
 const deletePost = async (postId) => {
   try {
-    await esClient.delete({
+    await client.delete({
       index,
       type,
       id: postId,
@@ -68,7 +65,7 @@ const search = async (textToSearch) => {
 
   const {
     body: { hits },
-  } = await esClient.search({
+  } = await client.search({
     from: 0,
     size: ELASTIC_MAX_RESULTS || 100,
     index,
@@ -93,7 +90,7 @@ const search = async (textToSearch) => {
 /**
  * Checks elasticsearch's connectivity
  */
-const checkConnection = () => esClient.cluster.health();
+const checkConnection = () => client.cluster.health();
 
 const waitOnReady = async () => {
   /**
@@ -107,7 +104,11 @@ const waitOnReady = async () => {
 
   const timer = new Promise((resolve, reject) => {
     timerId = setTimeout(() => {
-      reject(new Error('Unable to connect to Elasticsearch'));
+      reject(
+        new Error(
+          'Unable to connect to Elasticsearch. Use `MOCK_ELASTIC=1` in your `.env` to mock Elasticsearch, or install (see https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md)'
+        )
+      );
     }, DELAY);
   });
 

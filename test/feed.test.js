@@ -2,11 +2,11 @@ const normalizeUrl = require('normalize-url');
 
 const Feed = require('../src/backend/data/feed');
 const Post = require('../src/backend/data/post');
-const Elastic = require('../src/backend/utils/elastic');
+const { search } = require('../src/backend/utils/indexer');
 const hash = require('../src/backend/data/hash');
 
 const urlToId = (url) => hash(normalizeUrl(url));
-jest.mock('../src/backend/utils/elastic');
+jest.mock('../src/backend/utils/indexer');
 
 describe('Post data class tests', () => {
   const data = {
@@ -166,7 +166,7 @@ describe('Post data class tests', () => {
       ]);
 
       const posts = await Promise.all([Post.byId(articleData1.id), Post.byId(articleData2.id)]);
-      const elasticPosts = await Elastic.search();
+      const elasticPosts = await search();
 
       // Make sure our feed is correct and saved
       expect(feed.id).toBe(data.id);
@@ -183,7 +183,7 @@ describe('Post data class tests', () => {
       expect(elasticPosts.values[0].text).toBe(articleData1.description);
       expect(elasticPosts.values[1].text).toBe(articleData2.description);
       await feed.delete();
-      const esSearchDelete = await Elastic.search();
+      const esSearchDelete = await search();
 
       // Make sure posts are removed as well
       const removedFeed = await Feed.byId(feed.id);
