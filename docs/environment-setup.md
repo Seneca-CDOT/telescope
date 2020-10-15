@@ -28,15 +28,17 @@ redis-server
 ```
 
 #### Windows:
-There are two methods to install Redis on Windows. We strongly recommend the first approach. 
 
-##### Option 1: Using [WSL2 (Windows Subsystem Linux)](https://docs.microsoft.com/en-us/windows/wsl/about)   
+There are two methods to install Redis on Windows. We strongly recommend the first approach.
+
+##### Option 1: Using [WSL2 (Windows Subsystem Linux)](https://docs.microsoft.com/en-us/windows/wsl/about)
+
 1. Follow Microsoft WSL2 [installation guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to complete the installation
 2. Follow Redis [installation guide](https://redis.io/topics/quickstart#installing-redis) to install Redis
-3. Suggest to install [Windows Terminal](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-windows-terminal-optional), it facilitates you to switch directories between WSL2 Ubuntu bash and Windows drive 
-
+3. Suggest to install [Windows Terminal](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-windows-terminal-optional), it facilitates you to switch directories between WSL2 Ubuntu bash and Windows drive
 
 ##### Option 2: Using [Chocolatey package manager](https://chocolatey.org/) to install Redis on Windows
+
 To get Chocolatey, simply follow this [guide](https://chocolatey.org/install) and run the following commands:
 
 1. To install Redis: `choco install redis-64 -v`
