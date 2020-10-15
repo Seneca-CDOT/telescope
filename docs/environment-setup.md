@@ -169,6 +169,17 @@ _Note: If experiencing an error such as `Error starting userland proxy: listen t
 
 To run Elasticsearch natively, follow the instructions for your OS [here](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
-### Finally
+### Finally:
 
-Run `npm start` and open `localhost:3000`
+Telescope requires a running back-end and front-end to start. The following steps assume you are running the back-end locally. For more information on running the front-end with our staging/production as the back-end, please refer to our [Front-End Document](gatsbyjs.md).
+
+Start the back-end for Telescope, the back-end will start downloading feeds and processing them until stopped. The default port # for the back-end is `3000` and can be modified with the `PORT` variable in the `.env` file. Different routes such as `http://localhost:3000/posts` and
+`http://localhost:3000/feeds` now return data:
+Run `npm start`
+
+Make sure the `API_URL` variable in the `.env` file is set to the backend port # (default is http://localhost:3000)
+Build the front-end for Telescope in a new terminal:
+Run `npm run develop`
+
+If using default settings, a front-end should now be available:
+Open `localhost:8000`
