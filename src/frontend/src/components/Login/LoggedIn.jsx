@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import { Button, Box } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Button, Divider, Grid, useMediaQuery } from '@material-ui/core';
 import { Link } from 'gatsby';
 import { UserStateContext } from '../../contexts/User/UserContext';
 
@@ -17,6 +17,14 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.5rem',
     color: theme.palette.text.primary,
     lineHeight: 1,
+  },
+  lineHorizontal: {
+    backgroundColor: theme.palette.background.default,
+    width: '250px',
+    margin: '8px',
+  },
+  lineVertical: {
+    margin: '8px',
   },
   item: {
     color: theme.palette.text.primary,
@@ -35,21 +43,44 @@ function LoggedIn() {
   const { telescopeUrl } = useSiteMetadata();
   const logoutUrl = `${telescopeUrl}/auth/logout`;
   const classes = useStyles();
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
     <div>
-      <Box component="div" display="inline">
-        <Button className={classes.button}>
-          <a href={logoutUrl} className={classes.link}>
-            Logout
-          </a>
-        </Button>
-      </Box>
-      <Box component="div" display="inline">
-        <Link to="/myfeeds" className={classes.item}>
-          {user.name}
-        </Link>
-      </Box>
+      {matches ? (
+        <Grid container direction="column" justify="center" alignItems="center">
+          <Grid item xs={12}>
+            <Link to="/myfeeds" className={classes.item}>
+              {user.name}
+            </Link>
+          </Grid>
+          <Divider orientation="horizontal" className={classes.lineHorizontal} />
+          <Grid item xs={12}>
+            <Button className={classes.button}>
+              <a href={logoutUrl} className={classes.link}>
+                Logout
+              </a>
+            </Button>
+          </Grid>
+        </Grid>
+      ) : (
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item>
+            <Link to="/myfeeds" className={classes.item}>
+              {user.name}
+            </Link>
+          </Grid>
+          <Divider orientation="vertical" className={classes.lineVertical} />
+          <Grid item>
+            <Button className={classes.button}>
+              <a href={logoutUrl} className={classes.link}>
+                Logout
+              </a>
+            </Button>
+          </Grid>
+        </Grid>
+      )}
     </div>
   );
 }

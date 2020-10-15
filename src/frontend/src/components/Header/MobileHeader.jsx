@@ -8,7 +8,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import LogoIcon from '../LogoIcon';
 import Login from '../Login';
 import Footer from '../Footer';
-import HideOnScroll from '../HideOnScroll';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,39 +108,36 @@ export default function MobileHeader() {
 
   return (
     <>
-      <HideOnScroll>
-        <AppBar position="fixed" className={classes.root}>
-          <Toolbar>
-            <Link to="/" title="Home" className={classes.logoIcon}>
-              <LogoIcon height="45" width="45" />
+      <AppBar position="sticky" className={classes.root}>
+        <Toolbar>
+          <Link to="/" title="Home" className={classes.logoIcon}>
+            <LogoIcon height="45" width="45" />
+          </Link>
+          <div className={classes.grow} />
+          <IconButton color="inherit" className={classes.button} aria-label="search">
+            <Link to="/search">
+              <SearchIcon className={classes.searchIcon} />
             </Link>
-            <div className={classes.grow} />
-            <IconButton color="inherit" className={classes.button} aria-label="search">
-              <Link to="/search">
-                <SearchIcon className={classes.searchIcon} />
-              </Link>
-            </IconButton>
-            <IconButton
-              onClick={toggleDrawer('right', true)}
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              className={classes.button}
-            >
-              <MenuIcon className={classes.menuIcon} />
-            </IconButton>
-            <Drawer
-              classes={{ paper: classes.paper }}
-              anchor="right"
-              open={state.right}
-              onClose={toggleDrawer('right', false)}
-            >
-              {sideList('right')}
-            </Drawer>
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
-      <Toolbar className={classes.toolbar}></Toolbar>
+          </IconButton>
+          <IconButton
+            onClick={toggleDrawer('right', true)}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            className={classes.button}
+          >
+            <MenuIcon className={classes.menuIcon} />
+          </IconButton>
+          <Drawer
+            classes={{ paper: classes.paper }}
+            anchor="right"
+            open={state.right}
+            onClose={toggleDrawer('right', false)}
+          >
+            {sideList('right')}
+          </Drawer>
+        </Toolbar>
+      </AppBar>
     </>
   );
 }
