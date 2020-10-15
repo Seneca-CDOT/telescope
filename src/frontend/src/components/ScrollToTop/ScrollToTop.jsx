@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1100,
   },
   anchor: {
-    minHeight: '1px',
+    minHeight: '50px',
   },
 }));
 

@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.between('xs', 'sm')]: {
       paddingTop: '2em',
       paddingBottom: '2em',
+      position: 'static',
     },
   },
   title: {
