@@ -108,7 +108,7 @@ export default function MobileHeader() {
 
   return (
     <>
-      <AppBar position="fixed" className={classes.root}>
+      <AppBar position="sticky" className={classes.root}>
         <Toolbar>
           <Link to="/" title="Home" className={classes.logoIcon}>
             <LogoIcon height="45" width="45" />
