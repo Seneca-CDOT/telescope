@@ -47,5 +47,8 @@ module.exports = function (dirty) {
       a: ['href'],
     },
     allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com'],
+    exclusiveFilter: function (frame) {
+      return frame.tag === 'a' && !frame.text.trim();
+    },
   });
 };
