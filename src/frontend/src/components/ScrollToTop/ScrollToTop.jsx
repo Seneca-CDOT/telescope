@@ -58,7 +58,6 @@ export default function BackToTop(props) {
   const classes = useStyles();
   return (
     <>
-      {/* TODO: remove this part of issue: #1206: delete the line and the "anchor" class */}
       <Toolbar id="delete-in-the-future" className={classes.anchor} />
       <ScrollTop {...props}>
         <Fab color="secondary" aria-label="scroll back to top">
