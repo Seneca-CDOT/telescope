@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   lineHorizontal: {
     backgroundColor: theme.palette.background.default,
-    width: 250,
+    width: '250px',
     margin: '8px',
   },
   lineVertical: {
