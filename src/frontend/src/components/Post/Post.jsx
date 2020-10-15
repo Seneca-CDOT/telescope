@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     padding: '3em',
     lineHeight: '1.3',
+    top: '62px',
     [theme.breakpoints.between('xs', 'sm')]: {
       paddingTop: '2em',
       paddingBottom: '2em',
