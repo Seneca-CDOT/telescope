@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1100,
   },
   anchor: {
-    minHeight: '1px',
+    minHeight: '0px',
   },
 }));
 
@@ -58,7 +58,8 @@ export default function BackToTop(props) {
   const classes = useStyles();
   return (
     <>
-      <Toolbar id="back-to-top-anchor" className={classes.anchor} />
+      {/* TODO: remove this part of issue: #1206: delete the line and the "anchor" class */}
+      <Toolbar id="delete-in-the-future" className={classes.anchor} />
       <ScrollTop {...props}>
         <Fab color="secondary" aria-label="scroll back to top">
           <KeyboardArrowUpIcon fontSize="large" color="textPrimary" />
