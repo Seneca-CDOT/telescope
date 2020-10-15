@@ -45,9 +45,17 @@ echo "" >> .env
 echo "Building $ENV Container"
 docker-compose -f $DOCKER_FILE --project-name=$ENV build telescope
 
-echo "Stopping "$OLD" Environment"
 # Delete associated project orphans (services) and volumes
-docker-compose --project-name=$OLD down --remove-orphans --volumes
+echo "Stopping "$OLD" Environment"
+docker-compose --project-name=$OLD down --remove-orphans
+
+echo "Deleting $OLD Volumes"
+docker volume prune -f
 
 echo "Starting $ENV Environment"
 docker-compose -f $DOCKER_FILE --project-name=$ENV up -d 
+
+# Will fail on final container
+# this is anticipated and doesn't affect new environment
+echo "Deleting $OLD Containers"
+docker rmi $(docker images $OLD\_* -aq ) -f  2> /dev/null
