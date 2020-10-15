@@ -228,7 +228,7 @@ export default function Banner() {
         justify="center"
         className={classes.container}
       >
-        <Grid item xs={8}>
+        <Grid id="back-to-top-anchor" item xs={8}>
           <div className={classes.icon}>
             <ScrollDown>
               <Fab color="secondary" aria-label="scroll-down">

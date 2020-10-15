@@ -6,7 +6,6 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import LogoIcon from '../LogoIcon';
 import Login from '../Login';
-import HideOnScroll from '../HideOnScroll';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,33 +41,30 @@ export default function DesktopHeader() {
 
   return (
     <>
-      <HideOnScroll>
-        <AppBar position="fixed" className={classes.root}>
-          <Toolbar>
-            <Link to="/" title="Home" className={classes.logoIcon}>
-              <LogoIcon height="45" width="45" />
+      <AppBar position="sticky" className={classes.root}>
+        <Toolbar>
+          <Link to="/" title="Home" className={classes.logoIcon}>
+            <LogoIcon height="45" width="45" />
+          </Link>
+          <div className={classes.grow} />
+          <IconButton color="inherit" className={classes.button} aria-label="search">
+            <Link to="/search">
+              <SearchIcon className={classes.searchIcon} />
             </Link>
-            <div className={classes.grow} />
-            <IconButton color="inherit" className={classes.button} aria-label="search">
-              <Link to="/search">
-                <SearchIcon className={classes.searchIcon} />
-              </Link>
-            </IconButton>
-            <Button color="inherit" size="medium" className={classes.button}>
-              <Link to="/" className={classes.links}>
-                Home
-              </Link>
-            </Button>
-            <Button color="inherit" size="medium" className={classes.button}>
-              <Link to="/about" className={classes.links}>
-                About
-              </Link>
-            </Button>
-            <Login />
-          </Toolbar>
-        </AppBar>
-      </HideOnScroll>
-      <Toolbar className={classes.toolbar}></Toolbar>
+          </IconButton>
+          <Button color="inherit" size="medium" className={classes.button}>
+            <Link to="/" className={classes.links}>
+              Home
+            </Link>
+          </Button>
+          <Button color="inherit" size="medium" className={classes.button}>
+            <Link to="/about" className={classes.links}>
+              About
+            </Link>
+          </Button>
+          <Login />
+        </Toolbar>
+      </AppBar>
     </>
   );
 }
