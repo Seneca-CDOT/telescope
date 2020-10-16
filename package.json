@@ -59,6 +59,7 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@elastic/elasticsearch": "7.9.0",
+    "@elastic/elasticsearch-mock": "0.3.0",
     "@wordpress/wordcount": "2.11.0",
     "apollo-server-express": "2.17.0",
     "body-parser": "1.19.0",
@@ -97,7 +98,6 @@
     "valid-url": "1.0.9"
   },
   "devDependencies": {
-    "@elastic/elasticsearch-mock": "0.3.0",
     "@now/node": "1.8.2",
     "cross-env": "7.0.2",
     "eslint": "7.9.0",
