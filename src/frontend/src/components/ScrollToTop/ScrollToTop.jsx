@@ -58,7 +58,6 @@ export default function BackToTop(props) {
   const classes = useStyles();
   return (
     <>
-      <Toolbar id="delete-in-the-future" className={classes.anchor} />
       <ScrollTop {...props}>
         <Fab color="secondary" aria-label="scroll back to top">
           <KeyboardArrowUpIcon fontSize="large" color="textPrimary" />
