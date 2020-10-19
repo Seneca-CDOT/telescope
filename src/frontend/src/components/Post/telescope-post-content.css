@@ -35,6 +35,12 @@
   vertical-align: text-top;
 }
 
+.telescope-post-content img[src*='svg'] {
+  width: 2rem;
+  padding: 0;
+  vertical-align: center;
+}
+
 .telescope-post-content h1 {
   font-size: 2em;
   max-width: 670px;
