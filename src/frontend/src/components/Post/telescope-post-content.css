@@ -41,6 +41,12 @@
   vertical-align: center;
 }
 
+.telescope-post-content img[src*='https://medium.com/_/stat']
+{
+  width: 1px;
+  height: 1px;
+}
+
 .telescope-post-content h1 {
   font-size: 2em;
   max-width: 670px;
