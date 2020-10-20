@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
+import useSWR from 'swr';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
-import syntaxHighlight from './syntax-highlight';
 import './telescope-post-content.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -75,30 +75,38 @@ function formatPublishedDate(dateString) {
   return `Last Updated ${formatted}`;
 }
 
-const Post = ({ id, html, author, url, title, date, link }) => {
+const Post = ({ postUrl }) => {
+  // id, html, author, url, title, date, link
   const classes = useStyles();
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef(null);
-  // When we initialize, find and highlight all <pre> elements contained within.
-  useEffect(() => {
-    syntaxHighlight(sectionEl.current);
-  }, [sectionEl]);
+  // Grab the post data from our backend so we can render it
+  const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
+
+  if (error) {
+    console.error(`Error loading post at ${postUrl}`, error);
+    return null;
+  }
+
+  if (!post) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Box className={classes.root} boxShadow={2}>
       <ListSubheader className={classes.header}>
-        <Typography variant="h1" title={title} id={id} className={classes.title}>
-          {title}
+        <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+          {post.title}
         </Typography>
         <Typography variant="h3" className={classes.author}>
           By{' '}
-          <a className={classes.link} href={link}>
-            {author}
+          <a className={classes.link} href={post.feed.link}>
+            {post.feed.author}
           </a>
         </Typography>
-        <a href={url} rel="bookmark" className={classes.published}>
-          <time className={classes.time} dateTime={date}>
-            {formatPublishedDate(date)}
+        <a href={post.url} rel="bookmark" className={classes.published}>
+          <time className={classes.time} dateTime={post.updated}>
+            {formatPublishedDate(post.updated)}
           </time>
         </a>
       </ListSubheader>
@@ -108,7 +116,7 @@ const Post = ({ id, html, author, url, title, date, link }) => {
           <section
             ref={sectionEl}
             className="telescope-post-content"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: post.html }}
           />
         </Grid>
       </Grid>
@@ -117,13 +125,7 @@ const Post = ({ id, html, author, url, title, date, link }) => {
 };
 
 Post.propTypes = {
-  id: PropTypes.string,
-  url: PropTypes.string,
-  author: PropTypes.string,
-  html: PropTypes.any,
-  title: PropTypes.string,
-  date: PropTypes.string,
-  link: PropTypes.string,
+  postUrl: PropTypes.string,
 };
 
 export default Post;
