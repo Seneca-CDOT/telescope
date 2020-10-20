@@ -4,16 +4,17 @@ import PageBase from './PageBase';
 import Banner from '../components/Banner';
 import Posts from '../components/Posts';
 import ScrollToTop from '../components/ScrollToTop';
-
-const fetcher = (url) => fetch(url).then((r) => r.json());
+import useSiteMetaData from '../hooks/use-site-metadata';
 
 export default function IndexPage() {
+  const { telescopeUrl } = useSiteMetaData();
+
   return (
     <PageBase title="Home">
       <Banner />
       <ScrollToTop />
       <main className="main">
-        <Posts />
+        <Posts telescopeUrl={telescopeUrl} />
       </main>
     </PageBase>
   );
