@@ -32,6 +32,7 @@
     "react-material-ui-form-validator": "2.1.1",
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
+    "swr": "0.3.6",
     "typeface-roboto": "0.0.75"
   },
   "devDependencies": {
