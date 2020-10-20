@@ -10,10 +10,6 @@ import SearchBar from '../SearchBar';
 import Spinner from '../Spinner';
 
 const useStyles = makeStyles(() => ({
-  boxAfterHeader: {
-    minHeight: '12em',
-    display: 'flex',
-  },
   spinner: {
     display: 'flex',
     justifyContent: 'center',
@@ -165,7 +161,6 @@ const SearchPage = () => {
 
   return (
     <div>
-      <Box className={classes.boxAfterHeader}></Box>
       <SearchBar
         searchText={searchText}
         onChangeHandler={onChangeHandler}
