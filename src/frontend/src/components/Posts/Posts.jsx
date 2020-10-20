@@ -1,31 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useSWR from 'swr';
+import { useSWRInfinite } from 'swr';
 
 import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import useSiteMetaData from '../../hooks/use-site-metadata';
 import Post from '../Post/Post.jsx';
 import Spinner from '../Spinner/Spinner.jsx';
+import LoadMoreButton from './LoadMoreButton.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 0,
     maxWidth: '785px',
-  },
-  content: {
-    '& > *': {
-      color: theme.palette.primary.main,
-      borderColor: theme.palette.primary.main,
-      padding: theme.spacing(2),
-      bottom: theme.spacing(4),
-      fontSize: '2rem',
-      transition: 'all linear 250ms',
-
-      [theme.breakpoints.between('xs', 'sm')]: {
-        bottom: theme.spacing(8),
-      },
-    },
   },
   activeCircle: {
     borderRadius: '4rem',
@@ -34,31 +20,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Posts = (props) => {
+const Posts = ({ telescopeUrl, searchPostResults }) => {
   const classes = useStyles();
-  const { telescopeUrl } = useSiteMetaData();
-  const { searchPostResults } = props;
+  const { data: pages, size, setSize, error } = useSWRInfinite(
+    (index) => `${telescopeUrl}/posts?page=${index + 1}`,
+    (url) => fetch(url).then((r) => r.json()),
+    {
+      refreshInterval: 5 * 60 * 1000 /* refresh data every 5 minutes */,
+    }
+  );
 
   if (searchPostResults) {
-    setPosts(searchPostResults);
-  } else {
-    getPosts();
+    // todo...
   }
 
-  const { data: posts, error } = useSWR(`${telescopeUrl}/posts`, (url) =>
-    fetch(url).then((r) => r.json())
-  );
+  const initialLoad = !pages && !error;
 
   if (error) {
     console.error('Error loading posts', error);
     return null;
   }
 
-  if (!posts) {
-    return <div>Loading...</div>;
-  }
-
-  if (posts.length === 0) {
+  if (initialLoad || !(pages && pages.length)) {
     return (
       <>
         <Grid container spacing={0} direction="column" alignItems="center" justify="center">
@@ -68,13 +51,17 @@ const Posts = (props) => {
     );
   }
 
+  // Iterate over all the pages (an array of arrays) and then convert all post
+  // elements to <Post>
+  const timeline = pages
+    .map((page) => page.map(({ id, url }) => <Post postUrl={`${telescopeUrl}${url}`} key={id} />))
+    // Add a "Load More" button at the end of the timeline.  Give it a unique
+    // key each time, based on page (i.e., size), so we remove the previous one
+    .concat(<LoadMoreButton onClick={() => setSize(size + 1)} key={`load-more-button-${size}`} />);
+
   return (
     <Container className={classes.root}>
-      <Container className={classes.root}>
-        {posts.map(({ id, url }) => (
-          <Post postUrl={`${telescopeUrl}${url}`} key={id} />
-        ))}
-      </Container>
+      <Container className={classes.root}>{timeline}</Container>
     </Container>
   );
 };
@@ -82,6 +69,7 @@ const Posts = (props) => {
 Posts.propTypes = {
   className: PropTypes.string,
   searchResults: PropTypes.array,
+  telescopeUrl: PropTypes.string,
 };
 
 export default Posts;
