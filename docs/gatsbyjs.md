@@ -72,4 +72,6 @@ npm run develop
 ```
 
 This will run the Gatsby app with hot-reloading on `http://localhost:8000` and
-use `https://dev.telescope.cdot.systems` as your backend api.
+use `https://dev.telescope.cdot.systems` as your back-end. Any changes made to the code in the front-end will now be reflected on `http://localhost:8000`
+
+Please note `npm run develop` will detect 99% of any issues that may occur when working on the front-end. It is highly advised to run `npm run build` to verify there are no issues.
