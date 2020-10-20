@@ -11,6 +11,10 @@ for Redis.
 
 For information about installing Redis, see [our environment setup guide](environment-setup.md).
 
+### Elasticsearch
+
+Telescope uses [Elasticsearch](elasticsearch.md) as a search engine for full-text indexing. It is used to search posts indexed by Telescope by author or post keyword.
+
 ## Redis Tips
 
 1. Use the `redis-cli` command to run commands. Link to the docs for it are at https://redis.io/topics/rediscli.
