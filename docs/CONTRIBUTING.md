@@ -30,6 +30,7 @@ docs available for each, including our:
 - frontend query language [GraphQL](graphql.md)
 - single-sign-on (SSO) [login](login.md) using SAML2
 - backend logging framework [Pino](logging.md)
+- search engine indexing [Elasticsearch](elasticsearch.md)
 
 If you're unsure about how something works, talk to one of us on [#telescope Slack channel](https://seneca-open-source.slack.com/archives/CS5DGCAE5).
 

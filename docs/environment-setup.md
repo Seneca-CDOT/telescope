@@ -183,3 +183,6 @@ Run `npm run develop`
 
 If using default settings, a front-end should now be available:
 Open `localhost:8000`
+Run `npm start` and open `localhost:3000`
+
+See [staging-production-deployment](staging-production-deployment) for more information on running Telescope in staging or production mode.
