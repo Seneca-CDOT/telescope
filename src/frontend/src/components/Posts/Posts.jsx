@@ -20,19 +20,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Posts = ({ telescopeUrl, searchPostResults }) => {
+const Posts = ({ telescopeUrl, searchResults }) => {
   const classes = useStyles();
-  const { data: pages, size, setSize, error } = useSWRInfinite(
-    (index) => `${telescopeUrl}/posts?page=${index + 1}`,
+  const { data, size, setSize, error } = useSWRInfinite(
+    (index) => (searchResults ? null : `${telescopeUrl}/posts?page=${index + 1}`),
     (url) => fetch(url).then((r) => r.json()),
     {
       refreshInterval: 5 * 60 * 1000 /* refresh data every 5 minutes */,
     }
   );
 
-  if (searchPostResults) {
-    // todo...
-  }
+  // Use the data we got from the server, or the provided search results
+  const pages = data || (searchResults ? searchResults.values : null);
 
   const initialLoad = !pages && !error;
 
@@ -53,11 +52,17 @@ const Posts = ({ telescopeUrl, searchPostResults }) => {
 
   // Iterate over all the pages (an array of arrays) and then convert all post
   // elements to <Post>
-  const timeline = pages
-    .map((page) => page.map(({ id, url }) => <Post postUrl={`${telescopeUrl}${url}`} key={id} />))
-    // Add a "Load More" button at the end of the timeline.  Give it a unique
-    // key each time, based on page (i.e., size), so we remove the previous one
-    .concat(<LoadMoreButton onClick={() => setSize(size + 1)} key={`load-more-button-${size}`} />);
+  const timeline = pages.map((page) =>
+    page.map(({ id, url }) => <Post postUrl={`${telescopeUrl}${url}`} key={id} />)
+  );
+
+  // Add a "Load More" button at the end of the timeline.  Give it a unique
+  // key each time, based on page (i.e., size), so we remove the previous one
+  if (!searchResults) {
+    timeline.push(
+      <LoadMoreButton onClick={() => setSize(size + 1)} key={`load-more-button-${size}`} />
+    );
+  }
 
   return (
     <Container className={classes.root}>
