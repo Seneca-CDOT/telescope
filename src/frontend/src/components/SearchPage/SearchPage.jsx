@@ -1,11 +1,16 @@
-import { useLazyQuery } from '@apollo/react-hooks';
-import Box from '@material-ui/core/Box';
-import { makeStyles } from '@material-ui/core/styles';
-import gql from 'graphql-tag';
 import React, { useEffect, useState } from 'react';
+import gql from 'graphql-tag';
+
+import { Container } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
+
+import { makeStyles } from '@material-ui/core/styles';
+import { useLazyQuery } from '@apollo/react-hooks';
+
 import useSiteMetadata from '../../hooks/use-site-metadata';
+
 import AuthorResult from '../AuthorResult';
-import Posts from '../Posts';
+import Timeline from '../Posts/Timeline.jsx';
 import SearchBar from '../SearchBar';
 import Spinner from '../Spinner';
 
@@ -16,6 +21,11 @@ const useStyles = makeStyles(() => ({
   },
   spinner: {
     display: 'flex',
+    justifyContent: 'center',
+  },
+  searchResults: {
+    padding: 0,
+    width: '785px',
     justifyContent: 'center',
   },
 }));
@@ -77,37 +87,23 @@ const SearchPage = () => {
         const encodedSearchText = encodeURIComponent(searchText);
         try {
           setFetchLoading(true);
-          let res = await fetch(`${telescopeUrl}/query?search=${encodedSearchText}`);
+          const res = await fetch(`${telescopeUrl}/query?search=${encodedSearchText}`);
           if (!res.ok) {
             throw new Error(res.statusText);
           }
-          let contentType = res.headers.get('content-type');
-          if (!contentType || !contentType.includes('application/json')) {
-            throw new Error('Response was not json');
-          }
           const searchResults = await res.json();
           // ES values property contains an array of objects with a (feed) id property
-          const postIds = searchResults.values.map((result) => result.id);
-          const posts = await Promise.all(
-            postIds.map(async (id) => {
-              res = await fetch(`${telescopeUrl}/posts/${id}`);
-              if (!res.ok) {
-                throw new Error(res.statusText);
-              }
-              contentType = res.headers.get('content-type');
-              if (!contentType || !contentType.includes('application/json')) {
-                throw new Error('Response was not json');
-              }
-              return res.json();
-            })
-          );
+          const posts = searchResults.values.map((result) => ({
+            id: result.id,
+            url: `/posts/${result.id}`,
+          }));
           setFetchLoading(false);
-          setResults({ type: 'post', searchResults: posts });
+          setResults({ type: 'post', posts });
         } catch (error) {
           console.error('Something went wrong while fetching data', error);
         }
       } else {
-        setResults({ type: 'post', searchResults: [] });
+        setResults({ type: 'post', posts: [] });
       }
     }
 
@@ -142,9 +138,9 @@ const SearchPage = () => {
           <AuthorResult key={result.id} author={result.author} post={result.post} />
         ));
       }
-      // If result type is post return Posts component for each result
+      // If result type is post return an array of posts (single page of posts)
       if (results.type === 'post') {
-        return <Posts searchPostResults={results.searchResults} />;
+        return <Timeline pages={[results.posts]} />;
       }
     }
 
@@ -174,7 +170,7 @@ const SearchPage = () => {
         onFilterChangeHandler={onFilterChangeHandler}
       />
       <br />
-      {displayResults()}
+      <Container className={classes.searchResults}>{displayResults()}</Container>
     </div>
   );
 };
