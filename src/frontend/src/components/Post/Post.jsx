@@ -5,6 +5,7 @@ import useSWR from 'swr';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
+import AdminButtons from '../AdminButtons';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,6 +96,7 @@ const Post = ({ postUrl }) => {
   return (
     <Box className={classes.root} boxShadow={2}>
       <ListSubheader className={classes.header}>
+        <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
           {post.title}
         </Typography>
