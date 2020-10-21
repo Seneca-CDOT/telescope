@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Paper } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 
 import ChannelsDrawer from '../ChannelsDrawer';
+import StreamTabPanel from '../StreamTabPanel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,9 +31,11 @@ export default function StreamsPage() {
 
   return (
     <div className={classes.root}>
-      <ChannelsDrawer />
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
+      <Grid container justify="space-between" alignItems="stretch">
+        <Grid item xs={2}>
+          <ChannelsDrawer />
+        </Grid>
+        <Grid item xs={7}>
           <Container className={classes.playerContainer} maxWidth="md">
             <ReactPlayer
               className={classes.player}
@@ -42,8 +45,8 @@ export default function StreamsPage() {
             />
           </Container>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper className={classes.paper}>xs=12 sm=6</Paper>
+        <Grid item xs={3}>
+          <StreamTabPanel />
         </Grid>
       </Grid>
     </div>
