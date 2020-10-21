@@ -51,6 +51,11 @@ describe('Sanitize HTML', () => {
     expect(data).toBe('<iframe src="https://player.vimeo.com/video/395927811"></iframe>');
   });
 
+  test('<iframe> tag to a giphy embed should not get removed', () => {
+    const data = sanitizeHTML('<iframe src="https://giphy.com/embed/3osxYc2axjCJNsCXyE"></iframe>');
+    expect(data).toBe('<iframe src="https://giphy.com/embed/3osxYc2axjCJNsCXyE"></iframe>');
+  });
+
   test('<pre> with inline style, sanitize strips inline style', () => {
     const data = sanitizeHTML('<pre class="brush: plain; title: ; notranslate">Hello World</pre>');
     expect(data).toBe('<pre>Hello World</pre>');
