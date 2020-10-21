@@ -58,8 +58,10 @@ export default function DesktopHeader() {
             </Link>
           </Button>
           <Button color="inherit" size="medium" className={classes.button}>
-            <Link to="/player" className={classes.links}>
-              Player
+            <Link to="/streams" className={classes.links}>
+              <Badge badgeContent={'BETA'} color="error">
+                Streams
+              </Badge>
             </Link>
           </Button>
           <Button color="inherit" size="medium" className={classes.button}>

@@ -100,9 +100,9 @@ export default function MobileHeader() {
           HOME
         </ListItem>
         <Divider className={classes.line} />
-        <ListItem button component={Link} to="/player" className={classes.item}>
+        <ListItem button component={Link} to="/streams" className={classes.item}>
           <Badge badgeContent={'BETA'} color="error">
-            PLAYER
+            STREAMS
           </Badge>
         </ListItem>
         <Divider className={classes.line} />

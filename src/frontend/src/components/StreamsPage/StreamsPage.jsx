@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PlayerPage() {
+export default function StreamsPage() {
   const classes = useStyles();
 
   return (
