@@ -3,6 +3,8 @@ import ReactPlayer from 'react-player';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Paper } from '@material-ui/core';
 
+import ChannelsDrawer from '../ChannelsDrawer';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -28,6 +30,7 @@ export default function PlayerPage() {
 
   return (
     <div className={classes.root}>
+      <ChannelsDrawer />
       <Grid container spacing={3}>
         <Grid item xs={12} md={8}>
           <Container className={classes.playerContainer} maxWidth="md">
