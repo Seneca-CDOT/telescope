@@ -41,8 +41,7 @@
   vertical-align: center;
 }
 
-.telescope-post-content img[src*='https://medium.com/_/stat']
-{
+.telescope-post-content img[src*='medium.com/_/stat'] {
   width: 1px;
   height: 1px;
 }
