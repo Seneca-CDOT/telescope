@@ -49,6 +49,8 @@ To get this to run locally, you need to update your `.env`. Copy `env.example` i
 
 4. Start the backend apps using `docker-compose up –build`. This will build the SAML2 server that is being used as a local service for testing purposes, and Telescope (express). From there, you should be able to click on the login button at `http://localhost:3000/` that will redirect you to the proper login page.
 
+**Note**: If running Elasticsearch or Redis natively, please avoid using `docker-compose up -build` and instead use `docker-compose up login` to start the SAML2 server for testing. This will avoid any issues with duplicate services of Redis and Elasticsearch started by `docker-compose up -build`.
+
 5. The test SSO server uses the following fake user accounts defined in [simplesamlphp-users.php](../simplesamlphp-users.php):
 
 | Username    | Password  | Name            | Email                      |
