@@ -98,7 +98,7 @@
     "valid-url": "1.0.9"
   },
   "devDependencies": {
-    "@now/node": "1.8.2",
+    "@vercel/node": "1.8.2",
     "cross-env": "7.0.2",
     "eslint": "7.9.0",
     "eslint-config-airbnb-base": "14.2.0",

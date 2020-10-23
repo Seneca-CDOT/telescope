@@ -14,6 +14,8 @@
 FROM node:lts-alpine as build
 
 # Tini Entrypoint for Alpine
+# These modules are needed to build mozjpeg
+RUN apk add autoconf automake nasm libtool gcc make g++ tiff jpeg zlib zlib-dev pkgconf file musl-dev
 # util-linux required by gatsby to optimize builds using multiple cores
 RUN apk add --no-cache tini util-linux
 ENTRYPOINT [ "/sbin/tini", "--"]
