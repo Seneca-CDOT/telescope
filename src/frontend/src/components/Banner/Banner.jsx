@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Fab, Grid, Typography } from '@material-ui/core';
 import useSiteMetadata from '../../hooks/use-site-metadata';
-import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
+import DynamicBackgroundContainer from '../DynamicBackgroundContainer.jsx';
 
 const useStyles = makeStyles((theme) => ({
   h1: {
@@ -102,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
   dynamic: {
     transition: 'opacity 1s ease-in-out',
     backgroundColor: theme.palette.primary.main,
+    opacity: 0.9,
   },
 }));
 
@@ -124,65 +125,30 @@ function ScrollDown(props) {
 }
 
 function RetrieveBannerDynamicAssets() {
-  const [stats, setStats] = useState({ stats: { posts: 0, authors: 0, words: 0 } });
-  const [transitionBackground, setTransitionBackground] = useState(true);
   const classes = useStyles();
-  const { telescopeUrl } = useSiteMetadata();
 
-  useEffect(() => {
-    async function getStats() {
-      const response = await fetch(`${telescopeUrl}/stats/year`);
-
-      if (response.status !== 200) {
-        throw new Error(response.statusText);
-      }
-
-      const data = await response.json();
-
-      const localeStats = {
-        posts: data.posts.toLocaleString(),
-        authors: data.authors.toLocaleString(),
-        words: data.words.toLocaleString(),
-      };
-      setStats(localeStats);
-      setTransitionBackground(false);
-    }
-
-    getStats();
-  }, [telescopeUrl]);
-
-  if (stats.authors !== 0) {
-    return (
-      <div
-        className={classes.dynamic}
-        style={{
-          opacity: transitionBackground ? 0 : 0.9,
-        }}
-      >
-        <DynamicBackgroundContainer />
-        <Typography variant="caption" className={classes.stats}>
-          This year {stats.authors} of us have written {stats.words} words and counting.{' '}
-          <Link className={classes.addYours} to="/myfeeds">
-            Add yours!
-          </Link>
-        </Typography>
-      </div>
-    );
-  }
-
-  return null;
+  return (
+    <div className={classes.dynamic}>
+      <DynamicBackgroundContainer />
+      <Typography variant="caption" className={classes.stats}>
+        This year 83 of us have written over 250K words and counting.{' '}
+        <Link className={classes.addYours} to="/myfeeds">
+          Add yours!
+        </Link>
+      </Typography>
+    </div>
+  );
 }
 
 ScrollDown.propTypes = {
   children: PropTypes.element.isRequired,
-
   window: PropTypes.func,
 };
 
 export default function Banner() {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
-  const [gitInfo, setGitInfo] = useState('');
+  const [gitInfo, setGitInfo] = useState({});
 
   useEffect(() => {
     async function getGitData() {
