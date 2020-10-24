@@ -4,7 +4,7 @@ import { Card, CardActions, CardContent, Fab, Grid, Typography } from '@material
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import PageBase from './PageBase';
-import DynamicBackgroundContainer from '../components/DynamicBackgroundContainer.jsx';
+import DynamicImage from '../components/DynamicImage/DynamicImage.jsx';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -145,7 +145,7 @@ const ErrorPage = ({ location }) => {
 
   return (
     <PageBase title={status}>
-      <DynamicBackgroundContainer />
+      <DynamicImage />
 
       <Grid
         container

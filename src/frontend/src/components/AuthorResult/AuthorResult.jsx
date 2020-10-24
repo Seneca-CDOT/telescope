@@ -11,7 +11,7 @@ import {
   Container,
   Avatar,
 } from '@material-ui/core';
-import DynamicBackgroundContainer from '../DynamicBackgroundContainer';
+import DynamicImage from '../DynamicImage/DynamicImage.jsx';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -90,7 +90,7 @@ export default function AuthorResult(props) {
         <CardActionArea onClick={handleLatestPostClick}>
           <CardMedia className={classes.backgroundImage}>
             {/* TODO: Pull Cover_Image from post metadata if availble */}
-            <DynamicBackgroundContainer />
+            <DynamicImage />
 
             <Avatar className={classes.avatar}>{authorInitials}</Avatar>
           </CardMedia>

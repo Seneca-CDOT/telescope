@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Fab, Grid, Typography } from '@material-ui/core';
 import useSiteMetadata from '../../hooks/use-site-metadata';
-import BannerDynamicText from '../BannerDynamicText/BannerDynamicText.jsx';
+import BannerDynamicItems from '../BannerDynamicItems/BannerDynamicItems.jsx';
 
 const useStyles = makeStyles((theme) => ({
   h1: {
@@ -120,7 +120,7 @@ export default function Banner() {
   return (
     <>
       <div className={classes.heroBanner}>
-        <BannerDynamicText />
+        <BannerDynamicItems />
 
         <Typography variant="h1" className={classes.h1}>
           {'Telescope'}

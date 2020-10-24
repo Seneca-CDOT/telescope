@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import { Link } from 'gatsby';
-import BannerImage from '../BannerImage/BannerImage.jsx';
+import DynamicImage from '../DynamicImage/DynamicImage.jsx';
 
 const useStyles = makeStyles((theme) => ({
   dynamic: {
@@ -46,7 +46,7 @@ function BannerDynamicText() {
 
   return (
     <div className={classes.dynamic}>
-      <BannerImage />
+      <DynamicImage />
       <Typography variant="caption" className={classes.stats}>
         This year 83 of us have written over 250K words and counting.{' '}
         <Link className={classes.addYours} to="/myfeeds">
