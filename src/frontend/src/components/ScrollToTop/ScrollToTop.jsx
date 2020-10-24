@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Fab, Toolbar, useScrollTrigger, Zoom } from '@material-ui/core';
+import { Fab, useScrollTrigger, Zoom } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
