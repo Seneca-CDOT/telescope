@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Fab, Toolbar, useScrollTrigger, Zoom } from '@material-ui/core';
+import { Fab, useScrollTrigger, Zoom } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2),
     right: theme.spacing(2),
     zIndex: 1100,
-  },
-  anchor: {
-    minHeight: '0px',
   },
 }));
 
@@ -55,7 +52,6 @@ ScrollTop.propTypes = {
 };
 
 export default function BackToTop(props) {
-  const classes = useStyles();
   return (
     <>
       <ScrollTop {...props}>
