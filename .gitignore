@@ -10,6 +10,10 @@ coverage
 # production
 build
 
+# next.js
+.next/
+out/
+
 # misc
 .DS_Store
 .env.local
@@ -37,9 +41,6 @@ certs/
 
 # gastby ,cache directory
 .cache/
-
-# gatsby public folder
-public/
 
 # Redis data storage
 redis-data/
