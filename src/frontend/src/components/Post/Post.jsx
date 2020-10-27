@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
-
+import 'highlight.js/styles/github.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
