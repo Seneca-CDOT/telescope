@@ -5,6 +5,8 @@ import useSWR from 'swr';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
+import Spinner from '../Spinner/Spinner.jsx';
+import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import AdminButtons from '../AdminButtons';
 
 const useStyles = makeStyles((theme) => ({
@@ -67,6 +69,13 @@ const useStyles = makeStyles((theme) => ({
       textDecorationLine: 'underline',
     },
   },
+  spinner: {
+    padding: '20px',
+  },
+  error: {
+    lineHeight: '1.00',
+    fontSize: '1em',
+  },
 }));
 
 function formatPublishedDate(dateString) {
@@ -86,11 +95,44 @@ const Post = ({ postUrl }) => {
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
-    return null;
+    return (
+      <Box className={classes.root} boxShadow={2}>
+        <ListSubheader className={classes.header}>
+          <AdminButtons />
+          <Typography variant="h1" className={classes.title}>
+            <Grid container className={classes.error}>
+              <Grid item>
+                <ErrorRoundedIcon className={classes.error} />
+              </Grid>{' '}
+              - Post Failed to Load
+            </Grid>
+          </Typography>
+        </ListSubheader>
+      </Box>
+    );
   }
 
   if (!post) {
-    return <div>Loading...</div>;
+    return (
+      <Box className={classes.root} boxShadow={2}>
+        <ListSubheader className={classes.header}>
+          <AdminButtons />
+          <Typography variant="h1" className={classes.title}>
+            Loading Blog...
+          </Typography>
+        </ListSubheader>
+
+        <Grid container justify="center">
+          <Grid item className={classes.spinner}>
+            <Spinner animation="border" variant="light">
+              <span className="sr-only" textAlign="center">
+                Loading...
+              </span>
+            </Spinner>
+          </Grid>
+        </Grid>
+      </Box>
+    );
   }
 
   return (
