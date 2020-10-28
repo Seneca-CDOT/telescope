@@ -15,8 +15,8 @@ export default function Spinner() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CircularProgress />
+    <div className={classes.root} data-testid="spinner-wrapper">
+      <CircularProgress data-testid="circular-process" />
     </div>
   );
 }
