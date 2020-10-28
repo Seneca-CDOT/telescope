@@ -1,15 +1,30 @@
 import React from 'react';
 import { useSWRInfinite } from 'swr';
 
-import { Container } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Timeline from './Timeline.jsx';
 import useSiteMetaData from '../../hooks/use-site-metadata';
+
+import SentimentDissatisfiedRoundedIcon from '@material-ui/icons/SentimentDissatisfiedRounded';
 
 const useStyles = makeStyles(() => ({
   root: {
     padding: 0,
     maxWidth: '785px',
+  },
+  error: {
+    position: 'center',
+    color: '#B5B5B5',
+    fontFamily: 'Roboto',
+    fontSize: '5rem',
+    paddingBottom: '30px',
+  },
+  errorIcon: {
+    position: 'center',
+    color: '#B5B5B5',
+    fontSize: '10rem',
+    paddingBottom: 0,
   },
 }));
 
@@ -29,7 +44,22 @@ const Posts = () => {
   // TODO: need proper error handling
   if (error) {
     console.error('Error loading post data', error);
-    return null;
+    return (
+      <Container className={classes.root}>
+        <Grid
+          container
+          className={classes.error}
+          justify="center"
+          alignItems="center"
+          direction="column"
+        >
+          <Grid item>
+            <SentimentDissatisfiedRoundedIcon className={classes.errorIcon} />
+          </Grid>
+          <Grid item>Blog Timeline Failed to Load!</Grid>
+        </Grid>
+      </Container>
+    );
   }
 
   return (
