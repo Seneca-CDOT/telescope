@@ -83,7 +83,7 @@
     "highlight.js": "10.2.0",
     "http-proxy-middleware": "1.0.5",
     "ioredis": "4.17.3",
-    "ioredis-mock": "4.21.3",
+    "ioredis-mock": "5.1.0",
     "jsdom": "16.4.0",
     "node-fetch": "2.6.1",
     "normalize-url": "5.1.0",
