@@ -73,11 +73,10 @@ const search = async (textToSearch) => {
     body: query,
   });
   const results = hits.total.value;
-  const values = hits.hits.map(({ _id, _source, _score }) => {
+
+  const values = hits.hits.map(({ _id }) => {
     return {
       id: _id,
-      text: _source.text,
-      score: _score,
     };
   });
 
