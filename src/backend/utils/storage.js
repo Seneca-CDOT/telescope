@@ -33,9 +33,6 @@ module.exports = {
     const key = createFeedKey(feed.id);
     await redis
       .multi()
-      // Using hmset() until hset() fully supports multiple fields:
-      // https://github.com/stipsan/ioredis-mock/issues/345
-      // https://github.com/luin/ioredis/issues/551
       .hset(
         key,
         'id',
