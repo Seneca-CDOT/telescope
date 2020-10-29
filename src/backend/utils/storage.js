@@ -36,7 +36,7 @@ module.exports = {
       // Using hmset() until hset() fully supports multiple fields:
       // https://github.com/stipsan/ioredis-mock/issues/345
       // https://github.com/luin/ioredis/issues/551
-      .hmset(
+      .hset(
         key,
         'id',
         feed.id,
@@ -107,7 +107,7 @@ module.exports = {
     const key = createPostKey(post.id);
     await redis
       .multi()
-      .hmset(
+      .hset(
         key,
         'id',
         post.id,
