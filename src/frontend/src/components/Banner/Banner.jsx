@@ -119,7 +119,7 @@ export default function Banner() {
         justify="center"
         className={classes.container}
       >
-        <Grid id="back-to-top-anchor" item xs={8}>
+        <Grid id="back-to-top-anchor-mobile" item xs={8}>
           <div className={classes.icon}>
             <ScrollAction>
               <Fab color="secondary" aria-label="scroll-down">
@@ -129,6 +129,7 @@ export default function Banner() {
           </div>
         </Grid>
       </Grid>
+      <div id="back-to-top-anchor"></div>
     </>
   );
 }
