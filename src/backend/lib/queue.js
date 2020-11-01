@@ -72,13 +72,13 @@ function createQueue(name) {
       // A job failed with an error
       logger.error({ error }, `Job ${job.id} failed.`);
     })
-    .on('paused', (job) => {
+    .on('paused', () => {
       // The queue was paused
-      logger.debug(`Queue ${name} resumed. ID:`, job.id);
+      logger.debug(`Queue ${name} paused.`);
     })
     .on('resumed', (job) => {
       // The queue resumed
-      logger.debug(`Queue ${name} resumed. ID: `, job.id);
+      logger.debug(`Queue ${name} resumed. ID: ${job.id}`);
     })
     .on('cleaned', (jobs, types) => {
       // Old jobs were cleaned from the queue
