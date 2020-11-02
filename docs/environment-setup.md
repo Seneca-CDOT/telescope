@@ -5,7 +5,7 @@
 - [Node.js (npm)](https://nodejs.org/en/download/)
 - [Redis](https://redis.io/) (2 methods)
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
-  - Install as a [native application](https://redis.io/topics/quickstart)
+  - Install as a [native application](#Install-Redis-as-a-native-application)
 - [Elasticsearch](https://www.elastic.co/what-is/elasticsearch) (3 methods)
   - Use `MOCK_ELASTIC=1` in your `.env` to use a mock in-memory Elastic (useful for local dev)
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
@@ -35,7 +35,7 @@ There are two methods to install Redis on Windows. We strongly recommend the fir
 ##### Option 1: Using [WSL2 (Windows Subsystem Linux)](https://docs.microsoft.com/en-us/windows/wsl/about)
 
 1. Follow Microsoft WSL2 [installation guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to complete the installation
-2. Follow Redis [installation guide](https://redis.io/topics/quickstart#installing-redis) to install Redis
+2. Depending on the distribution you chose for WSL2, install redis using that distro's package manager. For example, if using Ubuntu, run `sudo apt-get install redis`
 3. Suggest to install [Windows Terminal](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-windows-terminal-optional), it facilitates you to switch directories between WSL2 Ubuntu bash and Windows drive
 
 ##### Option 2: Using [Chocolatey package manager](https://chocolatey.org/) to install Redis on Windows
