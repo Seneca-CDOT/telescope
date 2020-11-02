@@ -5,7 +5,7 @@
 - [Node.js (npm)](https://nodejs.org/en/download/)
 - [Redis](https://redis.io/) (2 methods)
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
-  - Install as a [native application](https://redis.io/topics/quickstart)
+  - Install as a [native application](#Install-Redis-as-a-native-application)
 - [Elasticsearch](https://www.elastic.co/what-is/elasticsearch) (3 methods)
   - Use `MOCK_ELASTIC=1` in your `.env` to use a mock in-memory Elastic (useful for local dev)
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
