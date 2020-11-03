@@ -30,6 +30,11 @@ describe('Sanitize HTML', () => {
     expect(data).toBe('<p><a><img src="http://www.telescope.com/http_image.jpg" /></a></p>');
   });
 
+  test('protocoless urls should be accepted (i.e. not sanitized)', () => {
+    const data = sanitizeHTML('<img src="//www.telescope.com/image.jpg" />');
+    expect(data).toBe('<img src="//www.telescope.com/image.jpg" />');
+  });
+
   test('<a><img> should work, but inline js should not', () => {
     const data = sanitizeHTML(
       '<a href="https://www.telescope.com"><img border="0" alt="W3Schools" src="logo.gif" width="100" height="100"></a>'
@@ -91,15 +96,6 @@ describe('Sanitize HTML', () => {
     );
     expect(data).toBe(
       '<table><tbody><tr><td><a href="www.senecacollege.ca"><img src="https://1.bp.blogspot.com/11.JPG" /></a></td></tr><tr><td>The Final Product</td></tr></tbody></table>'
-    );
-  });
-
-  test('<blockquote> should return properly and retain its citation', () => {
-    const data = sanitizeHTML(
-      '<blockquote cite="http://www.worldwildlife.org/who/index.html"> For 50 years, WWF has been protecting the future of nature from Stone Cold Steve Austin. </blockquote>'
-    );
-    expect(data).toBe(
-      '<blockquote cite="http://www.worldwildlife.org/who/index.html"> For 50 years, WWF has been protecting the future of nature from Stone Cold Steve Austin. </blockquote>'
     );
   });
 });

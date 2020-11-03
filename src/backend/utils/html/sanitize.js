@@ -46,7 +46,6 @@ module.exports = function (dirty) {
       iframe: ['src'],
       img: ['src'],
       a: ['href'],
-      blockquote: ['cite'],
     },
     allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'giphy.com'],
   });
