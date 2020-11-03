@@ -52,7 +52,6 @@ const deletePost = async (postId) => {
  */
 const search = async (textToSearch) => {
   const query = {
-    _source: ['id'],
     query: {
       simple_query_string: {
         query: textToSearch,
