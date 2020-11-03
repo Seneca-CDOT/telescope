@@ -41,10 +41,12 @@ module.exports = function (dirty) {
       'tr',
       'ul',
     ],
+    allowedSchemesByTag: { img: ['http', 'https', 'data'] },
     allowedAttributes: {
       iframe: ['src'],
       img: ['src'],
       a: ['href'],
+      blockquote: ['cite'],
     },
     allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'giphy.com'],
   });
