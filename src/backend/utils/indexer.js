@@ -51,14 +51,13 @@ const deletePost = async (postId) => {
  * @return all the results matching the passed text
  */
 const search = async (textToSearch) => {
+  console.log(textToSearch);
   const query = {
     query: {
-      match: {
-        text: {
-          query: textToSearch,
-          operator: 'AND',
-          fuzziness: 'auto',
-        },
+      simple_query_string: {
+        query: textToSearch,
+        default_operator: 'and',
+        fields: ['text'],
       },
     },
   };
