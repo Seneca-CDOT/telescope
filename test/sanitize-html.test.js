@@ -23,6 +23,7 @@ describe('Sanitize HTML', () => {
     expect(data).toBe('<p><a><img src="https://www.telescope.com/https_image.jpg" /></a></p>');
   });
 
+  // this test might break everything in the future as Chrome moves towards blocking mixed content. see: https://web.dev/what-is-mixed-content/
   test('img links over http should be accepted (i.e. not sanitized)', () => {
     const data = sanitizeHTML(
       '<p><a><img src="http://www.telescope.com/http_image.jpg" /></a></p>'
