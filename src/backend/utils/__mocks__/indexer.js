@@ -20,7 +20,13 @@ const deletePost = (postId) => {
   return Promise.resolve();
 };
 
-const search = () => Promise.resolve(db);
+const search = (keyword = '') => {
+  const filtered = db.values.filter((e) => e.text.includes(keyword));
+  return Promise.resolve({
+    results: filtered.length,
+    values: filtered.map((e) => ({ id: e.id })),
+  });
+};
 
 const checkConnection = () => Promise.resolve();
 

@@ -67,22 +67,16 @@ const search = async (textToSearch) => {
     body: { hits },
   } = await client.search({
     from: 0,
+    _source: ['null'],
     size: ELASTIC_MAX_RESULTS || 100,
     index,
     type,
     body: query,
   });
-  const results = hits.total.value;
-
-  const values = hits.hits.map(({ _id }) => {
-    return {
-      id: _id,
-    };
-  });
 
   return {
-    results,
-    values,
+    results: hits.total.value,
+    values: hits.hits.map(({ _id }) => ({ id: _id })),
   };
 };
 

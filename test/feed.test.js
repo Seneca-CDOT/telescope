@@ -180,8 +180,8 @@ describe('Post data class tests', () => {
       // Testing Posts in ElasticSearch here
       expect(elasticPosts.results).toBe(posts.length);
       // Check whether stored text in elasticSearch is same as Post description
-      expect(elasticPosts.values[0].text).toBe(articleData1.description);
-      expect(elasticPosts.values[1].text).toBe(articleData2.description);
+      expect(elasticPosts.values[0].text).toBe(undefined);
+      expect(elasticPosts.values[1].text).toBe(undefined);
       await feed.delete();
       const esSearchDelete = await search();
 

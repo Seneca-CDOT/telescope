@@ -1,4 +1,5 @@
 const request = require('supertest');
+const { search, indexPost } = require('../src/backend/utils/__mocks__/indexer');
 const app = require('../src/backend/web/app');
 
 jest.mock('../src/backend/utils/indexer');
@@ -18,5 +19,16 @@ describe('Testing query route', () => {
     const res = await request(app).get(`/query?search=${searchTerm}`);
     expect(searchTerm.length).toBeGreaterThan(256);
     expect(res.status).toBe(400);
+  });
+
+  test('Testing with search() returning only id', async () => {
+    await indexPost('First test data is going to be posted.', 1000);
+    await indexPost('Second real data is going to be posted.', 1001);
+    await indexPost('Third test data is going to be posted.', 1002);
+    await indexPost('Fource test data is going to be posted.', 1003);
+    const elasticPosts = await search('test');
+    expect(elasticPosts.values.length).toBe(3);
+    expect(Object.keys(elasticPosts.values[0]).length).toBe(1);
+    expect(Object.keys(elasticPosts.values[0])).toEqual(expect.arrayContaining(['id']));
   });
 });
