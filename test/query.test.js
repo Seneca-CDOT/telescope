@@ -30,5 +30,6 @@ describe('Testing query route', () => {
     expect(elasticPosts.values.length).toBe(3);
     expect(Object.keys(elasticPosts.values[0]).length).toBe(1);
     expect(Object.keys(elasticPosts.values[0])).toEqual(expect.arrayContaining(['id']));
+    expect(Object.keys(elasticPosts.values[1])).toEqual(expect.arrayContaining(['id']));
   });
 });
