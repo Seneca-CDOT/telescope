@@ -44,7 +44,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:7.9.3
     ports:
-      - ${KIBANA_PORT}:${KIBANA_POR}
+      - ${KIBANA_PORT}:${KIBANA_PORT}
     environment:
       ELASTICSEARCH_HOSTS: ${ELASTIC_URL}:${ELASTIC_PORT}
 
