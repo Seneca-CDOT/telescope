@@ -35,7 +35,12 @@ function ScrollTop(props) {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.root}>
+      <div
+        onClick={handleClick}
+        role="presentation"
+        className={classes.root}
+        data-testid="scroll-to-top-component"
+      >
         {children}
       </div>
     </Zoom>
