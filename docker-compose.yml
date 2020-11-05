@@ -16,7 +16,7 @@ services:
       - REDIS_URL=redis://redis:${REDIS_PORT}
       # variables for elasticsearch
       - ES_HOST=elasticsearch
-      - ELASTIC_URL=http://elasticsearch
+      - ELASTIC_URL=http://elasticsearch:${ELASTIC_PORT}
     depends_on:
       - redis
       - login
@@ -33,13 +33,20 @@ services:
       - ./redis-data:/data
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.0
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
     environment:
       - bootstrap.memory_lock=true
       - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
       - discovery.type=single-node
     ports:
       - ${ELASTIC_PORT}:${ELASTIC_PORT}
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.9.3
+    ports:
+      - ${KIBANA_PORT}:${KIBANA_PORT}
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:${ELASTIC_PORT}
 
   # SSO Identity Provider test service, https://simplesamlphp.org
   # Access to the authentication page via http://localhost:8080/simplesaml or https://localhost:8443/simplesaml
