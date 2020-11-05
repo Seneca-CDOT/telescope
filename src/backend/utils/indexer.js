@@ -67,7 +67,7 @@ const search = async (textToSearch) => {
     body: { hits },
   } = await client.search({
     from: 0,
-    _source: ['null'],
+    _source: ['id'],
     size: ELASTIC_MAX_RESULTS || 100,
     index,
     type,

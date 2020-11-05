@@ -21,10 +21,10 @@ const deletePost = (postId) => {
 };
 
 const search = (keyword = '') => {
-  const filtered = db.values.filter((e) => e.text.includes(keyword));
+  const filtered = db.values.filter((value) => value.text.includes(keyword));
   return Promise.resolve({
     results: filtered.length,
-    values: filtered.map((e) => ({ id: e.id })),
+    values: filtered.map((value) => ({ id: value.id })),
   });
 };
 
