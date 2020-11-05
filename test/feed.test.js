@@ -179,6 +179,9 @@ describe('Post data class tests', () => {
       expect(posts[1].feed.author).toBe(feed.author);
       // Testing Posts in ElasticSearch here
       expect(elasticPosts.results).toBe(posts.length);
+      // Each element of values should include 'id' key
+      expect(Object.keys(elasticPosts.values[0])).toEqual(expect.arrayContaining(['id']));
+      expect(Object.keys(elasticPosts.values[1])).toEqual(expect.arrayContaining(['id']));
       await feed.delete();
       const esSearchDelete = await search();
 
