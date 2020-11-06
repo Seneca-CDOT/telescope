@@ -88,28 +88,32 @@ sudo add-apt-repository \
    1. Create the Docker group: `groupadd docker`
    1. Add your user to the group: `sudo usermod -aG docker $USER`
    1. Log out and log back in (you may have to restart if you are running through a virtual machine)
-9. Make sure to you have docker running in your machine, either by `sudo dockerd` or on startup. Verify your installation by running `docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
-   _NOTE: This may cause errors if you have already tried to run docker before. If you get errors then run the following commands to reset it:_
+9. Make sure to you have docker running on your machine, you can start docker through the following methods
+   1. Running the command `sudo dockerd`
+   2. Starting the docker application manually
+   3. Restarting your machine.
+10. Verify your installation by running `docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
+    _NOTE: This may cause errors if you have already tried to run docker before. If you get errors then run the following commands to reset it:_
 
 ```
 sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
 sudo chmod g+rwx "$HOME/.docker" -R
 ```
 
-10. Now run docker as a service on your machine, on startup:
+11. Now run docker as a service on your machine, on startup:
     1. Enable docker on startup: `sudo systemctl enable docker`
     1. Disable docker on startup: `sudo systemctl disable docker`
 
 **Install Docker-Compose**
 
-11. Run to download the current stable version of Docker-Compose:
+12. Run to download the current stable version of Docker-Compose:
 
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-12. Apply executable permissions to the downloaded file: `sudo chmod +x /usr/local/bin/docker-compose`
-13. Check installation using: `docker-compose --version`
+13. Apply executable permissions to the downloaded file: `sudo chmod +x /usr/local/bin/docker-compose`
+14. Check installation using: `docker-compose --version`
 
 _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
 
