@@ -88,15 +88,13 @@ sudo add-apt-repository \
    1. Create the Docker group: `groupadd docker`
    1. Add your user to the group: `sudo usermod -aG docker $USER`
    1. Log out and log back in (you may have to restart if you are running through a virtual machine)
-9. Verify your installation by running `docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
+9. Make sure to you have docker running in your machine, either by `sudo dockerd` or on startup. Verify your installation by running `docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
    _NOTE: This may cause errors if you have already tried to run docker before. If you get errors then run the following commands to reset it:_
 
 ```
 sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
 sudo chmod g+rwx "$HOME/.docker" -R
 ```
-
-If you encounter the error `docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?` then run `sudo dockerd` to start the docker daemon.
 
 10. Now run docker as a service on your machine, on startup:
     1. Enable docker on startup: `sudo systemctl enable docker`
