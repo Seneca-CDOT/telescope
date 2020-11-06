@@ -96,6 +96,8 @@ sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
 sudo chmod g+rwx "$HOME/.docker" -R
 ```
 
+If you encounter the error `docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?` then run `sudo dockerd` to start the docker daemon.
+
 10. Now run docker as a service on your machine, on startup:
     1. Enable docker on startup: `sudo systemctl enable docker`
     1. Disable docker on startup: `sudo systemctl disable docker`
