@@ -88,12 +88,8 @@ sudo add-apt-repository \
    1. Create the Docker group: `groupadd docker`
    1. Add your user to the group: `sudo usermod -aG docker $USER`
    1. Log out and log back in (you may have to restart if you are running through a virtual machine)
-9. Make sure to you have docker running on your machine, you can start docker through the following methods
-   1. Running the command `sudo dockerd`
-   2. Starting the docker application manually
-   3. Restarting your machine.
-10. Verify your installation by running `docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
-    _NOTE: This may cause errors if you have already tried to run docker before. If you get errors then run the following commands to reset it:_
+9. Verify your installation by running `docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
+   _NOTE: This may cause errors if you have already tried to run docker before. If you get errors then run the following commands to reset it:_
 
 ```
 sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
@@ -202,3 +198,27 @@ See [staging-production-deployment](staging-production-deployment) for more info
 **Note**: If login function is required, `npm run build` must be used instead of `npm run develop`. For more information on test accounts to log into Telescope for development, please refer to section 5 of our [Login Document](login.md):
 
 Open `localhost:3000`
+
+## Frequently Asked Questions (FAQ)
+
+### How do I start Docker daemon?
+
+Make sure to you have docker running on your machine, you can start docker through the following methods
+
+1.  Running the command `sudo dockerd`
+2.  Starting the docker application manually
+3.  Restarting your machine.
+
+## I followed all the steps by my browser still can't run telescope locally
+
+Try removing the docker images and pulling them again, while you're in the root directory of the project
+
+1.  `docker system prune -af` will delete the containers
+2.  `docker-compose up <services_here>` will pull the containers and start them up
+
+### Cannot find cgroup mount destination
+
+This could be an issue with WSL2 in Windows 10. You can resolve it by:
+
+1.  `sudo mkdir /sys/fs/cgroup/systemd`
+2.  `sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd`
