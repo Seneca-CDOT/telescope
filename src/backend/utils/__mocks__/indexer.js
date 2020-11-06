@@ -27,7 +27,7 @@ const deletePost = (postId) => {
   return Promise.resolve();
 };
 
-const mockCreateFieldsFromFilter = (filter) => {
+const createFieldsFromFilter = (filter) => {
   switch (filter) {
     case 'author':
       return ['author'];
@@ -37,11 +37,11 @@ const mockCreateFieldsFromFilter = (filter) => {
   }
 };
 
-const search = (keyword = '', filter = 'post') => {
-  const fields = mockCreateFieldsFromFilter(filter);
+const search = (textToSearch = '', filter = 'post') => {
+  const fields = createFieldsFromFilter(filter);
   let filtered = db.values;
   fields.forEach((field) => {
-    filtered = filtered.filter((value) => value.body[field].includes(keyword));
+    filtered = filtered.filter((value) => value.body[field].includes(textToSearch));
   });
   return Promise.resolve({
     results: filtered.length,
