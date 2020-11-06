@@ -54,15 +54,16 @@ const deletePost = async (postId) => {
 /**
  * Searches text in elasticsearch
  * @param textToSearch
+ * @param filter
  * @return all the results matching the passed text
  */
-const search = async (textToSearch) => {
+const search = async (textToSearch, filter = 'post') => {
   const query = {
     query: {
       simple_query_string: {
         query: textToSearch,
         default_operator: 'and',
-        fields: ['text', 'title', 'author'],
+        fields: filter === 'post' ? ['text', 'title', 'author'] : ['author'],
       },
     },
   };

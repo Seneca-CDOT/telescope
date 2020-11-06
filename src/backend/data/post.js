@@ -40,7 +40,7 @@ function ensureFeed(feed) {
 }
 
 class Post {
-  constructor(title, html, datePublished, dateUpdated, postUrl, guid, feed, author) {
+  constructor(title, html, datePublished, dateUpdated, postUrl, guid, feed) {
     // Use the post's guid as our unique identifier
     this.id = hash(guid);
     this.title = title;
@@ -49,7 +49,6 @@ class Post {
     this.updated = ensureDate(dateUpdated, datePublished);
     this.url = postUrl;
     this.guid = guid;
-    this.author = author;
 
     // We expect to get a real Feed vs. a feed id
     if (!(feed instanceof Feed)) {
@@ -145,12 +144,11 @@ class Post {
       // link is the url to the post
       article.link,
       article.guid,
-      feed,
-      article.author
+      feed
     );
     await Promise.all([
       post.save(),
-      indexPost(post.text, post.id, post.title, post.updated, post.author),
+      indexPost(post.text, post.id, post.title, post.updated, post.feed.author),
     ]);
     return post.id;
   }
@@ -171,8 +169,7 @@ class Post {
       postData.updated,
       postData.url,
       postData.guid,
-      feed,
-      postData.author
+      feed
     );
     await post.save();
     return post.id;
@@ -197,8 +194,7 @@ class Post {
       data.updated,
       data.url,
       data.guid,
-      feed,
-      data.author
+      feed
     );
     return post;
   }

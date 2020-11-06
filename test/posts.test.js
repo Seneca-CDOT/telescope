@@ -87,8 +87,7 @@ describe('test /posts/:id responses', () => {
     new Date('2009-09-07T22:23:00.000Z'),
     'url',
     randomGuid,
-    feed1,
-    'unknown'
+    feed1
   );
 
   beforeAll(() => Promise.resolve(addPost(addedPost1)));
@@ -100,8 +99,7 @@ describe('test /posts/:id responses', () => {
     new Date('2009-09-07T22:23:00.000Z'),
     'url',
     randomGuid,
-    feed1,
-    'unknown'
+    feed1
   );
 
   beforeAll(() => {

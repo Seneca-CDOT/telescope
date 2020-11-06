@@ -18,7 +18,6 @@ describe('Post data class tests', () => {
     url: 'https://user.post.com/?post-id=123',
     guid: 'https://user.post.com/?post-id=123&guid',
     id: hash('https://user.post.com/?post-id=123&guid'),
-    author: 'Unknown',
   };
 
   beforeAll(async () => {
@@ -35,16 +34,7 @@ describe('Post data class tests', () => {
   const text = 'post text';
 
   const createPost = () =>
-    new Post(
-      data.title,
-      data.html,
-      data.published,
-      data.updated,
-      data.url,
-      data.guid,
-      feed,
-      data.author
-    );
+    new Post(data.title, data.html, data.published, data.updated, data.url, data.guid, feed);
 
   test('Post should be a function', () => {
     expect(typeof Post).toBe('function');
@@ -59,7 +49,6 @@ describe('Post data class tests', () => {
     expect(post.updated).toEqual(data.updated);
     expect(post.guid).toEqual(data.guid);
     expect(post.feed).toEqual(feed);
-    expect(post.author).toEqual(data.author);
   });
 
   test('Post constructor should work with with published and updated as Strings', () => {
@@ -71,8 +60,7 @@ describe('Post data class tests', () => {
       'Thu, 20 Nov 2014 18:59:18 UTC',
       data.url,
       data.guid,
-      feed,
-      data.author
+      feed
     );
 
     expect(post1).toEqual(post2);
@@ -87,8 +75,7 @@ describe('Post data class tests', () => {
       new Date('Thu, 20 Nov 2014 18:59:18 UTC'),
       data.url,
       data.guid,
-      feed,
-      data.author
+      feed
     );
 
     expect(post1).toEqual(post2);
@@ -96,16 +83,7 @@ describe('Post data class tests', () => {
 
   test('Post constructor should throw if feed is missing or not a Feed instance', () => {
     const createPostWithFeed = (f) =>
-      new Post(
-        data.title,
-        data.html,
-        data.published,
-        data.updated,
-        data.url,
-        data.guid,
-        f,
-        data.author
-      );
+      new Post(data.title, data.html, data.published, data.updated, data.url, data.guid, f);
 
     expect(() => createPostWithFeed(null)).toThrow();
     expect(() => createPostWithFeed(undefined)).toThrow();
@@ -208,7 +186,6 @@ describe('Post data class tests', () => {
       expect(post.guid).toEqual('5df7bbd924511e03496b4734');
       expect(post.id).toEqual(hash(post.guid));
       expect(post.feed).toEqual(feed);
-      expect(post.author).toEqual('David Humphrey');
     });
 
     test('when missing description should throw', async () => {
