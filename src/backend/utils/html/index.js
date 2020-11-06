@@ -3,6 +3,7 @@ const fixIFrameWidth = require('./fix-iframe-width');
 const lazyLoad = require('./lazy-load');
 const syntaxHighlight = require('./syntax-highlight');
 const replaceCodeEntities = require('./replace-entities');
+const fixEmptyPre = require('./modify-pre');
 const toDOM = require('./dom');
 
 /**
@@ -21,6 +22,10 @@ module.exports = function process(html) {
 
   // Create a document we can process
   const dom = toDOM(clean);
+
+  // Look for classless <div> and <pre> tags, modify them to <pre><code>...</code></pre>
+  fixEmptyPre(dom);
+
   // Look for and syntax highlight <pre><code>...</code></pre> blocks
   syntaxHighlight(dom);
   // Wrap <iframe> elements in a <div> so we can style their width
