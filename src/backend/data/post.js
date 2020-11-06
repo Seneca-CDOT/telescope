@@ -76,6 +76,10 @@ class Post {
     return textParser(this.html);
   }
 
+  get author() {
+    return this.feed.author;
+  }
+
   /**
    * Parse an article object into a Post object.
    * @param {Object} article parsed via feedparser, see:
@@ -146,10 +150,7 @@ class Post {
       article.guid,
       feed
     );
-    await Promise.all([
-      post.save(),
-      indexPost(post.text, post.id, post.title, post.updated, post.feed.author),
-    ]);
+    await Promise.all([post.save(), indexPost(post)]);
     return post.id;
   }
 

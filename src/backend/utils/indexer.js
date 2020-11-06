@@ -11,27 +11,29 @@ const type = 'post';
 
 /**
  * Indexes the text and id from a post
- * @param text from a post
- * @param postId same id used to store on redis the post object where the text is from
- * @param title from a post
- * @param updated from a post
- * @param author from a post
+ * @param post
+ * @param post.text from a post
+ * @param post.id same id used to store on redis the post object where the text is from
+ * @param post.title from a post
+ * @param post.published from a post
+ * @param post.author from a post
  */
-const indexPost = async (text, postId, title, updated, author) => {
+// post.text, post.id, post.title, post.updated, post.feed.author
+const indexPost = async ({ text, id, title, published, author }) => {
   try {
     await client.index({
       index,
       type,
-      id: postId,
+      id,
       body: {
         text,
         title,
-        updated,
+        published,
         author,
       },
     });
   } catch (error) {
-    logger.error({ error }, `There was an error indexing a post for id ${postId}`);
+    logger.error({ error }, `There was an error indexing a post for id ${id}`);
   }
 };
 
@@ -52,6 +54,20 @@ const deletePost = async (postId) => {
 };
 
 /**
+ * Creates fields from filter
+ * @param {string} filter
+ */
+const createFieldsFromFilter = (filter) => {
+  switch (filter) {
+    case 'author':
+      return ['author'];
+    case 'post':
+    default:
+      return ['text', 'title'];
+  }
+};
+
+/**
  * Searches text in elasticsearch
  * @param textToSearch
  * @param filter
@@ -63,7 +79,7 @@ const search = async (textToSearch, filter = 'post') => {
       simple_query_string: {
         query: textToSearch,
         default_operator: 'and',
-        fields: filter === 'post' ? ['text', 'title', 'author'] : ['author'],
+        fields: createFieldsFromFilter(filter),
       },
     },
   };
@@ -72,7 +88,7 @@ const search = async (textToSearch, filter = 'post') => {
     body: { hits },
   } = await client.search({
     from: 0,
-    _source: ['id'],
+    // _source: ['id'],
     size: ELASTIC_MAX_RESULTS || 100,
     index,
     type,
@@ -81,7 +97,7 @@ const search = async (textToSearch, filter = 'post') => {
 
   return {
     results: hits.total.value,
-    values: hits.hits.map(({ _id }) => ({ id: _id })),
+    values: hits.hits, // .map(({ _id }) => ({ id: _id })),
   };
 };
 

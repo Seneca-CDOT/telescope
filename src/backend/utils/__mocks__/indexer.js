@@ -4,9 +4,9 @@ const db = {
   values: [],
 };
 
-const indexPost = (text, postId) => {
+const indexPost = ({ text, id }) => {
   db.values.push({
-    id: postId,
+    id,
     text,
     score: 10,
   });
