@@ -209,7 +209,7 @@ Make sure to you have docker running on your machine, you can start docker throu
 2.  Starting the docker application manually
 3.  Restarting your machine.
 
-## I followed all the steps by my browser still can't run telescope locally
+### I followed all the steps by my browser still can't run telescope locally
 
 Try removing the docker images and pulling them again, while you're in the root directory of the project
 
