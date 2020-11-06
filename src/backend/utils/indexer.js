@@ -13,8 +13,11 @@ const type = 'post';
  * Indexes the text and id from a post
  * @param text from a post
  * @param postId same id used to store on redis the post object where the text is from
+ * @param title from a post
+ * @param updated from a post
+ * @param author from a post
  */
-const indexPost = async (text, postId) => {
+const indexPost = async (text, postId, title, updated, author) => {
   try {
     await client.index({
       index,
@@ -22,6 +25,9 @@ const indexPost = async (text, postId) => {
       id: postId,
       body: {
         text,
+        title,
+        updated,
+        author,
       },
     });
   } catch (error) {
@@ -56,7 +62,7 @@ const search = async (textToSearch) => {
       simple_query_string: {
         query: textToSearch,
         default_operator: 'and',
-        fields: ['text'],
+        fields: ['text', 'title', 'author'],
       },
     },
   };

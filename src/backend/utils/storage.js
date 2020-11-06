@@ -121,7 +121,9 @@ module.exports = {
         'guid',
         post.guid,
         'feed',
-        post.feed
+        post.feed,
+        'author',
+        post.author
       )
       // sort set by published date as scores
       .zadd(postsKey, post.published.getTime(), post.id)
