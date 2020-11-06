@@ -27,8 +27,22 @@ const deletePost = (postId) => {
   return Promise.resolve();
 };
 
-const search = (keyword = '') => {
-  const filtered = db.values.filter((value) => value.body.text.includes(keyword));
+const mockCreateFieldsFromFilter = (filter) => {
+  switch (filter) {
+    case 'author':
+      return ['author'];
+    case 'post':
+    default:
+      return ['text', 'title'];
+  }
+};
+
+const search = (keyword = '', filter = 'post') => {
+  const fields = mockCreateFieldsFromFilter(filter);
+  let filtered = db.values;
+  fields.forEach((field) => {
+    filtered = filtered.filter((value) => value.body[field].includes(keyword));
+  });
   return Promise.resolve({
     results: filtered.length,
     values: filtered.map((value) => ({ id: value.id })),
