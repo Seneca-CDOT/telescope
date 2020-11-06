@@ -18,7 +18,6 @@ const type = 'post';
  * @param post.published from a post
  * @param post.author from a post
  */
-// post.text, post.id, post.title, post.updated, post.feed.author
 const indexPost = async ({ text, id, title, published, author }) => {
   try {
     await client.index({
@@ -54,7 +53,8 @@ const deletePost = async (postId) => {
 };
 
 /**
- * Creates fields from filter
+ * Creates fields from filter, now the filter is used for author and post but it will be added more.
+ * the fields will be used for ES
  * @param {string} filter
  */
 const createFieldsFromFilter = (filter) => {
@@ -88,7 +88,7 @@ const search = async (textToSearch, filter = 'post') => {
     body: { hits },
   } = await client.search({
     from: 0,
-    // _source: ['id'],
+    _source: ['id'],
     size: ELASTIC_MAX_RESULTS || 100,
     index,
     type,
@@ -97,7 +97,7 @@ const search = async (textToSearch, filter = 'post') => {
 
   return {
     results: hits.total.value,
-    values: hits.hits, // .map(({ _id }) => ({ id: _id })),
+    values: hits.hits.map(({ _id }) => ({ id: _id })),
   };
 };
 
