@@ -203,11 +203,13 @@ Open `localhost:3000`
 
 ### How do I start Docker daemon?
 
-Make sure to you have docker running on your machine, you can start docker through the following methods
+Make sure to you have (docker)[https://docs.docker.com/engine/reference/commandline/dockerd/] running on your machine, you can start docker through the following methods:
 
 1.  Running the command `sudo dockerd`
 2.  Starting the docker application manually
 3.  Restarting your machine.
+
+You can check out the docker daemon cli through this link (here)[https://docs.docker.com/engine/reference/commandline/dockerd/)
 
 ### I followed all the steps by my browser still can't run telescope locally
 
