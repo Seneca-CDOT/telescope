@@ -6,12 +6,9 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
 const helmet = require('helmet');
-const { ApolloServer } = require('apollo-server-express');
 const RedisStore = require('connect-redis')(session);
-const { buildContext } = require('graphql-passport');
 const { redis } = require('../lib/redis');
 
-const { typeDefs, resolvers } = require('./graphql');
 const logger = require('../utils/logger');
 const authentication = require('./authentication');
 const router = require('./routes');
@@ -65,19 +62,6 @@ app.use(
 authentication.init();
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Add the Apollo server to app and define the `/graphql` endpoint
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req, res }) => buildContext({ req, res }),
-  playground: {
-    settings: {
-      'request.credentials': 'same-origin',
-    },
-  },
-});
-server.applyMiddleware({ app, path: '/graphql' });
 
 // Template rendering for legacy "planet" view of posts
 app.engine('handlebars', expressHandlebars());
