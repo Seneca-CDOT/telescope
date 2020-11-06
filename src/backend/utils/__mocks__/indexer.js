@@ -4,10 +4,17 @@ const db = {
   values: [],
 };
 
-const indexPost = ({ text, id }) => {
+const indexPost = ({ text, id, title, published, author }) => {
   db.values.push({
+    index: 'posts',
+    type: 'post',
     id,
-    text,
+    body: {
+      text,
+      title,
+      published,
+      author,
+    },
     score: 10,
   });
   db.results = db.values.length;
@@ -21,7 +28,7 @@ const deletePost = (postId) => {
 };
 
 const search = (keyword = '') => {
-  const filtered = db.values.filter((value) => value.text.includes(keyword));
+  const filtered = db.values.filter((value) => value.body.text.includes(keyword));
   return Promise.resolve({
     results: filtered.length,
     values: filtered.map((value) => ({ id: value.id })),
