@@ -92,6 +92,41 @@ sudo /etc/init.d/elasticsearch start
 
 Delete `elasticsearch-7.6.2-amd64.deb` with `rm elasticsearch-7.6.2-amd64.deb`
 
+## Opening the ports on our EC2 instance:
+
+1. Firstly, we'll need the MAC address of our EC2 instance
+
+```
+$ curl -s http://169.254.169.254/latest/meta-data/mac
+
+0e:0a:22:87:46:79
+```
+
+2. Using your EC2 instance's MAC address, we can get a list of Security Groups
+
+```
+$ curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/<your_mac>/security-group-ids
+
+sg-0c63c6f026a2b9288
+```
+
+3. Find out what your IP address is using http://checkip.amazonaws.com/
+4. You will need to authorize your IP address access to port 3000 and port 8000
+
+```
+aws ec2 authorize-security-group-ingress --group-id <sg-id> \
+--port 3000 \
+--protocol tcp \
+--cidr <my-ip>/32
+```
+
+```
+aws ec2 authorize-security-group-ingress --group-id <sg-id> \
+--port 8000 \
+--protocol tcp \
+--cidr <my-ip>/32
+```
+
 ## Setting up the Telescope repository in Cloud9:
 
 1. In the terminal, clone the Telescope repository and name the remote `upstream` by entering
@@ -102,6 +137,11 @@ git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
 
 2. Change to the telescope directory `cd telescope`
 3. Copy the `env.example` file into the root of your Telescope directory `cp env.example .env`
+4. Install the Gatsby-CLI
+
+```
+npm install -g gatsby-cli
+```
 
 ### If you did everything correctly, you've completed the environment setup using AWS Cloud9! Yay!
 
@@ -113,7 +153,18 @@ You may need up to four terminals, remember to run them in the `telescope direct
 
 1. `redis-server` for Redis
 2. `sudo /etc/init.d/elasticsearch start` for Elasticsearch
-3. `npm run develop`
+3. `cd src/frontend`
+4. `gatsby develop -H 0.0.0.0 -p 8000`
+5. Find your EC2 instance's public IPv4
+
+```
+curl -s http://169.254.169.254/latest/meta-data/public-ipv4
+
+35.174.16.133
+```
+
+6. Open `<public-ip>:3000/feeds` in your browser will show you the populated list of feeds in JSON format
+7. Open `<public-ip>:8000` in another browser tab will show you the frontend with feeds from port 3000
 
 ## Troubleshooting
 
@@ -173,6 +224,8 @@ else
 fi
 ```
 
+**Disclaimer**: AWS Free-Tier includes 30GB of Storage, 2 million I/Os, and 1GB of snapshot storage with [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/pricing/) free for 12 months.
+
 In the terminal, execute the script by running
 
 ```
@@ -205,3 +258,7 @@ It's okay, run
 ```
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
+
+### But I want to use Docker!!
+
+Please see [environment-setup](environment-setup.md) for Docker instructions and setting up the Docker container for login
