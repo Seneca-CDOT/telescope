@@ -1,13 +1,16 @@
-## AWS Cloud9 IDE Setup
+# Setting up Telescope in AWS Cloud9 IDE
 
-**Disclaimer**: Amazon Web Services offers a [Free-Tier](https://aws.amazon.com/free/) and this doc will help you set up a Cloud9 environment using the free-tier services but please be aware that you may incur costs if you go out of the free-tier offerings.
+**Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Gatsby and Docker in development is CPU intensive so these are the EC2 instances I recommend:
 
-### Prerequisites:
+- Minimum: `t3.medium (4 GiB RAM + 2 vCPU)`
+- Recommended: `t4g.large (8 GiB RAM + 2 vCPU)`
+
+## Prerequisites:
 
 - Create an [AWS Account](https://aws.amazon.com/). You can watch this [part](https://www.youtube.com/watch?v=3hLmDS179YE&t=10552s) of the AWS Certified Cloud Practitioner course on creating an account if you need help.
 - Sign into your AWS Account
 
-### Creating your Cloud9 Environment
+## Creating your Cloud9 Environment:
 
 1. In the upper-right hand corner of your AWS Management Console, select `US East (N. Virginia) us-east-1` as your `Region`
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This is bring up a list of AWS Services, search for `Cloud9`.
@@ -23,13 +26,15 @@
 
   Environment type: `Create a new EC2 instance for environment (direct access)`
 
-  Instance type: `t2.micro (1 GiB RAM + 1 vCPU)`
+  Instance type: `Other instance type: t3.medium (4 GiB RAM + 2 vCPU)` **THIS IS NOT FREE-TIER**
 
   Platform: `Ubuntu Server 18.04 LTS`
 
 - Step 3 - Review and click `Create Environment`
 
-### Installing Redis as a native application
+It will take a few minutes for AWS to create your new C9 environment
+
+## Installing Redis as a native application:
 
 Enter the following into the C9 terminal:
 
@@ -44,7 +49,7 @@ sudo cp src/redis-cli /usr/local/bin/
 
 [Source](https://redis.io/topics/quickstart)
 
-#### Verifying Redis installation
+### Verifying Redis installation:
 
 Start the redis-server in a new terminal:
 
@@ -69,29 +74,56 @@ Delete the `redis-stable` directory and `redis-stable.tar.gz` with
 rm -rf redis-stable && rm redis-stable.tar.gz
 ```
 
-### Installing Elasticsearch as a native application
+## Installing Elasticsearch as a native application:
 
 ```
 curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-amd64.deb
 sudo dpkg -i elasticsearch-7.6.2-amd64.deb
 ```
 
+### Verify that Elasticsearch is working:
+
+```
+sudo /etc/init.d/elasticsearch start
+[ ok ] Starting elasticsearch (via systemctl): elasticsearch.service.
+```
+
 [Source](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
-### Setting up Telescope in your Cloud9 IDE
+Delete `elasticsearch-7.6.2-amd64.deb` with `rm elasticsearch-7.6.2-amd64.deb`
 
-1. Clone the Telescope repository and name the remote `upstream` by entering `git clone -o upstream https://github.com/Seneca-CDOT/telescope.git` in the terminal
+## Setting up the Telescope repository in Cloud9:
+
+1. In the terminal, clone the Telescope repository and name the remote `upstream` by entering
+
+```
+git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
+```
+
 2. Change to the telescope directory `cd telescope`
+3. Copy the `env.example` file into the root of your Telescope directory `cp env.example .env`
 
-### Troubleshooting
+### If you did everything correctly, you've completed the environment setup using AWS Cloud9! Yay!
 
-#### Running out of storage?
+## Now to get started with development...
+
+Run `npm install` to install all dependencies
+
+You may need up to four terminals, remember to run them in the `telescope directory`
+
+1. `redis-server` for Redis
+2. `sudo /etc/init.d/elasticsearch start` for Elasticsearch
+3. `npm run develop`
+
+## Troubleshooting
+
+### Running out of storage?
 
 Check first using `df -h` in the terminal
 
 ```
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/xvda1      9.7G  8.4G  1.3G  88% /
+/dev/nvme0n1p1  9.7G  9.1G  557M  95% /
 ```
 
 When you first create an EC2 instance, it has an EBS Volume of 10GB. To increase it to 20GB, create a new file called `resize.sh` in `~/environment` directory and copy the following script:
@@ -124,13 +156,13 @@ while [ \
 sleep 1
 done
 
-if [ $(readlink -f /dev/xvda) = "/dev/xvda" ]
+if [ $(readlink -f /dev/xvda) = "/dev/nvme0n1p1" ]
 then
   # Rewrite the partition table so that the partition takes up all the space that it can.
   sudo growpart /dev/xvda 1
 
   # Expand the size of the file system.
-  sudo resize2fs /dev/xvda1
+  sudo resize2fs /dev/nvme0n1p1
 
 else
   # Rewrite the partition table so that the partition takes up all the space that it can.
@@ -141,11 +173,35 @@ else
 fi
 ```
 
-Execute the script by running `sh resize.sh` in the terminal
+In the terminal, execute the script by running
+
+```
+sh resize.sh
+```
 
 Verify size change with `df -h` again
 
 ```
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/xvda1       20G  8.5G   11G  44% /
+/dev/nvme0n1p1   20G  9.1G   11G  47% /
+```
+
+### Servers didn't shutdown properly?
+
+```
+sudo systemctl stop redis
+sudo systemctl stop elasticsearch
+```
+
+### Ahh I'm getting spammed with
+
+```
+warning Error from chokidar (/home/ubuntu/environment/telescope/src/frontend/node_modules/@material-ui/icons): Error: ENOSPC: System limit for number of file watchers reached, watch '/home/ubuntu/environment/telescope/src/frontend/node_modules/@material-ui/icons/index.d.ts'
+warning Error from chokidar (/home/ubuntu/environment/telescope/src/frontend/node_modules/@material-ui/icons): Error: ENOSPC: System limit for number of file watchers reached, watch '/home/ubuntu/environment/telescope/src/frontend/node_modules/@material-ui/icons/index.js'
+```
+
+It's okay, run
+
+```
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
