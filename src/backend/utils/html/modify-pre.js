@@ -1,19 +1,18 @@
+/**
+ * Take a <pre></pre> and return <pre><code>...</code></pre>
+ */
+function insertCodeElement(pre, document) {
+  const innerElem = document.createElement('code');
+  innerElem.innerText = pre.innerText;
+  pre.innerHTML = innerElem.outerHTML;
+}
+
 module.exports = function (dom) {
   if (!(dom && dom.window && dom.window.document)) {
     return;
   }
 
-  // can probably use querySelectorAll() instead
-  var y = document.getElementsByTagName('pre'); // parse all pre
-
-  for (var i = 0; i < y.length; i++) {
-    if (y[i].className == '') {
-      //pre doesn't have a class
-      console.log(y[i]);
-      //create a new array and fill it up
-    }
-  }
-
-  // Return the array// add the <code></code> inside the <pre> tags
-  // <pre><code></code></pre>// JOB DONE!?! send it off to syntax highlighter and see if its issue is fixed
+  dom.window.document.querySelectorAll('pre').forEach((pre) => {
+    if (pre.children.length <= 0) insertCodeElement(pre, dom.window.document);
+  });
 };

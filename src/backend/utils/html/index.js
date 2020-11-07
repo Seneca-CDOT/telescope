@@ -23,9 +23,8 @@ module.exports = function process(html) {
   // Create a document we can process
   const dom = toDOM(clean);
 
-  // Look for classless <div> and <pre> tags, modify them to <pre><code>...</code></pre>
+  // Insert <code> elements into empty <pre>
   fixEmptyPre(dom);
-
   // Look for and syntax highlight <pre><code>...</code></pre> blocks
   syntaxHighlight(dom);
   // Wrap <iframe> elements in a <div> so we can style their width
