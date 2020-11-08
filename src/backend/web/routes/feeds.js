@@ -1,10 +1,10 @@
 const express = require('express');
+const Ajv = require('ajv');
 const Feed = require('../../data/feed');
 const { getFeeds } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 const { protect } = require('../authentication');
 const { protectAdmin } = require('../authentication');
-const Ajv = require('ajv');
 
 const feeds = express.Router();
 const feedSchema = {
