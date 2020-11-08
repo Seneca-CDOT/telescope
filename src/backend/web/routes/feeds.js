@@ -4,8 +4,25 @@ const { getFeeds } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 const { protect } = require('../authentication');
 const { protectAdmin } = require('../authentication');
+const Ajv = require('ajv');
 
 const feeds = express.Router();
+const feedSchema = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['url', 'author'],
+  items: {
+    id: 'string',
+    author: 'string',
+    url: 'string',
+    user: 'string',
+    link: 'string',
+    etag: 'string',
+    lastModified: 'string',
+  },
+};
+const ajv = new Ajv();
+const feedTest = ajv.compile(feedSchema);
 
 feeds.get('/', async (req, res) => {
   let ids;
@@ -53,6 +70,10 @@ feeds.get('/:id', async (req, res) => {
 });
 
 feeds.put('/:id/flag', protectAdmin(), async (req, res) => {
+  const isValid = feedTest(req.body);
+  if (!isValid) {
+    return res.status(400).json({ message: feedTest.errors });
+  }
   const { id } = req.params;
   try {
     const feed = await Feed.byId(id);
@@ -74,13 +95,18 @@ feeds.put('/:id/flag', protectAdmin(), async (req, res) => {
 });
 
 feeds.post('/', protect(), async (req, res) => {
+  const isValid = feedTest(req.body);
+  if (!isValid) {
+    return res.status(400).json({ message: feedTest.errors });
+  }
+
   const feedData = req.body;
   const { user } = req;
   feedData.user = user.id;
   try {
-    if (!(feedData.url && feedData.author)) {
-      return res.status(400).json({ message: `URL and Author must be submitted` });
-    }
+    // if (!(feedData.url && feedData.author)) {
+    //   return res.status(400).json({ message: `URL and Author must be submitted` });
+    // }
     if (await Feed.byUrl(feedData.url)) {
       return res.status(409).json({ message: `Feed for url ${feedData.url} already exists.` });
     }
@@ -97,6 +123,10 @@ feeds.post('/', protect(), async (req, res) => {
 });
 
 feeds.delete('/cache', protectAdmin(true), async (req, res) => {
+  const isValid = feedTest(req.body);
+  if (!isValid) {
+    return res.status(400).json({ message: feedTest.errors });
+  }
   try {
     await Feed.clearCache();
     return res.status(204).send();
