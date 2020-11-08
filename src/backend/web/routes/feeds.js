@@ -104,9 +104,6 @@ feeds.post('/', protect(), async (req, res) => {
   const { user } = req;
   feedData.user = user.id;
   try {
-    // if (!(feedData.url && feedData.author)) {
-    //   return res.status(400).json({ message: `URL and Author must be submitted` });
-    // }
     if (await Feed.byUrl(feedData.url)) {
       return res.status(409).json({ message: `Feed for url ${feedData.url} already exists.` });
     }
