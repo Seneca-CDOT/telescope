@@ -45,10 +45,11 @@ const SearchPage = () => {
         throw new Error(res.statusText);
       }
       const posts = await res.json();
-      setFetchLoading(false);
       setResults(posts.values);
     } catch (error) {
       console.error('Something went wrong while fetching data', error);
+    } finally {
+      setFetchLoading(false);
     }
   };
 
