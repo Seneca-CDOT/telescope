@@ -13,6 +13,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: 'primary',
+    justifyContent: 'center',
+    height: '8em',
   },
   toolbar: theme.mixins.toolbar,
   logoIcon: {
