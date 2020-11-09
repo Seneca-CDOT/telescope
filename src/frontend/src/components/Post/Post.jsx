@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     padding: '1.4em',
     lineHeight: '1.3',
     zIndex: 1500,
-    [theme.breakpoints.down(1350)]: {
+    [theme.breakpoints.down(1400)]: {
       padding: '.7em',
     },
-    [theme.breakpoints.down(985)]: {
+    [theme.breakpoints.down(1020)]: {
       position: 'static',
     },
   },
@@ -144,8 +144,7 @@ const Post = ({ postUrl }) => {
           {post.title}
         </Typography>
         <Typography variant={'p'} className={classes.author}>
-          {' '}
-          By{' '}
+          &nbsp;By&nbsp;
           <a className={classes.link} href={post.feed.link}>
             {post.feed.author}
           </a>
