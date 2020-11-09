@@ -66,7 +66,6 @@ const SearchPage = () => {
     if (!results) {
       return null;
     }
-    console.log(results);
     return <Timeline pages={[results]} />;
   };
 
