@@ -44,14 +44,9 @@ const SearchPage = () => {
       if (!res.ok) {
         throw new Error(res.statusText);
       }
-      const searchResults = await res.json();
-      // ES values property contains an array of objects with a (feed) id property
-      const posts = searchResults.values.map((result) => ({
-        id: result.id,
-        url: `/posts/${result.id}`,
-      }));
+      const posts = await res.json();
       setFetchLoading(false);
-      setResults({ posts });
+      setResults(posts.values);
     } catch (error) {
       console.error('Something went wrong while fetching data', error);
     }
@@ -70,8 +65,8 @@ const SearchPage = () => {
     if (!results) {
       return null;
     }
-
-    return <Timeline pages={[results.posts]} />;
+    console.log(results);
+    return <Timeline pages={[results]} />;
   };
 
   function onChangeHandler(value) {
