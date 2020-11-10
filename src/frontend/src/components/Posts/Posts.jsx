@@ -7,6 +7,8 @@ import SentimentDissatisfiedRoundedIcon from '@material-ui/icons/SentimentDissat
 import Timeline from './Timeline.jsx';
 import useSiteMetaData from '../../hooks/use-site-metadata';
 
+import SentimentDissatisfiedRoundedIcon from '@material-ui/icons/SentimentDissatisfiedRounded';
+
 const useStyles = makeStyles(() => ({
   root: {
     padding: 0,
