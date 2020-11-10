@@ -95,9 +95,7 @@ export default function MobileHeader() {
           ABOUT
         </ListItem>
         <Divider className={classes.line} />
-        <ListItem button className={classes.item}>
-          <Login />
-        </ListItem>
+        <Login style={classes.item} />
         <Divider className={classes.line} />
         <div className={classes.footer}>
           <Footer />
