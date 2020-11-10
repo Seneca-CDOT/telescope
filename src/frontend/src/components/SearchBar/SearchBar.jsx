@@ -1,7 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 import {
   Grid,
@@ -13,6 +13,7 @@ import {
   Box,
   Typography,
   Fab,
+  Tooltip,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,10 +63,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.dark,
     },
     '& * > .MuiSvgIcon-root': {
-      fontSize: '2rem',
+      fontSize: '3rem',
       color: theme.palette.text.primary,
     },
     margin: 0,
+    marginLeft: 15,
     position: 'relative',
     bottom: theme.spacing(6),
     float: 'right',
@@ -85,6 +87,16 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
   },
 }));
+
+const HtmlTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 500,
+    fontSize: theme.typography.pxToRem(22.5),
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);
 
 function CustomizedInputBase(props) {
   const classes = useStyles();
@@ -116,6 +128,54 @@ function CustomizedInputBase(props) {
             </IconButton>
           </FormControl>
         </Fab>
+        <HtmlTooltip
+          title={
+            <React.Fragment>
+              <Typography variant="h5">How to use search</Typography>
+              <ul>
+                <li>
+                  <b>{"' + '"}</b>
+                  {' signifies AND operator'}
+                </li>
+                <li>
+                  <b>{"' | '"}</b>
+                  {' signifies OR operator'}
+                </li>
+                <li>
+                  <b>{"' - '"}</b>
+                  {' negates a single token'}
+                </li>
+                <li>
+                  <b>{"' \" '"}</b>
+                  {' wraps a number of tokens to signify a phrase for searching'}
+                </li>
+                <li>
+                  <b>{"' * '"}</b>
+                  {' at the end of a term signifies a prefix query'}
+                </li>
+                <li>
+                  <b>{"' ( ' and ' ) '"}</b>
+                  {' signify precendence '}
+                </li>
+                <li>
+                  <b>{"' ~N '"}</b>
+                  {' after a word signifies edit distance (fuzziness)'}
+                </li>
+                <li>
+                  <b>{"' ~N '"}</b>
+                  {' after a phrase signifies slop amount'}
+                </li>
+              </ul>
+            </React.Fragment>
+          }
+        >
+          <Fab size="large" className={classes.iconButton}>
+            <IconButton aria-label="Info" fontSize="large">
+              <InfoOutlinedIcon />
+            </IconButton>
+          </Fab>
+        </HtmlTooltip>
+
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth={true}>
