@@ -224,3 +224,20 @@ This could be an issue with WSL2 in Windows 10. You can resolve it by:
 
 1.  `sudo mkdir /sys/fs/cgroup/systemd`
 2.  `sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd`
+
+### Receive "Malformed input, repository not added" message while installing Docker on Linux Mint
+
+The command below might not work on certain Linux distributions.
+
+```
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+```
+
+If you receive the error message "Malformed input, repository not added" after running this command, please try the below steps instead:
+
+1. run `sudo nano /etc/apt/sources.list.d/addtional-repositories.list`
+2. paste `deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable` to the file, save it, and exit.
+3. run `sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable`
