@@ -97,7 +97,7 @@ const search = async (textToSearch, filter = 'post') => {
 
   return {
     results: hits.total.value,
-    values: hits.hits.map(({ _id }) => ({ id: _id })),
+    values: hits.hits.map(({ _id }) => ({ id: _id, url: `/posts/${_id}` })),
   };
 };
 
