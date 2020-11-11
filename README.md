@@ -2,6 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/Seneca-CDOT/telescope.svg?style=svg)](https://circleci.com/gh/Seneca-CDOT/telescope)
 [![js-airbnb/prettier-style](https://img.shields.io/badge/code%20style-airbnb%2Fprettier-blue)](https://github.com/airbnb/javascript)
+![Node.js CI](https://github.com/Seneca-CDOT/telescope/workflows/"Node.js CI"/badge.svg)
 
 ## What is Telescope?
 
