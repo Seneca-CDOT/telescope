@@ -23,12 +23,37 @@ const useStyles = makeStyles((theme) => ({
 
 function LoadMoreButton({ onClick }) {
   const classes = useStyles();
+  const $buttonRef = React.useRef(null);
+
+  // This will make the automatic infinite scrolling feature
+  // Once the "button" is on the viewpoint(shown on the window),
+  // The new posts are updated(call onClick() -- setSize(size + 1) in Posts.jsx --)
+  React.useEffect(() => {
+    let options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0,
+    };
+
+    let observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          onClick();
+        }
+      });
+    }, options);
+    observer.observe($buttonRef.current);
+
+    return () => {
+      observer.unobserve($buttonRef.current);
+    };
+  }, []);
 
   return (
     <Container>
       <Grid container spacing={0} direction="column" alignItems="center" justify="center">
         <Grid item xs={12} className={classes.content}>
-          <Button color="primary" variant="outlined" onClick={() => onClick()}>
+          <Button ref={$buttonRef} color="primary" variant="outlined" onClick={() => onClick()}>
             Load More Posts
           </Button>
         </Grid>
