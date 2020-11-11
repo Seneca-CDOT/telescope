@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
 import AdminButtons from '../AdminButtons';
-import { autoDetection } from 'highlight.js';
 
 const useStyles = makeStyles((theme) => ({
   root: {
