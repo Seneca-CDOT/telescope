@@ -101,9 +101,24 @@ describe('test POST /feeds endpoint', () => {
     expect(feed.url).toEqual(feedData.url);
   });
 
-  it('no author being sent', async () => {
+  it('returns 400 if no author being sent (ie: author is null or empty string)', async () => {
     const feedData = {
-      author: null,
+      user: 'user',
+      url: 'http://telescope200.cdot.systems',
+    };
+
+    feedData.author = null;
+    let res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+
+    feedData.author = '';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+  });
+
+  it('returns 400 if author provided is a number instead of string', async () => {
+    const feedData = {
+      author: 100,
       user: 'user',
       url: 'http://telescope200.cdot.systems',
     };
@@ -111,14 +126,88 @@ describe('test POST /feeds endpoint', () => {
     expect(res.status).toEqual(400);
   });
 
-  it('no url being sent', async () => {
+  it('returns 400 if no url being sent (ie: url is null or empty string)', async () => {
     const feedData = {
       author: 'foo',
       user: 'user',
-      url: null,
     };
+
+    feedData.url = null;
+    let res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+
+    feedData.url = '';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+  });
+
+  it('returns 400 if url provided is a number instead of a string', async () => {
+    const feedData = {
+      author: 'foo',
+      user: 'user',
+      url: 100,
+    };
+
     const res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
     expect(res.status).toEqual(400);
+  });
+
+  it('returns 400 if url is invalid', async () => {
+    const feedData = {
+      author: 'foo',
+      user: 'user',
+    };
+
+    feedData.url = 'www.invalidURL.com';
+    let res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+
+    feedData.url = 'chrome://www.google.com';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+  });
+
+  it(`returns 201 if url is valid`, async () => {
+    const feedData = {
+      author: 'foo',
+      user: 'user',
+    };
+
+    /** The sample links were common patterns from the valid feed list
+     *  https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List#Feeds
+     * */
+
+    feedData.url = 'http://joy3van.blogspot.com/feeds/posts/default/-/Open-Source?alt=rss';
+    let res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+
+    feedData.url = 'https://dev.to/feed/henryzerocool/';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+
+    feedData.url = 'https://medium.com/feed/@random4900';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+
+    feedData.url = 'https://badalsarkar.ca/blog-opensource/feed.xml';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+
+    feedData.url = 'https://medium.com/feed/programmer-and-a-scholar/tagged/opensource';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+
+    feedData.url = 'http://www.hodgin.ca/?feed=rss2&cat=4';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+
+    feedData.url = 'http://blog.auios.com/feed.php';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
+
+    feedData.url = 'http://dailypackage.fedorabook.com/index.php?/feeds/index.rss2';
+    res = await request(app).post('/feeds').send(feedData).set('Accept', 'application/json');
+    expect(res.status).toEqual(201);
   });
 
   it('url already in the feed list', async () => {
