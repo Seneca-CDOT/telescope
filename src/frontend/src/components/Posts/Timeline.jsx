@@ -9,6 +9,10 @@ import LoadMoreButton from './LoadMoreButton.jsx';
 import useSiteMetaData from '../../hooks/use-site-metadata';
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: 0,
+    maxWidth: '785px',
+  },
   activeCircle: {
     borderRadius: '4rem',
     transition: 'all linear 250ms',
