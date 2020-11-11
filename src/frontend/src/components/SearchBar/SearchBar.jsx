@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -87,18 +87,20 @@ const useStyles = makeStyles((theme) => ({
 function CustomizedInputBase(props) {
   const classes = useStyles();
   const { searchText, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
-
+  const history = useHistory();
   const onFilterChange = (event) => {
     onFilterChangeHandler(event.target.value);
   };
 
   const onTextChange = (event) => {
     onChangeHandler(event.target.value);
+    history.push(`/search?q=${event.target.value}`, `${event.target.value}`);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     onFormSubmit();
+    history.push(`/search?q=${searchText}&f=${filter}`, `${searchText}`);
   };
 
   const searchOptions = ['post', 'author'];

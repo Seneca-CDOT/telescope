@@ -4,7 +4,7 @@ import { Container } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 
 import { makeStyles } from '@material-ui/core/styles';
-
+import { useLocation } from 'react-router-dom';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 
 import Timeline from '../Posts/Timeline.jsx';
@@ -30,10 +30,11 @@ const useStyles = makeStyles(() => ({
 const SearchPage = () => {
   const { telescopeUrl } = useSiteMetadata();
   const classes = useStyles();
-
-  const [searchText, setSearchText] = useState('');
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const [searchText, setSearchText] = useState(params.get('q') || '');
   const [results, setResults] = useState(undefined);
-  const [filter, setFilter] = useState('post');
+  const [filter, setFilter] = useState(params.get('f') || 'post');
   const [fetchLoading, setFetchLoading] = useState(false);
 
   const search = async () => {
