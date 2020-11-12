@@ -7,6 +7,9 @@ const passport = require('passport');
 const cors = require('cors');
 const helmet = require('helmet');
 const RedisStore = require('connect-redis')(session);
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUI = require('swagger-ui-express');
+const { env } = require('process');
 const { redis } = require('../lib/redis');
 
 const logger = require('../utils/logger');
@@ -60,6 +63,27 @@ authentication.init();
 app.use(passport.initialize());
 app.use(passport.session());
 
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Telescope',
+      version: '0.1.0',
+      description: 'Blog Aggregator for Seneca students in Open Source',
+      license: {
+        name: 'BSD-2',
+        url: 'https://github.com/Seneca-CDOT/telescope/blob/master/LICENSE',
+      },
+    },
+    servers: [
+      {
+        url: `http://localhost:${env.PORT}`,
+      },
+    ],
+  },
+  apis: ['./routes/feeds.js'],
+};
+
 // Template rendering for legacy "planet" view of posts
 app.engine('handlebars', expressHandlebars());
 app.set('views', path.join(__dirname, 'planet/views'));
@@ -69,8 +93,11 @@ app.set('view engine', 'handlebars');
 app.set('logger', logger);
 app.use(logger);
 
+const specs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs, { explorer: true }));
+
 // Include our router with all endpoints
-app.use('/', router);
+// app.use('/', router);
 
 /**
  * Error Handler, Pass to front-end

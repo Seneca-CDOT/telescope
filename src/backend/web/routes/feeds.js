@@ -1,3 +1,28 @@
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      Feed:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: string
+ *            description: id of the feed
+ *          url:
+ *            type: string
+ *            description: url of the feed
+ *        example:
+ *           id: 123456
+ *           url: /feeds/abcde9000
+ */
+
+/**
+ * @swagger
+ * tags:
+ *  name: Feeds
+ *  description: Feed APIs to retrieve feed information
+ */
+
 const express = require('express');
 const Feed = require('../../data/feed');
 const { getFeeds } = require('../../utils/storage');
@@ -8,6 +33,21 @@ const { validateNewFeed } = require('../validation');
 
 const feeds = express.Router();
 
+/**
+ * @swagger
+ * path:
+ * /feeds/:
+ *   get:
+ *     description: Lists all the books
+ *     tags: [Feeds]
+ *     responses:
+ *       200:
+ *         description: The list of books.
+ * 		     content:
+ * 		       application/json:
+ * 			       schema:
+ *               $ref: '#/components/schemas/Feed'
+ */
 feeds.get('/', async (req, res) => {
   let ids;
 
