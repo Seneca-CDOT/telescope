@@ -18,12 +18,13 @@ const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.text.secondary,
-    padding: '3em',
+    padding: '1.4em',
     lineHeight: '1.3',
-    top: '62px',
-    [theme.breakpoints.between('xs', 'sm')]: {
-      paddingTop: '2em',
-      paddingBottom: '2em',
+    zIndex: 1500,
+    [theme.breakpoints.down(1440)]: {
+      padding: '.7em',
+    },
+    [theme.breakpoints.down(1065)]: {
       position: 'static',
     },
   },
@@ -79,15 +80,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function formatPublishedDate(dateString) {
+const formatPublishedDate = (dateString) => {
   const date = new Date(dateString);
   const options = { month: 'long', day: 'numeric', year: 'numeric' };
   const formatted = new Intl.DateTimeFormat('en-CA', options).format(date);
   return `Last Updated ${formatted}`;
-}
+};
 
 const Post = ({ postUrl }) => {
-  // id, html, author, url, title, date, link
   const classes = useStyles();
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef(null);
@@ -143,15 +143,15 @@ const Post = ({ postUrl }) => {
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
           {post.title}
         </Typography>
-        <Typography variant="h3" className={classes.author}>
-          By{' '}
+        <Typography variant={'p'} className={classes.author}>
+          &nbsp;By&nbsp;
           <a className={classes.link} href={post.feed.link}>
             {post.feed.author}
           </a>
         </Typography>
         <a href={post.url} rel="bookmark" className={classes.published}>
           <time className={classes.time} dateTime={post.updated}>
-            {formatPublishedDate(post.updated)}
+            {` ${formatPublishedDate(post.updated)}`}
           </time>
         </a>
       </ListSubheader>

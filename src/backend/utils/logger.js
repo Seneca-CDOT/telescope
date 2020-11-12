@@ -1,4 +1,5 @@
 const pino = require('pino');
+const pinoElastic = require('pino-elasticsearch');
 const expressPino = require('express-pino-logger');
 const os = require('os');
 const path = require('path');
@@ -32,7 +33,21 @@ if (process.env.LOG_FILE) {
   destination = pino.destination(process.stdout.fd);
 }
 
-const logger = pino(options, destination);
+const streamToElastic = pinoElastic({
+  // Name of the index the logs will be stored under
+  index: (process.env.INDEX_NAME || 'logs').toLowerCase(),
+  // Consistency of the write, valid values: 'one', 'quorum', 'all'
+  consistency: (process.env.CONSISTENCY || 'one').toLowerCase(),
+  // URL of Elasticsearch
+  node: `http://${process.env.ELASTIC_URL}:${process.env.ELASTIC_PORT}`,
+  // Elasticsearch version
+  'es-version': process.env.ELASTIC_VERSION || 7,
+  // The number of bytes for each bulk insert
+  'flush-bytes': process.env.FLUSH_BYTES || 1000,
+});
+
+const logger = pino({ options }, process.env.LOG_ELASTIC ? streamToElastic : destination);
+
 const expressLogger = expressPino({ logger });
 
 module.exports = expressLogger;

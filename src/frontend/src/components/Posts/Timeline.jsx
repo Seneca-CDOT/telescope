@@ -5,7 +5,8 @@ import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Post from '../Post/Post.jsx';
 import Spinner from '../Spinner/Spinner.jsx';
-import LoadMoreButton from './LoadMoreButton.jsx';
+
+import LoadAutoScroll from './LoadAutoScroll';
 import useSiteMetaData from '../../hooks/use-site-metadata';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,7 +45,7 @@ const Timeline = ({ pages, nextPage }) => {
   // key each time, based on page (i.e., size), so we remove the previous one
   if (nextPage) {
     postsTimeline.push(
-      <LoadMoreButton onClick={() => nextPage()} key={`load-more-button-${pages.length}`} />
+      <LoadAutoScroll onScroll={() => nextPage()} key={`load-more-button-${pages.length}`} />
     );
   }
 
