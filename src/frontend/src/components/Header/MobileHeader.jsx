@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'primary',
     justifyContent: 'center',
     height: '8em',
-    [theme.breakpoints.down(1020)]: {
+    [theme.breakpoints.down(1065)]: {
       height: '6.5em',
     },
   },

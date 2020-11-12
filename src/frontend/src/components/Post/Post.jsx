@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     padding: '1.4em',
     lineHeight: '1.3',
     zIndex: 1500,
-    [theme.breakpoints.down(1400)]: {
+    [theme.breakpoints.down(1440)]: {
       padding: '.7em',
     },
-    [theme.breakpoints.down(1020)]: {
+    [theme.breakpoints.down(1065)]: {
       position: 'static',
     },
   },
