@@ -100,6 +100,16 @@ const getValidHtmlBody = () =>
   </html>
   `;
 
+const getInvalidDescription = () =>
+  `
+  <p>     </p>
+  <p>   <br><br><br><br><br></p>
+  <p>    </p>
+  <p>     </p>
+  <p>      </p>
+  <p></p>
+  `;
+
 /**
  * Generic network nock request, used below to define all our mock requests.
  *
@@ -123,6 +133,7 @@ exports.getRssUri = getRssUri;
 exports.getHtmlUri = getHtmlUri;
 exports.getRealWorldRssUri = getRealWorldRssUri;
 exports.stripProtocol = stripProtocol;
+exports.getInvalidDescription = getInvalidDescription;
 
 exports.getValidFeedBody = getValidFeedBody;
 exports.getEmptyFeedBody = getEmptyFeedBody;
