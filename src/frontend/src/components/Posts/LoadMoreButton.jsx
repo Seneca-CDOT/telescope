@@ -19,13 +19,18 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  container: {
+    [theme.breakpoints.between('xs', 'sm')]: {
+      paddingTop: theme.spacing(4),
+    },
+  },
 }));
 
 function LoadMoreButton({ onClick }) {
   const classes = useStyles();
 
   return (
-    <Container>
+    <Container className={classes.container}>
       <Grid container spacing={0} direction="column" alignItems="center" justify="center">
         <Grid item xs={12} className={classes.content}>
           <Button color="primary" variant="outlined" onClick={() => onClick()}>
