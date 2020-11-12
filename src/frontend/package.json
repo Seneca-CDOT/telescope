@@ -1,13 +1,13 @@
 {
   "name": "telescope-frontend",
-  "version": "0.0.1",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8000",
+    "develop": "next dev -p 8000",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint pages -c .eslintrc.json --ext js,jsx,ts,tsx",
-    "lint:fix": "eslint pages -c .eslintrc.json --ext js,jsx,ts,tsx --fix"
+    "eslint": "eslint pages -c .eslintrc.json --ext js,jsx,ts,tsx",
+    "eslint:fix": "eslint pages -c .eslintrc.json --ext js,jsx,ts,tsx --fix"
   },
   "dependencies": {
     "next": "9.5.5",
