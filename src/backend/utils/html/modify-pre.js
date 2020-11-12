@@ -1,7 +1,7 @@
 /**
  * Take a <pre>...</pre> and return <pre><code>...</code></pre>
  */
-function insert(pre, document) {
+function insertCode(pre, document) {
   const codeElem = document.createElement('code');
   codeElem.innerHTML = pre.innerHTML;
   pre.innerHTML = codeElem.outerHTML;
@@ -18,11 +18,11 @@ module.exports = function (dom) {
 
   dom.window.document.querySelectorAll('pre').forEach((pre) => {
     // no child elements
-    if (pre.children.length <= 0) insert(pre, dom.window.document);
+    if (pre.children.length <= 0) insertCode(pre, dom.window.document);
     // has child <br> elements
-    else if (pre.children.length > 0 && pre.children[0].nodeName === 'BR') {
+    else if (pre.children[0].nodeName === 'BR') {
       pre.innerHTML = pre.innerHTML.replace(/<br>/g, '\n'); // trim
-      insert(pre, dom.window.document);
+      insertCode(pre, dom.window.document);
     }
   });
 };

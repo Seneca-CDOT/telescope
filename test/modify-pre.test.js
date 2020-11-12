@@ -26,4 +26,11 @@ describe('modify pre tag without <code> element tests', () => {
     const fix = '<pre><code>console.log("Hello World")</code></pre>';
     expect(res).toEqual(fix);
   });
+
+  test('pre tag with child <br> elements should be fixed', () => {
+    const og = '<pre><br>console.log("Hello World")<br></pre>';
+    const res = fixEmpties(og);
+    const fix = '<pre><code>\nconsole.log("Hello World")\n</code></pre>';
+    expect(res).toEqual(fix);
+  });
 });
