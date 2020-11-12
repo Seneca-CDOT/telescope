@@ -5,6 +5,7 @@ const { getFeeds } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 const { protect } = require('../authentication');
 const { protectAdmin } = require('../authentication');
+const { validateNewFeed } = require('../validation');
 
 const feeds = express.Router();
 const feedSchema = {
@@ -94,12 +95,8 @@ feeds.put('/:id/flag', protectAdmin(), async (req, res) => {
   }
 });
 
-feeds.post('/', protect(), async (req, res) => {
-  const isValid = feedTest(req.body);
-  if (!isValid) {
-    return res.status(400).json({ message: feedTest.errors });
-  }
 
+feeds.post('/', protect(), validateNewFeed(), async (req, res) => {
   const feedData = req.body;
   const { user } = req;
   feedData.user = user.id;

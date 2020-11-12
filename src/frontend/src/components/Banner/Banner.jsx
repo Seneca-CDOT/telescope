@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { Fab, Grid, Typography } from '@material-ui/core';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import BannerDynamicItems from '../BannerDynamicItems/BannerDynamicItems.jsx';
+import ScrollAction from '../ScrollAction';
 
 const useStyles = makeStyles((theme) => ({
   h1: {
@@ -70,29 +70,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ScrollDown(props) {
-  const { children } = props;
-
-  const handleClick = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
-
-    if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
-  return (
-    <div onClick={handleClick} role="presentation">
-      {children}
-    </div>
-  );
-}
-
-ScrollDown.propTypes = {
-  children: PropTypes.element.isRequired,
-  window: PropTypes.func,
-};
-
 export default function Banner() {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
@@ -144,11 +121,11 @@ export default function Banner() {
       >
         <Grid id="back-to-top-anchor" item xs={8}>
           <div className={classes.icon}>
-            <ScrollDown>
+            <ScrollAction>
               <Fab color="secondary" aria-label="scroll-down">
                 <KeyboardArrowDownIcon fontSize="large" color="textPrimary" />
               </Fab>
-            </ScrollDown>
+            </ScrollAction>
           </div>
         </Grid>
       </Grid>
