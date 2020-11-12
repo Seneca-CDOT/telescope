@@ -4,6 +4,7 @@
 [![js-airbnb/prettier-style](https://img.shields.io/badge/code%20style-airbnb%2Fprettier-blue)](https://github.com/airbnb/javascript)
 [![YourActionName Actions Status](https://github.com/manekenpix/telescope/workflows/node-js-ci/badge.svg)](https://github.com/manekenpix/telescope/actions)
 ![Node.js CI](https://github.com/manekenpix/telescope/workflows/node-js-ci/badge.svg)
+
 ## What is Telescope?
 
 [Seneca College](https://www.senecacollege.ca/home.html) is active in the open
