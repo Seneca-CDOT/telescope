@@ -9,7 +9,6 @@
 **/.editorconfig
 **/.gitattributes
 **/.gitignore
-**/.travis.yml
 **/CODE-OF-CONDUCT.md
 **/Dockerfile
 **/README.md

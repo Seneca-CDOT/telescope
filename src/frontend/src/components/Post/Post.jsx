@@ -5,6 +5,8 @@ import 'highlight.js/styles/github.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
+import Spinner from '../Spinner/Spinner.jsx';
+import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import AdminButtons from '../AdminButtons';
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   content: {
+    overflow: 'auto',
     padding: '2em',
     color: theme.palette.text.default,
   },
@@ -66,6 +69,13 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       textDecorationLine: 'underline',
     },
+  },
+  spinner: {
+    padding: '20px',
+  },
+  error: {
+    lineHeight: '1.00',
+    fontSize: '1em',
   },
 }));
 
@@ -86,11 +96,44 @@ const Post = ({ postUrl }) => {
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
-    return null;
+    return (
+      <Box className={classes.root} boxShadow={2}>
+        <ListSubheader className={classes.header}>
+          <AdminButtons />
+          <Typography variant="h1" className={classes.title}>
+            <Grid container className={classes.error}>
+              <Grid item>
+                <ErrorRoundedIcon className={classes.error} />
+              </Grid>{' '}
+              - Post Failed to Load
+            </Grid>
+          </Typography>
+        </ListSubheader>
+      </Box>
+    );
   }
 
   if (!post) {
-    return <div>Loading...</div>;
+    return (
+      <Box className={classes.root} boxShadow={2}>
+        <ListSubheader className={classes.header}>
+          <AdminButtons />
+          <Typography variant="h1" className={classes.title}>
+            Loading Blog...
+          </Typography>
+        </ListSubheader>
+
+        <Grid container justify="center">
+          <Grid item className={classes.spinner}>
+            <Spinner animation="border" variant="light">
+              <span className="sr-only" textAlign="center">
+                Loading...
+              </span>
+            </Spinner>
+          </Grid>
+        </Grid>
+      </Box>
+    );
   }
 
   return (

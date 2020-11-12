@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Container, Button, Grid } from '@material-ui/core';
@@ -20,20 +20,21 @@ function LoadMoreButton({ onScroll }) {
   // This will make the automatic infinite scrolling feature
   // Once the "button" is on the viewport(shown on the window),
   // The new posts are updated(call onClick() -- setSize(size + 1) in Posts.jsx --)
-  React.useEffect(() => {
+  useEffect(() => {
     let options = {
       root: null,
-      rootMargin: '0px',
       threshold: 1.0,
     };
 
-    let observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          onScroll();
-        }
-      });
-    }, options);
+    let observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            onScroll();
+          }
+        }),
+      options
+    );
     observer.observe($buttonRef.current);
 
     return () => {
