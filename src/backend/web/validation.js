@@ -1,4 +1,5 @@
 const Ajv = require('ajv');
+const { check, validationResult } = require('express-validator');
 
 const ajv = new Ajv({ allErrors: true });
 
@@ -50,4 +51,45 @@ function validateNewFeed() {
   };
 }
 
-module.exports.validateNewFeed = validateNewFeed;
+// query validation starts here
+// queryValidation rules
+const queryValidationRules = () => {
+  return [
+    // text must be between 1 and 256 and not empty
+    check('text')
+      .exists({ checkFalsy: true })
+      .withMessage('text should not be empty')
+      .bail()
+      .isLength({ max: 256, min: 1 })
+      .withMessage('text should be between 1 to 256 characters')
+      .bail(),
+    // filter must exist and have a valid value
+    check('filter')
+      .exists({ checkFalsy: true })
+      .withMessage('filter should exist')
+      .bail()
+      .isIn(['post', 'author'])
+      .withMessage('invalid filter value')
+      .bail(),
+  ];
+};
+
+// queryValidationFunction
+const validateQuery = () => {
+  return async (req, res, next) => {
+    await Promise.all(queryValidationRules().map((rule) => rule.run(req)));
+
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+      return next();
+    }
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  };
+};
+
+module.exports = {
+  validateNewFeed,
+  validateQuery,
+};
