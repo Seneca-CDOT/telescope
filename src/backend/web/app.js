@@ -97,7 +97,7 @@ const specs = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs, { explorer: true }));
 
 // Include our router with all endpoints
-// app.use('/', router);
+app.use('/', router);
 
 /**
  * Error Handler, Pass to front-end
