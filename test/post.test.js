@@ -92,7 +92,34 @@ describe('Post data class tests', () => {
     expect(() => createPostWithFeed({})).toThrow();
     expect(() => createPostWithFeed(feed)).not.toThrow();
   });
-
+  test('Post constructor should throw if invalid dates is passed', () => {
+    const createPostWithDates = (datePublished, dateUpdated) =>
+      new Post(data.title, data.html, datePublished, dateUpdated, data.url, data.guid, feed);
+    expect(() =>
+      createPostWithDates(
+        new Date('Thu, 20 Nov 2014 18:59:18 UTC'),
+        new Date('Fri, 28 Nov 2014 18:59:18 UTC')
+      )
+    ).not.toThrow();
+    expect(() =>
+      createPostWithDates(
+        new Date('Thu, 45 Nov 2014 18:59:18 UTC'),
+        new Date('Thu, 35 Dec 2014 18:59:18 UTC')
+      )
+    ).toThrow();
+    expect(() =>
+      createPostWithDates(
+        new Date('Thu, 35 Dec 2014 18:59:18 UTC'),
+        new Date('Sat, 1 Nov 2014 18:59:18 UTC')
+      )
+    ).not.toThrow();
+    expect(() =>
+      createPostWithDates(
+        new Date('Sat, 1 Nov 2014 18:59:18 UTC'),
+        new Date('Thu, 35 Dec 2014 18:59:18 UTC')
+      )
+    ).not.toThrow();
+  });
   test('Post.create() should be able to parse an Object into a Post', async () => {
     const id = await Post.create(data);
     const expectedId = 'a371654c75';
