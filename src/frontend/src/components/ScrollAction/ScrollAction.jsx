@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 const ScrollAction = ({ children }) => {
   const handleClick = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+    const mobile = window.innerWidth <= 1065;
+    const anchor = mobile
+      ? (event.target.ownerDocument || document).querySelector('#back-to-top-anchor-mobile')
+      : (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
+
     if (anchor) {
       anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
