@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Container, Button, Grid } from '@material-ui/core';
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 
 function LoadMoreButton({ onScroll }) {
   const classes = useStyles();
-  const $buttonRef = React.useRef(null);
+  const $buttonRef = useRef(null);
 
   // This will make the automatic infinite scrolling feature
   // Once the "button" is on the viewport(shown on the window),
