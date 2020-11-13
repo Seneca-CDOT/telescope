@@ -44,16 +44,20 @@ function Login(props) {
 
     getUserInfo();
   }, [telescopeUrl, dispatch]);
+  // Check if using mobile header which means a style prop exists
+  if (props.style) {
+    return user && user.email ? (
+      <ListItem button component={Link} to={`${telescopeUrl}/auth/logout`} className={props.style}>
+        <LoggedIn />
+      </ListItem>
+    ) : (
+      <ListItem button component={Link} to={`${telescopeUrl}/auth/login`} className={props.style}>
+        <LoggedOut />
+      </ListItem>
+    );
+  }
 
-  return user && user.email ? (
-    <ListItem button component={Link} to={`${telescopeUrl}/auth/logout`} className={props.style}>
-      <LoggedIn />
-    </ListItem>
-  ) : (
-    <ListItem button component={Link} to={`${telescopeUrl}/auth/login`} className={props.style}>
-      <LoggedOut />
-    </ListItem>
-  );
+  return user && user.email ? <LoggedIn /> : <LoggedOut />;
 }
 
 Login.propTypes = {
