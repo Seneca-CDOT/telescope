@@ -1,4 +1,5 @@
 const Ajv = require('ajv');
+const { param, validationResult } = require('express-validator');
 
 const ajv = new Ajv({ allErrors: true });
 
@@ -43,11 +44,27 @@ function validateNewFeed() {
     const valid = ajv.validate(feedSchema, feedData);
 
     if (!valid) {
-      res.status(400).send();
+      return res.status(400).send();
     } else {
-      next();
+      return next();
     }
   };
 }
 
-module.exports.validateNewFeed = validateNewFeed;
+const validateParam = (req, res, next) => {
+  param('id').isLength({ min: 10, max: 10 })(req, res, (err) => {
+    console.log(err);
+    try {
+      validationResult(req).throw();
+      next();
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: 'ID Length is invalid' });
+    }
+  });
+};
+
+module.exports = {
+  validateNewFeed,
+  validateParam,
+};
