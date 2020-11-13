@@ -1,0 +1,1 @@
+{"version":3,"file":"useLazyQuery.js","sourceRoot":"","sources":["../../../src/react/hooks/useLazyQuery.ts"],"names":[],"mappings":"AAIA,OAAO,EAAE,YAAY,EAAE,MAAM,sBAAsB,CAAC;AAGpD,MAAM,UAAU,YAAY,CAC1B,KAA0D,EAC1D,OAAiD;IAEjD,OAAO,YAAY,CAAoB,KAAK,EAAE,OAAO,EAAE,IAAI,CAG1D,CAAC;AACJ,CAAC"}

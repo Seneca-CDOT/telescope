@@ -1,0 +1,6 @@
+{
+  "name": "@apollo/client/core",
+  "main": "core.cjs.js",
+  "module": "index.js",
+  "types": "index.d.ts"
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"checkFetcher.js","sourceRoot":"","sources":["../../../src/link/http/checkFetcher.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,cAAc,CAAC;AAE9C,MAAM,CAAC,IAAM,YAAY,GAAG,UAAC,OAAuD;IAClF,IAAI,CAAC,OAAO,IAAI,OAAO,KAAK,KAAK,WAAW,EAAE;QAC5C,MAAM,IAAI,cAAc,CAAC,obAWxB,CAAC,CAAC;KACJ;AACH,CAAC,CAAC"}

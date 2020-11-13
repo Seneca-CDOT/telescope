@@ -1,0 +1,6 @@
+{
+  "name": "@apollo/client/react/components",
+  "main": "components.cjs.js",
+  "module": "index.js",
+  "types": "index.d.ts"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "@apollo/client/link/schema",
+  "main": "schema.cjs.js",
+  "module": "index.js",
+  "types": "index.d.ts"
+}

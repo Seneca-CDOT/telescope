@@ -1,0 +1,6 @@
+{
+  "name": "@apollo/client/link/retry",
+  "main": "retry.cjs.js",
+  "module": "index.js",
+  "types": "index.d.ts"
+}

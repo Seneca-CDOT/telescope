@@ -1,0 +1,6 @@
+{
+  "name": "@apollo/client/utilities",
+  "main": "utilities.cjs.js",
+  "module": "index.js",
+  "types": "index.d.ts"
+}

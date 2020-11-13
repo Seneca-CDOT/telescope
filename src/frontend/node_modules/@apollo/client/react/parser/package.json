@@ -1,0 +1,6 @@
+{
+  "name": "@apollo/client/react/parser",
+  "main": "parser.cjs.js",
+  "module": "index.js",
+  "types": "index.d.ts"
+}

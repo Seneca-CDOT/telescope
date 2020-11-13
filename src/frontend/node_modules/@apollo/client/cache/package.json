@@ -1,0 +1,6 @@
+{
+  "name": "@apollo/client/cache",
+  "main": "cache.cjs.js",
+  "module": "index.js",
+  "types": "index.d.ts"
+}

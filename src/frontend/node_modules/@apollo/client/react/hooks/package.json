@@ -1,0 +1,6 @@
+{
+  "name": "@apollo/client/react/hooks",
+  "main": "hooks.cjs.js",
+  "module": "index.js",
+  "types": "index.d.ts"
+}
