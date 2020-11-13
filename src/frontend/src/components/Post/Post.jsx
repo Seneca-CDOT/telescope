@@ -1,13 +1,15 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
+import { useInView } from 'react-intersection-observer';
 import 'highlight.js/styles/github.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
-import Spinner from '../Spinner/Spinner.jsx';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import Spinner from '../Spinner/Spinner.jsx';
 import AdminButtons from '../AdminButtons';
+import { InViewDispatchContext } from '../../contexts/InView/InViewContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -88,11 +90,24 @@ const formatPublishedDate = (dateString) => {
 };
 
 const Post = ({ postUrl }) => {
+  const dispatch = useContext(InViewDispatchContext);
+  const { ref: postRef, inView } = useInView({
+    rootMargin: '10%',
+  });
   const classes = useStyles();
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef(null);
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
+
+  useEffect(() => {
+    if (inView) {
+      dispatch({
+        type: 'SELECT_POST',
+        payload: post.id,
+      });
+    }
+  }, [inView]);
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
@@ -156,7 +171,7 @@ const Post = ({ postUrl }) => {
         </a>
       </ListSubheader>
 
-      <Grid container>
+      <Grid container ref={postRef} id={`inView${post.id}`}>
         <Grid item xs={12} className={classes.content}>
           <section
             ref={sectionEl}

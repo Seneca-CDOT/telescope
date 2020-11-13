@@ -13,7 +13,7 @@ const UserProvider = (props) => {
 };
 
 UserProvider.propTypes = {
-  children: PropTypes.elementType,
+  children: PropTypes.object,
 };
 
 export default UserProvider;

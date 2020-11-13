@@ -12,6 +12,7 @@ import useSiteMetaData from '../../hooks/use-site-metadata';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: 0,
+    paddingLeft: '1em',
     maxWidth: '785px',
   },
   activeCircle: {
