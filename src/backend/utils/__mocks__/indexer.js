@@ -4,10 +4,17 @@ const db = {
   values: [],
 };
 
-const indexPost = (text, postId) => {
+const indexPost = ({ text, id, title, published, author }) => {
   db.values.push({
-    id: postId,
-    text,
+    index: 'posts',
+    type: 'post',
+    id,
+    body: {
+      text,
+      title,
+      published,
+      author,
+    },
     score: 10,
   });
   db.results = db.values.length;
@@ -20,7 +27,27 @@ const deletePost = (postId) => {
   return Promise.resolve();
 };
 
-const search = () => Promise.resolve(db);
+const createFieldsFromFilter = (filter) => {
+  switch (filter) {
+    case 'author':
+      return ['author'];
+    case 'post':
+    default:
+      return ['text', 'title'];
+  }
+};
+
+const search = (textToSearch = '', filter = 'post') => {
+  const fields = createFieldsFromFilter(filter);
+  let filtered = db.values;
+  fields.forEach((field) => {
+    filtered = filtered.filter((value) => value.body[field].includes(textToSearch));
+  });
+  return Promise.resolve({
+    results: filtered.length,
+    values: filtered.map((value) => ({ id: value.id })),
+  });
+};
 
 const checkConnection = () => Promise.resolve();
 

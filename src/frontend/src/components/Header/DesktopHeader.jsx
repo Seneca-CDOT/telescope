@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: 'primary',
+    justifyContent: 'center',
+    height: '8.9em',
   },
   toolbar: theme.mixins.toolbar,
   logoIcon: {
@@ -38,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DesktopHeader() {
   const classes = useStyles();
-
   return (
     <>
       <AppBar position="sticky" className={classes.root}>

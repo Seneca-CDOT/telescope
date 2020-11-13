@@ -25,6 +25,7 @@ WORKDIR "/telescope"
 
 # Copy package.jsons for each service
 COPY package.json .
+COPY .env .
 COPY ./src/frontend/package.json ./src/frontend/package.json
 
 # -------------------------------------
@@ -46,7 +47,6 @@ FROM frontend_dependencies as builder
 
 COPY ./src/frontend ./src/frontend
 COPY ./.git ./.git
-COPY ./.env ./.env
 
 RUN npm run build
 

@@ -6,12 +6,9 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
 const helmet = require('helmet');
-const { ApolloServer } = require('apollo-server-express');
 const RedisStore = require('connect-redis')(session);
-const { buildContext } = require('graphql-passport');
 const { redis } = require('../lib/redis');
 
-const { typeDefs, resolvers } = require('./graphql');
 const logger = require('../utils/logger');
 const authentication = require('./authentication');
 const router = require('./routes');
@@ -20,9 +17,6 @@ const app = express();
 
 /**
  * Use Helmet to secure our Express server.
- * To avoid CSP violations when loading GraphQL's playground,
- * 'cdn.jsdelivr.net' and 'unsafe-inline' were added to scriptSrc.
- * https://github.com/ctrlplusb/react-universally/issues/253#issuecomment-267669695
  */
 app.use(
   helmet({
@@ -35,7 +29,7 @@ app.use(
               frameSrc: ["'self'", '*.youtube.com', '*.vimeo.com'],
               frameAncestors: ["'self'"],
               imgSrc: ["'self'", 'data:', 'https:'],
-              scriptSrc: ["'self'", 'cdn.jsdelivr.net', "'unsafe-inline'"],
+              scriptSrc: ["'self'"],
               styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
               objectSrc: ["'none'"],
               upgradeInsecureRequests: [],
@@ -65,19 +59,6 @@ app.use(
 authentication.init();
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Add the Apollo server to app and define the `/graphql` endpoint
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req, res }) => buildContext({ req, res }),
-  playground: {
-    settings: {
-      'request.credentials': 'same-origin',
-    },
-  },
-});
-server.applyMiddleware({ app, path: '/graphql' });
 
 // Template rendering for legacy "planet" view of posts
 app.engine('handlebars', expressHandlebars());

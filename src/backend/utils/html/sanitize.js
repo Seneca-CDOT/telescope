@@ -41,6 +41,7 @@ module.exports = function (dirty) {
       'tr',
       'ul',
     ],
+    allowedSchemesByTag: { img: ['http', 'https', 'data'] },
     allowedAttributes: {
       iframe: ['src'],
       img: ['src'],
