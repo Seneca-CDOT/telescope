@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { navigate } from 'gatsby';
 import PropTypes from 'prop-types';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -96,11 +96,13 @@ function CustomizedInputBase(props) {
 
   const onTextChange = (event) => {
     onChangeHandler(event.target.value);
+    navigate(`/search?q=${event.target.value}`);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     onFormSubmit();
+    navigate(`/search?q=${searchText}&f=${filter}`);
   };
 
   const searchOptions = ['post', 'author'];
