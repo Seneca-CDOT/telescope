@@ -21,12 +21,12 @@ function LoadMoreButton({ onScroll }) {
   // Once the "button" is on the viewport(shown on the window),
   // The new posts are updated(call onClick() -- setSize(size + 1) in Posts.jsx --)
   useEffect(() => {
-    let options = {
+    const options = {
       root: null,
       threshold: 1.0,
     };
 
-    let observer = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) =>
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
