@@ -1,8 +1,4 @@
-const Ajv = require('ajv');
-
 const { check, query, param, validationResult } = require('express-validator');
-
-const ajv = new Ajv({ allErrors: true });
 
 // creates a validation middleware with any given rules
 const validate = (rules) => {
@@ -19,53 +15,34 @@ const validate = (rules) => {
   };
 };
 
-// Expect only URI starting with http:// or https://
-const validateHttpSchemes = function (schema, uri) {
-  return typeof uri === 'string' && uri.search(/https?:\/\//i) === 0;
-};
+// Rules for Validation of feeds for the /post route
+const feedValidationRules = [
+  // user must be string and not empty
+  check('user')
+    .exists({ checkFalsy: true })
+    .withMessage('username is required')
+    .bail()
+    .isString()
+    .withMessage('username must be string')
+    .bail(),
+  // author must be string and not empty
+  check('author')
+    .exists({ checkFalsy: true })
+    .withMessage('author is required')
+    .bail()
+    .isString()
+    .withMessage('author must be string')
+    .bail(),
+  // url must be string, follows url format and must be a valid url
+  check('url')
+    .isString()
+    .withMessage('url must be string')
+    .bail()
+    .isURL({ protocols: ['http', 'https'], require_valid_protocol: true, require_protocol: true })
+    .withMessage('url must be a valid url')
+    .bail(),
+];
 
-// Expect input fields not empty
-const validateNotEmpty = function (schema, data) {
-  return typeof data === 'string' && data.trim() !== '';
-};
-
-// Not Empty validation
-ajv.addKeyword('isNotEmpty', {
-  validate: validateNotEmpty,
-  errors: false,
-});
-
-// Http schemes validation
-ajv.addKeyword('httpSchemes', {
-  validate: validateHttpSchemes,
-  errors: false,
-});
-
-const feedSchema = {
-  type: 'object',
-  properties: {
-    user: { type: 'string', isNotEmpty: true },
-    url: {
-      type: 'string',
-      format: 'uri',
-      httpSchemes: true,
-    },
-    author: { type: 'string', isNotEmpty: true },
-  },
-};
-
-function validateNewFeed() {
-  return function (req, res, next) {
-    const feedData = req.body;
-    const valid = ajv.validate(feedSchema, feedData);
-
-    if (!valid) {
-      res.status(400).send();
-    } else {
-      next();
-    }
-  };
-}
 // Rules for Validation of query params for the /posts route
 const postsQueryValidationRules = [
   query('per_page', 'per_page needs to be empty or a integer').custom(
@@ -103,7 +80,7 @@ const postsIdParamValidationRules = [
 ];
 
 module.exports = {
-  validateNewFeed,
+  validateNewFeed: () => validate(feedValidationRules),
   validateQuery: () => validate(queryValidationRules),
   validatePostsQuery: () => validate(postsQueryValidationRules),
   validatePostsIdParam: () => validate(postsIdParamValidationRules),
