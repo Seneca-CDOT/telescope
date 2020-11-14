@@ -13,11 +13,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: 'primary',
-    justifyContent: 'center',
-    height: '8em',
-    [theme.breakpoints.down(1065)]: {
-      height: '6.5em',
-    },
   },
   toolbar: theme.mixins.toolbar,
   logoIcon: {
@@ -100,7 +95,9 @@ export default function MobileHeader() {
           ABOUT
         </ListItem>
         <Divider className={classes.line} />
-        <Login style={classes.item} />
+        <ListItem button className={classes.item}>
+          <Login />
+        </ListItem>
         <Divider className={classes.line} />
         <div className={classes.footer}>
           <Footer />

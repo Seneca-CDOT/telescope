@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   fab: {
     position: 'relative',
     fontSize: '1.5rem',
-    color: theme.palette.text.default,
+    color: 'white',
     bottom: -45,
     zIndex: 200,
     backgroundColor: theme.palette.secondary.light,

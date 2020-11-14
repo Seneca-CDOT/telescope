@@ -7,7 +7,7 @@ import DesktopHeader from './DesktopHeader.jsx';
 
 function Header() {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down(1440));
+  const matches = useMediaQuery(theme.breakpoints.down('sm'));
 
   return <>{matches ? <MobileHeader /> : <DesktopHeader />}</>;
 }

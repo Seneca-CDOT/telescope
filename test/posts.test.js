@@ -12,7 +12,6 @@ describe('test /posts endpoint', () => {
   const requestedItems = 50;
   const maxItems = 100;
   const createdItems = 150;
-  const nonInteger = 'test';
 
   const posts = [...Array(createdItems).keys()].map((item) => {
     const guid = `http://telescope${item}.cdot.systems`;
@@ -61,34 +60,6 @@ describe('test /posts endpoint', () => {
     expect(res.get('X-Total-Count')).toBe(createdItems.toString());
     expect(res.body.length).toBe(maxItems);
     expect(res.body instanceof Array).toBe(true);
-  });
-
-  test('request posts with both query params', async () => {
-    const res = await request(app).get('/posts?page=2&per_page=50');
-    expect(res.status).toEqual(200);
-    expect(res.get('Content-type')).toContain('application/json');
-    expect(res.get('X-Total-Count')).toBe(createdItems.toString());
-    expect(res.body.length).toBe(requestedItems);
-    expect(res.body instanceof Array).toBe(true);
-  });
-
-  test('request posts with both only page param', async () => {
-    const res = await request(app).get('/posts?page=3');
-    expect(res.status).toEqual(200);
-    expect(res.get('Content-type')).toContain('application/json');
-    expect(res.get('X-Total-Count')).toBe(createdItems.toString());
-    // This will depend on the env value, so as long as we get back something.
-    expect(res.body.length).toBeGreaterThan(0);
-    expect(res.body instanceof Array).toBe(true);
-  });
-
-  test('request posts with non-integer page param', async () => {
-    const res = await request(app).get(`/posts?page=${nonInteger}`);
-    expect(res.status).toEqual(400);
-  });
-  test('request posts with non-integer per_page param', async () => {
-    const res = await request(app).get(`/posts?per_page=${nonInteger}`);
-    expect(res.status).toEqual(400);
   });
 });
 

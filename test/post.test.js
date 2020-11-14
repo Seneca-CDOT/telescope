@@ -1,10 +1,6 @@
 const { parse } = require('feedparser-promised');
 
-const {
-  nockRealWorldRssResponse,
-  getRealWorldRssUri,
-  getInvalidDescription,
-} = require('./fixtures');
+const { nockRealWorldRssResponse, getRealWorldRssUri } = require('./fixtures');
 const Post = require('../src/backend/data/post');
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
@@ -238,12 +234,6 @@ describe('Post data class tests', () => {
       const id = await Post.createFromArticle(article, feed);
       const post = await Post.byId(id);
       expect(post.title).toEqual('Untitled');
-    });
-
-    test('Post.createFromArticle() with whitespace only in description should throw', async () => {
-      const article = articles[0];
-      article.description = getInvalidDescription();
-      await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
   });
 });

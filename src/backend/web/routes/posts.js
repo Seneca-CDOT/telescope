@@ -3,11 +3,10 @@ const express = require('express');
 const Post = require('../../data/post');
 const { getPosts, getPostsCount } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
-const { validatePostsQuery } = require('../validation');
 
 const posts = express.Router();
 
-posts.get('/', validatePostsQuery(), async (req, res) => {
+posts.get('/', async (req, res) => {
   const defaultNumberOfPosts = process.env.MAX_POSTS_PER_PAGE || 30;
   const capNumOfPosts = 100;
   const page = parseInt(req.query.page || 1, 10);
