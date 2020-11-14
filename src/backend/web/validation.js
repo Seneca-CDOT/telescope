@@ -44,27 +44,30 @@ function validateNewFeed() {
     const valid = ajv.validate(feedSchema, feedData);
 
     if (!valid) {
-      return res.status(400).send();
+      res.status(400).send();
     } else {
-      return next();
+      next();
     }
   };
 }
+const validatePostsIdParamRules = [
+  param('id', 'Id Length is invalid').isLength({ min: 10, max: 10 }),
+];
 
-const validateParam = (req, res, next) => {
-  param('id').isLength({ min: 10, max: 10 })(req, res, (err) => {
-    console.log(err);
-    try {
-      validationResult(req).throw();
-      next();
-    } catch (e) {
-      console.log(e);
-      res.status(400).json({ message: 'ID Length is invalid' });
+const validatePostsIdParam = () => {
+  return async (req, res, next) => {
+    await Promise.all(validatePostsIdParamRules.map((rule) => rule.run(req)));
+
+    const result = validationResult(req);
+    if (result.isEmpty()) {
+      return next();
     }
-  });
+    const errors = result.array();
+    return res.status(400).send(errors);
+  };
 };
 
 module.exports = {
   validateNewFeed,
-  validateParam,
+  validatePostsIdParam,
 };

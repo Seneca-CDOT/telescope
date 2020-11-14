@@ -167,12 +167,23 @@ describe('test /posts/:id responses', () => {
     expect(res.body).toEqual(JSON.parse(JSON.stringify(receivedPost1)));
   });
 
-  test('requests ID length Test', async () => {
+  test('requests ID with 6 characters Test', async () => {
     const res = await request(app)
-      .get(`/posts/${addedPost1.id.slice(0, 4)}`)
+      .get(`/posts/${addedPost1.id.slice(4)}`)
       .set('Accept', 'text/html');
     expect(res.status).toEqual(400);
-    expect(res.get('content-length')).toContain('34');
-    //expect(res.text).toEqual(receivedPost1.html);
+  });
+
+  test('requests ID with 14 characters Test', async () => {
+    const res = await request(app)
+      .get(`/posts/${addedPost1.id.concat('1234')}`)
+      .set('Accept', 'text/html');
+    expect(res.status).toEqual(400);
+  });
+
+  test('requests ID with valid length but not exist Test', async () => {
+    const res = await request(app).get(`/posts/1234567890`).set('Accept', 'text/html');
+    expect(res.status).toEqual(404);
+    expect(res.get('Content-length')).toEqual('46');
   });
 });

@@ -3,7 +3,7 @@ const express = require('express');
 const Post = require('../../data/post');
 const { getPosts, getPostsCount } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
-const { validateParam } = require('../validation');
+const { validatePostsIdParam } = require('../validation');
 
 const posts = express.Router();
 
@@ -73,7 +73,7 @@ posts.get('/', async (req, res) => {
   );
 });
 
-posts.get('/:id', validateParam, async (req, res) => {
+posts.get('/:id', validatePostsIdParam(), async (req, res) => {
   const { id } = req.params;
 
   try {
