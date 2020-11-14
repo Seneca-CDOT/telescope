@@ -6,7 +6,7 @@ const { search } = require('../../utils/indexer');
 
 const router = express.Router();
 
-router.get('/', validateQuery(), async (req, res) => {
+router.get('/', validateQuery, async (req, res) => {
   try {
     const { text, filter } = req.query;
     res.send(await search(text, filter));
