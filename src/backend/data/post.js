@@ -17,20 +17,15 @@ const { indexPost } = require('../utils/indexer');
 function ensureDate(date, fallbackDate) {
   if (
     date &&
-    ((Object.prototype.toString.call(date) === '[object String]' &&
-      !Number.isNaN(Date.parse(date))) ||
-      (Object.prototype.toString.call(date) === '[object Date]' && !Number.isNaN(Date.parse(date))))
+    (Object.prototype.toString.call(date) === '[object String]' ||
+      (Object.prototype.toString.call(date) === '[object Date]' && !Number.isNaN(date)))
   ) {
     return new Date(date);
   }
-  if (
-    (Object.prototype.toString.call(fallbackDate) === '[object String]' &&
-      !Number.isNaN(Date.parse(fallbackDate))) ||
-    (Object.prototype.toString.call(fallbackDate) === '[object Date]' &&
-      !Number.isNaN(Date.parse(fallbackDate)))
-  ) {
+  if (Object.prototype.toString.call(fallbackDate) === '[object Date]') {
     return new Date(fallbackDate);
   }
+
   throw new Error(`post has an invalid date: ${date}'`);
 }
 

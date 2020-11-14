@@ -101,24 +101,12 @@ describe('Post data class tests', () => {
         new Date('Fri, 28 Nov 2014 18:59:18 UTC')
       )
     ).not.toThrow();
+    expect(() => createPostWithDates(new Date('Thu, 20 Nov 2014 18:59:18 UTC'), 23)).not.toThrow();
+    expect(() => createPostWithDates(23, new Date('Thu, 20 Nov 2014 18:59:18 UTC'))).toThrow();
     expect(() =>
-      createPostWithDates(
-        new Date('Thu, 45 Nov 2014 18:59:18 UTC'),
-        new Date('Thu, 35 Dec 2014 18:59:18 UTC')
-      )
-    ).toThrow();
-    expect(() =>
-      createPostWithDates(
-        new Date('Thu, 35 Dec 2014 18:59:18 UTC'),
-        new Date('Sat, 1 Nov 2014 18:59:18 UTC')
-      )
+      createPostWithDates('Thu, 45 Nov 2014 18:59:18 UTC', 'Thu, 35 Dec 2014 18:59:18 UTC')
     ).not.toThrow();
-    expect(() =>
-      createPostWithDates(
-        new Date('Sat, 1 Nov 2014 18:59:18 UTC'),
-        new Date('Thu, 35 Dec 2014 18:59:18 UTC')
-      )
-    ).not.toThrow();
+    expect(() => createPostWithDates(10, 20)).toThrow();
   });
   test('Post.create() should be able to parse an Object into a Post', async () => {
     const id = await Post.create(data);
