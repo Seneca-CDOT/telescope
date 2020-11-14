@@ -92,17 +92,18 @@ function CustomizedInputBase(props) {
 
   const onFilterChange = (event) => {
     onFilterChangeHandler(event.target.value);
+    navigate(`/search?text=${searchText}&filter=${event.target.value}`);
   };
 
   const onTextChange = (event) => {
     onChangeHandler(event.target.value);
-    navigate(`/search?q=${event.target.value}`);
+    navigate(`/search?text=${event.target.value}&filter=${filter}`);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     onFormSubmit();
-    navigate(`/search?q=${searchText}&f=${filter}`);
+    navigate(`/search?text=${searchText}&filter=${filter}`);
   };
 
   const searchOptions = ['post', 'author'];

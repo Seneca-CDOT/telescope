@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { Container } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
@@ -26,15 +26,9 @@ const useStyles = makeStyles(() => ({
 const SearchPage = () => {
   const { telescopeUrl } = useSiteMetadata();
   const classes = useStyles();
-  let [keyword] = useQueryParam('q', StringParam);
-  let [filters] = useQueryParam('f', StringParam);
-  if (!keyword) {
-    keyword = '';
-    filters = 'post';
-  }
-  const [searchText, setSearchText] = useState(`${keyword}`);
+  const [searchText = '', setSearchText] = useQueryParam('text', StringParam);
+  const [filter = 'post', setFilter] = useQueryParam('filter', StringParam);
   const [results, setResults] = useState(undefined);
-  const [filter, setFilter] = useState(`${filters}`);
   const [fetchLoading, setFetchLoading] = useState(false);
 
   const search = async () => {
