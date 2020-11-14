@@ -97,7 +97,7 @@ const validatePostsIdParamRules = () => {
 // paramValidationFunction
 const validatePostsIdParam = () => {
   return async (req, res, next) => {
-    await Promise.all(validatePostsIdParamRules.map((rule) => rule.run(req)));
+    await Promise.all(validatePostsIdParamRules().map((rule) => rule.run(req)));
 
     const errors = validationResult(req);
     if (errors.isEmpty()) {
