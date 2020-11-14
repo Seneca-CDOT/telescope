@@ -1,9 +1,13 @@
+const jsdom = require('jsdom');
 const sanitize = require('./sanitize');
 const fixIFrameWidth = require('./fix-iframe-width');
 const lazyLoad = require('./lazy-load');
 const syntaxHighlight = require('./syntax-highlight');
 const replaceCodeEntities = require('./replace-entities');
+const fixEmptyPre = require('./modify-pre');
 const toDOM = require('./dom');
+
+const { JSDOM } = jsdom;
 
 /**
  * Takes a String of HTML and sanitizes, syntax highlights, and
@@ -19,8 +23,17 @@ module.exports = function process(html) {
   // Sanitize the HTML to remove unwanted elements and attributes
   const clean = sanitize(html);
 
+  // Checks if the context of the sanitized html contains whitespace only.
+  const fragment = JSDOM.fragment(clean);
+  if (fragment.textContent.replace(/\s/gim, '').length <= 0) {
+    throw new Error('post is empty');
+  }
+
   // Create a document we can process
   const dom = toDOM(clean);
+
+  // Insert <code> elements into empty <pre>
+  fixEmptyPre(dom);
   // Look for and syntax highlight <pre><code>...</code></pre> blocks
   syntaxHighlight(dom);
   // Wrap <iframe> elements in a <div> so we can style their width

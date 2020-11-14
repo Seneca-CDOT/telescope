@@ -168,16 +168,12 @@ describe('test /posts/:id responses', () => {
   });
 
   test('requests ID with 6 characters Test', async () => {
-    const res = await request(app)
-      .get(`/posts/${addedPost1.id.slice(4)}`)
-      .set('Accept', 'text/html');
+    const res = await request(app).get(`/posts/123456`).set('Accept', 'text/html');
     expect(res.status).toEqual(400);
   });
 
   test('requests ID with 14 characters Test', async () => {
-    const res = await request(app)
-      .get(`/posts/${addedPost1.id.concat('1234')}`)
-      .set('Accept', 'text/html');
+    const res = await request(app).get(`/posts/12345678901234`).set('Accept', 'text/html');
     expect(res.status).toEqual(400);
   });
 

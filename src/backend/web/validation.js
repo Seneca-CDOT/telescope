@@ -1,5 +1,5 @@
 const Ajv = require('ajv');
-const { param, validationResult } = require('express-validator');
+const { check, param, validationResult } = require('express-validator');
 
 const ajv = new Ajv({ allErrors: true });
 
@@ -50,24 +50,65 @@ function validateNewFeed() {
     }
   };
 }
-const validatePostsIdParamRules = [
-  param('id', 'Id Length is invalid').isLength({ min: 10, max: 10 }),
-];
 
+// query validation starts here
+// queryValidation rules
+const queryValidationRules = () => {
+  return [
+    // text must be between 1 and 256 and not empty
+    check('text')
+      .exists({ checkFalsy: true })
+      .withMessage('text should not be empty')
+      .bail()
+      .isLength({ max: 256, min: 1 })
+      .withMessage('text should be between 1 to 256 characters')
+      .bail(),
+    // filter must exist and have a valid value
+    check('filter')
+      .exists({ checkFalsy: true })
+      .withMessage('filter should exist')
+      .bail()
+      .isIn(['post', 'author'])
+      .withMessage('invalid filter value')
+      .bail(),
+  ];
+};
+
+// queryValidationFunction
+const validateQuery = () => {
+  return async (req, res, next) => {
+    await Promise.all(queryValidationRules().map((rule) => rule.run(req)));
+
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
+      return next();
+    }
+    return res.status(400).json({
+      errors: errors.array(),
+    });
+  };
+};
+// param validation starts here
+// paramValidation rules
+const validatePostsIdParamRules = () => {
+  return [param('id', 'Id Length is invalid').isLength({ min: 10, max: 10 })];
+};
+
+// paramValidationFunction
 const validatePostsIdParam = () => {
   return async (req, res, next) => {
     await Promise.all(validatePostsIdParamRules.map((rule) => rule.run(req)));
 
-    const result = validationResult(req);
-    if (result.isEmpty()) {
+    const errors = validationResult(req);
+    if (errors.isEmpty()) {
       return next();
     }
-    const errors = result.array();
-    return res.status(400).send(errors);
+    return res.status(400).json({ errors: errors.array() });
   };
 };
 
 module.exports = {
   validateNewFeed,
+  validateQuery,
   validatePostsIdParam,
 };
