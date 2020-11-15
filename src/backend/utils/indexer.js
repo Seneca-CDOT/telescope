@@ -82,13 +82,14 @@ const search = async (textToSearch, filter = 'post') => {
         fields: createFieldsFromFilter(filter),
       },
     },
+    sort: [{ published: { order: 'desc' } }],
   };
 
   const {
     body: { hits },
   } = await client.search({
     from: 0,
-    _source: ['id'],
+    _source: ['id', 'published'],
     size: ELASTIC_MAX_RESULTS || 100,
     index,
     type,
