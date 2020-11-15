@@ -93,7 +93,7 @@ describe('Post data class tests', () => {
     expect(() => createPostWithFeed(feed)).not.toThrow();
   });
 
-  test('Post constructor should throw if invalid dates is passed', () => {
+  test('Post constructor should throw if a string or date is not passed', () => {
     const createPostWithDates = (datePublished, dateUpdated) =>
       new Post(data.title, data.html, datePublished, dateUpdated, data.url, data.guid, feed);
     expect(() =>
@@ -103,10 +103,10 @@ describe('Post data class tests', () => {
       )
     ).not.toThrow();
     expect(() =>
-      createPostWithDates(new Date('Thu, 20 Nov 2014 18:59:18 UTC'), '23')
+      createPostWithDates(new Date('Thu, 20 Nov 2014 18:59:18 UTC'), 'string')
     ).not.toThrow();
     expect(() =>
-      createPostWithDates('23', new Date('Thu, 20 Nov 2014 18:59:18 UTC'))
+      createPostWithDates('string', new Date('Thu, 20 Nov 2014 18:59:18 UTC'))
     ).not.toThrow();
     expect(() =>
       createPostWithDates('Thu, 45 Nov 2014 18:59:18 UTC', 'Thu, 35 Dec 2014 18:59:18 UTC')
