@@ -67,6 +67,16 @@ const createFieldsFromFilter = (filter) => {
   }
 };
 
+const sortFromFilter = (filter) => {
+  switch (filter) {
+    case 'author':
+      return [{ published: { order: 'desc' } }];
+    case 'post':
+    default:
+      return undefined;
+  }
+};
+
 /**
  * Searches text in elasticsearch
  * @param textToSearch
@@ -82,6 +92,7 @@ const search = async (textToSearch, filter = 'post') => {
         fields: createFieldsFromFilter(filter),
       },
     },
+    sort: sortFromFilter(filter),
   };
 
   const {
