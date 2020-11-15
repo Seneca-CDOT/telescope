@@ -2,12 +2,15 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
 import 'highlight.js/styles/github.css';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
 import Spinner from '../Spinner/Spinner.jsx';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import AdminButtons from '../AdminButtons';
+
+import { Twitter, Facebook, Linkedin } from 'react-social-sharing';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,6 +81,20 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '1.00',
     fontSize: '1em',
   },
+  socialSharing: {
+    position: 'normal',
+    paddingTop: '.5rem',
+    [theme.breakpoints.up(1065)]: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      paddingBottom: '0.5rem',
+      paddingTop: 0,
+    },
+    [theme.breakpoints.between('xs', 'sm')]: {
+      fontSize: '1em',
+    },
+  },
 }));
 
 const formatPublishedDate = (dateString) => {
@@ -93,6 +110,10 @@ const Post = ({ postUrl }) => {
   const sectionEl = useRef(null);
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
+  // Access to theme object
+  const theme = useTheme();
+  // Listen to media query event if screen goes below xs breakpoint
+  const matches = useMediaQuery(theme.breakpoints.down('xs'));
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
@@ -154,6 +175,11 @@ const Post = ({ postUrl }) => {
             {` ${formatPublishedDate(post.updated)}`}
           </time>
         </a>
+        <div className={classes.socialSharing}>
+          <Linkedin solid={matches} small={matches} link={post.url} />
+          <Twitter solid={matches} small={matches} link={post.url} />
+          <Facebook solid={matches} small={matches} link={post.url} />
+        </div>
       </ListSubheader>
 
       <Grid container>
