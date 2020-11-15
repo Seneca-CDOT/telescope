@@ -90,8 +90,11 @@ function CustomizedInputBase(props) {
   const classes = useStyles();
   const { searchText, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
 
-  const prepareParamsAndNavigate = (text, filter) =>
-    navigate(`/search?text=${encodeURIComponent(text)}&filter=${encodeURIComponent(filter)}`);
+  const prepareParamsAndNavigate = (text, filter) => {
+    navigate(`/search?text=${encodeURIComponent(text)}&filter=${encodeURIComponent(filter)}`, {
+      replace: true,
+    });
+  };
 
   const onFilterChange = (event) => {
     onFilterChangeHandler(event.target.value);

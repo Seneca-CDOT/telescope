@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Container } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
@@ -10,6 +10,7 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 import Timeline from '../Posts/Timeline.jsx';
 import SearchBar from '../SearchBar';
 import Spinner from '../Spinner';
+//import { useEffect } from 'react';
 
 const useStyles = makeStyles(() => ({
   spinner: {
@@ -47,6 +48,10 @@ const SearchPage = () => {
       setFetchLoading(false);
     }
   };
+
+  useEffect(() => {
+    search();
+  }, [telescopeUrl]);
 
   // Displays one of three options depending on whether there is a search string, results and no results
   const displayResults = () => {
