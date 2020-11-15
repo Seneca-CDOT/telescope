@@ -90,20 +90,23 @@ function CustomizedInputBase(props) {
   const classes = useStyles();
   const { searchText, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
 
+  const prepareParamsAndNavigate = (text, filter) =>
+    navigate(`/search?text=${encodeURIComponent(text)}&filter=${encodeURIComponent(filter)}`);
+
   const onFilterChange = (event) => {
     onFilterChangeHandler(event.target.value);
-    navigate(`/search?text=${searchText}&filter=${event.target.value}`);
+    prepareParamsAndNavigate(searchText, event.target.value);
   };
 
   const onTextChange = (event) => {
     onChangeHandler(event.target.value);
-    navigate(`/search?text=${event.target.value}&filter=${filter}`);
+    prepareParamsAndNavigate(event.target.value, filter);
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     onFormSubmit();
-    navigate(`/search?text=${searchText}&filter=${filter}`);
+    prepareParamsAndNavigate(searchText, filter);
   };
 
   const searchOptions = ['post', 'author'];
