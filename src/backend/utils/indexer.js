@@ -89,7 +89,7 @@ const search = async (textToSearch, filter = 'post') => {
     body: { hits },
   } = await client.search({
     from: 0,
-    _source: ['id', 'published'],
+    _source: ['id'],
     size: ELASTIC_MAX_RESULTS || 100,
     index,
     type,
