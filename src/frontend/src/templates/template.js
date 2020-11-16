@@ -9,6 +9,7 @@ import { graphql } from 'gatsby';
 
 import PageBase from '../pages/PageBase';
 import AboutFooter from '../components/AboutFooter';
+import { yellow } from '@material-ui/core/colors';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -44,6 +45,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '16px',
     maxWidth: '785px',
     color: theme.palette.text.default,
+  },
+  sticky: {
+    position: 'sticky',
+    top: '0',
   },
   carousel: {
     paddingTop: '8rem',
@@ -100,56 +105,59 @@ export default function Template({
       <Grid container className={classes.root}>
         <Grid container>
           <Grid item xs={12} md={6} className={classes.carousel}>
-            <AutoPlaySwipeableViews
-              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-              index={activeStep}
-              onChangeIndex={handleStepChange}
-              enableMouseEvents
-            >
-              {tutorialSteps.map((step, index) => (
-                <div key={step.label}>
-                  {Math.abs(activeStep - index) <= 2 ? (
-                    <img className={classes.img} src={step.imgPath} alt={step.label} />
-                  ) : null}
-                </div>
-              ))}
-            </AutoPlaySwipeableViews>
-            <MobileStepper
-              steps={maxSteps}
-              position="static"
-              variant="dots"
-              className={classes.footer}
-              activeStep={activeStep}
-              nextButton={
-                <Button
-                  size="large"
-                  className={classes.footerButton}
-                  onClick={handleNext}
-                  disabled={activeStep === maxSteps - 1}
-                >
-                  {theme.direction === 'rtl' ? (
-                    <KeyboardArrowLeft fontSize="large" />
-                  ) : (
-                    <KeyboardArrowRight fontSize="large" />
-                  )}
-                </Button>
-              }
-              backButton={
-                <Button
-                  size="large"
-                  className={classes.footerButton}
-                  onClick={handleBack}
-                  disabled={activeStep === 0}
-                >
-                  {theme.direction === 'rtl' ? (
-                    <KeyboardArrowRight fontSize="large" />
-                  ) : (
-                    <KeyboardArrowLeft fontSize="large" />
-                  )}
-                </Button>
-              }
-            />
+            <div className={classes.sticky}>
+              <AutoPlaySwipeableViews
+                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+                index={activeStep}
+                onChangeIndex={handleStepChange}
+                enableMouseEvents
+              >
+                {tutorialSteps.map((step, index) => (
+                  <div key={step.label}>
+                    {Math.abs(activeStep - index) <= 2 ? (
+                      <img className={classes.img} src={step.imgPath} alt={step.label} />
+                    ) : null}
+                  </div>
+                ))}
+              </AutoPlaySwipeableViews>
+              <MobileStepper
+                steps={maxSteps}
+                position="static"
+                variant="dots"
+                className={classes.footer}
+                activeStep={activeStep}
+                nextButton={
+                  <Button
+                    size="large"
+                    className={classes.footerButton}
+                    onClick={handleNext}
+                    disabled={activeStep === maxSteps - 1}
+                  >
+                    {theme.direction === 'rtl' ? (
+                      <KeyboardArrowLeft fontSize="large" />
+                    ) : (
+                      <KeyboardArrowRight fontSize="large" />
+                    )}
+                  </Button>
+                }
+                backButton={
+                  <Button
+                    size="large"
+                    className={classes.footerButton}
+                    onClick={handleBack}
+                    disabled={activeStep === 0}
+                  >
+                    {theme.direction === 'rtl' ? (
+                      <KeyboardArrowRight fontSize="large" />
+                    ) : (
+                      <KeyboardArrowLeft fontSize="large" />
+                    )}
+                  </Button>
+                }
+              />
+            </div>
           </Grid>
+
           <Grid item xs={12} md={6}>
             <div className={classes.markdownBody}>
               <h1>{frontmatter.title}</h1>
