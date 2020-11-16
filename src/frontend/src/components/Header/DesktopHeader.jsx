@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'primary',
     justifyContent: 'center',
     height: '8.9em',
+    fontSize: '0.875rem',
   },
   toolbar: theme.mixins.toolbar,
   logoIcon: {
