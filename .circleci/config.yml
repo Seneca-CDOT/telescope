@@ -4,15 +4,14 @@ jobs:
     working_directory: ~/telescope
     docker:
       - image: circleci/node:lts
-      - image: circleci/redis:latest
     steps:
       - checkout
       - run:
-          name: Create default env variables
-          command: cp env.example .env
+          name: CD to frontend
+          command: cd src/frontend/
       - run:
           name: Install dependencies
           command: npm install
       - run:
           name: Execute tests
-          command: npm run test-ci
+          command: npm run test-frontend

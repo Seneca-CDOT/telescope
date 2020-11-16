@@ -17,7 +17,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx', '.js', '.ts'] }],
     'import/extensions': 0,
     'jsx-a11y/anchor-is-valid': [
       'error',
@@ -26,6 +26,10 @@ module.exports = {
         specialLink: ['hrefLeft', 'hrefRight'],
         aspects: ['invalidHref', 'preferButton'],
       },
+    ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.test.tsx', '**/*.spec.tsx', '**/jest.setup.ts'] },
     ],
   },
   settings: {
@@ -43,4 +47,7 @@ module.exports = {
       },
     },
   ],
+  env: {
+    jest: true,
+  },
 };
