@@ -195,4 +195,20 @@ describe('test /posts/:id responses', () => {
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.body).toEqual(JSON.parse(JSON.stringify(receivedPost1)));
   });
+
+  test('requests ID with 6 characters Test', async () => {
+    const res = await request(app).get(`/posts/123456`).set('Accept', 'text/html');
+    expect(res.status).toEqual(400);
+  });
+
+  test('requests ID with 14 characters Test', async () => {
+    const res = await request(app).get(`/posts/12345678901234`).set('Accept', 'text/html');
+    expect(res.status).toEqual(400);
+  });
+
+  test('requests ID with valid length but not exist Test', async () => {
+    const res = await request(app).get(`/posts/1234567890`).set('Accept', 'text/html');
+    expect(res.status).toEqual(404);
+    expect(res.get('Content-length')).toEqual('46');
+  });
 });
