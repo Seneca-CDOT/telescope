@@ -1,6 +1,6 @@
 const Ajv = require('ajv');
 
-const { check, query, validationResult } = require('express-validator');
+const { check, query, param, validationResult } = require('express-validator');
 
 const ajv = new Ajv({ allErrors: true });
 
@@ -98,8 +98,13 @@ const queryValidationRules = [
     .bail(),
 ];
 
+const postsIdParamValidationRules = [
+  param('id', 'Id Length is invalid').isLength({ min: 10, max: 10 }),
+];
+
 module.exports = {
   validateNewFeed,
   validateQuery: () => validate(queryValidationRules),
   validatePostsQuery: () => validate(postsQueryValidationRules),
+  validatePostsIdParam: () => validate(postsIdParamValidationRules),
 };
