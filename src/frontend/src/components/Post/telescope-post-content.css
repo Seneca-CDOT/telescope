@@ -41,6 +41,11 @@
   vertical-align: center;
 }
 
+.telescope-post-content img[src*='1.bp.blogspot.com/'] {
+  display: block;
+  width: auto;
+}
+
 .telescope-post-content img[src*='medium.com/_/stat'] {
   width: 1px;
   height: 1px;
