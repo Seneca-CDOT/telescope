@@ -9,7 +9,6 @@ import { graphql } from 'gatsby';
 
 import PageBase from '../pages/PageBase';
 import AboutFooter from '../components/AboutFooter';
-import { yellow } from '@material-ui/core/colors';
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
