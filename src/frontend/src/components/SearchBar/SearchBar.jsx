@@ -63,10 +63,11 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.dark,
     },
     '& * > .MuiSvgIcon-root': {
-      fontSize: '2rem',
+      fontSize: '2.5rem',
       color: theme.palette.text.primary,
     },
     margin: 0,
+    marginRight: theme.spacing(-1.45),
     position: 'relative',
     bottom: theme.spacing(-2),
     float: 'right',
