@@ -47,13 +47,13 @@ docker-compose -f $DOCKER_FILE --project-name=$ENV build telescope
 
 # Delete associated project orphans (services) and volumes
 echo "Stopping "$OLD" Environment"
-docker-compose --project-name=$OLD down --remove-orphans
+docker-compose -f $DOCKER_FILE --project-name=$OLD down --remove-orphans
 
 echo "Deleting $OLD Volumes"
 docker volume prune -f
 
 echo "Starting $ENV Environment"
-docker-compose -f $DOCKER_FILE --project-name=$ENV up -d 
+docker-compose -f $DOCKER_FILE --project-name=$ENV up -d
 
 # Will fail on final container
 # this is anticipated and doesn't affect new environment
