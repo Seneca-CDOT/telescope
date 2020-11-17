@@ -32,7 +32,7 @@ const SearchResults = ({ text, filter }) => {
     async (u) => {
       const res = await fetch(u);
       const results = await res.json();
-      return results.values;
+      return results;
     }
   );
 
@@ -58,7 +58,14 @@ const SearchResults = ({ text, filter }) => {
   return (
     <Container className={classes.searchResults}>
       {data && data.length ? (
-        <Timeline pages={data} nextPage={() => setSize(size + 1)} />
+        <Timeline
+          pages={data.map((d) => d.values)}
+          nextPage={
+            data[0].values.length * data.length < data[0].results
+              ? () => setSize(size + 1)
+              : undefined
+          }
+        />
       ) : (
         <h1>No results search</h1>
       )}

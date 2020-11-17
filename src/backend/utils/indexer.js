@@ -83,7 +83,7 @@ const sortFromFilter = (filter) => {
  * @param filter
  * @return all the results matching the passed text
  */
-const search = async (textToSearch, filter = 'post', page, perPage = MAX_POSTS_PER_PAGE) => {
+const search = async (textToSearch, filter = 'post', page = 0, perPage = MAX_POSTS_PER_PAGE) => {
   const query = {
     query: {
       simple_query_string: {
