@@ -23,16 +23,17 @@ const useStyles = makeStyles(() => ({
 const SearchResults = ({ text, filter }) => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
-  const url = `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}&page=`;
+  const prepareUrl = (index) =>
+    `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
   const shouldFetch = () => text.length > 0;
   const { data, size, setSize, loading, error } = useSWRInfinite(
-    (index) => (shouldFetch() ? url + index : null),
+    (index) => (shouldFetch() ? prepareUrl(index) : null),
     async (u) => {
       const res = await fetch(u);
       const results = await res.json();
-      return results;
+      return results.values;
     }
   );
 
@@ -58,14 +59,7 @@ const SearchResults = ({ text, filter }) => {
   return (
     <Container className={classes.searchResults}>
       {data && data.length ? (
-        <Timeline
-          pages={data.map((d) => d.values)}
-          nextPage={
-            data[0].values.length * data.length < data[0].results
-              ? () => setSize(size + 1)
-              : undefined
-          }
-        />
+        <Timeline pages={data} nextPage={() => setSize(size + 1)} />
       ) : (
         <h1>No results search</h1>
       )}

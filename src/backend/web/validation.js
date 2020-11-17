@@ -74,7 +74,7 @@ const queryValidationRules = [
     .withMessage('invalid filter value')
     .bail(),
 
-  query('perPage', 'per_page needs to be empty or a integer').custom(
+  query('perPage', 'per_page needs to be empty or an integer').custom(
     (value) => !value || Number.isInteger(+value)
   ),
   query('page', 'page needs to be empty or an integer').custom(
