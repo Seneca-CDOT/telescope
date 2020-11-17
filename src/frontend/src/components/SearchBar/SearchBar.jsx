@@ -31,11 +31,21 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     fontSize: '1.6rem',
+    '&:hover': {
+      border: '2px solid #E5E5E5',
+    },
+    '&:focus': {
+      border: '2px solid #333E64',
+    },
     '& > *': {
       fontSize: '1.6rem !important',
       color: theme.palette.text.default,
     },
-    height: '50px',
+    height: '55px',
+    backgroundColor: '#E5E5E5',
+    paddingLeft: '10px',
+    border: '1px solid #A0A0A0',
+    borderRadius: '5px',
   },
   header: {
     padding: 0,
@@ -166,11 +176,7 @@ function CustomizedInputBase(props) {
                 variant="outlined"
                 list="searchData"
               ></input>
-              <datalist id="searchData">
-                <option>Test 1</option>
-                <option>Test 2</option>
-                <option>Test 3</option>
-              </datalist>
+              <datalist id="searchData"></datalist>
             </FormControl>
           </Grid>
         </Grid>
