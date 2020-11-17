@@ -33,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '2.5em',
     },
@@ -93,6 +92,10 @@ const Post = ({ postUrl }) => {
   const sectionEl = useRef(null);
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
+  const [expandToggle, setToggle] = React.useState(true);
+  const expandTitleOrNot = () => {
+    setToggle(!expandToggle);
+  };
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
@@ -141,7 +144,13 @@ const Post = ({ postUrl }) => {
       <ListSubheader className={classes.header}>
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-          {post.title}
+          <span onClick={expandTitleOrNot} style={{ cursor: 'pointer' }}>
+            {expandToggle ? (
+              <span style={{ 'white-space': 'nowrap' }}>{post.title}</span>
+            ) : (
+                <span style={{ 'white-space': 'normal' }}>{post.title}</span>
+              )}
+          </span>
         </Typography>
         <Typography variant={'p'} className={classes.author}>
           &nbsp;By&nbsp;
