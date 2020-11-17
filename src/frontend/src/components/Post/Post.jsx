@@ -101,9 +101,6 @@ const Post = ({ postUrl }) => {
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
   const [expandHeader, setExpandHeader] = useState(false);
-  const toggleExpandHeader = () => {
-    setExpandHeader(!expandHeader);
-  };
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
@@ -153,7 +150,7 @@ const Post = ({ postUrl }) => {
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
           <span
-            onClick={toggleExpandHeader}
+            onClick={() => setExpandHeader(!expandHeader)}
             className={expandHeader ? classes.expandHeader : classes.collapseHeader}
           >
             {post.title}
