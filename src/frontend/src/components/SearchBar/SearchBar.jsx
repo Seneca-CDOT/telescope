@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     },
     margin: 0,
     position: 'relative',
-    bottom: theme.spacing(6),
+    bottom: theme.spacing(-2),
     float: 'right',
     marginBottom: theme.spacing(-5.5),
   },
@@ -150,7 +150,7 @@ function CustomizedInputBase(props) {
               </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={10} lg={10}>
+          <Grid item xs={12} sm={10} lg={9}>
             <FormControl fullWidth={true}>
               <TextField
                 className={classes.input}
