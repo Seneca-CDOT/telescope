@@ -74,5 +74,6 @@ module.exports = {
     },
     `gatsby-transformer-remark`,
     `gatsby-plugin-svgr`,
+    'gatsby-plugin-use-query-params',
   ],
 };

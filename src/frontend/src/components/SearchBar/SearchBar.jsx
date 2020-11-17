@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
 import PropTypes from 'prop-types';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -89,20 +88,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CustomizedInputBase(props) {
   const classes = useStyles();
-  const { searchText, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
-
-  const onFilterChange = (event) => {
-    onFilterChangeHandler(event.target.value);
-  };
-
-  const onTextChange = (event) => {
-    onChangeHandler(event.target.value);
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    onFormSubmit();
-  };
+  const { text, onTextChange, onFilterChange, filter, onSubmit } = props;
 
   const searchOptions = ['post', 'author'];
 
@@ -125,7 +111,7 @@ function CustomizedInputBase(props) {
         </Grid>
         <Fab size="large" className={classes.iconButton}>
           <FormControl>
-            <IconButton type="submit" onClick={(event) => onSubmit(event)} aria-label="search">
+            <IconButton type="submit" onClick={onSubmit} aria-label="search">
               <SearchIcon />
             </IconButton>
           </FormControl>
@@ -140,7 +126,7 @@ function CustomizedInputBase(props) {
                 value={filter}
                 variant="outlined"
                 className={classes.selectControl}
-                onChange={(event) => onFilterChange(event)}
+                onChange={(event) => onFilterChange(event.target.value)}
               >
                 {searchOptions.map((option) => (
                   <MenuItem key={option} value={option} className={classes.selectItem}>
@@ -157,8 +143,8 @@ function CustomizedInputBase(props) {
                 placeholder="How to Get Started in Open Source"
                 inputProps={{ 'aria-label': 'search telescope' }}
                 variant="outlined"
-                value={searchText}
-                onChange={(event) => onTextChange(event)}
+                value={text}
+                onChange={(event) => onTextChange(event.target.value)}
               />
             </FormControl>
           </Grid>
@@ -169,10 +155,10 @@ function CustomizedInputBase(props) {
 }
 
 CustomizedInputBase.propTypes = {
-  searchText: PropTypes.string,
-  onChangeHandler: PropTypes.func,
-  onFilterChangeHandler: PropTypes.func,
-  onFormSubmit: PropTypes.func,
+  text: PropTypes.string,
+  onTextChange: PropTypes.func,
   filter: PropTypes.string,
+  onFilterChange: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 export default CustomizedInputBase;
