@@ -73,7 +73,10 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
     marginBottom: theme.spacing(-5.5),
   },
-
+  infoButton: {
+    marginTop: '50px',
+    marginLeft: '-20px',
+  },
   selectControl: {
     '& > *': {
       fontSize: '1.2rem',
@@ -115,11 +118,59 @@ function CustomizedInputBase(props) {
           alignItems="center"
           justify="flex-start"
         >
-          <Grid item xs={12}>
+          <Grid item>
             <Typography variant="h1" className={classes.h1}>
               Search
             </Typography>
           </Grid>
+          <HtmlTooltip
+            className={classes.infoButton}
+            title={
+              <React.Fragment>
+                <Typography variant="h5">How to use search</Typography>
+                <ul>
+                  <li>
+                    <b>{"' + '"}</b>
+                    {' signifies AND operator'}
+                  </li>
+                  <li>
+                    <b>{"' | '"}</b>
+                    {' signifies OR operator'}
+                  </li>
+                  <li>
+                    <b>{"' - '"}</b>
+                    {' negates a single token'}
+                  </li>
+                  <li>
+                    <b>{"' \" '"}</b>
+                    {' wraps a number of tokens to signify a phrase for searching'}
+                  </li>
+                  <li>
+                    <b>{"' * '"}</b>
+                    {' at the end of a term signifies a prefix query'}
+                  </li>
+                  <li>
+                    <b>{"' ( ' and ' ) '"}</b>
+                    {' signify precendence '}
+                  </li>
+                  <li>
+                    <b>{"' ~N '"}</b>
+                    {' after a word signifies edit distance (fuzziness)'}
+                  </li>
+                  <li>
+                    <b>{"' ~N '"}</b>
+                    {' after a phrase signifies slop amount'}
+                  </li>
+                </ul>
+              </React.Fragment>
+            }
+          >
+            <Fab size="large" className={classes.iconButton}>
+              <IconButton aria-label="Info" fontSize="large">
+                <InfoOutlinedIcon />
+              </IconButton>
+            </Fab>
+          </HtmlTooltip>
         </Grid>
         <Fab size="large" className={classes.iconButton}>
           <FormControl>
@@ -128,53 +179,6 @@ function CustomizedInputBase(props) {
             </IconButton>
           </FormControl>
         </Fab>
-        <HtmlTooltip
-          title={
-            <React.Fragment>
-              <Typography variant="h5">How to use search</Typography>
-              <ul>
-                <li>
-                  <b>{"' + '"}</b>
-                  {' signifies AND operator'}
-                </li>
-                <li>
-                  <b>{"' | '"}</b>
-                  {' signifies OR operator'}
-                </li>
-                <li>
-                  <b>{"' - '"}</b>
-                  {' negates a single token'}
-                </li>
-                <li>
-                  <b>{"' \" '"}</b>
-                  {' wraps a number of tokens to signify a phrase for searching'}
-                </li>
-                <li>
-                  <b>{"' * '"}</b>
-                  {' at the end of a term signifies a prefix query'}
-                </li>
-                <li>
-                  <b>{"' ( ' and ' ) '"}</b>
-                  {' signify precendence '}
-                </li>
-                <li>
-                  <b>{"' ~N '"}</b>
-                  {' after a word signifies edit distance (fuzziness)'}
-                </li>
-                <li>
-                  <b>{"' ~N '"}</b>
-                  {' after a phrase signifies slop amount'}
-                </li>
-              </ul>
-            </React.Fragment>
-          }
-        >
-          <Fab size="large" className={classes.iconButton}>
-            <IconButton aria-label="Info" fontSize="large">
-              <InfoOutlinedIcon />
-            </IconButton>
-          </Fab>
-        </HtmlTooltip>
 
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
