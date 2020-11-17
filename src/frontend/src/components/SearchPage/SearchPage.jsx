@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SearchPage = () => {
+function SearchPage() {
   const { telescopeUrl } = useSiteMetadata();
   const classes = useStyles();
   const SEARCH_QUERY = gql`
@@ -114,7 +114,7 @@ const SearchPage = () => {
     }
 
     setTimeout(() => setSearchEnabled(false), 500);
-  }, [telescopeUrl, searchEnabled, searchText]);
+  }, [telescopeUrl, searchEnabled, searchText, filter, searchAuthors]);
 
   // Displays one of three options depending on whether there is a search string, results and no results
   const displayResults = () => {
@@ -173,6 +173,6 @@ const SearchPage = () => {
       <Container className={classes.searchResults}>{displayResults()}</Container>
     </div>
   );
-};
+}
 
 export default SearchPage;
