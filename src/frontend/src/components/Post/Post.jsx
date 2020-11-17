@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
 import 'highlight.js/styles/github.css';
@@ -27,6 +27,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down(1065)]: {
       position: 'static',
     },
+  },
+  expandHeader: {
+    whiteSpace: 'normal',
+    cursor: 'pointer',
+  },
+  collapseHeader: {
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
   },
   title: {
     fontSize: '3.5em',
@@ -92,9 +100,9 @@ const Post = ({ postUrl }) => {
   const sectionEl = useRef(null);
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
-  const [expandToggle, setToggle] = React.useState(true);
-  const expandTitleOrNot = () => {
-    setToggle(!expandToggle);
+  const [expandHeader, setExpandHeader] = useState(true);
+  const toggleExpandHeader = () => {
+    setExpandHeader(!expandHeader);
   };
 
   if (error) {
@@ -144,12 +152,11 @@ const Post = ({ postUrl }) => {
       <ListSubheader className={classes.header}>
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-          <span onClick={expandTitleOrNot} style={{ cursor: 'pointer' }}>
-            {expandToggle ? (
-              <span style={{ 'white-space': 'nowrap' }}>{post.title}</span>
-            ) : (
-              <span style={{ 'white-space': 'normal' }}>{post.title}</span>
-            )}
+          <span
+            onClick={toggleExpandHeader}
+            className={expandHeader ? classes.collapseHeader : classes.expandHeader}
+          >
+            {post.title}
           </span>
         </Typography>
         <Typography variant={'p'} className={classes.author}>
