@@ -1,11 +1,10 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
-import { IconButton, Typography, Fab, Tooltip } from '@material-ui/core';
+import { Typography, Tooltip } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   infoButton: {
     marginTop: '7.5px',
     marginLeft: '-25px',
@@ -23,12 +22,12 @@ const HtmlTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-function SearchHelp(props) {
+function SearchHelp() {
   const classes = useStyles();
   return (
     <HtmlTooltip
       title={
-        <React.Fragment>
+        <>
           <Typography variant="h5">How to use search</Typography>
           <ul>
             <li>
@@ -64,7 +63,7 @@ function SearchHelp(props) {
               {' after a phrase signifies slop amount'}
             </li>
           </ul>
-        </React.Fragment>
+        </>
       }
     >
       <InfoOutlinedIcon className={classes.infoButton} />
