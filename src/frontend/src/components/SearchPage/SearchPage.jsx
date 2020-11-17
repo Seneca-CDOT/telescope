@@ -42,6 +42,7 @@ function SearchPage() {
       }
       const posts = await res.json();
       setResults(posts.values);
+      console.log(results);
     } catch (error) {
       console.error('Something went wrong while fetching data', error);
     } finally {
