@@ -19,7 +19,8 @@
   max-width: 100%;
   padding-top: 1.5rem;
   padding-bottom: 1rem;
-  width: 100%;
+  width: auto;
+  display: block;
 }
 .telescope-post-content figure {
   display: block;
@@ -39,11 +40,6 @@
   width: 2rem;
   padding: 0;
   vertical-align: center;
-}
-
-.telescope-post-content img[src*='1.bp.blogspot.com/'] {
-  display: block;
-  width: auto;
 }
 
 .telescope-post-content img[src*='medium.com/_/stat'] {
