@@ -383,6 +383,20 @@ describe('test DELETE /feeds/:id endpoint', () => {
   });
 });
 
+it('should return 404 when id is less than 10 characters', async () => {
+  const id = '123456789';
+  const res = await request(app).delete(`/feeds/${id}`);
+
+  expect(res.status).toEqual(404);
+});
+
+it('should return 400 when id is more than 10 characters', async () => {
+  const id = '123456789123456789';
+  const res = await request(app).delete(`/feeds/${id}`);
+
+  expect(res.status).toEqual(404);
+});
+
 describe('test PUT + DELETE /feeds/:id/flag endpoint', () => {
   const data = {
     author: 'Post Author',
