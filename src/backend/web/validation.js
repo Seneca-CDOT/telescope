@@ -74,12 +74,17 @@ const queryValidationRules = [
     .withMessage('invalid filter value')
     .bail(),
 
-  query('perPage', 'per_page needs to be empty or an integer').custom(
-    (value) => !value || Number.isInteger(+value)
-  ),
-  query('page', 'page needs to be empty or an integer').custom(
-    (value) => !value || Number.isInteger(+value)
-  ),
+  check('perPage')
+    .optional({ checkFalsy: true })
+    .isInt({ min: 1, max: 10 })
+    .withMessage('perPage should be empty or a number between 1 to 10')
+    .bail(),
+
+  check('page')
+    .optional({ checkFalsy: true })
+    .isInt({ min: 0, max: 1000 })
+    .withMessage('page should be empty or a number between 0 to 1000')
+    .bail(),
 ];
 
 const postsIdParamValidationRules = [
