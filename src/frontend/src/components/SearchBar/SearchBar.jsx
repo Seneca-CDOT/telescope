@@ -16,7 +16,6 @@ import {
   Box,
   Typography,
   Fab,
-  Tooltip,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +69,6 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.primary,
     },
     margin: 0,
-    marginLeft: 15,
     position: 'relative',
     bottom: theme.spacing(6),
     float: 'right',
@@ -121,7 +119,6 @@ function CustomizedInputBase(props) {
             </IconButton>
           </FormControl>
         </Fab>
-
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth={true}>
