@@ -1,7 +1,5 @@
 const request = require('supertest');
 
-const { it } = require('date-fns/locale');
-
 const app = require('../src/backend/web/app');
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
@@ -384,18 +382,18 @@ describe('test DELETE /feeds/:id endpoint', () => {
     expect(res.status).toEqual(404);
   });
 
-  it('should return 404 when id is less than 10 characters', async () => {
+  it('should return 400 when id is less than 10 characters', async () => {
     const id = '123456789';
     const res = await request(app).delete(`/feeds/${id}`);
 
-    expect(res.status).toEqual(404);
+    expect(res.status).toEqual(400);
   });
 
   it('should return 400 when id is more than 10 characters', async () => {
     const id = '123456789123456789';
     const res = await request(app).delete(`/feeds/${id}`);
 
-    expect(res.status).toEqual(404);
+    expect(res.status).toEqual(400);
   });
 });
 

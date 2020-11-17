@@ -74,10 +74,6 @@ const queryValidationRules = [
     .withMessage('invalid filter value')
     .bail(),
 ];
-// id param for delete post
-const deletePostIdParamValidationRules = [
-  param('id', 'Id length is invalid').isLength({ min: 10, max: 10 }),
-];
 
 const postsIdParamValidationRules = [
   param('id', 'Id Length is invalid').isLength({ min: 10, max: 10 }),
