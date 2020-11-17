@@ -1,7 +1,10 @@
-name: Node.js CI
+name: node-js-ci
 
 on:
   pull_request:
+    branches:
+      - master
+  push:
     branches:
       - master
 

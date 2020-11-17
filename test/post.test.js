@@ -1,6 +1,10 @@
 const { parse } = require('feedparser-promised');
 
-const { nockRealWorldRssResponse, getRealWorldRssUri } = require('./fixtures');
+const {
+  nockRealWorldRssResponse,
+  getRealWorldRssUri,
+  getInvalidDescription,
+} = require('./fixtures');
 const Post = require('../src/backend/data/post');
 const Feed = require('../src/backend/data/feed');
 const hash = require('../src/backend/data/hash');
@@ -91,6 +95,27 @@ describe('Post data class tests', () => {
     expect(() => createPostWithFeed(1234)).toThrow();
     expect(() => createPostWithFeed({})).toThrow();
     expect(() => createPostWithFeed(feed)).not.toThrow();
+  });
+
+  test('Post constructor should throw if a string or date is not passed', () => {
+    const createPostWithDates = (datePublished, dateUpdated) =>
+      new Post(data.title, data.html, datePublished, dateUpdated, data.url, data.guid, feed);
+    expect(() =>
+      createPostWithDates(
+        new Date('Thu, 20 Nov 2014 18:59:18 UTC'),
+        new Date('Fri, 28 Nov 2014 18:59:18 UTC')
+      )
+    ).not.toThrow();
+    expect(() =>
+      createPostWithDates(new Date('Thu, 20 Nov 2014 18:59:18 UTC'), 'string')
+    ).not.toThrow();
+    expect(() =>
+      createPostWithDates('string', new Date('Thu, 20 Nov 2014 18:59:18 UTC'))
+    ).not.toThrow();
+    expect(() =>
+      createPostWithDates('Thu, 45 Nov 2014 18:59:18 UTC', 'Thu, 35 Dec 2014 18:59:18 UTC')
+    ).not.toThrow();
+    expect(() => createPostWithDates(10, 20)).toThrow();
   });
 
   test('Post.create() should be able to parse an Object into a Post', async () => {
@@ -234,6 +259,12 @@ describe('Post data class tests', () => {
       const id = await Post.createFromArticle(article, feed);
       const post = await Post.byId(id);
       expect(post.title).toEqual('Untitled');
+    });
+
+    test('Post.createFromArticle() with whitespace only in description should throw', async () => {
+      const article = articles[0];
+      article.description = getInvalidDescription();
+      await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
   });
 });

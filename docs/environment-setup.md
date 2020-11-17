@@ -96,20 +96,20 @@ sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
 sudo chmod g+rwx "$HOME/.docker" -R
 ```
 
-10. Now run docker as a service on your machine, on startup:
+11. Now run docker as a service on your machine, on startup:
     1. Enable docker on startup: `sudo systemctl enable docker`
     1. Disable docker on startup: `sudo systemctl disable docker`
 
 **Install Docker-Compose**
 
-11. Run to download the current stable version of Docker-Compose:
+12. Run to download the current stable version of Docker-Compose:
 
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-12. Apply executable permissions to the downloaded file: `sudo chmod +x /usr/local/bin/docker-compose`
-13. Check installation using: `docker-compose --version`
+13. Apply executable permissions to the downloaded file: `sudo chmod +x /usr/local/bin/docker-compose`
+14. Check installation using: `docker-compose --version`
 
 _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
 
@@ -198,3 +198,46 @@ See [staging-production-deployment](staging-production-deployment) for more info
 **Note**: If login function is required, `npm run build` must be used instead of `npm run develop`. For more information on test accounts to log into Telescope for development, please refer to section 5 of our [Login Document](login.md):
 
 Open `localhost:3000`
+
+## Frequently Asked Questions (FAQ)
+
+### How do I start Docker daemon?
+
+Make sure to you have (docker)[https://docs.docker.com/engine/reference/commandline/dockerd/] running on your machine, you can start docker through the following methods:
+
+1.  Running the command `sudo dockerd`
+2.  Starting the docker application manually
+3.  Restarting your machine.
+
+You can check out the docker daemon cli through this link (here)[https://docs.docker.com/engine/reference/commandline/dockerd/)
+
+### I followed all the steps by my browser still can't run telescope locally
+
+Try removing the docker images and pulling them again, while you're in the root directory of the project
+
+1.  `docker system prune -af` will delete the containers
+2.  `docker-compose up <services_here>` will pull the containers and start them up
+
+### Cannot find cgroup mount destination
+
+This could be an issue with WSL2 in Windows 10. You can resolve it by:
+
+1.  `sudo mkdir /sys/fs/cgroup/systemd`
+2.  `sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd`
+
+### Receive "Malformed input, repository not added" message while installing Docker on Linux Mint
+
+The command below might not work on certain Linux distributions.
+
+```
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+```
+
+If you receive the error message "Malformed input, repository not added" after running this command, please try the below steps instead:
+
+1. run `sudo nano /etc/apt/sources.list.d/addtional-repositories.list`
+2. paste `deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable` to the file, save it, and exit.
+3. run `sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable`

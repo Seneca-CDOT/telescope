@@ -27,7 +27,6 @@ docs available for each, including our:
 
 - database [Redis](redis.md)
 - frontend framework [GatsbyJS](gatsbyjs.md)
-- frontend query language [GraphQL](graphql.md)
 - single-sign-on (SSO) [login](login.md) using SAML2
 - backend logging framework [Pino](logging.md)
 - search engine indexing [Elasticsearch](elasticsearch.md)

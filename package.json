@@ -8,7 +8,8 @@
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "<rootDir>/src/frontend/public/",
-      "<rootDir>/src/frontend/.cache/"
+      "<rootDir>/src/frontend/.cache/",
+      "<rootDir>/src/frontend/test/"
     ],
     "automock": false,
     "setupFiles": [
@@ -17,7 +18,8 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "<rootDir>/src/frontend/public/",
-      "<rootDir>/src/frontend/.cache/"
+      "<rootDir>/src/frontend/.cache/",
+      "<rootDir>/src/frontend/test/"
     ]
   },
   "bin": {
@@ -36,9 +38,10 @@
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
-    "test": "npm run jest",
+    "test-frontend": "cd src/frontend/test && jest",
+    "test": "npm run jest && npm run test-frontend",
     "jest": "cross-env LOG_LEVEL=error MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --",
-    "coverage": "cross-env LOG_LEVEL=silent MOCK_REDIS=1 jest --collectCoverage --",
+    "coverage": "cross-env LOG_LEVEL=silent MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --collectCoverage --",
     "jest-watch": "cross-env MOCK_REDIS=1 jest --watch --",
     "start": "node src/backend",
     "server": "node src/backend/web/server",
@@ -63,7 +66,6 @@
     "@material-ui/core": "4.11.0",
     "@material-ui/lab": "4.0.0-alpha.56",
     "@wordpress/wordcount": "2.11.0",
-    "apollo-server-express": "2.17.0",
     "body-parser": "1.19.0",
     "bull": "3.18.0",
     "bull-board": "0.9.0",
@@ -76,11 +78,10 @@
     "express-healthcheck": "0.1.0",
     "express-pino-logger": "5.0.0",
     "express-session": "1.17.1",
+    "express-validator": "6.6.1",
     "feed": "4.2.1",
     "feedparser-promised": "2.0.1",
     "git-repo-info": "2.1.1",
-    "graphql-iso-date": "3.6.1",
-    "graphql-passport": "0.6.3",
     "helmet": "4.1.1",
     "highlight.js": "10.2.0",
     "http-proxy-middleware": "1.0.5",
@@ -93,6 +94,7 @@
     "passport": "0.4.1",
     "passport-saml": "1.3.5",
     "pino": "6.6.1",
+    "pino-elasticsearch": "5.3.0",
     "pino-pretty": "4.2.1",
     "sanitize-html": "1.27.4",
     "set-interval-async": "1.0.33",

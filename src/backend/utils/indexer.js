@@ -11,21 +11,28 @@ const type = 'post';
 
 /**
  * Indexes the text and id from a post
- * @param text from a post
- * @param postId same id used to store on redis the post object where the text is from
+ * @param post
+ * @param post.text from a post
+ * @param post.id same id used to store on redis the post object where the text is from
+ * @param post.title from a post
+ * @param post.published from a post
+ * @param post.author from a post
  */
-const indexPost = async (text, postId) => {
+const indexPost = async ({ text, id, title, published, author }) => {
   try {
     await client.index({
       index,
       type,
-      id: postId,
+      id,
       body: {
         text,
+        title,
+        published,
+        author,
       },
     });
   } catch (error) {
-    logger.error({ error }, `There was an error indexing a post for id ${postId}`);
+    logger.error({ error }, `There was an error indexing a post for id ${id}`);
   }
 };
 
@@ -46,44 +53,62 @@ const deletePost = async (postId) => {
 };
 
 /**
+ * Creates fields from filter, now the filter is used for author and post but it will be added more.
+ * the fields will be used for ES
+ * @param {string} filter
+ */
+const createFieldsFromFilter = (filter) => {
+  switch (filter) {
+    case 'author':
+      return ['author'];
+    case 'post':
+    default:
+      return ['text', 'title'];
+  }
+};
+
+const sortFromFilter = (filter) => {
+  switch (filter) {
+    case 'author':
+      return [{ published: { order: 'desc' } }];
+    case 'post':
+    default:
+      return undefined;
+  }
+};
+
+/**
  * Searches text in elasticsearch
  * @param textToSearch
+ * @param filter
  * @return all the results matching the passed text
  */
-const search = async (textToSearch) => {
+const search = async (textToSearch, filter = 'post') => {
   const query = {
     query: {
-      match: {
-        text: {
-          query: textToSearch,
-          operator: 'AND',
-          fuzziness: 'auto',
-        },
+      simple_query_string: {
+        query: textToSearch,
+        default_operator: 'and',
+        fields: createFieldsFromFilter(filter),
       },
     },
+    sort: sortFromFilter(filter),
   };
 
   const {
     body: { hits },
   } = await client.search({
     from: 0,
+    _source: ['id'],
     size: ELASTIC_MAX_RESULTS || 100,
     index,
     type,
     body: query,
   });
-  const results = hits.total.value;
-  const values = hits.hits.map(({ _id, _source, _score }) => {
-    return {
-      id: _id,
-      text: _source.text,
-      score: _score,
-    };
-  });
 
   return {
-    results,
-    values,
+    results: hits.total.value,
+    values: hits.hits.map(({ _id }) => ({ id: _id, url: `/posts/${_id}` })),
   };
 };
 

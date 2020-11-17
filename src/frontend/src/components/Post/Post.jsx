@@ -5,6 +5,8 @@ import 'highlight.js/styles/github.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
+import Spinner from '../Spinner/Spinner.jsx';
+import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import AdminButtons from '../AdminButtons';
 
 const useStyles = makeStyles((theme) => ({
@@ -16,12 +18,13 @@ const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.text.secondary,
-    padding: '3em',
+    padding: '1.4em',
     lineHeight: '1.3',
-    top: '62px',
-    [theme.breakpoints.between('xs', 'sm')]: {
-      paddingTop: '2em',
-      paddingBottom: '2em',
+    zIndex: 1500,
+    [theme.breakpoints.down(1440)]: {
+      padding: '.7em',
+    },
+    [theme.breakpoints.down(1065)]: {
       position: 'static',
     },
   },
@@ -52,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   content: {
+    overflow: 'auto',
     padding: '2em',
     color: theme.palette.text.default,
   },
@@ -67,17 +71,23 @@ const useStyles = makeStyles((theme) => ({
       textDecorationLine: 'underline',
     },
   },
+  spinner: {
+    padding: '20px',
+  },
+  error: {
+    lineHeight: '1.00',
+    fontSize: '1em',
+  },
 }));
 
-function formatPublishedDate(dateString) {
+const formatPublishedDate = (dateString) => {
   const date = new Date(dateString);
   const options = { month: 'long', day: 'numeric', year: 'numeric' };
   const formatted = new Intl.DateTimeFormat('en-CA', options).format(date);
   return `Last Updated ${formatted}`;
-}
+};
 
 const Post = ({ postUrl }) => {
-  // id, html, author, url, title, date, link
   const classes = useStyles();
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef(null);
@@ -86,11 +96,44 @@ const Post = ({ postUrl }) => {
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
-    return null;
+    return (
+      <Box className={classes.root} boxShadow={2}>
+        <ListSubheader className={classes.header}>
+          <AdminButtons />
+          <Typography variant="h1" className={classes.title}>
+            <Grid container className={classes.error}>
+              <Grid item>
+                <ErrorRoundedIcon className={classes.error} />
+              </Grid>{' '}
+              - Post Failed to Load
+            </Grid>
+          </Typography>
+        </ListSubheader>
+      </Box>
+    );
   }
 
   if (!post) {
-    return <div>Loading...</div>;
+    return (
+      <Box className={classes.root} boxShadow={2}>
+        <ListSubheader className={classes.header}>
+          <AdminButtons />
+          <Typography variant="h1" className={classes.title}>
+            Loading Blog...
+          </Typography>
+        </ListSubheader>
+
+        <Grid container justify="center">
+          <Grid item className={classes.spinner}>
+            <Spinner animation="border" variant="light">
+              <span className="sr-only" textAlign="center">
+                Loading...
+              </span>
+            </Spinner>
+          </Grid>
+        </Grid>
+      </Box>
+    );
   }
 
   return (
@@ -100,15 +143,15 @@ const Post = ({ postUrl }) => {
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
           {post.title}
         </Typography>
-        <Typography variant="h3" className={classes.author}>
-          By{' '}
+        <Typography variant={'p'} className={classes.author}>
+          &nbsp;By&nbsp;
           <a className={classes.link} href={post.feed.link}>
             {post.feed.author}
           </a>
         </Typography>
         <a href={post.url} rel="bookmark" className={classes.published}>
           <time className={classes.time} dateTime={post.updated}>
-            {formatPublishedDate(post.updated)}
+            {` ${formatPublishedDate(post.updated)}`}
           </time>
         </a>
       </ListSubheader>
