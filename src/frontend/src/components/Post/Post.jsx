@@ -148,8 +148,8 @@ const Post = ({ postUrl }) => {
             {expandToggle ? (
               <span style={{ 'white-space': 'nowrap' }}>{post.title}</span>
             ) : (
-                <span style={{ 'white-space': 'normal' }}>{post.title}</span>
-              )}
+              <span style={{ 'white-space': 'normal' }}>{post.title}</span>
+            )}
           </span>
         </Typography>
         <Typography variant={'p'} className={classes.author}>
