@@ -100,7 +100,7 @@ const Post = ({ postUrl }) => {
   const sectionEl = useRef(null);
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
-  const [expandHeader, setExpandHeader] = useState(true);
+  const [expandHeader, setExpandHeader] = useState(false);
   const toggleExpandHeader = () => {
     setExpandHeader(!expandHeader);
   };
@@ -154,7 +154,7 @@ const Post = ({ postUrl }) => {
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
           <span
             onClick={toggleExpandHeader}
-            className={expandHeader ? classes.collapseHeader : classes.expandHeader}
+            className={expandHeader ? classes.expandHeader : classes.collapseHeader}
           >
             {post.title}
           </span>
