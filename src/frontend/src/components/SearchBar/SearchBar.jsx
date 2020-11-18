@@ -68,10 +68,13 @@ const useStyles = makeStyles((theme) => ({
     },
     margin: 0,
     marginRight: theme.spacing(-1.45),
-    position: 'relative',
     bottom: theme.spacing(-2),
     float: 'right',
     marginBottom: theme.spacing(-5.5),
+    [theme.breakpoints.only('xs')]: {
+      marginTop: theme.spacing(6),
+      marginRight: theme.spacing(-8),
+    },
   },
 
   selectControl: {
