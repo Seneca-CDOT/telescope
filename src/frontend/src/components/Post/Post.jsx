@@ -5,8 +5,8 @@ import 'highlight.js/styles/github.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
-import Spinner from '../Spinner/Spinner.jsx';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import Spinner from '../Spinner/Spinner.jsx';
 import AdminButtons from '../AdminButtons';
 
 const useStyles = makeStyles((theme) => ({
@@ -105,7 +105,7 @@ const Post = ({ postUrl }) => {
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
     return (
-      <Box className={classes.root} boxShadow={2}>
+      <Box className={classes.root}>
         <ListSubheader className={classes.header}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
@@ -123,7 +123,7 @@ const Post = ({ postUrl }) => {
 
   if (!post) {
     return (
-      <Box className={classes.root} boxShadow={2}>
+      <Box className={classes.root}>
         <ListSubheader className={classes.header}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
