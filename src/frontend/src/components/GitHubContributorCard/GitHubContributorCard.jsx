@@ -8,9 +8,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.light,
   },
   typography: {
-    fontSize: 13,
+    fontSize: '13px',
   },
-  links: {
+  link: {
     color: theme.palette.text.secondary,
     textDecorationLine: 'none',
     '&:hover': {
@@ -25,47 +25,49 @@ const GitHubContributorCard = () => {
   const theme = useTheme();
   const { contributor, error } = useTelescopeContributor();
 
-  if (contributor !== undefined && contributor !== null) {
-    return (
-      <Card className={classes.root}>
-        <CardContent>
-          <Grid container direction="row" alignItems="center">
-            <Grid item xs={2}>
-              <Avatar alt="Profile Picture" src={contributor.avatar_url} />
-            </Grid>
-            <Grid item xs={10} justify="flex-end">
-              <Typography className={classes.typography}>
-                Thank you&nbsp;
-                <a href={contributor.html_url} className={classes.links}>
-                  {contributor.login}
-                </a>
-                , for being a&nbsp;
-                <a
-                  href="https://github.com/Seneca-CDOT/telescope/graphs/contributors"
-                  className={classes.links}
-                >
-                  Telescope project contributor
-                </a>
-                , with your
-                <a
-                  href={
-                    'https://github.com/Seneca-CDOT/telescope/commits?author=' + contributor.login
-                  }
-                  className={classes.links}
-                >
-                  &nbsp;
-                  {contributor.contributions} contribution(s)
-                </a>
-                .
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
-    );
-  } else {
+  if (!contributor) {
     return null;
   }
+
+  return (
+    <Card className={classes.root}>
+      <CardContent>
+        <Grid container direction="row" alignItems="center">
+          <Grid item xs={2}>
+            <Avatar alt="Profile Picture" src={contributor.avatar_url} />
+          </Grid>
+          <Grid item xs={10} justify="flex-end">
+            <Typography className={classes.typography}>
+              Thank you&nbsp;
+              <a href={contributor.html_url} className={classes.link}>
+                {contributor.login}
+              </a>
+              , for being a&nbsp;
+              <a
+                href="https://github.com/Seneca-CDOT/telescope/graphs/contributors"
+                className={classes.link}
+              >
+                Telescope project contributor
+              </a>
+              , with your
+              <a
+                href={
+                  'https://github.com/Seneca-CDOT/telescope/commits?author=' + contributor.login
+                }
+                className={classes.link}
+              >
+                &nbsp;
+                {contributor.contributions > 2
+                  ? contributor.contributions + ' contributions'
+                  : 'contributions'}
+              </a>
+              .
+            </Typography>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
+  );
 };
 
 export default GitHubContributorCard;
