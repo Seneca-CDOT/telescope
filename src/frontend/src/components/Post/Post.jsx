@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1500,
     top: '-1.1em',
     [theme.breakpoints.down(1440)]: {
-      padding: '.7em',
+      padding: '2em',
     },
     [theme.breakpoints.down(1065)]: {
       position: 'static',
