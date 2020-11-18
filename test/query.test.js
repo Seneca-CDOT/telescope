@@ -54,7 +54,7 @@ describe('Testing query route', () => {
     expect(res.status).toBe(400);
   });
 
-  test('Testing page with empty param value', async () => {
+  test('Testing with empty page value', async () => {
     const searchTerm = encodeURIComponent('I Love Telescope');
     const res = await request(app).get(`/query?text=${searchTerm}&filter=post&page=`);
     expect(res.status).toBe(400);
@@ -84,7 +84,7 @@ describe('Testing query route', () => {
     expect(res.status).toBe(200);
   });
 
-  test('Testing page with empty param value', async () => {
+  test('Testing with empty per page value', async () => {
     const searchTerm = encodeURIComponent('I Love Telescope');
     const res = await request(app).get(`/query?text=${searchTerm}&filter=post&page=0&perPage=`);
     expect(res.status).toBe(400);
