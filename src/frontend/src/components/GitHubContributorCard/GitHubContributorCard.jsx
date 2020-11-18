@@ -25,43 +25,47 @@ const GitHubContributorCard = () => {
   const theme = useTheme();
   const { contributor, error } = useTelescopeContributor();
 
-  return { contributor } ? (
-    <Card className={classes.root}>
-      <CardContent>
-        <Grid container direction="row" alignItems="center">
-          <Grid item xs={2}>
-            <Avatar alt="Profile Picture" src={contributor?.avatar_url} />
+  if (contributor !== undefined && contributor !== null) {
+    return (
+      <Card className={classes.root}>
+        <CardContent>
+          <Grid container direction="row" alignItems="center">
+            <Grid item xs={2}>
+              <Avatar alt="Profile Picture" src={contributor.avatar_url} />
+            </Grid>
+            <Grid item xs={10} justify="flex-end">
+              <Typography className={classes.typography}>
+                Thank you&nbsp;
+                <a href={contributor.html_url} className={classes.links}>
+                  {contributor.login}
+                </a>
+                , for being a&nbsp;
+                <a
+                  href="https://github.com/Seneca-CDOT/telescope/graphs/contributors"
+                  className={classes.links}
+                >
+                  Telescope project contributor
+                </a>
+                , with your
+                <a
+                  href={
+                    'https://github.com/Seneca-CDOT/telescope/commits?author=' + contributor.login
+                  }
+                  className={classes.links}
+                >
+                  &nbsp;
+                  {contributor.contributions} contribution(s)
+                </a>
+                .
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={10} justify="flex-end">
-            <Typography className={classes.typography}>
-              Thank you{' '}
-              <a href={contributor?.html_url} className={classes.links}>
-                {contributor?.login}
-              </a>
-              , for being a{' '}
-              <a
-                href="https://github.com/Seneca-CDOT/telescope/graphs/contributors"
-                className={classes.links}
-              >
-                Telescope project contributor
-              </a>
-              , with your
-              <a
-                href={
-                  'https://github.com/Seneca-CDOT/telescope/commits?author=' + contributor?.login
-                }
-                className={classes.links}
-              >
-                {' '}
-                {contributor?.contributions} contribution(s)
-              </a>
-              .
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
-  ) : null;
+        </CardContent>
+      </Card>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default GitHubContributorCard;
