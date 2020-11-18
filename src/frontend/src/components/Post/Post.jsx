@@ -94,7 +94,7 @@ const Post = ({ postUrl }) => {
   }
 
   return (
-    <Box className={classes.root} boxShadow={2}>
+    <Box className={classes.root}>
       <ListSubheader className={classes.header}>
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
