@@ -32,7 +32,7 @@ feeds.get('/', async (req, res) => {
   );
 });
 
-feeds.get('/:id', async (req, res) => {
+feeds.get('/:id', validateFeedsIdParam(), async (req, res) => {
   const { id } = req.params;
 
   try {
