@@ -5,6 +5,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 
 import SlackLogo from '../../images/Slack_Mark_Monochrome_White.svg';
 import LogoIcon from '../LogoIcon';
+import TwitterIcon from '../../images/Twitter_Icon.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -93,6 +94,11 @@ const AboutFooter = () => {
                     Planet CDOT Feed List
                   </a>
                 </Typography>
+                <Typography variant="h6">
+                  <a href="https://www.senecacollege.ca/home.html" className={classes.links}>
+                    Seneca College
+                  </a>
+                </Typography>
               </Grid>
             </Grid>
             <Grid container item xs={12} sm={6} justify={'center'}>
@@ -116,6 +122,11 @@ const AboutFooter = () => {
                     className={classes.links}
                   >
                     <img src={SlackLogo} alt="logo" height="20" width="20" />
+                  </a>
+                </Grid>
+                <Grid item>
+                  <a href="https://twitter.com/seneca_cdot" className={classes.links}>
+                    <img src={TwitterIcon} alt="logo" height="22" width="22" />
                   </a>
                 </Grid>
               </Grid>
@@ -162,6 +173,11 @@ const AboutFooter = () => {
                     Planet CDOT Feed List
                   </a>
                 </Typography>
+                <Typography variant="h6">
+                  <a href="https://www.senecacollege.ca/home.html" className={classes.links}>
+                    Seneca College
+                  </a>
+                </Typography>
               </Grid>
             </Grid>
             <Grid container direction="column" item xs={6}>
@@ -182,6 +198,11 @@ const AboutFooter = () => {
                     className={classes.links}
                   >
                     <img src={SlackLogo} alt="logo" height="20" width="20" />
+                  </a>
+                </Grid>
+                <Grid item>
+                  <a href="https://twitter.com/seneca_cdot" className={classes.links}>
+                    <img src={TwitterIcon} alt="logo" height="22" width="22" />
                   </a>
                 </Grid>
               </Grid>
