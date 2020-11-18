@@ -30,7 +30,6 @@ export default function MyFeeds() {
   const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
   const [feedHash, updateFeedHash] = useState([]);
   const [alert, setAlert] = useState('false');
-
   const { telescopeUrl } = useSiteMetadata();
 
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function MyFeeds() {
     setNewFeedAuthor(user.name);
     ValidatorForm.addValidationRule('isUrl', (value) => !!isWebUri(value));
     return ValidatorForm.removeValidationRule.bind('isUrl');
-  }, []);
+  }, [telescopeUrl, user.name]);
 
   useEffect(() => {
     setAlert(true);
