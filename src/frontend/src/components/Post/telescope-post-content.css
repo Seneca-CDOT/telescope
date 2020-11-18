@@ -47,6 +47,10 @@
   height: 1px;
 }
 
+.telescope-post-content img[src*='1.bp.blogspot.com/'] {
+  display: block;
+}
+
 .telescope-post-content h1 {
   font-size: 2em;
   max-width: 670px;
