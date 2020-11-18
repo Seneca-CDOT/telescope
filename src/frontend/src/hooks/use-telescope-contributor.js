@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const pickRandomContributor = (contributors) => {
-  return contributors[Math.floor(Math.random() * contributors.length) + 1];
+  return contributors[Math.floor(Math.random() * contributors.length)];
 };
 
 const useTelescopeContributor = () => {
