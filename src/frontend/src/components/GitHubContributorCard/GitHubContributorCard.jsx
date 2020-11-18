@@ -3,6 +3,10 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Avatar, Grid } from '@material-ui/core';
 import useTelescopeContributor from '../../hooks/use-telescope-contributor';
 
+function Contributions({ contributions }) {
+  return contributions < 3 ? 'contributions.' : `${contributions} contributions.`;
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.primary.light,
@@ -25,7 +29,7 @@ const GitHubContributorCard = () => {
   const theme = useTheme();
   const { contributor, error } = useTelescopeContributor();
 
-  if (!contributor) {
+  if (error || !contributor) {
     return null;
   }
 
@@ -57,11 +61,8 @@ const GitHubContributorCard = () => {
                 className={classes.link}
               >
                 &nbsp;
-                {contributor.contributions > 2
-                  ? contributor.contributions + ' contributions'
-                  : 'contributions'}
+                <Contributions contributions={contributor.contributions} />
               </a>
-              .
             </Typography>
           </Grid>
         </Grid>
