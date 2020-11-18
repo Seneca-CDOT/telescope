@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
     fontSize: '1.5rem',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     lineHeight: 1,
   },
 }));

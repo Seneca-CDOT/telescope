@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   author: {
     fontSize: '1.5em',
     fontWeight: 'bold',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '1.2em',
     },
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   published: {
     fontSize: '1.2em',
     textDecoration: 'none',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '1em',
     },
@@ -64,11 +64,11 @@ const useStyles = makeStyles((theme) => ({
   content: {
     overflow: 'auto',
     padding: '2em',
-    color: theme.palette.text.default,
+    color: theme.palette.text.primary,
   },
   link: {
     textDecoration: 'none',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     '&:hover': {
       textDecorationLine: 'underline',
     },
