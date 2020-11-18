@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sticky: {
     position: 'sticky',
-    top: '0',
+    top: '80px',
   },
   carousel: {
     paddingTop: '8rem',
