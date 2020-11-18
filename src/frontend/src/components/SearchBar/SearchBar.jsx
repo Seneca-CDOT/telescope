@@ -151,7 +151,7 @@ function CustomizedInputBase(props) {
               </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={10} lg={9}>
+          <Grid item xs={12} sm={9} lg={9}>
             <FormControl fullWidth={true}>
               <TextField
                 className={classes.input}
