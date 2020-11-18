@@ -44,7 +44,7 @@ Thank you for thinking to contribute to the look of the Telescope. This is a gui
 
 # Theming
 
-Here is how we construct our Theme with MUI ([frontend/src/theme.js](https://github.com/Seneca-CDOT/telescope/blob/master/docs/theme-and-colours.md))
+Here is how we construct our Theme with MUI ([frontend/src/theme.js](https://github.com/Seneca-CDOT/telescope/blob/master/src/frontend/src/theme.js))
 
 ```node
 const theme = createMuiTheme({
