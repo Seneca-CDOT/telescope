@@ -4,7 +4,7 @@ const { getFeeds } = require('../../utils/storage');
 const { logger } = require('../../utils/logger');
 const { protect } = require('../authentication');
 const { protectAdmin } = require('../authentication');
-const { validateNewFeed } = require('../validation');
+const { validateNewFeed, validateFeedsIdParam } = require('../validation');
 
 const feeds = express.Router();
 
@@ -32,7 +32,7 @@ feeds.get('/', async (req, res) => {
   );
 });
 
-feeds.get('/:id', async (req, res) => {
+feeds.get('/:id', validateFeedsIdParam(), async (req, res) => {
   const { id } = req.params;
 
   try {

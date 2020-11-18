@@ -71,6 +71,20 @@ describe('test /feeds/:id responses', () => {
     expect(res.body).toEqual(receivedFeed);
     expect(res.body instanceof Array).toBe(false);
   });
+
+  it('Should return 400 that is less than 10 characters', async () => {
+    const id = '123456789';
+    const res = await request(app).get(`/feeds/${id}`);
+
+    expect(res.status).toEqual(400);
+  });
+
+  it('Should return 400 that is more than 10 characters', async () => {
+    const id = '12345678912';
+    const res = await request(app).get(`/feeds/${id}`);
+
+    expect(res.status).toEqual(400);
+  });
 });
 
 describe('test POST /feeds endpoint', () => {
