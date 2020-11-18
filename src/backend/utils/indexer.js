@@ -2,7 +2,7 @@ require('../lib/config');
 
 const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
-const { ELASTIC_MAX_RESULTS_PER_PAGE } = process.env;
+const { ELASTIC_MAX_RESULTS_PER_PAGE = 5 } = process.env;
 const { client } = require('../lib/elastic');
 const { logger } = require('./logger');
 
