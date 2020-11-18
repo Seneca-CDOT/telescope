@@ -61,7 +61,7 @@ const SearchResults = ({ text, filter }) => {
       {data && data.length ? (
         <Timeline pages={data} nextPage={() => setSize(size + 1)} />
       ) : (
-        <h1>No results search</h1>
+        <h1>No search results</h1>
       )}
     </Container>
   );
