@@ -77,6 +77,13 @@ const sortFromFilter = (filter) => {
   }
 };
 
+const calculateFrom = (page, perPage) => {
+  const ES_MAX = 10000; // 10K is the upper limit of what ES will return without issue for searches
+  const wanted = page * perPage;
+  // Don't exceed 10K, and if we will, return an offset under it by one page size
+  return wanted + perPage < ES_MAX ? wanted : ES_MAX - perPage;
+};
+
 /**
  * Searches text in elasticsearch
  * @param textToSearch
@@ -103,7 +110,7 @@ const search = async (
   const {
     body: { hits },
   } = await client.search({
-    from: page * perPage,
+    from: calculateFrom(page, perPage),
     size: perPage,
     _source: ['id'],
     index,
