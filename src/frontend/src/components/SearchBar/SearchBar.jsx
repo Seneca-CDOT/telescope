@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.6rem',
     '& > *': {
       fontSize: '1.6rem !important',
-      color: theme.palette.text.default,
+      color: theme.palette.text.primary,
     },
   },
   header: {
@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.dark,
     },
     '& * > .MuiSvgIcon-root': {
-      fontSize: '3rem',
-      color: theme.palette.text.primary,
+      fontSize: '2rem',
+      color: theme.palette.primary.contrastText,
     },
     margin: 0,
     position: 'relative',

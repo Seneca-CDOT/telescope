@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stats: {
     position: 'absolute',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     fontFamily: 'Roboto',
     fontSize: '2rem',
     display: 'block',
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   addYours: {
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     textDecorationLine: 'underline',
   },
 }));

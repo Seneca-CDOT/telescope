@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     fontWeight: 500,
     fontSize: '2.5rem',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     letterSpacing: -1,
     position: 'relative',
     top: theme.spacing(8),
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   infoBox: {
-    backgroundColor: theme.palette.text.primary,
+    backgroundColor: theme.palette.primary.contrastText,
   },
 
   h2: {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
   body: {
     fontSize: '1.8rem',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
 
     '& > *': {
       fontSize: '1.8rem',

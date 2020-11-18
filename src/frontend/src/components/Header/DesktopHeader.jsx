@@ -23,14 +23,14 @@ const useStyles = makeStyles((theme) => ({
   },
   searchIcon: {
     fontSize: '2.5rem',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
   },
   button: {
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
   },
   links: {
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
