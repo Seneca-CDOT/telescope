@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
 import 'highlight.js/styles/github.css';
@@ -29,12 +29,19 @@ const useStyles = makeStyles((theme) => ({
       position: 'static',
     },
   },
+  expandHeader: {
+    whiteSpace: 'normal',
+    cursor: 'pointer',
+  },
+  collapseHeader: {
+    whiteSpace: 'nowrap',
+    cursor: 'pointer',
+  },
   title: {
     fontSize: '3.5em',
     fontWeight: 'bold',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '2.5em',
     },
@@ -94,6 +101,7 @@ const Post = ({ postUrl }) => {
   const sectionEl = useRef(null);
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
+  const [expandHeader, setExpandHeader] = useState(false);
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
@@ -142,7 +150,12 @@ const Post = ({ postUrl }) => {
       <ListSubheader className={classes.header}>
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-          {post.title}
+          <span
+            onClick={() => setExpandHeader(!expandHeader)}
+            className={expandHeader ? classes.expandHeader : classes.collapseHeader}
+          >
+            {post.title}
+          </span>
         </Typography>
         <Typography variant={'p'} className={classes.author}>
           &nbsp;By&nbsp;
