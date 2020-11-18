@@ -75,13 +75,13 @@ const queryValidationRules = [
     .bail(),
 
   check('perPage')
-    .optional({ checkFalsy: true })
+    .optional()
     .isInt({ min: 1, max: 10 })
     .withMessage('perPage should be empty or a number between 1 to 10')
     .bail(),
 
   check('page')
-    .optional({ checkFalsy: true })
+    .optional()
     .isInt({ min: 0, max: 999 })
     .withMessage('page should be empty or a number between 0 to 999')
     .bail(),

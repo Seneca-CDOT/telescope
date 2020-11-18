@@ -81,7 +81,7 @@ const calculateFrom = (page, perPage) => {
   const ES_MAX = 10000; // 10K is the upper limit of what ES will return without issue for searches
   const wanted = page * perPage;
   // Don't exceed 10K, and if we will, return an offset under it by one page size
-  return wanted + perPage < ES_MAX ? wanted : ES_MAX - perPage;
+  return wanted + perPage <= ES_MAX ? wanted : ES_MAX - perPage;
 };
 
 /**
