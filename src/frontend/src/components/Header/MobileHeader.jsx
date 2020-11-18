@@ -1,7 +1,18 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, List, ListItem, Drawer, Divider } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  List,
+  ListItem,
+  Drawer,
+  Divider,
+  Slide,
+} from '@material-ui/core';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -109,38 +120,41 @@ export default function MobileHeader() {
     </div>
   );
 
+  const trigger = useScrollTrigger();
   return (
     <>
-      <AppBar position="sticky" className={classes.root}>
-        <Toolbar>
-          <Link to="/" title="Home" className={classes.logoIcon}>
-            <LogoIcon height="45" width="45" />
-          </Link>
-          <div className={classes.grow} />
-          <IconButton color="inherit" className={classes.button} aria-label="search">
-            <Link to="/search">
-              <SearchIcon className={classes.searchIcon} />
+      <Slide in={!trigger}>
+        <AppBar position="sticky" className={classes.root}>
+          <Toolbar>
+            <Link to="/" title="Home" className={classes.logoIcon}>
+              <LogoIcon height="45" width="45" />
             </Link>
-          </IconButton>
-          <IconButton
-            onClick={toggleDrawer('right', true)}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            className={classes.button}
-          >
-            <MenuIcon className={classes.menuIcon} />
-          </IconButton>
-          <Drawer
-            classes={{ paper: classes.paper }}
-            anchor="right"
-            open={state.right}
-            onClose={toggleDrawer('right', false)}
-          >
-            {sideList('right')}
-          </Drawer>
-        </Toolbar>
-      </AppBar>
+            <div className={classes.grow} />
+            <IconButton color="inherit" className={classes.button} aria-label="search">
+              <Link to="/search">
+                <SearchIcon className={classes.searchIcon} />
+              </Link>
+            </IconButton>
+            <IconButton
+              onClick={toggleDrawer('right', true)}
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              className={classes.button}
+            >
+              <MenuIcon className={classes.menuIcon} />
+            </IconButton>
+            <Drawer
+              classes={{ paper: classes.paper }}
+              anchor="right"
+              open={state.right}
+              onClose={toggleDrawer('right', false)}
+            >
+              {sideList('right')}
+            </Drawer>
+          </Toolbar>
+        </AppBar>
+      </Slide>
     </>
   );
 }
