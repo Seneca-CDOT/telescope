@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
-
+import GitHubContributorCard from '../GitHubContributorCard/GitHubContributorCard';
 import SlackLogo from '../../images/Slack_Mark_Monochrome_White.svg';
 import LogoIcon from '../LogoIcon';
 
@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     color: theme.palette.text.primary,
+  },
+  card: {
+    marginTop: '2rem',
   },
 }));
 
@@ -188,6 +191,9 @@ const AboutFooter = () => {
             </Grid>
           </Grid>
         )}
+        <Grid item xs={12} sm={12} md={4} className={classes.card}>
+          <GitHubContributorCard />
+        </Grid>
       </Box>
       <Grid item xs={12}>
         <Typography variant="h6" className={classes.footer}>
