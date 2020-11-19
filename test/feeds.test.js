@@ -451,7 +451,7 @@ describe('test PUT + DELETE /feeds/:id/flag endpoint', () => {
   it('should respond with a 404 status trying to flag feed that does not exist when logged in as admin user', async () => {
     loginAdmin('Johannes Kepler', 'user1@example.com');
     const res = await request(app)
-      .put(`/feeds/123456/flag`)
+      .put(`/feeds/1234567890/flag`)
       .send()
       .set('Accept', 'application/json');
     expect(res.status).toEqual(404);
@@ -526,5 +526,23 @@ describe('test PUT + DELETE /feeds/:id/flag endpoint', () => {
     // Check updated # of flagged feeds
     const flaggedFeeds = await Feed.flagged();
     expect(flaggedFeeds.length).toEqual(0);
+  });
+
+  it('should respond with a 400 status because id url param is 9 characters but validation expects 10', async () => {
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .put(`/feeds/123456789/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
+  });
+
+  it('should respond with a 400 status because id url param is 11 characters but validation expects 10', async () => {
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .put(`/feeds/123456789012/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
   });
 });
