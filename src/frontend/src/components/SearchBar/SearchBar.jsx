@@ -32,27 +32,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 2, 4),
     backgroundColor: theme.palette.background.default,
   },
-  input: {
-    fontSize: '1.6rem',
-    '&:hover': {
-      border: '2px solid',
-      borderColor: theme.palette.background.default,
-    },
-    '&:focus': {
-      border: '2px solid',
-      borderColor: theme.palette.primary.main,
-    },
-    '& > *': {
-      fontSize: '1.6rem !important',
-      color: theme.palette.text.primary,
-    },
-    height: '55px',
-    backgroundColor: theme.palette.background.default,
-    paddingLeft: '10px',
-    // The border around some of the inputs was a default of the type so I had to add my own
-    border: '1px solid #B3B6B7',
-    borderRadius: '7px',
-  },
   header: {
     padding: 0,
     marginBottom: theme.spacing(2),

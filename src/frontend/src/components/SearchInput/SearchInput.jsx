@@ -1,6 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import PostSearchInput from './PostSearchInput.jsx';
+import AuthorSearchInput from './AuthorSearchInput.jsx';
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -20,82 +22,33 @@ const useStyles = makeStyles((theme) => ({
     height: '55px',
     backgroundColor: theme.palette.background.default,
     paddingLeft: '10px',
-    // The border around the textField inputs was a default of the type so I had to add my own
     border: '1px solid #B3B6B7',
     borderRadius: '7px',
+    outline: 'none',
   },
 }));
 
-function AuthorSearchInput(props) {
-  const { text, onChange, filter } = props;
-  const classes = useStyles();
-  return (
-    <>
-      <input
-        list="searchData"
-        className={classes.input}
-        placeholder="How to Get Started in Open Source"
-        inputProps={{ 'aria-label': 'search telescope' }}
-        value={text}
-        onChange={onChange}
-        filter={filter}
-      />
-      <datalist id="searchData">
-        <option>Test 1</option>
-        <option>Test 2</option>
-        <option>Test 3</option>
-      </datalist>
-    </>
-  );
-}
-
-function PostSearchInput(props) {
-  const { text, onChange, filter } = props;
-  const classes = useStyles();
-  return (
-    <input
-      className={classes.input}
-      placeholder="How to Get Started in Open Source"
-      inputProps={{ 'aria-label': 'search telescope' }}
-      value={text}
-      onChange={onChange}
-      filter={filter}
-    />
-  );
-}
-
 function SearchInput(props) {
-  const { text, filter, onTextChange } = props;
+  const { text, filter, onChange } = props;
   return filter === 'author' ? (
     <AuthorSearchInput
+      useStyles={useStyles}
       value={text}
-      filter={filter}
-      onChange={(event) => onTextChange(event.target.value)}
+      onChange={(event) => onChange(event.target.value)}
     />
   ) : (
     <PostSearchInput
+      useStyles={useStyles}
       value={text}
-      filter={filter}
-      onChange={(event) => onTextChange(event.target.value)}
+      onChange={(event) => onChange(event.target.value)}
     />
   );
 }
 
 SearchInput.propTypes = {
   text: PropTypes.string,
-  onTextChange: PropTypes.func,
-  filter: PropTypes.string,
-};
-
-AuthorSearchInput.propTypes = {
-  text: PropTypes.string,
   onChange: PropTypes.func,
   filter: PropTypes.string,
 };
 
-PostSearchInput.propTypes = {
-  text: PropTypes.string,
-  onChange: PropTypes.func,
-  filter: PropTypes.string,
-};
 export default SearchInput;
