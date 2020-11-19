@@ -2,7 +2,7 @@ require('../lib/config');
 
 const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
-const { ELASTIC_MAX_RESULTS } = process.env;
+const { ELASTIC_MAX_RESULTS_PER_PAGE = 5 } = process.env;
 const { client } = require('../lib/elastic');
 const { logger } = require('./logger');
 
@@ -77,13 +77,25 @@ const sortFromFilter = (filter) => {
   }
 };
 
+const calculateFrom = (page, perPage) => {
+  const ES_MAX = 10000; // 10K is the upper limit of what ES will return without issue for searches
+  const wanted = page * perPage;
+  // Don't exceed 10K, and if we will, return an offset under it by one page size
+  return wanted + perPage <= ES_MAX ? wanted : ES_MAX - perPage;
+};
+
 /**
  * Searches text in elasticsearch
  * @param textToSearch
  * @param filter
  * @return all the results matching the passed text
  */
-const search = async (textToSearch, filter = 'post') => {
+const search = async (
+  textToSearch,
+  filter = 'post',
+  page = 0,
+  perPage = ELASTIC_MAX_RESULTS_PER_PAGE
+) => {
   const query = {
     query: {
       simple_query_string: {
@@ -98,9 +110,9 @@ const search = async (textToSearch, filter = 'post') => {
   const {
     body: { hits },
   } = await client.search({
-    from: 0,
+    from: calculateFrom(page, perPage),
+    size: perPage,
     _source: ['id'],
-    size: ELASTIC_MAX_RESULTS || 100,
     index,
     type,
     body: query,

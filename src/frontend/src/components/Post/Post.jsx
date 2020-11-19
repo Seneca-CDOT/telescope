@@ -18,11 +18,13 @@ const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.text.secondary,
-    padding: '1.4em',
+    padding: '2em 3em 2em 3em',
     lineHeight: '1.3',
     zIndex: 1500,
+    top: '-1.1em',
     [theme.breakpoints.down(1440)]: {
-      padding: '.7em',
+      paddingTop: '1.6em',
+      paddingBottom: '1.5em',
     },
     [theme.breakpoints.down(1065)]: {
       position: 'static',
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   author: {
     fontSize: '1.5em',
     fontWeight: 'bold',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '1.2em',
     },
@@ -56,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   published: {
     fontSize: '1.2em',
     textDecoration: 'none',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     [theme.breakpoints.between('xs', 'sm')]: {
       fontSize: '1em',
     },
@@ -64,11 +66,11 @@ const useStyles = makeStyles((theme) => ({
   content: {
     overflow: 'auto',
     padding: '2em',
-    color: theme.palette.text.default,
+    color: theme.palette.text.primary,
   },
   link: {
     textDecoration: 'none',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     '&:hover': {
       textDecorationLine: 'underline',
     },

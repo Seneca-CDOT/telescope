@@ -9,7 +9,7 @@ import ScrollAction from '../ScrollAction';
 const useStyles = makeStyles((theme) => ({
   h1: {
     position: 'absolute',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     fontFamily: 'Roboto',
     fontWeight: 'bold',
     fontSize: '12rem',
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(6),
     left: theme.spacing(8),
     fontSize: '1.75rem',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     [theme.breakpoints.between('xs', 'sm')]: {
       left: theme.spacing(4),
       right: theme.spacing(4),

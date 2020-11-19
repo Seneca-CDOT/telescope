@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
+import SearchHelp from '../SearchHelp';
 import PropTypes from 'prop-types';
+
 import SearchIcon from '@material-ui/icons/Search';
 import {
   Grid,
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.6rem',
     '& > *': {
       fontSize: '1.6rem !important',
-      color: theme.palette.text.default,
+      color: theme.palette.text.primary,
     },
     height: '50px',
   },
@@ -63,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '& * > .MuiSvgIcon-root': {
       fontSize: '2rem',
-      color: theme.palette.text.primary,
+      color: theme.palette.primary.contrastText,
     },
     margin: 0,
     position: 'relative',
@@ -71,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
     marginBottom: theme.spacing(-5.5),
   },
-
   selectControl: {
     '& > *': {
       fontSize: '1.2rem',
@@ -106,11 +108,12 @@ function CustomizedInputBase(props) {
           alignItems="center"
           justify="flex-start"
         >
-          <Grid item xs={12}>
+          <Grid item>
             <Typography variant="h1" className={classes.h1}>
               Search
             </Typography>
           </Grid>
+          <SearchHelp />
         </Grid>
         <Fab size="large" className={classes.iconButton}>
           <FormControl>

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     textDecoration: 'none',
     fontSize: '1.5rem',
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     lineHeight: 1,
   },
   lineHorizontal: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '8px',
   },
   item: {
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
