@@ -92,7 +92,7 @@ const postsIdParamValidationRules = [
 ];
 
 const feedsIdParamValidationRules = [
-  param('id', 'Id Length is invalid').isLength({ min: 10, max: 10 }),
+  param('id', 'Feeds Id Length is invalid').isLength({ min: 10, max: 10 }),
 ];
 
 module.exports = {
