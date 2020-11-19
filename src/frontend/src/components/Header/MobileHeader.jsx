@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
   },
   searchIcon: {
     fontSize: '2.5rem',
-    color: theme.palette.background.default,
+    color: theme.palette.text.primary,
   },
   menuIcon: {
     fontSize: '2.5rem',
   },
   links: {
-    color: theme.palette.background.default,
+    color: theme.palette.text.primary,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   item: {
-    color: theme.palette.background.default,
+    color: theme.palette.text.primary,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     textAlign: 'center',
-    color: theme.palette.background.default,
+    color: theme.palette.text.default,
     bottom: 5,
     position: 'fixed',
   },
