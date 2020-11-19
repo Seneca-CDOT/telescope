@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
-
+import GitHubContributorCard from '../GitHubContributorCard/GitHubContributorCard';
 import SlackLogo from '../../images/Slack_Mark_Monochrome_White.svg';
 import LogoIcon from '../LogoIcon';
 
@@ -13,13 +13,13 @@ const useStyles = makeStyles((theme) => ({
     padding: '2rem',
   },
   heading: {
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     [theme.breakpoints.down('md')]: {
       marginTop: '2rem',
     },
   },
   leftDivider: {
-    backgroundColor: theme.palette.text.primary,
+    backgroundColor: theme.palette.primary.contrastText,
     height: '2px',
     marginBottom: '8px',
     marginRight: '1rem',
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
   },
   rightDivider: {
-    backgroundColor: theme.palette.text.primary,
+    backgroundColor: theme.palette.primary.contrastText,
     height: '2px',
     marginBottom: '10px',
     marginLight: '1rem',
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     width: '30%',
   },
   links: {
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
     textDecorationLine: 'none',
     '&:hover': {
       textDecorationLine: 'underline',
@@ -43,7 +43,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'flex-start',
   },
   footer: {
-    color: theme.palette.text.primary,
+    color: theme.palette.primary.contrastText,
+  },
+  card: {
+    marginTop: '2rem',
   },
 }));
 
@@ -188,6 +191,9 @@ const AboutFooter = () => {
             </Grid>
           </Grid>
         )}
+        <Grid item xs={12} sm={12} md={4} className={classes.card}>
+          <GitHubContributorCard />
+        </Grid>
       </Box>
       <Grid item xs={12}>
         <Typography variant="h6" className={classes.footer}>

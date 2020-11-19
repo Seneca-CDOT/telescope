@@ -8,13 +8,26 @@ This project uses [Pino](http://getpino.io/#/) to provide support for logging in
 const { logger } = require('../src/backend/utils/logger');
 
 logger.info('Important information...');
-//...
+logger.trace('Information About Trace');
+logger.debug('Information useful for Debugging');
+logger.fatal('Alerting harmful situations');
+logger.error('Information about Error Events');
+logger.warn('Information about Warning');
 logger.error({ error }, 'There was an error doing some operation...');
 ```
 
+**ALL** All levels including custom levels.
+**DEBUG** Designates fine-grained informational events that are most useful to debug an application.
+**INFO** Designates informational messages that highlight the progress of the application at coarse-grained level.
+**WARN** Designates potentially harmful situations.
+**ERROR** Designates error events that might still allow the application to continue running.
+**FATAL** Designates very severe error events that will presumably lead the application to abort.
+**OFF** The highest possible rank and is intended to turn off logging.
+**TRACE** Designates finer-grained informational events than the DEBUG.
+
 ## Logger Configuration
 
-The properties for the logger instance are configured according to the environment and the log level. The **NODE_ENV** and **LOG_LEVEL** environment variables can be set in the **.env** file. Also, the **LOG_FILE** environment variable can specify a file path where the logs will be written (for production mode only). When LOG_FILE is not specified, the logs are written to the console using the pino-pretty option.
+The logger object has properties that are configured in the **.env** file. There are three environment variables we are interested are the **NODE_ENV**, **LOG_FILE**, and **LOG_LEVEL**. We can specify a file path where the logs will be written by using the **LOG_FILE** variable (for production mode only). When LOG_FILE is not specified, the logs are written to the console using the pino-pretty option.
 
 ### Production Environment:
 

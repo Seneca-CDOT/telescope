@@ -1,7 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 
+import { makeStyles } from '@material-ui/core/styles';
+import SearchHelp from '../SearchHelp';
 import PropTypes from 'prop-types';
+
 import SearchIcon from '@material-ui/icons/Search';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.6rem',
     '& > *': {
       fontSize: '1.6rem !important',
-      color: theme.palette.text.default,
+      color: theme.palette.text.primary,
     },
   },
   header: {
@@ -64,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.dark,
     },
     '& * > .MuiSvgIcon-root': {
-      fontSize: '2.rem',
-      color: theme.palette.text.primary,
+      fontSize: '2rem',
+      color: theme.palette.primary.contrastText,
     },
     margin: 0,
     position: 'relative',
@@ -73,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
     marginBottom: theme.spacing(-12),
   },
-
   selectControl: {
     '& > *': {
       fontSize: '1.2rem',
@@ -90,20 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CustomizedInputBase(props) {
   const classes = useStyles();
-  const { searchText, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
-
-  const onFilterChange = (event) => {
-    onFilterChangeHandler(event.target.value);
-  };
-
-  const onTextChange = (event) => {
-    onChangeHandler(event.target.value);
-  };
-
-  const onSubmit = (event) => {
-    event.preventDefault();
-    onFormSubmit();
-  };
+  const { text, onTextChange, onFilterChange, filter, onSubmit } = props;
 
   const searchOptions = ['post', 'author'];
 
@@ -118,11 +106,12 @@ function CustomizedInputBase(props) {
           alignItems="center"
           justify="flex-start"
         >
-          <Grid item xs={12}>
+          <Grid item>
             <Typography variant="h1" className={classes.h1}>
               Search
             </Typography>
           </Grid>
+          <SearchHelp />
         </Grid>
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
@@ -134,7 +123,7 @@ function CustomizedInputBase(props) {
                 value={filter}
                 variant="outlined"
                 className={classes.selectControl}
-                onChange={(event) => onFilterChange(event)}
+                onChange={(event) => onFilterChange(event.target.value)}
               >
                 {searchOptions.map((option) => (
                   <MenuItem key={option} value={option} className={classes.selectItem}>
@@ -160,8 +149,9 @@ function CustomizedInputBase(props) {
                       </IconButton>
                     </InputAdornment>
                   ),
-                }}
-                onChange={(event) => onTextChange(event)}
+                }}      
+                onChange={(event) => onTextChange(event.target.value)}
+
               />
             </FormControl>
           </Grid>
@@ -172,10 +162,10 @@ function CustomizedInputBase(props) {
 }
 
 CustomizedInputBase.propTypes = {
-  searchText: PropTypes.string,
-  onChangeHandler: PropTypes.func,
-  onFilterChangeHandler: PropTypes.func,
-  onFormSubmit: PropTypes.func,
+  text: PropTypes.string,
+  onTextChange: PropTypes.func,
   filter: PropTypes.string,
+  onFilterChange: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 export default CustomizedInputBase;

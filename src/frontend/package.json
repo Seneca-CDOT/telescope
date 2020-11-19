@@ -19,6 +19,7 @@
     "gatsby-plugin-react-helmet": "3.3.14",
     "gatsby-plugin-sharp": "2.6.43",
     "gatsby-plugin-svgr": "2.0.2",
+    "gatsby-plugin-use-query-params": "1.0.1",
     "gatsby-source-filesystem": "2.3.35",
     "gatsby-transformer-remark": "2.8.46",
     "gatsby-transformer-sharp": "2.5.19",
@@ -34,7 +35,8 @@
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
     "swr": "0.3.6",
-    "typeface-roboto": "1.1.13"
+    "typeface-roboto": "1.1.13",
+    "use-query-params": "1.1.9"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "5.11.5",

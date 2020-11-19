@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '2rem',
     fontSize: '16px',
     maxWidth: '785px',
-    color: theme.palette.text.default,
+    color: theme.palette.text.primary,
   },
   carousel: {
     paddingTop: '8rem',
@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
   },
   stepper: {
-    iconColor: theme.palette.text.primary,
+    iconColor: theme.palette.primary.contrastText,
   },
   footer: {
     display: 'flex',
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
   },
   footerButton: {
     fontSize: '3rem',
-    color: theme.palette.text.default,
+    color: theme.palette.text.primary,
   },
 }));
 
