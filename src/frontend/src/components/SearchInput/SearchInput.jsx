@@ -34,12 +34,20 @@ function SearchInput(props) {
     <AuthorSearchInput
       useStyles={useStyles}
       value={text}
+<<<<<<< HEAD
+=======
+      filter={filter}
+>>>>>>> Switched onTextChange to onChange
       onChange={(event) => onChange(event.target.value)}
     />
   ) : (
     <PostSearchInput
       useStyles={useStyles}
       value={text}
+<<<<<<< HEAD
+=======
+      filter={filter}
+>>>>>>> Switched onTextChange to onChange
       onChange={(event) => onChange(event.target.value)}
     />
   );
@@ -47,6 +55,15 @@ function SearchInput(props) {
 
 SearchInput.propTypes = {
   text: PropTypes.string,
+<<<<<<< HEAD
+=======
+  onChange: PropTypes.func,
+  filter: PropTypes.string,
+};
+
+AuthorSearchInput.propTypes = {
+  text: PropTypes.string,
+>>>>>>> Switched onTextChange to onChange
   onChange: PropTypes.func,
   filter: PropTypes.string,
 };

@@ -137,7 +137,7 @@ function CustomizedInputBase(props) {
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth={true}>
-              <SearchInput filter={filter} text={text} onTextChange={onTextChange} />
+              <SearchInput filter={filter} text={text} onChange={onTextChange} />
             </FormControl>
           </Grid>
         </Grid>
