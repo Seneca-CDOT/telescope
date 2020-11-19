@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import SearchIcon from '@material-ui/icons/Search';
 
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 import {
   Grid,
   MenuItem,
@@ -67,14 +69,10 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.text.primary,
     },
     margin: 0,
-    marginRight: theme.spacing(-1.45),
-    bottom: theme.spacing(-2),
+    position: 'relative',
+    bottom: theme.spacing(6),
     float: 'right',
-    marginBottom: theme.spacing(-5.5),
-    [theme.breakpoints.only('xs')]: {
-      marginTop: theme.spacing(6),
-      marginRight: theme.spacing(-8),
-    },
+    marginBottom: theme.spacing(-12),
   },
 
   selectControl: {
@@ -93,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CustomizedInputBase(props) {
   const classes = useStyles();
-  const { searchText, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
+  const { text, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
 
   const onFilterChange = (event) => {
     onFilterChangeHandler(event.target.value);
@@ -127,13 +125,6 @@ function CustomizedInputBase(props) {
             </Typography>
           </Grid>
         </Grid>
-        <Fab size="large" className={classes.iconButton}>
-          <FormControl>
-            <IconButton type="submit" onClick={(event) => onSubmit(event)} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </FormControl>
-        </Fab>
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth={true}>
@@ -154,14 +145,23 @@ function CustomizedInputBase(props) {
               </TextField>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={9} lg={9}>
+          <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth={true}>
               <TextField
                 className={classes.input}
                 placeholder="How to Get Started in Open Source"
                 inputProps={{ 'aria-label': 'search telescope' }}
                 variant="outlined"
-                value={searchText}
+                value={text}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton type="submit" className={classes.iconButton} onClick={onSubmit}>
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 onChange={(event) => onTextChange(event)}
               />
             </FormControl>
