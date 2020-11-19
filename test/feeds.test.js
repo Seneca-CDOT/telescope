@@ -494,13 +494,22 @@ describe('test PUT + DELETE /feeds/:id/flag endpoint', () => {
     expect(res.status).toEqual(403);
   });
 
-  it('should respond with a 404 status trying to unflag feed that does not exist when logged in as admin user', async () => {
+  it('should respond with a 400 status trying to unflag feed that has 9 digits when logged in as admin user', async () => {
     loginAdmin('Johannes Kepler', 'user1@example.com');
     const res = await request(app)
-      .delete(`/feeds/123456/flag`)
+      .delete(`/feeds/123456789/flag`)
       .send()
       .set('Accept', 'application/json');
-    expect(res.status).toEqual(404);
+    expect(res.status).toEqual(400);
+  });
+
+  it('should respond with a 400 status trying to unflag feed that has 12 digits when logged in as admin user', async () => {
+    loginAdmin('Johannes Kepler', 'user1@example.com');
+    const res = await request(app)
+      .delete(`/feeds/123456789012/flag`)
+      .send()
+      .set('Accept', 'application/json');
+    expect(res.status).toEqual(400);
   });
 
   it('should respond with a 204 status trying to unflag feed when logged in as admin user', async () => {

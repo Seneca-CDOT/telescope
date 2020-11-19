@@ -130,7 +130,7 @@ feeds.delete('/:id', validateFeedsIdParam(), protect(), async (req, res) => {
   }
 });
 
-feeds.delete('/:id/flag', protectAdmin(), async (req, res) => {
+feeds.delete('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res) => {
   const { id } = req.params;
   try {
     const feed = await Feed.byId(id);
