@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
   },
   searchResults: {
     padding: 0,
-    width: '785px',
+    width: '100%',
     justifyContent: 'center',
   },
 }));
