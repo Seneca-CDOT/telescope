@@ -150,7 +150,7 @@ function CustomizedInputBase(props) {
                     </InputAdornment>
                   ),
                 }}      
-                onChange={(event) => onTextChange(event.target.value)}
+                onChange={(event) => onTextChange(event)}
 
               />
             </FormControl>
