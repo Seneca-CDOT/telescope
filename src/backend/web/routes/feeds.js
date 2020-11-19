@@ -109,7 +109,7 @@ feeds.delete('/cache', protectAdmin(true), async (req, res) => {
   }
 });
 
-feeds.delete('/:id', protect(), async (req, res) => {
+feeds.delete('/:id', validateFeedsIdParam(), protect(), async (req, res) => {
   const { user } = req;
   const { id } = req.params;
   try {

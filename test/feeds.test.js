@@ -381,6 +381,20 @@ describe('test DELETE /feeds/:id endpoint', () => {
     res = await request(app).get(`/feeds/${feedId}`);
     expect(res.status).toEqual(404);
   });
+
+  it('should return 400 when id is less than 10 characters', async () => {
+    const id = '123456789';
+    const res = await request(app).delete(`/feeds/${id}`);
+
+    expect(res.status).toEqual(400);
+  });
+
+  it('should return 400 when id is more than 10 characters', async () => {
+    const id = '123456789123456789';
+    const res = await request(app).delete(`/feeds/${id}`);
+
+    expect(res.status).toEqual(400);
+  });
 });
 
 describe('test PUT + DELETE /feeds/:id/flag endpoint', () => {
