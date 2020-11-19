@@ -1,16 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
-import theme from '../../src/theme';
+import PropTypes from 'prop-types';
+
+import CustomThemeProvider from '../../src/theme/CustomThemeProvider';
 
 export default function TopLayout(props) {
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <CustomThemeProvider>
         <CssBaseline />
         {props.children}
-      </ThemeProvider>
+      </CustomThemeProvider>
     </>
   );
 }
