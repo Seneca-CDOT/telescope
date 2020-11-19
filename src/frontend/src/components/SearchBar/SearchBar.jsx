@@ -15,7 +15,6 @@ import {
   IconButton,
   Box,
   Typography,
-  Fab,
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -65,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.dark,
     },
     '& * > .MuiSvgIcon-root': {
-      fontSize: '2.5rem',
+      fontSize: '2.rem',
       color: theme.palette.text.primary,
     },
     margin: 0,
@@ -91,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
 
 function CustomizedInputBase(props) {
   const classes = useStyles();
-  const { text, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
+  const { searchText, onChangeHandler, onFilterChangeHandler, filter, onFormSubmit } = props;
 
   const onFilterChange = (event) => {
     onFilterChangeHandler(event.target.value);
@@ -152,7 +151,7 @@ function CustomizedInputBase(props) {
                 placeholder="How to Get Started in Open Source"
                 inputProps={{ 'aria-label': 'search telescope' }}
                 variant="outlined"
-                value={text}
+                value={searchText}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment>
