@@ -73,6 +73,18 @@ const queryValidationRules = [
     .isIn(['post', 'author'])
     .withMessage('invalid filter value')
     .bail(),
+
+  check('perPage')
+    .optional()
+    .isInt({ min: 1, max: 10 })
+    .withMessage('perPage should be empty or a number between 1 to 10')
+    .bail(),
+
+  check('page')
+    .optional()
+    .isInt({ min: 0, max: 999 })
+    .withMessage('page should be empty or a number between 0 to 999')
+    .bail(),
 ];
 
 const postsIdParamValidationRules = [

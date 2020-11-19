@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import useSWR from 'swr';
+import { useSWRInfinite } from 'swr';
 import { Container } from '@material-ui/core';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
@@ -23,15 +23,19 @@ const useStyles = makeStyles(() => ({
 const SearchResults = ({ text, filter }) => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
-  const url = `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}`;
+  const prepareUrl = (index) =>
+    `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
   const shouldFetch = () => text.length > 0;
-  const { data, loading, error } = useSWR(shouldFetch() ? url : null, async (u) => {
-    const res = await fetch(u);
-    const results = await res.json();
-    return results.values;
-  });
+  const { data, size, setSize, loading, error } = useSWRInfinite(
+    (index) => (shouldFetch() ? prepareUrl(index) : null),
+    async (u) => {
+      const res = await fetch(u);
+      const results = await res.json();
+      return results.values;
+    }
+  );
 
   if (error) {
     // TODO: https://github.com/Seneca-CDOT/telescope/issues/1279
@@ -54,7 +58,11 @@ const SearchResults = ({ text, filter }) => {
 
   return (
     <Container className={classes.searchResults}>
-      {data && data.length ? <Timeline pages={[data]} /> : <h1>No results search</h1>}
+      {data && data.length ? (
+        <Timeline pages={data} nextPage={() => setSize(size + 1)} />
+      ) : (
+        <h1>No search results</h1>
+      )}
     </Container>
   );
 };
