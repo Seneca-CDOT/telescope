@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 import { makeStyles } from '@material-ui/core/styles';
 import PostSearchInput from './PostSearchInput.jsx';
 import AuthorSearchInput from './AuthorSearchInput.jsx';
@@ -50,6 +51,17 @@ function SearchInput(props) {
 >>>>>>> Switched onTextChange to onChange
       onChange={(event) => onChange(event.target.value)}
     />
+=======
+import PostSearchInput from './PostSearchInput.jsx';
+import AuthorSearchInput from './AuthorSearchInput.jsx';
+
+function SearchInput(props) {
+  const { text, filter, onChange } = props;
+  return filter === 'author' ? (
+    <AuthorSearchInput value={text} onChange={(event) => onChange(event.target.value)} />
+  ) : (
+    <PostSearchInput value={text} onChange={(event) => onChange(event.target.value)} />
+>>>>>>> Moved both AuthorSearchInput and PostSearchInput to there own files
   );
 }
 
@@ -61,6 +73,7 @@ SearchInput.propTypes = {
   filter: PropTypes.string,
 };
 
+<<<<<<< HEAD
 AuthorSearchInput.propTypes = {
   text: PropTypes.string,
 >>>>>>> Switched onTextChange to onChange
@@ -68,4 +81,6 @@ AuthorSearchInput.propTypes = {
   filter: PropTypes.string,
 };
 
+=======
+>>>>>>> Moved both AuthorSearchInput and PostSearchInput to there own files
 export default SearchInput;
