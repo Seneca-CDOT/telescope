@@ -37,7 +37,7 @@ const tutorialSteps = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // flexGrow: 1,
+    flexGrow: 1,
   },
   markdownBody: {
     padding: '2rem',
