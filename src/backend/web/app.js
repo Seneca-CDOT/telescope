@@ -76,13 +76,14 @@ app.use('/', router);
  * Error Handler, Pass to front-end
  */
 /* eslint-disable no-unused-vars */
-// eslint-disable-next-line promise/prefer-await-to-callbacks
-app.use((err, req, res, next) => {
-  logger.logger.error({ error: err });
-  const status = err.status || 500;
+app.use((_err, req, res, next) => {
+  logger.logger.error({ error: _err });
+  const status = _err.status || 500;
   res
     .status(status)
-    .redirect(`/error?status=${status}${err.message ? `&message=${encodeURI(err.message)}` : ``}`);
+    .redirect(
+      `/error?status=${status}${_err.message ? `&message=${encodeURI(_err.message)}` : ``}`
+    );
 });
 
 /**
