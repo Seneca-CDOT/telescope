@@ -20,33 +20,25 @@ const useStyles = makeStyles((theme) => ({
     height: '55px',
     backgroundColor: theme.palette.background.default,
     paddingLeft: '10px',
-    // The border around some of the inputs was a default of the type so I had to add my own
+    // The border around the textField inputs was a default of the type so I had to add my own
     border: '1px solid #B3B6B7',
     borderRadius: '7px',
   },
 }));
 
 function AuthorSearchInput(props) {
+  const { text, onChange, filter } = props;
   const classes = useStyles();
-  const { searchText, onChangeHandler } = props;
-
-  const onTextChange = (event) => {
-    onChangeHandler(event.target.value);
-  };
-
   return (
     <>
       <input
-        // ...rest of props here
-        type="text"
-        id="authorSearch"
+        list="searchData"
         className={classes.input}
         placeholder="How to Get Started in Open Source"
-        variant="outlined"
-        list="searchData"
-        value={searchText}
-        onChange={(event) => onTextChange(event)}
         inputProps={{ 'aria-label': 'search telescope' }}
+        value={text}
+        onChange={onChange}
+        filter={filter}
       />
       <datalist id="searchData">
         <option>Test 1</option>
@@ -58,38 +50,52 @@ function AuthorSearchInput(props) {
 }
 
 function PostSearchInput(props) {
+  const { text, onChange, filter } = props;
   const classes = useStyles();
-  const { searchText, onChangeHandler } = props;
-
-  const onTextChange = (event) => {
-    onChangeHandler(event.target.value);
-  };
-
   return (
     <input
-      type="text"
-      id="postSearch"
       className={classes.input}
       placeholder="How to Get Started in Open Source"
-      variant="outlined"
-      value={searchText}
-      onChange={(event) => onTextChange(event)}
       inputProps={{ 'aria-label': 'search telescope' }}
+      value={text}
+      onChange={onChange}
+      filter={filter}
     />
   );
 }
 
-function SearchInput({ filter }) {
-  return filter === 'author' ? <AuthorSearchInput /> : <PostSearchInput />;
+function SearchInput(props) {
+  const { text, filter, onTextChange } = props;
+  return filter === 'author' ? (
+    <AuthorSearchInput
+      value={text}
+      filter={filter}
+      onChange={(event) => onTextChange(event.target.value)}
+    />
+  ) : (
+    <PostSearchInput
+      value={text}
+      filter={filter}
+      onChange={(event) => onTextChange(event.target.value)}
+    />
+  );
 }
 
-PostSearchInput.propTypes = {
-  searchText: PropTypes.string,
-  onChangeHandler: PropTypes.func,
+SearchInput.propTypes = {
+  text: PropTypes.string,
+  onTextChange: PropTypes.func,
+  filter: PropTypes.string,
 };
 
 AuthorSearchInput.propTypes = {
-  searchText: PropTypes.string,
-  onChangeHandler: PropTypes.func,
+  text: PropTypes.string,
+  onChange: PropTypes.func,
+  filter: PropTypes.string,
+};
+
+PostSearchInput.propTypes = {
+  text: PropTypes.string,
+  onChange: PropTypes.func,
+  filter: PropTypes.string,
 };
 export default SearchInput;

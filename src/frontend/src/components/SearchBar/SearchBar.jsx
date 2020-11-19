@@ -16,6 +16,7 @@ import {
   Typography,
   Fab,
 } from '@material-ui/core';
+import SearchInput from '../SearchInput';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,11 +34,24 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     fontSize: '1.6rem',
+    '&:hover': {
+      border: '2px solid',
+      borderColor: theme.palette.background.default,
+    },
+    '&:focus': {
+      border: '2px solid',
+      borderColor: theme.palette.primary.main,
+    },
     '& > *': {
       fontSize: '1.6rem !important',
       color: theme.palette.text.primary,
     },
-    height: '50px',
+    height: '55px',
+    backgroundColor: theme.palette.background.default,
+    paddingLeft: '10px',
+    // The border around some of the inputs was a default of the type so I had to add my own
+    border: '1px solid #B3B6B7',
+    borderRadius: '7px',
   },
   header: {
     padding: 0,
@@ -144,16 +158,7 @@ function CustomizedInputBase(props) {
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth={true}>
-              <input
-                type="text"
-                name="searchbar"
-                className={classes.input}
-                placeholder="How to Get Started in Open Source"
-                inputProps={{ 'aria-label': 'search telescope' }}
-                variant="outlined"
-                value={text}
-                onChange={(event) => onTextChange(event.target.value)}
-              />
+              <SearchInput filter={filter} text={text} onTextChange={onTextChange} />
             </FormControl>
           </Grid>
         </Grid>
