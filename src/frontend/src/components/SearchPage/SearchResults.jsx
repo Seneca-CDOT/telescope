@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSWRInfinite } from 'swr';
-import { Container } from '@material-ui/core';
+import { Container, Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import Timeline from '../Posts/Timeline.jsx';
@@ -38,10 +38,18 @@ const SearchResults = ({ text, filter }) => {
   );
 
   if (error) {
-    // TODO: https://github.com/Seneca-CDOT/telescope/issues/1279
     return (
       <Container className={classes.searchResults}>
-        <p>Error loading search results</p>;
+        <Box className={classes.root} boxShadow={2} marginTop={10}>
+          <ListSubheader>
+            <Typography variant="h1" color="secondary" className={classes.title}>
+              <Grid container className={classes.error}>
+                {' '}
+                There was an error while processing your query
+              </Grid>
+            </Typography>
+          </ListSubheader>
+        </Box>
       </Container>
     );
   }
