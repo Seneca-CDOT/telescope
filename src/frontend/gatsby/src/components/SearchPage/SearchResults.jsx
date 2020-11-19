@@ -7,6 +7,7 @@ import { Container, Box, Grid, Typography, ListSubheader } from '@material-ui/co
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import Timeline from '../Posts/Timeline.jsx';
 import Spinner from '../Spinner';
+import NotFound from '../../images/NotFound.jpg';
 
 const useStyles = makeStyles(() => ({
   spinner: {
@@ -16,6 +17,10 @@ const useStyles = makeStyles(() => ({
   searchResults: {
     padding: 0,
     width: '100%',
+    justifyContent: 'center',
+  },
+  noResults: {
+    display: 'flex',
     justifyContent: 'center',
   },
 }));
@@ -69,7 +74,9 @@ const SearchResults = ({ text, filter }) => {
       {data && data.length ? (
         <Timeline pages={data} nextPage={() => setSize(size + 1)} />
       ) : (
-        <h1>No search results</h1>
+        <h1 className={classes.noResults}>
+          <img src={NotFound} alt="Not Found" />
+        </h1>
       )}
     </Container>
   );
