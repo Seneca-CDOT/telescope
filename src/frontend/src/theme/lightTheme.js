@@ -1,12 +1,11 @@
+import { createMuiTheme } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
-import { createMuiTheme } from '@material-ui/core/styles';
 
-// TODO: this needs to be fixed for our needs...
-const theme = createMuiTheme({
+const lightTheme = createMuiTheme({
   palette: {
+    type: 'light',
     primary: {
       main: '#333E64',
-      contrastText: '#E5E5E5',
     },
     secondary: {
       main: '#0589D6',
@@ -18,10 +17,13 @@ const theme = createMuiTheme({
       default: '#E5E5E5',
     },
     text: {
-      primary: '#181818',
-      secondary: '#8BC2EB',
+      primary: '#E5E5E5',
+      secondary: '#35b4ff',
+      link: '#034e7a',
+      visited: 'purple',
+      default: '#181818',
     },
   },
 });
 
-export default theme;
+export default lightTheme;

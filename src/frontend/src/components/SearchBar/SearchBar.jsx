@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.6rem',
     '& > *': {
       fontSize: '1.6rem !important',
-      color: theme.palette.text.primary,
+      color: theme.palette.text.default,
     },
   },
   header: {
@@ -65,8 +65,8 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: theme.palette.secondary.dark,
     },
     '& * > .MuiSvgIcon-root': {
-      fontSize: '2rem',
-      color: theme.palette.primary.contrastText,
+      fontSize: '3rem',
+      color: theme.palette.text.primary,
     },
     margin: 0,
     position: 'relative',
@@ -78,13 +78,13 @@ const useStyles = makeStyles((theme) => ({
     '& > *': {
       fontSize: '1.2rem',
       textTransform: 'capitalize',
-      color: theme.palette.primary.main,
+      color: theme.palette.text.default,
     },
   },
   selectItem: {
     fontSize: '1.4rem',
     textTransform: 'capitalize',
-    color: theme.palette.primary.main,
+    color: theme.palette.text.default,
   },
 }));
 

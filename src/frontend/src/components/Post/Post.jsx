@@ -1,13 +1,12 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import useSWR from 'swr';
+import 'highlight.js/styles/github.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import Spinner from '../Spinner/Spinner.jsx';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import AdminButtons from '../AdminButtons';
-
-import 'highlight.js/styles/github.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -155,7 +154,7 @@ const useStyles = makeStyles((theme) => ({
       wordWrap: 'break-word',
     },
     '& a': {
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.link,
     },
     '& a:active, & a:visited': {
       color: theme.palette.text.visited,

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, List, ListItem, Drawer, Divider } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import Brightness6Icon from '@material-ui/icons/Brightness6';
 
 import LogoIcon from '../LogoIcon';
 import Login from '../Login';
 import Footer from '../Footer';
+import { ThemeContext } from '../../theme/CustomThemeProvider';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-  searchIcon: {
+  commonIcons: {
     fontSize: '2.5rem',
     color: theme.palette.text.primary,
   },
@@ -109,6 +111,8 @@ export default function MobileHeader() {
     </div>
   );
 
+  const setDarkTheme = useContext(ThemeContext);
+
   return (
     <>
       <AppBar position="sticky" className={classes.root}>
@@ -119,8 +123,11 @@ export default function MobileHeader() {
           <div className={classes.grow} />
           <IconButton color="inherit" className={classes.button} aria-label="search">
             <Link to="/search">
-              <SearchIcon className={classes.searchIcon} />
+              <SearchIcon className={classes.commonIcons} aria-label="theme toggle" />
             </Link>
+          </IconButton>
+          <IconButton onClick={() => setDarkTheme()}>
+            <Brightness6Icon className={classes.commonIcons} />
           </IconButton>
           <IconButton
             onClick={toggleDrawer('right', true)}
