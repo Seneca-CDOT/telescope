@@ -68,6 +68,10 @@ const useStyles = makeStyles((theme) => ({
       bottom: theme.spacing(18),
     },
   },
+  anchor: {
+    position: 'relative',
+    top: '1rem',
+  },
 }));
 
 export default function Banner() {
@@ -129,7 +133,7 @@ export default function Banner() {
           </div>
         </Grid>
       </Grid>
-      <div id="back-to-top-anchor"></div>
+      <div className={classes.anchor} id="back-to-top-anchor"></div>
     </>
   );
 }
