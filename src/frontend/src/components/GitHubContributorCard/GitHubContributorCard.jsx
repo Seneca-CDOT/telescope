@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Avatar, Grid } from '@material-ui/core';
 import useTelescopeContributor from '../../hooks/use-telescope-contributor';
 
@@ -12,21 +12,18 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.light,
   },
   typography: {
+    color: theme.palette.primary.contrastText,
     fontSize: '13px',
   },
   link: {
-    color: theme.palette.text.secondary,
-    textDecorationLine: 'none',
-    '&:hover': {
-      textDecorationLine: 'underline',
-    },
+    color: theme.palette.primary.contrastText,
+    textDecorationLine: 'underline',
     alignItems: 'flex-start',
   },
 }));
 
 const GitHubContributorCard = () => {
   const classes = useStyles();
-  const theme = useTheme();
   const { contributor, error } = useTelescopeContributor();
 
   if (error || !contributor) {
@@ -55,9 +52,7 @@ const GitHubContributorCard = () => {
               </a>
               , with your
               <a
-                href={
-                  'https://github.com/Seneca-CDOT/telescope/commits?author=' + contributor.login
-                }
+                href={`https://github.com/Seneca-CDOT/telescope/commits?author=${contributor.login}`}
                 className={classes.link}
               >
                 &nbsp;
