@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import {
   Grid,
   MenuItem,
@@ -11,10 +12,7 @@ import {
   IconButton,
   Box,
   Typography,
-  Fab,
 } from '@material-ui/core';
-
-import SearchInput from '../SearchInput';
 import SearchHelp from '../SearchHelp';
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     bottom: theme.spacing(6),
     float: 'right',
-    marginBottom: theme.spacing(-5.5),
+    marginBottom: theme.spacing(-12),
   },
   selectControl: {
     '& > *': {
@@ -104,13 +102,6 @@ function CustomizedInputBase(props) {
           </Grid>
           <SearchHelp />
         </Grid>
-        <Fab size="large" className={classes.iconButton}>
-          <FormControl>
-            <IconButton type="submit" onClick={onSubmit} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </FormControl>
-        </Fab>
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth={true}>
@@ -133,7 +124,23 @@ function CustomizedInputBase(props) {
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth={true}>
-              <SearchInput filter={filter} text={text} onChange={onTextChange} />
+              <TextField
+                className={classes.input}
+                placeholder="How to Get Started in Open Source"
+                inputProps={{ 'aria-label': 'search telescope' }}
+                variant="outlined"
+                value={text}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton type="submit" className={classes.iconButton} onClick={onSubmit}>
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                onChange={(event) => onTextChange(event.target.value)}
+              />
             </FormControl>
           </Grid>
         </Grid>
