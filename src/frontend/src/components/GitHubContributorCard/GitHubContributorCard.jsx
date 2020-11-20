@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Avatar, Grid } from '@material-ui/core';
-import { fetch } from 'whatwg-fetch';
+import fetch from 'node-fetch';
 
 const telescopeGitHubContributorsUrl =
   'https://api.github.com/repos/Seneca-CDOT/telescope/contributors';
