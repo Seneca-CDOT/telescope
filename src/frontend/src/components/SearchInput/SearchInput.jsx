@@ -33,13 +33,13 @@ function SearchInput({ text, filter, onChange }) {
   return filter === 'author' ? (
     <AuthorSearchInput
       classes={classes}
-      value={text}
+      text={text}
       onChange={(event) => onChange(event.target.value)}
     />
   ) : (
     <PostSearchInput
       classes={classes}
-      value={text}
+      text={text}
       onChange={(event) => onChange(event.target.value)}
     />
   );
