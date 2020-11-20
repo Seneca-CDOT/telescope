@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Avatar, Grid } from '@material-ui/core';
-import useTelescopeContributor from '../../hooks/use-telescope-contributor';
+import { fetch } from 'whatwg-fetch';
 
-function Contributions({ contributions }) {
-  return contributions < 3 ? 'contributions.' : `${contributions} contributions.`;
-}
+const telescopeGitHubContributorsUrl =
+  'https://api.github.com/repos/Seneca-CDOT/telescope/contributors';
+
+const pickRandomContributor = (contributors) =>
+  contributors[Math.floor(Math.random() * contributors.length)];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,49 +27,54 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GitHubContributorCard = () => {
+  const [contributor, setContributor] = useState(null);
   const classes = useStyles();
   const theme = useTheme();
-  const { contributor, error } = useTelescopeContributor();
 
-  if (error || !contributor) {
-    return null;
-  }
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(telescopeGitHubContributorsUrl);
 
-  return (
-    <Card className={classes.root}>
-      <CardContent>
-        <Grid container direction="row" alignItems="center">
-          <Grid item xs={2}>
-            <Avatar alt="Profile Picture" src={contributor.avatar_url} />
+      if (!response.ok) throw new Error('GitHub API response not OK');
+
+      return pickRandomContributor(await response.json());
+    })()
+      .then((result) => setContributor(result))
+      .catch((error) => console.error(error));
+  }, []);
+
+  return contributor ? (
+    <Fragment>
+      <Card className={classes.root}>
+        <CardContent>
+          <Grid container direction="row" alignItems="center">
+            <Grid item xs={2}>
+              <Avatar alt="Profile Picture" src={contributor.avatar_url} />
+            </Grid>
+            <Grid item xs={10} justify="flex-end">
+              <Typography>
+                Thank you&nbsp;
+                <a href={contributor.html_url}>{contributor.login}</a>, for being a&nbsp;
+                <a href="https://github.com/Seneca-CDOT/telescope/graphs/contributors">
+                  Telescope project contributor
+                </a>
+                , with your
+                <a
+                  href={
+                    'https://github.com/Seneca-CDOT/telescope/commits?author=' + contributor.login
+                  }
+                >
+                  &nbsp;
+                  <b>{contributor.contributions} Contributions</b>
+                </a>
+              </Typography>
+            </Grid>
           </Grid>
-          <Grid item xs={10} justify="flex-end">
-            <Typography className={classes.typography}>
-              Thank you&nbsp;
-              <a href={contributor.html_url} className={classes.link}>
-                {contributor.login}
-              </a>
-              , for being a&nbsp;
-              <a
-                href="https://github.com/Seneca-CDOT/telescope/graphs/contributors"
-                className={classes.link}
-              >
-                Telescope project contributor
-              </a>
-              , with your
-              <a
-                href={
-                  'https://github.com/Seneca-CDOT/telescope/commits?author=' + contributor.login
-                }
-                className={classes.link}
-              >
-                &nbsp;
-                <Contributions contributions={contributor.contributions} />
-              </a>
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </Fragment>
+  ) : (
+    <Fragment>loading...</Fragment>
   );
 };
 
