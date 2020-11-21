@@ -1,11 +1,7 @@
 import React from 'react';
-
-import { makeStyles } from '@material-ui/core/styles';
-import SearchHelp from '../SearchHelp';
 import PropTypes from 'prop-types';
-
+import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-
 import {
   Grid,
   MenuItem,
@@ -17,6 +13,9 @@ import {
   Typography,
   Fab,
 } from '@material-ui/core';
+
+import SearchInput from '../SearchInput';
+import SearchHelp from '../SearchHelp';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,13 +30,6 @@ const useStyles = makeStyles((theme) => ({
   card: {
     padding: theme.spacing(2, 4, 2, 4),
     backgroundColor: theme.palette.background.default,
-  },
-  input: {
-    fontSize: '1.6rem',
-    '& > *': {
-      fontSize: '1.6rem !important',
-      color: theme.palette.text.default,
-    },
   },
   header: {
     padding: 0,
@@ -141,14 +133,7 @@ function CustomizedInputBase(props) {
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth={true}>
-              <TextField
-                className={classes.input}
-                placeholder="How to Get Started in Open Source"
-                inputProps={{ 'aria-label': 'search telescope' }}
-                variant="outlined"
-                value={text}
-                onChange={(event) => onTextChange(event.target.value)}
-              />
+              <SearchInput filter={filter} text={text} onChange={onTextChange} />
             </FormControl>
           </Grid>
         </Grid>

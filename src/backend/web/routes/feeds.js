@@ -53,7 +53,7 @@ feeds.get('/:id', validateFeedsIdParam(), async (req, res) => {
   }
 });
 
-feeds.put('/:id/flag', protectAdmin(), async (req, res) => {
+feeds.put('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res) => {
   const { id } = req.params;
   try {
     const feed = await Feed.byId(id);

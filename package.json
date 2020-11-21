@@ -1,7 +1,7 @@
 {
   "name": "@seneca/telescope",
   "private": true,
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "jest": {
     "testEnvironment": "node",
@@ -39,9 +39,9 @@
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
     "test-frontend": "cd src/frontend/test && jest",
-    "test": "npm run jest && npm run test-frontend",
-    "jest": "cross-env LOG_LEVEL=error MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --",
-    "coverage": "cross-env LOG_LEVEL=silent MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --collectCoverage --",
+    "test": "npm run jest",
+    "jest": "cross-env NODE_ENV=test LOG_LEVEL=error MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --",
+    "coverage": "cross-env NODE_ENV=test LOG_LEVEL=silent MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --collectCoverage --",
     "jest-watch": "cross-env MOCK_REDIS=1 jest --watch --",
     "start": "node src/backend",
     "server": "node src/backend/web/server",
