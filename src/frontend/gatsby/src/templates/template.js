@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '8rem',
     padding: '4rem',
     position: 'fixed',
-    top: 'center',
+    top: '3%',
+    marginLeft: '3%',
   },
   img: {
     display: 'block',
@@ -61,10 +62,14 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     iconColor: theme.palette.primary.contrastText,
   },
+  picture: {
+    width: '100%',
+  },
   footer: {
     display: 'flex',
     alignItems: 'center',
-    height: 50,
+    height: 40,
+    width: '100%',
     backgroundColor: theme.palette.secondary.main,
     boxShadow:
       'rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px',
@@ -101,8 +106,9 @@ export default function Template({
     <PageBase title={frontmatter.title}>
       <Grid container className={classes.root}>
         <Grid container>
-          <Grid item xs={6} className={classes.carousel}>
+          <Grid item xs={5} className={classes.carousel}>
             <AutoPlaySwipeableViews
+              className={classes.picture}
               axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
               index={activeStep}
               onChangeIndex={handleStepChange}
@@ -152,8 +158,8 @@ export default function Template({
               }
             />
           </Grid>
-          <Grid item xs={6}></Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} md={6}></Grid>
+          <Grid item xs={6} md={6}>
             <div className={classes.markdownBody}>
               <h1>{frontmatter.title}</h1>
               <div dangerouslySetInnerHTML={{ __html: html }} />
