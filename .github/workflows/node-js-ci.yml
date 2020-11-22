@@ -33,10 +33,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - run: npm run prettier-check
+      - run: npm install && npm run prettier-check
   Lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - run: npm run eslint
+      - run: npm install && npm run eslint
