@@ -43,7 +43,13 @@ const useStyles = makeStyles((theme) => ({
     padding: '2rem',
     fontSize: '16px',
     maxWidth: '785px',
-    color: theme.palette.text.primary,
+    color: theme.palette.text.default,
+    '& a': {
+      color: theme.palette.text.link,
+    },
+    '& a:active, & a:visited': {
+      color: theme.palette.text.visited,
+    },
   },
   carousel: {
     paddingTop: '8rem',

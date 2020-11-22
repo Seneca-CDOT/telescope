@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     border: '1px solid #B3B6B7',
     borderRadius: '7px',
     outline: 'none',
+    color: theme.palette.text.default,
   },
 }));
 

@@ -8,7 +8,7 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 import Timeline from '../Posts/Timeline.jsx';
 import Spinner from '../Spinner';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   spinner: {
     display: 'flex',
     justifyContent: 'center',
@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
     padding: 0,
     width: '100%',
     justifyContent: 'center',
+    color: theme.palette.text.default,
   },
 }));
 
