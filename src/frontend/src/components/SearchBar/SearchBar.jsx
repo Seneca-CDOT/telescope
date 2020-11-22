@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import {
   Grid,
   MenuItem,
@@ -11,7 +12,6 @@ import {
   IconButton,
   Box,
   Typography,
-  Fab,
 } from '@material-ui/core';
 
 import SearchInput from '../SearchInput';
@@ -104,13 +104,6 @@ function CustomizedInputBase(props) {
           </Grid>
           <SearchHelp />
         </Grid>
-        <Fab size="large" className={classes.iconButton}>
-          <FormControl>
-            <IconButton type="submit" onClick={onSubmit} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </FormControl>
-        </Fab>
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth={true}>
@@ -133,7 +126,12 @@ function CustomizedInputBase(props) {
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth={true}>
-              <SearchInput filter={filter} text={text} onChange={onTextChange} />
+              <InputAdornment>
+                <IconButton type="submit" onClick={onSubmit} aria-label="search">
+                  <SearchInput filter={filter} text={text} onChange={onTextChange} />
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
             </FormControl>
           </Grid>
         </Grid>
