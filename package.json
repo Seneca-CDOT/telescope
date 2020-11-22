@@ -29,6 +29,8 @@
     "develop": "npm run develop --prefix src/frontend --",
     "serve": "npm run serve --prefix src/frontend --",
     "clean": "npm run clean --prefix src/frontend --",
+    "build:next": "npm run build --prefix src/frontend/next --",
+    "develop:next": "npm run dev --prefix src/frontend/next --",
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
     "lint": "npm run eslint",
