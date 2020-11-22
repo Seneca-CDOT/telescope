@@ -26,6 +26,7 @@
     "graphql-tag": "2.11.0",
     "material-ui-popup-state": "1.7.0",
     "node-fetch": "2.6.1",
+    "page-lifecycle": "0.1.2",
     "parse-link-header": "1.0.1",
     "prop-types": "15.7.2",
     "react": "16.13.1",
@@ -35,6 +36,7 @@
     "react-material-ui-form-validator": "2.1.1",
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
+    "react-use": "15.3.4",
     "swr": "0.3.6",
     "typeface-roboto": "1.1.13",
     "use-query-params": "1.1.9"

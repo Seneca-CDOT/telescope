@@ -56,6 +56,7 @@ module.exports = {
         theme_color: `#242424`,
         display: `minimal-ui`,
         icon: `src/images/logo.svg`, // This path is relative to the root of the site.
+        include_favicon: true,
       },
     },
     {
