@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-function PostSearchInput({ text, onChange, classes, IconButton, onSubmit }) {
+function PostSearchInput({ text, onChange, classes, IconButton }) {
   return (
     <input
       className={classes.input}
@@ -13,7 +13,7 @@ function PostSearchInput({ text, onChange, classes, IconButton, onSubmit }) {
       InputProps={{
         endAdornment: (
           <InputAdornment>
-            <IconButton type="submit" className={classes.iconButton} onClick={onSubmit}>
+            <IconButton type="submit" className={classes.iconButton}>
               <SearchIcon />
             </IconButton>
           </InputAdornment>
@@ -29,7 +29,6 @@ PostSearchInput.propTypes = {
   onChange: PropTypes.func,
   classes: PropTypes.object,
   IconButton: PropTypes.func,
-  onSubmit: PropTypes.object,
 };
 
 export default PostSearchInput;
