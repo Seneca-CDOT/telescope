@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { useQueryParam, StringParam } from 'use-query-params';
+import { makeStyles } from '@material-ui/core/styles';
 
 import SearchBar from '../SearchBar';
 import SearchResults from './SearchResults.jsx';
+import BackToTopButton from '../BackToTopButton';
+
+const useStyles = makeStyles(() => ({
+  anchor: {
+    position: 'absolute',
+    top: 0,
+  },
+}));
 
 const SearchPage = () => {
+  const classes = useStyles();
   // We synchronize the `text` and `filter` values to the URL's query string
   // via `textParam` and `filterParam`. The <SearchBar> UI uses our internal
   // state values, and the <SearchResults> only update on page load or when
@@ -26,6 +36,7 @@ const SearchPage = () => {
 
   return (
     <div>
+      <div className={classes.anchor} id="back-to-top-anchor"></div>
       <SearchBar
         text={text}
         onTextChange={(value) => setText(value)}
@@ -35,6 +46,7 @@ const SearchPage = () => {
       />
       <br />
       <SearchResults text={textParam} filter={filterParam} />
+      <BackToTopButton />
     </div>
   );
 };
