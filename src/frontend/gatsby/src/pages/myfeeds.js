@@ -38,7 +38,7 @@ export default function MyFeeds() {
     setNewFeedAuthor(user.name);
     ValidatorForm.addValidationRule('isUrl', (value) => !!isWebUri(value));
     return ValidatorForm.removeValidationRule.bind('isUrl');
-  }, []);
+  }, [telescopeUrl, user.name]);
 
   useEffect(() => {
     setAlert(true);
@@ -62,7 +62,7 @@ export default function MyFeeds() {
         console.error('Error hashing user feeds', error);
       }
     })();
-  }, [telescopeUrl, user, alert]);
+  }, [telescopeUrl, alert]);
 
   async function addFeed() {
     try {
@@ -123,7 +123,7 @@ export default function MyFeeds() {
                   <Grid container spacing={5}>
                     <Grid item xs={5} sm={4} md={3}>
                       <Grid container spacing={1} alignItems="flex-end">
-                        <Grid item xs={'auto'}>
+                        <Grid item xs="auto">
                           <AccountCircle />
                         </Grid>
                         <Grid item xs={8} sm={10}>
@@ -142,7 +142,7 @@ export default function MyFeeds() {
                     </Grid>
                     <Grid item xs={7} sm={8} md={9}>
                       <Grid container spacing={1} alignItems="flex-end">
-                        <Grid item xs={'auto'}>
+                        <Grid item xs="auto">
                           <RssFeed />
                         </Grid>
                         <Grid item xs={8} sm={10} md={11}>
@@ -157,7 +157,7 @@ export default function MyFeeds() {
                             fullWidth
                           />
                         </Grid>
-                        <Grid item xs={'auto'}>
+                        <Grid item xs="auto">
                           <HelpPopoverButton />
                         </Grid>
                       </Grid>

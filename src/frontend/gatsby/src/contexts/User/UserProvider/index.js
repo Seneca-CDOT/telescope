@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { UserStateContext, UserDispatchContext } from '../UserContext';
 import { userReducer, initialState } from '../UserReducer';
 
-const UserProvider = (props) => {
+const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, initialState);
   return (
     <UserStateContext.Provider value={state}>
-      <UserDispatchContext.Provider value={dispatch}>{props.children}</UserDispatchContext.Provider>
+      <UserDispatchContext.Provider value={dispatch}>{children}</UserDispatchContext.Provider>
     </UserStateContext.Provider>
   );
 };
 
 UserProvider.propTypes = {
-  children: PropTypes.elementType,
+  children: PropTypes.elementType.isRequired,
 };
 
 export default UserProvider;

@@ -34,8 +34,8 @@ function PageBase({ children, title }) {
 }
 
 PageBase.propTypes = {
-  children: PropTypes.node,
-  title: PropTypes.string,
+  children: PropTypes.elementType.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(PageBase);
