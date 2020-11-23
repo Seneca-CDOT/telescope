@@ -2,6 +2,7 @@ const { ELASTIC_URL, ELASTIC_PORT } = process.env;
 const { Client } = require('@elastic/elasticsearch');
 const Mock = require('@elastic/elasticsearch-mock');
 const { logger } = require('../utils/logger');
+const parseUrl = require('../utils/url-parser');
 
 function MockClient(options) {
   const mock = new Mock();
@@ -32,7 +33,7 @@ const ElasticConstructor = useMockElastic ? MockClient : Client;
 
 function createElasticClient() {
   try {
-    const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}` || 'http://localhost:9200';
+    const elasticUrl = parseUrl(ELASTIC_URL, ELASTIC_PORT) || 'http://localhost:9200';
     return new ElasticConstructor({ node: elasticUrl });
   } catch (error) {
     const message = `Unable to parse elastic URL "${ELASTIC_URL}" and/or PORT "${ELASTIC_PORT}"`;

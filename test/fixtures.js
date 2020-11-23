@@ -1,5 +1,4 @@
 const nock = require('nock');
-const url = require('url');
 const fs = require('fs');
 const path = require('path');
 
@@ -119,7 +118,7 @@ const getInvalidDescription = () =>
  * @param {String} mimeType  - the mime type to use for the response
  */
 function nockResponse(uri, body, httpResponseCode, mimeType, headers) {
-  const { protocol, host, pathname, search } = url.parse(uri);
+  const { protocol, host, pathname, search } = new URL(uri);
   nock(`${protocol}//${host}`)
     .get(`${pathname}${search || ''}`)
     .reply(httpResponseCode, body, {
