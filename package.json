@@ -33,6 +33,8 @@
     "develop:gatsby": "npm run develop --prefix src/frontend/gatsby --",
     "serve:gatsby": "npm run serve --prefix src/frontend/gatsby --",
     "clean:gatsby": "npm run clean --prefix src/frontend/gatsby --",
+    "build:next": "npm run build --prefix src/frontend/next --",
+    "develop:next": "npm run dev --prefix src/frontend/next --",
     "build": "npm run build:gatsby",
     "develop": "npm run develop:gatsby",
     "serve": "npm run serve:gatsby",
