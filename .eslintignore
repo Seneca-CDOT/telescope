@@ -1,0 +1,5 @@
+# Ignore generated folders in Gatsby
+src/frontend/gatsby/public
+src/frontend/gatsby/.cache
+# We run eslint directly in the next frontend with its own config
+src/frontend/next
