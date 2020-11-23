@@ -11,8 +11,10 @@ const useFaviconBadge = (badge) => {
   const isMounted = useMountedState();
   const [state, setState] = useState(badge);
   const isVisible = usePageLifecycle();
+  if (state && isVisible) {
+    setState(false);
+  }
   useFavicon(pickLogo(state));
-
   const setBadge = useCallback(
     (value) => {
       if (!isMounted()) {
