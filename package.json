@@ -7,9 +7,9 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/src/frontend/public/",
-      "<rootDir>/src/frontend/.cache/",
-      "<rootDir>/src/frontend/test/"
+      "<rootDir>/src/frontend/gatsby/public/",
+      "<rootDir>/src/frontend/gatsby/.cache/",
+      "<rootDir>/src/frontend/gatsby/test/"
     ],
     "automock": false,
     "setupFiles": [
@@ -17,9 +17,9 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/src/frontend/public/",
-      "<rootDir>/src/frontend/.cache/",
-      "<rootDir>/src/frontend/test/"
+      "<rootDir>/src/frontend/gatsby/public/",
+      "<rootDir>/src/frontend/gatsby/.cache/",
+      "<rootDir>/src/frontend/gatsby/test/"
     ]
   },
   "bin": {
@@ -27,18 +27,25 @@
     "html-elements": "./tools/html-elements.js"
   },
   "scripts": {
-    "build": "npm run build --prefix src/frontend --",
-    "develop": "npm run develop --prefix src/frontend --",
-    "serve": "npm run serve --prefix src/frontend --",
-    "clean": "npm run clean --prefix src/frontend --",
+    "install:autodeployment": "cd tools/autodeployment && npm install",
+    "install:gatsby": "cd src/frontend/gatsby && npm install",
+    "build:gatsby": "npm run build --prefix src/frontend/gatsby --",
+    "develop:gatsby": "npm run develop --prefix src/frontend/gatsby --",
+    "serve:gatsby": "npm run serve --prefix src/frontend/gatsby --",
+    "clean:gatsby": "npm run clean --prefix src/frontend/gatsby --",
+    "build": "npm run build:gatsby",
+    "develop": "npm run develop:gatsby",
+    "serve": "npm run serve:gatsby",
+    "clean": "npm run clean:gatsby",
     "eslint": "eslint --ignore-path .gitignore .",
     "eslint-fix": "eslint --fix --ignore-path .gitignore .",
     "lint": "npm run eslint",
-    "postinstall": "cd src/frontend && npm install && cd ../../tools/autodeployment && npm install",
+    "postinstall": "run-s install:gatsby install:autodeployment",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
-    "test-frontend": "cd src/frontend/test && jest",
+    "test-frontend:gatsby": "cd src/frontend/gatsby/test && jest",
+    "test-frontend": "npm run test-frontend:gatsby",
     "test": "npm run jest",
     "jest": "cross-env NODE_ENV=test LOG_LEVEL=error MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --",
     "coverage": "cross-env NODE_ENV=test LOG_LEVEL=silent MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --collectCoverage --",

@@ -26,7 +26,7 @@ WORKDIR "/telescope"
 # Copy package.jsons for each service
 COPY package.json .
 COPY .env .
-COPY ./src/frontend/package.json ./src/frontend/package.json
+COPY ./src/frontend/gatsby/package.json ./src/frontend/gatsby/package.json
 
 # -------------------------------------
 # Context: Dependencies
@@ -39,13 +39,13 @@ FROM build AS backend_dependencies
 RUN npm install --only=production --no-package-lock --ignore-scripts
 
 FROM backend_dependencies as frontend_dependencies
-RUN cd ./src/frontend && npm install --no-package-lock
+RUN cd ./src/frontend/gatsby && npm install --no-package-lock
 
 # -------------------------------------
 # Context: Front-end Builder
 FROM frontend_dependencies as builder
 
-COPY ./src/frontend ./src/frontend
+COPY ./src/frontend/gatsby ./src/frontend/gatsby
 COPY ./.git ./.git
 
 RUN npm run build
@@ -56,7 +56,7 @@ FROM build AS release
 
 # GET production code from previous containers
 COPY --from=backend_dependencies /telescope/node_modules /telescope/node_modules
-COPY --from=builder /telescope/src/frontend/public /telescope/src/frontend/public
+COPY --from=builder /telescope/src/frontend/gatsby/public /telescope/src/frontend/gatsby/public
 COPY --from=builder /telescope/.git /telescope/.git
 COPY ./src/backend ./src/backend
 
@@ -69,4 +69,3 @@ ENV script=start
 # Running telescope when the image gets built using a script
 # `script` is one of the scripts from `package.json`, passed to the image
 CMD ["sh", "-c", "npm run ${script}"]
-

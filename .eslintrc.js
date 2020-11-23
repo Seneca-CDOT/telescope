@@ -31,7 +31,7 @@ module.exports = {
   /**
    * Ignore the MUI gatsby plugin
    */
-  ignorePatterns: ['src/frontend/plugins/gatsby-plugin-top-layout/'],
+  ignorePatterns: ['src/frontend/gatsby/plugins/gatsby-plugin-top-layout/'],
 
   rules: {
     'prettier/prettier': ['error'],
