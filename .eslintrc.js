@@ -7,11 +7,6 @@ module.exports = {
     },
     ecmaVersion: 2021,
   },
-  env: {
-    jest: true,
-    node: true,
-    browser: true,
-  },
   extends: [
     'airbnb',
     'plugin:react/recommended',
@@ -28,31 +23,58 @@ module.exports = {
   overrides: [
     // TypeScript for Next.js
     {
-      files: ['*.ts', '*.tsx'],
+      files: ['src/frontend/next/**/*.ts', 'src/frontend/next/**/*.tsx'],
       plugins: ['@typescript-eslint'],
       rules: {
-        'react/prop-types': 'off', // We will use TypeScript's types for component props instead
-        'react/react-in-jsx-scope': 'off', // No need to import React when using Next.js
-        'jsx-a11y/anchor-is-valid': 'off', // This rule is not compatible with Next.js's <Link /> components
-        '@typescript-eslint/no-unused-vars': 'error', // Why would you want unused vars?
+        'react/prop-types': 'off',
+        'react/react-in-jsx-scope': 'off',
+        '@typescript-eslint/no-unused-vars': 'error',
+        'react/jsx-filename-extension': ['error', { extensions: ['.ts', '.tsx'] }],
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+        'jsx-a11y/anchor-is-valid': [
+          'error',
+          {
+            components: ['Link'],
+            specialLink: ['hrefLeft', 'hrefRight'],
+            aspects: ['invalidHref', 'preferButton'],
+          },
+        ],
+        'import/extensions': 'off',
       },
     },
-    // JavaScript Node apps, Gatsby
-    //    {
-    //      files: ['*.js', '*.jsx'],
-    //      env: {
-    //        node: true,
-    //      },
-    //    },
-    // Test Files
-    //    {
-    //      files: ['*.test.js', '*.test.ts'],
-    //      env: {
-    //        node: true,
-    //        jest: true,
-    //      },
-    //    },
+
+    // JavaScript for Gatsby
+    {
+      files: ['src/frontend/gatsby/**/*.js', 'src/frontend/gatsby/**/*.jsx'],
+      env: { node: true, browser: true, jest: true },
+      rules: {
+        'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
+        'react/jsx-uses-react': 'error',
+        'react/forbid-prop-types': 'off',
+        'react/require-default-props': 'off',
+        'import/extensions': 'off',
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': 'off',
+      },
+    },
+
+    // JavaScript for Node.js
+    {
+      files: ['src/backend/**/*.js', 'src/tools/**/*.js'],
+      env: {
+        node: true,
+      },
+    },
+
+    // Jest Test files
+    {
+      files: ['test/**/*.js', '*.test.js', '*.test.ts', '**/__mocks__/**/*.js'],
+      env: { jest: true, node: true },
+    },
   ],
+
+  // Default rules for any file we lint
   rules: {
     /**
      * Force prettier formatting
@@ -122,11 +144,7 @@ module.exports = {
      */
     'promise/prefer-await-to-callbacks': 'warn',
 
-    'react/jsx-uses-react': 'error',
-
     'react/jsx-uses-vars': 'error',
-
-    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
 
     /**
      * Allow ES6 classes to override methods without using this
@@ -134,83 +152,11 @@ module.exports = {
      */
     'class-methods-use-this': 'off',
 
-    'import/no-extraneous-dependencies': 'off',
-
-    'import/extensions': 'off',
-
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'jsx-a11y/anchor-is-valid': [
-      'error',
-      {
-        components: ['Link'],
-        specialLink: ['hrefLeft', 'hrefRight'],
-        aspects: ['invalidHref', 'preferButton'],
-      },
-    ],
-
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': 'off',
-
     'react/jsx-props-no-spreading': 'off',
     'react/jsx-wrap-multilines': 'off',
     'react/jsx-one-expression-per-line': 'off',
     'react/no-danger': 'off',
-    'react/require-default-props': 'off',
+
+    'jsx-a11y/control-has-associated-label': 'warn',
   },
 };
-
-/*
-
-  env: {
-    jest: true,
-    browser: true,
-    commonjs: true,
-    es2021: true,
-    node: true,
-  },
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 12,
-  },
-  plugins: ['react', 'pre''@typescript-eslint'],
-  overrides: [
-    // This configuration will apply only to TypeScript files
-    {
-      */
-// files: ['**/*.ts', '**/*.tsx'],
-/*
-      parser: '@typescript-eslint/parser',
-      settings: { react: { version: 'detect' } },
-      env: {
-        browser: true,
-        node: true,
-        es2021: true,
-      },
-      extends: [
-        'plugin:react/recommended',
-        'airbnb',
-        'plugin:react-hooks/recommended', // React hooks rules
-        'plugin:jsx-a11y/recommended', // Accessibility rules
-      ],
-      rules: {
-        'react/prop-types': 'off', // We will use TypeScript's types for component props instead
-        'react/react-in-jsx-scope': 'off', // No need to import React when using Next.js
-        'jsx-a11y/anchor-is-valid': 'off', // This rule is not compatible with Next.js's <Link /> components
-        '@typescript-eslint/no-unused-vars': 'error', // Why would you want unused vars?
-        '@typescript-eslint/explicit-function-return-type': [
-          // I suggest this setting for requiring return types on functions only where usefull
-          'warn',
-          {
-            allowExpressions: true,
-            allowConciseArrowFunctionExpressionsStartingWithVoid: true,
-          },
-        ],
-      },
-    },
-  ],
-  rules: {},
-};
-*/

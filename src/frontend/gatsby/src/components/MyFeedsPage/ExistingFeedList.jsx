@@ -10,7 +10,7 @@ function ExistingFeedList({ feedHash, deletionCallback }) {
       <Grid container spacing={5} key={id}>
         <Grid item xs={5} sm={4} md={3}>
           <Grid container spacing={1} alignItems="flex-end">
-            <Grid item xs={'auto'}>
+            <Grid item xs="auto">
               <AccountCircle />
             </Grid>
             <Grid item xs={8} sm={10}>
@@ -27,7 +27,7 @@ function ExistingFeedList({ feedHash, deletionCallback }) {
         </Grid>
         <Grid item xs={7} sm={8} md={9}>
           <Grid container spacing={1} alignItems="flex-end">
-            <Grid item xs={'auto'}>
+            <Grid item xs="auto">
               <RssFeed />
             </Grid>
             <Grid item xs={8} sm={10} md={11}>
@@ -40,7 +40,7 @@ function ExistingFeedList({ feedHash, deletionCallback }) {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={'auto'}>
+            <Grid item xs="auto">
               <DeleteFeedDialogButton
                 feed={{ id, ...feedHash[id] }}
                 deletionCallback={deletionCallback}

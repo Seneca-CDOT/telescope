@@ -98,7 +98,7 @@ const AboutFooter = () => {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid container item xs={12} sm={6} justify={'center'}>
+            <Grid container item xs={12} sm={6} justify="center">
               <LogoIcon height="60" width="60" />
             </Grid>
             <Grid container direction="column" item xs={12} sm={3} alignItems="flex-end">
@@ -110,7 +110,7 @@ const AboutFooter = () => {
                 <Grid item>
                   <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
                     {' '}
-                    <GitHubIcon fontSize="large"></GitHubIcon>
+                    <GitHubIcon fontSize="large" />
                   </a>
                 </Grid>
                 <Grid item>
@@ -126,7 +126,7 @@ const AboutFooter = () => {
           </Grid>
         ) : (
           <Grid container direction="row" justify="space-between" alignItems="flex-start">
-            <Grid container item xs={12} justify={'center'}>
+            <Grid container item xs={12} justify="center">
               <LogoIcon height="60" width="60" />
             </Grid>
             <Grid container item xs={12}>
@@ -176,7 +176,7 @@ const AboutFooter = () => {
                 <Grid item>
                   <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
                     {' '}
-                    <GitHubIcon fontSize="large"></GitHubIcon>
+                    <GitHubIcon fontSize="large" />
                   </a>
                 </Grid>
                 <Grid item>

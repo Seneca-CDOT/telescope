@@ -12,7 +12,7 @@ function AuthorSearchInput({ text, onChange, classes }) {
         value={text}
         onChange={onChange}
       />
-      <datalist id="search-suggestions"></datalist>
+      <datalist id="search-suggestions" />
     </>
   );
 }

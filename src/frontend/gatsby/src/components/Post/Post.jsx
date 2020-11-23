@@ -5,8 +5,8 @@ import 'highlight.js/styles/github.css';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
 import './telescope-post-content.css';
-import Spinner from '../Spinner/Spinner.jsx';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import Spinner from '../Spinner/Spinner.jsx';
 import AdminButtons from '../AdminButtons';
 
 const useStyles = makeStyles((theme) => ({
@@ -152,13 +152,16 @@ const Post = ({ postUrl }) => {
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
           <span
+            role="button"
+            tabIndex="0"
             onClick={() => setExpandHeader(!expandHeader)}
+            onKeyDown={() => setExpandHeader(!expandHeader)}
             className={expandHeader ? classes.expandHeader : classes.collapseHeader}
           >
             {post.title}
           </span>
         </Typography>
-        <Typography variant={'p'} className={classes.author}>
+        <Typography variant="p" className={classes.author}>
           &nbsp;By&nbsp;
           <a className={classes.link} href={post.feed.link}>
             {post.feed.author}

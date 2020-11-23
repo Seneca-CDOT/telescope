@@ -104,7 +104,7 @@ export default function Banner() {
         <BannerDynamicItems />
 
         <Typography variant="h1" className={classes.h1}>
-          {'Telescope'}
+          Telescope
         </Typography>
 
         <a
@@ -133,7 +133,7 @@ export default function Banner() {
           </div>
         </Grid>
       </Grid>
-      <div className={classes.anchor} id="back-to-top-anchor"></div>
+      <div className={classes.anchor} id="back-to-top-anchor" />
     </>
   );
 }

@@ -99,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function CreateInnerErrorContent(props) {
+function CreateInnerErrorContent({ message, status }) {
   const classes = useStyles();
 
   const errorMessages = new Proxy(
@@ -118,16 +118,16 @@ function CreateInnerErrorContent(props) {
   );
 
   // If server doesn't send us a custom message, use ones defined above.
-  if (!props.message) {
+  if (!message) {
     return (
       <Typography variant="body1" className={classes.h2}>
-        {errorMessages[props.status]}
+        {errorMessages[status]}
       </Typography>
     );
   }
   return (
     <Typography variant="body1" className={classes.h3}>
-      {props.message}
+      {message}
     </Typography>
   );
 }
@@ -175,7 +175,7 @@ const ErrorPage = ({ location }) => {
               <Fab variant="extended" href="/" className={classes.fab}>
                 <ArrowBack />
                 <Typography variant="body2" className={classes.buttonText}>
-                  {"Let's Go Back"}
+                  Let&apos;s Go Back
                 </Typography>
               </Fab>
             </CardActions>
@@ -187,7 +187,7 @@ const ErrorPage = ({ location }) => {
 };
 
 ErrorPage.propTypes = {
-  location: PropTypes.object,
+  location: PropTypes.instanceOf(URL),
 };
 
 export default ErrorPage;

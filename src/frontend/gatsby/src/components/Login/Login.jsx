@@ -12,7 +12,7 @@ import { UserStateContext, UserDispatchContext } from '../../contexts/User/UserC
  * or a welcome message and Logout button.
  */
 
-function Login(props) {
+function Login({ style }) {
   const { telescopeUrl } = useSiteMetadata();
   const user = useContext(UserStateContext);
   const dispatch = useContext(UserDispatchContext);
@@ -44,14 +44,15 @@ function Login(props) {
 
     getUserInfo();
   }, [telescopeUrl, dispatch]);
+
   // Check if using mobile header which means a style prop exists
-  if (props.style) {
+  if (style) {
     return user && user.email ? (
-      <ListItem button component={Link} to={`${telescopeUrl}/auth/logout`} className={props.style}>
+      <ListItem button component={Link} to={`${telescopeUrl}/auth/logout`} className={style}>
         <LoggedIn />
       </ListItem>
     ) : (
-      <ListItem button component={Link} to={`${telescopeUrl}/auth/login`} className={props.style}>
+      <ListItem button component={Link} to={`${telescopeUrl}/auth/login`} className={style}>
         <LoggedOut />
       </ListItem>
     );

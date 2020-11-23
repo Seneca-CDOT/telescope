@@ -32,35 +32,35 @@ function SearchHelp() {
           <Typography variant="h5">How to use search</Typography>
           <ul>
             <li>
-              <b>{"' + '"}</b>
+              <b>&apos; + &apos;</b>
               {' signifies AND operator'}
             </li>
             <li>
-              <b>{"' | '"}</b>
+              <b>&apos; | &apos;</b>
               {' signifies OR operator'}
             </li>
             <li>
-              <b>{"' - '"}</b>
+              <b>&apos; - &apos;</b>
               {' negates a single token'}
             </li>
             <li>
-              <b>{"' \" '"}</b>
+              <b>&ldquo; &rdquo;</b>
               {' wraps a number of tokens to signify a phrase for searching'}
             </li>
             <li>
-              <b>{"' * '"}</b>
+              <b>&apos; * &apos;</b>
               {' at the end of a term signifies a prefix query'}
             </li>
             <li>
-              <b>{"' ( ' and ' ) '"}</b>
+              <b>&apos; ( &apos; and &apos; ) &apos;</b>
               {' signify precendence '}
             </li>
             <li>
-              <b>{"' ~N '"}</b>
+              <b>&apos; ~N &apos;</b>
               {' after a word signifies edit distance (fuzziness)'}
             </li>
             <li>
-              <b>{"' ~N '"}</b>
+              <b>&apos; ~N &apos;</b>
               {' after a phrase signifies slop amount'}
             </li>
           </ul>

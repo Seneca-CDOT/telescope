@@ -7,8 +7,10 @@
     "@material-ui/icons": "4.9.1",
     "@material-ui/styles": "4.10.0",
     "@svgr/webpack": "5.4.0",
+    "@testing-library/jest-dom": "5.11.6",
     "apollo-boost": "0.4.9",
     "apollo-link-http": "1.5.17",
+    "babel-jest": "26.6.1",
     "babel-preset-gatsby": "0.5.14",
     "dotenv": "8.2.0",
     "gatsby": "2.24.85",
@@ -23,6 +25,7 @@
     "gatsby-transformer-remark": "2.8.46",
     "gatsby-transformer-sharp": "2.5.19",
     "graphql-tag": "2.11.0",
+    "highlight.js": "10.4.0",
     "material-ui-popup-state": "1.7.0",
     "node-fetch": "2.6.1",
     "parse-link-header": "1.0.1",
@@ -36,12 +39,11 @@
     "react-swipeable-views-utils": "0.13.9",
     "swr": "0.3.6",
     "typeface-roboto": "1.1.13",
-    "use-query-params": "1.1.9"
+    "use-query-params": "1.1.9",
+    "valid-url": "1.0.9"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "5.11.5",
     "@testing-library/react": "11.1.0",
-    "babel-jest": "26.6.1",
     "babel-plugin-react-remove-properties": "0.3.0",
     "identity-obj-proxy": "3.0.0",
     "jest": "26.6.1",

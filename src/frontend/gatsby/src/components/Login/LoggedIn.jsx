@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Button, Divider, Grid, useMediaQuery } from '@material-ui/core';
 import { Link } from 'gatsby';
@@ -84,10 +83,5 @@ function LoggedIn() {
     </div>
   );
 }
-
-LoggedIn.propTypes = {
-  name: PropTypes.string,
-  email: PropTypes.string,
-};
 
 export default LoggedIn;

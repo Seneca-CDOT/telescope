@@ -52,7 +52,7 @@ function LoadMoreButton({ onScroll }) {
 }
 
 LoadMoreButton.propTypes = {
-  onClick: PropTypes.func,
+  onScroll: PropTypes.func,
 };
 
 export default LoadMoreButton;

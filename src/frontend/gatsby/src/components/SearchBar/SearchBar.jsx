@@ -113,7 +113,7 @@ function CustomizedInputBase(props) {
         </Fab>
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
-            <FormControl fullWidth={true}>
+            <FormControl fullWidth>
               <TextField
                 id="standard-select-search-type"
                 select
@@ -132,7 +132,7 @@ function CustomizedInputBase(props) {
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
-            <FormControl fullWidth={true}>
+            <FormControl fullWidth>
               <SearchInput filter={filter} text={text} onChange={onTextChange} />
             </FormControl>
           </Grid>

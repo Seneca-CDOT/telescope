@@ -36,7 +36,7 @@ const SearchPage = () => {
 
   return (
     <div>
-      <div className={classes.anchor} id="back-to-top-anchor"></div>
+      <div className={classes.anchor} id="back-to-top-anchor" />
       <SearchBar
         text={text}
         onTextChange={(value) => setText(value)}

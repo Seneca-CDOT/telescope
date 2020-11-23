@@ -1,6 +1,7 @@
 import EventIcon from '@material-ui/icons/Event';
 import PermContactCalendarIcon from '@material-ui/icons/PermContactCalendar';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {
   CardActionArea,
@@ -71,10 +72,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AuthorResult(props) {
+function AuthorResult(props) {
   const classes = useStyles();
-  const { author } = props;
-  const { postDate, title, postLink } = props.post;
+  const { author, post } = props;
+  const { postDate, title, postLink } = post;
 
   const handleLatestPostClick = () => {
     window.open(postLink);
@@ -112,3 +113,14 @@ export default function AuthorResult(props) {
     </Container>
   );
 }
+
+AuthorResult.propTypes = {
+  author: PropTypes.string,
+  post: PropTypes.shape({
+    postDate: PropTypes.number,
+    title: PropTypes.string,
+    postLink: PropTypes.string,
+  }),
+};
+
+export default AuthorResult;

@@ -1,6 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import logoUrl from '../../images/logo.svg';
 
-export default function LogoIcon(props) {
-  return <img src={logoUrl} alt="logo" height={props.height} width={props.width} />;
+function LogoIcon({ height, width }) {
+  return <img src={logoUrl} alt="logo" height={height} width={width} />;
 }
+
+LogoIcon.propTypes = {
+  height: PropTypes.number,
+  width: PropTypes.number,
+};
+
+export default LogoIcon;
