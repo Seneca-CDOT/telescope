@@ -38,7 +38,7 @@ and re-run the command above.
 In your `.env` file, you need to make a few changes:
 
 1. set `API_URL=http://localhost:3000` to tell the frontend to connect to a backend API server running at `http://localhost:3000`.
-2. set `PROXY_GATSBY=1` so that our node server will proxy the frontend to the Gatsby development server
+2. set `PROXY_FRONTEND=1` so that our node server will proxy the frontend to the Gatsby development server
 
 Now you need to run Redis (natively or via docker-compose, see [Environment Setup docs](environment-setup.md)), then start the node app natively:
 
