@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
     padding: '2em 3em 2em 3em',
     lineHeight: '1.3',
-    zIndex: 1500,
+    zIndex: 1100,
     top: '-1.1em',
     [theme.breakpoints.down(1440)]: {
       paddingTop: '1.6em',
