@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSWRInfinite } from 'swr';
 import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -28,33 +28,44 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const REFRESH_INTERVAL = 5 * 60 * 1000; /* refresh data every 5 minutes */
+// Refresh post data every 5 mins
+const REFRESH_INTERVAL = 5 * 60 * 1000;
 
 const Posts = () => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetaData();
+  const [currentPostId, setCurrentPostId] = useState(null);
   const { data, size, setSize, error } = useSWRInfinite(
     (index) => `${telescopeUrl}/posts?page=${index + 1}`,
     (url) => fetch(url).then((r) => r.json()),
     {
       refreshInterval: REFRESH_INTERVAL,
       refreshWhenHidden: true,
+      onSuccess(newData) {
+        const safelyExtractId = () => {
+          try {
+            return newData[0][0].id;
+          } catch (err) {
+            return null;
+          }
+        };
+
+        // Get the id of the top post in the current and prev data sets
+        const id = safelyExtractId();
+        setCurrentPostId(id);
+      },
     }
   );
-  // Call setBadge(true) to show the favicon badge when the page is not visible
-  const setBadge = useFaviconBadge(false); // pass true here to badge from the start
-  const prevData = usePrevious(data);
-  // Set to true to show badge, false otherwise.  Badge only shows when not visible.
-  React.useEffect(() => {
-    if (prevData) {
-      const oldData = prevData[0][0].id;
-      const newData = data[0][0].id;
-      if (oldData !== newData) {
-        setBadge(true);
-        console.log('called');
-      }
+  // Also track the previous top post id
+  const prevPostId = usePrevious(currentPostId);
+
+  // Manage the favicon badge, depending on whether we have new data or not
+  const setBadgeHint = useFaviconBadge();
+  useEffect(() => {
+    if (currentPostId && currentPostId !== prevPostId) {
+      setBadgeHint();
     }
-  });
+  }, [currentPostId, prevPostId, setBadgeHint]);
 
   // TODO: need proper error handling
   if (error) {
