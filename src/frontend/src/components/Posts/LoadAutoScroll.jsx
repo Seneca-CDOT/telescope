@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LoadMoreButton({ onScroll }) {
+function LoadAutoScroll({ onScroll }) {
   const classes = useStyles();
   const $buttonRef = useRef(null);
 
@@ -51,8 +51,9 @@ function LoadMoreButton({ onScroll }) {
   );
 }
 
-LoadMoreButton.propTypes = {
+LoadAutoScroll.propTypes = {
   onClick: PropTypes.func,
+  onScroll: PropTypes.func,
 };
 
-export default LoadMoreButton;
+export default LoadAutoScroll;
