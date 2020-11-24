@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function LoadAutoScroll({ onScroll }) {
+function LoadAutoScroll({ onClick }) {
   const classes = useStyles();
   const $buttonRef = useRef(null);
 
@@ -30,7 +30,7 @@ function LoadAutoScroll({ onScroll }) {
       (entries) =>
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            onScroll();
+            onClick();
           }
         }),
       options
