@@ -39,14 +39,14 @@ const streamToElastic = pinoElastic({
   // Consistency of the write, valid values: 'one', 'quorum', 'all'
   consistency: (process.env.CONSISTENCY || 'one').toLowerCase(),
   // URL of Elasticsearch
-  node: `http://${process.env.ELASTIC_URL}:${process.env.ELASTIC_PORT}`,
+  node: `${process.env.ELASTIC_URL}:${process.env.ELASTIC_PORT}`,
   // Elasticsearch version
   'es-version': process.env.ELASTIC_VERSION || 7,
   // The number of bytes for each bulk insert
   'flush-bytes': process.env.FLUSH_BYTES || 1000,
 });
 
-const logger = pino({ options }, process.env.LOG_ELASTIC ? streamToElastic : destination);
+const logger = pino(options, process.env.LOG_ELASTIC ? streamToElastic : destination);
 
 const expressLogger = expressPino({ logger });
 
