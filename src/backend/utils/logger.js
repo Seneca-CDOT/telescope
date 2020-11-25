@@ -1,16 +1,28 @@
+const {
+  ELASTIC_URL,
+  ELASTIC_PORT,
+  INDEX_NAME,
+  ELASTIC_VERSION,
+  FLUSH_BYTES,
+  CONSISTENCY,
+  LOG_ELASTIC,
+  LOG_LEVEL,
+  NODE_ENV,
+} = process.env;
 const pino = require('pino');
 const pinoElastic = require('pino-elasticsearch');
 const expressPino = require('express-pino-logger');
 const os = require('os');
 const path = require('path');
+const parseUrl = require('./url-parser');
 
 require('../lib/config');
 
 // Deal with log levels we don't know, or which are incorrectly formatted
-let logLevel = (process.env.LOG_LEVEL || 'info').toLowerCase();
+let logLevel = (LOG_LEVEL || 'info').toLowerCase();
 if (!pino.levels.values[logLevel]) {
   // Use `debug` by default in development mode, `info` otherwise.
-  logLevel = process.env.NODE_ENV === 'development' ? 'debug' : 'info';
+  logLevel = NODE_ENV === 'development' ? 'debug' : 'info';
 }
 
 const options = {
@@ -35,18 +47,18 @@ if (process.env.LOG_FILE) {
 
 const streamToElastic = pinoElastic({
   // Name of the index the logs will be stored under
-  index: (process.env.INDEX_NAME || 'logs').toLowerCase(),
+  index: (INDEX_NAME || 'logs').toLowerCase(),
   // Consistency of the write, valid values: 'one', 'quorum', 'all'
-  consistency: (process.env.CONSISTENCY || 'one').toLowerCase(),
+  consistency: (CONSISTENCY || 'one').toLowerCase(),
   // URL of Elasticsearch
-  node: `${process.env.ELASTIC_URL}:${process.env.ELASTIC_PORT}`,
+  node: parseUrl(ELASTIC_URL, ELASTIC_PORT),
   // Elasticsearch version
-  'es-version': process.env.ELASTIC_VERSION || 7,
+  'es-version': ELASTIC_VERSION || 7,
   // The number of bytes for each bulk insert
-  'flush-bytes': process.env.FLUSH_BYTES || 1000,
+  'flush-bytes': FLUSH_BYTES || 1000,
 });
 
-const logger = pino(options, process.env.LOG_ELASTIC ? streamToElastic : destination);
+const logger = pino(options, LOG_ELASTIC ? streamToElastic : destination);
 
 const expressLogger = expressPino({ logger });
 
