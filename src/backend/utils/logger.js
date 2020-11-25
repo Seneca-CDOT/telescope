@@ -58,7 +58,11 @@ const streamToElastic = pinoElastic({
   'flush-bytes': FLUSH_BYTES || 1000,
 });
 
-const logger = pino(options, LOG_ELASTIC ? streamToElastic : destination);
+// Unable to use options as argument in both cases because pino-elastic does not like prettyPrint
+const logger = pino(
+  LOG_ELASTIC ? { level: logLevel } : options,
+  LOG_ELASTIC ? streamToElastic : destination
+);
 
 const expressLogger = expressPino({ logger });
 
