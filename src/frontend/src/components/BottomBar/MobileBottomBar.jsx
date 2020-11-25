@@ -92,12 +92,15 @@ export default function MobileBottomBar() {
             </Grid>
             <Grid className={classes.iconButtonContainer} item xs={3}>
               {loggedIn ? (
-                <Link to="/about">
-                  <PersonIcon className={classes.iconButton} style={getCellStyle('/about')} />
+                <Link to="/myfeeds">
+                  <PersonIcon className={classes.iconButton} style={getCellStyle('/myfeeds')} />
                 </Link>
               ) : (
-                <Link to="/login">
-                  <ExitToAppIcon className={classes.iconButton} style={getCellStyle('/login')} />
+                <Link to="/auth/login">
+                  <ExitToAppIcon
+                    className={classes.iconButton}
+                    style={getCellStyle('/auth/login')}
+                  />
                 </Link>
               )}
             </Grid>
