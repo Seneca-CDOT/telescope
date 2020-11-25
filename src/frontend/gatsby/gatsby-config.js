@@ -4,7 +4,7 @@ const path = require('path');
  * Try to load an .env from the root telescope project
  */
 require('dotenv').config({
-  path: path.join(__dirname, '../../', '.env'),
+  path: path.join(__dirname, '../../../', '.env'),
 });
 
 /**
