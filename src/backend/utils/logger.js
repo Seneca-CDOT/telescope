@@ -51,7 +51,7 @@ const streamToElastic = pinoElastic({
   // Consistency of the write, valid values: 'one', 'quorum', 'all'
   consistency: (CONSISTENCY || 'one').toLowerCase(),
   // URL of Elasticsearch
-  node: parseUrl(ELASTIC_URL, ELASTIC_PORT),
+  node: parseUrl(ELASTIC_URL, ELASTIC_PORT) || 'http://127.0.0.1:9200',
   // Elasticsearch version
   'es-version': ELASTIC_VERSION || 7,
   // The number of bytes for each bulk insert
