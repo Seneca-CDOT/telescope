@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Toolbar, Grid } from '@material-ui/core';
+import { Toolbar, Grid, IconButton, List, ListItem, Drawer, Divider } from '@material-ui/core';
 import { Link } from 'gatsby';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SearchIcon from '@material-ui/icons/Search';
@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PersonIcon from '@material-ui/icons/Person';
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import { UserStateContext, UserDispatchContext } from '../../contexts/User/UserContext';
+import Login from '../Login';
+import Footer from '../Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,6 +27,31 @@ const useStyles = makeStyles((theme) => ({
   },
   iconButtonContainer: {
     textAlign: 'center',
+  },
+  menuIcon: {
+    fontSize: '2.5rem',
+  },
+  button: {
+    float: 'right',
+    margin: '0 0.5rem 0 0.5rem',
+  },
+  paper: {
+    backgroundColor: theme.palette.primary.main,
+  },
+  line: {
+    backgroundColor: theme.palette.background.default,
+  },
+  item: {
+    color: theme.palette.background.default,
+    fontFamily: 'Roboto, sans-serif',
+    textDecoration: 'none',
+    fontSize: '1.5rem',
+    justifyContent: 'center',
+    fontWeight: 500,
+    lineHeight: 1.75,
+  },
+  list: {
+    width: 250,
   },
 }));
 
@@ -43,6 +70,41 @@ export default function MobileBottomBar() {
   const dispatch = useContext(UserDispatchContext);
 
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (side, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setDrawerOpen(open);
+  };
+
+  const sideList = (side) => (
+    <div
+      className={classes.list}
+      role="presentation"
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}
+    >
+      <List className={classes.item}>
+        <ListItem button component={Link} to="/" className={classes.item}>
+          HOME
+        </ListItem>
+        <Divider className={classes.line} />
+        <ListItem button component={Link} to="/about" className={classes.item}>
+          ABOUT
+        </ListItem>
+        <Divider className={classes.line} />
+        <Login style={classes.item} />
+        <Divider className={classes.line} />
+        <div className={classes.footer}>
+          <Footer />
+        </div>
+      </List>
+    </div>
+  );
 
   useEffect(() => {
     // Try to get user session info from the server.
@@ -105,9 +167,23 @@ export default function MobileBottomBar() {
               )}
             </Grid>
             <Grid className={classes.iconButtonContainer} item xs={3}>
-              <Link to="/MenuIcon">
-                <MenuIcon className={classes.iconButton} style={getCellStyle('/MenuIcon')} />
-              </Link>
+              <IconButton
+                onClick={toggleDrawer('right', true)}
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                className={classes.button}
+              >
+                <MenuIcon className={classes.iconButton} />
+              </IconButton>
+              <Drawer
+                classes={{ paper: classes.paper }}
+                anchor="right"
+                open={drawerOpen}
+                onClose={toggleDrawer('right', false)}
+              >
+                {sideList('right')}
+              </Drawer>
             </Grid>
           </Grid>
         </Toolbar>
