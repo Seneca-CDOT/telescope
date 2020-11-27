@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -16,11 +17,9 @@ function AuthorSearchInput({ text, onChange, classes }) {
     </>
   );
 }
-
 AuthorSearchInput.propTypes = {
   text: PropTypes.string,
   onChange: PropTypes.func,
   classes: PropTypes.object,
 };
-
 export default AuthorSearchInput;
