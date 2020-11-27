@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   input: {
     fontSize: '1.6rem',
     '&:hover': {
-      border: '2px solid',
+      border: '1px solid',
       borderColor: theme.palette.primary.main,
     },
     '&:focus': {
