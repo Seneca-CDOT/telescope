@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.6rem',
     '&:hover': {
       border: '2px solid',
-      borderColor: theme.palette.background.default,
+      borderColor: theme.palette.primary.main,
     },
     '&:focus': {
       border: '2px solid',
