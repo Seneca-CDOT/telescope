@@ -61,6 +61,9 @@ function getCellStyle(path) {
       color: '#8BC2EB',
     };
   }
+  return {
+    color: '#E5E5E5',
+  };
 }
 
 export default function MobileBottomBar() {

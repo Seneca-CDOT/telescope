@@ -1,3 +1,3 @@
-import BottomBar from './BottomBar.jsx';
+import BottomBar from './BottomBar';
 
 export default BottomBar;
