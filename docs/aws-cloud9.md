@@ -2,8 +2,8 @@
 
 **Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Gatsby and Docker in development is CPU intensive so these are the EC2 instances I recommend:
 
-- Minimum: `t3.medium (4 GiB RAM + 2 vCPU)`
-- Recommended: `t4g.large (8 GiB RAM + 2 vCPU)`
+- Minimum: `t2.medium (4 GiB RAM + 2 vCPU)`
+- Recommended: `t2.large (8 GiB RAM + 2 vCPU)`
 
 ## Prerequisites:
 
@@ -12,7 +12,7 @@
 
 ## Creating your Cloud9 Environment:
 
-1. In the upper-right hand corner of your AWS Management Console, select `US East (N. Virginia) us-east-1` as your `Region`
+1. In the upper-right hand corner of your AWS Management Console, select `US East (Ohio) us-east-2` as your `Region`
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This is bring up a list of AWS Services, search for `Cloud9`.
 3. Click on `Create Environment`
 
@@ -26,7 +26,7 @@
 
   Environment type: `Create a new EC2 instance for environment (direct access)`
 
-  Instance type: `Other instance type: t3.medium (4 GiB RAM + 2 vCPU)` **THIS IS NOT FREE-TIER**
+  Instance type: `Other instance type: t2.large (8 GiB RAM + 2 vCPU)`
 
   Platform: `Ubuntu Server 18.04 LTS`
 
@@ -90,7 +90,11 @@ sudo /etc/init.d/elasticsearch start
 
 [Source](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
-Delete `elasticsearch-7.6.2-amd64.deb` with `rm elasticsearch-7.6.2-amd64.deb`
+Delete `elasticsearch-7.6.2-amd64.deb` with
+
+```
+rm elasticsearch-7.6.2-amd64.deb
+```
 
 ## Opening the ports on our EC2 instance:
 
@@ -127,6 +131,94 @@ aws ec2 authorize-security-group-ingress --group-id <sg-id> \
 --cidr <my-ip>/32
 ```
 
+## Resize your Amazon EBS volume
+
+Check first using `df -h` in the terminal
+
+```
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/xvda1      9.7G  9.3G  371M  97% /
+```
+
+When you first create an EC2 instance, it has an EBS Volume of 10GB. To increase it to 20GB, create a new file called `resize.sh` in `~/environment` directory and copy the following script:
+
+```
+#!/bin/bash
+
+# Specify the desired volume size in GiB as a command-line argument. If not specified, default to 20 GiB.
+SIZE=${1:-20}
+
+# Get the ID of the environment host Amazon EC2 instance.
+INSTANCEID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
+
+# Get the ID of the Amazon EBS volume associated with the instance.
+VOLUMEID=$(aws ec2 describe-instances \
+  --instance-id $INSTANCEID \
+  --query "Reservations[0].Instances[0].BlockDeviceMappings[0].Ebs.VolumeId" \
+  --output text)
+
+# Resize the EBS volume.
+aws ec2 modify-volume --volume-id $VOLUMEID --size $SIZE
+
+# Wait for the resize to finish.
+while [ \
+  "$(aws ec2 describe-volumes-modifications \
+    --volume-id $VOLUMEID \
+    --filters Name=modification-state,Values="optimizing","completed" \
+    --query "length(VolumesModifications)"\
+    --output text)" != "1" ]; do
+sleep 1
+done
+
+#Check if we're on an NVMe filesystem
+if [ $(readlink -f /dev/xvda) = "/dev/xvda" ]
+then
+  # Rewrite the partition table so that the partition takes up all the space that it can.
+  sudo growpart /dev/xvda 1
+
+  # Expand the size of the file system.
+  # Check if we are on AL2
+  STR=$(cat /etc/os-release)
+  SUB="VERSION_ID=\"2\""
+  if [[ "$STR" == *"$SUB"* ]]
+  then
+    sudo xfs_growfs -d /
+  else
+    sudo resize2fs /dev/xvda1
+  fi
+
+else
+  # Rewrite the partition table so that the partition takes up all the space that it can.
+  sudo growpart /dev/nvme0n1 1
+
+  # Expand the size of the file system.
+  # Check if we're on AL2
+  STR=$(cat /etc/os-release)
+  SUB="VERSION_ID=\"2\""
+  if [[ "$STR" == *"$SUB"* ]]
+  then
+    sudo xfs_growfs -d /
+  else
+    sudo resize2fs /dev/nvme0n1p1
+  fi
+fi
+```
+
+**Disclaimer**: AWS Free-Tier includes 30GB of Storage, 2 million I/Os, and 1GB of snapshot storage with [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/pricing/) free for 12 months.
+
+In the terminal, execute the script by running
+
+```
+sh resize.sh
+```
+
+Verify size change with `df -h` again
+
+```
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/xvda1       20G  9.3G   11G  48% /
+```
+
 ## Setting up the Telescope repository in Cloud9:
 
 1. In the terminal, clone the Telescope repository and name the remote `upstream` by entering
@@ -153,9 +245,10 @@ You may need up to four terminals, remember to run them in the `telescope direct
 
 1. `redis-server` for Redis
 2. `sudo /etc/init.d/elasticsearch start` for Elasticsearch
-3. `cd src/frontend`
-4. `gatsby develop -H 0.0.0.0 -p 8000`
-5. Find your EC2 instance's public IPv4
+3. `PORT=3000 npm start` to run the server on port 3000
+4. `cd src/frontend/gatsby`
+5. `gatsby develop -H 0.0.0.0 -p 8000`
+6. Find your EC2 instance's public IPv4
 
 ```
 curl -s http://169.254.169.254/latest/meta-data/public-ipv4
@@ -163,81 +256,20 @@ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 35.174.16.133
 ```
 
-6. Open `<public-ip>:3000/feeds` in your browser will show you the populated list of feeds in JSON format
-7. Open `<public-ip>:8000` in another browser tab will show you the frontend with feeds from port 3000
+7. Set the API_URL in your .env to your EC2 instance's public IPv4 address like
+
+```
+API_URL=<public-ip>:3000
+API_URL=http://35.174.16.133:3000
+```
+
+8. Set `PROXY_FRONTEND=1` in your .env
+9. Open `<public-ip>:3000/feeds` in your browser will show you the populated list of feeds in JSON format
+10. Open `<public-ip>:8000` in another browser tab will show you the frontend with feeds from port 3000
+
+**Note: For Next.js frontend, make sure you stop your Gatsby development terminal because both Gatsby and Next run on the same port 8000. Change directory to `/telescope/src/frontend/next/` , run `npm run dev` and open up `<public-ip>:8000` in a browser**
 
 ## Troubleshooting
-
-### Running out of storage?
-
-Check first using `df -h` in the terminal
-
-```
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/nvme0n1p1  9.7G  9.1G  557M  95% /
-```
-
-When you first create an EC2 instance, it has an EBS Volume of 10GB. To increase it to 20GB, create a new file called `resize.sh` in `~/environment` directory and copy the following script:
-
-```
-#!/bin/bash
-
-# Specify the desired volume size in GiB as a command-line argument. If not specified, default to 20 GiB.
-SIZE=${1:-20}
-
-# Get the ID of the environment host Amazon EC2 instance.
-INSTANCEID=$(curl http://169.254.169.254/latest/meta-data//instance-id)
-
-# Get the ID of the Amazon EBS volume associated with the instance.
-VOLUMEID=$(aws ec2 describe-instances \
-  --instance-id $INSTANCEID \
-  --query "Reservations[0].Instances[0].BlockDeviceMappings[0].Ebs.VolumeId" \
-  --output text)
-
-# Resize the EBS volume.
-aws ec2 modify-volume --volume-id $VOLUMEID --size $SIZE
-
-# Wait for the resize to finish.
-while [ \
-  "$(aws ec2 describe-volumes-modifications \
-    --volume-id $VOLUMEID \
-    --filters Name=modification-state,Values="optimizing","completed" \
-    --query "length(VolumesModifications)"\
-    --output text)" != "1" ]; do
-sleep 1
-done
-
-if [ $(readlink -f /dev/xvda) = "/dev/nvme0n1p1" ]
-then
-  # Rewrite the partition table so that the partition takes up all the space that it can.
-  sudo growpart /dev/xvda 1
-
-  # Expand the size of the file system.
-  sudo resize2fs /dev/nvme0n1p1
-
-else
-  # Rewrite the partition table so that the partition takes up all the space that it can.
-  sudo growpart /dev/nvme0n1 1
-
-  # Expand the size of the file system.
-  sudo resize2fs /dev/nvme0n1p1
-fi
-```
-
-**Disclaimer**: AWS Free-Tier includes 30GB of Storage, 2 million I/Os, and 1GB of snapshot storage with [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/pricing/) free for 12 months.
-
-In the terminal, execute the script by running
-
-```
-sh resize.sh
-```
-
-Verify size change with `df -h` again
-
-```
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/nvme0n1p1   20G  9.1G   11G  47% /
-```
 
 ### Servers didn't shutdown properly?
 
