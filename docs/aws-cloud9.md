@@ -5,6 +5,23 @@
 - Minimum: `t2.medium (4 GiB RAM + 2 vCPU)`
 - Recommended: `t2.large (8 GiB RAM + 2 vCPU)`
 
+**Summary of Pricing**:
+
+- t2.medium costs \$0.0464 per hour
+- t2.large costs \$0.0928 per hour
+- 30GB Amazon Elastic Block Storage (EBS) costs \$3 per month
+
+**Example Usage**:
+
+|                 | t2.medium | t2.large |
+| --------------- | --------- | -------- |
+| Cost per hour   | \$0.0464  | \$0.0928 |
+| Hours per day   | 8         | 8        |
+| Days per month  | 30        | 30       |
+| Sub-total       | \$11.14   | \$22.27  |
+| 30GB EBS Volume | \$3       | \$3      |
+| Total           | \$14.14   | \$25.27  |
+
 ## Prerequisites:
 
 - Create an [AWS Account](https://aws.amazon.com/). You can watch this [part](https://www.youtube.com/watch?v=3hLmDS179YE&t=10552s) of the AWS Certified Cloud Practitioner course on creating an account if you need help.
