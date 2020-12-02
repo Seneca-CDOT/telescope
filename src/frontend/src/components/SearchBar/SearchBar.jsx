@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+
 import {
   Grid,
   MenuItem,
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     bottom: theme.spacing(6),
     float: 'right',
-    marginBottom: theme.spacing(-5.5),
+    marginBottom: theme.spacing(-12),
   },
   selectControl: {
     '& > *': {

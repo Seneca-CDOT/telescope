@@ -11,12 +11,12 @@ import Spinner from '../Spinner';
 const useStyles = makeStyles(() => ({
   spinner: {
     display: 'flex',
-    justifyContent: 'center',
+    textAlign: 'center',
   },
   searchResults: {
     padding: 0,
     width: '100%',
-    justifyContent: 'center',
+    textAlign: 'center',
   },
 }));
 

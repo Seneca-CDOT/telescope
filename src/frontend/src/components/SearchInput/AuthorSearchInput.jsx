@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 function AuthorSearchInput({ text, onChange, classes }) {
   return (
@@ -11,6 +12,20 @@ function AuthorSearchInput({ text, onChange, classes }) {
         inputProps={{ 'aria-label': 'search telescope' }}
         value={text}
         onChange={onChange}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment>
+              <IconButton
+                type="submit"
+                className={classes.iconButton}
+                onClick={onSubmit}
+                aria-label="search"
+              >
+                <SearchIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
       <datalist id="search-suggestions"></datalist>
     </>
