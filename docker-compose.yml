@@ -16,7 +16,7 @@ services:
       - REDIS_URL=redis://redis:${REDIS_PORT}
       # variables for elasticsearch
       - ES_HOST=elasticsearch
-      - ELASTIC_URL=http://elasticsearch:${ELASTIC_PORT}
+      - ELASTIC_URL=http://elasticsearch
     depends_on:
       - redis
       - login

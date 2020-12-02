@@ -42,12 +42,12 @@ router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
  * We're keeping this route for development.
  */
 if (process.env.NODE_ENV === 'development') {
-  if (process.env.PROXY_GATSBY) {
-    // Allow proxying the Gatsby dev server through our backend if PROXY_GATSBY=1 is set in env
+  if (process.env.PROXY_FRONTEND) {
+    // Allow proxying the Gatsby dev server through our backend if PROXY_FRONTEND=1 is set in env
     router.use('/', createProxyMiddleware({ target: 'http://localhost:8000', changeOrigin: true }));
   } else {
     // Or serve the static files in the Gatsby build directory
-    router.use(express.static(path.join(__dirname, '../../../frontend/public')));
+    router.use(express.static(path.join(__dirname, '../../../frontend/gatsby/public')));
   }
 }
 

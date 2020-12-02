@@ -1,0 +1,5 @@
+# GatsbyJS specific
+.cache
+public
+# Ignore downloaded images
+src/images/backgrounds

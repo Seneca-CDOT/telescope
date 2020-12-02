@@ -31,7 +31,7 @@ services:
       - elasticsearch
     volumes:
       # Volume to be shared with nginx for serving static content
-      - static:/telescope/src/frontend/public
+      - static:/telescope/src/frontend/gatsby/public
       # Volume to be shared for log rotation
       - rotate:/telescope/log
     restart: always

@@ -8,7 +8,7 @@
     {
       "src": "package.json",
       "use": "@now/static-build",
-      "config": { "distDir": "src/frontend/public" }
+      "config": { "distDir": "src/frontend/gatsby/public" }
     }
   ],
   "public": true,
