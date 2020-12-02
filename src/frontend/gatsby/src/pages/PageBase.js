@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import SEO from '../components/SEO';
 import Header from '../components/Header';
+import BottomBar from '../components/BottomBar';
 
 const styles = {
   '@global': {
@@ -29,6 +30,7 @@ function PageBase({ children, title }) {
       <SEO title={title} />
       <Header />
       {children}
+      <BottomBar />
     </>
   );
 }
