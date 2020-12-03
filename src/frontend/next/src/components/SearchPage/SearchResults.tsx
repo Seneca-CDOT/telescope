@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSWRInfinite } from 'swr';
 import { Container, Box, Grid, Typography, ListSubheader } from '@material-ui/core';
@@ -7,10 +7,10 @@ import useSiteMetadata from '../../hooks/use-site-metadata';
 import Timeline from '../Posts/Timeline.jsx';
 import Spinner from '../Spinner';
 
-type SearchPageProps = {
-  text: string;
-  filter: string;
-};
+interface SearchPageProps {
+  text: string | null;
+  filter: string | null;
+}
 
 const useStyles = makeStyles(() => ({
   spinner: {
@@ -27,12 +27,17 @@ const useStyles = makeStyles(() => ({
 const SearchResults: FC<SearchPageProps> = ({ text, filter }: SearchPageProps) => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
-  const prepareUrl = (index: number) =>
-    `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}&page=${index}`;
+  const prepareUrl = (index: number) => {
+    return text
+      ? `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}&page=${index}`
+      : // Should we return an empty string? or null here?
+        null;
+  };
 
   // We only bother doing the request if we have something to search for.
-  const shouldFetch = () => text?.length > 0;
-  const { data, size, setSize, loading, error } = useSWRInfinite(
+  // Can't do optional chaining below on text only because text could be null
+  const shouldFetch = () => text && text.length > 0;
+  const { data, size, setSize, error } = useSWRInfinite(
     (index: number) => (shouldFetch() ? prepareUrl(index) : null),
     async (u: string) => {
       const res = await fetch(u);
@@ -58,7 +63,7 @@ const SearchResults: FC<SearchPageProps> = ({ text, filter }: SearchPageProps) =
     );
   }
 
-  if (text?.length && loading) {
+  if (text?.length && !error) {
     return (
       <Container className={classes.searchResults}>
         <h1 className={classes.spinner}>
