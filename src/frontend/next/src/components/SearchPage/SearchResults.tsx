@@ -63,7 +63,7 @@ const SearchResults: FC<SearchPageProps> = ({ text, filter }: SearchPageProps) =
     );
   }
 
-  if (text?.length && !error) {
+  if (text?.length && !error && !data) {
     return (
       <Container className={classes.searchResults}>
         <h1 className={classes.spinner}>
