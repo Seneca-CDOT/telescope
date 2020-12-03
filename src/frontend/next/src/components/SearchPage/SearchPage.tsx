@@ -1,4 +1,4 @@
-import React, { FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const SearchPage: FC = () => {
+const SearchPage: FC = () => {
   const classes = useStyles();
   // We synchronize the `text` and `filter` values to the URL's query string
   // via `textParam` and `filterParam`. The <SearchBar> UI uses our internal
