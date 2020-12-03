@@ -5,7 +5,7 @@ import { Container, Box, Grid, Typography, ListSubheader } from '@material-ui/co
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import Timeline from '../Posts/Timeline.jsx';
-import Spinner from '../Spinner';
+import Spinner from '../Spinner/Spinner';
 
 interface SearchPageProps {
   text: string | null;
