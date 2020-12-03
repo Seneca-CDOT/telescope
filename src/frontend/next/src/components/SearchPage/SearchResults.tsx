@@ -27,13 +27,11 @@ const useStyles = makeStyles(() => ({
 const SearchResults: FC<SearchPageProps> = ({ text, filter }: SearchPageProps) => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
-  const prepareUrl = (index: number) => {
-    return text
+  const prepareUrl = (index: number) =>
+    text
       ? `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}&page=${index}`
       : // Should we return an empty string? or null here?
         null;
-  };
-
   // We only bother doing the request if we have something to search for.
   // Can't do optional chaining below on text only because text could be null
   const shouldFetch = () => text && text.length > 0;
