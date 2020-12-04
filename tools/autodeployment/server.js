@@ -7,7 +7,7 @@ const mergeStream = require('merge-stream');
 const fs = require('fs');
 
 const { buildStart, buildStop, handleStatus } = require('./info');
-
+const { dockerMonitor } = require('./src/docker_events');
 // Current build process output stream (if any)
 let out;
 const {
@@ -26,6 +26,9 @@ const credentials = {
   key: privateKey,
   cert: certificate,
 };
+
+// Docker Monitor module:
+dockerMonitor();
 
 function handleError(req, res) {
   res.statusCode = 404;
