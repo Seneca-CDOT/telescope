@@ -12,7 +12,6 @@ import {
   IconButton,
   Box,
   Typography,
-  Fab,
 } from '@material-ui/core';
 
 import SearchInput from '../SearchInput';
@@ -62,10 +61,16 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.contrastText,
     },
     margin: 0,
+<<<<<<< HEAD
     position: 'relative',
     bottom: theme.spacing(6),
     float: 'right',
     marginBottom: theme.spacing(-12),
+=======
+    position: 'absolute',
+    right: '10px',
+    top: '6px',
+>>>>>>> 9412aa48ee9f3fe9de93d2a03309acc74a773242
   },
   selectControl: {
     '& > *': {
@@ -105,13 +110,6 @@ function CustomizedInputBase(props) {
           </Grid>
           <SearchHelp />
         </Grid>
-        <Fab size="large" className={classes.iconButton}>
-          <FormControl>
-            <IconButton type="submit" onClick={onSubmit} aria-label="search">
-              <SearchIcon />
-            </IconButton>
-          </FormControl>
-        </Fab>
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth>
@@ -135,6 +133,14 @@ function CustomizedInputBase(props) {
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth>
               <SearchInput filter={filter} text={text} onChange={onTextChange} />
+              <IconButton
+                className={classes.iconButton}
+                type="submit"
+                onClick={onSubmit}
+                aria-label="search"
+              >
+                <SearchIcon />
+              </IconButton>
             </FormControl>
           </Grid>
         </Grid>
