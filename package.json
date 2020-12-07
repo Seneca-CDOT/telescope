@@ -98,7 +98,6 @@
     "ioredis": "4.17.3",
     "ioredis-mock": "5.1.0",
     "jsdom": "16.4.0",
-    "next": "10.0.3",
     "node-fetch": "2.6.1",
     "normalize-url": "5.1.0",
     "opml-generator": "1.1.1",
