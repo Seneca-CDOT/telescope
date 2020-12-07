@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface CustomizedInputBaseProps {
   text: string | null;
-  onTextChange(): any;
+  onTextChange(): void;
   filter: string | null;
   onFilterChange(value: string): any;
   onSubmit(): any;
