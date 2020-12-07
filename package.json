@@ -93,7 +93,7 @@
     "feedparser-promised": "2.0.1",
     "git-repo-info": "2.1.1",
     "helmet": "4.1.1",
-    "highlight.js": "10.2.0",
+    "highlight.js": "10.4.1",
     "http-proxy-middleware": "1.0.5",
     "ioredis": "4.17.3",
     "ioredis-mock": "5.1.0",

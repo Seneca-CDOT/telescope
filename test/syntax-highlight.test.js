@@ -38,7 +38,7 @@ describe('syntax-highlight tests', () => {
     const original = 'const int i = 5; <pre><code>const int i = 5;</code></pre>';
     const result = syntaxHighlighter(original);
     const expected =
-      'const int i = 5; <pre class="hljs csharp"><code><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> i = <span class="hljs-number">5</span>;</code></pre>';
+      'const int i = 5; <pre class="hljs csharp"><code><span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> i = <span class="hljs-number">5</span>;</code></pre>';
     expect(result).toEqual(expected);
   });
 
