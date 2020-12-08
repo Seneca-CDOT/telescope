@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, List, ListItem, Divider } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
 
 import LogoIcon from '../LogoIcon';
-import Login from '../Login';
-import Footer from '../Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
