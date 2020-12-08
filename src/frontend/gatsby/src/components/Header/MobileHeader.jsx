@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, List, ListItem, Drawer, Divider } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import { AppBar, Toolbar, List, ListItem, Divider } from '@material-ui/core';
 
 import LogoIcon from '../LogoIcon';
 import Login from '../Login';
@@ -26,88 +24,10 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-  searchIcon: {
-    fontSize: '2.5rem',
-    color: theme.palette.background.default,
-  },
-  menuIcon: {
-    fontSize: '2.5rem',
-  },
-  links: {
-    color: theme.palette.background.default,
-    fontFamily: 'Roboto, sans-serif',
-    textDecoration: 'none',
-    fontSize: '1.5rem',
-    margin: '0 0.5rem 0 0.5rem',
-  },
-  button: {
-    float: 'right',
-    margin: '0 0.5rem 0 0.5rem',
-  },
-  list: {
-    width: 250,
-  },
-  paper: {
-    backgroundColor: theme.palette.primary.main,
-  },
-  line: {
-    backgroundColor: theme.palette.background.default,
-  },
-  item: {
-    color: theme.palette.background.default,
-    fontFamily: 'Roboto, sans-serif',
-    textDecoration: 'none',
-    fontSize: '1.5rem',
-    justifyContent: 'center',
-    fontWeight: 500,
-    lineHeight: 1.75,
-  },
-  footer: {
-    textAlign: 'center',
-    color: theme.palette.background.default,
-    bottom: 5,
-    position: 'fixed',
-  },
 }));
 
 export default function MobileHeader() {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    right: false,
-  });
-
-  const toggleDrawer = (side, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [side]: open });
-  };
-
-  const sideList = (side) => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <List className={classes.item}>
-        <ListItem button component={Link} to="/" className={classes.item}>
-          HOME
-        </ListItem>
-        <Divider className={classes.line} />
-        <ListItem button component={Link} to="/about" className={classes.item}>
-          ABOUT
-        </ListItem>
-        <Divider className={classes.line} />
-        <Login style={classes.item} />
-        <Divider className={classes.line} />
-        <div className={classes.footer}>
-          <Footer />
-        </div>
-      </List>
-    </div>
-  );
 
   return (
     <>
