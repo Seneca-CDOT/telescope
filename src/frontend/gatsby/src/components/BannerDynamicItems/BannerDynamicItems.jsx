@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0.9,
   },
   stats: {
+    paddingBottom: '25px',
     position: 'absolute',
     color: theme.palette.primary.contrastText,
     fontFamily: 'Roboto',

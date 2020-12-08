@@ -117,28 +117,6 @@ export default function MobileHeader() {
             <LogoIcon height="45" width="45" />
           </Link>
           <div className={classes.grow} />
-          <IconButton color="inherit" className={classes.button} aria-label="search">
-            <Link to="/search">
-              <SearchIcon className={classes.searchIcon} />
-            </Link>
-          </IconButton>
-          <IconButton
-            onClick={toggleDrawer('right', true)}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            className={classes.button}
-          >
-            <MenuIcon className={classes.menuIcon} />
-          </IconButton>
-          <Drawer
-            classes={{ paper: classes.paper }}
-            anchor="right"
-            open={state.right}
-            onClose={toggleDrawer('right', false)}
-          >
-            {sideList('right')}
-          </Drawer>
         </Toolbar>
       </AppBar>
     </>

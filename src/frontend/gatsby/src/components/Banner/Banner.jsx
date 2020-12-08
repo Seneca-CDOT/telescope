@@ -60,12 +60,12 @@ const useStyles = makeStyles((theme) => ({
     height: '5.6rem',
     width: '5.6rem',
     position: 'relative',
-    bottom: theme.spacing(20),
+    bottom: theme.spacing(22),
     zIndex: 300,
     margin: '0 auto',
     [theme.breakpoints.between('xs', 'sm')]: {
       left: '55%',
-      bottom: theme.spacing(18),
+      bottom: theme.spacing(22),
     },
   },
   anchor: {
