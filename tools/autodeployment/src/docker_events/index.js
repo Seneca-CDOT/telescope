@@ -40,7 +40,6 @@ const waitingDocker = () => {
 };
 
 const dockerListener = () => {
-  shell.chmod('700', './failCheck.sh');
   const event = shell.exec('./failCheck.sh', { silent: true, async: true });
   event.stdout.on('data', async () => {
     await fetch(SLACK_SEND_MESSAGE, {
