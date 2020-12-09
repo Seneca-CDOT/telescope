@@ -13,6 +13,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:promise/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:import/typescript',
   ],
   plugins: ['prettier', 'promise', 'react', 'react-hooks'],
   settings: {
@@ -24,6 +25,7 @@ module.exports = {
     // TypeScript for Next.js
     {
       files: ['src/frontend/next/**/*.ts', 'src/frontend/next/**/*.tsx'],
+      env: { node: true, browser: true, jest: true },
       plugins: ['@typescript-eslint'],
       rules: {
         'react/prop-types': 'off',
