@@ -11,7 +11,7 @@
 - t2.large costs \$0.0928 per hour
 - 30GB Amazon Elastic Block Storage (EBS) costs \$3 per month
 
-**Example Usage**:
+**Cost Estimate Per Month**:
 
 |                 | t2.medium | t2.large |
 | --------------- | --------- | -------- |
@@ -246,7 +246,18 @@ git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
 
 2. Change to the telescope directory `cd telescope`
 3. Copy the `env.example` file into the root of your Telescope directory `cp env.example .env`
-4. Install the Gatsby-CLI
+
+4. Set the API_URL in your .env to your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
+
+```
+sh ./tools/aws-ip.sh
+```
+
+You should see `API_URL=http://35.174.16.133:3000` at the bottom of our `.env` file. Make sure the other `API_URL=` lines are commented out in `.env` file.
+
+5. Set `PROXY_FRONTEND=1` in your .env
+
+6. Install the Gatsby-CLI
 
 ```
 npm install -g gatsby-cli
@@ -273,16 +284,8 @@ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 35.174.16.133
 ```
 
-7. Set the API_URL in your .env to your EC2 instance's public IPv4 address like
-
-```
-API_URL=<public-ip>:3000
-API_URL=http://35.174.16.133:3000
-```
-
-8. Set `PROXY_FRONTEND=1` in your .env
-9. Open `<public-ip>:3000/feeds` in your browser will show you the populated list of feeds in JSON format
-10. Open `<public-ip>:8000` in another browser tab will show you the frontend with feeds from port 3000
+7. Open `<public-ip>:3000/feeds` in your browser will show you the populated list of feeds in JSON format
+8. Open `<public-ip>:8000` in another browser tab will show you the frontend with feeds from port 3000
 
 **Note: For Next.js frontend, make sure you stop your Gatsby development terminal because both Gatsby and Next run on the same port 8000. Change directory to `/telescope/src/frontend/next/` , run `npm run dev` and open up `<public-ip>:8000` in a browser**
 
