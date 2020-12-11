@@ -75,14 +75,21 @@ app.use('/', router);
 /**
  * Error Handler, Pass to front-end
  */
-/* eslint-disable no-unused-vars */
-app.use((err, req, res, next) => {
+// eslint-disable no-unused-vars
+const errorHandler = (err, req, res, next) => {
   logger.logger.error({ error: err });
+
+  if (res.headersSent) {
+    next(err);
+    return;
+  }
+
   const status = err.status || 500;
   res
     .status(status)
     .redirect(`/error?status=${status}${err.message ? `&message=${encodeURI(err.message)}` : ``}`);
-});
+};
+app.use(errorHandler);
 
 /**
  * 404 Handler, Pass to front-end

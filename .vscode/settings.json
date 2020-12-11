@@ -4,6 +4,9 @@
   "editor.detectIndentation": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
   "files.eol": "\n",
   "files.insertFinalNewline": true
 }

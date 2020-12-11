@@ -53,7 +53,7 @@ feeds.get('/:id', validateFeedsIdParam(), async (req, res) => {
   }
 });
 
-feeds.put('/:id/flag', protectAdmin(), async (req, res) => {
+feeds.put('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res) => {
   const { id } = req.params;
   try {
     const feed = await Feed.byId(id);
@@ -109,7 +109,7 @@ feeds.delete('/cache', protectAdmin(true), async (req, res) => {
   }
 });
 
-feeds.delete('/:id', protect(), async (req, res) => {
+feeds.delete('/:id', validateFeedsIdParam(), protect(), async (req, res) => {
   const { user } = req;
   const { id } = req.params;
   try {
@@ -130,7 +130,7 @@ feeds.delete('/:id', protect(), async (req, res) => {
   }
 });
 
-feeds.delete('/:id/flag', protectAdmin(), async (req, res) => {
+feeds.delete('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res) => {
   const { id } = req.params;
   try {
     const feed = await Feed.byId(id);

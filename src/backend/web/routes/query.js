@@ -8,10 +8,10 @@ const router = express.Router();
 
 router.get('/', validateQuery(), async (req, res) => {
   try {
-    const { text, filter } = req.query;
-    res.send(await search(text, filter));
+    const { text, filter, page, perPage } = req.query;
+    res.send(await search(text, filter, page, perPage));
   } catch (error) {
-    res.send(`There was an error while executing your query: ${error}`);
+    res.status(500).send(`There was an error while executing your query: ${error}`);
     logger.error({ error }, 'Something went wrong with search indexing');
   }
 });
