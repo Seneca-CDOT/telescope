@@ -4,8 +4,6 @@ import Link from 'next/link';
 import { ListItem } from '@material-ui/core';
 import LoggedIn from './LoggedIn';
 import LoggedOut from './LoggedOut';
-import useSiteMetadata from '../../hooks/use-site-metadata';
-import getStaticProps from '../../hooks/use-site-metadata';
 import { UserStateContext, UserDispatchContext } from '../../contexts/User/UserContext';
 
 /**
@@ -13,8 +11,8 @@ import { UserStateContext, UserDispatchContext } from '../../contexts/User/UserC
  * or a welcome message and Logout button.
  */
 
-function Login(style: string) {
-  const { telescopeUrl } = getStaticProps(); // useSiteMetadata()
+function Login({ style }: { style: any }, { telescopeUrl }: { telescopeUrl: any }): any {
+  const { telescopeUrl: any } = { telescopeUrl }; // useSiteMetadata()
   const user = useContext(UserStateContext);
   const dispatch = useContext(UserDispatchContext);
 

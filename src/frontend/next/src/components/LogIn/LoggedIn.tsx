@@ -4,10 +4,7 @@ import { Button, Divider, Grid, useMediaQuery } from '@material-ui/core';
 import Link from 'next/link';
 import { UserStateContext } from '../../contexts/User/UserContext';
 
-//import useSiteMetadata from '../../hooks/use-site-metadata';
-import getStaticProps from '../../hooks/use-site-metadata';
-
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles(({ theme }: { theme: any }) => ({
   button: {
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
@@ -38,9 +35,9 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-function LoggedIn() {
+function LoggedIn({ telescopeUrl }: { telescopeUrl: any }) {
   const user = useContext(UserStateContext);
-  const { telescopeUrl } = getStaticProps(); // useSiteMetadata()
+  const { telescopeUrl: any } = { telescopeUrl }; //useSiteMetadata() We dont call getStaticProps it automatically gets called
   const logoutUrl = `${telescopeUrl}/auth/logout`;
   const classes = useStyles();
   const theme = useTheme();
