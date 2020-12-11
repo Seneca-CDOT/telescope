@@ -27,8 +27,13 @@ const useStyles = makeStyles((theme) => ({
     outline: 'none',
   },
 }));
+interface SearchInputProps {
+  text?: string;
+  onChange: (event?: any) => void;
+  filter?: string;
+}
 
-function SearchInput({ text, filter, onChange }: any) {
+function SearchInput({ text, filter, onChange }: SearchInputProps) {
   const classes = useStyles();
   return filter === 'author' ? (
     <AuthorSearchInput
@@ -44,11 +49,5 @@ function SearchInput({ text, filter, onChange }: any) {
     />
   );
 }
-
-SearchInput.propTypes = {
-  text: PropTypes.string,
-  onChange: PropTypes.func,
-  filter: PropTypes.string,
-};
 
 export default SearchInput;

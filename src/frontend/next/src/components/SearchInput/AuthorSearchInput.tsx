@@ -1,14 +1,18 @@
-import React from 'react';
+import { FC } from 'react';
 
-interface SearchInput {
-  text: string;
-  onChange: () => void;
+interface AuthorSearchProps {
+  text?: string | number;
+  onChange: (event?: any) => void;
   classes: {
     input: string;
   };
 }
 
-function AuthorSearchInput({ text, onChange, classes }: SearchInput) {
+const AuthorSearchInput: FC<AuthorSearchProps> = ({
+  text,
+  onChange,
+  classes,
+}: AuthorSearchProps) => {
   return (
     <>
       <input
@@ -23,5 +27,5 @@ function AuthorSearchInput({ text, onChange, classes }: SearchInput) {
       <datalist id="search-suggestions" />
     </>
   );
-}
+};
 export default AuthorSearchInput;

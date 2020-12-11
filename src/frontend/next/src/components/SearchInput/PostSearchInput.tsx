@@ -1,7 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
-function PostSearchInput({ text, onChange, classes }: any) {
+interface PostSearchProps {
+  text?: string | number;
+  onChange?: (event?: any) => void;
+  classes: {
+    input: string;
+  };
+}
+const PostSearchInput: FC<PostSearchProps> = ({ text, onChange, classes }: PostSearchProps) => {
   return (
     <input
       className={classes.input}
@@ -12,12 +18,6 @@ function PostSearchInput({ text, onChange, classes }: any) {
       onChange={onChange}
     />
   );
-}
-
-PostSearchInput.propTypes = {
-  text: PropTypes.string,
-  onChange: PropTypes.func,
-  classes: PropTypes.object,
 };
 
 export default PostSearchInput;
