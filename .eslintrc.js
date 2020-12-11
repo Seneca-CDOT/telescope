@@ -13,6 +13,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:promise/recommended',
     'plugin:react-hooks/recommended',
+    'plugin:import/typescript',
   ],
   plugins: ['prettier', 'promise', 'react', 'react-hooks'],
   settings: {
