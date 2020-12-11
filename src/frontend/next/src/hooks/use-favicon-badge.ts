@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, LinkHTMLAttributes } from 'react';
 import { useMountedState } from 'react-use';
 import useVisibility from './use-visibility';
 
@@ -18,11 +18,13 @@ const useFaviconBadge = () => {
     // for various sizes.  This updates them all, which is not perfect, but works!
     // Code based on useFavicon, see https://github.com/streamich/react-use/blob/master/src/useFavicon.ts
     // Used under Unlicense https://github.com/streamich/react-use/blob/master/LICENSE
-    document.querySelectorAll("link[rel*='icon']").forEach((link: any) => {
-      link.type = 'image/x-icon';
-      link.rel = 'shortcut icon';
-      link.href = logo;
-    });
+    document
+      .querySelectorAll<HTMLLinkElement>("link[rel*='icon']")
+      .forEach((link: HTMLLinkElement) => {
+        link.type = 'image/x-icon';
+        link.rel = 'shortcut icon';
+        link.href = logo;
+      });
   }, [logo]);
 
   // Manage the transition to visible, and reset the logo.
