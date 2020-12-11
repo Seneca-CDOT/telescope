@@ -6,6 +6,8 @@ const syntaxHighlight = require('./syntax-highlight');
 const replaceCodeEntities = require('./replace-entities');
 const fixEmptyPre = require('./modify-pre');
 const toDOM = require('./dom');
+const removeEmptyParagraphs = require('./remove-empty-paragraphs');
+const replaceBreaklines = require('./replace-redundant-breaklines');
 
 const { JSDOM } = jsdom;
 
@@ -21,7 +23,10 @@ module.exports = function process(html) {
   }
 
   // Sanitize the HTML to remove unwanted elements and attributes
-  const clean = sanitize(html);
+  const sanitized = sanitize(html);
+
+  // Replaces redundant breaklines and cleans breaklines in <p> and <div> elements
+  const clean = replaceBreaklines(sanitized);
 
   // Checks if the context of the sanitized html contains whitespace only.
   const fragment = JSDOM.fragment(clean);
@@ -42,6 +47,8 @@ module.exports = function process(html) {
   lazyLoad(dom);
   // Replace <code> elements with encoded entities to use characters
   replaceCodeEntities(dom);
+  // Remove empty <p> elements
+  removeEmptyParagraphs(dom);
 
   // Return the resulting HTML
   return dom.window.document.body.innerHTML;
