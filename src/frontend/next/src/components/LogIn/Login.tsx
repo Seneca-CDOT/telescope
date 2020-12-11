@@ -5,14 +5,17 @@ import { ListItem } from '@material-ui/core';
 import LoggedIn from './LoggedIn';
 import LoggedOut from './LoggedOut';
 import { UserStateContext, UserDispatchContext } from '../../contexts/User/UserContext';
+import useSiteMetadata from '../../hooks/use-site-metadata';
 
 /**
  * Show either a Login button (if user isn't authenticated)
  * or a welcome message and Logout button.
  */
 
-function Login({ style }: { style: any }, { telescopeUrl }: { telescopeUrl: any }): any {
-  const { telescopeUrl: any } = { telescopeUrl }; // useSiteMetadata()
+// { telescopeUrl }: { telescopeUrl: any } : any
+function Login({ style }: { style: any }) {
+  //const { telescopeUrl: any } = { telescopeUrl }; // useSiteMetadata()
+  const { telescopeUrl } = useSiteMetadata();
   const user = useContext(UserStateContext);
   const dispatch = useContext(UserDispatchContext);
 

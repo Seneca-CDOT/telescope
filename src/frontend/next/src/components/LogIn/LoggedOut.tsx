@@ -1,7 +1,8 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
+import useSiteMetadata from '../../hooks/use-site-metadata';
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles(({ theme }: { theme: any }) => ({
   button: {
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
@@ -14,8 +15,10 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-function LoggedOut({ telescopeUrl }: { telescopeUrl: any }) {
-  const { telescopeUrl: any } = { telescopeUrl }; //useSiteMetadata() getStaticProps()
+// LoggedOut() params: { telescopeUrl }: { telescopeUrl: any }
+function LoggedOut() {
+  //const { telescopeUrl: any } = { telescopeUrl }; //useSiteMetadata() getStaticProps()
+  const { telescopeUrl } = useSiteMetadata();
   const loginUrl = `${telescopeUrl}/auth/login`;
   const classes = useStyles();
 

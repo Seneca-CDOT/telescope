@@ -3,6 +3,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Button, Divider, Grid, useMediaQuery } from '@material-ui/core';
 import Link from 'next/link';
 import { UserStateContext } from '../../contexts/User/UserContext';
+import useSiteMetadata from '../../hooks/use-site-metadata';
 
 const useStyles = makeStyles(({ theme }: { theme: any }) => ({
   button: {
@@ -35,9 +36,11 @@ const useStyles = makeStyles(({ theme }: { theme: any }) => ({
   },
 }));
 
-function LoggedIn({ telescopeUrl }: { telescopeUrl: any }) {
+// { telescopeUrl }: { telescopeUrl: any }
+function LoggedIn() {
   const user = useContext(UserStateContext);
-  const { telescopeUrl: any } = { telescopeUrl }; //useSiteMetadata() We dont call getStaticProps it automatically gets called
+  //const { telescopeUrl: any } = { telescopeUrl }; //useSiteMetadata() We dont call getStaticProps it automatically gets called
+  const { telescopeUrl } = useSiteMetadata();
   const logoutUrl = `${telescopeUrl}/auth/logout`;
   const classes = useStyles();
   const theme = useTheme();
