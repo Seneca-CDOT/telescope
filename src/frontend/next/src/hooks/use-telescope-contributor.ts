@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const pickRandomContributor = (contributors: any) => {
+const pickRandomContributor = (contributors: any[]) => {
   return contributors[Math.floor(Math.random() * contributors.length)];
 };
 
