@@ -6,6 +6,8 @@ const { SLACK_SEND_MESSAGE } = process.env;
 
 const dockerEvents = new Events.EventEmitter();
 
+const server = process.DEPLOY_TYPE === 'production' ? 'PRODUCTION' : 'DEV';
+
 const message = {
   down: {
     response_type: 'in_channel',
