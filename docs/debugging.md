@@ -24,6 +24,7 @@ At the bottom left you will see your Call Stack and if successfully ran, index.j
 ### Debugging
 
 Now that we know how to launch the server. We will look at different launching options :
+
 ![VS Launch Options Screenshot](./images/VS-Launch-Options.png)
 
 1. Launch Telescope -> Launches index.js and tries to run the backend.
