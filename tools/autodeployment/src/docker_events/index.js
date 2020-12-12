@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const shell = require('shelljs');
 const fetch = require('node-fetch');
 const Events = require('events');
@@ -8,53 +9,99 @@ const dockerEvents = new Events.EventEmitter();
 
 const server = process.DEPLOY_TYPE === 'production' ? 'PRODUCTION' : 'DEV';
 
-const message = {
-  down: {
-    response_type: 'in_channel',
-    text: `\n:rotating_light: PRODUCTION IS DOWN. :rotating_light:\n`,
-    attachments: [
+const eventsDown = ['pause', 'die', 'stop'];
+const eventsBack = ['start', 'unpause', 'restart'];
+
+const containersUp = new Set();
+const containersDown = new Set();
+
+const message = (eventLog) => {
+  const {
+    status,
+    Action,
+    Actor: {
+      Attributes: { name },
+    },
+  } = eventLog;
+
+  const isDown = eventsDown.includes(Action);
+
+  const logo = isDown
+    ? 'https://www.iconsdb.com/icons/preview/red/warning-xxl.png'
+    : 'https://www.iconsdb.com/icons/preview/green/up-circular-xxl.png';
+
+  return {
+    blocks: [
       {
-        text: `PROD IS DOWN`,
+        type: 'divider',
+      },
+      {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: `* ${server} DOCKER CONTAINER: ${
+            isDown ? 'DOWN' : 'UP'
+          }*\n\nContainer: ${name}\nAction: ${Action}\nCurrent Status: ${status}\n`,
+        },
+        accessory: {
+          type: 'image',
+          image_url: logo,
+          alt_text: 'alt text for image',
+        },
+      },
+      {
+        type: 'divider',
       },
     ],
-  },
-  up: {
-    response_type: 'in_channel',
-    text: `\nPRODUCTION IS BACK\n`,
-    attachments: [
-      {
-        text: `PROD IS UP!\n`,
-      },
-    ],
-  },
+  };
 };
 
-const waitingDocker = () => {
-  const event = shell.exec('./waitDocker.sh', { silent: true, async: true });
-  event.stdout.on('data', async () => {
-    await fetch(SLACK_SEND_MESSAGE, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(message.up),
-    });
-    dockerEvents.emit('start');
+const sendMessage = async (containerEvent) => {
+  await fetch(SLACK_SEND_MESSAGE, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(message(containerEvent)),
   });
 };
 
+const eventHandle = (containerEvent) => {
+  const {
+    Action,
+    Actor: {
+      Attributes: { name },
+    },
+  } = containerEvent;
+
+  if (
+    (containersDown.has(name) && eventsDown.includes(Action)) ||
+    (containersUp.has(name) && eventsBack.includes(Action))
+  )
+    return;
+
+  if (eventsDown.includes(Action)) {
+    containersUp.has(name) ? containersUp.delete(name) : null;
+    containersDown.add(name);
+  } else {
+    containersDown.has(name) ? containersDown.delete(name) : null;
+    containersUp.add(name);
+  }
+  sendMessage(containerEvent);
+};
+
 const dockerListener = () => {
-  const event = shell.exec('./failCheck.sh', { silent: true, async: true });
-  event.stdout.on('data', async () => {
-    await fetch(SLACK_SEND_MESSAGE, {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(message.down),
-    });
-    dockerEvents.emit('docker-down');
+  const event = shell.exec('./docker-listener.sh', {
+    silent: true,
+    async: true,
+  });
+  event.stdout.on('data', (data) => {
+    const containerEvent = JSON.parse(data);
+    if (containerEvent.Actor.Attributes.name.includes('telescope')) {
+      eventHandle(containerEvent);
+    }
   });
 };
 
 dockerEvents.on('start', dockerListener);
-dockerEvents.on('docker-down', waitingDocker);
 
 const dockerMonitor = () => dockerEvents.emit('start');
 
