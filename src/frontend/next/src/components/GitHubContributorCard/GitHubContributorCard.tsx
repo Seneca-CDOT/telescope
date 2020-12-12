@@ -1,10 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Avatar, Grid } from '@material-ui/core';
 import useTelescopeContributor from '../../hooks/use-telescope-contributor';
 
-function Contributions({ contributions }) {
-  return contributions < 3 ? 'contributions.' : `${contributions} contributions.`;
+type ContributionProps = {
+  contributions: number;
+};
+
+function Contributions({ contributions }: ContributionProps) {
+  return <span> {contributions < 3 ? 'contributions.' : `${contributions} contributions.`} </span>;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GitHubContributorCard = () => {
+const GitHubContributorCard: FC = () => {
   const classes = useStyles();
   const { contributor, error } = useTelescopeContributor();
 
