@@ -23,6 +23,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* z-index: 0; */
 }
 
 .search {
@@ -30,6 +31,7 @@
   height: 1.8em;
   width: auto;
   filter: invert(85%);
+  /* z-index: 0; */
 }
 
 .menu {
@@ -37,12 +39,65 @@
   margin-right: 0.5rem;
   display: flex;
   justify-content: space-between;
+  /* z-index: 0; */
 }
 
 .menu nav ul li {
   color: #e5e5e5;
-  font-family: sans-serif;
-  font-weight: 550;
+  font-weight: 500;
   display: inline;
   padding: 20px 15px;
+}
+
+.menu_icon {
+  display: none;
+}
+.sideNav {
+  display: none;
+}
+
+/* ----------- Mobile ----------- */
+@media screen and (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+  .menu_icon {
+    height: 1.5em;
+    width: auto;
+    filter: invert(85%);
+    display: block;
+    margin: 0 1em;
+    flex: 1;
+    z-index: 0;
+  }
+  .sideNav {
+    display: block;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.75;
+    color: #e5e5e5;
+    font-weight: 500;
+    text-align: center;
+    top: 0;
+    position: relative;
+    background-color: #333e64;
+    padding-top: 30px;
+    height: 100%;
+    width: 250px;
+    z-index: 1;
+  }
+
+  .sideNav div {
+    margin: 20em 0em;
+    padding: 30em 0em;
+    width: inherit;
+    flex: 1;
+    top: 0;
+    /* justify-self: flex-start;  */
+  }
+  .sideNav footer {
+    justify-self: flex-end;
+  }
 }
