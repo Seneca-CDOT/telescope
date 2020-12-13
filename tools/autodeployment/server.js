@@ -5,8 +5,13 @@ const createHandler = require('github-webhook-handler');
 const shell = require('shelljs');
 const mergeStream = require('merge-stream');
 const fs = require('fs');
+const { firstCheck } = require('./src/sibling-checker');
 
 const { buildStart, buildStop, handleStatus } = require('./info');
+
+// Server health check
+
+firstCheck();
 
 // Current build process output stream (if any)
 let out;
