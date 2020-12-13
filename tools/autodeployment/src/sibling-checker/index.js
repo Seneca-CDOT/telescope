@@ -10,7 +10,7 @@ const server =
 
 let timerOne;
 let timerTwo;
-let warningSign = false;
+let messageSent = false;
 
 const firstCheck = () => {
   timerOne = setIntervalAsync(async () => {
@@ -18,10 +18,9 @@ const firstCheck = () => {
       method: 'head',
       timeout: 1500,
     });
-    if (!result.status === 200) {
+    if (result.status !== 200) {
       clearIntervalAsync(timerOne);
-      !warningSign ? secondCheck() : null;
-      warningSign = true;
+      secondCheck();
     }
   }, 120000);
 };
@@ -30,12 +29,16 @@ const secondCheck = () => {
   timerTwo = setIntervalAsync(async () => {
     const result = await fetch(server, { method: 'head', timeout: 1500 });
 
-    if (!result.status === 200 && warningSign) sendMessage(result.status);
+    if (result.status !== 200 && !messageSent) {
+      sendMessage(result.status);
+      messageSent = true;
+    }
 
     if (result.status === 200) {
       clearIntervalAsync(timerTwo);
-      warningSign ? firstCheck() : null;
-      warningSign = false;
+      sendMessage(result.status);
+      firstCheck();
+      messageSent = false;
     }
   }, 10000);
 };
@@ -74,3 +77,5 @@ const sendMessage = async (status) => {
     body: JSON.stringify(message),
   });
 };
+
+module.export = { firstCheck };
