@@ -23,10 +23,7 @@ module.exports = function process(html) {
   }
 
   // Sanitize the HTML to remove unwanted elements and attributes
-  const sanitized = sanitize(html);
-
-  // Replaces redundant breaklines and cleans breaklines in <p> and <div> elements
-  const clean = replaceBreaklines(sanitized);
+  const clean = sanitize(html);
 
   // Checks if the context of the sanitized html contains whitespace only.
   const fragment = JSDOM.fragment(clean);
@@ -47,6 +44,8 @@ module.exports = function process(html) {
   lazyLoad(dom);
   // Replace <code> elements with encoded entities to use characters
   replaceCodeEntities(dom);
+  // Clean repeated and nested <br> elements
+  replaceBreaklines(dom);
   // Remove empty <p> elements
   removeEmptyParagraphs(dom);
 

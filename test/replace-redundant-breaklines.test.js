@@ -1,62 +1,54 @@
+const toDom = require('../src/backend/utils/html/dom');
 const replaceBreaklines = require('../src/backend/utils/html/replace-redundant-breaklines');
 
 describe('Replace redundant breaklines', () => {
   test('Replace multiple <br> elements with one', () => {
-    const htmlData = `<br><br>
----
-<br>
-<br>
----
-<br>
+    const htmlData = `<div>
+  <br>
+  <br>
+  <p>text</p>
+  <br>
+  <br>
+</div>`;
 
-<br>
----
-<br><br><br>
-<br>
+    const html = toDom(htmlData);
 
-<br><br>`;
+    replaceBreaklines(html);
 
-    const htmlDataAfter = replaceBreaklines(htmlData);
+    const expectedHtml = `<head></head><body><div>
+  <br>
+  
+  <p>text</p>
+  <br>
+  
+</div></body>`;
 
-    const expectedHtml = `<br>
----
-<br>
----
-<br>
----
-<br>`;
-
-    expect(htmlDataAfter).toEqual(expectedHtml);
+    expect(html.window.document.documentElement.innerHTML).toEqual(expectedHtml);
   });
 
-  test('Replace <br> elements in <p> and <div> elements with a single <br>', () => {
-    const htmlData = `<div><br></div>
----
-<div>
+  test('Remove nested single <br> elements', () => {
+    const htmlData = `<div>
+  <div>
+    <br>
+    <br>
+  </div>
+  <div>
+    <div>
+      <br>
+    </div>
+  </div>
+  <p>text</p>
+</div>`;
 
-<br></div>
+    const html = toDom(htmlData);
 
-<div><br>
-</div>
+    replaceBreaklines(html);
 
-<div>
-  <br>
-</div>
----
-<p>
-  <br>
-</p>
-<p>
-  <br>
-</p>`;
-
-    const htmlDataAfter = replaceBreaklines(htmlData);
-
-    const expectedHtml = `<br>
----
-<br>
----
-<br>`;
-    expect(htmlDataAfter).toEqual(expectedHtml);
+    const expectedHtml = `<head></head><body><div>
+  
+  
+  <p>text</p>
+</div></body>`;
+    expect(html.window.document.documentElement.innerHTML).toEqual(expectedHtml);
   });
 });
