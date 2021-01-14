@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 8000",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.2",
     "next": "^10.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

@@ -26,5 +26,5 @@ From the root of the project, you can run a number of GatsbyJS specific npm scri
 From the root of the project, you can run a number of GatsbyJS specific npm scripts:
 
 1. [`npm run develop:next`](https://nextjs.org/docs/api-reference/cli#development) to start the development server
-1. [`npm run build:next`]() to build the site in `src/frontend/next/public` for production
+1. [`npm run build:next`]() to build the site in `src/frontend/next/build` for production
 1. [`npm run serve:next`](https://nextjs.org/docs/api-reference/cli#production) to serve the production site in `src/frontend/next/.next` for testing
