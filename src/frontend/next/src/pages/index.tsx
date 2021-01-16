@@ -5,7 +5,7 @@ import Banner from '../components/Banner/Banner';
 import BackToTopButton from '../components/BackToTopButton/BackToTopButton';
 import Posts from '../components/Posts/Posts';
 
-const MainPage: FC = () => {
+const Home: FC = () => {
   return (
     <>
       <Head>
@@ -22,4 +22,4 @@ const MainPage: FC = () => {
   );
 };
 
-export default MainPage;
+export default Home;
