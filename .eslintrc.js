@@ -26,6 +26,9 @@ module.exports = {
     {
       files: ['src/frontend/next/**/*.ts', 'src/frontend/next/**/*.tsx'],
       plugins: ['@typescript-eslint'],
+      env: {
+        browser: true,
+      },
       rules: {
         'react/prop-types': 'off',
         'react/react-in-jsx-scope': 'off',
