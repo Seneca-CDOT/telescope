@@ -1,12 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import useFaviconBadge from '../hooks/use-favicon-badge';
-import useTelescopeContributor from '../hooks/use-telescope-contributor';
 
 const Home = () => {
-  const { contributor, error } = useTelescopeContributor();
-  console.log({ contributor, error });
-
   return (
     <div className={styles.container}>
       <Head>

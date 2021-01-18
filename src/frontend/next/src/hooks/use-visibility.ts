@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
-const noop = function () {};
-
 export default function useVisibility() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    const noop = () => {};
+
     // Check if we're running in the browser or server-side (e.g, build)
     if (typeof window === 'undefined') {
       return noop;
