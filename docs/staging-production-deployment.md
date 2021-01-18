@@ -67,6 +67,8 @@ Copy `env.example` in the `autodeployment` directory to `.env` and add the appro
 
 - env variables
   - slack webhook url (#telescope's url Slack Incoming Webhooks)
+  - interval one (120000)
+  - interval two (10000)
 
 Install the dependencies using `npm install`, and run the server with `npm start`.
 

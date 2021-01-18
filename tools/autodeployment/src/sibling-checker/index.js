@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
 const server =
-  process.DEPLOY_TYPE === 'production'
+  process.env.DEPLOY_TYPE === 'production'
     ? 'https://telescope.cdot.systems/health.'
     : 'https://dev.telescope.cdot.systems/health.';
 
@@ -21,7 +21,7 @@ const firstCheck = () => {
       clearIntervalAsync(timerOne);
       secondCheck();
     }
-  }, 120000);
+  }, process.env.INTERVAL_ONE);
 };
 
 const secondCheck = () => {
@@ -39,7 +39,7 @@ const secondCheck = () => {
       firstCheck();
       messageSent = false;
     }
-  }, 10000);
+  }, process.env.INTERVAL_TWO);
 };
 
 const sendMessage = async (status) => {
