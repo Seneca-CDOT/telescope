@@ -1,5 +1,4 @@
 /* eslint-disable no-use-before-define */
-/* eslint-disable no-unused-expressions */
 const fetch = require('node-fetch');
 const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
