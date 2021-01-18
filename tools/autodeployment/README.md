@@ -24,3 +24,8 @@ http://telescope.cdot.systems/status and http://telescope.cdot.systems/log.
 ```
 $ curl http://dev.telescope.cdot.systems/log
 ```
+
+## Slack Integration:
+
+Siblings Check flowchart:
+![alt text](./imgs/SlackIntegration-siblings-checker.jpg)
