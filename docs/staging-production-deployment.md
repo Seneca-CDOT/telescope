@@ -63,6 +63,11 @@ Copy `env.example` in the `autodeployment` directory to `.env` and add the appro
   - deployment type (`staging` or `production`)
   - unsplash client id
 
+#### 3.1- Autodeployment server - Module: Slack Integration
+
+- env variables
+  - slack webhook url (#telescope's url Slack Incoming Webhooks)
+
 Install the dependencies using `npm install`, and run the server with `npm start`.
 
 **Note**: Telescope relies on docker to restart after 5AM unexpected reboots or the like. The autodeployment server runs outside of docker so it needs another tool like [pm2](https://pm2.keymetrics.io/) or a [unit file](https://fedoramagazine.org/systemd-getting-a-grip-on-units/) to be able to restart after an unexpected reboot.
