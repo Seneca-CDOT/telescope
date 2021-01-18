@@ -71,7 +71,7 @@ const sendMessage = async (status) => {
     ],
   };
 
-  await fetch(process.SLACK_SEND_MESSAGE, {
+  await fetch(process.SLACK_WEBHOOK_URL, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(message),
