@@ -1,11 +1,10 @@
-import { useState, useEffect, useCallback, LinkHTMLAttributes } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useMountedState } from 'react-use';
 import useVisibility from './use-visibility';
 
-const Logo = require('../images/logo.svg');
-const BadgedLogo = require('../images/logo-badge.svg');
-// import Logo from '../images/logo.svg';
-// import BadgedLogo from '../images/logo-badge.svg';
+// XXX: VSCode/TS are unhappy with these paths, but they work at build/runtime.
+import Logo from '../../public/logo.svg';
+import BadgedLogo from '../../public/logo-badge.svg';
 
 const useFaviconBadge = () => {
   const isMounted = useMountedState();

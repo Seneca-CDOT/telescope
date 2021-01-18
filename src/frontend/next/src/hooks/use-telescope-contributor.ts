@@ -1,31 +1,23 @@
 import { useState, useEffect } from 'react';
+import { Endpoints } from '@octokit/types';
+import useSWR from 'swr';
 
-const pickRandomContributor = (contributors: any[]) => {
-  return contributors[Math.floor(Math.random() * contributors.length)];
+type listContributorsResponse = Endpoints['GET /repos/{owner}/{repo}/contributors'];
+
+const telescopeGitHubContributorsUrl =
+  'https://api.github.com/repos/Seneca-CDOT/telescope/contributors';
+
+const pickRandomContributor = (contributors?: []) => {
+  return contributors ? contributors[Math.floor(Math.random() * contributors.length)] : null;
 };
 
 const useTelescopeContributor = () => {
-  const [contributor, setContributor] = useState(null);
-  const [error, setError] = useState();
-  const telescopeGitHubContributorsUrl =
-    'https://api.github.com/repos/Seneca-CDOT/telescope/contributors';
+  const { data, error } = useSWR(telescopeGitHubContributorsUrl);
+  const [contributor, setContributor] = useState<Object | null>(data);
 
   useEffect(() => {
-    const fetchContributors = async () => {
-      try {
-        const response = await fetch(telescopeGitHubContributorsUrl);
-        if (!response.ok) {
-          throw new Error('GitHub API response not OK');
-        }
-
-        const contributors = await response.json();
-        setContributor(pickRandomContributor(contributors));
-      } catch (err) {
-        setError(err);
-      }
-    };
-    fetchContributors();
-  }, []);
+    setContributor(pickRandomContributor(data));
+  }, [data]);
 
   return { contributor, error };
 };
