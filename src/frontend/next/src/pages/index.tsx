@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import BackToTopButton from '../components/BackToTopButton';
-import Posts from '../components/Posts/Posts';
+import Posts from '../components/Posts';
 
 const Home = () => {
   return (
