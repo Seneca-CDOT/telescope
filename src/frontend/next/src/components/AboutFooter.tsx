@@ -1,9 +1,10 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
-import GitHubIcon from '@material-ui/icons/Github';
+import GitHubIcon from '@material-ui/icons';
 import GitHubContributorCard from './GitHubContributorCard';
 import Logo from './Logo';
-import SlackLogo from '../../public/slack-logo.svg';
+
+const slackLogo = '/slack-logo.svg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -117,7 +118,7 @@ const AboutFooter = () => {
                     href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
                     className={classes.links}
                   >
-                    <img src={SlackLogo} alt="logo" height="20" width="20" />
+                    <img src={slackLogo} alt="logo" height="20" width="20" />
                   </a>
                 </Grid>
               </Grid>
@@ -183,7 +184,7 @@ const AboutFooter = () => {
                     href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
                     className={classes.links}
                   >
-                    <img src={SlackLogo} alt="logo" height="20" width="20" />
+                    <img src={slackLogo} alt="logo" height="20" width="20" />
                   </a>
                 </Grid>
               </Grid>
@@ -204,3 +205,4 @@ const AboutFooter = () => {
 };
 
 export default AboutFooter;
+export { slackLogo };
