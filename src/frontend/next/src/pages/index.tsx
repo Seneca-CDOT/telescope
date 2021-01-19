@@ -1,11 +1,9 @@
-import { FC } from 'react';
 import Head from 'next/head';
-
 import Banner from '../components/Banner/Banner';
 import BackToTopButton from '../components/BackToTopButton/BackToTopButton';
 import Posts from '../components/Posts/Posts';
 
-const Home: FC = () => {
+const Home = () => {
   return (
     <>
       <Head>
