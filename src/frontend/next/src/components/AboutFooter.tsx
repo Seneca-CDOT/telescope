@@ -1,6 +1,6 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
-import GitHubIcon from '@material-ui/icons';
+import GitHubIcon from '@material-ui/icons/GitHub';
 import GitHubContributorCard from './GitHubContributorCard';
 import Logo from './Logo';
 
