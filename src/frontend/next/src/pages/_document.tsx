@@ -2,6 +2,8 @@ import { Children } from 'react';
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
+import { logoUrl } from '../components/Logo';
+
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_document.js
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -12,7 +14,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <link rel="icon" href={logoUrl} type="image/svg+xml" />
+        </Head>
         <body>
           <Main />
           <NextScript />
