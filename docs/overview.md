@@ -62,6 +62,9 @@ It's not 100% clear what we need to build, which is part of the fun. It is our
 hope that _you_ will leave a mark on this project, and bring your own ideas,
 experience, and code to the task of defining our planet.
 
+### Initial Project Diagram
+![](https://github.com/Seneca-CDOT/telescope/blob/master/docs/images/initialProjectDiagram.jpeg)
+
 ## An Initial Set of Goals
 
 Below is a wishlist of possible features. It is divided into three sections:
