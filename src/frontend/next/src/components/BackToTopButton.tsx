@@ -1,7 +1,8 @@
 import { Fab, useScrollTrigger, Zoom } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-// import ScrollAction from '../ScrollAction';  waiting on Scroll Action Migration
+
+import ScrollAction from './ScrollAction';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -10,32 +11,31 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(2),
     zIndex: 1100,
   },
+  arrowUpIcon: {
+    color: theme.palette.text.primary,
+  },
 }));
 
-interface Props {
-  window(): any;
-  scrollThreshold: number;
-}
+type BackToTopButtonProps = {
+  scrollThreshold?: number;
+};
 
-const BackToTopButton: FC<Props> = ({ window, scrollThreshold = 1000 }) => {
+const BackToTopButton = ({ scrollThreshold = 1000 }: BackToTopButtonProps) => {
   const classes = useStyles();
   const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
     disableHysteresis: true,
     threshold: scrollThreshold,
   });
   return (
-    <>
-      <Zoom in={trigger}>
-        <div className={classes.root}>
-          <ScrollAction>
-            <Fab color="secondary" aria-label="scroll back to top">
-              <KeyboardArrowUpIcon fontSize="large" color="textPrimary" />
-            </Fab>
-          </ScrollAction>
-        </div>
-      </Zoom>
-    </>
+    <Zoom in={trigger}>
+      <div className={classes.root}>
+        <ScrollAction>
+          <Fab color="secondary" aria-label="scroll back to top">
+            <KeyboardArrowUpIcon className={classes.arrowUpIcon} fontSize="large" />
+          </Fab>
+        </ScrollAction>
+      </div>
+    </Zoom>
   );
 };
 
