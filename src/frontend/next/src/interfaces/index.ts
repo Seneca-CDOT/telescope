@@ -5,3 +5,16 @@ export type User = {
   isAdmin?: boolean;
   isLoggedIn: boolean;
 };
+
+export type Feed = {
+  id: number;
+  author: string;
+  url: string;
+};
+
+export type FeedHash = {
+  [key: number]: {
+    author: string;
+    url: string;
+  };
+};
