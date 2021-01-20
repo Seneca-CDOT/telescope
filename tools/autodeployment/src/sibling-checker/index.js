@@ -59,8 +59,8 @@ const sendMessage = async (status) => {
           type: 'image',
           image_url:
             status === 200
-              ? 'https://data.whicdn.com/images/186936913/original.jpg'
-              : 'https://64.media.tumblr.com/090e86896948354262566ddb906e514e/tumblr_mxrsfhStH61r62zwpo1_500.jpg',
+              ? 'https://images.unsplash.com/photo-1535635790206-6960f6eaacff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80'
+              : 'https://images.unsplash.com/photo-1594322436404-5a0526db4d13?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2515&q=80',
           alt_text: 'alt text for image',
         },
       },
