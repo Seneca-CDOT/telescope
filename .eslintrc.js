@@ -31,6 +31,7 @@ module.exports = {
       },
       rules: {
         'react/prop-types': 'off',
+        'react/require-default-props': 'off',
         'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/no-unused-vars': 'error',
         'react/jsx-filename-extension': ['error', { extensions: ['.ts', '.tsx'] }],
