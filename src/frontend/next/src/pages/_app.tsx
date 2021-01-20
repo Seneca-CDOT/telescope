@@ -1,5 +1,8 @@
 import { useEffect } from 'react';
 import { AppProps } from 'next/app';
+
+import UserProvider from '../components/UserProvider';
+
 import '../styles/globals.css';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_app.js
@@ -12,7 +15,12 @@ const App = ({ Component, pageProps }: AppProps) => {
       jssStyles.parentElement?.removeChild(jssStyles);
     }
   }, []);
-  return <Component {...pageProps} />;
+
+  return (
+    <UserProvider>
+      <Component {...pageProps} />
+    </UserProvider>
+  );
 };
 
 export default App;
