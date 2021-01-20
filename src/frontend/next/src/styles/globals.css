@@ -1,16 +1,14 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
+/* Import telescope-post-content.css */
+@import './telescope-post-content.css';
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+/* As pages/_app.tsx import this CSS it will resets the CSS
+* and makes our <html> font 10px.  Any other "global" things
+* that need to happen for a page should get added here, and
+* then they will trickle down to the other pages.
+ */
 
-* {
-  box-sizing: border-box;
+html {
+  padding: none;
+  margin: none;
+  font-size: 10px;
 }
