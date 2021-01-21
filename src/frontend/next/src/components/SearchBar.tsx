@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { MouseEvent } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import {
@@ -84,7 +84,7 @@ type searchBarProps = {
   onTextChange: Function;
   filter: string;
   onFilterChange: Function;
-  onSubmit: (e: ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: searchBarProps) => {
