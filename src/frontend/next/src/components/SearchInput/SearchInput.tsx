@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import PostSearchInput from './PostSearchInput.jsx';
-import AuthorSearchInput from './AuthorSearchInput.jsx';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import PostSearchInput from './PostSearchInput';
+import AuthorSearchInput from './AuthorSearchInput';
 
 const useStyles = makeStyles((theme) => ({
   input: {
