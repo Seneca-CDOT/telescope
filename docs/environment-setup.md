@@ -241,3 +241,5 @@ If you receive the error message "Malformed input, repository not added" after r
 1. run `sudo nano /etc/apt/sources.list.d/addtional-repositories.list`
 2. paste `deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable` to the file, save it, and exit.
 3. run `sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable`
+
+### **Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](/docs/aws-cloud9.md) for more information.**

@@ -1,0 +1,10 @@
+[build]
+  base = "src/frontend/next/"
+  publish = "out"
+  command = "npm run build"
+
+
+[build.environment]
+  API_URL="https://dev.telescope.cdot.systems"
+
+

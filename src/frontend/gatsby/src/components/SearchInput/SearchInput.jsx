@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     height: '55px',
     backgroundColor: theme.palette.background.default,
     paddingLeft: '10px',
+    paddingRight: '60px',
     border: '1px solid #B3B6B7',
     borderRadius: '7px',
     outline: 'none',

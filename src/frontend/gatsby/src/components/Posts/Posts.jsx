@@ -37,7 +37,6 @@ const Posts = () => {
   const [currentPostId, setCurrentPostId] = useState(null);
   const { data, size, setSize, error } = useSWRInfinite(
     (index) => `${telescopeUrl}/posts?page=${index + 1}`,
-    (url) => fetch(url).then((r) => r.json()),
     {
       refreshInterval: REFRESH_INTERVAL,
       refreshWhenHidden: true,

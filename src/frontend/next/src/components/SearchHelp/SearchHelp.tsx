@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
@@ -23,7 +22,7 @@ const HtmlTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-const SearchHelp: FC = () => {
+const SearchHelp = () => {
   const classes = useStyles();
   return (
     <HtmlTooltip

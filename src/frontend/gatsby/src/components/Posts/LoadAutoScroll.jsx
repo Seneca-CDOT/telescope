@@ -36,11 +36,12 @@ function LoadAutoScroll({ onScroll }) {
       options
     );
     observer.observe($buttonRef.current);
+    const buttonRefCopy = $buttonRef.current;
 
     return () => {
-      observer.unobserve($buttonRef.current);
+      observer.unobserve(buttonRefCopy);
     };
-  }, []);
+  }, [onScroll]);
 
   return (
     <Container>
