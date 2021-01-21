@@ -1,6 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   Grid,
@@ -13,8 +11,8 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import SearchInput from '../SearchInput';
-import SearchHelp from '../SearchHelp';
+import SearchInput from './SearchInput/SearchInput';
+import SearchHelp from './SearchHelp';
 
 const useStyles = makeStyles((theme) => ({
   root: {
