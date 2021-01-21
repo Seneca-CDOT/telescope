@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import {
@@ -78,9 +79,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function CustomizedInputBase(props) {
+type searchBarProps = {
+  text: string;
+  onTextChange: Function;
+  filter: string;
+  onFilterChange: Function;
+  onSubmit: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: searchBarProps) => {
   const classes = useStyles();
-  const { text, onTextChange, onFilterChange, filter, onSubmit } = props;
 
   const searchOptions = ['post', 'author'];
 
@@ -124,7 +132,7 @@ function CustomizedInputBase(props) {
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth>
-              <SearchInput filter={filter} text={text} onChange={onTextChange} />
+              <SearchInput searchFilter={filter} text={text} onTextChange={onTextChange} />
               <IconButton
                 className={classes.iconButton}
                 type="submit"
@@ -139,13 +147,6 @@ function CustomizedInputBase(props) {
       </Paper>
     </Box>
   );
-}
-
-CustomizedInputBase.propTypes = {
-  text: PropTypes.string,
-  onTextChange: PropTypes.func,
-  filter: PropTypes.string,
-  onFilterChange: PropTypes.func,
-  onSubmit: PropTypes.func,
 };
-export default CustomizedInputBase;
+
+export default SearchBar;
