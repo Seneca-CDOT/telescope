@@ -1,4 +1,4 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   Grid,
@@ -14,67 +14,69 @@ import {
 import SearchInput from './SearchInput/SearchInput';
 import SearchHelp from './SearchHelp';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    overflow: 'visible',
-    maxWidth: '785px',
-    padding: 0,
-    marginTop: '10rem',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginBottom: theme.spacing(6),
-  },
-  card: {
-    padding: theme.spacing(2, 4, 2, 4),
-    backgroundColor: theme.palette.background.default,
-  },
-  header: {
-    padding: 0,
-    marginBottom: theme.spacing(2),
-    backgroundColor: theme.palette.primary.main,
-  },
-  h1: {
-    display: 'block',
-    transition: 'all linear 350ms',
-    fontWeight: 600,
-    color: theme.palette.text.secondary,
-    [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: '3rem',
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      overflow: 'visible',
+      maxWidth: '785px',
+      padding: 0,
+      marginTop: '10rem',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: theme.spacing(6),
     },
-    [theme.breakpoints.between('md', 'lg')]: {
-      fontSize: '4rem',
+    card: {
+      padding: theme.spacing(2, 4, 2, 4),
+      backgroundColor: theme.palette.background.default,
     },
-    [theme.breakpoints.up('xl')]: {
-      fontSize: '5rem',
+    header: {
+      padding: 0,
+      marginBottom: theme.spacing(2),
+      backgroundColor: theme.palette.primary.main,
     },
-  },
-  iconButton: {
-    backgroundColor: theme.palette.secondary.main,
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.dark,
+    h1: {
+      display: 'block',
+      transition: 'all linear 350ms',
+      fontWeight: 600,
+      color: theme.palette.text.secondary,
+      [theme.breakpoints.between('xs', 'sm')]: {
+        fontSize: '3rem',
+      },
+      [theme.breakpoints.between('md', 'lg')]: {
+        fontSize: '4rem',
+      },
+      [theme.breakpoints.up('xl')]: {
+        fontSize: '5rem',
+      },
     },
-    '& * > .MuiSvgIcon-root': {
-      fontSize: '2rem',
-      color: theme.palette.primary.contrastText,
+    iconButton: {
+      backgroundColor: theme.palette.secondary.main,
+      '&:hover': {
+        backgroundColor: theme.palette.secondary.dark,
+      },
+      '& * > .MuiSvgIcon-root': {
+        fontSize: '2rem',
+        color: theme.palette.primary.contrastText,
+      },
+      margin: 0,
+      position: 'absolute',
+      right: '10px',
+      top: '6px',
     },
-    margin: 0,
-    position: 'absolute',
-    right: '10px',
-    top: '6px',
-  },
-  selectControl: {
-    '& > *': {
-      fontSize: '1.2rem',
+    selectControl: {
+      '& > *': {
+        fontSize: '1.2rem',
+        textTransform: 'capitalize',
+        color: theme.palette.primary.main,
+      },
+    },
+    selectItem: {
+      fontSize: '1.4rem',
       textTransform: 'capitalize',
       color: theme.palette.primary.main,
     },
-  },
-  selectItem: {
-    fontSize: '1.4rem',
-    textTransform: 'capitalize',
-    color: theme.palette.primary.main,
-  },
-}));
+  })
+);
 
 function CustomizedInputBase(props) {
   const classes = useStyles();
