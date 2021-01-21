@@ -6,7 +6,6 @@ import { Typography, Tooltip } from '@material-ui/core';
 const useStyles = makeStyles(() => ({
   infoButton: {
     marginTop: '7.5px',
-    marginLeft: '-25px',
     fontSize: '3rem',
     color: '#8BC2EB',
   },
