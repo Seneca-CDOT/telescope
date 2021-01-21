@@ -15,7 +15,7 @@ import useSiteMetadata from '../hooks/use-site-metadata';
 
 type DeleteFeedDialogButtonProps = {
   feed: Feed;
-  deleteionCallback: (id: number) => void;
+  deletionCallback: (id: number) => void;
 };
 
 const useStyles = makeStyles(() => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DeleteFeedDialogButton = ({ feed, deleteionCallback }: DeleteFeedDialogButtonProps) => {
+const DeleteFeedDialogButton = ({ feed, deletionCallback }: DeleteFeedDialogButtonProps) => {
   const { id, url } = feed;
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
@@ -55,7 +55,7 @@ const DeleteFeedDialogButton = ({ feed, deleteionCallback }: DeleteFeedDialogBut
         throw new Error(response.statusText);
       }
 
-      deleteionCallback(id);
+      deletionCallback(id);
 
       console.log(`Feed was successfully removed`);
     } catch (error) {
