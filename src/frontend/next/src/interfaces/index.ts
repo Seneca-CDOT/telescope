@@ -18,3 +18,13 @@ export type FeedHash = {
     url: string;
   };
 };
+
+export type Post = {
+  feed: Feed;
+  id: string;
+  post: string;
+  title: string;
+  updated: string;
+  url: string;
+  html: string;
+};
