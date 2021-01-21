@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react';
-import { Feed } from '../interfaces';
 import {
   Button,
   Dialog,
@@ -11,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import { Feed } from '../interfaces';
 import useSiteMetadata from '../hooks/use-site-metadata';
 
 type DeleteFeedDialogButtonProps = {
