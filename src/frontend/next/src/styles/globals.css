@@ -2,7 +2,7 @@
 @import './telescope-post-content.css';
 
 /* Import highlight.js */
-@import '/node_modules/highlight.js/styles/github.css';
+@import 'highlight.js/styles/github.css';
 
 /* As pages/_app.tsx import this CSS it will resets the CSS
 * and makes our <html> font 10px.  Any other "global" things
