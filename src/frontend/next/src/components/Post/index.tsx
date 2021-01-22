@@ -6,7 +6,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader, createStyles } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import { Post } from '../../interfaces';
-import { AdminButtons } from '../AdminButtons';
+import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
 
 type Props = {

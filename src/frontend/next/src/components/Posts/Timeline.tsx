@@ -1,6 +1,6 @@
 import { Container, createStyles, Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import PostComponent from '../Post/PostComponent';
+import PostComponent from '../Post';
 import { Post } from '../../interfaces/index';
 import Spinner from '../Spinner';
 import LoadAutoScroll from './LoadAutoScroll';
