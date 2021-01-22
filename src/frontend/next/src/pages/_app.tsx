@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { AppProps } from 'next/app';
-
+import { ThemeProvider } from '@material-ui/core/styles';
 import UserProvider from '../components/UserProvider';
 
 import '../styles/globals.css';
+import lightTheme from '../theme/lightTheme';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_app.js
 const App = ({ Component, pageProps }: AppProps) => {
@@ -17,9 +18,11 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, []);
 
   return (
-    <UserProvider>
-      <Component {...pageProps} />
-    </UserProvider>
+    <ThemeProvider theme={lightTheme}>
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
+    </ThemeProvider>
   );
 };
 
