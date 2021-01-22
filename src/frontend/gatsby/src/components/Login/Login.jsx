@@ -45,7 +45,7 @@ function Login({ style }) {
     }
 
     getUserInfo();
-  }, [telescopeUrl, dispatch]);
+  }, [telescopeUrl, dispatch, user]);
 
   // Check if using mobile header which means a style prop exists
   if (style) {

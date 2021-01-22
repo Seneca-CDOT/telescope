@@ -101,7 +101,8 @@ const Post = ({ postUrl }) => {
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef(null);
   // Grab the post data from our backend so we can render it
-  const { data: post, error } = useSWR(postUrl, (url) => fetch(url).then((r) => r.json()));
+  const { data: post, error } = useSWR(postUrl);
+
   const [expandHeader, setExpandHeader] = useState(false);
 
   if (error) {
