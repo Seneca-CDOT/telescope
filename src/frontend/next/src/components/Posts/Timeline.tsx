@@ -1,6 +1,6 @@
 import { Container, createStyles, Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import PostComponent from '../Post';
+import PostComponent from './Post';
 import { Post } from '../../interfaces';
 import Spinner from '../Spinner';
 import LoadAutoScroll from './LoadAutoScroll';
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     activeCircle: {
       borderRadius: '4rem',
       transition: 'all linear 250ms',
-      color: theme.palette.primary,
+      color: theme.palette.primary.main,
     },
   })
 );
