@@ -28,9 +28,9 @@ const DeleteFeedDialogButton = ({ feed, deletionCallback }: DeleteFeedDialogButt
   const { id, url } = feed;
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
 
-  const deleteBtnRef = useRef<HTMLButtonElement>(null);
+  const deleteBtnRef = useRef<HTMLButtonElement | null>(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,7 +49,7 @@ const DeleteFeedDialogButton = ({ feed, deletionCallback }: DeleteFeedDialogButt
   const removeFeed = async () => {
     console.log(`Removing feed hosted at URL ${url}...`);
     try {
-      const response = await fetch(`${telescopeUrl}/feeds/${id}`, { method: 'DELETE ' });
+      const response = await fetch(`${telescopeUrl}/feeds/${id}`, { method: 'DELETE' });
 
       if (!response.ok) {
         throw new Error(response.statusText);
