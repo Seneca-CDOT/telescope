@@ -12,8 +12,6 @@
     "@material-ui/icons": "^4.11.2",
     "dotenv": "^8.2.0",
     "material-ui-popup-state": "^1.7.1",
-    "@mdx-js/loader": "^1.6.22",
-    "@next/mdx": "^10.0.3",
     "next": "^10.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
