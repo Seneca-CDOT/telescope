@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 // Forward the API_URL value from the root env to NEXT_PUBLIC_API_URL
 const envPath = path.join(process.cwd(), '../../..', '.env');
 if (dotenv.config({ path: envPath }).error) {
-  console.warn('Unable to read root Telescope .env file');
+  console.warn('Unable to read root Telescope .env file.');
 } else {
   const apiUrl = process.env.API_URL;
 
@@ -17,6 +17,7 @@ if (dotenv.config({ path: envPath }).error) {
     process.env.NEXT_PUBLIC_API_URL = `http://localhost:${port}`;
   }
 }
+console.info(`Using NEXT_PUBLIC_API_URL=${process.env.NEXT_PUBLIC_API_URL}`);
 
 module.exports = {
   poweredByHeader: false,

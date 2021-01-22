@@ -3,8 +3,8 @@
   publish = "out"
   command = "npm run build"
 
-
 [build.environment]
+  # Expose the API_URL to the back-end
   API_URL="https://dev.telescope.cdot.systems"
-
-
+  # We need to expose the API_URL to the front-end too
+  NEXT_PUBLIC_API_URL="https://dev.telescope.cdot.systems"
