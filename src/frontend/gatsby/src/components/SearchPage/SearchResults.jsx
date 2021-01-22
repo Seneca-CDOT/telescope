@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSWRInfinite } from 'swr';
-import { Container, Box, Grid, Typography, ListSubheader } from '@material-ui/core';
+import { Container, Box } from '@material-ui/core';
 
 import useSiteMetadata from '../../hooks/use-site-metadata';
-import Timeline from '../Posts/Timeline.jsx';
+import Timeline from '../Posts/Timeline';
 import Spinner from '../Spinner';
 
 const useStyles = makeStyles(() => ({
@@ -17,6 +17,30 @@ const useStyles = makeStyles(() => ({
     padding: 0,
     width: '100%',
     justifyContent: 'center',
+  },
+  errorBackground: {
+    position: 'absolute',
+    display: 'flex',
+    top: '40%',
+    left: '29.5%',
+    right: '29.5%',
+    bottom: '20%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '10px',
+    background: '#353F61',
+    boxShadow: '0 15px 30px rgba(0,0,0,.5)',
+    lineHeight: '1em',
+  },
+  errorMessage: {
+    fontSize: '60px',
+    color: '#fff',
+  },
+  messageBox: {
+    fontSize: '20px',
+    textAlign: 'center',
+    marginBottom: '20px',
+    color: '#96C1E7',
   },
 }));
 
@@ -41,14 +65,14 @@ const SearchResults = ({ text, filter }) => {
     return (
       <Container className={classes.searchResults}>
         <Box className={classes.root} boxShadow={2} marginTop={10}>
-          <ListSubheader>
-            <Typography variant="h1" color="secondary" className={classes.title}>
-              <Grid container className={classes.error}>
-                {' '}
-                There was an error while processing your query
-              </Grid>
-            </Typography>
-          </ListSubheader>
+          <div className={classes.errorBackground}>
+            <div>
+              <p className={classes.errorMessage}>Search Error</p>
+              <p className={classes.messageBox}>
+                There was an server error while processing your query
+              </p>
+            </div>
+          </div>
         </Box>
       </Container>
     );
