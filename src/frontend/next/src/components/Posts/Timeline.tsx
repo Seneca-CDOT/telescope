@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { Container, createStyles, Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import PostComponent from './Post';
@@ -39,7 +40,7 @@ const Timeline = ({ pages, nextPage }: Props) => {
 
   // Iterate over all the pages (an array of arrays) and then convert all post
   // elements to <Post>
-  const postsTimeline = pages.map((page: Post[]): any =>
+  const postsTimeline = pages.map((page: Post[]): Array<ReactElement> | ReactElement =>
     page.map(({ id, url }: Post) => <PostComponent postUrl={`${telescopeUrl}${url}`} key={id} />)
   );
 
