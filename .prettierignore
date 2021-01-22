@@ -6,4 +6,4 @@ certs
 public
 .cache
 .next
-.out
+/out
