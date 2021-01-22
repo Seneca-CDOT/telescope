@@ -18,7 +18,14 @@ if (dotenv.config({ path: envPath }).error) {
   }
 }
 
-module.exports = {
+// Required by about.mdx, along with the module.exports
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+});
+
+module.exports = withMDX({
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   poweredByHeader: false,
   reactStrictMode: true,
-};
+  distDir: 'out',
+});
