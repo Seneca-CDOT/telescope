@@ -1,20 +1,22 @@
 import { Fab, useScrollTrigger, Zoom } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 import ScrollAction from './ScrollAction';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-    zIndex: 1100,
-  },
-  arrowUpIcon: {
-    color: theme.palette.text.primary,
-  },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      position: 'fixed',
+      bottom: theme.spacing(2),
+      right: theme.spacing(2),
+      zIndex: 1100,
+    },
+    arrowUpIcon: {
+      color: theme.palette.primary.light,
+    },
+  })
+);
 
 type BackToTopButtonProps = {
   scrollThreshold?: number;
