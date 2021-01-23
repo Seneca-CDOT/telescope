@@ -161,7 +161,7 @@ const PostComponent = ({ postUrl }: Props) => {
             {post.title}
           </span>
         </Typography>
-        <Typography className={classes.author}>
+        <Typography variant="caption" className={classes.author}>
           &nbsp;By&nbsp;
           <a className={classes.link} href={post.feed.url}>
             {post.feed.author}
