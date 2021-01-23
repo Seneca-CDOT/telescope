@@ -1,108 +1,111 @@
-import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import { useRef, useState } from 'react';
 import useSWR from 'swr';
-import 'highlight.js/styles/github.css';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, Grid, Typography, ListSubheader } from '@material-ui/core';
-import './telescope-post-content.css';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Box, Grid, Typography, ListSubheader, createStyles } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
-import Spinner from '../Spinner/Spinner.jsx';
+import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
+import Spinner from '../Spinner';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: 0,
-    fontSize: '1.5rem',
-    marginBottom: '4em',
-  },
-  header: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.text.secondary,
-    padding: '2em 3em 2em 3em',
-    lineHeight: '1.3',
-    zIndex: 1100,
-    top: '-1.1em',
-    [theme.breakpoints.down(1440)]: {
-      paddingTop: '1.6em',
-      paddingBottom: '1.5em',
+type Props = {
+  postUrl: string;
+};
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      padding: 0,
+      fontSize: '1.5rem',
+      marginBottom: '4em',
     },
-    [theme.breakpoints.down(1065)]: {
-      position: 'static',
+    header: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.text.secondary,
+      padding: '2em 3em 2em 3em',
+      lineHeight: '1.3',
+      zIndex: 1100,
+      top: '-1.1em',
+      [theme.breakpoints.down(1440)]: {
+        paddingTop: '1.6em',
+        paddingBottom: '1.5em',
+      },
+      [theme.breakpoints.down(1065)]: {
+        position: 'static',
+      },
     },
-  },
-  expandHeader: {
-    whiteSpace: 'normal',
-    cursor: 'pointer',
-  },
-  collapseHeader: {
-    whiteSpace: 'nowrap',
-    cursor: 'pointer',
-  },
-  title: {
-    fontSize: '3.5em',
-    fontWeight: 'bold',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    [theme.breakpoints.between('xs', 'sm')]: {
-      fontSize: '2.5em',
+    expandHeader: {
+      whiteSpace: 'normal',
+      cursor: 'pointer',
     },
-  },
-  author: {
-    fontSize: '1.5em',
-    fontWeight: 'bold',
-    color: theme.palette.primary.contrastText,
-    [theme.breakpoints.between('xs', 'sm')]: {
+    collapseHeader: {
+      whiteSpace: 'nowrap',
+      cursor: 'pointer',
+    },
+    title: {
+      fontSize: '3.5em',
+      fontWeight: 'bold',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      [theme.breakpoints.between('xs', 'sm')]: {
+        fontSize: '2.5em',
+      },
+    },
+    author: {
+      fontSize: '1.5em',
+      fontWeight: 'bold',
+      color: theme.palette.primary.contrastText,
+      [theme.breakpoints.between('xs', 'sm')]: {
+        fontSize: '1.2em',
+      },
+    },
+    published: {
       fontSize: '1.2em',
+      textDecoration: 'none',
+      color: theme.palette.primary.contrastText,
+      [theme.breakpoints.between('xs', 'sm')]: {
+        fontSize: '1em',
+      },
     },
-  },
-  published: {
-    fontSize: '1.2em',
-    textDecoration: 'none',
-    color: theme.palette.primary.contrastText,
-    [theme.breakpoints.between('xs', 'sm')]: {
+    content: {
+      overflow: 'auto',
+      padding: '2em',
+      color: theme.palette.text.primary,
+    },
+    link: {
+      textDecoration: 'none',
+      color: theme.palette.primary.contrastText,
+      '&:hover': {
+        textDecorationLine: 'underline',
+      },
+    },
+    time: {
+      '&:hover': {
+        textDecorationLine: 'underline',
+      },
+    },
+    spinner: {
+      padding: '20px',
+    },
+    error: {
+      lineHeight: '1.00',
       fontSize: '1em',
     },
-  },
-  content: {
-    overflow: 'auto',
-    padding: '2em',
-    color: theme.palette.text.primary,
-  },
-  link: {
-    textDecoration: 'none',
-    color: theme.palette.primary.contrastText,
-    '&:hover': {
-      textDecorationLine: 'underline',
-    },
-  },
-  time: {
-    '&:hover': {
-      textDecorationLine: 'underline',
-    },
-  },
-  spinner: {
-    padding: '20px',
-  },
-  error: {
-    lineHeight: '1.00',
-    fontSize: '1em',
-  },
-}));
+  })
+);
 
-const formatPublishedDate = (dateString) => {
+const formatPublishedDate = (dateString: string) => {
   const date = new Date(dateString);
   const options = { month: 'long', day: 'numeric', year: 'numeric' };
   const formatted = new Intl.DateTimeFormat('en-CA', options).format(date);
   return `Last Updated ${formatted}`;
 };
 
-const Post = ({ postUrl }) => {
+const PostComponent = ({ postUrl }: Props) => {
   const classes = useStyles();
   // We need a ref to our post content, which we inject into a <section> below.
-  const sectionEl = useRef(null);
+  const sectionEl = useRef<HTMLElement>(null);
   // Grab the post data from our backend so we can render it
-  const { data: post, error } = useSWR(postUrl);
-
+  const { data: post, error } = useSWR<Post>(postUrl);
   const [expandHeader, setExpandHeader] = useState(false);
 
   if (error) {
@@ -136,11 +139,7 @@ const Post = ({ postUrl }) => {
 
         <Grid container justify="center">
           <Grid item className={classes.spinner}>
-            <Spinner animation="border" variant="light">
-              <span className="sr-only" textAlign="center">
-                Loading...
-              </span>
-            </Spinner>
+            <Spinner />
           </Grid>
         </Grid>
       </Box>
@@ -154,7 +153,7 @@ const Post = ({ postUrl }) => {
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
           <span
             role="button"
-            tabIndex="0"
+            tabIndex={0}
             onClick={() => setExpandHeader(!expandHeader)}
             onKeyDown={() => setExpandHeader(!expandHeader)}
             className={expandHeader ? classes.expandHeader : classes.collapseHeader}
@@ -162,9 +161,9 @@ const Post = ({ postUrl }) => {
             {post.title}
           </span>
         </Typography>
-        <Typography variant="p" className={classes.author}>
+        <Typography className={classes.author}>
           &nbsp;By&nbsp;
-          <a className={classes.link} href={post.feed.link}>
+          <a className={classes.link} href={post.feed.url}>
             {post.feed.author}
           </a>
         </Typography>
@@ -188,8 +187,4 @@ const Post = ({ postUrl }) => {
   );
 };
 
-Post.propTypes = {
-  postUrl: PropTypes.string,
-};
-
-export default Post;
+export default PostComponent;

@@ -1,22 +1,25 @@
-import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
-
-import { Container, Button, Grid } from '@material-ui/core';
+import { useEffect, createRef } from 'react';
+import { Container, Button, Grid, createStyles, Theme } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  content: {
-    '& > *': {
-      padding: theme.spacing(2),
-      bottom: theme.spacing(4),
+type Scroll = {
+  onScroll: Function;
+};
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    content: {
+      '& > *': {
+        padding: theme.spacing(2),
+        bottom: theme.spacing(4),
+      },
     },
-  },
-}));
+  })
+);
 
-function LoadAutoScroll({ onScroll }) {
+function LoadAutoScroll({ onScroll }: Scroll) {
   const classes = useStyles();
-  const $buttonRef = useRef(null);
-
+  const $buttonRef = createRef<HTMLButtonElement>();
   // This will make the automatic infinite scrolling feature
   // Once the "button" is on the viewport(shown on the window),
   // The new posts are updated(call onClick() -- setSize(size + 1) in Posts.jsx --)
@@ -35,13 +38,13 @@ function LoadAutoScroll({ onScroll }) {
         }),
       options
     );
-    observer.observe($buttonRef.current);
+    observer.observe($buttonRef.current!);
     const buttonRefCopy = $buttonRef.current;
 
     return () => {
-      observer.unobserve(buttonRefCopy);
+      observer.unobserve(buttonRefCopy as HTMLButtonElement);
     };
-  }, [onScroll]);
+  }, [$buttonRef, onScroll]);
 
   return (
     <Container>
@@ -51,9 +54,5 @@ function LoadAutoScroll({ onScroll }) {
     </Container>
   );
 }
-
-LoadAutoScroll.propTypes = {
-  onScroll: PropTypes.func,
-};
 
 export default LoadAutoScroll;

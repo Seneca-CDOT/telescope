@@ -1,32 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSWRInfinite } from 'swr';
-import { Container, Grid } from '@material-ui/core';
+import { Container, createStyles, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { usePrevious } from 'react-use';
 import SentimentDissatisfiedRoundedIcon from '@material-ui/icons/SentimentDissatisfiedRounded';
-import Timeline from './Timeline.jsx';
+import Timeline from './Timeline';
 import useSiteMetaData from '../../hooks/use-site-metadata';
 import useFaviconBadge from '../../hooks/use-favicon-badge';
+import { Post } from '../../interfaces';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    padding: 0,
-    maxWidth: '785px',
-  },
-  error: {
-    position: 'center',
-    color: '#B5B5B5',
-    fontFamily: 'Roboto',
-    fontSize: '5rem',
-    paddingBottom: '30px',
-  },
-  errorIcon: {
-    position: 'center',
-    color: '#B5B5B5',
-    fontSize: '10rem',
-    paddingBottom: 0,
-  },
-}));
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      padding: 0,
+      maxWidth: '785px',
+    },
+    error: {
+      color: '#B5B5B5',
+      fontFamily: 'Roboto',
+      fontSize: '5rem',
+      paddingBottom: '30px',
+    },
+    errorIcon: {
+      color: '#B5B5B5',
+      fontSize: '10rem',
+      paddingBottom: 0,
+    },
+  })
+);
 
 // Refresh post data every 5 mins
 const REFRESH_INTERVAL = 5 * 60 * 1000;
@@ -34,9 +35,10 @@ const REFRESH_INTERVAL = 5 * 60 * 1000;
 const Posts = () => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetaData();
-  const [currentPostId, setCurrentPostId] = useState(null);
-  const { data, size, setSize, error } = useSWRInfinite(
-    (index) => `${telescopeUrl}/posts?page=${index + 1}`,
+  const [currentPostId, setCurrentPostId] = useState<string | null>();
+
+  const { data, size, setSize, error } = useSWRInfinite<Post[]>(
+    (index: number) => `${telescopeUrl}/posts?page=${index + 1}`,
     {
       refreshInterval: REFRESH_INTERVAL,
       refreshWhenHidden: true,
@@ -55,7 +57,7 @@ const Posts = () => {
       },
     }
   );
-  // Also track the previous top post id
+
   const prevPostId = usePrevious(currentPostId);
 
   // Manage the favicon badge, depending on whether we have new data or not

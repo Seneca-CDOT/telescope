@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Typography, Link } from '@material-ui/core';
 
@@ -13,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const Footer: FC = () => {
+const Footer = () => {
   const classes = useStyles();
 
   return (

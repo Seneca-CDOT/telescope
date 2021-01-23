@@ -1,5 +1,13 @@
+/* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
 import useSWR from 'swr';
+
+export type Contributor = {
+  avatar_url: string;
+  html_url: string;
+  login: string;
+  contributions: number;
+};
 
 const telescopeGitHubContributorsUrl =
   'https://api.github.com/repos/Seneca-CDOT/telescope/contributors';
@@ -9,7 +17,7 @@ const randomContributor = (contributors?: []) =>
 
 const useTelescopeContributor = () => {
   const { data, error } = useSWR(telescopeGitHubContributorsUrl);
-  const [contributor, setContributor] = useState<Object | null>(data);
+  const [contributor, setContributor] = useState<Contributor | null>(data);
 
   useEffect(() => {
     setContributor(randomContributor(data));

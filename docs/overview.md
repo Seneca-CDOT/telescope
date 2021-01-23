@@ -88,6 +88,10 @@ become replaced by the Issues we file together.
 1. Running on Seneca's [Kubernetes](https://kubernetes.io/) container cloud
 1. Developer and User docs
 
+### Initial Project Diagram
+
+![](https://github.com/Seneca-CDOT/telescope/blob/master/docs/images/initialProjectDiagram.jpeg)
+
 ### 1.0 Features
 
 1. Database for User and Feed list replacing the text file format
