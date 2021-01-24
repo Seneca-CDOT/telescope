@@ -59,3 +59,7 @@ docker-compose -f $DOCKER_FILE --project-name=$ENV up -d
 # this is anticipated and doesn't affect new environment
 echo "Deleting $OLD Containers"
 docker rmi $(docker images $OLD\_* -aq ) -f  2> /dev/null
+
+# Delete all older containers which were build artifacts. 
+# On dev environment, this should reduce all usage by min ~20%
+docker rmi $(docker images -a | grep "^<none>" | awk '{print $3}') 2> /dev/null
