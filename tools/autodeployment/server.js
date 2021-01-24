@@ -84,9 +84,27 @@ if (!(DEPLOY_TYPE === 'staging' || DEPLOY_TYPE === 'production')) {
 }
 
 /**
+ * GitHub's webhooks send 3 POST requests with different actions whenever a release event takes place: created, published and released.
+ * To prevent the autodeployment server from processing the 3 requests (and eventually crashing),
+ * we need to only allow the request whose action is 'published'.
+ * More information about release events here:
+ * https://docs.github.com/en/actions/reference/events-that-trigger-workflows#release
+ * The filter combines checking for staging or production build types and also for the right type of action for a release event in production builds
+ * @param {string} name - Repository name (should be 'telescope')
+ * @param {string} buildType - Build type: staging or production
+ * @param {string} action - Action for a specific release event: created, published or released.
+ */
+function requestFilter(name, buildType, action) {
+  return (
+    name === REPO_NAME &&
+    (buildType === 'staging' || (buildType === 'production' && action === 'published'))
+  );
+}
+
+/**
  * Create a handler for the particular GitHub push event and build type
- * @param {String} buildType - one of `production` or `staging`
- * @param {String} gitHubEvent - the GitHub Push Event name
+ * @param {string} buildType - one of `production` or `staging`
+ * @param {string} gitHubEvent - the GitHub Push Event name
  */
 function handleEventType(buildType, gitHubEvent) {
   if (DEPLOY_TYPE !== buildType) {
@@ -95,8 +113,9 @@ function handleEventType(buildType, gitHubEvent) {
 
   handleGitPush.on(gitHubEvent, (event) => {
     const { name } = event.payload.repository;
+    const { action } = event.payload;
 
-    if (name === REPO_NAME) {
+    if (requestFilter(name, buildType, action)) {
       buildStart(buildType);
       const proc = shell.exec(
         `./deploy.sh ${buildType} ${UNSPLASH_CLIENT_ID}`,
