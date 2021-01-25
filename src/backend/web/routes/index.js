@@ -17,7 +17,7 @@ const user = require('./user');
 const query = require('./query');
 
 const router = express.Router();
-
+const { FRONTEND } = process.env.FRONTEND;
 /**
  * In staging and production, all routes are being cached in our reverse proxy except for admin, user, health and auth.
  * Please check https://github.com/Seneca-CDOT/telescope/blob/master/nginx.conf for more details about it.
@@ -45,9 +45,15 @@ if (process.env.NODE_ENV === 'development') {
   if (process.env.PROXY_FRONTEND) {
     // Allow proxying the Gatsby dev server through our backend if PROXY_FRONTEND=1 is set in env
     router.use('/', createProxyMiddleware({ target: 'http://localhost:8000', changeOrigin: true }));
-  } else {
     // Or serve the static files in the Gatsby build directory
+  } else if (FRONTEND === 'gatsby') {
     router.use(express.static(path.join(__dirname, '../../../frontend/gatsby/public')));
+  } else if (FRONTEND === 'next') {
+    router.use(express.static(path.join(__dirname, '../../../frontend/next/out')));
+  } else {
+    throw new Error(
+      'FRONTEND Value is Incorrect or Does not exist. Check your .env files to see if the FRONTEND value is properly set'
+    );
   }
 }
 
