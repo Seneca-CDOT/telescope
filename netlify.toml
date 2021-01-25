@@ -8,4 +8,4 @@
   API_URL="https://dev.telescope.cdot.systems"
   # We need to expose the API_URL to the front-end too
   NEXT_PUBLIC_API_URL="https://dev.telescope.cdot.systems"
-  FRONTEND='gatsby'
+  FRONTEND="gatsby"
