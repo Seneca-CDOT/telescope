@@ -1,7 +1,8 @@
 {
   "build": {
     "env": {
-      "API_URL": "https://dev.telescope.cdot.systems"
+      "API_URL": "https://dev.telescope.cdot.systems",
+      "FRONTEND": "gatsby"
     }
   },
   "builds": [
