@@ -45,13 +45,13 @@ if (process.env.NODE_ENV === 'development') {
     // Allow proxying the Gatsby dev server through our backend if PROXY_FRONTEND=1 is set in env
     router.use('/', createProxyMiddleware({ target: 'http://localhost:8000', changeOrigin: true }));
     // Or serve the static files in the Gatsby build directory
-  } else if (process.env.FRONTEND.toLowerCase() === 'gatsby') {
+  } else if (process.env.FRONTEND.toLowerCase() === 'gatsby' || process.env.FRONTEND === '') {
     router.use(express.static(path.join(__dirname, '../../../frontend/gatsby/public')));
   } else if (process.env.FRONTEND.toLowerCase() === 'next') {
     router.use(express.static(path.join(__dirname, '../../../frontend/next/out')));
   } else {
     throw new Error(
-      'FRONTEND Value is Incorrect or Does not exist. Check your .env files to see if the FRONTEND value is properly set'
+      `FRONTEND Value is Incorrect or Does Not Exist. Check your .env files to see if the FRONTEND value is properly set\n FRONTENDs Current Value: ${process.env.FRONTEND}`
     );
   }
 }
