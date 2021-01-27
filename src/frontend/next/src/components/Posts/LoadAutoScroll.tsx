@@ -44,7 +44,8 @@ function LoadAutoScroll({ onScroll }: Scroll) {
     return () => {
       observer.unobserve(buttonRefCopy as HTMLButtonElement);
     };
-  }, [$buttonRef, onScroll]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>
