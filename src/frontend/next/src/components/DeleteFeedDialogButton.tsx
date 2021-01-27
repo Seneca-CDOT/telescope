@@ -15,7 +15,7 @@ import useSiteMetadata from '../hooks/use-site-metadata';
 
 type DeleteFeedDialogButtonProps = {
   feed: Feed;
-  deletionCallback: (id: number) => void;
+  deletionCallback: (id: string) => void;
 };
 
 const useStyles = makeStyles(() => ({

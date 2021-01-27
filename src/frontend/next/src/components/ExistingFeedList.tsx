@@ -5,7 +5,7 @@ import DeleteFeedDialogButton from './DeleteFeedDialogButton';
 
 type ExistingFeedListProps = {
   feedHash: FeedHash;
-  deletionCallback: (id: number) => void;
+  deletionCallback: (id: string) => void;
 };
 
 function ExistingFeedList({ feedHash, deletionCallback }: ExistingFeedListProps) {
