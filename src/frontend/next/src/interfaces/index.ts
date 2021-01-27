@@ -7,13 +7,13 @@ export type User = {
 };
 
 export type Feed = {
-  id: number;
+  id: string;
   author: string;
   url: string;
 };
 
 export type FeedHash = {
-  [key: number]: {
+  [key: string]: {
     author: string;
     url: string;
   };
