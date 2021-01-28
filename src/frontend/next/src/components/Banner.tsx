@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 // };
 
 // function Banner({ data }: InferGetStaticPropsType<typeof getStaticProps>) {
-function Banner() {
+const Banner = () => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetadata();
   const [gitInfo, setGitInfo] = useState({});
@@ -165,6 +165,6 @@ function Banner() {
       <div className={classes.anchor} id="back-to-top-anchor" />
     </>
   );
-}
+};
 
 export default Banner;
