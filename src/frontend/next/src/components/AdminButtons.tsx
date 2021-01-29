@@ -18,21 +18,22 @@ function AdminButtons() {
   const classes = useStyles();
   const user = useUser();
 
+  if (!user.isAdmin) {
+    return null;
+  }
   return (
-    user.isAdmin && (
-      <div className={classes.iconDiv}>
-        <span className={classes.iconSpan}>
-          <IconButton size="small">
-            <FlagIcon fontSize="large" />
-          </IconButton>
-        </span>
-        <span className={classes.iconSpan}>
-          <IconButton size="small">
-            <DeleteIcon fontSize="large" />
-          </IconButton>
-        </span>
-      </div>
-    )
+    <div className={classes.iconDiv}>
+      <span className={classes.iconSpan}>
+        <IconButton size="small">
+          <FlagIcon fontSize="large" />
+        </IconButton>
+      </span>
+      <span className={classes.iconSpan}>
+        <IconButton size="small">
+          <DeleteIcon fontSize="large" />
+        </IconButton>
+      </span>
+    </div>
   );
 }
 
