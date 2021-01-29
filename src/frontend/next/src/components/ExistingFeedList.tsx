@@ -61,8 +61,7 @@ const ExistingFeedList = ({ feedHash, deletionCallback }: ExistingFeedListProps)
   );
 };
 
-export const areEqual = (prevProps: ExistingFeedListProps, nextProps: ExistingFeedListProps) => {
-  return Object.keys(prevProps.feedHash).length === Object.keys(nextProps.feedHash).length;
-};
+export const areEqual = (prevProps: ExistingFeedListProps, nextProps: ExistingFeedListProps) =>
+  Object.keys(prevProps.feedHash).length === Object.keys(nextProps.feedHash).length;
 
 export default ExistingFeedList;
