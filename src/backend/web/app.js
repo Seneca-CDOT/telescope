@@ -29,7 +29,12 @@ app.use(
               frameSrc: ["'self'", '*.youtube.com', '*.vimeo.com'],
               frameAncestors: ["'self'"],
               imgSrc: ["'self'", 'data:', 'https:'],
-              scriptSrc: ["'self'"],
+              scriptSrc: [
+                "'self'",
+                // proxying webpack's dev server requires unsafe-eval, see:
+                // https://github.com/vercel/next.js/issues/7457#issuecomment-497092526
+                "'unsafe-eval'",
+              ],
               styleSrc: ["'self'", 'https:', "'unsafe-inline'"],
               objectSrc: ["'none'"],
               upgradeInsecureRequests: [],
