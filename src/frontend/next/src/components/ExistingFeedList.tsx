@@ -8,7 +8,7 @@ type ExistingFeedListProps = {
   deletionCallback: (id: string) => void;
 };
 
-function ExistingFeedList({ feedHash, deletionCallback }: ExistingFeedListProps) {
+const ExistingFeedList = ({ feedHash, deletionCallback }: ExistingFeedListProps) => {
   return Object.keys(feedHash).length ? (
     Object.keys(feedHash).map((id) => (
       <Grid container spacing={5} key={id}>
@@ -59,12 +59,10 @@ function ExistingFeedList({ feedHash, deletionCallback }: ExistingFeedListProps)
       <em>(It looks like you have not added any blog feeds yet.)</em>
     </Typography>
   );
-}
-
-const areEqual = (prevProps: ExistingFeedListProps, nextProps: ExistingFeedListProps) => {
-  return Object.keys(prevProps.feedHash).length === Object.keys(nextProps.feedHash).length;
 };
 
-export { areEqual };
+export const areEqual = (prevProps: ExistingFeedListProps, nextProps: ExistingFeedListProps) => {
+  return Object.keys(prevProps.feedHash).length === Object.keys(nextProps.feedHash).length;
+};
 
 export default ExistingFeedList;
