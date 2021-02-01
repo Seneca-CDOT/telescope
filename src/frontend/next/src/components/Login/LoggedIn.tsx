@@ -2,7 +2,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Button, Divider, Grid, useMediaQuery } from '@material-ui/core';
 import Link from 'next/link';
 
-import { useUser } from '../UserProvider';
+import { useAuthenticatedUser } from '../UserProvider';
 import config from '../../config';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,11 +37,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoggedIn = () => {
-  const logoutUrl = `${config.telescopeUrl}/auth/logout`;
   const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('sm'));
-  const { name } = useUser();
+  const user = useAuthenticatedUser();
+  const { logoutUrl } = config;
+
+  if (!user) {
+    return null;
+  }
+
+  const { name } = user;
 
   return (
     <div>
