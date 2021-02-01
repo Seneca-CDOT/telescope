@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import FlagIcon from '@material-ui/icons/Flag';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { useUser } from './UserProvider';
+import { useAdminUser } from './UserProvider';
 
 const useStyles = makeStyles(() => ({
   iconDiv: {
@@ -16,11 +16,12 @@ const useStyles = makeStyles(() => ({
 
 function AdminButtons() {
   const classes = useStyles();
-  const user = useUser();
+  const admin = useAdminUser();
 
-  if (!user.isAdmin) {
+  if (!admin) {
     return null;
   }
+
   return (
     <div className={classes.iconDiv}>
       <span className={classes.iconSpan}>

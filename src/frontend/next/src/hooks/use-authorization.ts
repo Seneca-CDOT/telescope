@@ -3,7 +3,8 @@ import useSWR from 'swr';
 import config from '../config';
 import { User } from '../interfaces';
 
-export default function useAuthorization(): User {
+export default function useAuthorization(): User | null {
+  const userInfoUrl = `${config.telescopeUrl}/user/info`;
   const loggedOutUser: User = { isLoggedIn: false };
 
   // Assuming fetch() works, our fetcher function will always
@@ -30,7 +31,7 @@ export default function useAuthorization(): User {
     };
   };
 
-  const { data, error } = useSWR<User>(`${config.telescopeUrl}/user/info`, fetcher);
+  const { data: user, error } = useSWR<User>(userInfoUrl, fetcher);
 
   // In the error case (backend is down?) we have no idea, so logged out.
   if (error) {
@@ -38,12 +39,8 @@ export default function useAuthorization(): User {
     return loggedOutUser;
   }
 
-  // If we have user data from the backend, use that
-  if (data) {
-    return data;
-  }
-
-  // In all other cases (e.g., on startup before we hear back from the
-  // server, or some other unknown condition), assume logged out.
-  return loggedOutUser;
+  // If we have user data from the backend, use that. In all other cases
+  // (e.g., on startup before we hear back from the server, or some other
+  // unknown condition), return nothing to indicate that we're still waiting.
+  return user || null;
 }

@@ -1,208 +1,30 @@
-import { useState, useEffect, useCallback, FormEvent } from 'react';
-import { useRouter } from 'next/router';
-import { Box, Card, Container, Grid, IconButton, Typography } from '@material-ui/core';
-import { AccountCircle, AddCircle, RssFeed } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core/styles';
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { isWebUri } from 'valid-url';
 import Head from 'next/head';
 
-import config from '../config';
-import ExistingFeedList from '../components/ExistingFeedList';
-import HelpPopoverButton from '../components/HelpPopoverButton';
-import CustomizedSnackBar from '../components/SnackBar';
-import { useUser } from '../components/UserProvider';
-import { Feed, FeedHash } from '../interfaces';
+import Banner from '../components/Banner';
+import BackToTopButton from '../components/BackToTopButton';
+import { useAuthenticatedUser } from '../components/UserProvider';
+import MyFeeds from '../components/MyFeeds';
 
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(2),
-  },
-  button: {
-    padding: '3px 0 3px 0',
-  },
-}));
+const MyFeedsPage = () => {
+  const authenticated = useAuthenticatedUser(true);
 
-const MyFeeds = () => {
-  const router = useRouter();
-  const user = useUser();
-  const classes = useStyles();
-  const [newFeedAuthor, setNewFeedAuthor] = useState('');
-  const [newFeedUrl, setNewFeedUrl] = useState('');
-  const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
-  const [feedHashObject, updateFeedHashObject] = useState({});
-  const [alert, setAlert] = useState(false);
-
-  const { telescopeUrl } = config;
-
-  const handleRedirect = useCallback(() => {
-    router.push(`${telescopeUrl}/auth/login`);
-  }, [router, telescopeUrl]);
-
-  useEffect(() => {
-    if (!user.isLoggedIn) handleRedirect();
-    setNewFeedAuthor(user.name!);
-    ValidatorForm.addValidationRule('isUrl', (value: string) => !!isWebUri(value));
-    return function () {
-      ValidatorForm.removeValidationRule.bind('isUrl');
-    };
-  }, [handleRedirect, user.isLoggedIn, user.name]);
-
-  useEffect(() => {
-    setAlert(true);
-    (async function hashUserFeeds() {
-      try {
-        const response = await fetch(`${telescopeUrl}/user/feeds`);
-
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-
-        const userFeeds = await response.json();
-
-        const userFeedHash = userFeeds.reduce((hash: FeedHash, feed: Feed) => {
-          hash[feed.id] = { author: feed.author, url: feed.url };
-          return hash;
-        }, {});
-
-        updateFeedHashObject(userFeedHash);
-      } catch (error) {
-        console.error('Error hashing user feeds', error);
-      }
-    })();
-  }, [telescopeUrl, alert]);
-
-  async function addFeed() {
-    try {
-      const response = await fetch(`${telescopeUrl}/feeds`, {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          user: user.id,
-          author: newFeedAuthor,
-          url: newFeedUrl,
-        }),
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setSubmitStatus({ message: data.message, isError: false });
-        setNewFeedUrl('');
-        updateFeedHashObject({
-          [data.id]: { author: newFeedAuthor, url: newFeedUrl },
-          ...feedHashObject,
-        } as FeedHash);
-      } else {
-        throw new Error(data.message);
-      }
-    } catch (error) {
-      setSubmitStatus({ message: error.message, isError: true });
-      console.error('Error adding feed', error);
-    }
-    setAlert(false);
+  if (!authenticated) {
+    return null;
   }
-
-  function handleChange(event: FormEvent<HTMLInputElement>) {
-    const { name, value } = event.target as HTMLInputElement;
-    if (name === 'author') {
-      setNewFeedAuthor(value);
-    } else {
-      setNewFeedUrl(value);
-    }
-  }
-
-  function deletionCallback(id: string) {
-    const updatedHash: FeedHash = { ...feedHashObject };
-    delete updatedHash[id];
-    setSubmitStatus({ message: 'Feed removed successfully', isError: false });
-    setAlert(false);
-    updateFeedHashObject(updatedHash);
-  }
-
-  const renderMyFeeds = () => {
-    if (user && user.id) {
-      return null;
-    }
-    return (
-      <div className={classes.margin}>
-        <ValidatorForm onSubmit={() => addFeed()} instantValidate={false}>
-          <Container maxWidth="md">
-            <Card>
-              <Box px={2} py={1}>
-                <Typography variant="h3" component="h3" align="center">
-                  My Feeds
-                </Typography>
-                <Grid container spacing={5}>
-                  <Grid item xs={5} sm={4} md={3}>
-                    <Grid container spacing={1} alignItems="flex-end">
-                      <Grid item xs="auto">
-                        <AccountCircle />
-                      </Grid>
-                      <Grid item xs={8} sm={10}>
-                        <TextValidator
-                          label="Blog feed author"
-                          name="author"
-                          value={newFeedAuthor}
-                          onChange={handleChange}
-                          type="string"
-                          validators={['required', 'trim']}
-                          errorMessages={"Please enter the blog's author."}
-                          fullWidth
-                        />
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                  <Grid item xs={7} sm={8} md={9}>
-                    <Grid container spacing={1} alignItems="flex-end">
-                      <Grid item xs="auto">
-                        <RssFeed />
-                      </Grid>
-                      <Grid item xs={8} sm={10} md={11}>
-                        <TextValidator
-                          label="Blog feed URL"
-                          name="url"
-                          value={newFeedUrl}
-                          onChange={handleChange}
-                          type="url"
-                          validators={['required', 'isUrl']}
-                          errorMessages={"Please enter the blog's feed URL."}
-                          fullWidth
-                        />
-                      </Grid>
-                      <Grid item xs="auto">
-                        <HelpPopoverButton />
-                      </Grid>
-                    </Grid>
-                    <Grid container spacing={2}>
-                      <Grid item>
-                        <IconButton classes={{ root: classes.button }} type="submit">
-                          <AddCircle color="secondary" />
-                        </IconButton>
-                        {alert === true && submitStatus.message !== '' && (
-                          <CustomizedSnackBar message={submitStatus.message} isOpen={alert} />
-                        )}
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-                <ExistingFeedList feedHash={feedHashObject} deletionCallback={deletionCallback} />
-              </Box>
-            </Card>
-          </Container>
-        </ValidatorForm>
-      </div>
-    );
-  };
 
   return (
     <>
       <Head>
         <title>My Feeds</title>
       </Head>
-      {renderMyFeeds()}
+
+      <Banner />
+      <BackToTopButton />
+      <main className="main">
+        <MyFeeds user={authenticated} />
+      </main>
     </>
   );
 };
 
-export default MyFeeds;
+export default MyFeedsPage;
