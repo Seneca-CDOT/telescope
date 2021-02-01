@@ -1,20 +1,35 @@
+name: Create Release
+
 on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
-
-name: Create Release
+      - '[0-9].[0-9]+.[0-9]+' # Push events to any matching semantic tag. For example, 1.10.1 or 2.0.0.
+        # For more details, see https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
+        # and https://docs.npmjs.com/about-semantic-versioning
 
 jobs:
-  build:
-    name: Create Release
+  release:
     runs-on: ubuntu-latest
     steps:
+      # The following action is needed to postpone execution of this workflow until node-js-ci is completed successfully.
+      # It is not completely reliable and often fails, plus it poses performance concerns, as it checks the status of node-js-ci constantly based on the specified interval.
+      # It might be better to just run all checks from node-js-ci locally in this workflow as a separate job. This would allow us to use jobs.<job_id>.needs.
+      # - name: Wait on tests
+      #   # or lewagon/wait-on-check-action@master, but master is not guaranteed to be stable ATM
+      #   uses: lewagon/wait-on-check-action@v0.2
+      #   with:
+      #     ref: master # can be commit SHA or tag too
+      #     running-workflow-name: 'release' # name of the check that will wait for the rest of the checks to pass
+      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
+      #     wait-interval: 20 # seconds
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+        # Update version in package.json according to the tag
+      - name: Check package version
+        uses: technote-space/package-version-check-action@v1
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
