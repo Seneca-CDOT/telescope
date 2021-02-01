@@ -9,20 +9,52 @@ on:
         # and https://docs.npmjs.com/about-semantic-versioning
 
 jobs:
+  build:
+    runs-on: ${{matrix.os}}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [12.x, 14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Test
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm install
+      - run: cp env.example .env
+      - run: npm run test
+  Prettier-Check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install && npm run prettier-check
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - run: npm install && npm run eslint
   release:
     runs-on: ubuntu-latest
     steps:
-      # The following action is needed to postpone execution of this workflow until node-js-ci is completed successfully.
-      # It is not completely reliable and often fails, plus it poses performance concerns, as it checks the status of node-js-ci constantly based on the specified interval.
-      # It might be better to just run all checks from node-js-ci locally in this workflow as a separate job. This would allow us to use jobs.<job_id>.needs.
-      # - name: Wait on tests
-      #   # or lewagon/wait-on-check-action@master, but master is not guaranteed to be stable ATM
-      #   uses: lewagon/wait-on-check-action@v0.2
-      #   with:
-      #     ref: master # can be commit SHA or tag too
-      #     running-workflow-name: 'release' # name of the check that will wait for the rest of the checks to pass
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-      #     wait-interval: 20 # seconds
       - name: Checkout code
         uses: actions/checkout@v2
         with:
