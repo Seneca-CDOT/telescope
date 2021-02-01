@@ -53,6 +53,7 @@ jobs:
       - uses: actions/setup-node@v1
       - run: npm install && npm run eslint
   release:
+    needs: [build, Prettier-Check, Lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
