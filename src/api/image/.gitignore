@@ -1,0 +1,4 @@
+# Unsplash photos are downloaded on startup
+photos/*.jpg
+# We have a single photo we use by default until that happens
+!photos/default.jpg

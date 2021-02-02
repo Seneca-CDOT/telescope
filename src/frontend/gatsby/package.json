@@ -1,5 +1,5 @@
 {
-  "name": "@seneca/telescope-frontend",
+  "name": "@senecacdot/telescope-frontend",
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "4.0.0",

@@ -1,0 +1,32 @@
+{
+  "name": "@senecacdot/image-service",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A service for optimizing images",
+  "scripts": {
+    "dev": "nodemon server.js | pino-pretty -c -t",
+    "start": "node server.js",
+    "clean": "del \"./photos/*.jpg\" \"!./photos/default.jpg\""
+  },
+  "repository": "Seneca-CDOT/telescope",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "dependencies": {
+    "@senecacdot/satellite": "^1.3.0",
+    "celebrate": "^13.0.4",
+    "got": "^11.8.1",
+    "http-errors": "^1.8.0",
+    "sharp": "^0.27.1"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "del-cli": "^3.0.1",
+    "nodemon": "^2.0.7",
+    "pino-pretty": "^4.5.0"
+  }
+}

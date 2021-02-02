@@ -1,5 +1,5 @@
 {
-  "name": "@seneca/telescope",
+  "name": "@senecacdot/telescope",
   "private": true,
   "version": "1.6.0",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
@@ -27,6 +27,9 @@
     "html-elements": "./tools/html-elements.js"
   },
   "scripts": {
+    "api:start": "docker-compose -f ./src/api/docker-compose-api.yml up --build -d",
+    "api:stop": "docker-compose -f ./src/api/docker-compose-api.yml down",
+    "install:image-service": "cd src/api/image && npm install",
     "install:autodeployment": "cd tools/autodeployment && npm install",
     "install:next": "cd src/frontend/next && npm install",
     "install:gatsby": "cd src/frontend/gatsby && npm install",
@@ -44,7 +47,7 @@
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
     "lint": "npm run eslint",
-    "postinstall": "run-s install:gatsby install:next install:autodeployment",
+    "postinstall": "run-s install:*",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
@@ -138,6 +141,6 @@
     "supertest": "4.0.2"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   }
 }

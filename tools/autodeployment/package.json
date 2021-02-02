@@ -1,5 +1,5 @@
 {
-  "name": "autodeployment",
+  "name": "@senecacdot/autodeployment",
   "version": "0.0.1",
   "description": "A tool for automatic deployment",
   "main": "server.js",
