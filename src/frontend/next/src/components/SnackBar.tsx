@@ -5,10 +5,11 @@ import CloseIcon from '@material-ui/icons/Close';
 
 type SnackbarProps = {
   message: string;
+  isOpen: boolean;
 };
 
-const SimpleSnackbar = ({ message }: SnackbarProps) => {
-  const [open, setOpen] = useState<boolean>(true);
+const SimpleSnackbar = ({ message, isOpen }: SnackbarProps) => {
+  const [open, setOpen] = useState<boolean>(isOpen);
 
   const handleClose = () => {
     setOpen(false);

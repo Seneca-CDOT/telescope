@@ -1,17 +1,16 @@
 import { createContext, ReactNode, useContext } from 'react';
 
-import useAuthorization from '../hooks/use-authorization';
 import { User } from '../interfaces';
+import useAuthorization from '../hooks/use-authorization';
 
-const unauthenticatedUser: User = { isLoggedIn: false };
-const UserContext = createContext(unauthenticatedUser);
+const UserContext = createContext<User>({ isLoggedIn: false });
 
 type Props = {
   children: ReactNode;
 };
 
 const UserProvider = ({ children }: Props) => {
-  const user = useAuthorization(unauthenticatedUser);
+  const user = useAuthorization();
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 };
 
