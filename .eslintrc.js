@@ -66,7 +66,7 @@ module.exports = {
 
     // JavaScript for Node.js
     {
-      files: ['src/backend/**/*.js', 'src/tools/**/*.js'],
+      files: ['src/backend/**/*.js', 'src/tools/**/*.js', 'src/api/**/*.js'],
       env: {
         node: true,
       },

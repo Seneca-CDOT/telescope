@@ -1,5 +1,5 @@
 {
-  "name": "telescope-frontend",
+  "name": "@senecacdot/telescope-frontend",
   "version": "3.0.0",
   "private": true,
   "scripts": {
