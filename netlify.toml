@@ -3,6 +3,11 @@
   publish = "out"
   command = "npm run build"
 
+  # Netlify cancels builds when it detects that no changes were made to the next frontend,
+  # and this cancellation is reported as "fail" in our netlify badge.
+  # To avoid this, we use the ignore setting to force a build even when no changes have been made to the next frontend.
+  ignore = "/bin/false"
+
 [build.environment]
   # Expose the API_URL to the back-end
   API_URL="https://dev.telescope.cdot.systems"
