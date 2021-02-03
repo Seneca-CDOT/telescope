@@ -1,6 +1,23 @@
 const sanitizeHTML = require('../src/backend/utils/html/sanitize');
 
 describe('Sanitize HTML', () => {
+  test('<script> should be removed', () => {
+    const data = sanitizeHTML('<p>Hello <script>console.log("world")</script></p>');
+    expect(data).toBe('<p>Hello </p>');
+  });
+
+  test('https://github.com/Seneca-CDOT/telescope/issues/1488', () => {
+    // Regex is rendered as plain text
+    const data = sanitizeHTML('<code>(<br>(s?)+?){2,}</code>');
+    expect(data).toBe('<code>(<br />(s?)+?){2,}</code>');
+
+    // Script in a code block is removed
+    const xss = sanitizeHTML(
+      `<code>harmless text <br><script>alert("test");</script>regex example: (<br>.*<br>)</code>`
+    );
+    expect(xss).toBe(`<code>harmless text <br />regex example: (<br />.*<br />)</code>`);
+  });
+
   test('<img> should work, but inline js should not', () => {
     const data = sanitizeHTML('<img src="x" onerror="alert(1)" onload="alert(1)" />');
     expect(data).toBe('<img src="x" />');
