@@ -44,12 +44,13 @@ function LoadAutoScroll({ onScroll }: Scroll) {
     return () => {
       observer.unobserve(buttonRefCopy as HTMLButtonElement);
     };
-  }, [$buttonRef, onScroll]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container>
       <Grid item xs={12} className={classes.content}>
-        <Button ref={$buttonRef}>Load More Posts</Button>
+        <Button ref={$buttonRef}>Loading More Posts</Button>
       </Grid>
     </Container>
   );

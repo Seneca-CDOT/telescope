@@ -25,23 +25,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type LoginProps = {
-  isMobile: boolean | undefined;
+  isMobile?: boolean;
 };
 
 const Login = ({ isMobile = false }: LoginProps) => {
-  const { isLoggedIn } = useUser();
+  const user = useUser();
   const classes = useStyles();
+  const { logoutUrl, loginUrl } = config;
+
   if (isMobile) {
-    return isLoggedIn ? (
+    return user?.isLoggedIn ? (
       // This is How you make NextJS Link works with ListItem
       // Reference: https://dev.to/ivandotv/using-next-js-link-component-with-material-ui-buttons-and-menu-items-3m6a
-      <Link href={`${config.telescopeUrl}/auth/logout`} passHref>
+      <Link href={logoutUrl} passHref>
         <ListItem button component="a" className={classes.item}>
           <LoggedIn />
         </ListItem>
       </Link>
     ) : (
-      <Link href={`${config.telescopeUrl}/auth/login`} passHref>
+      <Link href={loginUrl} passHref>
         <ListItem button component="a" className={classes.item}>
           <LoggedOut />
         </ListItem>
@@ -49,7 +51,7 @@ const Login = ({ isMobile = false }: LoginProps) => {
     );
   }
 
-  return isLoggedIn ? <LoggedIn /> : <LoggedOut />;
+  return user?.isLoggedIn ? <LoggedIn /> : <LoggedOut />;
 };
 
 export default Login;
