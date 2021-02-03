@@ -45,7 +45,11 @@ if (process.env.NODE_ENV === 'development') {
     // Allow proxying the Gatsby dev server through our backend if PROXY_FRONTEND=1 is set in env
     router.use('/', createProxyMiddleware({ target: 'http://localhost:8000', changeOrigin: true }));
     // Or serve the static files in the Gatsby build directory
-  } else if (process.env.FRONTEND.toLowerCase() === 'gatsby' || process.env.FRONTEND === '') {
+  } else if (
+    !process.env.FRONTEND ||
+    process.env.FRONTEND.toLowerCase() === 'gatsby' ||
+    process.env.FRONTEND === ''
+  ) {
     router.use(express.static(path.join(__dirname, '../../../frontend/gatsby/public')));
   } else if (process.env.FRONTEND.toLowerCase() === 'next') {
     router.use(express.static(path.join(__dirname, '../../../frontend/next/out')));
