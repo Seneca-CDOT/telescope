@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: 0,
       fontSize: '1.5rem',
       marginBottom: '4em',
+      backgroundColor: theme.palette.background.default,
     },
     header: {
       backgroundColor: theme.palette.primary.main,
@@ -70,6 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'auto',
       padding: '2em',
       color: theme.palette.text.primary,
+      backgroundColor: theme.palette.background.paper,
     },
     link: {
       textDecoration: 'none',

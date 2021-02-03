@@ -4,7 +4,7 @@ import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import { logoUrl } from '../components/Logo';
 import config from '../config';
-import lightTheme from '../theme/lightTheme';
+import { lightTheme } from '../theme';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_document.js
 class MyDocument extends Document {
