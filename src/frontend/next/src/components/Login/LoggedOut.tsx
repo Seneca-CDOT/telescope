@@ -17,8 +17,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoggedOut = () => {
-  const loginUrl = `${config.telescopeUrl}/auth/login`;
   const classes = useStyles();
+  const { loginUrl } = config;
 
   return (
     <Button className={classes.button} href={loginUrl}>

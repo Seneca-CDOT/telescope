@@ -1,19 +1,27 @@
-export type User = {
-  name?: string;
-  email?: string;
-  id?: string;
-  isAdmin?: boolean;
+export interface User {
   isLoggedIn: boolean;
-};
+}
+
+export interface AuthenticatedUser extends User {
+  name: string;
+  email: string;
+  id: string;
+  isAdmin: boolean;
+  isLoggedIn: true;
+}
+
+export interface AdminUser extends AuthenticatedUser {
+  isAdmin: true;
+}
 
 export type Feed = {
-  id: number;
+  id: string;
   author: string;
   url: string;
 };
 
 export type FeedHash = {
-  [key: number]: {
+  [key: string]: {
     author: string;
     url: string;
   };

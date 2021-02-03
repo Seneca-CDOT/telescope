@@ -19,7 +19,12 @@ if (dotenv.config({ path: envPath }).error) {
 }
 console.info(`Using NEXT_PUBLIC_API_URL=${process.env.NEXT_PUBLIC_API_URL}`);
 
-module.exports = {
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+});
+
+module.exports = withMDX({
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   poweredByHeader: false,
   reactStrictMode: true,
-};
+});

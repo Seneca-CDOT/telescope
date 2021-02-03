@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 import UserProvider from '../components/UserProvider';
 
 import '../styles/globals.css';
-import lightTheme from '../theme/lightTheme';
+import { darkTheme, lightTheme } from '../theme';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_app.js
 const App = ({ Component, pageProps }: AppProps) => {
@@ -17,10 +17,20 @@ const App = ({ Component, pageProps }: AppProps) => {
     }
   }, []);
 
+  const [theme, setTheme] = useState(lightTheme);
+
+  const toggleTheme = () => {
+    if (theme.palette.type === 'light') {
+      setTheme(darkTheme);
+    } else {
+      setTheme(lightTheme);
+    }
+  };
+
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={theme}>
       <UserProvider>
-        <Component {...pageProps} />
+        <Component {...pageProps} theme={theme} toggleTheme={toggleTheme} />
       </UserProvider>
     </ThemeProvider>
   );
