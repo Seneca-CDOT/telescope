@@ -144,11 +144,6 @@ module.exports = {
      */
     'promise/prefer-await-to-then': 'warn',
 
-    /**
-     * Prefer async/await to the callback pattern
-     */
-    'promise/prefer-await-to-callbacks': 'warn',
-
     'react/jsx-uses-vars': 'error',
 
     /**
