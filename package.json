@@ -58,7 +58,9 @@
     "server": "node src/backend/web/server",
     "test-ci": "run-s prettier-check test",
     "now-build": "npm run build",
-    "release": "run.env release-it --"
+    "release": "run.env release-it --",
+    "preversion": "npm run test-ci",
+    "postversion": "git push upstream master --tags"
   },
   "husky": {
     "hooks": {
