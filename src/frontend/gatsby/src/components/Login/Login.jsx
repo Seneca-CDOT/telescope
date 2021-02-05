@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
-import { ListItem, unstable_createMuiStrictModeTheme } from '@material-ui/core';
+import { ListItem } from '@material-ui/core';
 import LoggedIn from './LoggedIn.jsx';
 import LoggedOut from './LoggedOut.jsx';
 import useSiteMetadata from '../../hooks/use-site-metadata';
@@ -36,8 +36,6 @@ function Login({ style }) {
         const userInfo = await response.json();
         if (userInfo && userInfo.email && userInfo.name) {
           dispatch({ type: 'LOGIN_USER', payload: userInfo });
-          loadFast();
-          loadFaster();
         }
       } catch (error) {
         console.error('Error getting user info', error);
