@@ -1,12 +1,17 @@
 require('dotenv').config();
 const path = require('path');
 const https = require('https');
-const createHandler = require('github-webhook-handler');
+const express = require('express');
+const bodyParser = require('body-parser');
+const { Webhooks } = require('@octokit/webhooks');
 const shell = require('shelljs');
 const mergeStream = require('merge-stream');
 const fs = require('fs');
 
 const { buildStart, buildStop, handleStatus } = require('./info');
+
+const app = express();
+app.use(bodyParser.json());
 
 // Current build process output stream (if any)
 let out;
@@ -27,9 +32,9 @@ const credentials = {
   cert: certificate,
 };
 
-function handleError(req, res) {
+function handleError(req, res, error = 'Not Found') {
   res.statusCode = 404;
-  res.end('Not Found');
+  res.end(error);
 }
 
 // If a build is in process, pipe stderr and stdout to the request
@@ -53,35 +58,50 @@ function handleLog(req, res) {
   out.on('end', () => end('Build Complete.'));
 }
 
-const handleGitPush = createHandler({ path: '/', secret: SECRET });
+const handleGitPush = new Webhooks({ path: '/', secret: SECRET });
 
-https
-  .createServer(credentials, (req, res) => {
-    // Build Status Info as JSON
-    if (req.url === '/status') {
-      handleStatus(req, res);
-    }
-    // Build Log Stream (if build is happening)
-    else if (req.url === '/log') {
-      handleLog(req, res);
-    }
-    // Process GitHub Push Event, or error (404)
-    else {
-      handleGitPush(req, res, () => handleError(req, res));
-    }
-  })
-  .listen(DEPLOY_PORT, () => {
-    console.log(`Server listening on port ${DEPLOY_PORT}.\nUse /status or /log for build info.`);
-  });
-
-handleGitPush.on('error', (err) => {
-  console.error('Error:', err.message);
+// Build Status Info as JSON
+app.get('/status', function (req, res) {
+  handleStatus(req, res);
 });
 
-if (!(DEPLOY_TYPE === 'staging' || DEPLOY_TYPE === 'production')) {
-  console.error("DEPLOY_TYPE must be one of 'staging' or 'production'");
-  process.exit(1);
-}
+// Build Log Stream (if build is happening)
+app.get('/log', function (req, res) {
+  handleLog(req, res);
+});
+
+// Process GitHub Push Event
+app.post('/', async function (req, res) {
+  try {
+    /**
+     * @octokit/webhooks .verifyAndReceive
+     * https://github.com/octokit/webhooks.js#webhooksverifyandreceive
+     */
+    await handleGitPush.verifyAndReceive({
+      id: req.header('X-GitHub-Hook-ID'),
+      name: req.header('X-GitHub-Event'),
+      payload: req.body,
+      signature: req.header('X-Hub-Signature'),
+    });
+
+    handleStatus(req, res);
+  } catch ({ errors }) {
+    handleError(req, res, errors);
+  }
+});
+
+// Error (404)
+app.get('*', function (req, res) {
+  handleError(req, res);
+});
+
+/*
+ * @octokit/webhooks .onError
+ * https://github.com/octokit/webhooks.js#webhooksonerror
+ */
+handleGitPush.onError((err) => {
+  console.error('Error:', err);
+});
 
 /**
  * GitHub's webhooks send 3 POST requests with different actions whenever a release event takes place: created, published and released.
@@ -111,6 +131,10 @@ function handleEventType(buildType, gitHubEvent) {
     return;
   }
 
+  /**
+   * @otcokit/webhooks .on
+   * https://github.com/octokit/webhooks.js#webhookson
+   */
   handleGitPush.on(gitHubEvent, (event) => {
     const { name } = event.payload.repository;
     const { action } = event.payload;
@@ -139,3 +163,7 @@ handleEventType('production', 'release');
 
 // Staging builds happen when GitHub sends us a `push` event
 handleEventType('staging', 'push');
+
+https.createServer(credentials, app).listen(DEPLOY_PORT, () => {
+  console.log(`Server listening on port ${DEPLOY_PORT}.\nUse /status or /log for build info.`);
+});

@@ -9,10 +9,13 @@ import useSiteMetaData from '../../hooks/use-site-metadata';
 import useFaviconBadge from '../../hooks/use-favicon-badge';
 import { Post } from '../../interfaces';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       padding: 0,
+      backgroundColor: theme.palette.background.default,
+    },
+    postsWrapper: {
       maxWidth: '785px',
     },
     error: {
@@ -72,27 +75,31 @@ const Posts = () => {
   if (error) {
     console.error('Error loading post data', error);
     return (
-      <Container className={classes.root}>
-        <Grid
-          container
-          className={classes.error}
-          justify="center"
-          alignItems="center"
-          direction="column"
-        >
-          <Grid item>
-            <SentimentDissatisfiedRoundedIcon className={classes.errorIcon} />
+      <div className={classes.root}>
+        <Container>
+          <Grid
+            container
+            className={classes.error}
+            justify="center"
+            alignItems="center"
+            direction="column"
+          >
+            <Grid item>
+              <SentimentDissatisfiedRoundedIcon className={classes.errorIcon} />
+            </Grid>
+            <Grid item>Blog Timeline Failed to Load!</Grid>
           </Grid>
-          <Grid item>Blog Timeline Failed to Load!</Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </div>
     );
   }
 
   return (
-    <Container className={classes.root}>
-      <Timeline pages={data} nextPage={() => setSize(size + 1)} />
-    </Container>
+    <div className={classes.root}>
+      <Container className={classes.postsWrapper}>
+        <Timeline pages={data} nextPage={() => setSize(size + 1)} />
+      </Container>
+    </div>
   );
 };
 
