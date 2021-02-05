@@ -1,3 +1,4 @@
 # next.js specific
 .next/
+.cache
 out
