@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+// import { Gradient } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -9,12 +10,14 @@ const useStyles = makeStyles((theme) => ({
     transition: 'opacity 1s ease-in-out',
     position: 'absolute',
     height: 'calc(100vh - 64px)',
+    // height: '100vh',
     [theme.breakpoints.between('xs', 'sm')]: {
       height: 'calc(100vh - 56px)',
     },
-    width: '100%',
-    opacity: '.45',
+    width: 'auto',
+    // opacity: '.45',
     top: 0,
+    overflow: 'hidden',
   },
 }));
 
