@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
+import Header from '../components/header/Header';
 import UserProvider from '../components/UserProvider';
 
 import '../styles/globals.css';
@@ -30,6 +31,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
+        <Header />
         <Component {...pageProps} theme={theme} toggleTheme={toggleTheme} />
       </UserProvider>
     </ThemeProvider>
