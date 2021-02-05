@@ -61,16 +61,9 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.contrastText,
     },
     margin: 0,
-<<<<<<< HEAD
-    position: 'relative',
-    bottom: theme.spacing(6),
-    float: 'right',
-    marginBottom: theme.spacing(-12),
-=======
     position: 'absolute',
     right: '10px',
     top: '6px',
->>>>>>> 9412aa48ee9f3fe9de93d2a03309acc74a773242
   },
   selectControl: {
     '& > *': {
