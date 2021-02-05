@@ -1,4 +1,5 @@
 import styles from '../../styles/Header.module.css';
+import MenuIcon from '@material-ui/icons/Menu';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -8,7 +9,7 @@ export default function Header() {
     <div className={styles.container}>
       <div className={styles.header_logo}>
         <Link href="/">
-          <img src="/logo.svg" alt="logo" className={styles.logo} />
+          <img src={MenuIcon} alt="logo" className={styles.logo} />
         </Link>
       </div>
       <div>
@@ -77,7 +78,7 @@ export default function Header() {
                   <hr />
                 </div>
                 <footer>
-                  Copyright &copy; 2020 &nbsp;
+                  Copyright&copy; {new Date().getFullYear()}
                   <a href="https://cdot.senecacollege.ca/">
                     Seneca’s Centre for Development of Open Technology
                   </a>
