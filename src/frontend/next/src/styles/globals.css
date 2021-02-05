@@ -10,8 +10,9 @@
 * then they will trickle down to the other pages.
  */
 
-html {
-  padding: none;
-  margin: none;
+html,
+body {
+  padding: 0;
+  margin: 0;
   font-size: 10px;
 }
