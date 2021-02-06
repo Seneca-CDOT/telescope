@@ -107,13 +107,13 @@ export default function Banner() {
           Telescope
         </Typography>
 
-        <a
+        {/* <a
           href={`${gitInfo.gitHubUrl}`}
           title={`git commit ${gitInfo.sha}`}
           className={classes.version}
         >
           v {gitInfo.version}
-        </a>
+        </a> */}
       </div>
       <Grid
         container

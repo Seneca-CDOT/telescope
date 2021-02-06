@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     opacity: '.45',
     top: 0,
+    overflow: 'hidden',
   },
 }));
 
