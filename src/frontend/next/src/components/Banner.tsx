@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   h1: {
     position: 'absolute',
     color: theme.palette.primary.contrastText,
-    fontFamily: 'Roboto',
+    // fontFamily: 'Roboto',
     fontWeight: 'bold',
     fontSize: '12rem',
     display: 'block',

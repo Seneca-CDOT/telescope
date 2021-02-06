@@ -12,13 +12,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   stats: {
     position: 'absolute',
     color: theme.palette.primary.contrastText,
-    fontFamily: 'Roboto',
-    fontSize: '2rem',
+    // fontFamily: 'Roboto',
+    fontSize: '0.875rem',
     display: 'block',
     bottom: theme.spacing(12),
     left: theme.spacing(8),
     right: theme.spacing(8),
-    lineHeight: 'inherit',
+    lineHeight: '1.43',
     letterSpacing: 'inherit',
     transition: 'all linear 1s',
     [theme.breakpoints.between('xs', 'sm')]: {

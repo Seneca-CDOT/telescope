@@ -4,6 +4,8 @@
 /* Import highlight.js */
 @import 'highlight.js/styles/github.css';
 
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
 /* As pages/_app.tsx import this CSS it will resets the CSS
 * and makes our <html> font 10px.  Any other "global" things
 * that need to happen for a page should get added here, and
