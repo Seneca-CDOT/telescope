@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heroBanner: {
     height: '100vh',
+    overflow: 'hidden',
   },
   version: {
     position: 'absolute',

@@ -7,15 +7,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundAttachment: 'scroll',
     backgroundSize: 'cover',
     transition: 'opacity 1s ease-in-out',
-    position: 'absolute',
+    // position: 'absolute',
     height: 'calc(100vh - 64px)',
+    // height: '100vh',
     [theme.breakpoints.between('xs', 'sm')]: {
       height: 'calc(100vh - 56px)',
     },
     width: '100%',
     opacity: '.45',
     top: 0,
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
 }));
 
