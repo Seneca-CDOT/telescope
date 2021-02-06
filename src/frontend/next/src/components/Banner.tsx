@@ -73,6 +73,9 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     top: '1rem',
   },
+  container: {
+    backgroundColor: '#E5E5E5',
+  },
 }));
 
 export default function Banner() {
@@ -122,7 +125,7 @@ export default function Banner() {
         direction="row"
         alignItems="center"
         justify="center"
-        // className={classes.container}
+        className={classes.container}
       >
         <Grid id="back-to-top-anchor-mobile" item xs={8}>
           <div className={classes.icon}>
