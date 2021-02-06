@@ -121,13 +121,13 @@ export default function Banner() {
         direction="row"
         alignItems="center"
         justify="center"
-        className={classes.container}
+        // className={classes.container}
       >
         <Grid id="back-to-top-anchor-mobile" item xs={8}>
           <div className={classes.icon}>
             <ScrollAction>
               <Fab color="secondary" aria-label="scroll-down">
-                <KeyboardArrowDownIcon fontSize="large" color="textPrimary" />
+                <KeyboardArrowDownIcon fontSize="large" color="primary" />
               </Fab>
             </ScrollAction>
           </div>
