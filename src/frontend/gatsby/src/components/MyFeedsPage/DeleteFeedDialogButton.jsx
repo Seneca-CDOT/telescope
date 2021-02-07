@@ -75,13 +75,7 @@ function DeleteFeedDialogButton({ feed, deletionCallback }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button
-            ref={deleteBtnRef}
-            onClick={handleClose}
-            color="secondary"
-            variant="outlined"
-            autoFocus
-          >
+          <Button ref={deleteBtnRef} onClick={handleClose} color="secondary" variant="outlined">
             Cancel
           </Button>
           <Button
