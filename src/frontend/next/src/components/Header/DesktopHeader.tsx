@@ -41,7 +41,7 @@ export default function DesktopHeader() {
     <>
       <AppBar position="sticky" className={classes.root}>
         <Toolbar>
-          <Link href="/">
+          <Link href="/" passHref>
             <a>
               <Logo height={45} width={45} />
             </a>
