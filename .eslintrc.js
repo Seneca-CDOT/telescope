@@ -135,15 +135,10 @@ module.exports = {
      * https://eslint.org/docs/rules/func-names
      */
     'linebreak-style': 'off',
-    /**
-     * The following are eslint rules from the promise-plugin
-     * https://github.com/xjamundx/eslint-plugin-promise
-     */
-    /**
-     * Prefer wait to then() for reading Promise values
-     */
-    'promise/prefer-await-to-then': 'warn',
 
+    /**
+     * Prevent variables used in JSX to be incorrectly marked as unused
+     */
     'react/jsx-uses-vars': 'error',
 
     /**
