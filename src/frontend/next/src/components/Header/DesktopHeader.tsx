@@ -41,8 +41,10 @@ export default function DesktopHeader() {
     <>
       <AppBar position="sticky" className={classes.root}>
         <Toolbar>
-          <Link href="/">
-            <Logo height={45} width={45} />
+          <Link href="/" passHref>
+            <a>
+              <Logo height={45} width={45} />
+            </a>
           </Link>
           <div className={classes.grow} />
           <IconButton color="inherit" className={classes.button} aria-label="search">
