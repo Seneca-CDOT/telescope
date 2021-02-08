@@ -36,3 +36,5 @@ export type Post = {
   url: string;
   html: string;
 };
+
+export type ThemeName = 'light' | 'dark';

@@ -5,11 +5,12 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import Logo from '../Logo';
 import Login from '../Login';
+import ThemeToggleButton from '../ThemeToggleButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: 'primary',
+    backgroundColor: theme.palette.primary.main,
     justifyContent: 'center',
     height: '7.8em',
   },
@@ -72,6 +73,7 @@ export default function DesktopHeader() {
             </Button>
           </Link>
           <Login />
+          <ThemeToggleButton />
         </Toolbar>
       </AppBar>
     </>
