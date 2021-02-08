@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   h1: {
     position: 'absolute',
     color: theme.palette.primary.contrastText,
-    // fontFamily: 'Roboto',
+    fontFamily: 'Roboto',
     fontWeight: 'bold',
     fontSize: '12rem',
     display: 'block',
@@ -111,13 +111,13 @@ export default function Banner() {
           Telescope
         </Typography>
 
-        {/* <a
+        <a
           href={`${gitInfo.gitHubUrl}`}
           title={`git commit ${gitInfo.sha}`}
           className={classes.version}
         >
           v {gitInfo.version}
-        </a> */}
+        </a>
       </div>
       <Grid
         container
