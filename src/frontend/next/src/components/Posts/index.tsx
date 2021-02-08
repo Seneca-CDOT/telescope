@@ -75,20 +75,22 @@ const Posts = () => {
   if (error) {
     console.error('Error loading post data', error);
     return (
-      <Container className={classes.root}>
-        <Grid
-          container
-          className={classes.error}
-          justify="center"
-          alignItems="center"
-          direction="column"
-        >
-          <Grid item>
-            <SentimentDissatisfiedRoundedIcon className={classes.errorIcon} />
+      <div className={classes.root}>
+        <Container>
+          <Grid
+            container
+            className={classes.error}
+            justify="center"
+            alignItems="center"
+            direction="column"
+          >
+            <Grid item>
+              <SentimentDissatisfiedRoundedIcon className={classes.errorIcon} />
+            </Grid>
+            <Grid item>Blog Timeline Failed to Load!</Grid>
           </Grid>
-          <Grid item>Blog Timeline Failed to Load!</Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </div>
     );
   }
 
