@@ -7,11 +7,12 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import Logo from '../Logo';
 import Login from '../Login';
+import ThemeToggleButton from '../ThemeToggleButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: 'primary',
+    backgroundColor: theme.palette.primary.main,
     justifyContent: 'center',
     height: '7em',
     [theme.breakpoints.down(1065)]: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   searchIcon: {
     fontSize: '2.5rem',
-    color: theme.palette.background.default,
+    color: theme.palette.primary.contrastText,
   },
   menuIcon: {
     fontSize: '2.5rem',
@@ -56,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   item: {
-    color: theme.palette.background.default,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
@@ -130,7 +130,7 @@ export default function MobileHeader() {
               <SearchIcon className={classes.searchIcon} />
             </IconButton>
           </Link>
-
+          <ThemeToggleButton />
           <IconButton
             onClick={toggleDrawer('right', true)}
             edge="start"
