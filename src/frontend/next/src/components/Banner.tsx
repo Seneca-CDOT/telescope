@@ -31,7 +31,16 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     heroBanner: {
-      height: '100vh',
+      [theme.breakpoints.up('lg')]: {
+        height: 'calc(100vh - 8.9em)',
+      },
+      [theme.breakpoints.between('md', 'lg')]: {
+        height: 'calc(100vh - 8em)',
+      },
+
+      [theme.breakpoints.down('md')]: {
+        height: 'calc(100vh - 64px)',
+      },
       overflow: 'hidden',
     },
     version: {
