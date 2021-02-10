@@ -1,39 +1,49 @@
-# Image Service
+# Satellite
 
-The Image Service provides optimized images for backgrounds.
+A Microservice Framework for [Telescope](https://github.com/Seneca-CDOT/telescope).
+Because Ray said we should try microservices!
+
+Satellite creates an [Express.js](http://expressjs.com/) based server with
+various common pieces already set up. Bring your own router and let us do the rest.
 
 ## Install
 
 ```
-npm install
+npm install --save @telescope/satellite
 ```
 
 ## Usage
 
-By default the server is running on http://localhost:4444/.
+```js
+// Get the Satellite constructor, logger, and default router
+const { Satellite, logger, router } = require('@telescope/satellite');
 
-You can use any/all the following optional query params:
+// NOTE: if you need to access express, it is also available.
+// const { Satellite, express logger, router } = require('@telescope/satellite');
 
-1. `t` - the desired image type. Must be one of `jpeg`, `jpg`, `webp`, `png`. Defaults to `jpeg`.
-1. `w` - the desired width. Must be between `200` and `2000`. Defaults to `800` if missing.
-1. `h` - the desired height. Must be between `200` and `3000`.
 
-NOTE: if both `w` and `h` are used, the image will be resized/cropped to cover those dimensions
+// Add your routes to the router
+router.get('/', (req, res) => {
+  res.json({ message: 'hello world' });
+});
 
-### Examples
+// Define your microservice, providing some options (see below)
+const service = new Satellite({ name: 'my-service});
 
-- `GET /` - returns the default background JPEG with width = 800px
-- `GET /?w=1024`- returns the default background JPEG with width = 1024px
-- `GET /?h=1024`- returns the default background JPEG with height = 1024px
-- `GET /?w=1024&h=1024`- returns the default background JPEG with width = 1024px and height = 1024px
-- `GET /?t=png`- returns the default background JPEG with width = 800px as a PNG
+// Start the service on the specified port
+service.start(8888, () => {
+  logger.info('Here we go!');
+})
+```
 
-- `GET /gallery` - an HTML gallery page will be returned of all backgrounds
-- `GET /default.jpg` - returns a specific image (e.g., `default.jpg` or any other) from the available backgrounds
+### `Satellite(options)`
 
-- `GET /healthcheck` - returns `{ "status": "ok" }` if everything is running properly
+- `name`: the name of the service, used in logging and performance monitoring (required).
 
-## Docker
+- `apmServerUrl`: the URL to the Elastic APM server. If omitted, APM monitoring is disabled.
 
-- To build and tag: `docker build . -t telescope_img_svc:latest`
-- To run locally: `docker run -p 4444:4444 telescope_img_svc:latest`
+- `healthCheck`: an optional `function` returning a `Promise`, used to determine if the service is healthy. If no function is defined, a default one will be provided. The `healthCheck` function is what runs at the `/healthcheck` route by default.
+
+- `cors`: the options to pass to the [cors](https://www.npmjs.com/package/cors) middlware. By default all options are turned on. Use `cors: false` to disable cors.
+
+- `helmet`: the options to pass to the [helmet](https://www.npmjs.com/package/helmet) middleware. By default all options are turned on. Use `helmet: false` to disable helmet.
