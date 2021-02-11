@@ -2,6 +2,9 @@
 const fetch = require('node-fetch');
 const getPort = require('get-port');
 
+// Tests cause terminus to leak warning on too many listeners, increase a bit
+require('events').EventEmitter.defaultMaxListeners = 15;
+
 const { Satellite, logger } = require('.');
 
 const createSatelliteInstance = (options) => {
@@ -33,6 +36,7 @@ describe('Satellite()', () => {
 
   afterEach((done) => {
     service.stop(done);
+    service = null;
   });
 
   test('Should throw if Satellite() options missing name', () => {
@@ -67,6 +71,50 @@ describe('Satellite()', () => {
       const res = await fetch(`${url}/always-200`);
       expect(res.status).toBe(200);
       done();
+    });
+  });
+
+  describe('Default body parsers', () => {
+    test('should support JSON body', (done) => {
+      service.router.post('/json', (req, res) => {
+        // echo back the json body
+        res.json(req.body);
+      });
+      service.start(port, async () => {
+        const res = await fetch(`${url}/json`, {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ json: 'rocks' }),
+        });
+        expect(res.ok).toBe(true);
+        const data = await res.json();
+        expect(data).toEqual({ json: 'rocks' });
+        done();
+      });
+    });
+
+    test('should support x-www-form-urlencoded body', (done) => {
+      service.router.post('/form', (req, res) => {
+        // echo back the body
+        res.json(req.body);
+      });
+      service.start(port, async () => {
+        const res = await fetch(`${url}/form`, {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+          },
+          body: 'json=rocks',
+        });
+        expect(res.ok).toBe(true);
+        const data = await res.json();
+        expect(data).toEqual({ json: 'rocks' });
+        done();
+      });
     });
   });
 

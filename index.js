@@ -30,7 +30,7 @@ function createApp(router, options = {}) {
   }
 
   // Parse application/x-www-form-urlencoded
-  app.use(express.urlencoded());
+  app.use(express.urlencoded({ extended: true }));
   // Parse application/json
   app.use(express.json());
 
