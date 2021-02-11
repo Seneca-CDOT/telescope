@@ -75,6 +75,8 @@
   "dependencies": {
     "@elastic/elasticsearch": "7.9.0",
     "@elastic/elasticsearch-mock": "0.3.0",
+    "@next/mdx": "10.0.6",
+    "@octokit/webhooks": "8.0.2",
     "@wordpress/wordcount": "2.11.0",
     "body-parser": "1.19.0",
     "bull": "3.18.0",
