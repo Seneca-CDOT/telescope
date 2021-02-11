@@ -6,6 +6,8 @@ const syntaxHighlight = require('./syntax-highlight');
 const replaceCodeEntities = require('./replace-entities');
 const fixEmptyPre = require('./modify-pre');
 const toDOM = require('./dom');
+const removeEmptyParagraphs = require('./remove-empty-paragraphs');
+const removeZeroDotBraille = require('./remove-zero-dot-braille');
 
 const { JSDOM } = jsdom;
 
@@ -42,7 +44,10 @@ module.exports = function process(html) {
   lazyLoad(dom);
   // Replace <code> elements with encoded entities to use characters
   replaceCodeEntities(dom);
-
+  // Remove empty <p> elements
+  removeEmptyParagraphs(dom);
   // Return the resulting HTML
+  removeZeroDotBraille(dom);
+
   return dom.window.document.body.innerHTML;
 };
