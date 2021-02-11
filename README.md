@@ -17,8 +17,8 @@ npm install --save @telescope/satellite
 ## Usage
 
 ```js
-// Get the Satellite constructor, logger, and default router
-const { Satellite, logger } = require('@telescope/satellite');
+// Get the Satellite constructor and logger
+const { Satellite, logger } = require('@senecacdot/satellite');
 
 // Define your microservice, providing some options (see below)
 const service = new Satellite({ name: 'my-service' });

@@ -1,5 +1,5 @@
 {
-  "name": "@telescope/satellite",
+  "name": "@senecacdot/satellite",
   "version": "1.0.5",
   "description": "A Microservice Framework for Telescope",
   "scripts": {
