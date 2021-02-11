@@ -16,24 +16,20 @@ npm install --save @telescope/satellite
 
 ```js
 // Get the Satellite constructor, logger, and default router
-const { Satellite, logger, router } = require('@telescope/satellite');
-
-// NOTE: if you need to access express, it is also available.
-// const { Satellite, express logger, router } = require('@telescope/satellite');
-
-
-// Add your routes to the router
-router.get('/', (req, res) => {
-  res.json({ message: 'hello world' });
-});
+const { Satellite, logger } = require('@telescope/satellite');
 
 // Define your microservice, providing some options (see below)
-const service = new Satellite({ name: 'my-service'});
+const service = new Satellite({ name: 'my-service' });
+
+// Add your routes to the service's router
+service.router.get('/my-route', (req, res) => {
+  res.json({ message: 'hello world' });
+});
 
 // Start the service on the specified port
 service.start(8888, () => {
   logger.info('Here we go!');
-})
+});
 ```
 
 ### `Satellite(options)`

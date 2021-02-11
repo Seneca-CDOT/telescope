@@ -2,9 +2,20 @@
 const fetch = require('node-fetch');
 const getPort = require('get-port');
 
-const { Satellite, express, logger, router } = require('.');
+const { Satellite, logger } = require('.');
 
-describe('Satellite(), router, express', () => {
+const createSatelliteInstance = (options) => {
+  const service = new Satellite(options || { name: 'test' });
+
+  // Default route
+  service.router.get('/always-200', (req, res) => {
+    res.status(200).end();
+  });
+
+  return service;
+};
+
+describe('Satellite()', () => {
   let port;
   let port2;
   let url;
@@ -14,12 +25,7 @@ describe('Satellite(), router, express', () => {
     port = await getPort();
     port2 = await getPort();
     url = `http://localhost:${port}`;
-    service = new Satellite({ name: 'test' });
-
-    // Default route
-    router.get('/always-200', (req, res) => {
-      res.status(200).end();
-    });
+    service = createSatelliteInstance();
 
     // Silence the logger.  Override if you need it in a test
     logger.level = 'silent';
@@ -64,22 +70,6 @@ describe('Satellite(), router, express', () => {
     });
   });
 
-  test('Satellite() should allow overriding router in constructor', (done) => {
-    const customRouter = new express.Router();
-
-    // Add a route that returns 403
-    customRouter.get('/always-403', (req, res) => {
-      res.status(403).end();
-    });
-
-    service = new Satellite({ name: 'test', port, router: customRouter });
-    service.start(port, async () => {
-      const res = await fetch(`${url}/always-403`);
-      expect(res.status).toBe(403);
-      done();
-    });
-  });
-
   describe('cors', () => {
     test('CORS set by default', (done) => {
       service.start(port, async () => {
@@ -91,23 +81,23 @@ describe('Satellite(), router, express', () => {
     });
 
     test('Allow disabling CORS', (done) => {
-      service = new Satellite({ name: 'test', port, cors: false });
-      service.start(port, async () => {
+      const corsService = createSatelliteInstance({ name: 'test', port, cors: false });
+      corsService.start(port, async () => {
         const res = await fetch(`${url}/always-200`, { credentials: 'same-origin' });
         expect(res.ok).toBe(true);
         expect(res.headers.get('access-control-allow-origin')).toBe(null);
-        done();
+        corsService.stop(done);
       });
     });
 
     test('Allow passing options to CORS', (done) => {
       const origin = 'http://example.com';
-      service = new Satellite({ name: 'test', port, cors: { origin } });
-      service.start(port, async () => {
+      const corsService = createSatelliteInstance({ name: 'test', port, cors: { origin } });
+      corsService.start(port, async () => {
         const res = await fetch(`${url}/always-200`, { credentials: 'same-origin' });
         expect(res.ok).toBe(true);
         expect(res.headers.get('access-control-allow-origin')).toBe('http://example.com');
-        done();
+        corsService.stop(done);
       });
     });
   });
@@ -123,23 +113,48 @@ describe('Satellite(), router, express', () => {
     });
 
     test('Allow disabling helmet', (done) => {
-      service = new Satellite({ name: 'test', port, helmet: false });
-      service.start(port, async () => {
+      const helmetService = createSatelliteInstance({ name: 'test', port, helmet: false });
+      helmetService.start(port, async () => {
         const res = await fetch(`${url}/always-200`);
         expect(res.ok).toBe(true);
         expect(res.headers.get('x-xss-protection')).toBe(null);
-        done();
+        helmetService.stop(done);
       });
     });
 
     test('Allow passing options to helmet', (done) => {
-      service = new Satellite({ name: 'test', port, helmet: { xssFilter: false } });
-      service.start(port, async () => {
+      const helmetService = createSatelliteInstance({
+        name: 'test',
+        port,
+        helmet: { xssFilter: false },
+      });
+      helmetService.start(port, async () => {
         const res = await fetch(`${url}/always-200`);
         expect(res.ok).toBe(true);
         expect(res.headers.get('x-xss-protection')).toBe(null);
-        done();
+        helmetService.stop(done);
       });
+    });
+  });
+
+  test('the default README example code should work', (done) => {
+    // Add your routes to the service's router
+    service.router.get('/my-route', (req, res) => {
+      res.json({ message: 'hello world' });
+    });
+
+    const testRoute = async () => {
+      const res = await fetch(`${url}/my-route`);
+      expect(res.ok).toBe(true);
+      const body = await res.json();
+      expect(body).toEqual({ message: 'hello world' });
+
+      service.stop(done);
+    };
+
+    service.start(port, () => {
+      logger.info('Here we go!');
+      testRoute();
     });
   });
 });

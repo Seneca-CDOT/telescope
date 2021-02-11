@@ -14,7 +14,6 @@ const ecsFormat = require('@elastic/ecs-pino-format');
 const expressPino = require('express-pino-logger');
 
 const logger = pino(ecsFormat({ convertReqRes: true }));
-const defaultRouter = new express.Router();
 
 function createApp(router, options = {}) {
   const app = express();
@@ -94,8 +93,8 @@ class Satellite {
       this.healthCheck = options.healthCheck;
     }
 
-    // If we're given a router, use that, otherwise use the default router
-    this.router = options.router || defaultRouter;
+    // Expose a router
+    this.router = new express.Router();
     // Expose the app
     this.app = createApp(this.router, options);
   }
@@ -145,6 +144,4 @@ class Satellite {
 }
 
 module.exports.Satellite = Satellite;
-module.exports.express = express;
 module.exports.logger = logger;
-module.exports.router = defaultRouter;
