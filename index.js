@@ -5,7 +5,6 @@ const apm = require('elastic-apm-node');
 const { createServer } = require('http');
 const { createTerminus } = require('@godaddy/terminus');
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const createError = require('http-errors');
@@ -31,9 +30,9 @@ function createApp(router, options = {}) {
   }
 
   // Parse application/x-www-form-urlencoded
-  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(express.urlencoded());
   // Parse application/json
-  app.use(bodyParser.json());
+  app.use(express.json());
 
   // Include our router with all endpoints added by the user
   app.use('/', router);
