@@ -1,6 +1,5 @@
 {
   "name": "@telescope/satellite",
-  "private": "false",
   "version": "1.0.4",
   "description": "A Microservice Framework for Telescope",
   "scripts": {
