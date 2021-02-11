@@ -1,6 +1,6 @@
 {
   "name": "@senecacdot/satellite",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A Microservice Framework for Telescope",
   "scripts": {
     "test:watch": "jest --watch test.js",
