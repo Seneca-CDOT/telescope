@@ -17,20 +17,22 @@ npm install --save @telescope/satellite
 ## Usage
 
 ```js
-// Get the Satellite constructor and logger
-const { Satellite, logger } = require('@senecacdot/satellite');
+// Get the Satellite constructor and logger.  NOTE: `Router` is also exposed
+// in case you need to create a sub-router: `const router = new Router();`
+// The `Router` constructor is the same as using `new express.Router()`;
+const { Satellite, logger } = require("@senecacdot/satellite");
 
 // Define your microservice, providing some options (see below)
-const service = new Satellite({ name: 'my-service' });
+const service = new Satellite({ name: "my-service" });
 
 // Add your routes to the service's router
-service.router.get('/my-route', (req, res) => {
-  res.json({ message: 'hello world' });
+service.router.get("/my-route", (req, res) => {
+  res.json({ message: "hello world" });
 });
 
 // Start the service on the specified port
 service.start(8888, () => {
-  logger.info('Here we go!');
+  logger.info("Here we go!");
 });
 ```
 

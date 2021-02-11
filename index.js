@@ -1,16 +1,16 @@
 // This needs to go first so it can instrument the app
 // https://www.elastic.co/guide/en/apm/agent/nodejs/current/express.html
-const apm = require('elastic-apm-node');
+const apm = require("elastic-apm-node");
 
-const { createServer } = require('http');
-const { createTerminus } = require('@godaddy/terminus');
-const express = require('express');
-const cors = require('cors');
-const helmet = require('helmet');
-const createError = require('http-errors');
-const pino = require('pino');
-const ecsFormat = require('@elastic/ecs-pino-format');
-const expressPino = require('express-pino-logger');
+const { createServer } = require("http");
+const { createTerminus } = require("@godaddy/terminus");
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+const createError = require("http-errors");
+const pino = require("pino");
+const ecsFormat = require("@elastic/ecs-pino-format");
+const expressPino = require("express-pino-logger");
 
 const logger = pino(ecsFormat({ convertReqRes: true }));
 
@@ -35,7 +35,7 @@ function createApp(router, options = {}) {
   app.use(express.json());
 
   // Include our router with all endpoints added by the user
-  app.use('/', router);
+  app.use("/", router);
 
   // 404
   app.use(function (req, res, next) {
@@ -48,10 +48,10 @@ function createApp(router, options = {}) {
 
     res.status(err.status || 500);
 
-    if (req.accepts('html')) {
-      res.set('Content-Type', 'text/html');
+    if (req.accepts("html")) {
+      res.set("Content-Type", "text/html");
       res.send(`<h1>${err.status} Error</h1><p>${err.message}</p>`);
-    } else if (req.accepts('json')) {
+    } else if (req.accepts("json")) {
       res.json({
         status: err.status,
         message: err.message,
@@ -68,7 +68,7 @@ function createApp(router, options = {}) {
 class Satellite {
   constructor(options = {}) {
     if (!options.name) {
-      throw new Error('service name required');
+      throw new Error("service name required");
     }
     // Start APM monitoring if server URL is provided
     if (options.apmServerUrl) {
@@ -82,13 +82,13 @@ class Satellite {
         // active: process.env.NODE_ENV === 'production'
         centralConfig: false,
         // Don't bother instrumenting the healthcheck route
-        ignoreUrls: ['/healthcheck'],
+        ignoreUrls: ["/healthcheck"],
       });
     }
 
     // If we're given a healthCheck function, we'll use it with terminus below.
     // NOTE: this function should return a Promise.
-    if (typeof options.healthCheck === 'function') {
+    if (typeof options.healthCheck === "function") {
       this.healthCheck = options.healthCheck;
     }
 
@@ -100,11 +100,11 @@ class Satellite {
 
   start(port, callback) {
     if (this.server) {
-      throw new Error('server already started');
+      throw new Error("server already started");
     }
 
-    if (typeof port !== 'number') {
-      throw new Error('port required');
+    if (typeof port !== "number") {
+      throw new Error("port required");
     }
 
     // Expose the server
@@ -113,9 +113,9 @@ class Satellite {
     // Graceful shutdown and healthcheck
     createTerminus(this.server, {
       healthChecks: {
-        '/healthcheck': this.healthCheck || (() => Promise.resolve()),
+        "/healthcheck": this.healthCheck || (() => Promise.resolve()),
       },
-      signal: 'SIGINT',
+      signal: "SIGINT",
       logger,
     });
 
@@ -128,7 +128,7 @@ class Satellite {
 
     function finished() {
       self.server = null;
-      if (typeof callback === 'function') {
+      if (typeof callback === "function") {
         callback();
       }
     }
@@ -144,3 +144,4 @@ class Satellite {
 
 module.exports.Satellite = Satellite;
 module.exports.logger = logger;
+module.exports.Router = express.Router;
