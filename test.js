@@ -76,7 +76,7 @@ describe("Satellite()", () => {
 
   describe("Router()", () => {
     test("should be able to create sub-routers using Router()", (done) => {
-      const customRouter = new Router();
+      const customRouter = Router();
       customRouter.get("/sub-router", (req, res) => {
         res.status(200).end();
       });

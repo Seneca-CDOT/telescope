@@ -93,7 +93,7 @@ class Satellite {
     }
 
     // Expose a router
-    this.router = new express.Router();
+    this.router = express.Router();
     // Expose the app
     this.app = createApp(this.router, options);
   }
@@ -144,4 +144,4 @@ class Satellite {
 
 module.exports.Satellite = Satellite;
 module.exports.logger = logger;
-module.exports.Router = express.Router;
+module.exports.Router = () => express.Router();
