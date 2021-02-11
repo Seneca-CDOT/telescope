@@ -1,6 +1,6 @@
 # Satellite
 
-![node-js-ci](https://github.com/actions/SenecaCDOT/workflows/node-js-ci/badge.svg)
+![node-js-ci](https://github.com/Seneca-CDOT/satellite/workflows/node-js-ci/badge.svg)
 
 A Microservice Framework for [Telescope](https://github.com/Seneca-CDOT/telescope).
 Because Ray said we should try microservices!
