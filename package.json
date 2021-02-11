@@ -1,6 +1,6 @@
 {
   "name": "@telescope/satellite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Microservice Framework for Telescope",
   "scripts": {
     "test:watch": "jest --watch test.js",
