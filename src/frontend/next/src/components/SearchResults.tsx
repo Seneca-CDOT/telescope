@@ -6,6 +6,8 @@ import useSiteMetadata from '../hooks/use-site-metadata';
 import Timeline from './Posts/Timeline';
 import Spinner from './Spinner';
 
+const NoResultsImg = '/noResults.svg';
+
 const useStyles = makeStyles(() => ({
   spinner: {
     display: 'flex',
@@ -37,6 +39,12 @@ const useStyles = makeStyles(() => ({
     textAlign: 'center',
     margin: '2rem',
     color: '#96C1E7',
+  },
+  noResults: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    margin: '2rem',
   },
 }));
 
@@ -95,7 +103,10 @@ const SearchResults = ({ text, filter }: SearchResultProps) => {
       {data && data.length ? (
         <Timeline pages={data} nextPage={() => setSize(size + 1)} />
       ) : (
-        <h1>No search results</h1>
+        <div className={classes.noResults}>
+          <img src={NoResultsImg} alt="No Results Found" height={200} width={200} />
+          <h1>No Results Found</h1>
+        </div>
       )}
     </Container>
   );
