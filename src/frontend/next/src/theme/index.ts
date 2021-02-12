@@ -5,8 +5,8 @@ export const lightTheme: Theme = createMuiTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#121D59', // TITLE AND ICONS
-      contrastText: '#A0D1FB', // SCROLL TO TOP BACKGROUND
+      main: '#333E64',
+      contrastText: '#E5E5E5',
       light: '#FFFFFF',
     },
     secondary: {
@@ -16,10 +16,11 @@ export const lightTheme: Theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      default: '#E5E5E5', // BACKGROUND
+      default: '#E5E5E5',
+      paper: '#E5E5E5',
     },
     text: {
-      primary: '#000000', // TEXT
+      primary: '#181818',
       secondary: '#8BC2EB',
     },
   },
