@@ -15,6 +15,14 @@ const useStyles = makeStyles((theme) => ({
     opacity: '.45',
     top: 0,
   },
+  img: {
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    height: '100%',
+    [theme.breakpoints.up('xl')]: {
+      width: '100%',
+    },
+  },
 }));
 
 const DynamicImage = () => {
@@ -22,7 +30,7 @@ const DynamicImage = () => {
 
   return (
     <picture className={classes.background}>
-      <img src="/background.jpg" loading="lazy" alt="" />
+      <img src="/background.jpg" className={classes.img} loading="lazy" alt="" />
     </picture>
   );
 };
