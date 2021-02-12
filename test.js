@@ -39,14 +39,6 @@ describe("Satellite()", () => {
     service = null;
   });
 
-  test("Should throw if Satellite() options missing name", () => {
-    expect(() => new Satellite()).toThrow();
-  });
-
-  test("Should not throw if Satellite() options has name", () => {
-    expect(() => new Satellite({ name: "test" })).not.toThrow();
-  });
-
   test("start() should throw if port not defined", () => {
     expect(() => service.start()).toThrow();
   });

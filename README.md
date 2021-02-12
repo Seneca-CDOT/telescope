@@ -14,6 +14,17 @@ various common pieces already set up. Bring your own router and let us do the re
 npm install --save @telescope/satellite
 ```
 
+## Configure
+
+You need to set the following environment variables if you want Elastic APM
+monitoring for your service:
+
+- `SERVICE_NAME`: the name of your microservice as it will appear in APM monitoring
+- `APM_SERVER_URL`: the URL to the APM server (e.g., http://localhost:8200)
+
+If you don't provide these values in your environment, APM monitoring will be
+disabled.
+
 ## Usage
 
 ```js
@@ -23,7 +34,7 @@ npm install --save @telescope/satellite
 const { Satellite, logger } = require("@senecacdot/satellite");
 
 // Define your microservice, providing some options (see below)
-const service = new Satellite({ name: "my-service" });
+const service = new Satellite();
 
 // Add your routes to the service's router
 service.router.get("/my-route", (req, res) => {
@@ -37,10 +48,6 @@ service.start(8888, () => {
 ```
 
 ### `Satellite(options)`
-
-- `name`: the name of the service, used in logging and performance monitoring (required).
-
-- `apmServerUrl`: the URL to the Elastic APM server. If omitted, APM monitoring is disabled.
 
 - `healthCheck`: an optional `function` returning a `Promise`, used to determine if the service is healthy. If no function is defined, a default one will be provided. The `healthCheck` function is what runs at the `/healthcheck` route by default.
 

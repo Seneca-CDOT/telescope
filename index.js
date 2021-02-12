@@ -1,6 +1,17 @@
 // This needs to go first so it can instrument the app
 // https://www.elastic.co/guide/en/apm/agent/nodejs/current/express.html
-const apm = require("elastic-apm-node");
+// To use, set the following environment variables:
+//
+// - SERVICE_NAME: the name of your service as it will appear in APM
+// - APM_SERVER_URL: the URL to the APM server (e.g., http://localhost:8200)
+let apm;
+if (process.env.SERVICE_NAME && process.env.APM_SERVER_URL) {
+  apm = require("elastic-apm-node").start({
+    serviceName: process.env.SERVICE_NAME,
+    serverUrl: process.env.APM_SERVER_URL,
+    centralConfig: false,
+  });
+}
 
 const { createServer } = require("http");
 const { createTerminus } = require("@godaddy/terminus");
@@ -42,6 +53,12 @@ function createApp(router, options = {}) {
     next(createError(404));
   });
 
+  // If we're using APM, add APM error collection
+  // middleware before default error handler
+  if (apm) {
+    app.use(apm.middleware.connect());
+  }
+
   // eslint-disable-next-line no-unused-vars
   function errorHandler(err, req, res, next) {
     logger.error({ err, req, res });
@@ -67,25 +84,6 @@ function createApp(router, options = {}) {
 
 class Satellite {
   constructor(options = {}) {
-    if (!options.name) {
-      throw new Error("service name required");
-    }
-    // Start APM monitoring if server URL is provided
-    if (options.apmServerUrl) {
-      apm.start({
-        // Override service name from package.json
-        // Allowed characters: a-z, A-Z, 0-9, -, _, and space
-        serviceName: options.name,
-        // Set custom APM Server URL (default: http://localhost:8200)
-        serverUrl: options.apmServerUrl,
-        // We can disable this in dev
-        // active: process.env.NODE_ENV === 'production'
-        centralConfig: false,
-        // Don't bother instrumenting the healthcheck route
-        ignoreUrls: ["/healthcheck"],
-      });
-    }
-
     // If we're given a healthCheck function, we'll use it with terminus below.
     // NOTE: this function should return a Promise.
     if (typeof options.healthCheck === "function") {
@@ -93,7 +91,7 @@ class Satellite {
     }
 
     // Expose a router
-    this.router = express.Router();
+    this.router = express.Router({ mergeParams: true });
     // Expose the app
     this.app = createApp(this.router, options);
   }
@@ -104,7 +102,7 @@ class Satellite {
     }
 
     if (typeof port !== "number") {
-      throw new Error("port required");
+      throw new Error(`port number required, got ${port}`);
     }
 
     // Expose the server
@@ -144,4 +142,5 @@ class Satellite {
 
 module.exports.Satellite = Satellite;
 module.exports.logger = logger;
-module.exports.Router = () => express.Router();
+module.exports.Router = (options) =>
+  express.Router({ ...options, mergeParams: true });
