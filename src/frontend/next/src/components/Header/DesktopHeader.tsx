@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
   },
-  links: {
+  buttonText: {
     color: theme.palette.primary.contrastText,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
@@ -49,22 +49,28 @@ export default function DesktopHeader() {
             </a>
           </Link>
           <div className={classes.grow} />
-          <IconButton color="inherit" className={classes.button} aria-label="search">
-            <Link href="/search">
-              <SearchIcon className={classes.searchIcon} />
-            </Link>
-          </IconButton>
 
-          <Button color="inherit" size="medium" className={classes.button}>
-            <Link href="/">
-              <a className={classes.links}>Home</a>
-            </Link>
-          </Button>
-          <Button color="inherit" size="medium" className={classes.button}>
-            <Link href="/about">
-              <a className={classes.links}>About</a>
-            </Link>
-          </Button>
+          <Link href="/search" passHref>
+            <IconButton
+              color="inherit"
+              className={classes.button}
+              aria-label="search"
+              component="a"
+            >
+              <SearchIcon className={classes.searchIcon} />
+            </IconButton>
+          </Link>
+
+          <Link href="/" passHref>
+            <Button color="inherit" size="medium" className={classes.button} component="a">
+              <p className={classes.buttonText}>Home</p>
+            </Button>
+          </Link>
+          <Link href="/about" passHref>
+            <Button color="inherit" size="medium" className={classes.button} component="a">
+              <p className={classes.buttonText}>About</p>
+            </Button>
+          </Link>
           <Login />
         </Toolbar>
       </AppBar>
