@@ -3,12 +3,11 @@
 // To use, set the following environment variables:
 //
 // - SERVICE_NAME: the name of your service as it will appear in APM
-// - APM_SERVER_URL: the URL to the APM server (e.g., http://localhost:8200)
+// - ELASTIC_APM_SERVER_URL: the URL to the APM server (e.g., http://localhost:8200)
 let apm;
-if (process.env.SERVICE_NAME && process.env.APM_SERVER_URL) {
+if (process.env.SERVICE_NAME) {
   apm = require("elastic-apm-node").start({
     serviceName: process.env.SERVICE_NAME,
-    serverUrl: process.env.APM_SERVER_URL,
     centralConfig: false,
   });
 }
@@ -24,6 +23,11 @@ const ecsFormat = require("@elastic/ecs-pino-format");
 const expressPino = require("express-pino-logger");
 
 const logger = pino(ecsFormat({ convertReqRes: true }));
+
+function createRouter(options) {
+  // Always merge params with the parent routes we're joining
+  return express.Router({ ...options, mergeParams: true });
+}
 
 function createApp(router, options = {}) {
   const app = express();
@@ -50,7 +54,7 @@ function createApp(router, options = {}) {
 
   // 404
   app.use(function (req, res, next) {
-    next(createError(404));
+    next(createError(404, `${req.originalUrl} not found`));
   });
 
   // If we're using APM, add APM error collection
@@ -91,7 +95,7 @@ class Satellite {
     }
 
     // Expose a router
-    this.router = express.Router({ mergeParams: true });
+    this.router = createRouter();
     // Expose the app
     this.app = createApp(this.router, options);
   }
@@ -142,5 +146,4 @@ class Satellite {
 
 module.exports.Satellite = Satellite;
 module.exports.logger = logger;
-module.exports.Router = (options) =>
-  express.Router({ ...options, mergeParams: true });
+module.exports.Router = createRouter;
