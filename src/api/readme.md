@@ -41,22 +41,23 @@ npm run services:stop
 
 ## API Lookup Table
 
-| API   | Docker Tag          | URL                       | Description                                       |
-| ----- | ------------------- | ------------------------- | ------------------------------------------------- |
-| posts | telescope_posts_svc | http://localhost/v1/posts | Provides access to cached user posts              |
-| image | telescope_img_svc   | http://localhost/v1/image | Provides a dynamic image processing service       |
-| auth  | telescope_auth_svc  | http://localhost/v1/auth  | Provides authentication and authorization service |
+| API   | Docker Tag          | URL                         | Description                                       |
+| ----- | ------------------- | --------------------------- | ------------------------------------------------- |
+| posts | telescope_posts_svc | <http://localhost/v1/posts> | Provides access to cached user posts              |
+| image | telescope_img_svc   | <http://localhost/v1/image> | Provides a dynamic image processing service       |
+| auth  | telescope_auth_svc  | <http://localhost/v1/auth>  | Provides authentication and authorization service |
+| users | telescope_users_svc | <http://localhost/v1/users> | Provides telescope's user services                |
 
 ## Support Services Lookup Table (development only)
 
-| API                | URL                              | Description                                                               |
-| ------------------ | -------------------------------- | ------------------------------------------------------------------------- |
-| Traefik Dashboard  | http://localhost:8080            | [Traefik Dashboard](https://doc.traefik.io/traefik/operations/dashboard/) |
-| Redis              | redis://localhost:6379           | Redis server                                                              |
-| Elasticsearch      | http://localhost:9200            | Elasticserach                                                             |
-| Firebase UI        | http://localhost:4000            | UI Dashboard to Firebase Emulator                                         |
-| Firebase Firestore | http://localhost:8088            | Firestore Emulator Service                                                |
-| Login              | http://localhost:8081/simplesaml | SAML SSO Identity Provider                                                |
+| API                | URL                                | Description                                                               |
+| ------------------ | ---------------------------------- | ------------------------------------------------------------------------- |
+| Traefik Dashboard  | <http://localhost:8080>            | [Traefik Dashboard](https://doc.traefik.io/traefik/operations/dashboard/) |
+| Redis              | redis://localhost:6379             | Redis server                                                              |
+| Elasticsearch      | <http://localhost:9200>            | Elasticserach                                                             |
+| Firebase UI        | <http://localhost:4000>            | UI Dashboard to Firebase Emulator                                         |
+| Firebase Firestore | <http://localhost:8088>            | Firestore Emulator Service                                                |
+| Login              | <http://localhost:8081/simplesaml> | SAML SSO Identity Provider                                                |
 
 ## References
 

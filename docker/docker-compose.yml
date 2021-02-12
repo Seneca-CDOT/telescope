@@ -118,6 +118,30 @@ services:
       - 'traefik.http.middlewares.strip_feed_discovery_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.feed-discovery.middlewares=strip_feed_discovery_prefix'
 
+  # users service
+  users:
+    container_name: 'users'
+    build:
+      context: ../src/api/users
+      dockerfile: Dockerfile
+    environment:
+      - USERS_PORT
+    ports:
+      - ${USERS_PORT}
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the users service at /v1/users
+      - 'traefik.http.routers.users.rule=PathPrefix(`/${API_VERSION}/users`)'
+      # Specify the users service port
+      - 'traefik.http.services.users.loadbalancer.server.port=${USERS_PORT}'
+      # Add middleware to this route to strip the /v1/users prefix
+      - 'traefik.http.middlewares.strip_users_prefix.stripprefix.prefixes=/${API_VERSION}/users'
+      - 'traefik.http.middlewares.strip_users_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.users.middlewares=strip_users_prefix'
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################

@@ -12,6 +12,7 @@
     "api:stop": "docker-compose -f ./src/api/docker-compose-api.yml down",
     "install:auth-service": "cd src/api/auth && npm install",
     "install:image-service": "cd src/api/image && npm install",
+    "install:users-service": "cd src/api/users && npm install",
     "install:posts-service": "cd src/api/posts && npm install",
     "install:feed-discovery-service": "cd src/api/feed-discovery && npm install",
     "install:autodeployment": "cd tools/autodeployment && npm install",

@@ -1,0 +1,4 @@
+# Firestore Emulator logs
+firebase-debug.log
+firestore-debug.log
+ui-debug.log

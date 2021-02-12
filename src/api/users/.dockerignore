@@ -1,0 +1,9 @@
+.dockerignore
+node_modules
+npm-debug.log
+Dockerfile
+.git
+.gitignore
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
