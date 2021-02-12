@@ -3,7 +3,8 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Header from '../components/Header';
 import UserProvider from '../components/UserProvider';
-import 'typeface-roboto';
+import '@fontsource/roboto';
+import '@fontsource/spartan';
 
 import '../styles/globals.css';
 import { darkTheme, lightTheme } from '../theme';
