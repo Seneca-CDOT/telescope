@@ -23,7 +23,6 @@
     "react-material-ui-form-validator": "^2.1.2",
     "react-use": "^15.3.8",
     "swr": "^0.4.0",
-    "typeface-roboto": "^1.1.13",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
