@@ -14,18 +14,27 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      fontFamily: 'Spartan',
       padding: 0,
       fontSize: '1.5rem',
       marginBottom: '4em',
       backgroundColor: theme.palette.background.default,
+      display: 'grid',
+      gridTemplateColumns: '90% 10%',
+      gridTemplateRows: 'auto',
+      border: '15px solid gray',
     },
     header: {
-      backgroundColor: theme.palette.primary.main,
+      border: '5px solid red',
+      backgroundColor: theme.palette.background.default,
       color: theme.palette.text.secondary,
       padding: '2em 3em 1.5em 3em',
       lineHeight: '1.3',
       zIndex: 1100,
       top: '-1.1em',
+      gridColumnStart: '1',
+      gridColumnEnd: '3',
+      gridRowStart: '1',
       [theme.breakpoints.down(1440)]: {
         paddingTop: '1.6em',
         paddingBottom: '1em',
@@ -52,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     author: {
-      fontSize: '1.5em',
+      fontSize: '2em',
       fontWeight: 'bold',
       color: theme.palette.primary.contrastText,
       [theme.breakpoints.between('xs', 'sm')]: {
@@ -60,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     published: {
-      fontSize: '1.2em',
+      fontSize: '1.8em',
       textDecoration: 'none',
       color: theme.palette.primary.contrastText,
       [theme.breakpoints.between('xs', 'sm')]: {
@@ -69,9 +78,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       overflow: 'auto',
-      padding: '2em',
+      border: '10px solid blue',
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.paper,
+      width: '100%',
+      gridColumnStart: '1',
+      gridColumnEnd: '3',
+      gridRowStart: '2',
     },
     link: {
       textDecoration: 'none',
@@ -91,6 +104,38 @@ const useStyles = makeStyles((theme: Theme) =>
     error: {
       lineHeight: '1.00',
       fontSize: '1em',
+    },
+    test: {
+      gridRowStart: '2',
+      gridColumnStart: '11',
+      backgroundColor: 'purple',
+      color: 'white',
+      width: '200px',
+      height: '200px',
+      float: 'right',
+      marginLeft: '1.5em',
+      top: '8em',
+      bottom: '100%',
+    },
+    authorContainer: {
+      padding: '0.5em',
+      // marginTop: '20em',
+      display: 'grid',
+      gridTemplateRows: 'auto',
+      borderLeft: '4px solid white',
+    },
+    authorAvatarContainer: {
+      shapeOutside: 'circle(50%) border-box',
+      shapeMargin: '1rem',
+      borderRadius: '50%',
+      float: 'left',
+    },
+    circle: {
+      display: 'block',
+      borderRadius: '50%',
+      backgroundColor: 'white',
+      width: '8em',
+      height: '8em',
     },
   })
 );
@@ -152,7 +197,28 @@ const PostComponent = ({ postUrl }: Props) => {
   }
 
   return (
-    <Box className={classes.root} boxShadow={2}>
+    <Box className={classes.root}>
+      <ListSubheader className={classes.test}>
+        <div className={classes.authorContainer}>
+          <div className={classes.authorAvatarContainer}>
+            <div className={classes.circle} />
+          </div>
+          <div>
+            <Typography variant="caption" className={classes.author}>
+              <a className={classes.link} href={post.feed.url}>
+                {post.feed.author}
+              </a>
+            </Typography>
+          </div>
+          <div>
+            <a href={post.url} rel="bookmark" className={classes.published}>
+              <time className={classes.time} dateTime={post.updated}>
+                {` ${formatPublishedDate(post.updated)}`}
+              </time>
+            </a>
+          </div>
+        </div>
+      </ListSubheader>
       <ListSubheader className={classes.header}>
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
@@ -163,31 +229,18 @@ const PostComponent = ({ postUrl }: Props) => {
             onKeyDown={() => setExpandHeader(!expandHeader)}
             className={expandHeader ? classes.expandHeader : classes.collapseHeader}
           >
-            {post.title}
+            {`${post.title}HELLO`}
           </span>
         </Typography>
-        <Typography variant="caption" className={classes.author}>
-          &nbsp;By&nbsp;
-          <a className={classes.link} href={post.feed.link}>
-            {post.feed.author}
-          </a>
-        </Typography>
-        <a href={post.url} rel="bookmark" className={classes.published}>
-          <time className={classes.time} dateTime={post.updated}>
-            {` ${formatPublishedDate(post.updated)}`}
-          </time>
-        </a>
       </ListSubheader>
 
-      <Grid container>
-        <Grid item xs={12} className={classes.content}>
-          <section
-            ref={sectionEl}
-            className="telescope-post-content"
-            dangerouslySetInnerHTML={{ __html: post.html }}
-          />
-        </Grid>
-      </Grid>
+      <div className={classes.content}>
+        <section
+          ref={sectionEl}
+          className="telescope-post-content"
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
+      </div>
     </Box>
   );
 };

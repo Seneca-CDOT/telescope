@@ -15,9 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: 0,
-      maxWidth: '785px',
+      // float: 'right',
+      width: '60%',
+      border: '15px solid yellow',
     },
     activeCircle: {
+      // REMOVE THIS CLASS
       borderRadius: '4rem',
       transition: 'all linear 250ms',
       color: theme.palette.primary.main,
