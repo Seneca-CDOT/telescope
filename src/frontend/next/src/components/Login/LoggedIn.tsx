@@ -1,28 +1,26 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Button, Divider, Grid, useMediaQuery } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { ListItem, Button, Divider } from '@material-ui/core';
 import Link from 'next/link';
-
 import { useAuthenticatedUser } from '../UserProvider';
 import config from '../../config';
 
 const useStyles = makeStyles((theme) => ({
+  list: {
+    width: 250,
+  },
   button: {
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
   },
-  link: {
+  buttonText: {
     textDecoration: 'none',
     fontSize: '1.5rem',
-    color: theme.palette.primary.contrastText,
-    lineHeight: 1,
+    color: theme.palette.background.default,
+    margin: '0 0.5rem 0 0.5rem',
+    fontFamily: 'Roboto, sans-serif',
   },
-  lineHorizontal: {
+  line: {
     backgroundColor: theme.palette.background.default,
-    width: '250px',
-    margin: '8px',
-  },
-  lineVertical: {
-    margin: '8px',
   },
   item: {
     color: theme.palette.primary.contrastText,
@@ -32,14 +30,18 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     fontWeight: 500,
     lineHeight: 1.75,
+  },
+  span: {
     textTransform: 'uppercase',
   },
 }));
 
-const LoggedIn = () => {
+type LoginProps = {
+  isMobile?: boolean;
+};
+
+const LoggedIn = ({ isMobile = false }: LoginProps) => {
   const classes = useStyles();
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('sm'));
   const user = useAuthenticatedUser();
   const { logoutUrl } = config;
 
@@ -50,37 +52,43 @@ const LoggedIn = () => {
   const { name } = user;
 
   return (
-    <div>
-      {matches ? (
-        <Grid container direction="column" justify="center" alignItems="center">
-          <Grid item xs={12}>
-            <Link href="/myfeeds">
-              <span className={classes.item}>{name}</span>
-            </Link>
-          </Grid>
-          <Divider orientation="horizontal" className={classes.lineHorizontal} />
-          <Grid item xs={12}>
-            <Button className={classes.button} href={logoutUrl}>
-              Logout
-            </Button>
-          </Grid>
-        </Grid>
+    <>
+      {isMobile ? (
+        <div className={classes.list}>
+          <Link href="/myfeeds" passHref>
+            <ListItem button className={classes.item} component="a">
+              <div className={classes.buttonText}>
+                <span className={classes.span}>{name}</span>
+              </div>
+            </ListItem>
+          </Link>
+
+          <Divider className={classes.line} />
+
+          <Link href={logoutUrl} passHref>
+            <ListItem button className={classes.item} component="a">
+              <p className={classes.buttonText}>Log Out</p>
+            </ListItem>
+          </Link>
+        </div>
       ) : (
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item>
-            <Link href="/myfeeds">
-              <span className={classes.item}>{name}</span>
-            </Link>
-          </Grid>
-          <Divider orientation="vertical" className={classes.lineVertical} />
-          <Grid item>
-            <Button className={classes.button} href={logoutUrl}>
-              Logout
+        <>
+          <Link href="/myfeeds" passHref>
+            <Button color="inherit" size="medium" className={classes.button} component="a">
+              <div className={classes.buttonText}>
+                <span className={classes.span}>{name}</span>
+              </div>
             </Button>
-          </Grid>
-        </Grid>
+          </Link>
+
+          <Link href="/about" passHref>
+            <Button color="inherit" size="medium" className={classes.button} component="a">
+              <p className={classes.buttonText}>Log Out</p>
+            </Button>
+          </Link>
+        </>
       )}
-    </div>
+    </>
   );
 };
 
