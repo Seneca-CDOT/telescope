@@ -93,7 +93,7 @@
     "express-pino-logger": "5.0.0",
     "express-session": "1.17.1",
     "express-validator": "6.6.1",
-    "feed": "4.2.1",
+    "feed": "4.2.2",
     "feedparser-promised": "2.0.1",
     "git-repo-info": "2.1.1",
     "helmet": "4.1.1",
