@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundAttachment: 'scroll',
     backgroundSize: 'cover',
     transition: 'opacity 1s ease-in-out',
-    position: 'absolute',
     height: 'calc(100vh - 64px)',
     [theme.breakpoints.between('xs', 'sm')]: {
       height: 'calc(100vh - 56px)',
@@ -16,16 +15,22 @@ const useStyles = makeStyles((theme) => ({
     opacity: '.45',
     top: 0,
   },
+  img: {
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    height: '100%',
+    [theme.breakpoints.up('xl')]: {
+      width: '100%',
+    },
+  },
 }));
 
-// TODO: we need to complete this port from the Gatsby version, see:
-// https://github.com/Seneca-CDOT/telescope/issues/1633
 const DynamicImage = () => {
   const classes = useStyles();
 
   return (
     <picture className={classes.background}>
-      <img src="/background.jpg" loading="lazy" alt="" />
+      <img src="/background.jpg" className={classes.img} loading="lazy" alt="" />
     </picture>
   );
 };

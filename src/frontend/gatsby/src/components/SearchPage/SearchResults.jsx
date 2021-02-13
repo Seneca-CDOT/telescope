@@ -7,6 +7,7 @@ import { Container, Box, Grid, Typography, ListSubheader } from '@material-ui/co
 import useSiteMetadata from '../../hooks/use-site-metadata';
 import Timeline from '../Posts/Timeline.jsx';
 import Spinner from '../Spinner';
+import NotFound from '../../images/noResults.svg';
 
 const useStyles = makeStyles(() => ({
   spinner: {
@@ -17,6 +18,12 @@ const useStyles = makeStyles(() => ({
     padding: 0,
     width: '100%',
     justifyContent: 'center',
+  },
+  noResults: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    margin: '2rem',
   },
 }));
 
@@ -69,7 +76,10 @@ const SearchResults = ({ text, filter }) => {
       {data && data.length ? (
         <Timeline pages={data} nextPage={() => setSize(size + 1)} />
       ) : (
-        <h1>No search results</h1>
+        <div className={classes.noResults}>
+          <img src={NotFound} alt="No Results Found" height={200} width={200} />
+          <h1>No Results Found</h1>
+        </div>
       )}
     </Container>
   );
