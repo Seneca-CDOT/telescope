@@ -8,11 +8,13 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'daily'
-      time: '07:00'
+      interval: 'weekly'
       # Use Eastern Standard Time (UTC -05:00)
       timezone: 'America/Toronto'
-    open-pull-requests-limit: 10
+    allowed_updates:
+      - match:
+          update_type: 'security'
+    open-pull-requests-limit: 5
     commit-message:
       prefix: 'chore: '
     reviewers:
@@ -26,10 +28,13 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/src/frontend/gatsby'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
       time: '07:00'
       timezone: 'America/Toronto'
-    open-pull-requests-limit: 10
+    allowed_updates:
+      - match:
+          update_type: 'security'
+    open-pull-requests-limit: 5
     commit-message:
       prefix: 'chore: '
     reviewers:
@@ -44,10 +49,13 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/src/frontend/next'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
       time: '07:00'
       timezone: 'America/Toronto'
-    open-pull-requests-limit: 10
+    allowed_updates:
+      - match:
+          update_type: 'security'
+    open-pull-requests-limit: 5
     commit-message:
       prefix: 'chore: '
     reviewers:
@@ -62,10 +70,13 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/tools/autodeployment'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
       time: '07:00'
       timezone: 'America/Toronto'
-    open-pull-requests-limit: 10
+    allowed_updates:
+      - match:
+          update_type: 'security'
+    open-pull-requests-limit: 5
     commit-message:
       prefix: 'chore: '
     reviewers:
