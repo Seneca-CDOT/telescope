@@ -76,7 +76,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@elastic/elasticsearch": "7.9.0",
+    "@elastic/elasticsearch": "7.11.0",
     "@elastic/elasticsearch-mock": "0.3.0",
     "@wordpress/wordcount": "2.11.0",
     "body-parser": "1.19.0",
