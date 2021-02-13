@@ -117,7 +117,7 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "4.8.1",
-    "@typescript-eslint/parser": "4.8.1",
+    "@typescript-eslint/parser": "4.15.0",
     "@vercel/node": "1.8.2",
     "cross-env": "7.0.3",
     "eslint": "7.14.0",
