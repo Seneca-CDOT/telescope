@@ -26,7 +26,7 @@
     "gatsby-transformer-sharp": "2.5.19",
     "graphql-tag": "2.11.0",
     "highlight.js": "10.4.1",
-    "material-ui-popup-state": "1.7.0",
+    "material-ui-popup-state": "1.7.1",
     "node-fetch": "2.6.1",
     "parse-link-header": "1.0.1",
     "prop-types": "15.7.2",
