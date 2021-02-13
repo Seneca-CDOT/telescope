@@ -1,0 +1,79 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+      time: '07:00'
+      # Use Eastern Standard Time (UTC -05:00)
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/winter-2021-telescope'
+      - 'c3ho'
+      - 'manekenpix'
+      - 'raygervais'
+      - 'cindyledev'
+    labels:
+      - 'dependencies'
+  - package-ecosystem: 'npm'
+    directory: '/src/frontend/gatsby'
+    schedule:
+      interval: 'daily'
+      time: '07:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/winter-2021-telescope'
+      - 'c3ho'
+      - 'manekenpix'
+      - 'raygervais'
+      - 'cindyledev'
+    labels:
+      - 'dependencies'
+      - 'area: gatsbyjs'
+  - package-ecosystem: 'npm'
+    directory: '/src/frontend/next'
+    schedule:
+      interval: 'daily'
+      time: '07:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/winter-2021-telescope'
+      - 'c3ho'
+      - 'manekenpix'
+      - 'raygervais'
+      - 'cindyledev'
+    labels:
+      - 'dependencies'
+      - 'area: nextjs'
+  - package-ecosystem: 'npm'
+    directory: '/tools/autodeployment'
+    schedule:
+      interval: 'daily'
+      time: '07:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/winter-2021-telescope'
+      - 'c3ho'
+      - 'manekenpix'
+      - 'raygervais'
+      - 'cindyledev'
+    labels:
+      - 'dependencies'
+      - 'area: autodeployment'
