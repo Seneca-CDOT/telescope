@@ -34,7 +34,7 @@
     "react-datalist-field": "20.3.1",
     "react-dom": "16.13.1",
     "react-helmet": "6.1.0",
-    "react-material-ui-form-validator": "2.1.1",
+    "react-material-ui-form-validator": "2.1.4",
     "react-swipeable-views": "0.13.9",
     "react-swipeable-views-utils": "0.13.9",
     "react-use": "15.3.4",
