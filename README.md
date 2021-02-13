@@ -3,7 +3,6 @@
 [![CircleCI](https://circleci.com/gh/Seneca-CDOT/telescope.svg?style=svg)](https://circleci.com/gh/Seneca-CDOT/telescope)
 [![js-airbnb/prettier-style](https://img.shields.io/badge/code%20style-airbnb%2Fprettier-blue)](https://github.com/airbnb/javascript)
 ![Node.js CI](https://github.com/Seneca-CDOT/telescope/workflows/node-js-ci/badge.svg)
-[![Netlify next.js Status](https://api.netlify.com/api/v1/badges/b791409e-67ee-493d-9ec6-e045d3026346/deploy-status)](https://app.netlify.com/sites/telescope-next/deploys)
 
 ## What is Telescope?
 
