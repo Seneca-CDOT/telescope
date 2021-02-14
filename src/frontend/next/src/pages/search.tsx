@@ -18,7 +18,6 @@ const Search = ({ theme, toggleTheme }: Props) => {
         <meta property="og:title" content="Telescope" key="title" />
       </Head>
       <ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
-      <Banner />
       <SEO pageTitle="Search" />
       <SearchPage />
     </>
