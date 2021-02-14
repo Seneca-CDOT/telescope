@@ -70,6 +70,8 @@ const SearchResults = ({ text, filter }: SearchResultProps) => {
     }
   );
   const loading = !data && !error;
+  // search result is empty when the the posts array on the first page is empty
+  const isEmpty = data?.[0]?.length === 0;
 
   if (error) {
     return (
@@ -100,7 +102,7 @@ const SearchResults = ({ text, filter }: SearchResultProps) => {
 
   return (
     <Container className={classes.searchResults}>
-      {data && data.length ? (
+      {!isEmpty ? (
         <Timeline pages={data} nextPage={() => setSize(size + 1)} />
       ) : (
         <div className={classes.noResults}>
