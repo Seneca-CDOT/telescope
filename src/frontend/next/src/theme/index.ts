@@ -5,20 +5,23 @@ export const lightTheme: Theme = createMuiTheme({
   palette: {
     type: 'light',
     primary: {
-      main: '#121D59',
+      main: '#333E64',
+      contrastText: '#E5E5E5',
+      light: '#FFFFFF',
     },
     secondary: {
-      main: '#A0D1FB',
+      main: '#0589D6',
     },
     error: {
       main: red.A400,
     },
     background: {
       default: '#E5E5E5',
+      paper: '#E5E5E5',
     },
     text: {
-      primary: '#000000',
-      secondary: '#121D59',
+      primary: '#181818',
+      secondary: '#8BC2EB',
     },
   },
 });
