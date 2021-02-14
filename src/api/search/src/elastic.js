@@ -1,14 +1,7 @@
-/*
- * NOTE: This has been ported to ~/src/api/search
- * Future updates will remove the codebase below
- * and point towards `service.docker.localhost` for querying.
- */
-
-const { ELASTIC_URL, ELASTIC_PORT } = process.env;
+const { ELASTICSEARCH_HOSTS } = process.env;
 const { Client } = require('@elastic/elasticsearch');
 const Mock = require('@elastic/elasticsearch-mock');
-const { logger } = require('../utils/logger');
-const parseUrl = require('../utils/url-parser');
+const { logger } = require('@senecacdot/satellite');
 
 function MockClient(options) {
   const mock = new Mock();
@@ -39,10 +32,10 @@ const ElasticConstructor = useMockElastic ? MockClient : Client;
 
 function createElasticClient() {
   try {
-    const elasticUrl = parseUrl(ELASTIC_URL, ELASTIC_PORT) || 'http://localhost:9200';
+    const elasticUrl = ELASTICSEARCH_HOSTS;
     return new ElasticConstructor({ node: elasticUrl });
   } catch (error) {
-    const message = `Unable to parse elastic URL "${ELASTIC_URL}" and/or PORT "${ELASTIC_PORT}"`;
+    const message = `Unable to parse elastic URL:PORT "${ELASTICSEARCH_HOSTS}"`;
     logger.error({ error }, message);
     throw new Error(message);
   }

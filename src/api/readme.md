@@ -48,6 +48,7 @@ npm run services:stop
 | auth   | telescope_auth_svc   | <http://localhost/v1/auth>   | Provides authentication and authorization service |
 | users  | telescope_users_svc  | <http://localhost/v1/users>  | Provides telescope's user services                |
 | parser | telescope_parser_svc | <http://localhost/v1/parser> | Provides telescope's parser services              |
+| search | telescope_search_svc | http://localhost/v1/search   | Provides an ELK query controller service          |
 
 ## Support Services Lookup Table (development only)
 
