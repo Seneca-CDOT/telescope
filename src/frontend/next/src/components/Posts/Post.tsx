@@ -22,13 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       backgroundColor: theme.palette.primary.main,
       color: theme.palette.text.secondary,
-      padding: '2em 3em 2em 3em',
+      padding: '2em 3em 1.5em 3em',
       lineHeight: '1.3',
       zIndex: 1100,
       top: '-1.1em',
       [theme.breakpoints.down(1440)]: {
         paddingTop: '1.6em',
-        paddingBottom: '1.5em',
+        paddingBottom: '1em',
       },
       [theme.breakpoints.down(1065)]: {
         position: 'static',

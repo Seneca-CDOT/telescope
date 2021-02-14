@@ -1,6 +1,5 @@
 import { Theme } from '@material-ui/core';
 import Head from 'next/head';
-import Banner from '../components/Banner';
 import SEO from '../components/SEO';
 import SearchPage from '../components/SearchPage';
 import ThemeToggleButton from '../components/ThemeToggleButton';
@@ -18,7 +17,6 @@ const Search = ({ theme, toggleTheme }: Props) => {
         <meta property="og:title" content="Telescope" key="title" />
       </Head>
       <ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
-      <Banner />
       <SEO pageTitle="Search" />
       <SearchPage />
     </>

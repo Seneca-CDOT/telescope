@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: 'primary',
     justifyContent: 'center',
-    height: '8em',
+    height: '7em',
     [theme.breakpoints.down(1065)]: {
-      height: '6.5em',
+      height: '5.6em',
     },
   },
   toolbar: theme.mixins.toolbar,
