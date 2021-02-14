@@ -31,16 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     heroBanner: {
-      [theme.breakpoints.up('lg')]: {
-        height: 'calc(100vh - 8.9em)',
-      },
-      [theme.breakpoints.between('md', 'lg')]: {
-        height: 'calc(100vh - 8em)',
-      },
-
-      [theme.breakpoints.down('md')]: {
-        height: 'calc(100vh - 64px)',
-      },
+      height: '100vh',
       overflow: 'hidden',
     },
     version: {
@@ -71,12 +62,12 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '5.6rem',
       width: '5.6rem',
       position: 'relative',
-      bottom: theme.spacing(12),
+      bottom: theme.spacing(20),
       zIndex: 300,
       margin: '0 auto',
-      [theme.breakpoints.between('xs', 'sm')]: {
+      [theme.breakpoints.down(1080)]: {
         left: '55%',
-        bottom: theme.spacing(11),
+        bottom: theme.spacing(18),
       },
     },
     anchor: {
