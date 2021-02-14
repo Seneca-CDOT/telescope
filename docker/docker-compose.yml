@@ -69,6 +69,34 @@ services:
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.auth.middlewares=strip_auth_prefix'
 
+  search:
+    container_name: 'search'
+    build:
+      context: ../src/api/search
+      dockerfile: Dockerfile
+    environment:
+      - ELASTIC_APM_SERVICE_NAME=search
+      - SEARCH_PORT
+
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTIC_APM_SERVER_URL=http://apm:8200
+    depends_on:
+      - elasticsearch
+      - traefik
+    ports:
+      - ${SEARCH_PORT}
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the search service at /v1/search
+      - 'traefik.http.routers.search.rule=PathPrefix(`/${API_VERSION}/search`)'
+      # Specify the search service port
+      - 'traefik.http.services.search.loadbalancer.server.port=${SEARCH_PORT}'
+      # Add middleware to this route to strip the /v1/search prefix
+      - 'traefik.http.middlewares.strip_search_prefix.stripprefix.prefixes=/${API_VERSION}/search'
+      - 'traefik.http.middlewares.strip_search_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.search.middlewares=strip_search_prefix'
+
   # posts service
   posts:
     container_name: 'posts'
@@ -212,3 +240,22 @@ services:
         hard: -1
     ports:
       - '9200'
+    labels:
+      # Enable Traefik in development mode
+      - 'traefik.enable=true'
+      # Traefik routing for elasticsearch at http://elasticsearch.localhost
+      - 'traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.localhost`)'
+      # Specify the redis port
+      - 'traefik.http.services.elasticsearch.loadbalancer.server.port=9200'
+
+  apm:
+    image: docker.elastic.co/apm/apm-server:7.10.2
+    container_name: 'apm'
+    restart: unless-stopped
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - KIBANA_HOST=http://kibana:5601
+    ports:
+      - '8200'
+    depends_on:
+      - elasticsearch
