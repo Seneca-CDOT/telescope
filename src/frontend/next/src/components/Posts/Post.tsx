@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '-1.1em',
       [theme.breakpoints.down(1440)]: {
         paddingTop: '1.6em',
-        paddingBottom: '1.5em',
+        paddingBottom: '1em',
       },
       [theme.breakpoints.down(1065)]: {
         position: 'static',
