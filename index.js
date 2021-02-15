@@ -44,10 +44,23 @@ function createApp(router, options = {}) {
     app.use(cors(options.cors));
   }
 
+  // If beforeParsers is defined, add all middleware to the app
+  // before we define the parsers.  Useful for session, passport, etc.
+  if (typeof options.beforeParsers === "function") {
+    options.beforeParsers(app);
+  }
+
   // Parse application/x-www-form-urlencoded
   app.use(express.urlencoded({ extended: true }));
   // Parse application/json
   app.use(express.json());
+
+  // If beforeRouter is defined, add all middleware to the app
+  // before we define the router. Useful for adding middleware just
+  // before the router.
+  if (typeof options.beforeRouter === "function") {
+    options.beforeRouter(app);
+  }
 
   // Include our router with all endpoints added by the user
   app.use("/", router);

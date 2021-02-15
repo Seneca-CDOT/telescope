@@ -34,7 +34,12 @@ disabled.
 const { Satellite, logger } = require("@senecacdot/satellite");
 
 // Define your microservice, providing some options (see below)
-const service = new Satellite();
+const service = new Satellite({
+  beforeRouter(app) {
+    // Optionally add some middleware before the router is attached
+    app.use(middlewareFunction());
+  },
+});
 
 // Add your routes to the service's router
 service.router.get("/my-route", (req, res) => {
@@ -54,3 +59,7 @@ service.start(8888, () => {
 - `cors`: the options to pass to the [cors](https://www.npmjs.com/package/cors) middleware. By default all options are turned on. Use `cors: false` to disable cors.
 
 - `helmet`: the options to pass to the [helmet](https://www.npmjs.com/package/helmet) middleware. By default all options are turned on. Use `helmet: false` to disable helmet.
+
+- `beforeParsers`: an optional function that allows access to the `app` during creation prior to adding the body parsers
+
+- `beforeRouter`: an optional function that allows access to the `app` during creation prior to adding the router.

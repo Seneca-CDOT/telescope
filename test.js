@@ -66,6 +66,78 @@ describe("Satellite()", () => {
     });
   });
 
+  test("Satellite() should allow adding middleware with beforeRouter", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+      beforeRouter(app) {
+        app.use((req, res, next) => {
+          req.testValue = "test";
+          next();
+        });
+      },
+    });
+    service.router.get("/test-value", (req, res) =>
+      res.json({ testValue: req.testValue })
+    );
+    service.start(port, async () => {
+      const res = await fetch(`${url}/test-value`);
+      expect(res.ok).toBe(true);
+      const body = await res.json();
+      expect(body).toEqual({ testValue: "test" });
+      service.stop(done);
+    });
+  });
+
+  test("Satellite() should allow adding middleware with beforeParsers", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+      beforeParsers(app) {
+        app.use((req, res, next) => {
+          req.testValue = "test";
+          next();
+        });
+      },
+    });
+    service.router.get("/test-value", (req, res) =>
+      res.json({ testValue: req.testValue })
+    );
+    service.start(port, async () => {
+      const res = await fetch(`${url}/test-value`);
+      expect(res.ok).toBe(true);
+      const body = await res.json();
+      expect(body).toEqual({ testValue: "test" });
+      service.stop(done);
+    });
+  });
+
+  test("Satellite() should allow adding middleware with beforeParsers and beforeRouter together", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+      beforeParsers(app) {
+        app.use((req, res, next) => {
+          req.testValue = "parsers";
+          next();
+        });
+      },
+      beforeRouter(app) {
+        app.use((req, res, next) => {
+          req.testValue += "-router";
+          next();
+        });
+      },
+    });
+    service.router.get("/test-value", (req, res) =>
+      res.json({ testValue: req.testValue })
+    );
+    service.start(port, async () => {
+      const res = await fetch(`${url}/test-value`);
+      expect(res.ok).toBe(true);
+      const body = await res.json();
+      expect(body).toEqual({ testValue: "parsers-router" });
+      service.stop(done);
+    });
+  });
+
   describe("Router()", () => {
     test("should be able to create sub-routers using Router()", (done) => {
       const customRouter = Router();
