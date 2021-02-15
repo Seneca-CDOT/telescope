@@ -70,9 +70,13 @@ const SearchResults = ({ text, filter }: SearchResultProps) => {
     }
   );
   const loading = !data && !error;
-  // search result is empty when the the posts array on the first page is empty
+  // Search result is empty when the the array of posts on the first page is empty
   const isEmpty = data?.[0]?.length === 0;
-  const loadingMoreData = data && size > 0 && typeof data[size - 1] === 'undefined';
+  // There no more posts when the last page has no posts
+  const isReachingEnd = !data?.[data.length - 1]?.length;
+  // Another page is being loaded when size is incremented but data[size - 1] is still undefined
+  const loadingMoreData =
+    !isReachingEnd && data && size > 0 && typeof data[size - 1] === 'undefined';
 
   if (error) {
     return (
