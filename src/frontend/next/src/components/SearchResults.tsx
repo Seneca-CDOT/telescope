@@ -72,6 +72,7 @@ const SearchResults = ({ text, filter }: SearchResultProps) => {
   const loading = !data && !error;
   // search result is empty when the the posts array on the first page is empty
   const isEmpty = data?.[0]?.length === 0;
+  const loadingMoreData = data && size > 0 && typeof data[size - 1] === 'undefined';
 
   if (error) {
     return (
@@ -107,7 +108,14 @@ const SearchResults = ({ text, filter }: SearchResultProps) => {
   return (
     <Container className={classes.searchResults}>
       {!isEmpty ? (
-        <Timeline pages={data} nextPage={() => setSize(size + 1)} />
+        <>
+          <Timeline pages={data} nextPage={() => setSize(size + 1)} />
+          {loadingMoreData && (
+            <h1 className={classes.spinner}>
+              <Spinner />
+            </h1>
+          )}
+        </>
       ) : (
         <div className={classes.noResults}>
           <img src={NoResultsImg} alt="No Results Found" height={200} width={200} />
