@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   menuIcon: {
     fontSize: '2.5rem',
   },
-  links: {
+  buttonText: {
     color: theme.palette.background.default,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
@@ -45,6 +45,9 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     width: 250,
+  },
+  sideList: {
+    padding: 0,
   },
   paper: {
     backgroundColor: theme.palette.primary.main,
@@ -86,19 +89,21 @@ export default function MobileHeader() {
       onClick={toggleDrawer(side, false)}
       onKeyDown={toggleDrawer(side, false)}
     >
-      <List className={classes.item}>
-        <ListItem button className={classes.item}>
-          <Link href="/">
-            <a className={classes.links}>Home</a>
-          </Link>
-        </ListItem>
+      <List className={classes.sideList}>
+        <Link href="/" passHref>
+          <ListItem button className={classes.item} component="a">
+            <p className={classes.buttonText}>Home</p>
+          </ListItem>
+        </Link>
         <Divider className={classes.line} />
-        <ListItem button className={classes.item}>
-          <Link href="/about">
-            <a className={classes.links}>About</a>
-          </Link>
-        </ListItem>
+
+        <Link href="/about" passHref>
+          <ListItem button className={classes.item} component="a">
+            <p className={classes.buttonText}>About</p>
+          </ListItem>
+        </Link>
         <Divider className={classes.line} />
+
         <Login isMobile />
         <Divider className={classes.line} />
       </List>
@@ -115,11 +120,17 @@ export default function MobileHeader() {
             </a>
           </Link>
           <div className={classes.grow} />
-          <IconButton color="inherit" className={classes.button} aria-label="search">
-            <Link href="/search">
+          <Link href="/search" passHref>
+            <IconButton
+              color="inherit"
+              className={classes.button}
+              aria-label="search"
+              component="a"
+            >
               <SearchIcon className={classes.searchIcon} />
-            </Link>
-          </IconButton>
+            </IconButton>
+          </Link>
+
           <IconButton
             onClick={toggleDrawer('right', true)}
             edge="start"
