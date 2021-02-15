@@ -100,6 +100,10 @@ const SearchResults = ({ text, filter }: SearchResultProps) => {
     );
   }
 
+  if (data === undefined) {
+    return null;
+  }
+
   return (
     <Container className={classes.searchResults}>
       {!isEmpty ? (
