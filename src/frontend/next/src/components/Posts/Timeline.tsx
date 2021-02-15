@@ -1,9 +1,8 @@
 import { ReactElement } from 'react';
-import { Container, createStyles, Grid } from '@material-ui/core';
+import { Container, createStyles } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import PostComponent from './Post';
 import { Post } from '../../interfaces';
-import Spinner from '../Spinner';
 import LoadAutoScroll from './LoadAutoScroll';
 import useSiteMetaData from '../../hooks/use-site-metadata';
 
@@ -30,12 +29,8 @@ const Timeline = ({ pages, nextPage }: Props) => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetaData();
 
-  if (!(pages && pages.length)) {
-    return (
-      <Grid container spacing={0} direction="column" alignItems="center" justify="center">
-        <Spinner />
-      </Grid>
-    );
+  if (!pages) {
+    return null;
   }
 
   // Iterate over all the pages (an array of arrays) and then convert all post
