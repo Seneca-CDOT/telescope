@@ -16,7 +16,7 @@ We are using [Project Boards](https://github.com/Seneca-CDOT/telescope/projects)
 | -------------------- | -------------------------------------------------------------------------------------------------------- |
 | 5 min fix            | Fixable in 5 minutes or less.                                                                            |
 | area: back-end       | Back-end related.                                                                                        |
-| area: CI/CD          | CircleCI.                                                                                                |
+| area: CI/CD          | GitHub Actions                                                                                           |
 | area: deployment     | Production or Staging deployment.                                                                        |
 | area: docker         | Docker related.                                                                                          |
 | area: front-end      | Front-end related.                                                                                       |
