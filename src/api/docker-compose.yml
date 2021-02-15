@@ -1,7 +1,7 @@
 ################################################################################
 # Development docker-compose.yml, not meant for production
 ################################################################################
-version: '3.9'
+version: '3'
 
 services:
   # API Gateway
@@ -36,13 +36,73 @@ services:
     depends_on:
       - traefik
     labels:
-      # Enable Traefik on the image service container
+      # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the image service at /v1/image
       - 'traefik.http.routers.image.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/image`)'
       # Specify the image service port
       - 'traefik.http.services.image.loadbalancer.server.port=${IMAGE_PORT}'
-      # Add middleware to this route to strip the /v1/image prefix and use gzip compression
-      - 'traefik.http.middlewares.strip_api_prefix.stripprefix.prefixes=/${API_VERSION}/image'
-      - 'traefik.http.middlewares.strip_api_prefix.stripprefix.forceSlash=true'
-      - 'traefik.http.routers.image.middlewares=strip_api_prefix'
+      # Add middleware to this route to strip the /v1/image prefix
+      - 'traefik.http.middlewares.strip_image_prefix.stripprefix.prefixes=/${API_VERSION}/image'
+      - 'traefik.http.middlewares.strip_image_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.image.middlewares=strip_image_prefix'
+
+  # auth service
+  auth:
+    container_name: 'auth'
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    environment:
+      - AUTH_PORT
+      - SSO_LOGIN_URL
+      - SSO_LOGIN_CALLBACK_URL
+      - SLO_LOGOUT_URL
+      - SLO_LOGOUT_CALLBACK_URL
+      - SSO_IDP_PUBLIC_KEY_CERT
+      - SAML_ENTITY_ID
+      - SECRET
+      - ADMINISTRATORS
+      - ALLOWED_APP_ORIGINS
+      - JWT_ISSUER
+      - JWT_EXPIRES_IN
+    ports:
+      - ${AUTH_PORT}
+    depends_on:
+      - traefik
+      - login
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the auth service at /v1/auth
+      - 'traefik.http.routers.auth.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/auth`)'
+      # Specify the auth service port
+      - 'traefik.http.services.auth.loadbalancer.server.port=${AUTH_PORT}'
+      # Add middleware to this route to strip the /v1/auth prefix
+      - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.prefixes=/${API_VERSION}/auth'
+      - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.auth.middlewares=strip_auth_prefix'
+
+  # SSO Identity Provider test service, https://simplesamlphp.org
+  # Access to the login page available at http://login.localhost/simplesaml
+  login:
+    image: kristophjunge/test-saml-idp
+    container_name: 'login'
+    ports:
+      - '8080'
+    depends_on:
+      - traefik
+    environment:
+      - SIMPLESAMLPHP_SP_ENTITY_ID=${SAML_ENTITY_ID}
+      - SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=${SSO_LOGIN_CALLBACK_URL}
+      - SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=${SLO_LOGOUT_CALLBACK_URL}
+    volumes:
+      - ./auth/config/simplesamlphp-users.php:/var/www/simplesamlphp/config/authsources.php
+      - ./auth/config/saml20-idp-hosted.php:/var/www/simplesamlphp/metadata/saml20-idp-hosted.php
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for login at http://login.localhost/simplesaml
+      - 'traefik.http.routers.login.rule=Host(`login.localhost`)'
+      # Specify the login port
+      - 'traefik.http.services.login.loadbalancer.server.port=8080'

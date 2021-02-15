@@ -8,7 +8,7 @@
 #
 # See https://docs.docker.com/compose/production/
 ################################################################################
-version: '3.9'
+version: '3'
 
 services:
   # API Gateway
@@ -28,11 +28,11 @@ services:
       # GZip compression middleware: gzip_compress
       - 'traefik.http.middlewares.gzip_compress.compress=true'
 
-  # image service http://api.telescope.localhost/v1/image
+  # image service
   image:
     restart: unless-stopped
     depends_on:
-      - elasticsearch
+      - apm
       - traefik
     environment:
       - NODE_ENV=production
@@ -41,7 +41,28 @@ services:
       - ELASTIC_APM_SERVER_URL=http://apm:8200
     labels:
       # Add gzip compression too
-      - 'traefik.http.routers.image.middlewares=gzip_compress,strip_api_prefix'
+      - 'traefik.http.routers.image.middlewares=gzip_compress,strip_image_prefix'
+      # ELK Logging
+      - 'co.elastic.logs/json.keys_under_root: true'
+      - 'co.elastic.logs/json.overwrite_keys: true'
+      - 'co.elastic.logs/json.add_error_key: true'
+      - 'co.elastic.logs/json.expand_keys: true'
+      - 'co.elastic.logs/json.message_key: message'
+
+  # auth service
+  auth:
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTIC_APM_SERVICE_NAME=auth
+      - ELASTIC_APM_SERVER_URL=http://apm:8200
+    depends_on:
+      - apm
+      - traefik
+    labels:
+      # Add gzip compression too
+      - 'traefik.http.routers.auth.middlewares=gzip_compress,strip_auth_prefix'
       # ELK Logging
       - 'co.elastic.logs/json.keys_under_root: true'
       - 'co.elastic.logs/json.overwrite_keys: true'

@@ -17,6 +17,9 @@ module.exports = {
   ],
   plugins: ['prettier', 'promise', 'react', 'react-hooks'],
   settings: {
+    'importer/resolver': {
+      node: {},
+    },
     react: {
       version: 'detect',
     },
@@ -138,5 +141,11 @@ module.exports = {
     'react/no-danger': 'off',
 
     'jsx-a11y/control-has-associated-label': 'warn',
+
+    /**
+     * Due to having our dev dependencies in a monorepo layout, this is
+     * difficult to configure properly.  Disabling for now.
+     */
+    'import/no-extraneous-dependencies': ['off'],
   },
 };

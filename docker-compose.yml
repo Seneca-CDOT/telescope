@@ -1,5 +1,3 @@
-# Version 3, most current, and recommended compose file version
-# https://docs.docker.com/compose/compose-file/compose-versioning/
 version: '3'
 
 services:

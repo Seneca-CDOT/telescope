@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Telescope Auth Service Test</title>
+    <style>
+      body {
+        max-width: 800px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Telescope Auth Service Test</h1>
+    <p>
+      This is a small client web app used to help test the auth service setup. It assumes you are
+      using the docker-compose setup in <code>/src/api/docker-compose.yml</code> to run the
+      <code>login</code> and <code>auth</code> microservices via Traefik. If you haven't done so
+      already, you should do the following in the root of the Telescope project:
+    </p>
+
+    <code>
+      <pre>
+        npm run services:start auth login
+      </pre>
+    </code>
+
+    <p>
+      That will star the <code>auth</code> and <code>login</code> services that you need for this
+      demo to work.
+    </p>
+
+    <nav>
+      <ul>
+        <!-- The href for these will be generated at startup via JS -->
+        <li>
+          <button id="login">Login</button> Start the login flow (Username=user1,
+          Password=user1pass). Send state and get back state and a token.
+        </li>
+        <li>
+          <button id="logout">Logout</button> Start the logout flow. Send state and expect to get
+          the same state back.
+        </li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2>Query String Params</h2>
+      <p>The following values were found on the query string, returned from the auth server:</p>
+      <ol>
+        <li id="access-token">Not Found</li>
+        <li id="state">Not Found</li>
+      </ol>
+
+      <h2>Expected State</h2>
+      <p>When we login or logout, and get redirected back again, this is the state we expect:</p>
+      <ul>
+        <li id="expected-state"></li>
+      </ul>
+
+      <h2>Token Data</h2>
+      <p>The following information was included with the access token:</p>
+      <ul id="jwt"></ul>
+    </div>
+    <script src="script.js" type="module"></script>
+  </body>
+</html>

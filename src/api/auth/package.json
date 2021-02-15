@@ -1,0 +1,34 @@
+{
+  "name": "@senecacdot/auth-service",
+  "private": true,
+  "version": "1.0.0",
+  "description": "An Authorization Service",
+  "scripts": {
+    "test:manual": "http-server test/manual -p 8888",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": "Seneca-CDOT/telescope",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "dependencies": {
+    "@senecacdot/satellite": "^1.x",
+    "celebrate": "^13.0.4",
+    "express-session": "^1.17.1",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-saml": "^2.0.5"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3",
+    "nodemon": "^2.0.7"
+  }
+}
