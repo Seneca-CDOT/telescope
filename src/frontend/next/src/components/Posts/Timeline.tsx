@@ -1,9 +1,8 @@
 import { ReactElement } from 'react';
-import { Container, createStyles, Grid } from '@material-ui/core';
+import { Container, createStyles } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import PostComponent from './Post';
 import { Post } from '../../interfaces';
-import Spinner from '../Spinner';
 import LoadAutoScroll from './LoadAutoScroll';
 import useSiteMetaData from '../../hooks/use-site-metadata';
 
@@ -23,6 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: 'all linear 250ms',
       color: theme.palette.primary.main,
     },
+    noMorePosts: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      margin: '2rem',
+    },
   })
 );
 
@@ -30,13 +35,12 @@ const Timeline = ({ pages, nextPage }: Props) => {
   const classes = useStyles();
   const { telescopeUrl } = useSiteMetaData();
 
-  if (!(pages && pages.length)) {
-    return (
-      <Grid container spacing={0} direction="column" alignItems="center" justify="center">
-        <Spinner />
-      </Grid>
-    );
+  if (!pages) {
+    return null;
   }
+
+  // There no more posts when the last page has no posts
+  const isReachingEnd = !pages?.[pages.length - 1]?.length;
 
   // Iterate over all the pages (an array of arrays) and then convert all post
   // elements to <Post>
@@ -46,9 +50,15 @@ const Timeline = ({ pages, nextPage }: Props) => {
 
   // Add a "Load More" button at the end of the timeline.  Give it a unique
   // key each time, based on page (i.e., size), so we remove the previous one
-  if (nextPage) {
+  if (!isReachingEnd) {
     postsTimeline.push(
       <LoadAutoScroll onScroll={() => nextPage()} key={`load-more-button-${pages.length}`} />
+    );
+  } else {
+    postsTimeline.push(
+      <div className={classes.noMorePosts}>
+        <h1>No more posts found</h1>
+      </div>
     );
   }
 
