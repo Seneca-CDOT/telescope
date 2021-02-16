@@ -55,7 +55,7 @@ const MyFeeds = ({ user }: MyFeedsProps) => {
         const userFeeds = await response.json();
 
         const userFeedHash = userFeeds.reduce((hash: FeedHash, feed: Feed) => {
-          hash[feed.id] = { author: feed.author, url: feed.url };
+          hash[feed.id] = { author: feed.author, url: feed.url, link: feed.link };
           return hash;
         }, {});
 
