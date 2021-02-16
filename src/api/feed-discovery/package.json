@@ -1,0 +1,29 @@
+{
+  "name": "@senecacdot/feed-discovery-service",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A service for auto discovery of feeds for URLs",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": "Seneca-CDOT/telescope",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "dependencies": {
+    "@senecacdot/satellite": "^1.x",
+    "cheerio": "^1.0.0-rc.5",
+    "got": "^11.8.1",
+    "http-errors": "^1.8.0",
+    "valid-url": "^1.0.9"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
