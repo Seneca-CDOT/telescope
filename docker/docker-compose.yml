@@ -93,6 +93,30 @@ services:
       - 'traefik.http.middlewares.strip_posts_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.posts.middlewares=strip_posts_prefix'
 
+  # feed discovery service
+  feed-discovery:
+    container_name: 'feed-discovery'
+    build:
+      context: ../src/api/feed-discovery
+      dockerfile: Dockerfile
+    environment:
+      - FEED_DISCOVERY_PORT
+    ports:
+      - ${FEED_DISCOVERY_PORT}
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the feed discovery service at /v1/image
+      - 'traefik.http.routers.feed-discovery.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/feed-discovery`)'
+      # Specify the feed discovery service port
+      - 'traefik.http.services.feed-discovery.loadbalancer.server.port=${FEED_DISCOVERY_PORT}'
+      # Add middleware to this route to strip the /v1/feed-discovery prefix
+      - 'traefik.http.middlewares.strip_feed_discovery_prefix.stripprefix.prefixes=/${API_VERSION}/feed-discovery'
+      - 'traefik.http.middlewares.strip_feed_discovery_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.feed_discovery.middlewares=strip_feed_discovery_prefix'
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
