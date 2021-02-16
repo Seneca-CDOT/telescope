@@ -18,12 +18,14 @@ export type Feed = {
   id: string;
   author: string;
   url: string;
+  link: string;
 };
 
 export type FeedHash = {
   [key: string]: {
     author: string;
     url: string;
+    link: string;
   };
 };
 
