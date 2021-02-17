@@ -1,4 +1,4 @@
-const { setQueues } = require('bull-board');
+const { setQueues, BullAdapter } = require('bull-board');
 
 require('../lib/config');
 const { logger } = require('../utils/logger');
@@ -8,7 +8,7 @@ const { createQueue } = require('../lib/queue');
 const queue = createQueue('feed-queue');
 
 // For visualizing queues using bull board
-setQueues(queue);
+setQueues([new BullAdapter(queue)]);
 
 /**
  * Provide a helper for adding a feed with our desired default options.
