@@ -1,0 +1,55 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  # Root package.json
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      # Use Eastern Standard Time (UTC -05:00)
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+    # Disable automatic rebasing
+    rebase-strategy: 'disabled'
+
+  # Next Front-End
+  - package-ecosystem: 'npm'
+    directory: '/src/frontend/next'
+    schedule:
+      interval: 'weekly'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: nextjs'
+    rebase-strategy: 'disabled'
+
+  # Auto-deployment Server
+  - package-ecosystem: 'npm'
+    directory: '/tools/autodeployment'
+    schedule:
+      interval: 'weekly'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: autodeployment'
+    rebase-strategy: 'disabled'
