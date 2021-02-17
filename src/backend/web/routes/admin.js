@@ -1,6 +1,6 @@
 require('../../lib/config');
 const express = require('express');
-const { UI } = require('bull-board');
+const { router: bullBoardRouter } = require('bull-board');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const fs = require('fs');
 
@@ -10,7 +10,7 @@ const { logger } = require('../../utils/logger');
 const router = express.Router();
 
 // Only authenticated admins can use these routes
-router.use('/queues', protectAdmin(true), UI);
+router.use('/queues', protectAdmin(true), bullBoardRouter);
 
 // Only authenticated admin users can see this route
 router.get('/log', protectAdmin(true), (req, res) => {
