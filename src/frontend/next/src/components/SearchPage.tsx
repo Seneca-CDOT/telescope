@@ -15,6 +15,10 @@ const useStyles = makeStyles(() => ({
     position: 'absolute',
     top: 0,
   },
+  anchorMobile: {
+    position: 'relative',
+    bottom: '71px',
+  },
 }));
 
 const SearchPage = () => {
@@ -47,6 +51,7 @@ const SearchPage = () => {
   return (
     <div>
       <div className={classes.anchor} id="back-to-top-anchor" />
+      <div className={classes.anchorMobile} id="back-to-top-anchor-mobile" />
       <SearchBar
         text={text}
         onTextChange={(value: string) => setText(value)}
