@@ -55,7 +55,7 @@ describe('syntax-highlight tests', () => {
       '<pre><code>import React, { Component } from "react"; function main() { console.log("hi"); }</code></pre>';
     const result = syntaxHighlighter(original);
     const expected =
-      '<pre class="hljs javascript"><code><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"hi"</span>); }</code></pre>';
+      '<pre class="hljs typescript"><code><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"hi"</span>); }</code></pre>';
     expect(result).toEqual(expected);
   });
 });
