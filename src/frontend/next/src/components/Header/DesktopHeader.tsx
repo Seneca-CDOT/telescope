@@ -2,10 +2,18 @@ import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import dynamic from 'next/dynamic';
 
 import Logo from '../Logo';
 import Login from '../Login';
-import ThemeToggleButton from '../ThemeToggleButton';
+
+/**  This will solve the problem of incorrect rendering of theme icon when theme preference is dark
+ * This ensures that the version displayed to user is the client view which ties to the client's preference theme.
+ * This is only an issue on DesktopHeader since on MobileHeader there is a listener triggering rerendering.
+ * */
+const DynamicThemeToggleButton = dynamic(() => import('../ThemeToggleButton'), {
+  ssr: false,
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +81,7 @@ export default function DesktopHeader() {
             </Button>
           </Link>
           <Login />
-          <ThemeToggleButton />
+          <DynamicThemeToggleButton />
         </Toolbar>
       </AppBar>
     </>
