@@ -28,7 +28,6 @@ class MyDocument extends Document {
           <meta name="application-name" content={title} />
 
           <meta property="og:type" content="website" />
-          <meta property="og:title" content={title} />
           <meta property="og:site_name" content={title} />
           <meta property="og:description" content={description} />
 
