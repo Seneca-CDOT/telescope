@@ -90,7 +90,7 @@
     "express": "4.17.1",
     "express-handlebars": "5.2.1",
     "express-healthcheck": "0.1.0",
-    "express-pino-logger": "5.0.0",
+    "express-pino-logger": "6.0.0",
     "express-session": "1.17.1",
     "express-validator": "6.9.2",
     "feed": "4.2.2",
