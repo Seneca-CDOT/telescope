@@ -23,8 +23,7 @@
     "helmet": "4.4.1",
     "http-errors": "^1.8.0",
     "pino": "^6.11.1",
-    "pino-colada": "^2.1.0",
-    "pino-tiny": "^1.1.2"
+    "pino-colada": "^2.1.0"
   },
   "engines": {
     "node": ">=12.0.0"
