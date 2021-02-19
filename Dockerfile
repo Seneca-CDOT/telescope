@@ -16,7 +16,7 @@ FROM node:lts-alpine as build
 # Tini Entrypoint for Alpine
 # These modules are needed to build mozjpeg
 RUN apk add autoconf automake nasm libtool gcc make g++ tiff jpeg zlib zlib-dev pkgconf file musl-dev
-# util-linux required by gatsby to optimize builds using multiple cores
+# util-linux required to optimize builds using multiple cores
 RUN apk add --no-cache tini util-linux
 ENTRYPOINT [ "/sbin/tini", "--"]
 
@@ -26,7 +26,7 @@ WORKDIR "/telescope"
 # Copy package.jsons for each service
 COPY package.json .
 COPY .env .
-COPY ./src/frontend/gatsby/package.json ./src/frontend/gatsby/package.json
+COPY ./src/frontend/next/package.json ./src/frontend/next/package.json
 
 # -------------------------------------
 # Context: Dependencies
@@ -39,13 +39,13 @@ FROM build AS backend_dependencies
 RUN npm install --only=production --no-package-lock --ignore-scripts
 
 FROM backend_dependencies as frontend_dependencies
-RUN cd ./src/frontend/gatsby && npm install --no-package-lock
+RUN cd ./src/frontend/next && npm install --no-package-lock
 
 # -------------------------------------
 # Context: Front-end Builder
 FROM frontend_dependencies as builder
 
-COPY ./src/frontend/gatsby ./src/frontend/gatsby
+COPY ./src/frontend/next ./src/frontend/next
 COPY ./.git ./.git
 
 RUN npm run build
@@ -56,7 +56,7 @@ FROM build AS release
 
 # GET production code from previous containers
 COPY --from=backend_dependencies /telescope/node_modules /telescope/node_modules
-COPY --from=builder /telescope/src/frontend/gatsby/public /telescope/src/frontend/gatsby/public
+COPY --from=builder /telescope/src/frontend/next/out /telescope/src/next/out
 COPY --from=builder /telescope/.git /telescope/.git
 COPY ./src/backend ./src/backend
 

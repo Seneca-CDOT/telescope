@@ -46,8 +46,8 @@ if (process.env.NODE_ENV === 'development') {
     // Allow proxying the Gatsby dev server through our backend if PROXY_FRONTEND=1 is set in env
     router.use('/', createProxyMiddleware({ target: 'http://localhost:8000', changeOrigin: true }));
   } else {
-    // Or serve the static files in the Gatsby build directory
-    router.use(express.static(path.join(__dirname, '../../../frontend/gatsby/public')));
+    // Or serve the static files in the Next build directory
+    router.use(express.static(path.join(__dirname, '../../../frontend/next/out')));
   }
 }
 

@@ -1,4 +1,4 @@
-# Telescope <img align="left" width="150" height="150" src=https://github.com/Seneca-CDOT/telescope/blob/master/src/frontend/gatsby/src/images/logo.svg>
+# Telescope <img align="left" width="150" height="150" src=https://github.com/Seneca-CDOT/telescope/blob/master/src/next/public/logo.svg>
 
 [![CircleCI](https://circleci.com/gh/Seneca-CDOT/telescope.svg?style=svg)](https://circleci.com/gh/Seneca-CDOT/telescope)
 [![js-airbnb/prettier-style](https://img.shields.io/badge/code%20style-airbnb%2Fprettier-blue)](https://github.com/airbnb/javascript)
