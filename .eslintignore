@@ -1,7 +1,3 @@
-# Ignore Gatsby Top Layout Plugin
-src/frontend/gatsby/plugins/gatsby-plugin-top-layout
-# Ignore generated folders in Gatsby
-src/frontend/gatsby/public
-src/frontend/gatsby/.cache
-# We run eslint directly in the next frontend with its own config
+# Ignore the build directories for next
+src/frontend/next/out
 src/frontend/next/.next

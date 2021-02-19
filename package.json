@@ -7,9 +7,8 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/src/frontend/gatsby/public/",
-      "<rootDir>/src/frontend/gatsby/.cache/",
-      "<rootDir>/src/frontend/gatsby/test/"
+      "<rootDir>/src/frontend/next/.next",
+      "<rootDir>/src/frontend/next/out"
     ],
     "automock": false,
     "setupFiles": [
@@ -17,9 +16,8 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/src/frontend/gatsby/public/",
-      "<rootDir>/src/frontend/gatsby/.cache/",
-      "<rootDir>/src/frontend/gatsby/test/"
+      "<rootDir>/src/frontend/next/.next",
+      "<rootDir>/src/frontend/next/out"
     ]
   },
   "bin": {
@@ -32,16 +30,8 @@
     "install:image-service": "cd src/api/image && npm install",
     "install:autodeployment": "cd tools/autodeployment && npm install",
     "install:next": "cd src/frontend/next && npm install",
-    "install:gatsby": "cd src/frontend/gatsby && npm install",
-    "build:gatsby": "npm run build --prefix src/frontend/gatsby --",
-    "develop:gatsby": "npm run develop --prefix src/frontend/gatsby --",
-    "serve:gatsby": "npm run serve --prefix src/frontend/gatsby --",
-    "clean:gatsby": "npm run clean --prefix src/frontend/gatsby --",
-    "build:next": "npm run build --prefix src/frontend/next --",
-    "develop:next": "npm run dev --prefix src/frontend/next --",
-    "serve:next": "npm run start --prefix src/frontend/next --",
-    "build": "npm run build:next",
-    "dev": "npm run develop:next",
+    "build": "npm run build --prefix src/frontend/next --",
+    "dev": "npm run dev --prefix src/frontend/next --",
     "develop": "npm run dev",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
@@ -50,8 +40,6 @@
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "pretest": "npm run lint",
-    "test-frontend:gatsby": "cd src/frontend/gatsby/test && jest",
-    "test-frontend": "npm run test-frontend:gatsby",
     "test": "npm run jest",
     "jest": "cross-env NODE_ENV=test LOG_LEVEL=error MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --",
     "coverage": "cross-env NODE_ENV=test LOG_LEVEL=silent MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest --collectCoverage --",
@@ -59,7 +47,6 @@
     "start": "node src/backend",
     "server": "node src/backend/web/server",
     "test-ci": "run-s prettier-check test",
-    "now-build": "npm run build",
     "preversion": "npm run test-ci",
     "postversion": "git push upstream master --tags"
   },
