@@ -11,7 +11,7 @@ async function stopQueue() {
     await feedQueue.close();
     logger.info('Feed queue shut down.');
   } catch (error) {
-    logger.error({ error }, 'Unable to close feed queue gracefully');
+    logger.debug({ error }, 'Unable to close feed queue gracefully');
   }
 }
 
@@ -24,7 +24,7 @@ async function stopWebServer() {
     await serverClose();
     logger.info('Web server shut down.');
   } catch (error) {
-    logger.error({ error }, 'Unable to close web server gracefully');
+    logger.debug({ error }, 'Unable to close web server gracefully');
   }
 }
 
@@ -33,7 +33,7 @@ async function cleanShutdown() {
     await Promise.all([stopQueue(), stopWebServer()]);
     logger.info('Completing shut down.');
   } catch (error) {
-    logger.error({ error }, 'Failed to perform clean shutdown');
+    logger.debug({ error }, 'Failed to perform clean shutdown');
   }
 }
 

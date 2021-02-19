@@ -207,7 +207,7 @@ module.exports = async function processor(job) {
         }`
       );
     } else {
-      logger.error({ error }, `Unable to process feed ${feed.url}`);
+      logger.debug({ error }, `Unable to process feed ${feed.url}`);
       throw error;
     }
   }
