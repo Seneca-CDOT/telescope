@@ -25,15 +25,15 @@ const pino = require("pino");
 const expressPino = require("express-pino-logger");
 
 let logger;
-if (process.env.NODE_ENV === "development") {
+if (apm) {
+  // Log with structured JSON in a format APM can consume
+  logger = pino(require("@elastic/ecs-pino-format")({ convertReqRes: true }));
+} else {
   // Use a less structured logger so it's easier to see debug output
   logger = pino({
     prettyPrint: {},
     prettifier: require("pino-colada"),
   });
-} else {
-  // Log with structured JSON in a format APM can consume
-  logger = pino(require("@elastic/ecs-pino-format")({ convertReqRes: true }));
 }
 
 function createRouter(options) {
