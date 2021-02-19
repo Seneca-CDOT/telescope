@@ -1,2 +1,3 @@
-# We run eslint directly in the next frontend with its own config
+# Ignore the build directories for next
+src/frontend/next/out
 src/frontend/next/.next
