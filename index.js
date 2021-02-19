@@ -2,12 +2,15 @@
 // https://www.elastic.co/guide/en/apm/agent/nodejs/current/express.html
 // To use, set the following environment variables:
 //
-// - SERVICE_NAME: the name of your service as it will appear in APM
+// - ELASTIC_APM_SERVICE_NAME: the name of your service as it will appear in APM
 // - ELASTIC_APM_SERVER_URL: the URL to the APM server (e.g., http://localhost:8200)
 let apm;
-if (process.env.SERVICE_NAME) {
+// Only do this if we have an APM server config to work with.
+if (
+  process.env.ELASTIC_APM_SERVER_URL &&
+  process.env.ELASTIC_APM_SERVICE_NAME
+) {
   apm = require("elastic-apm-node").start({
-    serviceName: process.env.SERVICE_NAME,
     centralConfig: false,
   });
 }
@@ -19,10 +22,19 @@ const cors = require("cors");
 const helmet = require("helmet");
 const createError = require("http-errors");
 const pino = require("pino");
-const ecsFormat = require("@elastic/ecs-pino-format");
 const expressPino = require("express-pino-logger");
 
-const logger = pino(ecsFormat({ convertReqRes: true }));
+let logger;
+if (process.env.NODE_ENV === "development") {
+  // Use a less structured logger so it's easier to see debug output
+  logger = pino({
+    prettyPrint: {},
+    prettifier: require("pino-colada"),
+  });
+} else {
+  // Log with structured JSON in a format APM can consume
+  logger = pino(require("@elastic/ecs-pino-format")({ convertReqRes: true }));
+}
 
 function createRouter(options) {
   // Always merge params with the parent routes we're joining
@@ -107,8 +119,8 @@ class Satellite {
       this.healthCheck = options.healthCheck;
     }
 
-    // Expose a router
-    this.router = createRouter();
+    // Use the router passed to us
+    this.router = options.router || createRouter();
     // Expose the app
     this.app = createApp(this.router, options);
   }

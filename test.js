@@ -88,6 +88,26 @@ describe("Satellite()", () => {
     });
   });
 
+  test("Satellite() should allow passing a router to the constructor", (done) => {
+    const router = Router();
+    router.get("/test-value", (req, res) => res.json({ hello: "world" }));
+
+    const service = createSatelliteInstance({
+      name: "test",
+      router,
+    });
+
+    expect(service.router).toEqual(router);
+
+    service.start(port, async () => {
+      const res = await fetch(`${url}/test-value`);
+      expect(res.ok).toBe(true);
+      const body = await res.json();
+      expect(body).toEqual({ hello: "world" });
+      service.stop(done);
+    });
+  });
+
   test("Satellite() should allow adding middleware with beforeParsers", (done) => {
     const service = createSatelliteInstance({
       name: "test",

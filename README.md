@@ -19,8 +19,8 @@ npm install --save @telescope/satellite
 You need to set the following environment variables if you want Elastic APM
 monitoring for your service:
 
-- `SERVICE_NAME`: the name of your microservice as it will appear in APM monitoring
 - `ELASTIC_APM_SERVER_URL`: the URL to the APM server (e.g., http://localhost:8200)
+- `ELASTIC_APM_SERVICE_NAME`: the name of the service as it will appear in APM
 
 If you don't provide these values in your environment, APM monitoring will be
 disabled.
@@ -63,3 +63,5 @@ service.start(8888, () => {
 - `beforeParsers`: an optional function that allows access to the `app` during creation prior to adding the body parsers
 
 - `beforeRouter`: an optional function that allows access to the `app` during creation prior to adding the router.
+
+- `router`: an optional router to use in place of the default one created automatically.
