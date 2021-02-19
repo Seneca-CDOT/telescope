@@ -49,21 +49,6 @@ module.exports = {
       },
     },
 
-    // JavaScript for Gatsby
-    {
-      files: ['src/frontend/gatsby/**/*.js', 'src/frontend/gatsby/**/*.jsx'],
-      env: { node: true, browser: true, jest: true },
-      rules: {
-        'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
-        'react/jsx-uses-react': 'error',
-        'react/forbid-prop-types': 'off',
-        'react/require-default-props': 'off',
-        'import/extensions': 'off',
-        'no-use-before-define': 'off',
-        '@typescript-eslint/no-use-before-define': 'off',
-      },
-    },
-
     // JavaScript for Node.js
     {
       files: ['src/backend/**/*.js', 'src/tools/**/*.js', 'src/api/**/*.js'],

@@ -43,7 +43,7 @@ router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
  */
 if (process.env.NODE_ENV === 'development') {
   if (process.env.PROXY_FRONTEND) {
-    // Allow proxying the Gatsby dev server through our backend if PROXY_FRONTEND=1 is set in env
+    // Allow proxying the Next dev server through our backend if PROXY_FRONTEND=1 is set in env
     router.use('/', createProxyMiddleware({ target: 'http://localhost:8000', changeOrigin: true }));
   } else {
     // Or serve the static files in the Next build directory
