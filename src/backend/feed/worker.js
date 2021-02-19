@@ -31,9 +31,10 @@ exports.start = async function () {
   try {
     await waitOnReady();
     logger.info('Connected to elasticsearch!');
-
     const concurrency = getFeedWorkersCount();
-    logger.info(`Starting ${concurrency} instance${concurrency > 1 ? 's' : ''} of feed processor.`);
+    logger.debug(
+      `Starting ${concurrency} instance${concurrency > 1 ? 's' : ''} of feed processor.`
+    );
     feedQueue.process(concurrency, path.resolve(__dirname, 'processor.js'));
     return feedQueue;
   } catch (error) {
