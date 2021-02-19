@@ -56,7 +56,7 @@ FROM build AS release
 
 # GET production code from previous containers
 COPY --from=backend_dependencies /telescope/node_modules /telescope/node_modules
-COPY --from=builder /telescope/src/frontend/next/out /telescope/src/next/out
+COPY --from=builder /telescope/src/frontend/next/out /telescope/src/frontend/next/out
 COPY --from=builder /telescope/.git /telescope/.git
 COPY ./src/backend ./src/backend
 
