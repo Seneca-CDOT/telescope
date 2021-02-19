@@ -3,6 +3,23 @@
   "private": true,
   "version": "1.6.0",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/frontend/next/.next",
+      "<rootDir>/src/frontend/next/out"
+    ],
+    "automock": false,
+    "setupFiles": [
+      "./test/lib/setupJest.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "<rootDir>/src/frontend/next/.next",
+      "<rootDir>/src/frontend/next/out"
+    ]
+  },
   "bin": {
     "add-feed": "./tools/add-feed.js",
     "html-elements": "./tools/html-elements.js"
