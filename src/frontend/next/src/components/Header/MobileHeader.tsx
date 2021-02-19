@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2.5rem',
   },
   buttonText: {
-    color: theme.palette.background.default,
+    color: theme.palette.primary.contrastText,
     fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
@@ -57,11 +57,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   item: {
-    fontFamily: 'Roboto, sans-serif',
-    textDecoration: 'none',
-    fontSize: '1.5rem',
     justifyContent: 'center',
-    fontWeight: 500,
     lineHeight: 1.75,
   },
 }));

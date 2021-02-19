@@ -8,26 +8,15 @@ const useStyles = makeStyles((theme) => ({
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
   },
-  link: {
-    textDecoration: 'none',
-    fontSize: '1.5rem',
-    color: theme.palette.primary.contrastText,
-    lineHeight: 1,
-  },
   buttonText: {
     textDecoration: 'none',
     fontSize: '1.5rem',
-    color: theme.palette.background.default,
+    color: theme.palette.primary.contrastText,
     margin: '0 0.5rem 0 0.5rem',
     fontFamily: 'Roboto, sans-serif',
   },
   item: {
-    color: theme.palette.primary.contrastText,
-    fontFamily: 'Roboto, sans-serif',
-    textDecoration: 'none',
-    fontSize: '1.5rem',
     justifyContent: 'center',
-    fontWeight: 500,
     lineHeight: 1.75,
   },
 }));
