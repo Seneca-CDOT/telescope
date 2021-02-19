@@ -1,28 +1,27 @@
-import { IconButton, Theme } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 
-const useStyles = makeStyles({
-  themeToggleButton: {
-    position: 'absolute',
-    top: 50,
-    right: 10,
-  },
-});
-type Props = {
-  theme: Theme;
-  toggleTheme: () => void;
-};
+import { useTheme } from './ThemeProvider';
 
-const ThemeToggleButton = ({ theme, toggleTheme }: Props) => {
+const useStyles = makeStyles((theme) => ({
+  themeToggleButton: {},
+  themeIcon: {
+    color: theme.palette.primary.contrastText,
+  },
+}));
+
+const ThemeToggleButton = () => {
   const classes = useStyles();
+  const { themeName, toggleTheme } = useTheme();
+
   return (
     <IconButton onClick={toggleTheme} className={classes.themeToggleButton}>
-      {theme.palette.type === 'light' ? (
-        <Brightness4Icon color="primary" fontSize="large" />
+      {themeName === 'light' ? (
+        <Brightness4Icon fontSize="large" className={classes.themeIcon} />
       ) : (
-        <Brightness7Icon fontSize="large" />
+        <Brightness7Icon fontSize="large" className={classes.themeIcon} />
       )}
     </IconButton>
   );

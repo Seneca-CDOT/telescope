@@ -1,22 +1,12 @@
-import Head from 'next/head';
-import { Theme } from '@material-ui/core';
+import SEO from '../components/SEO';
 import Banner from '../components/Banner';
 import BackToTopButton from '../components/BackToTopButton';
 import Posts from '../components/Posts';
-import ThemeToggleButton from '../components/ThemeToggleButton';
 
-type Props = {
-  theme: Theme;
-  toggleTheme: () => void;
-};
-const Home = ({ theme, toggleTheme }: Props) => {
+const Home = () => {
   return (
     <>
-      <Head>
-        <title>Telescope</title>
-        <meta property="og:title" content="Telescope" key="title" />
-      </Head>
-      <ThemeToggleButton theme={theme} toggleTheme={toggleTheme} />
+      <SEO pageTitle="Telescope" />
       <Banner />
       <BackToTopButton />
       <main className="main">
