@@ -1,35 +1,37 @@
 import { ChangeEvent } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 type AuthorSearchInputProps = {
   text: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const useStyles = makeStyles((theme) => ({
-  input: {
-    fontSize: '1.6rem',
-    '&:hover': {
-      border: '1px solid',
-      borderColor: theme.palette.primary.main,
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    input: {
+      fontSize: '1.6rem',
+      '&:hover': {
+        border: '1px solid',
+        borderColor: theme.palette.primary.main,
+      },
+      '&:focus': {
+        border: '2px solid',
+        borderColor: theme.palette.primary.main,
+      },
+      '& > *': {
+        fontSize: '1.6rem !important',
+        color: theme.palette.text.primary,
+      },
+      height: '55px',
+      backgroundColor: theme.palette.background.default,
+      paddingLeft: '10px',
+      paddingRight: '60px',
+      border: '1px solid #B3B6B7',
+      borderRadius: '7px',
+      outline: 'none',
     },
-    '&:focus': {
-      border: '2px solid',
-      borderColor: theme.palette.primary.main,
-    },
-    '& > *': {
-      fontSize: '1.6rem !important',
-      color: theme.palette.text.primary,
-    },
-    height: '55px',
-    backgroundColor: theme.palette.background.default,
-    paddingLeft: '10px',
-    paddingRight: '60px',
-    border: '1px solid #B3B6B7',
-    borderRadius: '7px',
-    outline: 'none',
-  },
-}));
+  })
+);
 
 const AuthorSearchInput = ({ text, onChange }: AuthorSearchInputProps) => {
   const classes = useStyles();
