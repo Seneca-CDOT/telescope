@@ -7,7 +7,8 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import Logo from '../Logo';
 import Login from '../Login';
-import ThemeToggleButton from '../ThemeToggleButton';
+// 1.7 band-aid (Removing theme | line 11)
+// import ThemeToggleButton from '../ThemeToggleButton';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -126,7 +127,8 @@ export default function MobileHeader() {
               <SearchIcon className={classes.searchIcon} />
             </IconButton>
           </Link>
-          <ThemeToggleButton />
+          {/* 1.7 band-aid (Removing theme | line 135) */}
+          {/* <ThemeToggleButton /> */}
           <IconButton
             onClick={toggleDrawer('right', true)}
             edge="start"
