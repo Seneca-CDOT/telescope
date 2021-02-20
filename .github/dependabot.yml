@@ -24,7 +24,7 @@ updates:
 
   # Next Front-End
   - package-ecosystem: 'npm'
-    directory: '/src/frontend/next'
+    directory: '/src/web'
     schedule:
       interval: 'weekly'
       timezone: 'America/Toronto'

@@ -62,7 +62,7 @@ Here is the colour palette that we use to make our web site looks pretty and up-
 
 # Theming
 
-Here is how we construct our Theme with MUI ([frontend/src/frontend/next/src/theme/index.ts](https://github.com/Seneca-CDOT/telescope/blob/master/src/frontend/next/src/theme/index.ts))
+Here is how we construct our Theme with MUI ([frontend/src/web/src/theme/index.ts](https://github.com/Seneca-CDOT/telescope/blob/master/src/web/src/theme/index.ts))
 
 ```node
 export const lightTheme: Theme = createMuiTheme({

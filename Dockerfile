@@ -26,7 +26,7 @@ WORKDIR "/telescope"
 # Copy package.jsons for each service
 COPY package.json .
 COPY .env .
-COPY ./src/frontend/next/package.json ./src/frontend/next/package.json
+COPY ./src/web/package.json ./src/web/package.json
 
 # -------------------------------------
 # Context: Dependencies
@@ -39,13 +39,13 @@ FROM build AS backend_dependencies
 RUN npm install --only=production --no-package-lock --ignore-scripts
 
 FROM backend_dependencies as frontend_dependencies
-RUN cd ./src/frontend/next && npm install --no-package-lock
+RUN cd ./src/web && npm install --no-package-lock
 
 # -------------------------------------
 # Context: Front-end Builder
 FROM frontend_dependencies as builder
 
-COPY ./src/frontend/next ./src/frontend/next
+COPY ./src/web ./src/web
 COPY ./.git ./.git
 
 RUN npm run build
@@ -56,7 +56,7 @@ FROM build AS release
 
 # GET production code from previous containers
 COPY --from=backend_dependencies /telescope/node_modules /telescope/node_modules
-COPY --from=builder /telescope/src/frontend/next/out /telescope/src/frontend/next/out
+COPY --from=builder /telescope/src/web/out /telescope/src/web/out
 COPY --from=builder /telescope/.git /telescope/.git
 COPY ./src/backend ./src/backend
 

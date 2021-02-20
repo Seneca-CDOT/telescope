@@ -2,7 +2,7 @@ const path = require('path');
 const dotenv = require('dotenv');
 
 // Forward the API_URL value from the root env to NEXT_PUBLIC_API_URL
-const envPath = path.join(process.cwd(), '../../..', '.env');
+const envPath = path.join(process.cwd(), '../..', '.env');
 if (dotenv.config({ path: envPath }).error) {
   console.warn('Unable to read root Telescope .env file.');
 } else {

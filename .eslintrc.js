@@ -24,7 +24,7 @@ module.exports = {
   overrides: [
     // TypeScript for Next.js
     {
-      files: ['src/frontend/next/**/*.ts', 'src/frontend/next/**/*.tsx'],
+      files: ['src/web/**/*.ts', 'src/web/**/*.tsx'],
       plugins: ['@typescript-eslint'],
       env: {
         browser: true,

@@ -274,8 +274,8 @@ You may need up to four terminals, remember to run them in the `telescope direct
 1. `redis-server` for Redis
 2. `sudo /etc/init.d/elasticsearch start` for Elasticsearch
 3. `PORT=3000 npm start` to run the server on port 3000
-4. `cd src/frontend/gatsby`
-5. `gatsby develop -H 0.0.0.0 -p 8000`
+4. `cd src/web`
+5. `next dev -H 0.0.0.0 -p 8000`
 6. Find your EC2 instance's public IPv4
 
 ```
@@ -286,8 +286,6 @@ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 
 7. Open `<public-ip>:3000/feeds` in your browser will show you the populated list of feeds in JSON format
 8. Open `<public-ip>:8000` in another browser tab will show you the frontend with feeds from port 3000
-
-**Note: For Next.js frontend, make sure you stop your Gatsby development terminal because both Gatsby and Next run on the same port 8000. Change directory to `/telescope/src/frontend/next/` , run `npm run dev` and open up `<public-ip>:8000` in a browser**
 
 ## Troubleshooting
 
