@@ -43,11 +43,43 @@ describe("Satellite()", () => {
     expect(() => service.start()).toThrow();
   });
 
-  test("Satellite() instance should have /healthcheck", (done) => {
-    service.start(port, async () => {
-      const res = await fetch(`${url}/healthcheck`);
-      expect(res.ok).toBe(true);
-      done();
+  describe("/healthcheck", () => {
+    test("Satellite() instance should have /healthcheck", (done) => {
+      service.start(port, async () => {
+        const res = await fetch(`${url}/healthcheck`);
+        expect(res.ok).toBe(true);
+        done();
+      });
+    });
+
+    test("Satellite() should use provided healthCheck function, and fail if rejected", (done) => {
+      const service = createSatelliteInstance({
+        name: "test",
+        healthCheck() {
+          return Promise.reject(new Error("sorry, service unavailable"));
+        },
+      });
+      service.start(port, async () => {
+        const res = await fetch(`${url}/healthcheck`);
+        console.log(res);
+        expect(res.ok).toBe(false);
+        service.stop(done);
+      });
+    });
+
+    test("Satellite() should use provided healthCheck function, and pass if resolved", (done) => {
+      const service = createSatelliteInstance({
+        name: "test",
+        healthCheck() {
+          return Promise.resolve("ok");
+        },
+      });
+      service.start(port, async () => {
+        const res = await fetch(`${url}/healthcheck`);
+        console.log(res);
+        expect(res.ok).toBe(true);
+        service.stop(done);
+      });
     });
   });
 

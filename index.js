@@ -143,7 +143,7 @@ class Satellite {
         "/healthcheck": this.healthCheck || (() => Promise.resolve()),
       },
       signal: "SIGINT",
-      logger,
+      logger: logger.error,
     });
 
     // Start the server
