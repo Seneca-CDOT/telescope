@@ -7,8 +7,8 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/src/frontend/next/.next",
-      "<rootDir>/src/frontend/next/out"
+      "<rootDir>/src/web/.next",
+      "<rootDir>/src/web/out"
     ],
     "automock": false,
     "setupFiles": [
@@ -16,8 +16,8 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "<rootDir>/src/frontend/next/.next",
-      "<rootDir>/src/frontend/next/out"
+      "<rootDir>/src/web/.next",
+      "<rootDir>/src/web/out"
     ]
   },
   "bin": {
@@ -29,9 +29,9 @@
     "api:stop": "docker-compose -f ./src/api/docker-compose-api.yml down",
     "install:image-service": "cd src/api/image && npm install",
     "install:autodeployment": "cd tools/autodeployment && npm install",
-    "install:next": "cd src/frontend/next && npm install",
-    "build": "npm run build --prefix src/frontend/next --",
-    "dev": "npm run dev --prefix src/frontend/next --",
+    "install:next": "cd src/web && npm install",
+    "build": "npm run build --prefix src/web --",
+    "dev": "npm run dev --prefix src/web --",
     "develop": "npm run dev",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",

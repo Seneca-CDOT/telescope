@@ -1,3 +1,3 @@
 # Ignore the build directories for next
-src/frontend/next/out
-src/frontend/next/.next
+src/web/out
+src/web/.next
