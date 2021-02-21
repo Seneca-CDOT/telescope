@@ -20,6 +20,8 @@ const { createTerminus } = require("@godaddy/terminus");
 const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
+const favicon = require("serve-favicon");
+const path = require("path");
 const createError = require("http-errors");
 const pino = require("pino");
 const expressPino = require("express-pino-logger");
@@ -54,6 +56,11 @@ function createApp(router, options = {}) {
   // Allow disabling or passing options to cors
   if (options.cors !== false) {
     app.use(cors(options.cors));
+  }
+
+  // Allow disabling the favicon
+  if (options.disableFavicon !== true) {
+    app.use(favicon(path.join(__dirname, "favicon.ico")));
   }
 
   // If beforeParsers is defined, add all middleware to the app

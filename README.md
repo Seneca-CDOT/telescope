@@ -75,3 +75,5 @@ const service = new Satellite({
 - `beforeRouter`: an optional function that allows access to the `app` during creation prior to adding the router.
 
 - `router`: an optional router to use in place of the default one created automatically.
+
+- `disableFavicon`: if `true` the default favicon at `/favicon.ico` will not be included.

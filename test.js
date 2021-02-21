@@ -190,6 +190,27 @@ describe("Satellite()", () => {
     });
   });
 
+  test("Satellite() should provide a default favicon at /favicon.ico", (done) => {
+    service.start(port, async () => {
+      const res = await fetch(`${url}/favicon.ico`);
+      expect(res.ok).toBe(true);
+      expect(res.headers.get("content-type")).toEqual("image/x-icon");
+      service.stop(done);
+    });
+  });
+
+  test("Satellite() should not provide the default favicon if disableFavicon:true in options", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+      disableFavicon: true,
+    });
+    service.start(port, async () => {
+      const res = await fetch(`${url}/favicon.ico`);
+      expect(res.ok).toBe(false);
+      service.stop(done);
+    });
+  });
+
   describe("Router()", () => {
     test("should be able to create sub-routers using Router()", (done) => {
       const customRouter = Router();
