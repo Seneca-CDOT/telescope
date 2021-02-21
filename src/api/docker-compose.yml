@@ -1,0 +1,48 @@
+################################################################################
+# Development docker-compose.yml, not meant for production
+################################################################################
+version: '3.9'
+
+services:
+  # API Gateway
+  traefik:
+    image: traefik:v2.4.5
+    container_name: 'traefik'
+    command:
+      # If you need Traefik debug logs, uncomment this
+      #- '--log.level=DEBUG'
+      - '--api.insecure=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:80'
+    ports:
+      - '80:80'
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - 'traefik.enable=true'
+
+  # image service
+  image:
+    container_name: 'image'
+    build:
+      context: ./image
+      dockerfile: Dockerfile
+    environment:
+      - IMAGE_PORT
+    ports:
+      - '${IMAGE_PORT}'
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik on the image service container
+      - 'traefik.enable=true'
+      # Traefik routing for the image service at /v1/image
+      - 'traefik.http.routers.image.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/image`)'
+      # Specify the image service port
+      - 'traefik.http.services.image.loadbalancer.server.port=${IMAGE_PORT}'
+      # Add middleware to this route to strip the /v1/image prefix and use gzip compression
+      - 'traefik.http.middlewares.strip_api_prefix.stripprefix.prefixes=/${API_VERSION}/image'
+      - 'traefik.http.middlewares.strip_api_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.image.middlewares=strip_api_prefix'

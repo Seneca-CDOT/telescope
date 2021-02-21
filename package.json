@@ -48,7 +48,11 @@
     "server": "node src/backend/web/server",
     "test-ci": "run-s prettier-check test",
     "preversion": "npm run test-ci",
-    "postversion": "git push upstream master --tags"
+    "postversion": "git push upstream master --tags",
+    "services:start": "./bin/services-start.js --",
+    "services:stop": "./bin/services-stop.js",
+    "services:logs": "./bin/services-logs.js --",
+    "services:clean": "./bin/services-clean.js"
   },
   "husky": {
     "hooks": {
@@ -72,6 +76,7 @@
     "connect-redis": "5.1.0",
     "cors": "2.8.5",
     "date-fns": "2.17.0",
+    "docker-compose": "0.23.6",
     "dotenv": "8.2.0",
     "entities": "2.2.0",
     "express": "4.17.1",
