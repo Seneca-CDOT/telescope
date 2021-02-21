@@ -18,7 +18,7 @@ module.exports = {
   plugins: ['prettier', 'promise', 'react', 'react-hooks'],
   settings: {
     react: {
-      version: '16.13',
+      version: 'detect',
     },
   },
   overrides: [
@@ -51,7 +51,7 @@ module.exports = {
 
     // JavaScript for Node.js
     {
-      files: ['src/backend/**/*.js', 'src/tools/**/*.js', 'src/api/**/*.js'],
+      files: ['src/backend/**/*.js', 'tools/**/*.js', 'src/api/**/*.js'],
       env: {
         node: true,
       },
