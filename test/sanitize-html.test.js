@@ -103,6 +103,15 @@ describe('Sanitize HTML', () => {
     expect(data).toBe('<iframe src="https://giphy.com/embed/3osxYc2axjCJNsCXyE"></iframe>');
   });
 
+  test('<iframe> tag to a spotify embed should not get removed', () => {
+    const data = sanitizeHTML(
+      '<iframe src="https://open.spotify.com/embed/album/21wMUhXhWLew2zsWQhlYEM?referrer=https%3A%2F%2Fmedium.com%2F%40pedrofonsecadev%2Ftelescope-note-feb-22-2021-8601dfbaa1f0"></iframe>'
+    );
+    expect(data).toBe(
+      '<iframe src="https://open.spotify.com/embed/album/21wMUhXhWLew2zsWQhlYEM?referrer=https%3A%2F%2Fmedium.com%2F%40pedrofonsecadev%2Ftelescope-note-feb-22-2021-8601dfbaa1f0"></iframe>'
+    );
+  });
+
   test('<pre> with inline style, sanitize strips inline style', () => {
     const data = sanitizeHTML('<pre class="brush: plain; title: ; notranslate">Hello World</pre>');
     expect(data).toBe('<pre>Hello World</pre>');
