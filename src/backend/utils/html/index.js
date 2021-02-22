@@ -6,6 +6,7 @@ const syntaxHighlight = require('./syntax-highlight');
 const replaceCodeEntities = require('./replace-entities');
 const fixEmptyPre = require('./modify-pre');
 const toDOM = require('./dom');
+const removeDevToFullscreen = require('./remove-devto-fullscreen');
 
 const { JSDOM } = jsdom;
 
@@ -42,6 +43,8 @@ module.exports = function process(html) {
   lazyLoad(dom);
   // Replace <code> elements with encoded entities to use characters
   replaceCodeEntities(dom);
+  // Deal with "Enter fullscreen mode Exit fullscreen mode" text from dev.to bug
+  removeDevToFullscreen(dom);
 
   // Return the resulting HTML
   return dom.window.document.body.innerHTML;
