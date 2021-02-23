@@ -1,122 +1,64 @@
-import { useState, KeyboardEvent, SyntheticEvent } from 'react';
 import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, List, ListItem, Drawer, Divider } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
+import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 
-import Logo from '../Logo';
+// 1.7 band-aid (Removing theme | line 6)
+// import dynamic from 'next/dynamic';
+
 import Login from '../Login';
-// 1.7 band-aid (Removing theme | line 11)
-// import ThemeToggleButton from '../ThemeToggleButton';
+
+/**  This will solve the problem of incorrect rendering of theme icon when theme preference is dark
+ * This ensures that the version displayed to user is the client view which ties to the client's preference theme.
+ * This is only an issue on DesktopHeader since on MobileHeader there is a listener triggering rerendering.
+ * */
+// 1.7 band-aid (Removing theme | line 16 - 18)
+// const DynamicThemeToggleButton = dynamic(() => import('../ThemeToggleButton'), {
+//   ssr: false,
+// });
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.primary.main,
-    justifyContent: 'center',
-    height: '7em',
-    [theme.breakpoints.down(1065)]: {
-      height: '5.6em',
+    top: 'calc(100vh - 6.4rem)',
+    [theme.breakpoints.down(600)]: {
+      top: 'calc(100vh - 5.6em)',
     },
+    left: '0',
+    width: '100vw',
+    position: 'fixed',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: 'none',
+    background: theme.palette.background.default,
+    color: theme.palette.primary.main,
   },
-  toolbar: theme.mixins.toolbar,
-  Logo: {
+  toolbar: {
+    flex: '1',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  logoIcon: {
     margin: '0 0.5rem 0 0.5rem',
   },
-  grow: {
-    flexGrow: 1,
-  },
-  searchIcon: {
+  icon: {
     fontSize: '2.5rem',
-    color: theme.palette.primary.contrastText,
-  },
-  menuIcon: {
-    fontSize: '2.5rem',
-  },
-  buttonText: {
-    color: theme.palette.primary.contrastText,
-    fontFamily: 'Roboto, sans-serif',
-    textDecoration: 'none',
-    fontSize: '1.5rem',
-    margin: '0 0.5rem 0 0.5rem',
   },
   button: {
-    float: 'right',
     margin: '0 0.5rem 0 0.5rem',
-  },
-  list: {
-    width: 250,
-  },
-  sideList: {
-    padding: 0,
-  },
-  paper: {
-    backgroundColor: theme.palette.primary.main,
-  },
-  line: {
-    backgroundColor: theme.palette.background.default,
-  },
-  item: {
-    justifyContent: 'center',
-    lineHeight: 1.75,
   },
 }));
 
 export default function MobileHeader() {
   const classes = useStyles();
-  const [state, setState] = useState({
-    right: false,
-  });
-
-  const toggleDrawer = (side: string, open: boolean) => (event: SyntheticEvent) => {
-    if (event.type === 'keydown') {
-      const keyboardEvent = event as KeyboardEvent;
-      if (keyboardEvent.key === 'Tab' || keyboardEvent.key === 'Shift') {
-        return;
-      }
-    }
-    setState({ ...state, [side]: open });
-  };
-
-  const sideList = (side: string) => (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(side, false)}
-      onKeyDown={toggleDrawer(side, false)}
-    >
-      <List className={classes.sideList}>
-        <Link href="/" passHref>
-          <ListItem button className={classes.item} component="a">
-            <p className={classes.buttonText}>Home</p>
-          </ListItem>
-        </Link>
-        <Divider className={classes.line} />
-
-        <Link href="/about" passHref>
-          <ListItem button className={classes.item} component="a">
-            <p className={classes.buttonText}>About</p>
-          </ListItem>
-        </Link>
-        <Divider className={classes.line} />
-
-        <Login isMobile />
-        <Divider className={classes.line} />
-      </List>
-    </div>
-  );
 
   return (
     <>
-      <AppBar position="sticky" className={classes.root}>
-        <Toolbar>
-          <Link href="/" passHref>
-            <a>
-              <Logo height={45} width={45} />
-            </a>
-          </Link>
-          <div className={classes.grow} />
+      <AppBar className={classes.root}>
+        <Toolbar className={classes.toolbar}>
           <Link href="/search" passHref>
             <IconButton
               color="inherit"
@@ -124,28 +66,25 @@ export default function MobileHeader() {
               aria-label="search"
               component="a"
             >
-              <SearchIcon className={classes.searchIcon} />
+              <SearchIcon className={classes.icon} />
             </IconButton>
           </Link>
-          {/* 1.7 band-aid (Removing theme | line 135) */}
-          {/* <ThemeToggleButton /> */}
-          <IconButton
-            onClick={toggleDrawer('right', true)}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            className={classes.button}
-          >
-            <MenuIcon className={classes.menuIcon} />
-          </IconButton>
-          <Drawer
-            classes={{ paper: classes.paper }}
-            anchor="right"
-            open={state.right}
-            onClose={toggleDrawer('right', false)}
-          >
-            {sideList('right')}
-          </Drawer>
+
+          <Link href="/" passHref>
+            <IconButton color="inherit" className={classes.button} aria-label="home" component="a">
+              <HomeIcon className={classes.icon} />
+            </IconButton>
+          </Link>
+
+          <Link href="/about" passHref>
+            <IconButton color="inherit" className={classes.button} aria-label="about" component="a">
+              <ContactSupportIcon className={classes.icon} />
+            </IconButton>
+          </Link>
+
+          <Login />
+          {/* 1.7 band-aid (Removing theme| line 87) */}
+          {/* <DynamicThemeToggleButton /> */}
         </Toolbar>
       </AppBar>
     </>

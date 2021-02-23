@@ -1,5 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, ListItem } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Link from 'next/link';
 import config from '../../config';
 
@@ -15,35 +16,22 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 0.5rem 0 0.5rem',
     fontFamily: 'Roboto, sans-serif',
   },
-  item: {
-    justifyContent: 'center',
-    lineHeight: 1.75,
+  icon: {
+    fontSize: '2.5rem',
   },
 }));
 
-type LoginProps = {
-  isMobile?: boolean;
-};
-
-const LoggedOut = ({ isMobile = false }: LoginProps) => {
+const LoggedOut = () => {
   const classes = useStyles();
   const { loginUrl } = config;
 
   return (
     <>
-      {isMobile ? (
-        <Link href={loginUrl} passHref>
-          <ListItem button component="a" className={classes.item}>
-            <p className={classes.buttonText}>Log in</p>
-          </ListItem>
-        </Link>
-      ) : (
-        <Link href={loginUrl} passHref>
-          <Button size="medium" className={classes.button} component="a">
-            <p className={classes.buttonText}>Log in</p>
-          </Button>
-        </Link>
-      )}
+      <Link href={loginUrl} passHref>
+        <IconButton color="inherit" className={classes.button} aria-label="log in" component="a">
+          <ExitToAppIcon className={classes.icon} />
+        </IconButton>
+      </Link>
     </>
   );
 };
