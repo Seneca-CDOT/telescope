@@ -47,6 +47,12 @@ module.exports = function (dirty) {
       img: ['src'],
       a: ['href'],
     },
-    allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'giphy.com'],
+    allowedIframeHostnames: [
+      'www.youtube.com',
+      'player.vimeo.com',
+      'giphy.com',
+      'cdn.embedly.com',
+      'open.spotify.com',
+    ],
   });
 };
