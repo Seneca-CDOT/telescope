@@ -7,16 +7,8 @@ import { useUser } from '../UserProvider';
  * or a welcome message and Logout button.
  */
 
-type LoginProps = {
-  isMobile?: boolean;
-};
-
-const Login = ({ isMobile = false }: LoginProps) => {
+const Login = () => {
   const user = useUser();
-
-  if (isMobile) {
-    return user?.isLoggedIn ? <LoggedIn isMobile /> : <LoggedOut isMobile />;
-  }
 
   return user?.isLoggedIn ? <LoggedIn /> : <LoggedOut />;
 };

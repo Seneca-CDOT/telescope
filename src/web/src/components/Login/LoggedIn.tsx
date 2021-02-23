@@ -1,41 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { ListItem, Button, Divider } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Link from 'next/link';
 import { useAuthenticatedUser } from '../UserProvider';
 import config from '../../config';
 
-const useStyles = makeStyles((theme) => ({
-  list: {
-    width: 250,
-  },
+const useStyles = makeStyles(() => ({
   button: {
     float: 'right',
     margin: '0 0.5rem 0 0.5rem',
   },
-  buttonText: {
-    textDecoration: 'none',
-    fontSize: '1.5rem',
-    color: theme.palette.primary.contrastText,
-    margin: '0 0.5rem 0 0.5rem',
-    fontFamily: 'Roboto, sans-serif',
-  },
-  line: {
-    backgroundColor: theme.palette.background.default,
-  },
-  item: {
-    justifyContent: 'center',
-    lineHeight: 1.75,
-  },
-  span: {
-    textTransform: 'uppercase',
+  icon: {
+    fontSize: '2.5rem',
   },
 }));
 
-type LoginProps = {
-  isMobile?: boolean;
-};
-
-const LoggedIn = ({ isMobile = false }: LoginProps) => {
+const LoggedIn = () => {
   const classes = useStyles();
   const user = useAuthenticatedUser();
   const { logoutUrl } = config;
@@ -44,44 +25,19 @@ const LoggedIn = ({ isMobile = false }: LoginProps) => {
     return null;
   }
 
-  const { name } = user;
   return (
     <>
-      {isMobile ? (
-        <div className={classes.list}>
-          <Link href="/myfeeds" passHref>
-            <ListItem button className={classes.item} component="a">
-              <div className={classes.buttonText}>
-                <span className={classes.span}>{name}</span>
-              </div>
-            </ListItem>
-          </Link>
+      <Link href="/myfeeds" passHref>
+        <IconButton color="inherit" className={classes.button} aria-label="my feeds" component="a">
+          <AccountCircleIcon className={classes.icon} />
+        </IconButton>
+      </Link>
 
-          <Divider className={classes.line} />
-
-          <Link href={logoutUrl} passHref>
-            <ListItem button className={classes.item} component="a">
-              <p className={classes.buttonText}>Log Out</p>
-            </ListItem>
-          </Link>
-        </div>
-      ) : (
-        <>
-          <Link href="/myfeeds" passHref>
-            <Button color="inherit" size="medium" className={classes.button} component="a">
-              <div className={classes.buttonText}>
-                <span className={classes.span}>{name}</span>
-              </div>
-            </Button>
-          </Link>
-
-          <Link href="/about" passHref>
-            <Button color="inherit" size="medium" className={classes.button} component="a">
-              <p className={classes.buttonText}>Log Out</p>
-            </Button>
-          </Link>
-        </>
-      )}
+      <Link href={logoutUrl} passHref>
+        <IconButton color="inherit" className={classes.button} aria-label="log out" component="a">
+          <PowerSettingsNewIcon className={classes.icon} />
+        </IconButton>
+      </Link>
     </>
   );
 };
