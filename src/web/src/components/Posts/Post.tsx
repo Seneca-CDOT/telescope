@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5rem',
       marginBottom: '4em',
       backgroundColor: theme.palette.background.default,
-      display: 'grid',
-      gridTemplateColumns: '90% 10%',
-      gridTemplateRows: 'auto',
       border: '15px solid gray',
     },
     header: {
@@ -32,9 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: '1.3',
       zIndex: 1100,
       top: '-1.1em',
-      gridColumnStart: '1',
-      gridColumnEnd: '3',
-      gridRowStart: '1',
       [theme.breakpoints.down(1440)]: {
         paddingTop: '1.6em',
         paddingBottom: '1em',
@@ -64,8 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '2em',
       fontWeight: 'bold',
       color: theme.palette.primary.contrastText,
-      [theme.breakpoints.between('xs', 'sm')]: {
+      [theme.breakpoints.down(1440)]: {
         fontSize: '1.2em',
+        // alignSelf: 'flex-start',
       },
     },
     published: {
@@ -74,6 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.contrastText,
       [theme.breakpoints.between('xs', 'sm')]: {
         fontSize: '1em',
+        // alignSelf: 'flex-end',
       },
     },
     content: {
@@ -82,9 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.paper,
       width: '100%',
-      gridColumnStart: '1',
-      gridColumnEnd: '3',
-      gridRowStart: '2',
     },
     link: {
       textDecoration: 'none',
@@ -106,29 +99,44 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1em',
     },
     test: {
-      gridRowStart: '2',
-      gridColumnStart: '11',
       backgroundColor: 'purple',
       color: 'white',
       width: '200px',
       height: '200px',
       float: 'right',
-      marginLeft: '1.5em',
+      marginRight: '-24em',
       top: '8em',
       bottom: '100%',
+      [theme.breakpoints.down(1440)]: {
+        backgroundColor: 'blue',
+        display: 'flex',
+        // flexDirection: 'row',
+        width: '100%',
+        height: '2%',
+        float: 'none',
+        top: '6em',
+      },
     },
     authorContainer: {
+      backgroundColor: 'green',
       padding: '0.5em',
-      // marginTop: '20em',
-      display: 'grid',
-      gridTemplateRows: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
       borderLeft: '4px solid white',
+      [theme.breakpoints.down(1440)]: {
+        backgroundColor: 'blue',
+        flexDirection: 'row',
+        borderLeft: 'none',
+      },
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
       float: 'left',
+      [theme.breakpoints.down(1440)]: {
+        float: 'none',
+      },
     },
     circle: {
       display: 'block',
@@ -136,6 +144,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       width: '8em',
       height: '8em',
+      [theme.breakpoints.down(1440)]: {
+        margin: '0.5em 0',
+      },
     },
   })
 );
@@ -198,6 +209,20 @@ const PostComponent = ({ postUrl }: Props) => {
 
   return (
     <Box className={classes.root}>
+      <ListSubheader className={classes.header}>
+        <AdminButtons />
+        <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={() => setExpandHeader(!expandHeader)}
+            onKeyDown={() => setExpandHeader(!expandHeader)}
+            className={expandHeader ? classes.expandHeader : classes.collapseHeader}
+          >
+            {post.title}
+          </span>
+        </Typography>
+      </ListSubheader>
       <ListSubheader className={classes.test}>
         <div className={classes.authorContainer}>
           <div className={classes.authorAvatarContainer}>
@@ -218,20 +243,6 @@ const PostComponent = ({ postUrl }: Props) => {
             </a>
           </div>
         </div>
-      </ListSubheader>
-      <ListSubheader className={classes.header}>
-        <AdminButtons />
-        <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={() => setExpandHeader(!expandHeader)}
-            onKeyDown={() => setExpandHeader(!expandHeader)}
-            className={expandHeader ? classes.expandHeader : classes.collapseHeader}
-          >
-            {`${post.title}HELLO`}
-          </span>
-        </Typography>
       </ListSubheader>
 
       <div className={classes.content}>
