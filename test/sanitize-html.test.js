@@ -112,6 +112,15 @@ describe('Sanitize HTML', () => {
     );
   });
 
+  test('cdn.embedly.com embedded content should not get removed', () => {
+    const data = sanitizeHTML(
+      '<iframe src="https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fopen.spotify.com%2Fembed%2Falbum%2F21wMUhXhWLew2zsWQhlYEM&amp;display_name=Spotify&amp;url=https%3A%2F%2Fopen.spotify.com%2Falbum%2F21wMUhXhWLew2zsWQhlYEM&amp;image=https%3A%2F%2Fi.scdn.co%2Fimage%2Fab67616d00001e02142b21bd73f912e8dfd72ade&amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;type=text%2Fhtml&amp;schema=spotify"></iframe>'
+    );
+    expect(data).toBe(
+      '<iframe src="https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fopen.spotify.com%2Fembed%2Falbum%2F21wMUhXhWLew2zsWQhlYEM&amp;display_name=Spotify&amp;url=https%3A%2F%2Fopen.spotify.com%2Falbum%2F21wMUhXhWLew2zsWQhlYEM&amp;image=https%3A%2F%2Fi.scdn.co%2Fimage%2Fab67616d00001e02142b21bd73f912e8dfd72ade&amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;type=text%2Fhtml&amp;schema=spotify"></iframe>'
+    );
+  });
+
   test('<pre> with inline style, sanitize strips inline style', () => {
     const data = sanitizeHTML('<pre class="brush: plain; title: ; notranslate">Hello World</pre>');
     expect(data).toBe('<pre>Hello World</pre>');
