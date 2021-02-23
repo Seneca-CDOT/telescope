@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: '1.3',
       zIndex: 1100,
       top: '-1.1em',
-      [theme.breakpoints.down(1440)]: {
+      [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
         paddingBottom: '1em',
       },
@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 'bold',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
+      textAlign: 'center',
       [theme.breakpoints.between('xs', 'sm')]: {
         fontSize: '2.5em',
       },
@@ -57,12 +58,12 @@ const useStyles = makeStyles((theme: Theme) =>
     author: {
       fontSize: '2em',
       fontWeight: 'bold',
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.text.primary,
     },
     published: {
       fontSize: '1.8em',
       textDecoration: 'none',
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.text.primary,
       [theme.breakpoints.between('xs', 'sm')]: {
         fontSize: '1em',
       },
@@ -76,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     link: {
       textDecoration: 'none',
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.text.primary,
       '&:hover': {
         textDecorationLine: 'underline',
       },
@@ -102,15 +103,16 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '-24em',
       top: '8em',
       bottom: '100%',
-      // [theme.breakpoints.down(1440)]: {
-      //   backgroundColor: 'blue',
-      //   display: 'flex',
-      //   // flexDirection: 'row',
-      //   width: '100%',
-      //   height: '2%',
-      //   float: 'none',
-      //   top: '6em',
-      // },
+      [theme.breakpoints.down(1200)]: {
+        backgroundColor: 'blue',
+        color: 'blue',
+        display: 'flex',
+        // flexDirection: 'row',
+        width: '100%',
+        height: '2%',
+        float: 'none',
+        top: '6em',
+      },
     },
     authorInfoContainer: {
       backgroundColor: 'green',
@@ -120,44 +122,48 @@ const useStyles = makeStyles((theme: Theme) =>
       flexFlow: 'flex-end',
       borderLeft: '4px solid white',
       width: '100%',
-      // [theme.breakpoints.down(1440)]: {
-      // backgroundColor: 'yellow',
-      // flexDirection: 'row',
-      // justifyContent: 'space-between',
-      // justifyContent: 'space-evenly',
-      // justifyContent: 'flex-start',
-      // alignItems: 'baseline',
-      // borderLeft: 'none',
-      // },
+      [theme.breakpoints.down(1200)]: {
+        backgroundColor: 'yellow',
+        flexDirection: 'row',
+        // justifyContent: 'space-between',
+        // justifyContent: 'space-evenly',
+        justifyContent: 'flex-start',
+        // textAlign: 'center',
+        alignItems: 'center',
+        borderLeft: 'none',
+      },
     },
     authorNameContainer: {
-      // [theme.breakpoints.down(1440)]: {
-      // alignSelf: 'flex-start',
-      // },
+      [theme.breakpoints.down(1200)]: {
+        // alignSelf: 'flex-start',
+        // flexGrow: '1',
+        padding: '0 3em 0 1em',
+      },
     },
     publishedDateContainer: {
-      // [theme.breakpoints.down(1440)]: {
-      //   // alignSelf: 'flex-end',
-      // },
+      [theme.breakpoints.down(1200)]: {
+        // alignSelf: 'flex-end',
+      },
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
       float: 'left',
-      // [theme.breakpoints.down(1440)]: {
-      //   float: 'none',
-      // },
+      [theme.breakpoints.down(1200)]: {
+        float: 'none',
+        display: 'none',
+      },
     },
     circle: {
       display: 'block',
       borderRadius: '50%',
-      backgroundColor: 'white',
+      backgroundColor: 'black',
       width: '8em',
       height: '8em',
-      // [theme.breakpoints.down(1440)]: {
-      //   margin: '0.5em 0',
-      // },
+      [theme.breakpoints.down(1200)]: {
+        margin: '0.5em 0',
+      },
     },
   })
 );

@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       padding: 0,
+      // backgroundColor: '#E5E5E5',
       backgroundColor: 'black',
       color: 'white',
       width: '100vw',
