@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: 0,
       // float: 'right',
-      width: '60%',
+      width: '800px',
       border: '15px solid yellow',
     },
     activeCircle: {

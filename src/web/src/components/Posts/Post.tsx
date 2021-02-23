@@ -58,10 +58,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '2em',
       fontWeight: 'bold',
       color: theme.palette.primary.contrastText,
-      [theme.breakpoints.down(1440)]: {
-        fontSize: '1.2em',
-        // alignSelf: 'flex-start',
-      },
     },
     published: {
       fontSize: '1.8em',
@@ -69,7 +65,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.contrastText,
       [theme.breakpoints.between('xs', 'sm')]: {
         fontSize: '1em',
-        // alignSelf: 'flex-end',
       },
     },
     content: {
@@ -107,36 +102,52 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '-24em',
       top: '8em',
       bottom: '100%',
-      [theme.breakpoints.down(1440)]: {
-        backgroundColor: 'blue',
-        display: 'flex',
-        // flexDirection: 'row',
-        width: '100%',
-        height: '2%',
-        float: 'none',
-        top: '6em',
-      },
+      // [theme.breakpoints.down(1440)]: {
+      //   backgroundColor: 'blue',
+      //   display: 'flex',
+      //   // flexDirection: 'row',
+      //   width: '100%',
+      //   height: '2%',
+      //   float: 'none',
+      //   top: '6em',
+      // },
     },
-    authorContainer: {
+    authorInfoContainer: {
       backgroundColor: 'green',
       padding: '0.5em',
       display: 'flex',
       flexDirection: 'column',
+      flexFlow: 'flex-end',
       borderLeft: '4px solid white',
-      [theme.breakpoints.down(1440)]: {
-        backgroundColor: 'blue',
-        flexDirection: 'row',
-        borderLeft: 'none',
-      },
+      width: '100%',
+      // [theme.breakpoints.down(1440)]: {
+      // backgroundColor: 'yellow',
+      // flexDirection: 'row',
+      // justifyContent: 'space-between',
+      // justifyContent: 'space-evenly',
+      // justifyContent: 'flex-start',
+      // alignItems: 'baseline',
+      // borderLeft: 'none',
+      // },
+    },
+    authorNameContainer: {
+      // [theme.breakpoints.down(1440)]: {
+      // alignSelf: 'flex-start',
+      // },
+    },
+    publishedDateContainer: {
+      // [theme.breakpoints.down(1440)]: {
+      //   // alignSelf: 'flex-end',
+      // },
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
       float: 'left',
-      [theme.breakpoints.down(1440)]: {
-        float: 'none',
-      },
+      // [theme.breakpoints.down(1440)]: {
+      //   float: 'none',
+      // },
     },
     circle: {
       display: 'block',
@@ -144,9 +155,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'white',
       width: '8em',
       height: '8em',
-      [theme.breakpoints.down(1440)]: {
-        margin: '0.5em 0',
-      },
+      // [theme.breakpoints.down(1440)]: {
+      //   margin: '0.5em 0',
+      // },
     },
   })
 );
@@ -224,18 +235,18 @@ const PostComponent = ({ postUrl }: Props) => {
         </Typography>
       </ListSubheader>
       <ListSubheader className={classes.test}>
-        <div className={classes.authorContainer}>
+        <div className={classes.authorInfoContainer}>
           <div className={classes.authorAvatarContainer}>
             <div className={classes.circle} />
           </div>
-          <div>
+          <div className={classes.authorNameContainer}>
             <Typography variant="caption" className={classes.author}>
               <a className={classes.link} href={post.feed.url}>
                 {post.feed.author}
               </a>
             </Typography>
           </div>
-          <div>
+          <div className={classes.publishedDateContainer}>
             <a href={post.url} rel="bookmark" className={classes.published}>
               <time className={classes.time} dateTime={post.updated}>
                 {` ${formatPublishedDate(post.updated)}`}
