@@ -1,0 +1,105 @@
+{
+  "categories": [
+    {
+      "title": "## 🚀 Autodeployment",
+      "labels": ["area: autodeployment"]
+    },
+    {
+      "title": "## 🛠 Back-end",
+      "labels": ["area: back-end"]
+    },
+    {
+      "title": "## ⚡ CI/CD",
+      "labels": ["area: CI/CD"]
+    },
+    {
+      "title": "## 🎨 CSS Styling",
+      "labels": ["area: css styling"]
+    },
+    {
+      "title": "## 🚀 deployment",
+      "labels": ["area: deployment"]
+    },
+    {
+      "title": "## 🕵️‍♂️ Design",
+      "labels": ["area: design"]
+    },
+    {
+      "title": "## 🐳 Docker",
+      "labels": ["area: docker"]
+    },
+    {
+      "title": "## 🔎 Elasticsearch",
+      "labels": ["area: elasticsearch"]
+    },
+    {
+      "title": "## 🎭 Front-end",
+      "labels": ["area: front-end"]
+    },
+    {
+      "title": "## ⚙ Microservices",
+      "labels": ["area: microservices"]
+    },
+    {
+      "title": "## 🏎 Performance",
+      "labels": ["area: performance"]
+    },
+    {
+      "title": "## 📲 Progressive Web Apps",
+      "labels": ["area: PWA"]
+    },
+    {
+      "title": "## 🧰 Tools",
+      "labels": ["area: tools"]
+    },
+    {
+      "title": "## 🖇 Dependencies",
+      "labels": ["dependencies"]
+    },
+    {
+      "title": "## 👨‍💻 Developer Experience",
+      "labels": ["developer experience"]
+    },
+    {
+      "title": "## 🐛 Bug Fixes",
+      "labels": ["type: bug"]
+    },
+    {
+      "title": "## 📃 Documentation Updates",
+      "labels": ["type: documentation (docs)"]
+    },
+    {
+      "title": "## ✨ Enhancements",
+      "labels": ["type: enhancement"]
+    },
+    {
+      "title": "## 💡 Nice to Have",
+      "labels": ["type: nice to have"]
+    },
+    {
+      "title": "## 🔐 Security Enhancements",
+      "labels": ["type: security"]
+    },
+    {
+      "title": "## 🛡 Tests",
+      "labels": ["type: test"]
+    }
+  ],
+  "ignore_labels": ["ignore"],
+  "sort": "ASC",
+  "template": "${{CATEGORIZED_COUNT}} changes since ${{FROM_TAG}}\n\n${{CHANGELOG}}\n\n## Other Updates\n\n${{UNCATEGORIZED}}\n",
+  "pr_template": "- ${{TITLE}} (#${{NUMBER}})",
+  "empty_template": "No Changes",
+  "label_extractor": [
+    {
+      "pattern": "(.) (.+)",
+      "target": "$1"
+    }
+  ],
+  "max_tags_to_fetch": 200,
+  "max_pull_requests": 200,
+  "max_back_track_time_days": 90,
+  "tag_resolver": {
+    "method": "semver"
+  }
+}
