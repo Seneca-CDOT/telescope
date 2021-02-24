@@ -13,14 +13,14 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       padding: 0,
-      // backgroundColor: '#E5E5E5',
-      backgroundColor: 'black',
+      backgroundColor: '#E5E5E5',
+      // backgroundColor: 'black',
       color: 'white',
       width: '100vw',
     },
     postsWrapper: {
       width: '100%',
-      border: '5px solid red',
+      // border: '5px solid red',
     },
     error: {
       color: '#B5B5B5',
@@ -100,9 +100,7 @@ const Posts = () => {
 
   return (
     <div className={classes.root}>
-      <h1>POSTS</h1>
       <div className={classes.postsWrapper}>
-        <h1>postsWrapper</h1>
         <Timeline pages={data} nextPage={() => setSize(size + 1)} />
       </div>
     </div>

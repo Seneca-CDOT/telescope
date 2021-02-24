@@ -19,11 +19,11 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5rem',
       marginBottom: '4em',
       backgroundColor: theme.palette.background.default,
-      border: '15px solid gray',
+      // border: '15px solid gray',
     },
     header: {
-      border: '5px solid red',
-      backgroundColor: theme.palette.background.default,
+      // border: '5px solid red',
+      // backgroundColor: theme.palette.background.default,
       color: theme.palette.text.secondary,
       padding: '2em 3em 1.5em 3em',
       lineHeight: '1.3',
@@ -70,9 +70,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       overflow: 'auto',
-      border: '10px solid blue',
+      // border: '10px solid blue',
       color: theme.palette.text.primary,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.background.default,
       width: '100%',
     },
     link: {
@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1em',
     },
     test: {
-      backgroundColor: 'purple',
+      // backgroundColor: 'purple',
       color: 'white',
       width: '200px',
       height: '200px',
@@ -104,23 +104,23 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '8em',
       bottom: '100%',
       [theme.breakpoints.down(1200)]: {
-        backgroundColor: 'blue',
+        // backgroundColor: 'blue',
         color: 'blue',
         width: '100%',
         height: '2%',
         float: 'none',
-        top: '6em',
+        top: '5.1em',
       },
     },
     authorInfoContainer: {
-      backgroundColor: 'green',
+      // backgroundColor: 'green',
       display: 'flex',
       flexDirection: 'column',
       flexFlow: 'flex-end',
       borderLeft: '4px solid white',
       width: '100%',
       [theme.breakpoints.down(1200)]: {
-        backgroundColor: 'yellow',
+        // backgroundColor: 'yellow',
         flexDirection: 'row',
         justifyContent: 'center',
         borderLeft: 'none',
@@ -131,11 +131,11 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: '0 3em 0 1em',
       },
     },
-    // publishedDateContainer: {
-    //   [theme.breakpoints.down(1200)]: {
-    //     // alignSelf: 'flex-end',
-    //   },
-    // },
+    publishedDateContainer: {
+      // [theme.breakpoints.down(1200)]: {
+      //   // alignSelf: 'flex-end',
+      // },
+    },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
