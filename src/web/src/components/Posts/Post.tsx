@@ -106,8 +106,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         backgroundColor: 'blue',
         color: 'blue',
-        display: 'flex',
-        // flexDirection: 'row',
         width: '100%',
         height: '2%',
         float: 'none',
@@ -116,7 +114,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     authorInfoContainer: {
       backgroundColor: 'green',
-      padding: '0.5em',
       display: 'flex',
       flexDirection: 'column',
       flexFlow: 'flex-end',
@@ -125,26 +122,20 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         backgroundColor: 'yellow',
         flexDirection: 'row',
-        // justifyContent: 'space-between',
-        // justifyContent: 'space-evenly',
-        justifyContent: 'flex-start',
-        // textAlign: 'center',
-        alignItems: 'center',
+        justifyContent: 'center',
         borderLeft: 'none',
       },
     },
     authorNameContainer: {
       [theme.breakpoints.down(1200)]: {
-        // alignSelf: 'flex-start',
-        // flexGrow: '1',
         padding: '0 3em 0 1em',
       },
     },
-    publishedDateContainer: {
-      [theme.breakpoints.down(1200)]: {
-        // alignSelf: 'flex-end',
-      },
-    },
+    // publishedDateContainer: {
+    //   [theme.breakpoints.down(1200)]: {
+    //     // alignSelf: 'flex-end',
+    //   },
+    // },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
@@ -152,7 +143,7 @@ const useStyles = makeStyles((theme: Theme) =>
       float: 'left',
       [theme.breakpoints.down(1200)]: {
         float: 'none',
-        display: 'none',
+        // display: 'none',
       },
     },
     circle: {
@@ -163,6 +154,8 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '8em',
       [theme.breakpoints.down(1200)]: {
         margin: '0.5em 0',
+        width: '4em',
+        height: '4em',
       },
     },
   })
