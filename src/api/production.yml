@@ -18,15 +18,20 @@ services:
       - '--api.insecure=false'
       - '--providers.docker=true'
       - '--providers.docker.exposedbydefault=false'
-      - '--entrypoints.web.address=:80'
-      # TODO: https/ssl setup...
+      - '--providers.file.directory=/config'
+      - '--providers.file.watch=true'
+      - '--entrypoints.web-secure.address=:443'
+      - '--entrypoints.web-secure.http.tls=true'
     ports:
-      - '80:80'
-      - '8080:8080'
+      - '443:443'
     labels:
       - 'traefik.enable=true'
       # GZip compression middleware: gzip_compress
       - 'traefik.http.middlewares.gzip_compress.compress=true'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/config
+      - ${PATH_TO_CERTS}:/certs
 
   # image service
   image:
