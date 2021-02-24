@@ -4,8 +4,8 @@ const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dyn
 
 const server =
   process.env.DEPLOY_TYPE === 'production'
-    ? 'https://telescope.cdot.systems/health.'
-    : 'https://dev.telescope.cdot.systems/health.';
+    ? 'https://dev.telescope.cdot.systems/health'
+    : 'https://telescope.cdot.systems/health';
 
 let timerOne;
 let timerTwo;
