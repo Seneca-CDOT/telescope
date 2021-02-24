@@ -29,13 +29,14 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: '1.3',
       zIndex: 1100,
       top: '-1.1em',
+      fontSize: '0.9em',
       [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
         paddingBottom: '1em',
       },
-      [theme.breakpoints.down(1065)]: {
-        position: 'static',
-      },
+      // [theme.breakpoints.down(1065)]: {
+      //   position: 'static',
+      // },
     },
     expandHeader: {
       whiteSpace: 'normal',
@@ -117,8 +118,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       flexFlow: 'flex-end',
-      borderLeft: '4px solid white',
+      borderLeft: '2.5px solid #707070',
       width: '100%',
+      paddingLeft: '2em',
+      height: '100%',
       [theme.breakpoints.down(1200)]: {
         // backgroundColor: 'yellow',
         flexDirection: 'row',
@@ -141,6 +144,7 @@ const useStyles = makeStyles((theme: Theme) =>
       shapeMargin: '1rem',
       borderRadius: '50%',
       float: 'left',
+      paddingBottom: '1em',
       [theme.breakpoints.down(1200)]: {
         float: 'none',
         // display: 'none',
@@ -149,7 +153,7 @@ const useStyles = makeStyles((theme: Theme) =>
     circle: {
       display: 'block',
       borderRadius: '50%',
-      backgroundColor: 'black',
+      backgroundColor: '#121D59',
       width: '8em',
       height: '8em',
       [theme.breakpoints.down(1200)]: {
