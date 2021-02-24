@@ -300,9 +300,11 @@ describe("Satellite()", () => {
 
     const router = service.router;
     router.get("/public", (req, res) => res.json({ hello: "public" }));
-    router.get("/protected", protectWithJwt(), (req, res) =>
-      res.json({ hello: "protected" })
-    );
+    router.get("/protected", protectWithJwt(), (req, res) => {
+      // Make sure the user payload was added to req
+      expect(req.user.sub).toEqual("test-user@email.com");
+      res.json({ hello: "protected" });
+    });
 
     service.start(port, async () => {
       // Public should need no bearer token
