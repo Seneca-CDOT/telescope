@@ -15,7 +15,7 @@ const healthCheck = () => {
   timerOne = setIntervalAsync(async () => {
     const result = await fetch(server, {
       method: 'head',
-      timeout: 1500,
+      timeout: process.env.HEALTH_CHECK_TIMEOUT,
     });
     if (result.status !== 200) {
       clearIntervalAsync(timerOne);
@@ -36,7 +36,7 @@ const secondCheck = () => {
     if (result.status === 200) {
       clearIntervalAsync(timerTwo);
       sendMessage(result.status);
-      firstCheck();
+      healthCheck();
       messageSent = false;
     }
   }, process.env.INTERVAL_TWO);
@@ -52,7 +52,7 @@ const sendMessage = async (status) => {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `* ${process.DEPLOY_TYPE.toUpperCase()} IS ${status === 200 ? 'BACK' : 'DOWN'}
+          text: `* ${process.env.DEPLOY_TYPE.toUpperCase()} IS ${status === 200 ? 'BACK' : 'DOWN'}
           *\n\n`,
         },
         accessory: {
@@ -70,7 +70,7 @@ const sendMessage = async (status) => {
     ],
   };
 
-  await fetch(process.SLACK_WEBHOOK_URL, {
+  await fetch(process.env.SLACK_WEBHOOK_URL, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(message),
