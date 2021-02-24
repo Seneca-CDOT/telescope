@@ -60,8 +60,8 @@ const sendMessage = async (status) => {
           image_url:
             status === 200
               ? 'https://images.unsplash.com/photo-1535635790206-6960f6eaacff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80'
-              : 'https://images.unsplash.com/photo-1594322436404-5a0526db4d13?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2515&q=80',
-          alt_text: 'alt text for image',
+              : 'https://images.unsplash.com/photo-1611434132218-d687f8a5f378?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=3767&q=80',
+          alt_text: `${status === 200 ? 'SERVER IS BACK IMAGE' : 'SERVER DOWN IMAGE'}`,
         },
       },
       {
