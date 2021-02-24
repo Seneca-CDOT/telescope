@@ -11,7 +11,7 @@ various common pieces already set up. Bring your own router and let us do the re
 ## Install
 
 ```
-npm install --save @telescope/satellite
+npm install --save @senecacdot/satellite
 ```
 
 ## Configure
