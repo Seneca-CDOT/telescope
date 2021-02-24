@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     header: {
       // border: '5px solid red',
+      width: '100%',
       // backgroundColor: theme.palette.background.default,
       color: theme.palette.text.secondary,
       padding: '2em 3em 1.5em 3em',
@@ -62,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
     },
     published: {
-      fontSize: '1.8em',
+      fontSize: '2em',
       textDecoration: 'none',
       color: theme.palette.text.primary,
       [theme.breakpoints.between('xs', 'sm')]: {
@@ -117,7 +118,7 @@ const useStyles = makeStyles((theme: Theme) =>
       // backgroundColor: 'green',
       display: 'flex',
       flexDirection: 'column',
-      flexFlow: 'flex-end',
+      // flexFlow: 'flex-end',
       borderLeft: '2.5px solid #707070',
       width: '100%',
       paddingLeft: '2em',
@@ -126,6 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
         // backgroundColor: 'yellow',
         flexDirection: 'row',
         justifyContent: 'center',
+        alignItems: 'center',
         borderLeft: 'none',
       },
     },
