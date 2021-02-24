@@ -13,8 +13,8 @@ const { buildStart, buildStop, handleStatus } = require('./info');
 
 const app = express();
 app.use(bodyParser.json());
-// Server health check
 
+// Server health check
 healthCheck();
 
 // Current build process output stream (if any)
