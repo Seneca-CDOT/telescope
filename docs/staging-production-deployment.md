@@ -63,12 +63,27 @@ Copy `env.example` in the `autodeployment` directory to `.env` and add the appro
   - deployment type (`staging` or `production`)
   - unsplash client id
 
-#### 3.1- Autodeployment server - Module: Slack Integration
+### 3.1- Autodeployment server - Module: Slack Integration
+
+\
+Slack "Incoming WebHook" is used to send messages to #telescope channel.\
+For more information: https://api.slack.com/messaging/webhooks
+Example:
+await fetch(SLACK_WEBHOOK_URL, {
+method: 'post',
+headers: { 'Content-Type': 'application/json' },
+body: "text": "This is the message"
+});
+This will send the following message to our Slack channel: "This is the message"
+
+Slack integration: health checker timers(Siblings Check):
+prod and dev check it other constantly in order to make sure the servers are running.
+the first timer must be greater than the second one.
 
 - env variables
   - slack webhook url (#telescope's url Slack Incoming Webhooks)
-  - interval one (120000)
-  - interval two (10000)
+  - interval one (120 \* 1000)
+  - interval two (10 \* 1000)
 
 Install the dependencies using `npm install`, and run the server with `npm start`.
 
