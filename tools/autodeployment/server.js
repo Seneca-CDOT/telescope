@@ -7,7 +7,7 @@ const { Webhooks } = require('@octokit/webhooks');
 const shell = require('shelljs');
 const mergeStream = require('merge-stream');
 const fs = require('fs');
-const { firstCheck: healthCheck } = require('./src/sibling-checker');
+const { healthCheck } = require('./src/sibling-checker');
 
 const { buildStart, buildStop, handleStatus } = require('./info');
 
@@ -29,7 +29,7 @@ const {
 } = process.env;
 
 // Server health check
-firstCheck();
+healthCheck();
 
 const privateKey = fs.readFileSync(path.join(PATH_TO_CERTS, 'privkey.pem'));
 const certificate = fs.readFileSync(path.join(PATH_TO_CERTS, 'fullchain.pem'));

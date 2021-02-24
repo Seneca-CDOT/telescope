@@ -11,7 +11,7 @@ let timerOne;
 let timerTwo;
 let messageSent = false;
 
-const firstCheck = () => {
+const healthCheck = () => {
   timerOne = setIntervalAsync(async () => {
     const result = await fetch(server, {
       method: 'head',
@@ -77,4 +77,4 @@ const sendMessage = async (status) => {
   });
 };
 
-module.export = { firstCheck };
+module.export = { healthCheck };
