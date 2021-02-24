@@ -18,6 +18,7 @@ if (
 const { createServer } = require("http");
 const { createTerminus } = require("@godaddy/terminus");
 const express = require("express");
+const jwt = require("express-jwt");
 const cors = require("cors");
 const helmet = require("helmet");
 const favicon = require("serve-favicon");
@@ -38,9 +39,27 @@ if (apm) {
   });
 }
 
-function createRouter(options) {
+// JWT Validation Middleware. We expect to get config details via the env
+function protectWithJwt() {
+  return jwt({
+    secret: process.env.SECRET,
+    audience: process.env.JWT_AUDIENCE,
+    issuer: process.env.JWT_ISSUER,
+    // TODO: proper public/private key token signing
+    algorithms: ["HS256"],
+  });
+}
+
+function createRouter(options, protect) {
   // Always merge params with the parent routes we're joining
-  return express.Router({ ...options, mergeParams: true });
+  const router = express.Router({ ...options, mergeParams: true });
+
+  // If this is to be a protected router, add JWT validation middleware
+  if (protect) {
+    router.use(protectWithJwt());
+  }
+
+  return router;
 }
 
 function createApp(router, options = {}) {
@@ -79,6 +98,11 @@ function createApp(router, options = {}) {
   // before the router.
   if (typeof options.beforeRouter === "function") {
     options.beforeRouter(app);
+  }
+
+  // if protected is true, add protectWithJwt to the entire app
+  if (options.protected) {
+    app.use(protectWithJwt());
   }
 
   // Include our router with all endpoints added by the user
@@ -178,4 +202,6 @@ class Satellite {
 
 module.exports.Satellite = Satellite;
 module.exports.logger = logger;
-module.exports.Router = createRouter;
+module.exports.Router = (options) => createRouter(options);
+module.exports.ProtectedRouter = (options) => createRouter(options, true);
+module.exports.protectWithJwt = protectWithJwt;

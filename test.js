@@ -1,11 +1,19 @@
 /* global describe, test, beforeEach, afterEach, expect */
 const fetch = require("node-fetch");
 const getPort = require("get-port");
+const jwt = require("jsonwebtoken");
 
 // Tests cause terminus to leak warning on too many listeners, increase a bit
-require("events").EventEmitter.defaultMaxListeners = 15;
+require("events").EventEmitter.defaultMaxListeners = 32;
 
-const { Satellite, Router, logger } = require(".");
+const {
+  Satellite,
+  Router,
+  ProtectedRouter,
+  protectWithJwt,
+  logger,
+} = require(".");
+const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
 const createSatelliteInstance = (options) => {
   const service = new Satellite(options || { name: "test" });
@@ -18,11 +26,28 @@ const createSatelliteInstance = (options) => {
   return service;
 };
 
+const createToken = (user, secret = SECRET) => {
+  return jwt.sign(
+    {
+      // The token is issued by us (e.g., this server)
+      iss: JWT_ISSUER,
+      // It is intended for the services running at this api origin
+      aud: JWT_AUDIENCE,
+      // The subject of this token, the user
+      sub: user,
+      // TODO: role info (e.g., admin)
+    },
+    secret,
+    { expiresIn: JWT_EXPIRES_IN }
+  );
+};
+
 describe("Satellite()", () => {
   let port;
   let port2;
   let url;
   let service;
+  let token;
 
   beforeEach(async () => {
     port = await getPort();
@@ -32,6 +57,9 @@ describe("Satellite()", () => {
 
     // Silence the logger.  Override if you need it in a test
     logger.level = "silent";
+
+    // Create a JWT bearer token we can use if necessary
+    token = createToken("test-user@email.com");
   });
 
   afterEach((done) => {
@@ -199,6 +227,37 @@ describe("Satellite()", () => {
     });
   });
 
+  test("Satellite() should protect the app if protected is true", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+      protected: true,
+    });
+
+    const router = service.router;
+    router.get("/should-be-protected", (req, res) =>
+      res.json({ hello: "protected" })
+    );
+
+    service.start(port, async () => {
+      // Protected should fail without authorization header
+      let res = await fetch(`${url}/should-be-protected`);
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(401);
+
+      // Protected should work with authorization header
+      res = await fetch(`${url}/should-be-protected`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      expect(res.ok).toBe(true);
+      body = await res.json();
+      expect(body).toEqual({ hello: "protected" });
+
+      service.stop(done);
+    });
+  });
+
   test("Satellite() should not provide the default favicon if disableFavicon:true in options", (done) => {
     const service = createSatelliteInstance({
       name: "test",
@@ -223,6 +282,120 @@ describe("Satellite()", () => {
       const testRoute = async () => {
         const res = await fetch(`${url}/router/sub-router`);
         expect(res.ok).toBe(true);
+        service.stop(done);
+      };
+
+      service.start(port, () => {
+        logger.info("Here we go!");
+        testRoute();
+      });
+    });
+  });
+
+  test("protectJWT should work on a specific route", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+    });
+
+    const router = service.router;
+    router.get("/public", (req, res) => res.json({ hello: "public" }));
+    router.get("/protected", protectWithJwt(), (req, res) =>
+      res.json({ hello: "protected" })
+    );
+
+    service.start(port, async () => {
+      // Public should need no bearer token
+      let res = await fetch(`${url}/public`);
+      expect(res.ok).toBe(true);
+      let body = await res.json();
+      expect(body).toEqual({ hello: "public" });
+
+      // Protected should fail without authorization header
+      res = await fetch(`${url}/protected`);
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(401);
+
+      // Protected should work with authorization header
+      res = await fetch(`${url}/protected`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      expect(res.ok).toBe(true);
+      body = await res.json();
+      expect(body).toEqual({ hello: "protected" });
+
+      service.stop(done);
+    });
+  });
+
+  describe("ProtectedRouter()", () => {
+    test("should be able to create a protected sub-router using ProtectedRouter()", (done) => {
+      const customRouter = ProtectedRouter();
+      customRouter.get("/sub-router", (req, res) => {
+        res.status(200).end();
+      });
+
+      service.router.use("/router", customRouter);
+
+      const testRoute = async () => {
+        const res = await fetch(`${url}/router/sub-router`, {
+          headers: {
+            Authorization: `bearer ${token}`,
+          },
+        });
+        expect(res.ok).toBe(true);
+        service.stop(done);
+      };
+
+      service.start(port, () => {
+        logger.info("Here we go!");
+        testRoute();
+      });
+    });
+
+    test("should expect routes on ProtectedRouter to be protected", (done) => {
+      const customRouter = ProtectedRouter();
+      customRouter.get("/sub-router", (req, res) => {
+        res.status(200).end();
+      });
+
+      service.router.use("/router", customRouter);
+
+      const testRoute = async () => {
+        // Include a bearer token, but not a correct one for our system
+        const res = await fetch(`${url}/router/sub-router`, {
+          headers: {
+            Authorization: `bearer ${createToken(
+              "test-user@email.com",
+              "different-secret"
+            )}`,
+          },
+        });
+        expect(res.ok).toBe(false);
+        expect(res.status).toEqual(401);
+        service.stop(done);
+      };
+
+      service.start(port, () => {
+        logger.info("Here we go!");
+        testRoute();
+      });
+    });
+
+    test("should expect protected routes to not be fooled by wrong, but valid token", (done) => {
+      const customRouter = ProtectedRouter();
+      customRouter.get("/sub-router", (req, res) => {
+        res.status(200).end();
+      });
+
+      service.router.use("/router", customRouter);
+
+      const testRoute = async () => {
+        // Don't include a bearer token
+        const res = await fetch(`${url}/router/sub-router`);
+        expect(res.ok).toBe(false);
+        expect(res.status).toEqual(401);
         service.stop(done);
       };
 

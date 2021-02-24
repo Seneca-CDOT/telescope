@@ -25,19 +25,28 @@ monitoring for your service:
 If you don't provide these values in your environment, APM monitoring will be
 disabled.
 
+In addition, the following JWT verification values are required:
+
+- `SECRET`: the secret used for JWT token verification
+- `JWT_AUDIENCE`: the audience (aud) claim expected in JWT token verification
+- `JWT_ISSUER`: the issuer (iss) claim expected in JWT token verification
+
 ## Usage
 
 ```js
-// Get the Satellite constructor and logger.  NOTE: `Router` is also exposed
-// in case you need to create a sub-router: `const router = new Router();`
-// The `Router` constructor is the same as using `express.Router()`;
-const { Satellite, logger } = require("@senecacdot/satellite");
+const {
+  Satellite, // the Satellite constructor
+  Router, // Router() for creating sub-routers
+  ProtectedRouter, // ProtectedRouter() for creating JWT protected sub-routers
+  logger, // A pre-configured logger ready to be used
+  protectWithJwt, // JWT middleware for specific end-points
+} = require("@senecacdot/satellite");
 
 // Define your microservice, providing some options (see below)
 const service = new Satellite({
   beforeRouter(app) {
     // Optionally add some middleware before the router is attached
-    app.use(middlewareFunction());
+    app.use(myMiddlewareFunction());
   },
 });
 
@@ -45,6 +54,25 @@ const service = new Satellite({
 service.router.get("/my-route", (req, res) => {
   res.json({ message: "hello world" });
 });
+
+// You can also add protected routes with the protectWithJwt middleware
+service.router.get("/my-protected-route", protectWithJwt(), (req, res) => {
+  res.json({ message: "this is protected" });
+});
+
+// You can create sub-routers
+const apiRouter = Router();
+apiRouter.get("/info", (req, res) => {
+  res.json({ message: "ok" });
+});
+service.router.get("/api", apiRouter);
+
+// Or protected sub-routers (all sub routes use protectWithJwt automatically)
+const adminRouter = ProtectedRouter();
+adminRouter.get("/profile", (req, res) => {
+  res.json({ message: "this is protected" });
+});
+service.router.get("/admin", adminRouter);
 
 // Start the service on the specified port
 service.start(8888, () => {
@@ -77,3 +105,5 @@ const service = new Satellite({
 - `router`: an optional router to use in place of the default one created automatically.
 
 - `disableFavicon`: if `true` the default favicon at `/favicon.ico` will not be included.
+
+- `protected`: if `true`, the entire app (all routes) will use JWT validation (defaults to `false`).
