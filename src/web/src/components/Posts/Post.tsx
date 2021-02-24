@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '100%',
         height: '2%',
         float: 'none',
-        top: '5.1em',
+        top: '8.4em',
       },
     },
     authorInfoContainer: {
@@ -147,6 +147,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: '1em',
       [theme.breakpoints.down(1200)]: {
         float: 'none',
+        paddingBottom: '0px',
         // display: 'none',
       },
     },
