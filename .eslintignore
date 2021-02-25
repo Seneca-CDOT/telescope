@@ -1,3 +1,7 @@
 # Ignore the build directories for next
-src/web/out
-src/web/.next
+src/web/out/**
+src/web/.next/**
+# We have lots of sub-projects that install their own node_modules
+**/node_modules/**
+coverage/**
+docs/**
