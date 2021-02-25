@@ -169,11 +169,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const formatPublishedDate = (dateString: string) => {
   const date: Date = new Date(dateString);
   const formatted = new Intl.DateTimeFormat('en-CA', {
-    month: 'long',
+    month: 'short',
     day: 'numeric',
     year: 'numeric',
   }).format(date);
-  return `Last Updated ${formatted}`;
+  return `${formatted}`;
 };
 
 const PostComponent = ({ postUrl }: Props) => {
