@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) =>
       // backgroundColor: 'purple',
       color: 'white',
       width: '200px',
-      height: '200px',
+      // height: '200px',
       float: 'right',
       marginRight: '-24em',
       top: '8em',
@@ -118,7 +118,6 @@ const useStyles = makeStyles((theme: Theme) =>
       // backgroundColor: 'green',
       display: 'flex',
       flexDirection: 'column',
-      // flexFlow: 'flex-end',
       borderLeft: '2.5px solid #707070',
       width: '100%',
       paddingLeft: '2em',
@@ -132,7 +131,10 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     authorNameContainer: {
+      width: 'calc(100% - 2em)',
+      // backgroundColor: 'black',
       [theme.breakpoints.down(1200)]: {
+        width: 'auto',
         padding: '0 3em 0 1em',
       },
     },
