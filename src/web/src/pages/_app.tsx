@@ -44,7 +44,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ThemeContext.Provider value={{ theme, themeName: theme.palette.type, toggleTheme }}>
       <ThemeProvider theme={theme}>
         <UserProvider>
-          {/* <Header /> */}
+          <Header />
           <Component {...pageProps} />
         </UserProvider>
       </ThemeProvider>
