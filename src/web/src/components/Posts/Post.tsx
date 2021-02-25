@@ -96,9 +96,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const formatPublishedDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const options = { month: 'long', day: 'numeric', year: 'numeric' };
-  const formatted = new Intl.DateTimeFormat('en-CA', options).format(date);
+  const date: Date = new Date(dateString);
+  const formatted = new Intl.DateTimeFormat('en-CA', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(date);
   return `Last Updated ${formatted}`;
 };
 
