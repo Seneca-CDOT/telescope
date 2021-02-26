@@ -3,7 +3,7 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import NavBar from '../components/NavBar';
-import UserProvider from '../components/UserProvider';
+import AuthProvider from '../components/AuthProvider';
 
 import { darkTheme, lightTheme } from '../theme';
 import usePreferredTheme from '../hooks/use-preferred-theme';
@@ -42,10 +42,10 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeContext.Provider value={{ theme, themeName: theme.palette.type, toggleTheme }}>
       <ThemeProvider theme={theme}>
-        <UserProvider>
+        <AuthProvider>
           <NavBar />
           <Component {...pageProps} />
-        </UserProvider>
+        </AuthProvider>
       </ThemeProvider>
     </ThemeContext.Provider>
   );

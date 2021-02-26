@@ -1,14 +1,13 @@
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { useAuthenticatedUser } from '../UserProvider';
-import config from '../../config';
-import NavBarButton, { NavBarIcon } from '../NavBar/NavBarButton';
+
+import useAuth from '../../hooks/use-auth';
+import NavBarButton, { NavBarIconProps } from '../NavBar/NavBarButton';
 
 const LoggedIn = () => {
-  const user = useAuthenticatedUser();
-  const { logoutUrl } = config;
+  const { logout, user } = useAuth();
 
-  const buttons: NavBarIcon[] = [
+  const iconProps: NavBarIconProps[] = [
     {
       href: '/myfeeds',
       title: 'My Feeds',
@@ -16,9 +15,8 @@ const LoggedIn = () => {
       Icon: AccountCircleIcon,
     },
     {
-      href: logoutUrl,
       title: 'Log Out',
-      ariaLabel: 'log out',
+      onClick: () => logout(),
       Icon: PowerSettingsNewIcon,
     },
   ];
@@ -29,8 +27,8 @@ const LoggedIn = () => {
 
   return (
     <>
-      {buttons.map((button) => (
-        <NavBarButton button={button} key={button.title} />
+      {iconProps.map((props) => (
+        <NavBarButton {...props} key={props.title} />
       ))}
     </>
   );

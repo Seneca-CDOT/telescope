@@ -9,7 +9,8 @@ import config from '../config';
 import ExistingFeedList from './ExistingFeedList';
 import HelpPopoverButton from './HelpPopoverButton';
 import CustomizedSnackBar from './SnackBar';
-import { AuthenticatedUser, Feed, FeedHash } from '../interfaces';
+import { Feed, FeedHash } from '../interfaces';
+import User from '../User';
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type MyFeedsProps = {
-  user: AuthenticatedUser;
+  user: User;
 };
 
 const MyFeeds = ({ user }: MyFeedsProps) => {
