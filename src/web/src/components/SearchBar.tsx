@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'visible',
       maxWidth: '785px',
       padding: 0,
-      marginTop: '10rem',
       marginLeft: 'auto',
       marginRight: 'auto',
       marginBottom: theme.spacing(6),
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       padding: 0,
       marginBottom: theme.spacing(2),
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.background.default,
     },
     h1: {
       display: 'block',
@@ -93,7 +92,7 @@ const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: sea
   const searchOptions = ['post', 'author'];
 
   return (
-    <Box className={classes.root} boxShadow={2}>
+    <Box className={classes.root}>
       <Paper component="form" className={classes.card} elevation={0}>
         <Grid
           container
