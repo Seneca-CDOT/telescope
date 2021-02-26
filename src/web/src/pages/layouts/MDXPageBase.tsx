@@ -17,27 +17,21 @@ type MDXPageBaseProps = {
 };
 
 const useStyles = makeStyles((theme) => {
-  const {
-    palette: {
-      primary: { main },
-    },
-  } = theme;
-
   return {
     root: {
       fontFamily: 'Roboto',
       '& h1': {
-        color: main,
+        color: theme.palette.text.secondary,
         fontSize: 24,
         paddingLeft: '5px',
       },
       '& h2': {
-        color: main,
+        color: theme.palette.text.secondary,
         fontSize: 20,
         paddingLeft: '5px',
       },
       '& p': {
-        color: main,
+        color: theme.palette.text.primary,
         fontSize: 16,
         padding: '3px 5px',
       },

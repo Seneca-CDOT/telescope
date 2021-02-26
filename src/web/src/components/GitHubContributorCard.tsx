@@ -8,14 +8,14 @@ function contributionsCount(contributions: number) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.secondary.main,
   },
   typography: {
-    color: theme.palette.primary.contrastText,
+    color: theme.palette.text.primary,
     fontSize: '13px',
   },
   link: {
-    color: theme.palette.primary.contrastText,
+    color: theme.palette.text.primary,
     textDecorationLine: 'underline',
     alignItems: 'flex-start',
   },
