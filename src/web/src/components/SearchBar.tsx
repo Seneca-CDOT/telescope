@@ -20,14 +20,24 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       overflow: 'visible',
       maxWidth: '785px',
-      padding: 0,
       marginLeft: 'auto',
       marginRight: 'auto',
+      padding: theme.spacing(2, 0, 0, 0),
       marginBottom: theme.spacing(6),
     },
     card: {
-      padding: theme.spacing(2, 4, 2, 4),
-      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing(0, 0, 0, 2),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      borderRadius: '50px',
+      background: '#d1d1d1',
+      transition: 'background-color .5s',
+      '&:hover': {
+        backgroundColor: '#ffffff',
+        border: 'solid 1px',
+        borderColor: '#999999',
+      },
     },
     header: {
       padding: 0,
@@ -50,7 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     iconButton: {
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: '#999999',
       '&:hover': {
         backgroundColor: theme.palette.secondary.dark,
       },
@@ -65,9 +75,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selectControl: {
       '& > *': {
-        fontSize: '1.2rem',
+        fontSize: '1.5rem',
         textTransform: 'capitalize',
         color: theme.palette.primary.main,
+        paddingLeft: '2rem',
       },
     },
     selectItem: {
@@ -94,30 +105,14 @@ const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: sea
   return (
     <Box className={classes.root}>
       <Paper component="form" className={classes.card} elevation={0}>
-        <Grid
-          container
-          className={classes.header}
-          direction="row"
-          spacing={8}
-          alignItems="center"
-          justify="flex-start"
-        >
-          <Grid item>
-            <Typography variant="h1" className={classes.h1}>
-              Search
-            </Typography>
-          </Grid>
-          <SearchHelp />
-        </Grid>
         <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth>
               <TextField
                 id="standard-select-search-type"
                 select
-                label="Filter"
                 value={filter}
-                variant="outlined"
+                InputProps={{ disableUnderline: true }}
                 className={classes.selectControl}
                 onChange={(event) => onFilterChange(event.target.value)}
               >
