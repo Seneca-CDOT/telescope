@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'visible',
       maxWidth: '785px',
       padding: 0,
-      //marginTop: '10rem',
       marginLeft: 'auto',
       marginRight: 'auto',
       marginBottom: theme.spacing(6),
