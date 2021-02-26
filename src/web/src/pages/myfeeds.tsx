@@ -1,14 +1,15 @@
 import Head from 'next/head';
 
 import BackToTopButton from '../components/BackToTopButton';
-import { useAuthenticatedUser } from '../components/UserProvider';
+import useAuth from '../hooks/use-auth';
 import MyFeeds from '../components/MyFeeds';
 
 const MyFeedsPage = () => {
-  const authenticated = useAuthenticatedUser(true);
+  const { login, user } = useAuth();
 
-  if (!authenticated) {
-    return null;
+  // Redirect the user to login if they aren't authenticated already
+  if (!user) {
+    return login('/myfeeds');
   }
 
   return (
@@ -18,7 +19,7 @@ const MyFeedsPage = () => {
       </Head>
       <BackToTopButton />
       <main className="main">
-        <MyFeeds user={authenticated} />
+        <MyFeeds user={user} />
       </main>
     </>
   );

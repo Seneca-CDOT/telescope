@@ -1,6 +1,7 @@
+import { MouseEventHandler } from 'react';
 import Link from 'next/link';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { IconButton, Tooltip, Zoom, SvgIconTypeMap } from '@material-ui/core';
+import { IconButton, Button, Tooltip, Zoom, SvgIconTypeMap } from '@material-ui/core';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 
 const useStyles = makeStyles(() => ({
@@ -23,25 +24,54 @@ const ButtonTooltip = withStyles({
   },
 })(Tooltip);
 
-export type NavBarIcon = {
-  href: string;
+interface NavBarIconBase {
   title: string;
-  ariaLabel: string;
   Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
-};
+}
 
-const NavBarButton = ({ button }: { button: NavBarIcon }) => {
+interface NavBarIconButton extends NavBarIconBase {
+  onClick: MouseEventHandler;
+}
+
+interface NavBarIconLink extends NavBarIconBase {
+  href: string;
+  ariaLabel: string;
+}
+
+export type NavBarIconProps = NavBarIconButton | NavBarIconLink;
+
+const NavBarButton = (props: NavBarIconProps) => {
   const classes = useStyles();
-  const { href, title, ariaLabel, Icon } = button;
 
+  if (!props) {
+    return null;
+  }
+
+  if ('href' in props) {
+    const { href, title, ariaLabel, Icon } = props;
+    return (
+      <Link href={href} passHref>
+        <ButtonTooltip title={title} arrow placement="top" TransitionComponent={Zoom}>
+          <IconButton
+            color="inherit"
+            className={classes.button}
+            aria-label={ariaLabel}
+            component="a"
+          >
+            <Icon className={classes.icon} />
+          </IconButton>
+        </ButtonTooltip>
+      </Link>
+    );
+  }
+
+  const { onClick, title, Icon } = props;
   return (
-    <Link href={href} passHref>
-      <ButtonTooltip title={title} arrow placement="top" TransitionComponent={Zoom}>
-        <IconButton color="inherit" className={classes.button} aria-label={ariaLabel} component="a">
-          <Icon className={classes.icon} />
-        </IconButton>
-      </ButtonTooltip>
-    </Link>
+    <ButtonTooltip title={title} arrow placement="top" TransitionComponent={Zoom}>
+      <Button color="inherit" className={classes.button} onClick={onClick}>
+        <Icon className={classes.icon} />
+      </Button>
+    </ButtonTooltip>
   );
 };
 

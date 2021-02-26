@@ -1,19 +1,3 @@
-export interface User {
-  isLoggedIn: boolean;
-}
-
-export interface AuthenticatedUser extends User {
-  name: string;
-  email: string;
-  id: string;
-  isAdmin: boolean;
-  isLoggedIn: true;
-}
-
-export interface AdminUser extends AuthenticatedUser {
-  isAdmin: true;
-}
-
 export type Feed = {
   id: string;
   author: string;
