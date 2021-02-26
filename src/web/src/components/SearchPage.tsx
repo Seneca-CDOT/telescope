@@ -1,5 +1,5 @@
 import { FormEvent, useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 
 import SearchResults from './SearchResults';
@@ -10,7 +10,11 @@ type FilterProp = {
   filter: 'post' | 'author';
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
+  searchPage: {
+    backgroundColor: theme.palette.background.default,
+    minHeight: '100vh',
+  },
   anchor: {
     position: 'absolute',
     top: 0,
@@ -49,7 +53,7 @@ const SearchPage = () => {
   }, [textParam, filterParam]);
 
   return (
-    <div>
+    <div className={classes.searchPage}>
       <div className={classes.anchor} id="back-to-top-anchor" />
       <div className={classes.anchorMobile} id="back-to-top-anchor-mobile" />
       <SearchBar
