@@ -53,9 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       textAlign: 'center',
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '2.5em',
-      },
+      // [theme.breakpoints.between('xs', 'sm')]: {
+      // fontSize: '2.5em',
+      // },
     },
     author: {
       fontSize: '2em',
@@ -66,9 +66,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '2em',
       textDecoration: 'none',
       color: theme.palette.text.primary,
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '1em',
-      },
+      // [theme.breakpoints.between('xs', 'sm')]: {
+      //   fontSize: '1em',
+      // },
     },
     content: {
       overflow: 'auto',

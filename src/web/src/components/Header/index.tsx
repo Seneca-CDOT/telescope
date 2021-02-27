@@ -3,7 +3,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 // import MobileHeader from './MobileHeader';
-import { Toolbar } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
 import DesktopHeader from './DesktopHeader';
 import MobileHeader from './MobileHeader';
 import Logo from '../Logo';
@@ -28,7 +28,7 @@ function Header() {
   const classes = useStyles();
 
   return (
-    <>
+    <AppBar>
       <Toolbar className={classes.logoIcon}>
         <Link href="/" passHref>
           <a>
@@ -37,7 +37,7 @@ function Header() {
         </Link>
       </Toolbar>
       {matches ? <MobileHeader /> : <DesktopHeader />}
-    </>
+    </AppBar>
   );
 }
 
