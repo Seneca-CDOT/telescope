@@ -35,13 +35,16 @@ const useStyles = makeStyles((theme) => ({
     height: '27rem',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+  },
+  button: {
+    margin: '0 0.5rem',
   },
   grow: {
     flex: 1,
   },
   logoIcon: {
-    margin: '0 0.5rem 0 0.5rem',
+    margin: '0 0.5rem',
   },
 }));
 
@@ -71,13 +74,12 @@ export default function DesktopHeader() {
 
   return (
     <AppBar className={classes.root}>
+      <Link href="/" passHref>
+        <a className={classes.logoIcon}>
+          <Logo height={45} width={45} />
+        </a>
+      </Link>
       <Toolbar className={classes.toolbar}>
-        <Link href="/" passHref>
-          <a className={classes.logoIcon}>
-            <Logo height={45} width={45} />
-          </a>
-        </Link>
-
         <div className={classes.grow} />
 
         {buttons.map((button) => (
