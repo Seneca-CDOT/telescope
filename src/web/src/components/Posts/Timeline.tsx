@@ -16,14 +16,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: 0,
       // float: 'right',
-      width: '800px', // I NEED TO CHECK THIS.
+      width: '800px',
       // border: '15px solid yellow',
-    },
-    activeCircle: {
-      // REMOVE THIS CLASS
-      borderRadius: '4rem',
-      transition: 'all linear 250ms',
-      color: theme.palette.primary.main,
+      [theme.breakpoints.down(900)]: {
+        width: '90%',
+      },
     },
     noMorePosts: {
       display: 'flex',
