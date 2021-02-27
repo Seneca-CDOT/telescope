@@ -84,7 +84,7 @@
     "express-healthcheck": "0.1.0",
     "express-pino-logger": "6.0.0",
     "express-session": "1.17.1",
-    "express-validator": "6.9.2",
+    "express-validator": "6.10.0",
     "feed": "4.2.2",
     "feedparser-promised": "2.0.1",
     "git-repo-info": "2.1.1",
