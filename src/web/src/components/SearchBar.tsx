@@ -32,11 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       borderRadius: '50px',
       background: '#d1d1d1',
+      border: 'solid 1px transparent',
       transition: 'background-color .5s',
       '&:hover': {
         backgroundColor: '#ffffff',
-        border: 'solid 1px',
-        borderColor: '#999999',
+        border: 'solid 1px #999999',
       },
     },
     header: {
