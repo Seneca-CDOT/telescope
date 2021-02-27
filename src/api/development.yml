@@ -1,0 +1,63 @@
+################################################################################
+# Development containers only to support local development, testing, and CI.
+#
+# This docker-compose file is meant to be used with src/api/docker-compose.yml
+# as a base specification:
+#
+# $ docker-compose -f docker-compose.yml -f development.yml up -d
+#
+# See https://docs.docker.com/compose/production/
+################################################################################
+version: '3'
+
+services:
+  # Firebase Emulator for offline testing
+  firebase:
+    container_name: 'firebase'
+    image: andreysenov/firebase-tools
+    volumes:
+      # Copy firebase.config into the container so we get proper ip/port binding
+      - ./config/firebase.json:/home/node/firebase.json
+    command: firebase emulators:start --project telescope --only firestore
+    ports:
+      # Emulator Suite UI
+      - '4000'
+      # Cloud Firestore
+      - '8088:8088'
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik on the firebase container
+      - 'traefik.enable=true'
+      # Traefik routing for the firebase UI at http://ui.firebase.localhost
+      - 'traefik.http.routers.firebase_ui.rule=Host(`ui.firebase.localhost`)'
+      - 'traefik.http.routers.firebase_ui.service=firebase_ui'
+      - 'traefik.http.services.firebase_ui.loadbalancer.server.port=4000'
+      # Traefik routing for the Firebase Firestore at http://firestore.firebase.localhost
+      - 'traefik.http.routers.firebase_firestore.rule=Host(`firestore.firebase.localhost`)'
+      - 'traefik.http.routers.firebase_firestore.service=firebase_firestore'
+      - 'traefik.http.services.firebase_firestore.loadbalancer.server.port=8088'
+
+  # SSO Identity Provider test service, https://simplesamlphp.org
+  # Access to the login page available at http://login.localhost/simplesaml
+  login:
+    image: kristophjunge/test-saml-idp
+    container_name: 'login'
+    ports:
+      - '8080'
+    depends_on:
+      - traefik
+    environment:
+      - SIMPLESAMLPHP_SP_ENTITY_ID=${SAML_ENTITY_ID}
+      - SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE=${SSO_LOGIN_CALLBACK_URL}
+      - SIMPLESAMLPHP_SP_SINGLE_LOGOUT_SERVICE=${SLO_LOGOUT_CALLBACK_URL}
+    volumes:
+      - ./auth/config/simplesamlphp-users.php:/var/www/simplesamlphp/config/authsources.php
+      - ./auth/config/saml20-idp-hosted.php:/var/www/simplesamlphp/metadata/saml20-idp-hosted.php
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for login at http://login.localhost/simplesaml
+      - 'traefik.http.routers.login.rule=Host(`login.localhost`)'
+      # Specify the login port
+      - 'traefik.http.services.login.loadbalancer.server.port=8080'
