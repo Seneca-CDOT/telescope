@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '785px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      padding: theme.spacing(2, 0, 0, 0),
+      padding: theme.spacing(2, 2, 0, 2),
       marginBottom: theme.spacing(6),
     },
     card: {
