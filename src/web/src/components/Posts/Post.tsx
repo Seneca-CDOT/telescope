@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader, createStyles } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import { Container } from 'next/app';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
@@ -19,10 +20,10 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5rem',
       marginBottom: '4em',
       backgroundColor: theme.palette.background.default,
-      // border: '15px solid gray',
+      border: '15px solid gray',
     },
-    header: {
-      // border: '5px solid red',
+    titleContainer: {
+      border: '5px solid red',
       width: '100%',
       // backgroundColor: theme.palette.background.default,
       color: theme.palette.text.secondary,
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
         paddingBottom: '1em',
+        gridArea: 'title',
       },
       // [theme.breakpoints.down(1065)]: {
       //   position: 'static',
@@ -53,9 +55,9 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       textAlign: 'center',
-      // [theme.breakpoints.between('xs', 'sm')]: {
-      // fontSize: '2.5em',
-      // },
+      [theme.breakpoints.down(900)]: {
+        fontSize: '1.5em',
+      },
     },
     author: {
       fontSize: '2em',
@@ -96,7 +98,15 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: '1.00',
       fontSize: '1em',
     },
-    test: {
+    titleAndAuthorContainer: {
+      [theme.breakpoints.down(1200)]: {
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr',
+        // gridTemplateAreas: 'avatar title title',
+      },
+    },
+    postInfo: {
+      border: '10px solid blue',
       // backgroundColor: 'purple',
       color: 'white',
       width: '200px',
@@ -107,11 +117,13 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: '100%',
       [theme.breakpoints.down(1200)]: {
         // backgroundColor: 'blue',
-        color: 'blue',
         width: '100%',
         height: '2%',
         float: 'none',
         top: '8.4em',
+      },
+      [theme.breakpoints.down(900)]: {
+        top: '4em',
       },
     },
     authorInfoContainer: {
@@ -123,11 +135,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: '2em',
       height: '100%',
       [theme.breakpoints.down(1200)]: {
-        // backgroundColor: 'yellow',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderLeft: 'none',
+        display: 'initial',
+      },
+      [theme.breakpoints.down(1024)]: {
+        justifyContent: 'flex-start',
       },
     },
     authorNameContainer: {
@@ -136,12 +147,18 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         width: 'auto',
         padding: '0 3em 0 1em',
+        gridArea: 'author',
+      },
+      [theme.breakpoints.down(1024)]: {
+        fontSize: '0.6em',
+        padding: '0',
       },
     },
     publishedDateContainer: {
-      // [theme.breakpoints.down(1200)]: {
-      //   // alignSelf: 'flex-end',
-      // },
+      [theme.breakpoints.down(1200)]: {
+        fontSize: '0.6em',
+        gridArea: 'date',
+      },
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
@@ -152,7 +169,11 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         float: 'none',
         paddingBottom: '0px',
+        gridArea: 'avatar',
         // display: 'none',
+      },
+      [theme.breakpoints.down(1024)]: {
+        display: 'none',
       },
     },
     circle: {
@@ -192,7 +213,7 @@ const PostComponent = ({ postUrl }: Props) => {
     console.error(`Error loading post at ${postUrl}`, error);
     return (
       <Box className={classes.root} boxShadow={2}>
-        <ListSubheader className={classes.header}>
+        <ListSubheader className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
             <Grid container className={classes.error}>
@@ -210,7 +231,7 @@ const PostComponent = ({ postUrl }: Props) => {
   if (!post) {
     return (
       <Box className={classes.root} boxShadow={2}>
-        <ListSubheader className={classes.header}>
+        <ListSubheader className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
             Loading Blog...
@@ -228,41 +249,43 @@ const PostComponent = ({ postUrl }: Props) => {
 
   return (
     <Box className={classes.root}>
-      <ListSubheader className={classes.header}>
-        <AdminButtons />
-        <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={() => setExpandHeader(!expandHeader)}
-            onKeyDown={() => setExpandHeader(!expandHeader)}
-            className={expandHeader ? classes.expandHeader : classes.collapseHeader}
-          >
-            {post.title}
-          </span>
-        </Typography>
-      </ListSubheader>
-      <ListSubheader className={classes.test}>
-        <div className={classes.authorInfoContainer}>
-          <div className={classes.authorAvatarContainer}>
-            <div className={classes.circle} />
-          </div>
-          <div className={classes.authorNameContainer}>
-            <Typography variant="caption" className={classes.author}>
-              <a className={classes.link} href={post.feed.url}>
-                {post.feed.author}
+      <Container className={classes.titleAndAuthorContainer}>
+        <ListSubheader className={classes.titleContainer}>
+          <AdminButtons />
+          <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={() => setExpandHeader(!expandHeader)}
+              onKeyDown={() => setExpandHeader(!expandHeader)}
+              className={expandHeader ? classes.expandHeader : classes.collapseHeader}
+            >
+              {post.title}
+            </span>
+          </Typography>
+        </ListSubheader>
+        <ListSubheader className={classes.postInfo}>
+          <div className={classes.authorInfoContainer}>
+            <div className={classes.authorAvatarContainer}>
+              <div className={classes.circle} />
+            </div>
+            <div className={classes.authorNameContainer}>
+              <Typography variant="caption" className={classes.author}>
+                <a className={classes.link} href={post.feed.url}>
+                  {post.feed.author}
+                </a>
+              </Typography>
+            </div>
+            <div className={classes.publishedDateContainer}>
+              <a href={post.url} rel="bookmark" className={classes.published}>
+                <time className={classes.time} dateTime={post.updated}>
+                  {` ${formatPublishedDate(post.updated)}`}
+                </time>
               </a>
-            </Typography>
+            </div>
           </div>
-          <div className={classes.publishedDateContainer}>
-            <a href={post.url} rel="bookmark" className={classes.published}>
-              <time className={classes.time} dateTime={post.updated}>
-                {` ${formatPublishedDate(post.updated)}`}
-              </time>
-            </a>
-          </div>
-        </div>
-      </ListSubheader>
+        </ListSubheader>
+      </Container>
 
       <div className={classes.content}>
         <section

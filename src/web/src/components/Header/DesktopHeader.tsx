@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -8,6 +9,7 @@ import HeaderButton, { HeaderIcon } from './HeaderButton';
 // 1.7 band-aid (Removing theme | line 6)
 // import dynamic from 'next/dynamic';
 
+import Logo from '../Logo';
 import Login from '../Login';
 
 /**  This will solve the problem of incorrect rendering of theme icon when theme preference is dark
@@ -33,10 +35,13 @@ const useStyles = makeStyles((theme) => ({
     height: '27rem',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   grow: {
     flex: 1,
+  },
+  logoIcon: {
+    margin: '0 0.5rem 0 0.5rem',
   },
 }));
 
@@ -67,6 +72,12 @@ export default function DesktopHeader() {
   return (
     <AppBar className={classes.root}>
       <Toolbar className={classes.toolbar}>
+        <Link href="/" passHref>
+          <a className={classes.logoIcon}>
+            <Logo height={45} width={45} />
+          </a>
+        </Link>
+
         <div className={classes.grow} />
 
         {buttons.map((button) => (
