@@ -14,13 +14,11 @@ const useStyles = makeStyles((theme) =>
     root: {
       padding: 0,
       backgroundColor: '#E5E5E5',
-      // backgroundColor: 'black',
       color: 'white',
       width: '100vw',
     },
     postsWrapper: {
       width: '100%',
-      // border: '5px solid red',
     },
     error: {
       color: '#B5B5B5',
