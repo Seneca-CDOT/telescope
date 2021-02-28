@@ -2,9 +2,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Avatar, Grid } from '@material-ui/core';
 import useTelescopeContributor from '../hooks/use-telescope-contributor';
 
-function contributionsCount(contributions: number) {
-  return contributions < 3 ? 'contributions.' : `${contributions} contributions.`;
-}
+const contributionsCount = (contributions: number) =>
+  contributions < 2 ? '1 contribution.' : `${contributions} contributions.`;
 
 const useStyles = makeStyles((theme) => ({
   root: {

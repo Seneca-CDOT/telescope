@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
-import useSWR from 'swr';
+import { useSWRInfinite } from 'swr';
 
 export type Contributor = {
   avatar_url: string;
@@ -12,15 +12,30 @@ export type Contributor = {
 const telescopeGitHubContributorsUrl =
   'https://api.github.com/repos/Seneca-CDOT/telescope/contributors';
 
-const randomContributor = (contributors?: []) =>
+const randomContributor = (contributors?: any[]) =>
   contributors ? contributors[Math.floor(Math.random() * contributors.length)] : null;
 
+const PER_PAGE: number = 50;
+
 const useTelescopeContributor = () => {
-  const { data, error } = useSWR(telescopeGitHubContributorsUrl);
-  const [contributor, setContributor] = useState<Contributor | null>(data);
+  const [contributor, setContributor] = useState<Contributor | null>(null);
+
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index: number) => `${telescopeGitHubContributorsUrl}?page=${index + 1}&per_page=${PER_PAGE}`
+  );
+
+  if (
+    size > 0 &&
+    typeof data?.[size - 1] !== 'undefined' &&
+    data?.[data.length - 1]?.length === PER_PAGE
+  ) {
+    setSize(size + 1);
+  }
 
   useEffect(() => {
-    setContributor(randomContributor(data));
+    if (data && data?.[data.length - 1].length < PER_PAGE) {
+      setContributor(randomContributor(data.flat()));
+    }
   }, [data]);
 
   return { contributor, error };
