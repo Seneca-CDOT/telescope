@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
-import { useSWRInfinite } from 'swr';
+import { useLocalStorage } from 'react-use';
+import useSWR from 'swr';
 
 export type Contributor = {
   avatar_url: string;
@@ -12,33 +13,60 @@ export type Contributor = {
 const telescopeGitHubContributorsUrl =
   'https://api.github.com/repos/Seneca-CDOT/telescope/contributors';
 
-const randomContributor = (contributors?: any[]) =>
-  contributors ? contributors[Math.floor(Math.random() * contributors.length)] : null;
+const prepareURL = (page?: number): string =>
+  `${telescopeGitHubContributorsUrl}?per_page=1&${page ? `page=${page}` : ''}`;
 
-const PER_PAGE: number = 50;
+const getPage = (links: string, rel: string): string | undefined => {
+  // Header link is the form  '<...?per_page=1&page="page">; rel="key">', last page is also the contributors count
+  const regex = new RegExp(`<[^?]+\\?per_page=1&[a-z]+=([\\d]+)>;[\\s]*rel="${rel}"`, 'g');
+  const arr = regex.exec(links);
+  return arr?.[1];
+};
+
+// We'll update github contributors count once every 30 days
+const maxAge = 30 * 24 * 60 * 60 * 1000;
 
 const useTelescopeContributor = () => {
-  const [contributor, setContributor] = useState<Contributor | null>(null);
+  const [maxContributors, setMaxContributors] = useLocalStorage<number>(
+    'github_contributors',
+    undefined,
+    {
+      raw: true,
+    }
+  );
+  const [fetchDate, setFetchDate] = useLocalStorage<number>('fetch_date', undefined, { raw: true });
+  const [random, setRandom] = useState<number>(-1);
 
-  const { data, error, size, setSize } = useSWRInfinite(
-    (index: number) => `${telescopeGitHubContributorsUrl}?page=${index + 1}&per_page=${PER_PAGE}`
+  const shouldUpdate = !maxContributors || !fetchDate || Date.now() - fetchDate >= maxAge;
+
+  const { data: lastPage, error: countError } = useSWR(
+    () => (shouldUpdate ? prepareURL() : null),
+    async (url) => {
+      const response = await fetch(url);
+      const links = response.headers.get('Link') || '';
+      return getPage(links, 'last');
+    }
   );
 
-  if (
-    size > 0 &&
-    typeof data?.[size - 1] !== 'undefined' &&
-    data?.[data.length - 1]?.length === PER_PAGE
-  ) {
-    setSize(size + 1);
+  if (lastPage) {
+    setMaxContributors(parseInt(lastPage, 10));
+    setFetchDate(Date.now());
   }
 
   useEffect(() => {
-    if (data && data?.[data.length - 1].length < PER_PAGE) {
-      setContributor(randomContributor(data.flat()));
-    }
-  }, [data]);
+    if (!shouldUpdate && maxContributors)
+      setRandom(Math.floor(Math.random() * maxContributors + 1));
+  }, [shouldUpdate, maxContributors]);
 
-  return { contributor, error };
+  // Github api returns an array of contributors [ {...} ]
+  const { data: contributors, error: contributorError } = useSWR<Contributor[] | null>(() =>
+    random !== -1 ? prepareURL(random) : null
+  );
+
+  const error = countError || contributorError || null;
+
+  // The random contributor is the first in the array and the only contributor fetched
+  return { contributor: contributors?.[0], error };
 };
 
 export default useTelescopeContributor;
