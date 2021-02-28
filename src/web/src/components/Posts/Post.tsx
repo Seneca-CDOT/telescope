@@ -15,31 +15,22 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      fontFamily: 'Spartan',
       padding: 0,
       fontSize: '1.5rem',
       marginBottom: '4em',
       backgroundColor: theme.palette.background.default,
-      border: '15px solid gray',
     },
     titleContainer: {
-      border: '5px solid red',
       width: '100%',
-      // backgroundColor: theme.palette.background.default,
       color: theme.palette.text.secondary,
       padding: '2em 3em 1.5em 3em',
       lineHeight: '1.3',
-      // zIndex: 1100,
       top: '-1.1em',
       fontSize: '0.9em',
       [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
         paddingBottom: '1em',
-        gridArea: 'title',
       },
-      // [theme.breakpoints.down(1065)]: {
-      //   position: 'static',
-      // },
     },
     expandHeader: {
       whiteSpace: 'normal',
@@ -55,9 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       textAlign: 'center',
-      [theme.breakpoints.down(900)]: {
-        fontSize: '1.5em',
-      },
     },
     author: {
       fontSize: '2em',
@@ -68,13 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '2em',
       textDecoration: 'none',
       color: theme.palette.text.primary,
-      // [theme.breakpoints.between('xs', 'sm')]: {
-      //   fontSize: '1em',
-      // },
     },
     content: {
       overflow: 'auto',
-      // border: '10px solid blue',
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.default,
       width: '100%',
@@ -98,36 +82,22 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: '1.00',
       fontSize: '1em',
     },
-    titleAndAuthorContainer: {
-      [theme.breakpoints.down(1200)]: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr',
-        // gridTemplateAreas: 'avatar title title',
-      },
-    },
+    titleAndAuthorContainer: {},
     postInfo: {
-      border: '10px solid blue',
-      // backgroundColor: 'purple',
       color: 'white',
       width: '200px',
-      // height: '200px',
       float: 'right',
       marginRight: '-24em',
       top: '8em',
       bottom: '100%',
       [theme.breakpoints.down(1200)]: {
-        // backgroundColor: 'blue',
         width: '100%',
         height: '2%',
         float: 'none',
         top: '8.4em',
       },
-      [theme.breakpoints.down(900)]: {
-        top: '4em',
-      },
     },
     authorInfoContainer: {
-      // backgroundColor: 'green',
       display: 'flex',
       flexDirection: 'column',
       borderLeft: '2.5px solid #707070',
@@ -135,29 +105,21 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: '2em',
       height: '100%',
       [theme.breakpoints.down(1200)]: {
-        display: 'initial',
-      },
-      [theme.breakpoints.down(1024)]: {
-        justifyContent: 'flex-start',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        border: 'none',
       },
     },
     authorNameContainer: {
       width: 'calc(100% - 2em)',
-      // backgroundColor: 'black',
       [theme.breakpoints.down(1200)]: {
         width: 'auto',
         padding: '0 3em 0 1em',
-        gridArea: 'author',
-      },
-      [theme.breakpoints.down(1024)]: {
-        fontSize: '0.6em',
-        padding: '0',
       },
     },
     publishedDateContainer: {
       [theme.breakpoints.down(1200)]: {
         fontSize: '0.6em',
-        gridArea: 'date',
       },
     },
     authorAvatarContainer: {
@@ -169,11 +131,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         float: 'none',
         paddingBottom: '0px',
-        gridArea: 'avatar',
-        // display: 'none',
-      },
-      [theme.breakpoints.down(1024)]: {
-        display: 'none',
       },
     },
     circle: {
