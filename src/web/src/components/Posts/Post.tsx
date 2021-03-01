@@ -3,7 +3,6 @@ import useSWR from 'swr';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Grid, Typography, ListSubheader, createStyles } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
-import { Container } from 'next/app';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
@@ -15,7 +14,7 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: 0,
+      padding: '0',
       fontSize: '1.5rem',
       marginBottom: '4em',
       backgroundColor: theme.palette.background.default,
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
     titleContainer: {
       width: '100%',
       color: theme.palette.text.secondary,
-      padding: '2em 0em 1.5em',
+      padding: '2em 0 1.5em',
       lineHeight: '1.3',
       top: '-1.1em',
       fontSize: '0.9em',
@@ -80,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '20px',
     },
     error: {
-      lineHeight: '1.00',
+      lineHeight: '1',
       fontSize: '1em',
     },
     postInfo: {
@@ -130,7 +129,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: '1em',
       [theme.breakpoints.down(1200)]: {
         float: 'none',
-        paddingBottom: '0px',
+        paddingBottom: '0',
       },
     },
     circle: {
@@ -150,12 +149,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const formatPublishedDate = (dateString: string) => {
   const date: Date = new Date(dateString);
-  const formatted = new Intl.DateTimeFormat('en-CA', {
+  return new Intl.DateTimeFormat('en-CA', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
   }).format(date);
-  return `${formatted}`;
 };
 
 const PostComponent = ({ postUrl }: Props) => {
@@ -169,7 +167,7 @@ const PostComponent = ({ postUrl }: Props) => {
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
     return (
-      <Box className={classes.root} boxShadow={2}>
+      <Box className={classes.root}>
         <ListSubheader className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
@@ -187,7 +185,7 @@ const PostComponent = ({ postUrl }: Props) => {
 
   if (!post) {
     return (
-      <Box className={classes.root} boxShadow={2}>
+      <Box className={classes.root}>
         <ListSubheader className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
@@ -206,43 +204,41 @@ const PostComponent = ({ postUrl }: Props) => {
 
   return (
     <Box className={classes.root}>
-      <Container>
-        <ListSubheader className={classes.titleContainer}>
-          <AdminButtons />
-          <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-            <span
-              role="button"
-              tabIndex={0}
-              onClick={() => setExpandHeader(!expandHeader)}
-              onKeyDown={() => setExpandHeader(!expandHeader)}
-              className={expandHeader ? classes.expandHeader : classes.collapseHeader}
-            >
-              {post.title}
-            </span>
-          </Typography>
-        </ListSubheader>
-        <ListSubheader className={classes.postInfo}>
-          <div className={classes.authorInfoContainer}>
-            <div className={classes.authorAvatarContainer}>
-              <div className={classes.circle} />
-            </div>
-            <div className={classes.authorNameContainer}>
-              <Typography variant="subtitle2" className={classes.author}>
-                <a className={classes.link} href={post.feed.link}>
-                  {post.feed.author}
-                </a>
-              </Typography>
-            </div>
-            <div className={classes.publishedDateContainer}>
-              <a href={post.url} rel="bookmark" className={classes.published}>
-                <time className={classes.time} dateTime={post.updated}>
-                  {` ${formatPublishedDate(post.updated)}`}
-                </time>
-              </a>
-            </div>
+      <ListSubheader className={classes.titleContainer}>
+        <AdminButtons />
+        <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+          <span
+            role="button"
+            tabIndex={0}
+            onClick={() => setExpandHeader(!expandHeader)}
+            onKeyDown={() => setExpandHeader(!expandHeader)}
+            className={expandHeader ? classes.expandHeader : classes.collapseHeader}
+          >
+            {post.title}
+          </span>
+        </Typography>
+      </ListSubheader>
+      <ListSubheader className={classes.postInfo}>
+        <div className={classes.authorInfoContainer}>
+          <div className={classes.authorAvatarContainer}>
+            <div className={classes.circle} />
           </div>
-        </ListSubheader>
-      </Container>
+          <div className={classes.authorNameContainer}>
+            <Typography variant="subtitle2" className={classes.author}>
+              <a className={classes.link} href={post.feed.link}>
+                {post.feed.author}
+              </a>
+            </Typography>
+          </div>
+          <div className={classes.publishedDateContainer}>
+            <a href={post.url} rel="bookmark" className={classes.published}>
+              <time className={classes.time} dateTime={post.updated}>
+                {` ${formatPublishedDate(post.updated)}`}
+              </time>
+            </a>
+          </div>
+        </div>
+      </ListSubheader>
 
       <div className={classes.content}>
         <section

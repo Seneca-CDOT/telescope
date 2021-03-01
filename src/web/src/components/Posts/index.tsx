@@ -12,7 +12,7 @@ import { Post } from '../../interfaces';
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      padding: 0,
+      padding: '0',
       backgroundColor: '#E5E5E5',
       color: 'white',
       width: '100vw',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) =>
     errorIcon: {
       color: '#B5B5B5',
       fontSize: '10rem',
-      paddingBottom: 0,
+      paddingBottom: '0',
     },
   })
 );

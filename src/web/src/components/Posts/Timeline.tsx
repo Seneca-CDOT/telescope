@@ -14,7 +14,7 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: 0,
+      padding: '0',
       width: '800px',
       [theme.breakpoints.down(900)]: {
         width: '90%',
