@@ -206,7 +206,7 @@ const PostComponent = ({ postUrl }: Props) => {
 
   return (
     <Box className={classes.root}>
-      <Container className={classes.titleAndAuthorContainer}>
+      <Container>
         <ListSubheader className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
