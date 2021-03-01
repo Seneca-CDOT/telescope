@@ -83,7 +83,6 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: '1.00',
       fontSize: '1em',
     },
-    titleAndAuthorContainer: {},
     postInfo: {
       color: 'white',
       width: '200px',
