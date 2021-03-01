@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
     },
     titleContainer: {
-      // backgroundColor: 'yellow',
       width: '100%',
       color: theme.palette.text.secondary,
       padding: '2em 0em 1.5em',
