@@ -21,9 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
     },
     titleContainer: {
+      // backgroundColor: 'yellow',
       width: '100%',
       color: theme.palette.text.secondary,
-      padding: '2em 3em 1.5em 3em',
+      padding: '2em 0em 1.5em',
       lineHeight: '1.3',
       top: '-1.1em',
       fontSize: '0.9em',
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
     },
     title: {
-      fontSize: '3.5em',
+      fontSize: '3em',
       fontWeight: 'bold',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
@@ -53,7 +54,8 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
     },
     published: {
-      fontSize: '2em',
+      fontSize: '1.5em',
+      fontWeight: 'lighter',
       textDecoration: 'none',
       color: theme.palette.text.primary,
     },
@@ -227,7 +229,7 @@ const PostComponent = ({ postUrl }: Props) => {
               <div className={classes.circle} />
             </div>
             <div className={classes.authorNameContainer}>
-              <Typography variant="caption" className={classes.author}>
+              <Typography variant="subtitle2" className={classes.author}>
                 <a className={classes.link} href={post.feed.link}>
                   {post.feed.author}
                 </a>
