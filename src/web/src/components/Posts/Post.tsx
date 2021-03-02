@@ -14,24 +14,21 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: 0,
+      padding: '0',
       fontSize: '1.5rem',
       marginBottom: '4em',
       backgroundColor: theme.palette.background.default,
     },
-    header: {
-      backgroundColor: theme.palette.primary.main,
+    titleContainer: {
+      width: '100%',
       color: theme.palette.text.secondary,
-      padding: '2em 3em 1.5em 3em',
+      padding: '2em 0 1.5em',
       lineHeight: '1.3',
-      zIndex: 1100,
       top: '-1.1em',
-      [theme.breakpoints.down(1440)]: {
+      fontSize: '0.9em',
+      [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
         paddingBottom: '1em',
-      },
-      [theme.breakpoints.down(1065)]: {
-        position: 'static',
       },
     },
     expandHeader: {
@@ -43,39 +40,32 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
     },
     title: {
-      fontSize: '3.5em',
+      fontSize: '3em',
       fontWeight: 'bold',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '2.5em',
-      },
+      textAlign: 'center',
     },
     author: {
-      fontSize: '1.5em',
+      fontSize: '2em',
       fontWeight: 'bold',
-      color: theme.palette.primary.contrastText,
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '1.2em',
-      },
+      color: theme.palette.text.primary,
     },
     published: {
-      fontSize: '1.2em',
+      fontSize: '1.5em',
+      fontWeight: 'lighter',
       textDecoration: 'none',
-      color: theme.palette.primary.contrastText,
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '1em',
-      },
+      color: theme.palette.text.primary,
     },
     content: {
       overflow: 'auto',
-      padding: '2em',
       color: theme.palette.text.primary,
-      backgroundColor: theme.palette.background.paper,
+      backgroundColor: theme.palette.background.default,
+      width: '100%',
     },
     link: {
       textDecoration: 'none',
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.text.primary,
       '&:hover': {
         textDecorationLine: 'underline',
       },
@@ -89,20 +79,81 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '20px',
     },
     error: {
-      lineHeight: '1.00',
+      lineHeight: '1',
       fontSize: '1em',
+    },
+    postInfo: {
+      color: 'white',
+      width: '200px',
+      float: 'right',
+      marginRight: '-24em',
+      top: '8em',
+      bottom: '100%',
+      [theme.breakpoints.down(1200)]: {
+        width: '100%',
+        height: '2%',
+        float: 'none',
+        top: '8.4em',
+      },
+    },
+    authorInfoContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      borderLeft: '2.5px solid #707070',
+      width: '100%',
+      paddingLeft: '2em',
+      height: '100%',
+      [theme.breakpoints.down(1200)]: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        border: 'none',
+      },
+    },
+    authorNameContainer: {
+      width: 'calc(100% - 2em)',
+      [theme.breakpoints.down(1200)]: {
+        width: 'auto',
+        padding: '0 3em 0 1em',
+      },
+    },
+    publishedDateContainer: {
+      [theme.breakpoints.down(1200)]: {
+        fontSize: '0.6em',
+      },
+    },
+    authorAvatarContainer: {
+      shapeOutside: 'circle(50%) border-box',
+      shapeMargin: '1rem',
+      borderRadius: '50%',
+      float: 'left',
+      paddingBottom: '1em',
+      [theme.breakpoints.down(1200)]: {
+        float: 'none',
+        paddingBottom: '0',
+      },
+    },
+    circle: {
+      display: 'block',
+      borderRadius: '50%',
+      backgroundColor: '#121D59',
+      width: '8em',
+      height: '8em',
+      [theme.breakpoints.down(1200)]: {
+        margin: '0.5em 0',
+        width: '4em',
+        height: '4em',
+      },
     },
   })
 );
 
 const formatPublishedDate = (dateString: string) => {
   const date: Date = new Date(dateString);
-  const formatted = new Intl.DateTimeFormat('en-CA', {
-    month: 'long',
+  return new Intl.DateTimeFormat('en-CA', {
+    month: 'short',
     day: 'numeric',
     year: 'numeric',
   }).format(date);
-  return `Last Updated ${formatted}`;
 };
 
 const PostComponent = ({ postUrl }: Props) => {
@@ -116,8 +167,8 @@ const PostComponent = ({ postUrl }: Props) => {
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
     return (
-      <Box className={classes.root} boxShadow={2}>
-        <ListSubheader className={classes.header}>
+      <Box className={classes.root}>
+        <ListSubheader className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
             <Grid container className={classes.error}>
@@ -134,8 +185,8 @@ const PostComponent = ({ postUrl }: Props) => {
 
   if (!post) {
     return (
-      <Box className={classes.root} boxShadow={2}>
-        <ListSubheader className={classes.header}>
+      <Box className={classes.root}>
+        <ListSubheader className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
             Loading Blog...
@@ -152,8 +203,8 @@ const PostComponent = ({ postUrl }: Props) => {
   }
 
   return (
-    <Box className={classes.root} boxShadow={2}>
-      <ListSubheader className={classes.header}>
+    <Box className={classes.root}>
+      <ListSubheader className={classes.titleContainer}>
         <AdminButtons />
         <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
           <span
@@ -166,28 +217,36 @@ const PostComponent = ({ postUrl }: Props) => {
             {post.title}
           </span>
         </Typography>
-        <Typography variant="caption" className={classes.author}>
-          &nbsp;By&nbsp;
-          <a className={classes.link} href={post.feed.link}>
-            {post.feed.author}
-          </a>
-        </Typography>
-        <a href={post.url} rel="bookmark" className={classes.published}>
-          <time className={classes.time} dateTime={post.updated}>
-            {` ${formatPublishedDate(post.updated)}`}
-          </time>
-        </a>
+      </ListSubheader>
+      <ListSubheader className={classes.postInfo}>
+        <div className={classes.authorInfoContainer}>
+          <div className={classes.authorAvatarContainer}>
+            <div className={classes.circle} />
+          </div>
+          <div className={classes.authorNameContainer}>
+            <Typography variant="subtitle2" className={classes.author}>
+              <a className={classes.link} href={post.feed.link}>
+                {post.feed.author}
+              </a>
+            </Typography>
+          </div>
+          <div className={classes.publishedDateContainer}>
+            <a href={post.url} rel="bookmark" className={classes.published}>
+              <time className={classes.time} dateTime={post.updated}>
+                {` ${formatPublishedDate(post.updated)}`}
+              </time>
+            </a>
+          </div>
+        </div>
       </ListSubheader>
 
-      <Grid container>
-        <Grid item xs={12} className={classes.content}>
-          <section
-            ref={sectionEl}
-            className="telescope-post-content"
-            dangerouslySetInnerHTML={{ __html: post.html }}
-          />
-        </Grid>
-      </Grid>
+      <div className={classes.content}>
+        <section
+          ref={sectionEl}
+          className="telescope-post-content"
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
+      </div>
     </Box>
   );
 };

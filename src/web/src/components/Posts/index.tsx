@@ -12,11 +12,13 @@ import { Post } from '../../interfaces';
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      padding: 0,
-      backgroundColor: theme.palette.background.default,
+      padding: '0',
+      backgroundColor: '#E5E5E5',
+      color: 'white',
+      width: '100vw',
     },
     postsWrapper: {
-      maxWidth: '785px',
+      width: '100%',
     },
     error: {
       color: '#B5B5B5',
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) =>
     errorIcon: {
       color: '#B5B5B5',
       fontSize: '10rem',
-      paddingBottom: 0,
+      paddingBottom: '0',
     },
   })
 );
@@ -96,9 +98,9 @@ const Posts = () => {
 
   return (
     <div className={classes.root}>
-      <Container className={classes.postsWrapper}>
+      <div className={classes.postsWrapper}>
         <Timeline pages={data} nextPage={() => setSize(size + 1)} />
-      </Container>
+      </div>
     </div>
   );
 };

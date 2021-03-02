@@ -14,13 +14,11 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: 0,
-      maxWidth: '785px',
-    },
-    activeCircle: {
-      borderRadius: '4rem',
-      transition: 'all linear 250ms',
-      color: theme.palette.primary.main,
+      padding: '0',
+      width: '800px',
+      [theme.breakpoints.down(900)]: {
+        width: '90%',
+      },
     },
     noMorePosts: {
       display: 'flex',
