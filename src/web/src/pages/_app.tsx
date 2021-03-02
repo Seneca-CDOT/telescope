@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import UserProvider from '../components/UserProvider';
 
 import { darkTheme, lightTheme } from '../theme';
@@ -43,7 +43,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ThemeContext.Provider value={{ theme, themeName: theme.palette.type, toggleTheme }}>
       <ThemeProvider theme={theme}>
         <UserProvider>
-          <Header />
+          <NavBar />
           <Component {...pageProps} />
         </UserProvider>
       </ThemeProvider>

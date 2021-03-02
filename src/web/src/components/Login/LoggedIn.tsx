@@ -2,13 +2,13 @@ import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { useAuthenticatedUser } from '../UserProvider';
 import config from '../../config';
-import HeaderButton, { HeaderIcon } from '../Header/HeaderButton';
+import NavBarButton, { NavBarIcon } from '../NavBar/NavBarButton';
 
 const LoggedIn = () => {
   const user = useAuthenticatedUser();
   const { logoutUrl } = config;
 
-  const buttons: HeaderIcon[] = [
+  const buttons: NavBarIcon[] = [
     {
       href: '/myfeeds',
       title: 'My Feeds',
@@ -30,7 +30,7 @@ const LoggedIn = () => {
   return (
     <>
       {buttons.map((button) => (
-        <HeaderButton button={button} key={button.title} />
+        <NavBarButton button={button} key={button.title} />
       ))}
     </>
   );

@@ -23,14 +23,14 @@ const ButtonTooltip = withStyles({
   },
 })(Tooltip);
 
-export type HeaderIcon = {
+export type NavBarIcon = {
   href: string;
   title: string;
   ariaLabel: string;
   Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
 };
 
-const HeaderButton = ({ button }: { button: HeaderIcon }) => {
+const NavBarButton = ({ button }: { button: NavBarIcon }) => {
   const classes = useStyles();
   const { href, title, ariaLabel, Icon } = button;
 
@@ -45,4 +45,4 @@ const HeaderButton = ({ button }: { button: HeaderIcon }) => {
   );
 };
 
-export default HeaderButton;
+export default NavBarButton;
