@@ -7,8 +7,11 @@ process.env = Object.assign(process.env, {
 });
 
 module.exports = {
+  testEnvironment: "node",
   bail: 1,
   verbose: true,
   testPathIgnorePatterns: ["/node_modules/"],
   testEnvironment: "node",
+  coverageDirectory: "<rootDir>/coverage",
+  collectCoverageFrom: ["<rootDir>/src/**/*.js"],
 };

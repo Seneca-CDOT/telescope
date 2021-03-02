@@ -9,11 +9,11 @@ require("events").EventEmitter.defaultMaxListeners = 32;
 const {
   Satellite,
   Router,
-  ProtectedRouter,
-  protectWithJwt,
+  isAuthenticated,
+  isAuthorized,
   logger,
   hash,
-} = require(".");
+} = require("./src");
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
 const createSatelliteInstance = (options) => {
@@ -27,20 +27,22 @@ const createSatelliteInstance = (options) => {
   return service;
 };
 
-const createToken = (user, secret = SECRET) => {
-  return jwt.sign(
-    {
-      // The token is issued by us (e.g., this server)
-      iss: JWT_ISSUER,
-      // It is intended for the services running at this api origin
-      aud: JWT_AUDIENCE,
-      // The subject of this token, the user
-      sub: user,
-      // TODO: role info (e.g., admin)
-    },
-    secret,
-    { expiresIn: JWT_EXPIRES_IN }
-  );
+const createToken = ({ sub, secret, roles }) => {
+  let payload = {
+    // The token is issued by us (e.g., this server)
+    iss: JWT_ISSUER,
+    // It is intended for the services running at this api origin
+    aud: JWT_AUDIENCE,
+    // The subject of this token, the user
+    sub,
+    // TODO: role info (e.g., admin)
+  };
+
+  if (roles) {
+    payload = { ...payload, roles };
+  }
+
+  return jwt.sign(payload, secret || SECRET, { expiresIn: JWT_EXPIRES_IN });
 };
 
 describe("Satellite()", () => {
@@ -60,7 +62,7 @@ describe("Satellite()", () => {
     logger.level = "silent";
 
     // Create a JWT bearer token we can use if necessary
-    token = createToken("test-user@email.com");
+    token = createToken({ sub: "test-user@email.com" });
   });
 
   afterEach((done) => {
@@ -90,7 +92,6 @@ describe("Satellite()", () => {
       });
       service.start(port, async () => {
         const res = await fetch(`${url}/healthcheck`);
-        console.log(res);
         expect(res.ok).toBe(false);
         service.stop(done);
       });
@@ -105,7 +106,6 @@ describe("Satellite()", () => {
       });
       service.start(port, async () => {
         const res = await fetch(`${url}/healthcheck`);
-        console.log(res);
         expect(res.ok).toBe(true);
         service.stop(done);
       });
@@ -123,6 +123,14 @@ describe("Satellite()", () => {
     service.start(port, async () => {
       const res = await fetch(`${url}/always-200`);
       expect(res.status).toBe(200);
+      done();
+    });
+  });
+
+  test("Satellite() should respond with 404 if route not found", (done) => {
+    service.start(port, async () => {
+      const res = await fetch(`${url}/always-404`);
+      expect(res.status).toBe(404);
       done();
     });
   });
@@ -219,58 +227,6 @@ describe("Satellite()", () => {
     });
   });
 
-  test("Satellite() should provide a default favicon at /favicon.ico", (done) => {
-    service.start(port, async () => {
-      const res = await fetch(`${url}/favicon.ico`);
-      expect(res.ok).toBe(true);
-      expect(res.headers.get("content-type")).toEqual("image/x-icon");
-      service.stop(done);
-    });
-  });
-
-  test("Satellite() should protect the app if protected is true", (done) => {
-    const service = createSatelliteInstance({
-      name: "test",
-      protected: true,
-    });
-
-    const router = service.router;
-    router.get("/should-be-protected", (req, res) =>
-      res.json({ hello: "protected" })
-    );
-
-    service.start(port, async () => {
-      // Protected should fail without authorization header
-      let res = await fetch(`${url}/should-be-protected`);
-      expect(res.ok).toBe(false);
-      expect(res.status).toEqual(401);
-
-      // Protected should work with authorization header
-      res = await fetch(`${url}/should-be-protected`, {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      });
-      expect(res.ok).toBe(true);
-      body = await res.json();
-      expect(body).toEqual({ hello: "protected" });
-
-      service.stop(done);
-    });
-  });
-
-  test("Satellite() should not provide the default favicon if disableFavicon:true in options", (done) => {
-    const service = createSatelliteInstance({
-      name: "test",
-      disableFavicon: true,
-    });
-    service.start(port, async () => {
-      const res = await fetch(`${url}/favicon.ico`);
-      expect(res.ok).toBe(false);
-      service.stop(done);
-    });
-  });
-
   describe("Router()", () => {
     test("should be able to create sub-routers using Router()", (done) => {
       const customRouter = Router();
@@ -293,14 +249,14 @@ describe("Satellite()", () => {
     });
   });
 
-  test("protectJWT should work on a specific route", (done) => {
+  test("isAuthenticated() should work on a specific route", (done) => {
     const service = createSatelliteInstance({
       name: "test",
     });
 
     const router = service.router;
     router.get("/public", (req, res) => res.json({ hello: "public" }));
-    router.get("/protected", protectWithJwt(), (req, res) => {
+    router.get("/protected", isAuthenticated(), (req, res) => {
       // Make sure the user payload was added to req
       expect(req.user.sub).toEqual("test-user@email.com");
       res.json({ hello: "protected" });
@@ -332,80 +288,177 @@ describe("Satellite()", () => {
     });
   });
 
-  describe("ProtectedRouter()", () => {
-    test("should be able to create a protected sub-router using ProtectedRouter()", (done) => {
-      const customRouter = ProtectedRouter();
-      customRouter.get("/sub-router", (req, res) => {
-        res.status(200).end();
-      });
+  test("isAuthorized() without providing proper roles Array should throw", () => {
+    expect(() => isAuthorized()).toThrow();
+    expect(() => isAuthorized({})).toThrow();
+    expect(() => isAuthorized({ roles: "admin" })).toThrow();
+    expect(() => isAuthorized({ roles: [] })).toThrow();
+    expect(() => isAuthorized({ roles: [true] })).toThrow();
+  });
 
-      service.router.use("/router", customRouter);
-
-      const testRoute = async () => {
-        const res = await fetch(`${url}/router/sub-router`, {
-          headers: {
-            Authorization: `bearer ${token}`,
-          },
-        });
-        expect(res.ok).toBe(true);
-        service.stop(done);
-      };
-
-      service.start(port, () => {
-        logger.info("Here we go!");
-        testRoute();
-      });
+  test("isAuthorized() without isAuthenticated() fail with 401", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+    });
+    const token = createToken({ sub: "user@email.com", roles: ["user"] });
+    const adminToken = createToken({
+      sub: "admin-user@email.com",
+      roles: ["user", "admin"],
     });
 
-    test("should expect routes on ProtectedRouter to be protected", (done) => {
-      const customRouter = ProtectedRouter();
-      customRouter.get("/sub-router", (req, res) => {
-        res.status(200).end();
+    const router = service.router;
+    router.get("/public", (req, res) => res.json({ hello: "public" }));
+    router.get(
+      "/protected",
+      /* isAuthenticated() is required here, but we aren't calling it */
+      isAuthorized({ roles: ["admin"] }),
+      (req, res) => {
+        // Make sure an admin user payload was added to req
+        expect(req.user.sub).toEqual("admin-user@email.com");
+        expect(Array.isArray(req.user.roles)).toBe(true);
+        expect(req.user.roles).toContain("admin");
+        res.json({ hello: "protected" });
+      }
+    );
+
+    service.start(port, async () => {
+      // Public should need no bearer token
+      let res = await fetch(`${url}/public`);
+      expect(res.ok).toBe(true);
+      let body = await res.json();
+      expect(body).toEqual({ hello: "public" });
+
+      // Protected should fail without authorization header
+      res = await fetch(`${url}/protected`);
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(401);
+
+      // Protected should work with authorization header
+      res = await fetch(`${url}/protected`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       });
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(401);
 
-      service.router.use("/router", customRouter);
-
-      const testRoute = async () => {
-        // Include a bearer token, but not a correct one for our system
-        const res = await fetch(`${url}/router/sub-router`, {
-          headers: {
-            Authorization: `bearer ${createToken(
-              "test-user@email.com",
-              "different-secret"
-            )}`,
-          },
-        });
-        expect(res.ok).toBe(false);
-        expect(res.status).toEqual(401);
-        service.stop(done);
-      };
-
-      service.start(port, () => {
-        logger.info("Here we go!");
-        testRoute();
+      // Protected should work with correct authorization token
+      res = await fetch(`${url}/protected`, {
+        headers: {
+          Authorization: `bearer ${adminToken}`,
+        },
       });
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(401);
+
+      service.stop(done);
+    });
+  });
+
+  test("isAuthenticated() + isAuthorized() without required role should fail", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+    });
+    const token = createToken({ sub: "user@email.com", roles: ["user"] });
+    const adminToken = createToken({
+      sub: "admin-user@email.com",
+      roles: ["user", "admin"],
     });
 
-    test("should expect protected routes to not be fooled by wrong, but valid token", (done) => {
-      const customRouter = ProtectedRouter();
-      customRouter.get("/sub-router", (req, res) => {
-        res.status(200).end();
+    const router = service.router;
+    router.get("/public", (req, res) => res.json({ hello: "public" }));
+    router.get(
+      "/protected",
+      isAuthenticated(),
+      isAuthorized({ roles: ["admin"] }),
+      (req, res) => {
+        // Make sure an admin user payload was added to req
+        expect(req.user.sub).toEqual("admin-user@email.com");
+        expect(Array.isArray(req.user.roles)).toBe(true);
+        expect(req.user.roles).toContain("admin");
+        res.json({ hello: "protected" });
+      }
+    );
+
+    service.start(port, async () => {
+      // Public should need no bearer token
+      let res = await fetch(`${url}/public`);
+      expect(res.ok).toBe(true);
+      let body = await res.json();
+      expect(body).toEqual({ hello: "public" });
+
+      // Protected should fail without authorization header
+      res = await fetch(`${url}/protected`);
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(401);
+
+      // Protected should work with authorization header
+      res = await fetch(`${url}/protected`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
       });
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(403);
 
-      service.router.use("/router", customRouter);
-
-      const testRoute = async () => {
-        // Don't include a bearer token
-        const res = await fetch(`${url}/router/sub-router`);
-        expect(res.ok).toBe(false);
-        expect(res.status).toEqual(401);
-        service.stop(done);
-      };
-
-      service.start(port, () => {
-        logger.info("Here we go!");
-        testRoute();
+      // Protected should work with correct authorization token
+      res = await fetch(`${url}/protected`, {
+        headers: {
+          Authorization: `bearer ${adminToken}`,
+        },
       });
+      expect(res.ok).toBe(true);
+      body = await res.json();
+      expect(body).toEqual({ hello: "protected" });
+
+      service.stop(done);
+    });
+  });
+
+  test("isAuthenticated() + isAuthorized() for admin role should work on a specific route", (done) => {
+    const service = createSatelliteInstance({
+      name: "test",
+    });
+    const token = createToken({ sub: "admin@email.com", roles: ["admin"] });
+
+    const router = service.router;
+    router.get("/public", (req, res) => res.json({ hello: "public" }));
+    router.get(
+      "/protected",
+      isAuthenticated(),
+      isAuthorized({ roles: ["admin"] }),
+      (req, res) => {
+        // Make sure an admin user payload was added to req
+        expect(req.user.sub).toEqual("admin@email.com");
+        expect(Array.isArray(req.user.roles)).toBe(true);
+        expect(req.user.roles).toContain("admin");
+        res.json({ hello: "protected" });
+      }
+    );
+
+    service.start(port, async () => {
+      // Public should need no bearer token
+      let res = await fetch(`${url}/public`);
+      expect(res.ok).toBe(true);
+      let body = await res.json();
+      expect(body).toEqual({ hello: "public" });
+
+      // Protected should fail without authorization header
+      res = await fetch(`${url}/protected`);
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(401);
+
+      // Protected should work with authorization header
+      res = await fetch(`${url}/protected`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      expect(res.ok).toBe(true);
+      body = await res.json();
+      expect(body).toEqual({ hello: "protected" });
+
+      service.stop(done);
     });
   });
 
@@ -571,7 +624,7 @@ describe("logger", () => {
   });
 });
 
-describe("hash function tests for satellite", () => {
+describe("hash", () => {
   it("should return a 10 character hash value", () => {
     expect(hash("satellite").length).toBe(10);
   });

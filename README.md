@@ -33,50 +33,25 @@ In addition, the following JWT verification values are required:
 
 ## Usage
 
+In its most basic form, a Satellite-based microservice looks like this:
+
 ```js
 const {
   Satellite, // the Satellite constructor
-  Router, // Router() for creating sub-routers
-  ProtectedRouter, // ProtectedRouter() for creating JWT protected sub-routers
-  logger, // A pre-configured logger ready to be used
-  protectWithJwt, // JWT middleware for specific end-points
+  logger, // pre-configured logger
 } = require("@senecacdot/satellite");
 
-// Define your microservice, providing some options (see below)
-const service = new Satellite({
-  beforeRouter(app) {
-    // Optionally add some middleware before the router is attached
-    app.use(myMiddlewareFunction());
-  },
-});
+// Define your microservice
+const service = new Satellite();
 
 // Add your routes to the service's router
 service.router.get("/my-route", (req, res) => {
   res.json({ message: "hello world" });
 });
 
-// You can also add protected routes with the protectWithJwt middleware
-service.router.get("/my-protected-route", protectWithJwt(), (req, res) => {
-  res.json({ message: "this is protected" });
-});
-
-// You can create sub-routers
-const apiRouter = Router();
-apiRouter.get("/info", (req, res) => {
-  res.json({ message: "ok" });
-});
-service.router.get("/api", apiRouter);
-
-// Or protected sub-routers (all sub routes use protectWithJwt automatically)
-const adminRouter = ProtectedRouter();
-adminRouter.get("/profile", (req, res) => {
-  res.json({ message: "this is protected" });
-});
-service.router.get("/admin", adminRouter);
-
 // Start the service on the specified port
 service.start(8888, () => {
-  logger.info("Here we go!");
+  logger.info("Satellite Microservice running on port 8888");
 });
 ```
 
@@ -98,12 +73,102 @@ const service = new Satellite({
 
 - `helmet`: the options to pass to the [helmet](https://www.npmjs.com/package/helmet) middleware. By default all options are turned on. Use `helmet: false` to disable helmet.
 
-- `beforeParsers`: an optional function that allows access to the `app` during creation prior to adding the body parsers
+- `beforeParsers`: an optional hook function that allows access to the `app` during creation prior to adding the body parsers
 
-- `beforeRouter`: an optional function that allows access to the `app` during creation prior to adding the router.
+```js
+const service = new Satellite({
+  beforeParsers(app) {
+    // Optionally add some middleware before the parser are attached
+    app.use(myMiddlewareFunction());
+  },
+});
+```
+
+- `beforeRouter`: an optional hook function that allows access to the `app` during creation prior to adding the router.
+
+```js
+const service = new Satellite({
+  beforeRouter(app) {
+    // Optionally add some middleware before the router is attached
+    app.use(myMiddlewareFunction());
+  },
+});
+```
 
 - `router`: an optional router to use in place of the default one created automatically.
 
-- `disableFavicon`: if `true` the default favicon at `/favicon.ico` will not be included.
+```js
+const myRouter = require('./router);
 
-- `protected`: if `true`, the entire app (all routes) will use JWT validation (defaults to `false`).
+const service = new Satellite({
+  router: myRouter
+});
+```
+
+There are also a number of optional objects and functions available to further
+customize your service.
+
+### Router()
+
+Some services are easier to write using more than one router (e.g., defining
+complex routes in their own files). This is easily done with the `Router`:
+
+```js
+// custom-router.js
+const { Router } = require("@senecacdot/satellite");
+
+const router = Router();
+
+router.get('/custom-route', (req, res) => {...});
+router.post('/custom-route', (req, res) => {...});
+router.put('/custom-route', (req, res) => {...});
+router.delete('/custom-route', (req, res) => {...});
+
+module.exports = router;
+
+
+// index.js
+const { Satellite } = require("@senecacdot/satellite");
+const router = require('./custom-router");
+
+const service = new Satellite({
+  // Use our custom router instead of the default router
+  router
+});
+```
+
+### Middleware
+
+A number of middleware functions are available to help with your routes.
+
+- `isAuthenticated()` - used to make sure that a request includes a valid JWT and the user has previously been authenticated.
+
+```js
+router.get('/private-route', isAuthenticated(), (req, res) => {...});
+```
+
+- `isAuthorized()` - used to check if an authenticated user is authorized to something, based on their role. For example, if a user has the 'admin' role. You must use `isAuthorized()` in conjunction with `isAuthenticated()`:
+
+```js
+router.get('/admin', isAuthenticated(), isAuthorized({ roles: ["admin"] }), (req, res) => {...});
+```
+
+### Logger
+
+The `logger` object is a pre-configured logger based on [Pino](https://getpino.io/#/).
+
+```js
+const { logger } = require("@senecacdot/satellite");
+
+logger.info("Hello World!");
+```
+
+### Hash
+
+The `hash()` function is a convenience hashing function, which returns a 10 character hash:
+
+```js
+const { hash } = require("@senecacdot/satellite");
+
+const id = hash("http://someurl.com");
+```
