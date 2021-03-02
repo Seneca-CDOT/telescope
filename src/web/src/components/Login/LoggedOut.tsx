@@ -1,12 +1,12 @@
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import config from '../../config';
-import HeaderButton from '../Header/HeaderButton';
+import NavBarButton from '../NavBar/NavBarButton';
 
 const LoggedOut = () => {
   const { loginUrl } = config;
 
   return (
-    <HeaderButton
+    <NavBarButton
       button={{
         href: loginUrl,
         title: 'Log In',

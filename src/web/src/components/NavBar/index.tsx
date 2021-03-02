@@ -1,10 +1,11 @@
 import Link from 'next/link';
-import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
-import HeaderButton, { HeaderIcon } from './HeaderButton';
+import NavBarButton, { NavBarIcon } from './NavBarButton';
 
 // 1.7 band-aid (Removing theme | line 6)
 // import dynamic from 'next/dynamic';
@@ -23,29 +24,46 @@ import Login from '../Login';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'fixed',
-    width: '15em',
+    overflow: 'hidden',
     top: '1.4em',
     left: '0',
-    backgroundColor: 'transparent',
+    width: '15em',
     boxShadow: 'none',
     color: theme.palette.primary.main,
+    backgroundColor: 'transparent',
+    transition: 'width 100ms linear,top 300ms linear',
+    [theme.breakpoints.down(1024)]: {
+      transition: 'width 100ms linear,top 100ms cubic-bezier(0.5, 1, 0.89, 1)',
+      top: 'auto',
+      bottom: '0',
+      width: '100vw',
+      flexDirection: 'row',
+      alignItems: 'center',
+      background: theme.palette.background.default,
+    },
   },
   toolbar: {
     height: '27rem',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    [theme.breakpoints.down(1024)]: {
+      height: 'inherit',
+      flex: '1',
+      justifyContent: 'space-around',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
   },
   grow: {
     flex: 1,
   },
   logoIcon: {
-    margin: '0 0.5rem 0 0.5rem',
+    margin: '0 0.5rem',
   },
 }));
 
-const buttons: HeaderIcon[] = [
+const buttons: NavBarIcon[] = [
   {
     href: '/search',
     title: 'Search',
@@ -66,22 +84,27 @@ const buttons: HeaderIcon[] = [
   },
 ];
 
-export default function DesktopHeader() {
+export default function NavBar() {
   const classes = useStyles();
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up(1024));
 
   return (
-    <AppBar className={classes.root}>
+    <AppBar className={classes.root} position="fixed">
       <Toolbar className={classes.toolbar}>
-        <Link href="/" passHref>
-          <a className={classes.logoIcon}>
-            <Logo height={45} width={45} />
-          </a>
-        </Link>
-
-        <div className={classes.grow} />
+        {desktop && (
+          <>
+            <Link href="/" passHref>
+              <a className={classes.logoIcon}>
+                <Logo height={45} width={45} />
+              </a>
+            </Link>
+            <div className={classes.grow} />
+          </>
+        )}
 
         {buttons.map((button) => (
-          <HeaderButton button={button} key={button.title} />
+          <NavBarButton button={button} key={button.title} />
         ))}
 
         <Login />
