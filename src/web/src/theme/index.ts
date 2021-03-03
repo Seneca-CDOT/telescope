@@ -1,7 +1,14 @@
 import { red } from '@material-ui/core/colors';
 import createMuiTheme, { Theme } from '@material-ui/core/styles/createMuiTheme';
 
+const commonThemeProps = {
+  typography: {
+    fontFamily: 'Spartan',
+  },
+};
+
 export const lightTheme: Theme = createMuiTheme({
+  ...commonThemeProps,
   palette: {
     type: 'light',
     primary: {
@@ -24,6 +31,7 @@ export const lightTheme: Theme = createMuiTheme({
 });
 
 export const darkTheme: Theme = createMuiTheme({
+  ...commonThemeProps,
   palette: {
     type: 'dark',
     primary: {

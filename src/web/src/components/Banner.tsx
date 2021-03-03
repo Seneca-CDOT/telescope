@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme: Theme) =>
     h1: {
       position: 'absolute',
       color: theme.palette.primary.contrastText,
-      fontFamily: 'Roboto',
       fontWeight: 'bold',
       fontSize: '12rem',
       display: 'block',
@@ -36,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     version: {
       position: 'absolute',
-      fontFamily: 'Roboto',
       opacity: 0.85,
       bottom: theme.spacing(6),
       left: theme.spacing(8),

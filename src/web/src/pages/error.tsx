@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     top: '45vh',
   },
   root: {
-    fontFamily: 'Roboto',
     zIndex: 100,
     padding: theme.spacing(2, 4, 2, 4),
     position: 'relative',
@@ -65,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     color: 'white',
-    fontFamily: 'Roboto, sans-serif',
     textDecoration: 'none',
     fontSize: '1.5rem',
     margin: '0 0.5rem 0 0.5rem',

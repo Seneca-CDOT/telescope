@@ -4,14 +4,13 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import Header from '../components/Header';
 import UserProvider from '../components/UserProvider';
-import '@fontsource/roboto';
-import '@fontsource/spartan';
 
 import { darkTheme, lightTheme } from '../theme';
 import usePreferredTheme from '../hooks/use-preferred-theme';
 import { ThemeContext } from '../components/ThemeProvider';
 
 import '../styles/globals.css';
+import '@fontsource/spartan';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_app.js
 const App = ({ Component, pageProps }: AppProps) => {
