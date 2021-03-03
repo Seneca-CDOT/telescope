@@ -19,7 +19,7 @@ type MDXPageBaseProps = {
 const useStyles = makeStyles((theme) => {
   return {
     root: {
-      fontFamily: 'Roboto',
+      fontFamily: 'Spartan',
       '& h1': {
         color: theme.palette.text.secondary,
         fontSize: 24,

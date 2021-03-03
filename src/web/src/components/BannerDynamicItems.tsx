@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   stats: {
     position: 'absolute',
     color: theme.palette.primary.contrastText,
-    fontFamily: 'Roboto',
     fontSize: '0.875rem',
     display: 'block',
     bottom: theme.spacing(12),

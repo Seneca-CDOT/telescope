@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) =>
     },
     error: {
       color: '#B5B5B5',
-      fontFamily: 'Roboto',
       fontSize: '5rem',
       paddingBottom: '30px',
     },
