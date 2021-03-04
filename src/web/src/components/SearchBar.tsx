@@ -38,6 +38,11 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: '#ffffff',
         border: 'solid 1px #999999',
       },
+      [theme.breakpoints.down('xs')]: {
+        // background: 'red',
+        borderRadius: '15px',
+        padding: theme.spacing(0, 0, 0, 2),
+      },
     },
     header: {
       padding: 0,
@@ -75,10 +80,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     selectControl: {
       '& > *': {
+        width: 'auto',
+        transform: 'translateY(2px)',
         fontSize: '1.5rem',
         textTransform: 'capitalize',
         color: theme.palette.primary.main,
         paddingLeft: '2rem',
+        [theme.breakpoints.down('xs')]: {
+          paddingLeft: '1rem',
+          width: '10rem',
+          transform: 'translateY(15px)',
+        },
       },
     },
     selectItem: {
