@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) =>
       padding: '0',
       backgroundColor: '#E5E5E5',
       color: 'white',
-      width: '100vw',
+      width: '100%',
     },
     postsWrapper: {
       width: '100%',
