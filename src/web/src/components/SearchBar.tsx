@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) =>
         border: 'solid 1px #999999',
       },
       [theme.breakpoints.down('xs')]: {
-        // background: 'red',
         borderRadius: '15px',
         padding: theme.spacing(0, 0, 0, 2),
       },
