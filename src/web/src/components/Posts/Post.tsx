@@ -59,9 +59,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       overflow: 'auto',
+      padding: '1em',
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.default,
-      width: '100%',
+      width: '95%',
     },
     link: {
       textDecoration: 'none',
