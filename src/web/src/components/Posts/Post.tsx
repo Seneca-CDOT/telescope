@@ -240,13 +240,15 @@ const PostComponent = ({ postUrl }: Props) => {
         </div>
       </ListSubheader>
 
-      <div className={classes.content}>
-        <section
-          ref={sectionEl}
-          className="telescope-post-content"
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
-      </div>
+      <Grid container>
+        <Grid item xs={12} className={classes.content}>
+          <section
+            ref={sectionEl}
+            className="telescope-post-content"
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 };
