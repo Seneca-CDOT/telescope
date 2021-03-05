@@ -10,6 +10,7 @@ updates:
     directory: '/'
     schedule:
       interval: 'weekly'
+      day: 'monday'
       # Use Eastern Standard Time (UTC -05:00)
       timezone: 'America/Toronto'
     open-pull-requests-limit: 1
@@ -22,11 +23,13 @@ updates:
     # Disable automatic rebasing
     rebase-strategy: 'disabled'
 
-  # Next Front-End
+  # Next Front-End package.json
   - package-ecosystem: 'npm'
     directory: '/src/web'
     schedule:
       interval: 'weekly'
+      day: 'tuesday'
+      time: '04:00'
       timezone: 'America/Toronto'
     open-pull-requests-limit: 1
     commit-message:
@@ -38,11 +41,13 @@ updates:
       - 'area: nextjs'
     rebase-strategy: 'disabled'
 
-  # Auto-deployment Server
+  # Auto-deployment Server package.json
   - package-ecosystem: 'npm'
     directory: '/tools/autodeployment'
     schedule:
       interval: 'weekly'
+      day: 'tuesday'
+      time: '06:00'
       timezone: 'America/Toronto'
     open-pull-requests-limit: 1
     commit-message:
@@ -52,4 +57,108 @@ updates:
     labels:
       - 'dependencies'
       - 'area: autodeployment'
+    rebase-strategy: 'disabled'
+
+  # Auth Service package.json
+  - package-ecosystem: 'npm'
+    directory: '/src/api/auth'
+    schedule:
+      interval: 'weekly'
+      day: 'wednesday'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: microservices'
+    rebase-strategy: 'disabled'
+
+  # Image Service package.json
+  - package-ecosystem: 'npm'
+    directory: '/src/api/image'
+    schedule:
+      interval: 'weekly'
+      day: 'thursday'
+      time: '04:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: microservices'
+    rebase-strategy: 'disabled'
+
+  # Root Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'thursday'
+      time: '06:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # Auth Service Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/src/api/auth'
+    schedule:
+      interval: 'weekly'
+      day: 'friday'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # Image Service Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/src/api/image'
+    schedule:
+      interval: 'weekly'
+      day: 'saturday'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'sunday'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: CI/CD'
     rebase-strategy: 'disabled'
