@@ -4,8 +4,7 @@ const { logger } = require('@senecacdot/satellite');
 const parseUrl = require('../bin/url-parser');
 
 // If you need to set the Redis URL, do it in REDIS_URL
-const redisUrl =
-  parseUrl(process.env.REDIS_URL, process.env.REDIS_PORT) || 'redis://127.0.0.1:6379';
+const redisUrl = parseUrl(process.env.REDIS_URL, process.env.REDIS_PORT) || 'redis://redis:6379';
 
 // Set MOCK_REDIS=1 to mock, MOCK_REDIS= to use real redis
 const useMockRedis = process.env.MOCK_REDIS;

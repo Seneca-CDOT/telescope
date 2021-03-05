@@ -32,7 +32,7 @@ services:
     environment:
       - IMAGE_PORT
     ports:
-      - '${IMAGE_PORT}'
+      - ${IMAGE_PORT}
     depends_on:
       - traefik
     labels:
