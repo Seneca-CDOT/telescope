@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
     },
     titleContainer: {
-      width: '100%',
+      backgroundColor: 'yellow',
       color: theme.palette.text.secondary,
       padding: '2em 0 1.5em',
       lineHeight: '1.3',
@@ -45,6 +45,11 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       textAlign: 'center',
+      [theme.breakpoints.down(1200)]: {
+        width: 'calc(100% - 1.5em)',
+        textAlign: 'left',
+        marginLeft: '1.5em',
+      },
     },
     author: {
       fontSize: '2em',
@@ -105,8 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: '2em',
       height: '100%',
       [theme.breakpoints.down(1200)]: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+        display: 'inline',
         border: 'none',
       },
     },
@@ -140,9 +144,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '8em',
       height: '8em',
       [theme.breakpoints.down(1200)]: {
-        margin: '0.5em 0',
-        width: '4em',
-        height: '4em',
+        width: '7em',
+        height: '7em',
+        margin: '-13.5em 0 0 -2em',
       },
     },
   })
