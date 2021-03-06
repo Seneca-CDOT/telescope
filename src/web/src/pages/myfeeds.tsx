@@ -1,5 +1,4 @@
-import Head from 'next/head';
-
+import SEO from '../components/SEO';
 import BackToTopButton from '../components/BackToTopButton';
 import useAuth from '../hooks/use-auth';
 import MyFeeds from '../components/MyFeeds';
@@ -14,9 +13,7 @@ const MyFeedsPage = () => {
 
   return (
     <>
-      <Head>
-        <title>My Feeds</title>
-      </Head>
+      <SEO pageTitle="My Feeds | Telescope" />
       <BackToTopButton />
       <main className="main">
         <MyFeeds user={user} />

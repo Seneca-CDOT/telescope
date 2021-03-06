@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/do
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import { logoUrl } from '../components/Logo';
-import { title, description, author, telescopeUrl, keywords } from '../config';
+import { title, description, author, keywords, image, imageAlt } from '../config';
 import { lightTheme } from '../theme';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_document.js
@@ -15,7 +15,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en-CA">
         <Head>
           <link rel="icon" href={logoUrl} type="image/svg+xml" />
           <meta charSet="utf-8" />
@@ -29,13 +29,13 @@ class MyDocument extends Document {
           <meta property="og:type" content="website" />
           <meta property="og:site_name" content={title} />
           <meta property="og:description" content={description} />
+          <meta property="og:image" content={image} />
+          <meta property="og:locale" content="en_CA" />
 
-          <meta name="twitter:title" content={title} />
-          <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={logoUrl} />
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:image:alt" content={title} />
-          <meta name="twitter:url" content={telescopeUrl} />
+          <meta name="twitter:description" content={description} />
+          <meta name="twitter:image" content={image} />
+          <meta name="twitter:image:alt" content={imageAlt} />
         </Head>
         <body>
           <Main />
