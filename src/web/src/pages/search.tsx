@@ -4,7 +4,7 @@ import SearchPage from '../components/SearchPage';
 const Search = () => {
   return (
     <>
-      <SEO pageTitle="Search" />
+      <SEO pageTitle="Search | Telescope" />
       <SearchPage />
     </>
   );
