@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
     },
     titleContainer: {
-      backgroundColor: 'yellow',
+      // backgroundColor: 'yellow',
       color: theme.palette.text.secondary,
       padding: '2em 0 1.5em',
       lineHeight: '1.3',
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.9em',
       [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
-        paddingBottom: '4em',
+        paddingBottom: '1em',
       },
     },
     expandHeader: {
@@ -104,6 +104,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     authorInfoContainer: {
+      // backgroundColor: 'black',
       display: 'flex',
       flexDirection: 'column',
       borderLeft: '2.5px solid #707070',
@@ -121,16 +122,16 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 'calc(100% - 2em)',
       [theme.breakpoints.down(1200)]: {
         width: 'auto',
-        padding: '0.5em 3em 0 1em',
-        backgroundColor: 'blue',
-        marginLeft: '-5em',
+        padding: '.1em 2em 0 0',
+        // backgroundColor: 'blue',
+        marginLeft: '-3.8em',
         gridRowStart: '2',
         gridColumnEnd: '1',
       },
     },
     publishedDateContainer: {
       [theme.breakpoints.down(1200)]: {
-        backgroundColor: 'green',
+        // backgroundColor: 'green',
         width: 'auto',
         gridRowStart: '2',
       },
