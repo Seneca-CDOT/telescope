@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.9em',
       [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
-        paddingBottom: '1em',
+        paddingBottom: '4em',
       },
     },
     expandHeader: {
@@ -123,8 +123,9 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 'auto',
         padding: '0.5em 3em 0 1em',
         backgroundColor: 'blue',
-        // marginLeft: '-2em',
+        marginLeft: '-5em',
         gridRowStart: '2',
+        gridColumnEnd: '1',
       },
     },
     publishedDateContainer: {
