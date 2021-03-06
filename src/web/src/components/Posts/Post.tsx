@@ -87,7 +87,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: 'white',
       width: '200px',
       float: 'right',
-      marginRight: '-24em',
+      marginRight: '-22em',
       top: '8em',
       bottom: '100%',
       [theme.breakpoints.down(1200)]: {
