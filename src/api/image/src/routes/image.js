@@ -26,9 +26,6 @@ router.use(
       w: Joi.number().integer().min(200).max(2000),
       h: Joi.number().integer().min(200).max(3000),
     }),
-    [Segments.PARAMS]: Joi.object({
-      image: Joi.string().pattern(/^[-_a-zA-Z0-9]+\.jpg$/),
-    }),
   })
 );
 
@@ -79,6 +76,12 @@ router.use(
     if (!image) {
       req.imageFilename = getRandomPhotoFilename();
       next();
+      return;
+    }
+
+    // Don't allow path manipulation, only simple filenames matching our images
+    if (!/^[-_a-zA-Z0-9]+\.jpg$/.test(image)) {
+      next(createError(400, `Invalid image name: '${image}'`));
       return;
     }
 
