@@ -71,21 +71,6 @@ jobs:
       matrix:
         node-version: [12.x, 14.x]
     steps:
-      - name: Install host dependencies
-        run: |
-          sudo apt-get install -y libbrotli1 \
-          libegl1 \
-          libopus0 \
-          libwoff1 \
-          libgstreamer-plugins-base1.0-0 \
-          libgstreamer1.0-0 \
-          libgstreamer-gl1.0-0 \
-          libgstreamer-plugins-bad1.0-0 \
-          libopenjp2-7 \
-          libwebpdemux2 \
-          libhyphen0 \
-          libgles2 \
-          gstreamer1.0-libav
       - uses: actions/cache@v2.1.4
         with:
           path: /tmp/.buildx-cache
@@ -96,6 +81,7 @@ jobs:
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: microsoft/playwright-github-action@v1
       - name: Start microservices and run tests
         run: |
           npm install
