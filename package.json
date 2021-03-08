@@ -60,7 +60,7 @@
     "clean-whitespace": "0.1.2",
     "connect-redis": "5.1.0",
     "cors": "2.8.5",
-    "date-fns": "2.17.0",
+    "date-fns": "2.19.0",
     "docker-compose": "0.23.6",
     "dotenv": "8.2.0",
     "entities": "2.2.0",
