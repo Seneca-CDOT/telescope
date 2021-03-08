@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "A service for optimizing images",
   "scripts": {
-    "dev": "nodemon server.js | pino-pretty -c -t",
-    "start": "node server.js",
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
     "clean": "del \"./photos/*.jpg\" \"!./photos/default.jpg\""
   },
   "repository": "Seneca-CDOT/telescope",
@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "del-cli": "^3.0.1",
-    "nodemon": "^2.0.7",
-    "pino-pretty": "^4.5.0"
+    "nodemon": "^2.0.7"
   }
 }
