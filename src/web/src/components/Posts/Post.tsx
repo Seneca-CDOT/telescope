@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.9em',
       [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
-        paddingBottom: '1em',
+        paddingBottom: '0',
       },
     },
     expandHeader: {
@@ -100,11 +100,11 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '100%',
         height: '2%',
         float: 'none',
-        top: '9.4em',
+        top: '7.4em',
       },
     },
     authorInfoContainer: {
-      // backgroundColor: 'black',
+      // backgroundColor: 'gray',
       display: 'flex',
       flexDirection: 'column',
       borderLeft: '2.5px solid #707070',
@@ -127,6 +127,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: '-3.8em',
         gridRowStart: '2',
         gridColumnEnd: '1',
+        lineHeight: '1',
       },
     },
     publishedDateContainer: {
@@ -134,6 +135,7 @@ const useStyles = makeStyles((theme: Theme) =>
         // backgroundColor: 'green',
         width: 'auto',
         gridRowStart: '2',
+        lineHeight: '3.5em',
       },
     },
     authorAvatarContainer: {
@@ -156,7 +158,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         width: '7em',
         height: '7em',
-        margin: '-8.5em 0 0 -4em',
+        margin: '-6.5em 0 0.5em -5em',
         gridRowStart: '1',
       },
     },
