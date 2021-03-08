@@ -1,4 +1,4 @@
-name: Create Release
+name: Release
 
 on:
   push:
@@ -9,18 +9,41 @@ on:
         # and https://docs.npmjs.com/about-semantic-versioning
 
 jobs:
-  build:
-    runs-on: ${{matrix.os}}
+  # Confirm that prettier was run on the changes
+  prettier:
+    name: Prettier Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.5
+      - name: Install dependencies and run prettier-check
+        run: |
+          npm install
+          npm run prettier-check
 
+  # Make sure eslint passes
+  eslint:
+    name: ESLint Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.5
+      - name: Install dependencies and run eslint
+        run: |
+          npm install
+          npm run eslint
+
+  # Run unit tests on all platforms/versions of node
+  unit:
+    name: Unit Tests
+    runs-on: ${{matrix.os}}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         node-version: [12.x, 14.x]
-
     steps:
       - uses: actions/checkout@v2
-      - name: Cache node modules
-        uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.4
         env:
           cache-name: cache-node-modules
         with:
@@ -31,43 +54,70 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-
-      - name: Test
-        uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Install dependencies and run tests with default env
+        run: |
+          npm install
+          cp env.example .env
+          npm run jest
 
-      - run: npm install
-      - run: cp env.example .env
-      - run: npm run test
-  Prettier-Check:
+  # Run end-to-end tests along with the microservices in docker-compose on Linux
+  e2e:
+    name: End-To-End Tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
     steps:
+      - name: Install host dependencies
+        run: |
+          sudo apt-get install -y libbrotli1 \
+          libegl1 \
+          libopus0 \
+          libwoff1 \
+          libgstreamer-plugins-base1.0-0 \
+          libgstreamer1.0-0 \
+          libgstreamer-gl1.0-0 \
+          libgstreamer-plugins-bad1.0-0 \
+          libopenjp2-7 \
+          libwebpdemux2 \
+          libhyphen0 \
+          libgles2 \
+          gstreamer1.0-libav
+      - uses: actions/cache@v2.1.4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.5
-      - run: npm install && npm run prettier-check
-  Lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.1.5
-      - run: npm install && npm run eslint
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Start microservices and run tests
+        run: |
+          npm install
+          npm run services:start
+          npm run jest:e2e
+          npm run services:stop
   release:
-    needs: [build, Prettier-Check, Lint]
+    needs: [prettier, eslint, unit, e2e]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Build Changelog
+      - name: Build changelog
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@main
         with:
           configuration: 'release-changelog-builder-config.json'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Create Release
+      - name: Create release
         id: create_release
         uses: actions/create-release@latest
         env:
