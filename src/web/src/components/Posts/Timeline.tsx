@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '0',
       width: '800px',
       [theme.breakpoints.down(1024)]: {
-        width: '100%',
+        width: '90%',
       },
     },
     noMorePosts: {

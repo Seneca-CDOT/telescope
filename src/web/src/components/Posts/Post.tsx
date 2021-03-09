@@ -70,6 +70,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.default,
       width: '95%',
+      [theme.breakpoints.down(1024)]: {
+        padding: '0',
+      },
     },
     link: {
       textDecoration: 'none',
@@ -131,11 +134,14 @@ const useStyles = makeStyles((theme: Theme) =>
         gridColumnEnd: '1',
         lineHeight: '1',
       },
+      [theme.breakpoints.down(1024)]: {
+        margin: '0 0',
+      },
     },
     publishedDateContainer: {
       [theme.breakpoints.down(1200)]: {
-        // backgroundColor: 'green',
-        width: 'auto',
+        backgroundColor: 'green',
+        width: '90%',
         gridRowStart: '2',
         lineHeight: '3.5em',
       },
@@ -162,6 +168,9 @@ const useStyles = makeStyles((theme: Theme) =>
         height: '7em',
         margin: '-6.5em 0 0.5em -5em',
         gridRowStart: '1',
+      },
+      [theme.breakpoints.down(1024)]: {
+        margin: '0 0',
       },
     },
   })

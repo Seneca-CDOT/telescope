@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
       transition: 'width 100ms linear,top 100ms cubic-bezier(0.5, 1, 0.89, 1)',
       top: 'auto',
       bottom: '0',
-      width: '100vw',
+      width: 'auto',
       flexDirection: 'row',
       alignItems: 'center',
       background: theme.palette.background.default,
