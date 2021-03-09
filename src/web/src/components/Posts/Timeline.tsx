@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: '0',
       width: '800px',
-      [theme.breakpoints.down(900)]: {
-        width: '90%',
+      [theme.breakpoints.down(1024)]: {
+        width: '100%',
       },
     },
     noMorePosts: {

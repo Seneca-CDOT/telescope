@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     backgroundColor: 'transparent',
     transition: 'width 100ms linear,top 300ms linear',
+    [theme.breakpoints.down(1200)]: {
+      left: '-3vw',
+    },
     [theme.breakpoints.down(1024)]: {
       transition: 'width 100ms linear,top 100ms cubic-bezier(0.5, 1, 0.89, 1)',
       top: 'auto',

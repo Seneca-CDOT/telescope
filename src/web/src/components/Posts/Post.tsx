@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         paddingTop: '1.6em',
         paddingBottom: '0',
+        // padding: '1.6em 0 0 2em',
       },
     },
     expandHeader: {
@@ -116,6 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
         gridTemplateColumns: '1fr',
         gridTemplateRows: 'auto auto',
         border: 'none',
+        // paddingLeft: '10px',
       },
     },
     authorNameContainer: {
