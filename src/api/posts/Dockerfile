@@ -10,4 +10,4 @@ RUN npm install ci --only=production
 
 USER node
 
-CMD ["dumb-init", "node", "server.js"]
+CMD ["dumb-init", "node", "src/server.js"]
