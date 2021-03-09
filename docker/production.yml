@@ -1,0 +1,174 @@
+################################################################################
+# Production docker-compose.yml, not meant for local development
+#
+# This docker-compose file is meant to be used to override settings in the
+# docker/docker-compose.yml base specification. Use one of config/env.staging or
+# config/env.production (or an env file based on these) to run everything:
+#
+# $ docker-compose --env-file env.production up -d
+#
+# See https://docs.docker.com/compose/production/
+################################################################################
+version: '3'
+
+services:
+  ##############################################################################
+  # Telescope 1.0: Front-end and Legacy (pre-microservices) Back-end
+  ##############################################################################
+  telescope:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      # next.js needs build-time access to the API_URL value, forward as ARG
+      args:
+        - API_URL=${API_URL}
+    container_name: 'telescope'
+    restart: unless-stopped
+    environment:
+      # a place-holder for the variable passed by CLI with a default value
+      # the passed or default value is a command to run `telescope`
+      - script=${script:-start}
+      # override the .env variable for `REDIS_URL`
+      - REDIS_URL=redis://redis:6379
+      # variables for elasticsearch
+      - ES_HOST=elasticsearch
+      - ELASTIC_PORT=9200
+      - ELASTIC_URL=http://elasticsearch
+      # Environment values we expect from our legacy .env file
+      - NODE_ENV
+      - PORT
+      - API_URL
+      - LOG_LEVEL
+      - FEED_URL
+      - FEED_URL_INTERVAL_MS
+      - ELASTIC_MAX_RESULTS_PER_PAGE
+      - ELASTIC_DELAY_MS
+      - SSO_LOGIN_URL
+      - SSO_LOGIN_CALLBACK_URL
+      - SLO_LOGOUT_URL
+      - SLO_LOGOUT_CALLBACK_URL
+      - SSO_IDP_PUBLIC_KEY_CERT
+      - SAML_ENTITY_ID
+      - ADMINISTRATORS
+      - FEED_PROCESSING_DELAY_SEC
+      - FEED_QUEUE_ATTEMPTS
+      - FEED_QUEUE_DELAY_MS
+      - FEED_QUEUE_PARALLEL_WORKERS
+      - MAX_POSTS_PER_PAGE
+    depends_on:
+      - redis
+      - elasticsearch
+    ports:
+      # NOTE: we don't expose Telescope through Traefik, nginx serves it.
+      - '${PORT}'
+    volumes:
+      # Volume to be shared with nginx for serving static content
+      - static:/telescope/src/web/out
+      # Volume to be shared for log rotation
+      - rotate:/telescope/log
+
+  ##############################################################################
+  # Telescope 2.0 Microservices
+  ##############################################################################
+
+  # image service
+  image:
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - IMAGE_PORT
+      # TODO
+      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      # - ELASTIC_APM_SERVICE_NAME=image
+      # - ELASTIC_APM_SERVER_URL=http://apm:8200
+
+  # auth service
+  auth:
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - AUTH_PORT
+      # TODO
+      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      # - ELASTIC_APM_SERVICE_NAME=auth
+      # - ELASTIC_APM_SERVER_URL=http://apm:8200
+
+  ##############################################################################
+  # Third-Party Dependencies and Support Services
+  ##############################################################################
+
+  # Our main ingress router, handling all traffic on 80/443
+  nginx:
+    environment:
+      - TELESCOPE_HOST
+      - API_HOST
+    volumes:
+      # Pass a templated version of our nginx.conf so the Telescope domains are replaced
+      - ../config/nginx.production.conf.template:/etc/nginx/nginx.conf.template
+      - ../../certbot/conf:/etc/letsencrypt
+      - ../../certbot/www:/var/www/certbot
+      # Volume to be shared with Telescope for serving static content
+      - static:/var/www/data
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    depends_on:
+      - telescope
+      - traefik
+    # This makes nginx swap only the 2 specified environment variables in our template (see:
+    # https://github.com/docker-library/docs/issues/496) and then reload this configuration
+    # (and the associated certificates) every six hours in the background and launches nginx
+    # in the foreground.
+    command: /bin/sh -c "envsubst '$$TELESCOPE_HOST $$API_HOST' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'"
+
+  # SSL certificate management for nginx
+  certbot:
+    image: certbot/certbot
+    container_name: 'certbot'
+    volumes:
+      - ../../certbot/conf:/etc/letsencrypt
+      - ../../certbot/www:/var/www/certbot
+    restart: always
+    # This will check if your certificate is up for renewal every 12 hours as recommended by Let’s Encrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+  # API Gateway running on 8888. We use nginx in front of this for secure/compressed/cached responses
+  traefik:
+    restart: unless-stopped
+
+  logrotate:
+    build:
+      context: ../tools/logrotate
+      dockerfile: Dockerfile
+    container_name: 'logrotate'
+    restart: unless-stopped
+    volumes:
+      - rotate:/var/log
+
+  redis:
+    restart: unless-stopped
+    ports:
+      # In production, we don't allow access to redis via local port binding
+      - '6739'
+    volumes:
+      # TODO: confirm this path...
+      - ../../redis-data:/data
+
+  elasticsearch:
+    restart: unless-stopped
+    volumes:
+      # The directory in the host where the data from elasticsearch will be stored
+      # needs to be owned by 1000:1000
+      # https://discuss.elastic.co/t/elastic-elasticsearch-docker-not-assigning-permissions-to-data-directory-on-run/65812/3
+      # TODO: confirm this path...
+      - ../../elastic-data:/usr/share/elasticsearch/data:rw
+    labels:
+      # Disable Elasticsearch routing via Traefik in production (we enable it in development)
+      - 'traefik.enable=false'
+
+  # TODO: Kibana + APM, see https://github.com/Seneca-CDOT/telescope/blob/372a6076540351cd54d85478521bcfbe8edefc87/src/api/production.yml
+
+volumes:
+  static:
+  rotate:

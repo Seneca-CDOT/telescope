@@ -4,21 +4,24 @@
 const dockerCompose = require('docker-compose');
 const path = require('path');
 
-const apiPath = path.join(__dirname, '..', 'src', 'api');
+const rootDir = path.join(__dirname, '..');
+const configDir = path.join(rootDir, 'config');
 
 const defaultOptions = {
-  cwd: apiPath,
+  cwd: rootDir,
   log: true,
-  composeOptions: ['--env-file', path.join(apiPath, 'env.development')],
+  composeOptions: ['--env-file', path.join(configDir, 'env.development')],
 };
 
 module.exports.start = async (services) => {
-  // Start the api service containers
+  // Start the api service containers, and build any that are out of date
+  const defaultWithBuild = { ...defaultOptions, commandOptions: ['--build'] };
+
   try {
     // If we get a list of services, use that.  Otherwise start them all.
     const { exitCode } = Array.isArray(services)
-      ? await dockerCompose.upMany(services, defaultOptions)
-      : await dockerCompose.upAll(defaultOptions);
+      ? await dockerCompose.upMany(services, defaultWithBuild)
+      : await dockerCompose.upAll(defaultWithBuild);
     process.exit(exitCode);
   } catch (err) {
     console.error(`Error starting services with docker-compose: ${err.message}`);

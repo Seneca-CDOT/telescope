@@ -60,7 +60,6 @@ jobs:
       - name: Install dependencies and run tests with default env
         run: |
           npm install
-          cp env.example .env
           npm run jest
 
   # Run end-to-end tests along with the microservices in docker-compose on Linux

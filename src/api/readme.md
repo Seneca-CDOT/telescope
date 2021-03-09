@@ -4,30 +4,28 @@
 
 There are a number of [docker-compose](https://docs.docker.com/compose/) files available for running Telescope's services, including:
 
-- [docker-compose.yml](docker-compose.yml) - the base docker-compose stack
-  definition of our microservices and our api gateway, [Traefik](https://traefik.io).
-- [development.yml](development.yml) - dependent services needed for development, testing, and CI. This is meant to be used in development only.
-- [production.yml](production.yml) - overrides and extensions to the base docker-compose
+- [docker/docker-compose.yml](docker/docker-compose.yml) - the base docker-compose stack
+  definition of our microservices, dependent services, and our api gateway, [Traefik](https://traefik.io). This is meant to be used in development only.
+- [docker/development.yml](docker/development.yml) - overrides and extensions to the base docker-compose
+  stack, with extra settings and services necessary for running in development or CI.
+- [docker/production.yml](docker/production.yml) - overrides and extensions to the base docker-compose
   stack, with extra settings and services necessary for running in staging and production.
 
 In conjunction with these, there are also multiple environment files, including:
 
-- [env.development](env.development) - environment variables for local development.
-- [env.staging](env.staging) - environment variables for our staging server.
-- [env.production](env.production) - environment variables for our production server.
+- [config/env.development](config/env.development) - environment variables for local development. This
+  is likely what you need to adjust or pay attention to if you're developing Telescope.
+- [config/env.staging](config/env.staging) - environment variables for our staging server.
+- [config/env.production](config/env.production) - environment variables for our production server.
+
+The env files are configured to specify which variables and docker-compose files are needed to be run.
+For most developers, doing the following will work:
+
+```
+docker-compose --env-file config/env.development up -d
+```
 
 ## Running the Services via docker-compose
-
-Run the services from the root directory:
-
-```
-npm run services:start
-```
-
-This will (re)build all the services, pull any images that are necessary for dependent services, and start all the services
-together. You can then access the services via the api hostname (see `API_HOST` in your .env file). For example:
-
-http://api.telescope.localhost/v1/image/gallery
 
 You can access logs for one or more services:
 
@@ -50,11 +48,11 @@ npm run services:stop
 
 ## Support Services Lookup Table (development only)
 
-| API                | URL                                 | Description                       |
-| ------------------ | ----------------------------------- | --------------------------------- |
-| Firebase UI        | http://ui.firebase.localhost        | UI Dashboard to Firebase Emulator |
-| Firebase Firestore | http://firestore.firebase.localhost | Firestore Emulator Service        |
-| Login              | http://login.localhost              | SAML SSO Identity Provider        |
+| API                | URL                          | Description                       |
+| ------------------ | ---------------------------- | --------------------------------- |
+| Firebase UI        | http://ui.firebase.localhost | UI Dashboard to Firebase Emulator |
+| Firebase Firestore | http://localhost:8088        | Firestore Emulator Service        |
+| Login              | http://login.localhost       | SAML SSO Identity Provider        |
 
 ## References
 

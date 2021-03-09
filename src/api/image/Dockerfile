@@ -7,7 +7,7 @@ WORKDIR /app
 
 COPY --chown=node:node . .
 
-RUN npm install ci --only=production
+RUN npm install --only=production --no-package-lock
 
 USER node
 

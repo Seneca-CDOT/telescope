@@ -1,33 +1,19 @@
 ################################################################################
-# Development docker-compose.yml, not meant for production
+# Base docker-compose.yml for Telescope services. Use the additional
+# production.yml file for production, and development.yml for development.
 ################################################################################
 version: '3'
 
 services:
-  # API Gateway
-  traefik:
-    image: traefik:v2.4.5
-    container_name: 'traefik'
-    command:
-      # If you need Traefik debug logs, uncomment this
-      #- '--log.level=DEBUG'
-      - '--api.insecure=true'
-      - '--providers.docker=true'
-      - '--providers.docker.exposedbydefault=false'
-      - '--entrypoints.web.address=:80'
-    ports:
-      - '80:80'
-      - '8080:8080'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - 'traefik.enable=true'
+  ##############################################################################
+  # Telescope 2.0 Microservices
+  ##############################################################################
 
   # image service
   image:
     container_name: 'image'
     build:
-      context: ./image
+      context: ../src/api/image
       dockerfile: Dockerfile
     environment:
       - IMAGE_PORT
@@ -51,7 +37,7 @@ services:
   auth:
     container_name: 'auth'
     build:
-      context: ./auth
+      context: ../src/api/auth
       dockerfile: Dockerfile
     environment:
       - AUTH_PORT
@@ -70,7 +56,6 @@ services:
       - ${AUTH_PORT}
     depends_on:
       - traefik
-      - login
     labels:
       # Enable Traefik
       - 'traefik.enable=true'
@@ -83,20 +68,11 @@ services:
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.auth.middlewares=strip_auth_prefix'
 
-  redis:
-    image: redis:latest
-    container_name: api_redis
-    ports:
-      - '6379'
-    command: ['redis-server', '--appendonly', 'yes']
-    volumes:
-      - ./redis-data:/data
-
   # posts service
   posts:
     container_name: 'posts'
     build:
-      context: ./posts
+      context: ../src/api/posts
       dockerfile: Dockerfile
     environment:
       - POSTS_PORT
@@ -116,3 +92,71 @@ services:
       - 'traefik.http.middlewares.strip_posts_prefix.stripprefix.prefixes=/${API_VERSION}/posts'
       - 'traefik.http.middlewares.strip_posts_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.posts.middlewares=strip_posts_prefix'
+
+  ##############################################################################
+  # Third-Party Dependencies and Support Services
+  ##############################################################################
+
+  # Our main ingress router, handling all traffic on 80/443
+  nginx:
+    image: nginx:latest
+    container_name: 'nginx'
+    volumes:
+      - ../config/nginx.development.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - traefik
+
+  # API Gateway
+  traefik:
+    image: traefik:v2.4.5
+    container_name: 'traefik'
+    command:
+      # If you need Traefik debug logs, uncomment this
+      #- '--log.level=DEBUG'
+      - '--api.insecure=false'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entryPoints.web.address=:8888'
+    ports:
+      - '8888'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - 'traefik.enable=true'
+
+  # Redis
+  redis:
+    image: redis:latest
+    container_name: 'redis'
+    ports:
+      - '6379'
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ../redis-data:/data
+
+  # Elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    container_name: 'elasticsearch'
+    environment:
+      - bootstrap.memory_lock=true
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+      - discovery.type=single-node
+    # See the following:
+    # - https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html,
+    # - https://github.com/deviantony/docker-elk/issues/243
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - '9200'
+    labels:
+      # Enable Traefik in development mode
+      - 'traefik.enable=true'
+      # Traefik routing for elasticsearch at http://elasticsearch.localhost
+      - 'traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.localhost`)'
+      # Specify the redis port
+      - 'traefik.http.services.elasticsearch.loadbalancer.server.port=9200'

@@ -12,8 +12,11 @@ if (result.error) {
 
   // Try and use the example env instead if we're not in production
   if (process.env.NODE_ENV !== 'production') {
-    const envSamplePath = path.resolve(process.cwd(), 'env.example');
+    const envSamplePath = path.resolve(process.cwd(), path.join('config', 'env.development'));
     console.log(`Attempting to use default env in ${envSamplePath} instead.\n`);
-    dotenv.config({ path: envSamplePath });
+    const secondAttempt = dotenv.config({ path: envSamplePath });
+    if (secondAttempt.error) {
+      console.warn(`Failed to load ${envSamplePath} env fallback file.`);
+    }
   }
 }
