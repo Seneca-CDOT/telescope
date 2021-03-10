@@ -20,17 +20,15 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
     },
     titleContainer: {
-      // backgroundColor: 'yellow',
+      gridArea: 'title',
+      backgroundColor: 'yellow',
       color: theme.palette.text.secondary,
       padding: '2em 0 1.5em',
       lineHeight: '1.3',
       top: '-.1em',
       fontSize: '0.9em',
-      [theme.breakpoints.down(1200)]: {
-        paddingTop: '1.6em',
-        paddingBottom: '0',
-        // padding: '1.6em 0 0 2em',
-      },
+      zIndex: 1000,
+      [theme.breakpoints.down(1200)]: {},
     },
     expandHeader: {
       whiteSpace: 'normal',
@@ -47,18 +45,17 @@ const useStyles = makeStyles((theme: Theme) =>
       textOverflow: 'ellipsis',
       textAlign: 'center',
       letterSpacing: '-3px',
-      [theme.breakpoints.down(1200)]: {
-        width: 'calc(100% - 1.5em)',
-        textAlign: 'left',
-        marginLeft: '1.5em',
-      },
+      [theme.breakpoints.down(1200)]: {},
     },
     author: {
+      position: 'absolute',
+      borderLeft: '2.5px solid #707070',
       fontSize: '2em',
       fontWeight: 'bold',
       color: theme.palette.text.primary,
     },
     published: {
+      position: 'absolute',
       fontSize: '1.5em',
       fontWeight: 'lighter',
       textDecoration: 'none',
@@ -70,9 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.default,
       width: '95%',
-      [theme.breakpoints.down(1024)]: {
-        padding: '0',
-      },
+      [theme.breakpoints.down(1024)]: {},
     },
     link: {
       textDecoration: 'none',
@@ -94,84 +89,38 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1em',
     },
     postInfo: {
-      color: 'white',
-      width: '200px',
-      float: 'right',
-      marginRight: '-22em',
-      top: '8em',
-      bottom: '100%',
-      [theme.breakpoints.down(1200)]: {
-        width: '100%',
-        height: '2%',
-        float: 'none',
-        top: '7.4em',
-      },
-    },
-    authorInfoContainer: {
-      // backgroundColor: 'gray',
-      display: 'flex',
-      flexDirection: 'column',
-      borderLeft: '2.5px solid #707070',
-      width: '100%',
-      paddingLeft: '2em',
-      height: '100%',
-      [theme.breakpoints.down(1200)]: {
-        display: 'grid',
-        gridTemplateColumns: '1fr',
-        gridTemplateRows: 'auto auto',
-        border: 'none',
-        // paddingLeft: '10px',
-      },
+      display: 'grid',
+      gridTemplateAreas: "'title title title''. . avatar''. . author''. . date'",
+      [theme.breakpoints.down(1200)]: {},
     },
     authorNameContainer: {
+      gridArea: 'author',
       width: 'calc(100% - 2em)',
-      [theme.breakpoints.down(1200)]: {
-        width: 'auto',
-        padding: '.1em 2em 0 0',
-        // backgroundColor: 'blue',
-        marginLeft: '-3.8em',
-        gridRowStart: '2',
-        gridColumnEnd: '1',
-        lineHeight: '1',
-      },
-      [theme.breakpoints.down(1024)]: {
-        margin: '0 0',
-      },
+      [theme.breakpoints.down(1200)]: {},
+      [theme.breakpoints.down(1024)]: {},
     },
     publishedDateContainer: {
-      [theme.breakpoints.down(1200)]: {
-        backgroundColor: 'green',
-        width: '90%',
-        gridRowStart: '2',
-        lineHeight: '3.5em',
-      },
+      gridArea: 'date',
+      [theme.breakpoints.down(1200)]: {},
     },
     authorAvatarContainer: {
+      gridArea: 'avatar',
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
-      float: 'left',
       paddingBottom: '1em',
-      [theme.breakpoints.down(1200)]: {
-        float: 'none',
-        paddingBottom: '0',
-      },
+      [theme.breakpoints.down(1200)]: {},
     },
     circle: {
+      position: 'absolute',
+      marginLeft: '10em',
       display: 'block',
       borderRadius: '50%',
       backgroundColor: '#121D59',
       width: '8em',
       height: '8em',
-      [theme.breakpoints.down(1200)]: {
-        width: '7em',
-        height: '7em',
-        margin: '-6.5em 0 0.5em -5em',
-        gridRowStart: '1',
-      },
-      [theme.breakpoints.down(1024)]: {
-        margin: '0 0',
-      },
+      [theme.breakpoints.down(1200)]: {},
+      [theme.breakpoints.down(1024)]: {},
     },
   })
 );
@@ -233,42 +182,39 @@ const PostComponent = ({ postUrl }: Props) => {
 
   return (
     <Box className={classes.root}>
-      <ListSubheader className={classes.titleContainer}>
-        <AdminButtons />
-        <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-          <span
-            role="button"
-            tabIndex={0}
-            onClick={() => setExpandHeader(!expandHeader)}
-            onKeyDown={() => setExpandHeader(!expandHeader)}
-            className={expandHeader ? classes.expandHeader : classes.collapseHeader}
-          >
-            {post.title}
-          </span>
-        </Typography>
-      </ListSubheader>
       <ListSubheader className={classes.postInfo}>
-        <div className={classes.authorInfoContainer}>
-          <div className={classes.authorAvatarContainer}>
-            <div className={classes.circle} />
-          </div>
-          <div className={classes.authorNameContainer}>
-            <Typography variant="subtitle2" className={classes.author}>
-              <a className={classes.link} href={post.feed.link}>
-                {post.feed.author}
-              </a>
-            </Typography>
-          </div>
-          <div className={classes.publishedDateContainer}>
-            <a href={post.url} rel="bookmark" className={classes.published}>
-              <time className={classes.time} dateTime={post.updated}>
-                {` ${formatPublishedDate(post.updated)}`}
-              </time>
+        <AdminButtons />
+        <div className={classes.titleContainer}>
+          <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={() => setExpandHeader(!expandHeader)}
+              onKeyDown={() => setExpandHeader(!expandHeader)}
+              className={expandHeader ? classes.expandHeader : classes.collapseHeader}
+            >
+              {post.title}
+            </span>
+          </Typography>
+        </div>
+        <div className={classes.authorAvatarContainer}>
+          <div className={classes.circle} />
+        </div>
+        <div className={classes.authorNameContainer}>
+          <Typography variant="subtitle2" className={classes.author}>
+            <a className={classes.link} href={post.feed.link}>
+              {post.feed.author}
             </a>
-          </div>
+          </Typography>
+        </div>
+        <div className={classes.publishedDateContainer}>
+          <a href={post.url} rel="bookmark" className={classes.published}>
+            <time className={classes.time} dateTime={post.updated}>
+              {` ${formatPublishedDate(post.updated)}`}
+            </time>
+          </a>
         </div>
       </ListSubheader>
-
       <div className={classes.content}>
         <section
           ref={sectionEl}
