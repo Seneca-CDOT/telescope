@@ -56,7 +56,7 @@
     "@wordpress/wordcount": "2.14.1",
     "body-parser": "1.19.0",
     "bull": "3.20.1",
-    "bull-board": "1.4.1",
+    "bull-board": "1.4.2",
     "clean-whitespace": "0.1.2",
     "connect-redis": "5.1.0",
     "cors": "2.8.5",
