@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '-.1em',
       fontSize: '0.9em',
       zIndex: 1000,
+      width: '100%',
       [theme.breakpoints.down(1200)]: {},
     },
     expandHeader: {
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textOverflow: 'ellipsis',
       textAlign: 'center',
       letterSpacing: '-3px',
+      width: '60vw',
       [theme.breakpoints.down(1200)]: {},
     },
     author: {
@@ -52,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderLeft: '2.5px solid #707070',
       fontSize: '2em',
       fontWeight: 'bold',
+      marginRight: '1em',
       color: theme.palette.text.primary,
     },
     published: {
