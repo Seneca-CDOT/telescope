@@ -1,0 +1,21 @@
+name: Comment dependabot PRs
+
+on:
+  push:
+    branches:
+      - 'dependabot/**'
+
+jobs:
+  comment:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/github-script@v3
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          github.push.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: 'How to review a dependabot PR? Please read this doc: [dependabot.md](/telescope/docs/dependabot.md)'
+          })
