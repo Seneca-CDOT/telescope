@@ -1,11 +1,19 @@
 import { useRef, useState } from 'react';
 import useSWR from 'swr';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Box, Grid, Typography, ListSubheader, createStyles } from '@material-ui/core';
+import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import {
+  Box,
+  Grid,
+  Typography,
+  ListSubheader,
+  createStyles,
+  useMediaQuery,
+} from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
+import PostDesktopInfo from './PostInfo';
 
 type Props = {
   postUrl: string;
@@ -16,20 +24,37 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: '0',
       fontSize: '1.5rem',
-      marginBottom: '4em',
+      // marginBottom: '10em',
       backgroundColor: theme.palette.background.default,
     },
+    desktopPostInfo: {
+      // float: 'right',
+      // marginRight: '-20em',
+      // bottom: '100%',
+      // top: '3em',
+      // backgroundColor: 'blue',
+      width: '200px',
+      float: 'right',
+      marginRight: '-24em',
+      top: '8em',
+      bottom: '100%',
+    },
     titleContainer: {
-      gridArea: 'title',
-      backgroundColor: 'yellow',
+      width: '100%',
       color: theme.palette.text.secondary,
       padding: '2em 0 1.5em',
       lineHeight: '1.3',
-      top: '-.1em',
+      top: '-1.1em',
       fontSize: '0.9em',
-      zIndex: 1000,
-      width: '100%',
-      [theme.breakpoints.down(1200)]: {},
+      // gridArea: 'title',
+      // backgroundColor: 'yellow',
+      // color: theme.palette.text.secondary,
+      // padding: '2em 0 1.5em',
+      // lineHeight: '1.3',
+      // top: '-.1em',
+      // zIndex: 1000,
+      // width: '100%',
+      // [theme.breakpoints.down(1200)]: {},
     },
     expandHeader: {
       whiteSpace: 'normal',
@@ -40,25 +65,33 @@ const useStyles = makeStyles((theme: Theme) =>
       cursor: 'pointer',
     },
     title: {
-      fontSize: '3em',
+      fontSize: '4.5em',
       fontWeight: 'bold',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       textAlign: 'center',
       letterSpacing: '-3px',
-      width: '60vw',
+      // width: '45.5vw',
       [theme.breakpoints.down(1200)]: {},
     },
     author: {
-      position: 'absolute',
-      borderLeft: '2.5px solid #707070',
+      // backgroundColor: 'blue',
+      // position: 'absolute',
+      boxSizing: 'border-box',
+      width: '50%',
+      // borderLeft: '2.5px solid #707070',
       fontSize: '2em',
+      lineHeight: '1.5em',
       fontWeight: 'bold',
-      marginRight: '1em',
+      marginLeft: '1em',
+      marginTop: '4em',
       color: theme.palette.text.primary,
     },
     published: {
-      position: 'absolute',
+      // position: 'absolute',
+      width: '50%',
+      marginLeft: '1.5em',
+      marginTop: '7em',
       fontSize: '1.5em',
       fontWeight: 'lighter',
       textDecoration: 'none',
@@ -92,13 +125,13 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1em',
     },
     postInfo: {
-      display: 'grid',
-      gridTemplateAreas: "'title title title''. . avatar''. . author''. . date'",
+      // display: 'grid',
+      // gridTemplateAreas: "'title title title''. . avatar''. . author''. . date'",
       [theme.breakpoints.down(1200)]: {},
     },
     authorNameContainer: {
       gridArea: 'author',
-      width: 'calc(100% - 2em)',
+      // width: 'calc(100% - 2em)',
       [theme.breakpoints.down(1200)]: {},
       [theme.breakpoints.down(1024)]: {},
     },
@@ -115,8 +148,8 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {},
     },
     circle: {
-      position: 'absolute',
-      marginLeft: '10em',
+      // position: 'absolute',
+      marginLeft: '2em',
       display: 'block',
       borderRadius: '50%',
       backgroundColor: '#121D59',
@@ -139,6 +172,8 @@ const formatPublishedDate = (dateString: string) => {
 
 const PostComponent = ({ postUrl }: Props) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const desktop = useMediaQuery(theme.breakpoints.up(1200));
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef<HTMLElement>(null);
   // Grab the post data from our backend so we can render it
@@ -187,7 +222,7 @@ const PostComponent = ({ postUrl }: Props) => {
     <Box className={classes.root}>
       <ListSubheader className={classes.postInfo}>
         <AdminButtons />
-        <div className={classes.titleContainer}>
+        <ListSubheader className={classes.titleContainer}>
           <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
             <span
               role="button"
@@ -199,25 +234,40 @@ const PostComponent = ({ postUrl }: Props) => {
               {post.title}
             </span>
           </Typography>
-        </div>
-        <div className={classes.authorAvatarContainer}>
-          <div className={classes.circle} />
-        </div>
-        <div className={classes.authorNameContainer}>
-          <Typography variant="subtitle2" className={classes.author}>
-            <a className={classes.link} href={post.feed.link}>
-              {post.feed.author}
-            </a>
-          </Typography>
-        </div>
-        <div className={classes.publishedDateContainer}>
-          <a href={post.url} rel="bookmark" className={classes.published}>
-            <time className={classes.time} dateTime={post.updated}>
-              {` ${formatPublishedDate(post.updated)}`}
-            </time>
-          </a>
-        </div>
+        </ListSubheader>
+        {!desktop && (
+          <>
+            {' '}
+            <ListSubheader className={classes.authorAvatarContainer}>
+              <div className={classes.circle} />
+            </ListSubheader>
+            <ListSubheader className={classes.authorNameContainer}>
+              <h1 className={classes.author}>
+                <a className={classes.link} href={post.feed.link}>
+                  {post.feed.author}
+                </a>
+              </h1>
+            </ListSubheader>
+            <ListSubheader className={classes.publishedDateContainer}>
+              <a href={post.url} rel="bookmark" className={classes.published}>
+                <time className={classes.time} dateTime={post.updated}>
+                  {`${formatPublishedDate(post.updated)}`}
+                </time>
+              </a>
+            </ListSubheader>
+          </>
+        )}
       </ListSubheader>
+      {desktop && (
+        <ListSubheader className={classes.desktopPostInfo}>
+          <PostDesktopInfo
+            postUrl={post.url}
+            authorName={post.feed.author}
+            postDate={formatPublishedDate(post.updated)}
+            blogUrl={post.feed.link}
+          />
+        </ListSubheader>
+      )}
       <div className={classes.content}>
         <section
           ref={sectionEl}
