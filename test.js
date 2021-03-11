@@ -12,6 +12,7 @@ const {
   ProtectedRouter,
   protectWithJwt,
   logger,
+  hash,
 } = require(".");
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
