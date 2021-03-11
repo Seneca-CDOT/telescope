@@ -26,6 +26,8 @@ const path = require("path");
 const createError = require("http-errors");
 const pino = require("pino");
 const expressPino = require("express-pino-logger");
+const crypto = require("crypto");
+const { clearScreenDown } = require("readline");
 
 let logger;
 if (apm) {
@@ -37,6 +39,10 @@ if (apm) {
     prettyPrint: {},
     prettifier: require("pino-colada"),
   });
+}
+
+function hash(input) {
+  return crypto.createHash("sha256").update(input).digest("hex").slice(0, 10);
 }
 
 // JWT Validation Middleware. We expect to get config details via the env
@@ -205,3 +211,4 @@ module.exports.logger = logger;
 module.exports.Router = (options) => createRouter(options);
 module.exports.ProtectedRouter = (options) => createRouter(options, true);
 module.exports.protectWithJwt = protectWithJwt;
+module.exports.hash = (input) => hash(input);

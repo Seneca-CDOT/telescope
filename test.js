@@ -567,3 +567,17 @@ describe("logger", () => {
     });
   });
 });
+
+describe("hash function tests for satellite", () => {
+  it("should return a 10 character hash value", () => {
+    expect(hash("satellite").length).toBe(10);
+  });
+
+  it("should hash a string correctly", () => {
+    expect(hash("satellite")).toBe("dc4b4e203f");
+  });
+
+  it("should return a different hash if anything changes", () => {
+    expect(hash("satellite2")).toBe("6288d4ca65");
+  });
+});
