@@ -1,5 +1,4 @@
 const request = require('supertest');
-
 const { app } = require('../src');
 const { addPost, getPost } = require('../src/storage');
 const hash = require('../../auth/src/hash');
