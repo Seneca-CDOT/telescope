@@ -26,6 +26,7 @@ const path = require("path");
 const createError = require("http-errors");
 const pino = require("pino");
 const expressPino = require("express-pino-logger");
+const crypto = require("crypto");
 
 let logger;
 if (apm) {
@@ -37,6 +38,26 @@ if (apm) {
     prettyPrint: {},
     prettifier: require("pino-colada"),
   });
+}
+
+/**
+ * Hash function used to generate our unique data ids.
+ * We use sha256 and encode in hex, so it's safe to use
+ * in URLs. For example:
+ *
+ *   6Xoj0UXOW3FNirlSYranli5gY6dDq60hs24EIAcHAEc=
+ *
+ * but truncate to only use the first 10 characters
+ * in order to reduce key sizes in Redis:
+ *
+ *   6Xoj0UXOW3
+ *
+ * This is fine for our needs, as we don't have enough
+ * data to require the entire hash.
+ */
+
+function hash(input) {
+  return crypto.createHash("sha256").update(input).digest("hex").slice(0, 10);
 }
 
 // JWT Validation Middleware. We expect to get config details via the env
@@ -205,3 +226,4 @@ module.exports.logger = logger;
 module.exports.Router = (options) => createRouter(options);
 module.exports.ProtectedRouter = (options) => createRouter(options, true);
 module.exports.protectWithJwt = protectWithJwt;
+module.exports.hash = (input) => hash(input);
