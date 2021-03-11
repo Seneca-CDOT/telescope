@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
       // backgroundColor: 'blue',
       width: '200px',
       float: 'right',
-      marginRight: '-24em',
+      marginRight: '-22em',
       top: '8em',
       bottom: '100%',
     },
