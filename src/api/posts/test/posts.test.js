@@ -1,11 +1,13 @@
 const request = require('supertest');
-
 const { app } = require('../src');
-const { addPost } = require('../src/storage');
+const { addPost, getPost } = require('../src/storage');
 const hash = require('../../auth/src/hash');
 
 describe('/posts', () => {
+  const requestedItems = 50;
+  const maxItems = 100;
   const createdItems = 150;
+  const nonInteger = 'test';
 
   const posts = [...Array(createdItems).keys()].map((item) => {
     const guid = `http://telescope${item}.cdot.systems`;
@@ -155,7 +157,10 @@ describe('test /posts/:id responses', () => {
     done();
   });
 
-  test('default number of items should be returned', (done) => {
-    request(app).get('/posts').expect('Content-type', 'application/json').expect(200, done);
+  test('requests ID with valid length but not exist Test', async (done) => {
+    const res = await request(app).get(`/1234567890`).set('Accept', 'text/html');
+    expect(res.status).toEqual(404);
+    expect(res.get('Content-length')).toEqual('46');
+    done();
   });
 });
