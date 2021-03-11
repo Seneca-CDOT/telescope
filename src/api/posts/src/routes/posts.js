@@ -1,7 +1,7 @@
 const { Router, logger } = require('@senecacdot/satellite');
-const Post = require('../bin/data/post');
-const { getPosts, getPostsCount } = require('../bin/storage');
-const { validatePostsQuery, validatePostsIdParam } = require('../bin/validation');
+const Post = require('../data/post');
+const { getPosts, getPostsCount } = require('../storage');
+const { validatePostsQuery, validatePostsIdParam } = require('../validation');
 
 const posts = Router();
 
