@@ -222,7 +222,7 @@ const PostComponent = ({ postUrl }: Props) => {
     <Box className={classes.root}>
       <ListSubheader className={classes.postInfo}>
         <AdminButtons />
-        <ListSubheader className={classes.titleContainer}>
+        <div className={classes.titleContainer}>
           <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
             <span
               role="button"
@@ -234,27 +234,27 @@ const PostComponent = ({ postUrl }: Props) => {
               {post.title}
             </span>
           </Typography>
-        </ListSubheader>
+        </div>
         {!desktop && (
           <>
             {' '}
-            <ListSubheader className={classes.authorAvatarContainer}>
+            <div className={classes.authorAvatarContainer}>
               <div className={classes.circle} />
-            </ListSubheader>
-            <ListSubheader className={classes.authorNameContainer}>
+            </div>
+            <div className={classes.authorNameContainer}>
               <h1 className={classes.author}>
                 <a className={classes.link} href={post.feed.link}>
                   {post.feed.author}
                 </a>
               </h1>
-            </ListSubheader>
-            <ListSubheader className={classes.publishedDateContainer}>
+            </div>
+            <div className={classes.publishedDateContainer}>
               <a href={post.url} rel="bookmark" className={classes.published}>
                 <time className={classes.time} dateTime={post.updated}>
                   {`${formatPublishedDate(post.updated)}`}
                 </time>
               </a>
-            </ListSubheader>
+            </div>
           </>
         )}
       </ListSubheader>
