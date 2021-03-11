@@ -26,6 +26,7 @@ const path = require("path");
 const createError = require("http-errors");
 const pino = require("pino");
 const expressPino = require("express-pino-logger");
+const crypto = require("crypto");
 
 let logger;
 if (apm) {
