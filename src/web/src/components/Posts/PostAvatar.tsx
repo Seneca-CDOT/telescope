@@ -31,16 +31,11 @@ const PostAvatar = ({ name, img }: AvatarProps) => {
     return <Avatar className={classes.avatar} src="img" />;
   }
 
-  if (name) {
-    const nameArr = name.split(' ');
-    let initials;
-    if (nameArr.length >= 2) {
-      const firstName = nameArr[0].substring(0, 1).toUpperCase();
-      const lastName = nameArr[nameArr.length - 1].substring(0, 1).toUpperCase();
-      initials = firstName + lastName;
-    } else if (nameArr.length === 1) {
-      initials = nameArr[0].substring(0, 1).toUpperCase();
-    }
+  if (name.length > 0) {
+    const initials = name
+      .split(' ')
+      .map((splitName, i, arr) => (i === 0 || i + 1 === arr.length ? splitName[0] : null))
+      .join('');
     return <Avatar className={classes.avatar}>{initials}</Avatar>;
   }
 
