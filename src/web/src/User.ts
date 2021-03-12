@@ -1,21 +1,12 @@
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 
 export default class User {
-  // TODO: more user details...
-  id: string;
-
-  email: string;
-
-  name: string;
-
-  isAdmin: boolean;
-
-  constructor(id: string, email: string, name: string, isAdmin: boolean) {
-    this.id = id;
-    this.email = email;
-    this.name = name;
-    this.isAdmin = isAdmin;
-  }
+  constructor(
+    public id: string,
+    public email: string,
+    public name: string,
+    public isAdmin: boolean
+  ) {}
 
   // Will throw InvalidTokenError if accessToken can't be parsed
   static fromToken(token: string): User {

@@ -49,6 +49,9 @@ module.exports = {
           },
         ],
         'import/extensions': 'off',
+        // Allow using TypeScript constructor shorthand: `Foo(public bar: string){}`
+        'no-useless-constructor': 'off',
+        'no-empty-function': 'off',
       },
     },
 
