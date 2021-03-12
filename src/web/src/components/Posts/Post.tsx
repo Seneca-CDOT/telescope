@@ -14,6 +14,7 @@ import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
 import PostDesktopInfo from './PostInfo';
+import PostAvatar from './PostAvatar';
 
 type Props = {
   postUrl: string;
@@ -258,7 +259,7 @@ const PostComponent = ({ postUrl }: Props) => {
         {!desktop && (
           <>
             <div className={classes.authorAvatarContainer}>
-              <div className={classes.circle} />
+              <PostAvatar name={post.feed.author} />
             </div>
             <div className={classes.authorNameContainer}>
               <h1 className={classes.author}>

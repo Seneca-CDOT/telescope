@@ -1,4 +1,5 @@
 import { createStyles, ListSubheader, makeStyles, Theme } from '@material-ui/core';
+import PostAvatar from './PostAvatar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,7 +69,7 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
   return (
     <ListSubheader className={classes.root}>
       <div className={classes.authorAvatarContainer}>
-        <div className={classes.circle} />
+        <PostAvatar name={authorName} />
       </div>
       <div className={classes.authorNameContainer}>
         <h1 className={classes.author}>
