@@ -84,7 +84,7 @@
     "opml-generator": "1.1.1",
     "passport": "0.4.1",
     "passport-saml": "2.0.5",
-    "pino": "6.11.1",
+    "pino": "6.11.2",
     "pino-elasticsearch": "5.4.0",
     "pino-pretty": "4.7.1",
     "sanitize-html": "2.3.2",
