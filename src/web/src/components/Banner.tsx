@@ -75,6 +75,10 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       backgroundColor: '#E5E5E5',
     },
+    arrowDownIcon: {
+      color: theme.palette.text.primary,
+      fontSize: '3rem',
+    },
   })
 );
 
@@ -135,7 +139,7 @@ export default function Banner() {
           <div className={classes.icon}>
             <ScrollAction>
               <Fab color="secondary" aria-label="scroll-down">
-                <KeyboardArrowDownIcon fontSize="large" />
+                <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
               </Fab>
             </ScrollAction>
           </div>
