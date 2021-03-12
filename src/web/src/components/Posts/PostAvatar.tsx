@@ -8,7 +8,7 @@ type AvatarProps = {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    circle: {
+    avatar: {
       marginLeft: '0.5rem',
       color: '#e5e5e5',
       backgroundColor: '#121D59',
@@ -28,7 +28,7 @@ const PostAvatar = ({ name, img }: AvatarProps) => {
   const classes = useStyles();
 
   if (img) {
-    return <Avatar src="img" />;
+    return <Avatar className={classes.avatar} src="img" />;
   }
 
   if (name) {
@@ -41,10 +41,10 @@ const PostAvatar = ({ name, img }: AvatarProps) => {
     } else if (nameArr.length === 1) {
       initials = nameArr[0].substring(0, 1).toUpperCase();
     }
-    return <Avatar className={classes.circle}>{initials}</Avatar>;
+    return <Avatar className={classes.avatar}>{initials}</Avatar>;
   }
 
-  return <Avatar />;
+  return <Avatar className={classes.avatar} />;
 };
 
 export default PostAvatar;
