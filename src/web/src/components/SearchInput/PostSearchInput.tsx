@@ -37,6 +37,7 @@ const PostSearchInput = ({ text, onChange }: PostSearchInputProps) => {
   return (
     <>
       <input
+        autoFocus
         className={classes.input}
         placeholder="How to Get Started in Open Source"
         value={text}
