@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: '0.875rem',
     display: 'block',
     bottom: theme.spacing(12),
-    left: theme.spacing(8),
+    left: theme.spacing(15),
     right: theme.spacing(8),
     lineHeight: '1.43',
     letterSpacing: 'inherit',

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '12rem',
       display: 'block',
       top: theme.spacing(20),
-      left: theme.spacing(8),
+      left: theme.spacing(15),
       [theme.breakpoints.between('xs', 'sm')]: {
         fontSize: '4rem',
         textAlign: 'left',
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       opacity: 0.85,
       bottom: theme.spacing(6),
-      left: theme.spacing(8),
+      left: theme.spacing(15),
       fontSize: '1.75rem',
       color: theme.palette.primary.contrastText,
       [theme.breakpoints.between('xs', 'sm')]: {
