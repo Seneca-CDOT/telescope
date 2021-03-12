@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import SearchResults from './SearchResults';
 import SearchBar from './SearchBar';
 import BackToTopButton from './BackToTopButton';
+import SearchHelp from './SearchHelp';
 
 type FilterProp = {
   filter: 'post' | 'author';
@@ -40,11 +41,14 @@ const SearchPage = () => {
   // form submit only.  These are used in the <SearchBar>, and the user can change them.
   const [text, setText] = useState('');
   const [filter, setFilter] = useState<FilterProp['filter']>('post');
+  const [showHelp, setShowHelp] = useState(true);
 
   // Form was submitted, so go ahead and sync to URL, (re)triggering search.
   function onSubmitHandler(event: FormEvent) {
     event.preventDefault();
     router.push(`/search?text=${text}&filter=${filter}`);
+    // On form submit, hide help list
+    setShowHelp(false);
   }
 
   useEffect(() => {
@@ -63,8 +67,10 @@ const SearchPage = () => {
         onFilterChange={(value: FilterProp['filter']) => setFilter(value)}
         onSubmit={onSubmitHandler}
       />
-      <br />
       <SearchResults text={textParam} filter={filterParam} />
+      {showHelp && 
+        <SearchHelp />
+      }
       <BackToTopButton />
     </div>
   );
