@@ -1,3 +1,9 @@
+const path = require('path');
+const dotenv = require('dotenv');
+
+const loadApiUrlFromEnv = (envFile) =>
+  dotenv.config({ path: envFile }).error ? null : process.env.API_URL;
+
 // In certain build contexts (docker-compose) we already have this defined.
 // If we don't, try to define it from the env.
 if (!process.env.NEXT_PUBLIC_API_URL) {
@@ -7,9 +13,20 @@ if (!process.env.NEXT_PUBLIC_API_URL) {
     // happening within docker) so use that.
     process.env.NEXT_PUBLIC_API_URL = process.env.API_URL;
   } else {
-    // No env, so likely we're working locally, so make a guess:
-    const port = process.env.PORT || 3000;
-    process.env.NEXT_PUBLIC_API_URL = `http://localhost:${port}`;
+    // Try using .env in the root (legacy Telescope 1.0)
+    let apiUrl = loadApiUrlFromEnv(path.join(process.cwd(), '../..', '.env'));
+    if (apiUrl) {
+      process.env.NEXT_PUBLIC_API_URL = apiUrl;
+    } else {
+      // Use whatever is in env.development (Microservices)
+      apiUrl = loadApiUrlFromEnv(path.join(process.cwd(), '../..', 'config/env.development'));
+      process.env.NEXT_PUBLIC_API_URL = apiUrl;
+    }
+
+    // One last check and a default to the local backend
+    if (!process.env.NEXT_PUBLIC_API_URL) {
+      process.env.NEXT_PUBLIC_API_URL = `http://localhost:${port}`;
+    }
   }
 }
 console.info(`Using NEXT_PUBLIC_API_URL=${process.env.NEXT_PUBLIC_API_URL}`);
