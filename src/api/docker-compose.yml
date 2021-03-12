@@ -32,7 +32,7 @@ services:
     environment:
       - IMAGE_PORT
     ports:
-      - '${IMAGE_PORT}'
+      - ${IMAGE_PORT}
     depends_on:
       - traefik
     labels:
@@ -82,3 +82,37 @@ services:
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.prefixes=/${API_VERSION}/auth'
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.auth.middlewares=strip_auth_prefix'
+
+  redis:
+    image: redis:latest
+    container_name: api_redis
+    ports:
+      - '6379'
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ./redis-data:/data
+
+  # posts service
+  posts:
+    container_name: 'posts'
+    build:
+      context: ./posts
+      dockerfile: Dockerfile
+    environment:
+      - POSTS_PORT
+    ports:
+      - ${POSTS_PORT}
+    depends_on:
+      - traefik
+      - redis
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the image service at /v1/image
+      - 'traefik.http.routers.posts.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/posts`)'
+      # Specify the posts service port
+      - 'traefik.http.services.posts.loadbalancer.server.port=${IMAGE_PORT}'
+      # Add middleware to this route to strip the /v1/posts prefix
+      - 'traefik.http.middlewares.strip_posts_prefix.stripprefix.prefixes=/${API_VERSION}/posts'
+      - 'traefik.http.middlewares.strip_posts_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.posts.middlewares=strip_posts_prefix'

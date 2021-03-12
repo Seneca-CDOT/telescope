@@ -1,0 +1,28 @@
+{
+  "name": "@senecacdot/posts-service",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A service for retrieving posts",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "repository": "Seneca-CDOT/telescope",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "@senecacdot/satellite": "^1.x",
+    "express-validator": "^6.10.0",
+    "ioredis": "^4.22.0",
+    "ioredis-mock": "^5.2.4",
+    "jsdom": "^16.4.0"
+  },
+  "devDependencies": {
+    "supertest": "^6.1.3"
+  }
+}
