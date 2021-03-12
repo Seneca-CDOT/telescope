@@ -21,6 +21,13 @@ const useStyles = makeStyles((theme: Theme) =>
         height: '2.5em',
       },
     },
+    text: {
+      display: 'flex',
+      transform: 'translateY(3px)',
+      [theme.breakpoints.down(1200)]: {
+        transform: 'translateY(2px)',
+      },
+    },
   })
 );
 
@@ -42,7 +49,11 @@ const PostAvatar = ({ name, img }: AvatarProps) => {
         i === 0 || i + 1 === arr.length ? splitName[0].toUpperCase() : null
       )
       .join('');
-    return <Avatar className={classes.avatar}>{initials}</Avatar>;
+    return (
+      <Avatar className={classes.avatar}>
+        <p className={classes.text}>{initials}</p>
+      </Avatar>
+    );
   }
 
   return <Avatar className={classes.avatar} />;
