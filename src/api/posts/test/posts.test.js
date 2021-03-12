@@ -72,6 +72,7 @@ describe('/posts', () => {
     expect(res.status).toEqual(400);
     done();
   });
+
   test('request posts with non-integer per_page param', async (done) => {
     const res = await request(app).get(`/?per_page=${nonInteger}`);
     expect(res.status).toEqual(400);

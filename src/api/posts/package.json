@@ -16,15 +16,10 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^7.11.0",
-    "@elastic/elasticsearch-mock": "^0.3.0",
-    "@senecacdot/satellite": "^1.8.0",
-    "crypto": "^1.0.1",
+    "@senecacdot/satellite": "^1.x",
     "express-validator": "^6.10.0",
     "ioredis": "^4.22.0",
     "ioredis-mock": "^5.2.4",
-    "jsdom": "^16.4.0",
-    "normalize-url": "^5.3.0",
-    "set-interval-async": "^1.0.34"
+    "jsdom": "^16.4.0"
   }
 }
