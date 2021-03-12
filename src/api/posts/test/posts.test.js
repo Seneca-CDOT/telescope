@@ -44,7 +44,7 @@ describe('/posts', () => {
     expect(res.get('Content-type')).toContain('application/json');
     expect(res.get('X-Total-Count')).toBe(createdItems.toString());
     expect(res.body.length).toBe(requestedItems);
-    expect(res.body instanceof Array).toBe(true);
+    expect(Array.isArray(res.body)).toBe(true);
   });
 
   test('requests more items than the limit set by the server', async () => {
@@ -67,16 +67,14 @@ describe('/posts', () => {
     expect(res.body.length).toBeGreaterThan(0);
   });
 
-  test('request posts with non-integer page param', async (done) => {
+  test('request posts with non-integer page param', async () => {
     const res = await request(app).get(`/?page=${nonInteger}`);
     expect(res.status).toEqual(400);
-    done();
   });
 
-  test('request posts with non-integer per_page param', async (done) => {
+  test('request posts with non-integer per_page param', async () => {
     const res = await request(app).get(`/?per_page=${nonInteger}`);
     expect(res.status).toEqual(400);
-    done();
   });
 });
 
@@ -105,13 +103,12 @@ describe('test /posts/:id responses', () => {
     expect(res.status).toEqual(404);
   });
 
-  test('requests text', async (done) => {
+  test('requests text', async () => {
     const postArray = await request(app).get('/');
     const res = await request(app).get(`/${postArray.body[2].id}`).set('Accept', 'text/plain');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('text/plain');
     expect(res.text).toEqual('html');
-    done();
   });
 
   test('requests JSON', async () => {
