@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSWRInfinite } from 'swr';
 import { Container, createStyles, Grid } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { usePrevious } from 'react-use';
 import SentimentDissatisfiedRoundedIcon from '@material-ui/icons/SentimentDissatisfiedRounded';
 import Timeline from './Timeline';
@@ -9,11 +9,11 @@ import useSiteMetaData from '../../hooks/use-site-metadata';
 import useFaviconBadge from '../../hooks/use-favicon-badge';
 import { Post } from '../../interfaces';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: '0',
-      backgroundColor: '#E5E5E5',
+      backgroundColor: theme.palette.background.default,
       color: 'white',
       width: '100%',
     },

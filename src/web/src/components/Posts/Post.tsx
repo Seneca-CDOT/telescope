@@ -47,23 +47,23 @@ const useStyles = makeStyles((theme: Theme) =>
         gridTemplateAreas: "'avatar title title title''avatar author date .'",
         justifyContent: 'left',
         width: '100%',
-        // backgroundColor: 'blue',
         padding: '1em 0 1em 0',
       },
     },
     titleContainer: {
-      // backgroundColor: 'yellow',
-      width: '100%',
+      gridArea: 'title',
       color: theme.palette.text.secondary,
+      width: '100%',
       padding: '2em 0 1.5em',
       lineHeight: '1.3',
       top: '-1.1em',
       [theme.breakpoints.down(1200)]: {
-        gridArea: 'title',
-        color: theme.palette.text.secondary,
         top: '-1.1em',
         width: '725px',
         padding: '1em 0 .1em',
+      },
+      [theme.breakpoints.down(1024)]: {
+        width: '80vw',
       },
     },
     title: {
@@ -73,17 +73,19 @@ const useStyles = makeStyles((theme: Theme) =>
       textOverflow: 'ellipsis',
       textAlign: 'center',
       letterSpacing: '-3px',
-      // width: '45.5vw',
       [theme.breakpoints.down(1200)]: {
         fontSize: '3.5em',
         fontWeight: 'bold',
         textAlign: 'start',
         letterSpacing: '-3px',
-        // backgroundColor: 'green',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         lineHeight: '1.3',
         marginLeft: '.3em',
+      },
+      [theme.breakpoints.down(1024)]: {
+        fontSize: '2.5em',
+        marginLeft: '.1em',
       },
     },
     expandHeader: {
@@ -99,16 +101,18 @@ const useStyles = makeStyles((theme: Theme) =>
         gridArea: 'author',
         width: '100%',
       },
-      [theme.breakpoints.down(1024)]: {},
     },
     author: {
       [theme.breakpoints.down(1200)]: {
-        // backgroundColor: 'blue',
         fontSize: '2em',
         lineHeight: '1.5em',
         fontWeight: 'bold',
         margin: '.2em 0 0 .5em',
         color: theme.palette.text.primary,
+      },
+      [theme.breakpoints.down(1024)]: {
+        fontSize: '1.1em',
+        marginRight: '1em',
       },
     },
     link: {
@@ -128,13 +132,15 @@ const useStyles = makeStyles((theme: Theme) =>
         width: '200px',
         height: '10px',
         margin: '-.6em 0 -1em 1.5em',
-        // marginLeft: '1.5em',
-        // marginBottom: '-1em',
         fontSize: '1.3em',
         fontWeight: 'lighter',
-        textDecoration: 'none',
         color: theme.palette.text.primary,
-        // backgroundColor: 'yellow',
+      },
+      [theme.breakpoints.down(1024)]: {
+        fontSize: '1.1em',
+        width: '30vw',
+        height: '5px',
+        margin: '-1.6em 0 -1em .5px',
       },
       '&:hover': {
         textDecorationLine: 'underline',
@@ -150,7 +156,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     circle: {
-      // position: 'absolute',
       marginLeft: '2em',
       display: 'block',
       borderRadius: '50%',
@@ -160,7 +165,11 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1200)]: {
         marginLeft: '0',
       },
-      [theme.breakpoints.down(1024)]: {},
+      [theme.breakpoints.down(1024)]: {
+        width: '6em',
+        height: '6em',
+        margin: '0',
+      },
     },
     content: {
       overflow: 'auto',
@@ -168,7 +177,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.default,
       width: '95%',
-      [theme.breakpoints.down(1024)]: {},
     },
   })
 );

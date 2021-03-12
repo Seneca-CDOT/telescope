@@ -1,4 +1,4 @@
-import { createStyles, Box, ListSubheader, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, ListSubheader, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,13 +42,8 @@ const useStyles = makeStyles((theme: Theme) =>
         textDecorationLine: 'underline',
       },
     },
-    publishedDateContainer: {
-      // width: '100%',
-    },
     published: {
-      // width: '50%',
       marginLeft: '.5em',
-      // marginTop: '7em',
       fontSize: '1.5em',
       fontWeight: 'lighter',
       textDecoration: 'none',
@@ -82,7 +77,7 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
           </a>
         </h1>
       </div>
-      <div className={classes.publishedDateContainer}>
+      <div>
         <a href={postUrl} rel="bookmark" className={classes.published}>
           <time className={classes.time} dateTime={postDate}>
             {postDate}
