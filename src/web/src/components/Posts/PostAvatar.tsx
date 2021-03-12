@@ -34,7 +34,9 @@ const PostAvatar = ({ name, img }: AvatarProps) => {
   if (name.length > 0) {
     const initials = name
       .split(' ')
-      .map((splitName, i, arr) => (i === 0 || i + 1 === arr.length ? splitName[0] : null))
+      .map((splitName, i, arr) =>
+        i === 0 || i + 1 === arr.length ? splitName[0].toUpperCase() : null
+      )
       .join('');
     return <Avatar className={classes.avatar}>{initials}</Avatar>;
   }
