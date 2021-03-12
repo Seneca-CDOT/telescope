@@ -11,11 +11,9 @@ const useStyles = makeStyles((theme: Theme) =>
     input: {
       fontSize: '1.6rem',
       '&:hover': {
-        border: '1px solid',
         borderColor: theme.palette.primary.main,
       },
       '&:focus': {
-        border: '2px solid',
         borderColor: theme.palette.primary.main,
       },
       '& > *': {
@@ -23,11 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.text.primary,
       },
       height: '55px',
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: 'transparent',
       paddingLeft: '10px',
       paddingRight: '60px',
-      border: '1px solid #B3B6B7',
-      borderRadius: '7px',
+      border: 'none',
       outline: 'none',
     },
   })
@@ -39,9 +36,10 @@ const AuthorSearchInput = ({ text, onChange }: AuthorSearchInputProps) => {
   return (
     <>
       <input
+        autoFocus
         className={classes.input}
         list="search-suggestions"
-        placeholder="How to Get Started in Open Source"
+        placeholder="How to contribute to Open Source"
         value={text}
         onChange={onChange}
       />
