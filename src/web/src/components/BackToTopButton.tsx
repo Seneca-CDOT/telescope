@@ -8,12 +8,21 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       position: 'fixed',
-      bottom: theme.spacing(2),
+      bottom: theme.spacing(10),
       right: theme.spacing(2),
       zIndex: 1100,
+
+      [theme.breakpoints.up(1024)]: {
+        bottom: theme.spacing(4),
+        right: 'calc((100vw - 930px) / 2)',
+      },
     },
     arrowUpIcon: {
-      color: theme.palette.primary.light,
+      color: theme.palette.text.primary,
+      fontSize: '3rem',
+    },
+    MuiFab: {
+      boxShadow: 'none',
     },
   })
 );
@@ -32,8 +41,8 @@ const BackToTopButton = ({ scrollThreshold = 1000 }: BackToTopButtonProps) => {
     <Zoom in={trigger}>
       <div className={classes.root}>
         <ScrollAction>
-          <Fab color="secondary" aria-label="scroll back to top">
-            <KeyboardArrowUpIcon className={classes.arrowUpIcon} fontSize="large" />
+          <Fab color="secondary" aria-label="scroll back to top" className={classes.MuiFab}>
+            <KeyboardArrowUpIcon className={classes.arrowUpIcon} />
           </Fab>
         </ScrollAction>
       </div>
