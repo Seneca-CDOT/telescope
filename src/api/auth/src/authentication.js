@@ -6,9 +6,7 @@
 
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
-const { logger } = require('@senecacdot/satellite');
-
-const hash = require('./hash');
+const { logger, hash } = require('@senecacdot/satellite');
 const User = require('./user');
 const Admin = require('./admin');
 

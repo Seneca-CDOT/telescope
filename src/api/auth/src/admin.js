@@ -1,5 +1,5 @@
 const User = require('./user');
-const hash = require('./hash');
+const { hash } = require('@senecacdot/satellite');
 
 // Get space separated list of admin accounts from env
 const administrators = process.env.ADMINISTRATORS ? process.env.ADMINISTRATORS.split(' ') : [];
