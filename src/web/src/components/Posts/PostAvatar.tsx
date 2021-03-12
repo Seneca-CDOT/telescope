@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     text: {
-      display: 'flex',
       transform: 'translateY(3px)',
       [theme.breakpoints.down(1200)]: {
         transform: 'translateY(2px)',
