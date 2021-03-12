@@ -24,45 +24,47 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: '0',
       fontSize: '1.5rem',
-      // marginBottom: '10em',
+      width: '100%',
       backgroundColor: theme.palette.background.default,
     },
+    spinner: {
+      padding: '20px',
+    },
+    error: {
+      lineHeight: '1',
+      fontSize: '1em',
+    },
     desktopPostInfo: {
-      // float: 'right',
-      // marginRight: '-20em',
-      // bottom: '100%',
-      // top: '3em',
-      // backgroundColor: 'blue',
       width: '200px',
       float: 'right',
       marginRight: '-22em',
       top: '8em',
       bottom: '100%',
     },
+    postInfo: {
+      [theme.breakpoints.down(1200)]: {
+        display: 'grid',
+        gridTemplateAreas: "'avatar title title title''avatar author date .'",
+        justifyContent: 'left',
+        width: '100%',
+        // backgroundColor: 'blue',
+        padding: '1em 0 1em 0',
+      },
+    },
     titleContainer: {
+      // backgroundColor: 'yellow',
       width: '100%',
       color: theme.palette.text.secondary,
       padding: '2em 0 1.5em',
       lineHeight: '1.3',
       top: '-1.1em',
-      fontSize: '0.9em',
-      // gridArea: 'title',
-      // backgroundColor: 'yellow',
-      // color: theme.palette.text.secondary,
-      // padding: '2em 0 1.5em',
-      // lineHeight: '1.3',
-      // top: '-.1em',
-      // zIndex: 1000,
-      // width: '100%',
-      // [theme.breakpoints.down(1200)]: {},
-    },
-    expandHeader: {
-      whiteSpace: 'normal',
-      cursor: 'pointer',
-    },
-    collapseHeader: {
-      whiteSpace: 'nowrap',
-      cursor: 'pointer',
+      [theme.breakpoints.down(1200)]: {
+        gridArea: 'title',
+        color: theme.palette.text.secondary,
+        top: '-1.1em',
+        width: '725px',
+        padding: '1em 0 .1em',
+      },
     },
     title: {
       fontSize: '4.5em',
@@ -72,38 +74,42 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       letterSpacing: '-3px',
       // width: '45.5vw',
-      [theme.breakpoints.down(1200)]: {},
+      [theme.breakpoints.down(1200)]: {
+        fontSize: '3.5em',
+        fontWeight: 'bold',
+        textAlign: 'start',
+        letterSpacing: '-3px',
+        // backgroundColor: 'green',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        lineHeight: '1.3',
+        marginLeft: '.3em',
+      },
+    },
+    expandHeader: {
+      whiteSpace: 'normal',
+      cursor: 'pointer',
+    },
+    collapseHeader: {
+      whiteSpace: 'nowrap',
+      cursor: 'pointer',
+    },
+    authorNameContainer: {
+      [theme.breakpoints.down(1200)]: {
+        gridArea: 'author',
+        width: '100%',
+      },
+      [theme.breakpoints.down(1024)]: {},
     },
     author: {
-      // backgroundColor: 'blue',
-      // position: 'absolute',
-      boxSizing: 'border-box',
-      width: '50%',
-      // borderLeft: '2.5px solid #707070',
-      fontSize: '2em',
-      lineHeight: '1.5em',
-      fontWeight: 'bold',
-      marginLeft: '1em',
-      marginTop: '4em',
-      color: theme.palette.text.primary,
-    },
-    published: {
-      // position: 'absolute',
-      width: '50%',
-      marginLeft: '1.5em',
-      marginTop: '7em',
-      fontSize: '1.5em',
-      fontWeight: 'lighter',
-      textDecoration: 'none',
-      color: theme.palette.text.primary,
-    },
-    content: {
-      overflow: 'auto',
-      padding: '1em',
-      color: theme.palette.text.primary,
-      backgroundColor: theme.palette.background.default,
-      width: '95%',
-      [theme.breakpoints.down(1024)]: {},
+      [theme.breakpoints.down(1200)]: {
+        // backgroundColor: 'blue',
+        fontSize: '2em',
+        lineHeight: '1.5em',
+        fontWeight: 'bold',
+        margin: '.2em 0 0 .5em',
+        color: theme.palette.text.primary,
+      },
     },
     link: {
       textDecoration: 'none',
@@ -112,40 +118,36 @@ const useStyles = makeStyles((theme: Theme) =>
         textDecorationLine: 'underline',
       },
     },
-    time: {
+    publishedDateContainer: {
+      [theme.breakpoints.down(1200)]: {
+        gridArea: 'date',
+      },
+    },
+    published: {
+      [theme.breakpoints.down(1200)]: {
+        width: '200px',
+        height: '10px',
+        margin: '-.6em 0 -1em 1.5em',
+        // marginLeft: '1.5em',
+        // marginBottom: '-1em',
+        fontSize: '1.3em',
+        fontWeight: 'lighter',
+        textDecoration: 'none',
+        color: theme.palette.text.primary,
+        // backgroundColor: 'yellow',
+      },
       '&:hover': {
         textDecorationLine: 'underline',
       },
     },
-    spinner: {
-      padding: '20px',
-    },
-    error: {
-      lineHeight: '1',
-      fontSize: '1em',
-    },
-    postInfo: {
-      // display: 'grid',
-      // gridTemplateAreas: "'title title title''. . avatar''. . author''. . date'",
-      [theme.breakpoints.down(1200)]: {},
-    },
-    authorNameContainer: {
-      gridArea: 'author',
-      // width: 'calc(100% - 2em)',
-      [theme.breakpoints.down(1200)]: {},
-      [theme.breakpoints.down(1024)]: {},
-    },
-    publishedDateContainer: {
-      gridArea: 'date',
-      [theme.breakpoints.down(1200)]: {},
-    },
     authorAvatarContainer: {
-      gridArea: 'avatar',
-      shapeOutside: 'circle(50%) border-box',
-      shapeMargin: '1rem',
-      borderRadius: '50%',
-      paddingBottom: '1em',
-      [theme.breakpoints.down(1200)]: {},
+      [theme.breakpoints.down(1200)]: {
+        gridArea: 'avatar',
+        shapeOutside: 'circle(50%) border-box',
+        shapeMargin: '1rem',
+        borderRadius: '50%',
+        padding: '0',
+      },
     },
     circle: {
       // position: 'absolute',
@@ -155,7 +157,17 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#121D59',
       width: '8em',
       height: '8em',
-      [theme.breakpoints.down(1200)]: {},
+      [theme.breakpoints.down(1200)]: {
+        marginLeft: '0',
+      },
+      [theme.breakpoints.down(1024)]: {},
+    },
+    content: {
+      overflow: 'auto',
+      padding: '1em',
+      color: theme.palette.text.primary,
+      backgroundColor: theme.palette.background.default,
+      width: '95%',
       [theme.breakpoints.down(1024)]: {},
     },
   })
@@ -237,7 +249,6 @@ const PostComponent = ({ postUrl }: Props) => {
         </div>
         {!desktop && (
           <>
-            {' '}
             <div className={classes.authorAvatarContainer}>
               <div className={classes.circle} />
             </div>
@@ -249,11 +260,11 @@ const PostComponent = ({ postUrl }: Props) => {
               </h1>
             </div>
             <div className={classes.publishedDateContainer}>
-              <a href={post.url} rel="bookmark" className={classes.published}>
-                <time className={classes.time} dateTime={post.updated}>
+              <h1 className={classes.published}>
+                <a href={post.url} rel="bookmark" className={classes.link}>
                   {`${formatPublishedDate(post.updated)}`}
-                </time>
-              </a>
+                </a>
+              </h1>
             </div>
           </>
         )}
