@@ -1,4 +1,4 @@
-FROM node:lts:alphine as base
+FROM node:lts:alpine as base
 
 RUN apk add dumb-init
 

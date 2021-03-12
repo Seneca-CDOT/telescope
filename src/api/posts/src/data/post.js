@@ -1,6 +1,6 @@
+const { hash } = require('@senecacdot/satellite');
 const { getPost, addPost } = require('../storage');
 const textParser = require('../text-parser');
-const hash = require('../../../auth/src/hash');
 
 /**
  * Makes sure that a given date can be constructed as a Date object
