@@ -19,9 +19,12 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile
-      # next.js needs build-time access to the API_URL value, forward as ARG
+      # next.js needs build-time access to a number of API URL values, forward as ARGs
       args:
+        # Telescope 1.0 API URL
         - API_URL=${API_URL}
+        # Telescope 2.0 Microservice URLs
+        - IMAGE_URL=${IMAGE_URL}
     container_name: 'telescope'
     restart: unless-stopped
     environment:

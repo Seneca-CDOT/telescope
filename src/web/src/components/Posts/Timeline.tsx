@@ -4,7 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import PostComponent from './Post';
 import { Post } from '../../interfaces';
 import LoadAutoScroll from './LoadAutoScroll';
-import useSiteMetaData from '../../hooks/use-site-metadata';
+import { telescopeUrl } from '../../config';
 
 type Props = {
   pages: Post[][] | undefined;
@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Timeline = ({ pages, nextPage }: Props) => {
   const classes = useStyles();
-  const { telescopeUrl } = useSiteMetaData();
 
   if (!pages) {
     return null;

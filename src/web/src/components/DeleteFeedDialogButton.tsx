@@ -11,7 +11,7 @@ import {
 import { Delete } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { Feed } from '../interfaces';
-import useSiteMetadata from '../hooks/use-site-metadata';
+import { telescopeUrl } from '../config';
 
 type DeleteFeedDialogButtonProps = {
   feed: Feed;
@@ -27,7 +27,6 @@ const useStyles = makeStyles(() => ({
 const DeleteFeedDialogButton = ({ feed, deletionCallback }: DeleteFeedDialogButtonProps) => {
   const { id, url } = feed;
   const classes = useStyles();
-  const { telescopeUrl } = useSiteMetadata();
   const [open, setOpen] = useState(false);
 
   const deleteBtnRef = useRef<HTMLButtonElement | null>(null);

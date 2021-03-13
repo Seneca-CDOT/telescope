@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/do
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
 import { logoUrl } from '../components/Logo';
-import config from '../config';
+import { title, description, author, telescopeUrl, keywords } from '../config';
 import { lightTheme } from '../theme';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_document.js
@@ -14,7 +14,6 @@ class MyDocument extends Document {
   }
 
   render() {
-    const { title, description, author, telescopeUrl, keywords } = config;
     return (
       <Html lang="en">
         <Head>
