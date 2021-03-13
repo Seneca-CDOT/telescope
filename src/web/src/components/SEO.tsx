@@ -1,13 +1,12 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import config from '../config';
+import { telescopeUrl } from '../config';
 
 type SEOProps = {
   pageTitle: string;
 };
 
 const SEO = ({ pageTitle }: SEOProps) => {
-  const { telescopeUrl } = config;
   const { pathname } = useRouter();
   const currentUrl = `${telescopeUrl}${pathname}`;
 

@@ -5,6 +5,7 @@ import DynamicImage from './DynamicImage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   dynamic: {
+    height: `100%`,
     transition: 'opacity 1s ease-in-out',
     backgroundColor: theme.palette.primary.main,
     opacity: 0.9,

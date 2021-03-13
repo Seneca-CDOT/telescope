@@ -14,6 +14,8 @@
 # NEXT_PUBLIC_API_URL is needed by the next.js build, which we define
 # as a build ARG in API_URL
 ARG API_URL
+# API Service URLs, set via ENV in docker or next build
+ARG IMAGE_URL
 
 # Context: Build Context
 FROM node:lts-alpine as build
@@ -34,8 +36,9 @@ COPY ./src/web/package.json ./src/web/package.json
 # Context: Dependencies
 FROM build AS backend_dependencies
 
-# Forward the API_URL build ARG from pervious stage
+# Forward the API_URL and Service URLs build ARGs from pervious stage
 ARG API_URL
+ARG IMAGE_URL
 
 # Install Production Modules!
 # Disable postinstall hook in this case since we are being explict with installs
@@ -50,9 +53,12 @@ RUN cd ./src/web && npm install --no-package-lock
 # Context: Front-end Builder
 FROM frontend_dependencies as builder
 
-# Copy the API_URL build arg over so next.js can see it in next.config.js
+# Copy the various API URLs build args over so next.js can see them in next.config.js
 ARG API_URL
 ENV NEXT_PUBLIC_API_URL ${API_URL}
+
+ARG IMAGE_URL
+ENV NEXT_PUBLIC_IMAGE_URL ${IMAGE_URL}
 
 COPY ./src/web ./src/web
 COPY ./.git ./.git

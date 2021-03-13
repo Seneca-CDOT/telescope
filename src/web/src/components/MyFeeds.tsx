@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { isWebUri } from 'valid-url';
 
-import config from '../config';
+import { userFeedsUrl, feedsUrl } from '../config';
 import ExistingFeedList from './ExistingFeedList';
 import HelpPopoverButton from './HelpPopoverButton';
 import CustomizedSnackBar from './SnackBar';
@@ -32,8 +32,6 @@ const MyFeeds = ({ user }: MyFeedsProps) => {
   const [submitStatus, setSubmitStatus] = useState({ message: '', isError: false });
   const [feedHashObject, updateFeedHashObject] = useState({});
   const [alert, setAlert] = useState(false);
-
-  const { userFeedsUrl, feedsUrl } = config;
 
   useEffect(() => {
     setNewFeedAuthor(user.name);

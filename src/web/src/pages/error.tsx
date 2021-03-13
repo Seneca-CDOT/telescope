@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { Card, CardActions, CardContent, Fab, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBack from '@material-ui/icons/ArrowBack';
-import config from '../config';
+import { telescopeUrl } from '../config';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -141,7 +141,6 @@ const ErrorPage = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const { telescopeUrl } = config;
   const location = new URL(router.asPath, telescopeUrl);
   const params = new URLSearchParams(location.search);
 

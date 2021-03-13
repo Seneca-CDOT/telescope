@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSWRInfinite } from 'swr';
 import { Container, Box } from '@material-ui/core';
 
-import useSiteMetadata from '../hooks/use-site-metadata';
+import { telescopeUrl } from '../config';
 import Timeline from './Posts/Timeline';
 import Spinner from './Spinner';
 
@@ -55,7 +55,6 @@ type SearchResultProps = {
 
 const SearchResults = ({ text, filter }: SearchResultProps) => {
   const classes = useStyles();
-  const { telescopeUrl } = useSiteMetadata();
   const prepareUrl = (index: number) =>
     `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}&page=${index}`;
 

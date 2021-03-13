@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles, Fab, Grid, Typography } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import useSiteMetadata from '../hooks/use-site-metadata';
+import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import ScrollAction from './ScrollAction';
 
@@ -84,7 +84,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Banner() {
   const classes = useStyles();
-  const { telescopeUrl } = useSiteMetadata();
   const [gitInfo, setGitInfo] = useState({
     gitHubUrl: '',
     sha: '',
