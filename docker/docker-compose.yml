@@ -97,30 +97,10 @@ services:
   # Third-Party Dependencies and Support Services
   ##############################################################################
 
-  # Our main ingress router, handling all traffic on 80/443
-  nginx:
-    image: nginx:latest
-    container_name: 'nginx'
-    volumes:
-      - ../config/nginx.development.conf:/etc/nginx/nginx.conf
-    ports:
-      - 80:80
-    depends_on:
-      - traefik
-
   # API Gateway
   traefik:
     image: traefik:v2.4.5
     container_name: 'traefik'
-    command:
-      # If you need Traefik debug logs, uncomment this
-      #- '--log.level=DEBUG'
-      - '--api.insecure=false'
-      - '--providers.docker=true'
-      - '--providers.docker.exposedbydefault=false'
-      - '--entryPoints.web.address=:8888'
-    ports:
-      - '8888'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:

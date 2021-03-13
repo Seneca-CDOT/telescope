@@ -15,7 +15,7 @@ const defaultOptions = {
 
 module.exports.start = async (services) => {
   // Start the api service containers, and build any that are out of date
-  const defaultWithBuild = { ...defaultOptions, commandOptions: ['--build'] };
+  const defaultWithBuild = { ...defaultOptions, commandOptions: ['--build', '--remove-orphans'] };
 
   try {
     // If we get a list of services, use that.  Otherwise start them all.
@@ -32,7 +32,10 @@ module.exports.start = async (services) => {
 module.exports.stop = async () => {
   // Stop the api service containers
   try {
-    const { exitCode } = await dockerCompose.down(defaultOptions);
+    const { exitCode } = await dockerCompose.down({
+      ...defaultOptions,
+      commandOptions: ['--remove-orphans'],
+    });
     process.exit(exitCode);
   } catch (err) {
     console.error(`Error stopping services with docker-compose: ${err.message}`);

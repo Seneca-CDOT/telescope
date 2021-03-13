@@ -99,12 +99,14 @@ services:
 
   # Our main ingress router, handling all traffic on 80/443
   nginx:
+    image: nginx:latest
+    container_name: 'nginx'
     environment:
       - TELESCOPE_HOST
       - API_HOST
     volumes:
       # Pass a templated version of our nginx.conf so the Telescope domains are replaced
-      - ../config/nginx.production.conf.template:/etc/nginx/nginx.conf.template
+      - ../config/nginx.conf.template:/etc/nginx/nginx.conf.template
       - ../../certbot/conf:/etc/letsencrypt
       - ../../certbot/www:/var/www/certbot
       # Volume to be shared with Telescope for serving static content
@@ -122,6 +124,17 @@ services:
     # in the foreground.
     command: /bin/sh -c "envsubst '$$TELESCOPE_HOST $$API_HOST' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'"
 
+  # API Gateway running on 8888. We use nginx in front of this for secure/compressed/cached responses
+  traefik:
+    restart: unless-stopped
+    command:
+      - '--api.insecure=false'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entryPoints.web.address=:8888'
+    ports:
+      - '8888'
+
   # SSL certificate management for nginx
   certbot:
     image: certbot/certbot
@@ -132,10 +145,6 @@ services:
     restart: always
     # This will check if your certificate is up for renewal every 12 hours as recommended by Let’s Encrypt
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-
-  # API Gateway running on 8888. We use nginx in front of this for secure/compressed/cached responses
-  traefik:
-    restart: unless-stopped
 
   logrotate:
     build:

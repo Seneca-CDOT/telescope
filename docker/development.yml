@@ -10,6 +10,19 @@
 version: '3'
 
 services:
+  # API Gateway
+  traefik:
+    command:
+      - '--log.level=DEBUG'
+      - '--api.insecure=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+    ports:
+      # The HTTP port
+      - '80:80'
+      # The Web UI (enabled by --api.insecure=true)
+      - '8080:8080'
+
   # SSO Identity Provider test service, https://simplesamlphp.org
   # Access to the login page available at http://login.localhost/simplesaml
   login:

@@ -41,18 +41,22 @@ npm run services:stop
 
 ## API Lookup Table
 
-| API   | Docker Tag         | URL       | Description                                       |
-| ----- | ------------------ | --------- | ------------------------------------------------- |
-| image | telescope_img_svc  | /v1/image | Provides a dynamic image processing service       |
-| auth  | telescope_auth_svc | /v1/auth  | Provides authentication and authorization service |
+| API   | Docker Tag          | URL                                     | Description                                       |
+| ----- | ------------------- | --------------------------------------- | ------------------------------------------------- |
+| posts | telescope_posts_svc | http://api.telescope.localhost/v1/posts | Provides access to cached user posts              |
+| image | telescope_img_svc   | http://api.telescope.localhost/v1/image | Provides a dynamic image processing service       |
+| auth  | telescope_auth_svc  | http://api.telescope.localhost/v1/auth  | Provides authentication and authorization service |
 
 ## Support Services Lookup Table (development only)
 
-| API                | URL                          | Description                       |
-| ------------------ | ---------------------------- | --------------------------------- |
-| Firebase UI        | http://ui.firebase.localhost | UI Dashboard to Firebase Emulator |
-| Firebase Firestore | http://localhost:8088        | Firestore Emulator Service        |
-| Login              | http://login.localhost       | SAML SSO Identity Provider        |
+| API                | URL                                                   | Description                                                               |
+| ------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------- |
+| Traefik Dashboard  | http://localhost:8080                                 | [Traefik Dashboard](https://doc.traefik.io/traefik/operations/dashboard/) |
+| Redis              | redis://localhost:6379                                | Redis server                                                              |
+| Elasticsearch      | http://elasticsearch.localhost, http://localhost:9200 | Elasticserach                                                             |
+| Firebase UI        | http://ui.firebase.localhost                          | UI Dashboard to Firebase Emulator                                         |
+| Firebase Firestore | http://localhost:8088                                 | Firestore Emulator Service                                                |
+| Login              | http://login.localhost/simplesaml                     | SAML SSO Identity Provider                                                |
 
 ## References
 
