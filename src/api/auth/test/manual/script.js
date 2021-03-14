@@ -6,7 +6,7 @@ import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js';
 import jwtDecode from 'https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.esm.js';
 
 // Use same URL as your .env
-const authServer = 'http://api.telescope.localhost/v1/auth';
+const authServer = 'http://localhost/v1/auth';
 
 function printToken(token) {
   const jwtElem = document.querySelector('#jwt');

@@ -200,7 +200,7 @@ router.get('/authorize', passport.authenticate('jwt', { session: false }), (req,
 
 /**
  * Provide SAML Metadata endpoint for our Service Provider's Entity ID.
- * The naming is {host}/sp, for example: http://auth.docker.localhost/sp
+ * The naming is {host}/sp, for example: http://localhost/v1/auth/sp
  */
 router.get('/sp', (req, res) => {
   res.type('application/xml');

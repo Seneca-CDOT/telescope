@@ -25,7 +25,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the image service at /v1/image
-      - 'traefik.http.routers.image.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/image`)'
+      - 'traefik.http.routers.image.rule=PathPrefix(`/${API_VERSION}/image`)'
       # Specify the image service port
       - 'traefik.http.services.image.loadbalancer.server.port=${IMAGE_PORT}'
       # Add middleware to this route to strip the /v1/image prefix
@@ -60,7 +60,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the auth service at /v1/auth
-      - 'traefik.http.routers.auth.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/auth`)'
+      - 'traefik.http.routers.auth.rule=PathPrefix(`/${API_VERSION}/auth`)'
       # Specify the auth service port
       - 'traefik.http.services.auth.loadbalancer.server.port=${AUTH_PORT}'
       # Add middleware to this route to strip the /v1/auth prefix
@@ -85,7 +85,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the image service at /v1/image
-      - 'traefik.http.routers.posts.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/posts`)'
+      - 'traefik.http.routers.posts.rule=PathPrefix(`/${API_VERSION}/posts`)'
       # Specify the posts service port
       - 'traefik.http.services.posts.loadbalancer.server.port=${POSTS_PORT}'
       # Add middleware to this route to strip the /v1/posts prefix
@@ -109,13 +109,13 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the feed discovery service at /v1/image
-      - 'traefik.http.routers.feed-discovery.rule=Host(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/feed-discovery`)'
+      - 'traefik.http.routers.feed-discovery.rule=PathPrefix(`/${API_VERSION}/feed-discovery`)'
       # Specify the feed discovery service port
       - 'traefik.http.services.feed-discovery.loadbalancer.server.port=${FEED_DISCOVERY_PORT}'
       # Add middleware to this route to strip the /v1/feed-discovery prefix
       - 'traefik.http.middlewares.strip_feed_discovery_prefix.stripprefix.prefixes=/${API_VERSION}/feed-discovery'
       - 'traefik.http.middlewares.strip_feed_discovery_prefix.stripprefix.forceSlash=true'
-      - 'traefik.http.routers.feed_discovery.middlewares=strip_feed_discovery_prefix'
+      - 'traefik.http.routers.feed-discovery.middlewares=strip_feed_discovery_prefix'
 
   ##############################################################################
   # Third-Party Dependencies and Support Services
@@ -157,10 +157,3 @@ services:
         hard: -1
     ports:
       - '9200'
-    labels:
-      # Enable Traefik in development mode
-      - 'traefik.enable=true'
-      # Traefik routing for elasticsearch at http://elasticsearch.localhost
-      - 'traefik.http.routers.elasticsearch.rule=Host(`elasticsearch.localhost`)'
-      # Specify the redis port
-      - 'traefik.http.services.elasticsearch.loadbalancer.server.port=9200'

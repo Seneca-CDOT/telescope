@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import User from '../User';
 
 // TODO: do this via config...
-const apiUrl = `http://api.telescope.localhost/v1/auth`;
+const apiUrl = `http://localhost/v1/auth`;
 
 export interface AuthContextInterface {
   login: (returnTo?: string) => void;

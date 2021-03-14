@@ -90,7 +90,7 @@ it('should use the same origin in .env for ALLOWED_APP_ORIGINS that test cases u
 
 it('should use the same AUTH_URL as we have hard-coded in the test HTML', () => {
   // NOTE: if this fails, make sure your src/api/.env has the same info as ./index.html
-  expect(AUTH_URL).toEqual('http://api.telescope.localhost/v1/auth');
+  expect(AUTH_URL).toEqual('http://localhost/v1/auth');
 });
 
 describe('Login', () => {
