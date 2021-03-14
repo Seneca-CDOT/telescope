@@ -35,10 +35,10 @@
     "test-ci": "run-s prettier-check test",
     "preversion": "npm run test-ci",
     "postversion": "git push upstream master --tags",
-    "services:start": "./bin/services-start.js --",
-    "services:stop": "./bin/services-stop.js",
-    "services:logs": "./bin/services-logs.js --",
-    "services:clean": "./bin/services-clean.js"
+    "services:start": "node bin/services-start.js --",
+    "services:stop": "node bin/services-stop.js",
+    "services:logs": "node bin/services-logs.js --",
+    "services:clean": "node bin/services-clean.js"
   },
   "husky": {
     "hooks": {
