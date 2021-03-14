@@ -48,18 +48,4 @@ docker-compose -f docker-compose.yml up --build login redis telescope
 
 ### Running the Microservices
 
-For your convenience, you can use the following `npm` scripts:
-
-```
-# start the microservices containers and gateway in development
-npm run api:start
-
-# stop the containers
-npm run api:stop
-```
-
-The services will now be available via the defined routes:
-
-| Service                  | URL                                  |
-| ------------------------ | ------------------------------------ |
-| Background Image Service | http://image.docker.localhost/image/ |
+See the [docs for running the services](src/api/readme.md).
