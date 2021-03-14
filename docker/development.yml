@@ -69,3 +69,11 @@ services:
       - 'traefik.http.routers.firebase_ui.rule=Host(`ui.firebase.localhost`)'
       - 'traefik.http.routers.firebase_ui.service=firebase_ui'
       - 'traefik.http.services.firebase_ui.loadbalancer.server.port=4000'
+
+  redis:
+    ports:
+      - '6379:6379'
+
+  elasticsearch:
+    ports:
+      - '9200:9200'
