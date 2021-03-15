@@ -25,6 +25,7 @@ services:
         - API_URL=${API_URL}
         # Telescope 2.0 Microservice URLs
         - IMAGE_URL=${IMAGE_URL}
+        - AUTH_URL=${AUTH_URL}
     container_name: 'telescope'
     restart: unless-stopped
     environment:

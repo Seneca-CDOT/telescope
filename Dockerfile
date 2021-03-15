@@ -16,6 +16,7 @@
 ARG API_URL
 # API Service URLs, set via ENV in docker or next build
 ARG IMAGE_URL
+ARG AUTH_URL
 
 # Context: Build Context
 FROM node:lts-alpine as build
@@ -39,6 +40,7 @@ FROM build AS backend_dependencies
 # Forward the API_URL and Service URLs build ARGs from pervious stage
 ARG API_URL
 ARG IMAGE_URL
+ARG AUTH_URL
 
 # Install Production Modules!
 # Disable postinstall hook in this case since we are being explict with installs
@@ -59,6 +61,9 @@ ENV NEXT_PUBLIC_API_URL ${API_URL}
 
 ARG IMAGE_URL
 ENV NEXT_PUBLIC_IMAGE_URL ${IMAGE_URL}
+
+ARG AUTH_URL
+ENV NEXT_PUBLIC_AUTH_URL ${AUTH_URL}
 
 COPY ./src/web ./src/web
 COPY ./.git ./.git
