@@ -46,12 +46,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   toolbar: {
-    height: '27rem',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     [theme.breakpoints.down(1024)]: {
-      height: 'inherit',
       flex: '1',
       justifyContent: 'space-around',
       flexDirection: 'row',
