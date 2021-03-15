@@ -2,14 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { imageServiceUrl } from '../config';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   background: {
     display: 'block',
     height: '100%',
-    // TODO: this isn't right...
-    [theme.breakpoints.down(1024)]: {
-      height: 'calc(100vh - 64px)',
-    },
     overflow: 'hidden',
     position: 'absolute',
     top: 0,
@@ -37,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '100%',
     objectFit: 'cover',
   },
-}));
+});
 
 const DynamicImage = () => {
   const classes = useStyles();

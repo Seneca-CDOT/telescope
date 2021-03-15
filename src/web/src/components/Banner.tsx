@@ -30,8 +30,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     heroBanner: {
-      height: '100vh',
+      maxHeight: '100vh',
       overflow: 'hidden',
+      position: 'relative',
     },
     version: {
       position: 'absolute',
