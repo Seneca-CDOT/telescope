@@ -5,10 +5,16 @@ import DynamicImage from './DynamicImage';
 
 const useStyles = makeStyles((theme: Theme) => ({
   dynamic: {
-    height: `100%`,
+    height: '100vh',
     transition: 'opacity 1s ease-in-out',
     backgroundColor: theme.palette.primary.main,
     opacity: 0.9,
+    [theme.breakpoints.down(1024)]: {
+      height: 'calc(100vh - 64px)',
+    },
+    [theme.breakpoints.down('xs')]: {
+      height: 'calc(100vh - 56px)',
+    },
   },
   stats: {
     position: 'absolute',
