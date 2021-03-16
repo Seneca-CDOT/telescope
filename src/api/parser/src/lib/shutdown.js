@@ -1,7 +1,7 @@
 const { promisify } = require('util');
 
+const { logger } = require('@senecacdot/satellite');
 const feedQueue = require('../feed/queue');
-const { logger } = require('../utils/logger');
 const server = require('../server');
 
 let isShuttingDown = false;

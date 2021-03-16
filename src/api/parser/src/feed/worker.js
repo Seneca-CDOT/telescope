@@ -2,8 +2,8 @@ require('../lib/config');
 const { cpus } = require('os');
 const path = require('path');
 
+const { logger } = require('@senecacdot/satellite');
 const feedQueue = require('./queue');
-const { logger } = require('../utils/logger');
 const { waitOnReady } = require('../utils/indexer');
 
 /**

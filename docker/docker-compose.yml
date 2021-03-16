@@ -119,6 +119,7 @@ services:
       - 'traefik.http.middlewares.strip_feed_discovery_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.feed-discovery.middlewares=strip_feed_discovery_prefix'
 
+<<<<<<< HEAD
   # users service
   users:
     container_name: 'users'
@@ -144,6 +145,34 @@ services:
       - 'traefik.http.middlewares.strip_users_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.users.middlewares=strip_users_prefix'
 
+=======
+  # parser service
+  parser:
+    container_name: 'parser'
+    build:
+      context: ../src/api/parser
+      dockerfile: Dockerfile
+    environment:
+      - PARSER_PORT
+    ports:
+      - ${PARSER_PORT}
+    depends_on:
+      - traefik
+      - redis
+      - users
+      - posts
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the feed discovery service at /v1/image
+      - 'traefik.http.routers.parser.rule=PathPrefix(`/${API_VERSION}/parser`)'
+      # Specify the feed discovery service port
+      - 'traefik.http.services.parser.loadbalancer.server.port=${PARSER_PORT}'
+      # Add middleware to this route to strip the /v1/feed-discovery prefix
+      - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.prefixes=/${API_VERSION}/parser'
+      - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'
+>>>>>>> 44b0841... docker files + readme
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
