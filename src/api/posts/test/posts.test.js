@@ -83,7 +83,7 @@ describe('test /posts/:id responses', () => {
 
   test('A post with an id should be returned', async () => {
     const res = await request(app).get('/');
-    const postIDRes = await request(app).get(`/${res.body[0].id}`);
+    const postIDRes = await request(app).get(res.body[0].url);
     const post = await getPost(postIDRes.body.id);
     expect(postIDRes.status).toEqual(200);
     expect(postIDRes.get('Content-type')).toContain('application/json');
