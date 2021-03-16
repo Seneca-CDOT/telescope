@@ -1,5 +1,6 @@
 const { hash } = require('@senecacdot/satellite');
 const { getPost, addPost } = require('../storage');
+const Feed = require('./feed');
 const textParser = require('../text-parser');
 
 /**
@@ -24,6 +25,16 @@ function ensureDate(date, fallbackDate) {
   throw new Error(`post has an invalid date: ${date}'`);
 }
 
+/**
+ * Makes sure that the given feed is a Feed and not just an id.  If the latter
+ * it gets the full feed.
+ * @param {Feed|String} feed a Feed object or feed id
+ * Returns a Promise<Feed>
+ */
+function ensureFeed(feed) {
+  return feed instanceof Feed ? Promise.resolve(feed) : Feed.byId(feed);
+}
+
 class Post {
   constructor(title, html, datePublished, dateUpdated, postUrl, guid, feed) {
     // Use the post's guid as our unique identifier
@@ -34,6 +45,10 @@ class Post {
     this.updated = ensureDate(dateUpdated, datePublished);
     this.url = postUrl;
     this.guid = guid;
+
+    if (!(feed instanceof Feed)) {
+      throw new Error(`expected feed to be a Feed Object, got '${feed}'`);
+    }
     this.feed = feed;
   }
 
@@ -68,13 +83,15 @@ class Post {
    */
   static async create(postData) {
     // If we only have a feed id, get the full Feed Object instead.
+    const feed = await ensureFeed(postData.feed);
     const post = new Post(
       postData.title,
       postData.html,
       postData.published,
       postData.updated,
       postData.url,
-      postData.guid
+      postData.guid,
+      feed
     );
     await post.save();
     return post.id;
@@ -91,7 +108,16 @@ class Post {
       return null;
     }
 
-    const post = new Post(data.title, data.html, data.published, data.updated, data.url, data.guid);
+    const feed = await ensureFeed(data.feed);
+    const post = new Post(
+      data.title,
+      data.html,
+      data.published,
+      data.updated,
+      data.url,
+      data.guid,
+      feed
+    );
     return post;
   }
 }

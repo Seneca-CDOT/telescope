@@ -1,7 +1,9 @@
 const request = require('supertest');
 const { hash } = require('@senecacdot/satellite');
 const { app } = require('../src');
-const { addPost, getPost } = require('../src/storage');
+const { addPost, getPost, addFeed } = require('../src/storage');
+const Feed = require('../src/data/feed');
+const Post = require('../src/data/post');
 
 describe('/posts', () => {
   const requestedItems = 50;
@@ -80,54 +82,67 @@ describe('/posts', () => {
 
 describe('test /posts/:id responses', () => {
   const missingGuid = 'http://missing-guid';
+  const randomGuid = 'http://random-guid';
 
-  test('A post with an id should be returned', async () => {
-    const res = await request(app).get('/');
-    const postIDRes = await request(app).get(`/${res.body[0].id}`);
-    const post = await getPost(postIDRes.body.id);
-    expect(postIDRes.status).toEqual(200);
-    expect(postIDRes.get('Content-type')).toContain('application/json');
-    expect(postIDRes.body.id).toEqual(post.id);
+  const feed1 = new Feed(
+    'Feed Author',
+    'http://feed-url.com/',
+    'user',
+    'https://feed-link.com/',
+    null,
+    null
+  );
+
+  beforeAll(() => Promise.resolve(addFeed(feed1)));
+
+  const addedPost1 = new Post(
+    'Post Title',
+    '<p>post text</p>',
+    new Date('2009-09-07T22:20:00.000Z'),
+    new Date('2009-09-07T22:23:00.000Z'),
+    'url',
+    missingGuid,
+    feed1
+  );
+
+  beforeAll(() => Promise.resolve(addPost(addedPost1)));
+
+  beforeAll(() => {
+    feed1.save();
+    addedPost1.save();
   });
 
-  test('The id of a post should match the id the post object returns', async () => {
-    const res = await request(app).get('/');
-    const postIDRes = await request(app).get(`/${res.body[0].id}`);
-
-    expect(postIDRes.status).toEqual(200);
-    expect(postIDRes.body.id).toEqual(res.body[0].id);
+  test('A post with an id should be returned and match the id of a post from redis', async () => {
+    const res = await request(app).get(`/${addedPost1.id}`);
+    const post = await getPost(`${addedPost1.id}`);
+    expect(res.status).toEqual(200);
+    expect(res.get('Content-type')).toContain('application/json');
+    expect(res.body.id).toEqual(post.id);
   });
 
   test("Pass an id that doesn't exist", async () => {
-    const res = await request(app).get(`/${hash(missingGuid)}`);
+    const res = await request(app).get(`/${hash(randomGuid)}`);
     expect(res.status).toEqual(404);
   });
 
   test('requests text', async () => {
-    const postArray = await request(app).get('/');
-    const res = await request(app).get(`/${postArray.body[2].id}`).set('Accept', 'text/plain');
+    const res = await request(app).get(`/${addedPost1.id}`).set('Accept', 'text/plain');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('text/plain');
-    expect(res.text).toEqual('html');
+    expect(res.text).toEqual('post text');
   });
 
   test('requests JSON', async () => {
-    const postArray = await request(app).get('/');
-    const post = await request(app).get(`/${postArray.body[3].id}`);
-    const res = await request(app)
-      .get(`/${postArray.body[3].id}`)
-      .set('Accept', 'application/json');
+    const res = await request(app).get(`/${addedPost1.id}`).set('Accept', 'application/json');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('application/json');
-    expect(res.body).toEqual(JSON.parse(JSON.stringify(post.body)));
   });
 
   test('requests HTML', async () => {
-    const postArray = await request(app).get('/');
-    const res = await request(app).get(`/${postArray.body[2].id}`).set('Accept', 'text/html');
+    const res = await request(app).get(`/${addedPost1.id}`).set('Accept', 'text/html');
     expect(res.status).toEqual(200);
     expect(res.get('Content-type')).toContain('text/html');
-    expect(res.text).toEqual('html');
+    expect(res.text).toEqual('<p>post text</p>');
   });
 
   test('requests ID with 6 characters Test', async () => {

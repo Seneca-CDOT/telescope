@@ -3,6 +3,8 @@ const Post = require('../data/post');
 const { getPosts, getPostsCount } = require('../storage');
 const { validatePostsQuery, validatePostsIdParam } = require('../validation');
 
+const postsUrl = process.env.POSTS_URL || '/';
+
 const posts = Router();
 
 posts.get('/', validatePostsQuery(), async (req, res) => {
@@ -66,7 +68,7 @@ posts.get('/', validatePostsQuery(), async (req, res) => {
       // Return id and url for a specific post
       .map((id) => ({
         id,
-        url: `/posts/${id}`,
+        url: `${postsUrl}/${id}`,
       }))
   );
 });
