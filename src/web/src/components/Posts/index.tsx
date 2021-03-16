@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     postsWrapper: {
       width: '100%',
+      paddingTop: '5rem',
+      [theme.breakpoints.down('xs')]: {
+        paddingTop: '2rem',
+      },
     },
     error: {
       color: '#B5B5B5',

@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     avatar: {
       marginLeft: '0.5rem',
-      color: '#e5e5e5',
-      backgroundColor: '#121D59',
+      color: theme.palette.type === 'light' ? '#e5e5e5' : '#121D59',
+      backgroundColor: theme.palette.primary.main,
       fontSize: '2.5rem',
       width: '2.5em',
       height: '2.5em',

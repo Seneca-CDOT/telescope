@@ -164,6 +164,12 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.default,
       width: '95%',
+      '& a': {
+        color: theme.palette.type === 'dark' ? theme.palette.secondary.main : 'default',
+      },
+      '& a:visited': {
+        color: theme.palette.type === 'dark' ? 'grey' : 'default',
+      },
     },
   })
 );

@@ -35,9 +35,7 @@ export const darkTheme: Theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: '#242424',
-      contrastText: '#E5E5E5',
-      light: '#FFFFFF',
+      main: '#A0D1FB',
     },
     secondary: {
       main: '#4f96d8',
@@ -46,12 +44,11 @@ export const darkTheme: Theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      paper: '#303030',
-      default: '#121212',
+      default: '#000000',
     },
     text: {
-      primary: '#E5E5E5',
-      secondary: '#4f96d8',
+      primary: '#FFF',
+      secondary: '#A0D1FB',
     },
   },
 });

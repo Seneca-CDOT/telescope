@@ -4,7 +4,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { IconButton, Button, Tooltip, Zoom, SvgIconTypeMap } from '@material-ui/core';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   icon: {
     fontSize: '2.5rem',
   },
@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     margin: '0 0.5rem 0 0.5rem',
     '&:hover': {
       backgroundColor: 'transparent',
-      color: '#000',
+      color: theme.palette.text.primary,
     },
   },
 }));
