@@ -98,17 +98,6 @@ services:
       # - ELASTIC_APM_SERVICE_NAME=auth
       # - ELASTIC_APM_SERVER_URL=http://apm:8200
 
-  # posts service
-  posts:
-    restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      - POSTS_PORT
-      # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      # - ELASTIC_APM_SERVICE_NAME=posts
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
-
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
