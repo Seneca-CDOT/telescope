@@ -52,6 +52,7 @@ router.use(
     pathRewrite: {
       '^/admin/build/status': '/status',
     },
+    logLevel: 'silent',
   })
 );
 router.use(
@@ -62,6 +63,7 @@ router.use(
     pathRewrite: {
       '^/admin/build/log': '/log',
     },
+    logLevel: 'silent',
   })
 );
 
