@@ -18,7 +18,7 @@ npm start
 npm run dev
 ```
 
-By default the server is running on http://localhost:7777/.
+By default the server is running on http://localhost:9999/.
 
 ### Examples
 
@@ -41,4 +41,4 @@ will return response body
 ## Docker
 
 - To build and tag: `docker build . -t telescope_feed_discovery_svc:latest`
-- To run locally: `docker run -p 7777:7777 telescope_feed_discovery_svc:latest`
+- To run locally: `docker run -p 9999:9999 telescope_feed_discovery_svc:latest`

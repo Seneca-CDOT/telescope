@@ -3,9 +3,7 @@ import { useLocalStorage } from 'react-use';
 import { useRouter } from 'next/router';
 
 import User from '../User';
-
-// TODO: do this via config...
-const apiUrl = `http://localhost/v1/auth`;
+import { loginUrl, logoutUrl } from '../config';
 
 export interface AuthContextInterface {
   login: (returnTo?: string) => void;
@@ -73,14 +71,14 @@ const AuthProvider = ({ children }: Props) => {
   }
 
   const login = (returnTo?: string) => {
-    window.location.href = `${apiUrl}/login?redirect_uri=${encodeURIComponent(
+    window.location.href = `${loginUrl}?redirect_uri=${encodeURIComponent(
       returnTo || window.location.href
     )}`;
   };
 
   const logout = (returnTo?: string) => {
     removeToken();
-    window.location.href = `${apiUrl}/logout?redirect_uri=${encodeURIComponent(
+    window.location.href = `${logoutUrl}?redirect_uri=${encodeURIComponent(
       returnTo || window.location.href
     )}`;
   };
