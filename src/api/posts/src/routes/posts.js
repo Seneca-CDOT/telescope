@@ -3,7 +3,7 @@ const Post = require('../data/post');
 const { getPosts, getPostsCount } = require('../storage');
 const { validatePostsQuery, validatePostsIdParam } = require('../validation');
 
-const { POSTS_URL } = process.env;
+const { POSTS_URL } = process.env || '/';
 
 const posts = Router();
 

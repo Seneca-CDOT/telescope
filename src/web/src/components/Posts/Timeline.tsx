@@ -42,7 +42,7 @@ const Timeline = ({ pages, nextPage }: Props) => {
   // Iterate over all the pages (an array of arrays) and then convert all post
   // elements to <Post>
   const postsTimeline = pages.map((page: Post[]): Array<ReactElement> | ReactElement =>
-    page.map(({ id }: Post) => <PostComponent postUrl={`${postsServiceUrl}/${id}`} key={id} />)
+    page.map(({ id, url }: Post) => <PostComponent postUrl={`${url}`} key={id} />)
   );
 
   // Add a "Load More" button at the end of the timeline.  Give it a unique
