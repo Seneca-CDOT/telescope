@@ -76,6 +76,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - POSTS_PORT
+      - POSTS_URL
     ports:
       - ${POSTS_PORT}
     depends_on:
