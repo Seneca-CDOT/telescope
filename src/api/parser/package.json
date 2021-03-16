@@ -1,0 +1,22 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "description": "A service for parsing posts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seneca-CDOT/telescope.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "dependencies": {
+    "@senecacdot/satellite": "^1.8.0"
+  }
+}
