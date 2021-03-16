@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     h1: {
       position: 'absolute',
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.text.primary,
       fontWeight: 'bold',
       fontSize: '12rem',
       display: 'block',
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: theme.spacing(6),
       left: theme.spacing(15),
       fontSize: '1.75rem',
-      color: theme.palette.primary.contrastText,
+      color: theme.palette.text.primary,
       [theme.breakpoints.between('xs', 'sm')]: {
         left: theme.spacing(4),
         right: theme.spacing(4),
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '1rem',
     },
     container: {
-      backgroundColor: '#E5E5E5',
+      height: 0,
     },
     arrowDownIcon: {
       color: theme.palette.text.primary,
