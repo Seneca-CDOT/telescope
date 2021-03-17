@@ -76,6 +76,30 @@ services:
   # Telescope 2.0 Microservices
   ##############################################################################
 
+  # status service (only used in production for quick monitoring)
+  status:
+    container_name: 'status'
+    build:
+      context: ../src/api/status
+      dockerfile: Dockerfile
+    environment:
+      - STATUS_PORT
+    ports:
+      - '${STATUS_PORT}'
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the status service at /v1/status
+      - 'traefik.http.routers.status.rule=PathPrefix(`/${API_VERSION}/status`)'
+      # Specify the feed discovery service port
+      - 'traefik.http.services.status.loadbalancer.server.port=${STATUS_PORT}'
+      # Add middleware to this route to strip the /v1/status prefix
+      - 'traefik.http.middlewares.strip_status_prefix.stripprefix.prefixes=/${API_VERSION}/status'
+      - 'traefik.http.middlewares.strip_status_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.status.middlewares=strip_status_prefix'
+
   # image service
   image:
     restart: unless-stopped
