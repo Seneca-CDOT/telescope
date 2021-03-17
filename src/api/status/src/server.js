@@ -13,5 +13,5 @@ service.router.get('/status', (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
-const port = parseInt(process.env.IMAGE_PORT || 1111, 10);
+const port = parseInt(process.env.STATUS_PORT || 1111, 10);
 service.start(port);
