@@ -7,11 +7,8 @@
 let apm = null;
 
 // Only do this if we have an APM server config to work with.
-if (
-  process.env.ELASTIC_APM_SERVER_URL &&
-  process.env.ELASTIC_APM_SERVICE_NAME
-) {
-  apm = require("elastic-apm-node").start({
+if (process.env.ELASTIC_APM_SERVER_URL && process.env.ELASTIC_APM_SERVICE_NAME) {
+  apm = require('elastic-apm-node').start({
     centralConfig: false,
   });
 }

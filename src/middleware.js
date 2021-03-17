@@ -1,6 +1,6 @@
-const jwt = require("express-jwt");
-const createError = require("http-errors");
-const logger = require("./logger");
+const jwt = require('express-jwt');
+const createError = require('http-errors');
+const logger = require('./logger');
 
 // JWT Validation Middleware. A user must have a valid bearer token.
 // We expect to get JWT config details via the env.
@@ -10,7 +10,7 @@ function isAuthenticated() {
     audience: process.env.JWT_AUDIENCE,
     issuer: process.env.JWT_ISSUER,
     // TODO: proper public/private key token signing
-    algorithms: ["HS256"],
+    algorithms: ['HS256'],
   });
 }
 
@@ -21,14 +21,8 @@ function isAuthenticated() {
 function isAuthorized(options) {
   // We expect to get an array (roles) of strings with 1 or more values
   const { roles } = options;
-  if (
-    !(
-      Array.isArray(roles) &&
-      roles.length &&
-      roles.every((role) => typeof role === "string")
-    )
-  ) {
-    throw new Error("missing roles option");
+  if (!(Array.isArray(roles) && roles.length && roles.every((role) => typeof role === 'string'))) {
+    throw new Error('missing roles option');
   }
 
   return function (req, res, next) {
@@ -62,10 +56,10 @@ function errorHandler(err, req, res, next) {
 
   res.status(status);
 
-  if (req.accepts("html")) {
-    res.set("Content-Type", "text/html");
+  if (req.accepts('html')) {
+    res.set('Content-Type', 'text/html');
     res.send(`<h1>${err.status} Error</h1><p>${err.message}</p>`);
-  } else if (req.accepts("json")) {
+  } else if (req.accepts('json')) {
     res.json({
       status: err.status,
       message: err.message,

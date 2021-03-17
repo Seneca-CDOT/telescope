@@ -1,12 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const helmet = require("helmet");
-const createError = require("http-errors");
-const expressPino = require("express-pino-logger");
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const createError = require('http-errors');
+const expressPino = require('express-pino-logger');
 
-const logger = require("./logger");
-const apm = require("./apm");
-const { errorHandler } = require("./middleware");
+const logger = require('./logger');
+const apm = require('./apm');
+const { errorHandler } = require('./middleware');
 
 function createApp(router, options = {}) {
   const app = express();
@@ -25,7 +25,7 @@ function createApp(router, options = {}) {
 
   // If beforeParsers is defined, add all middleware to the app
   // before we define the parsers.  Useful for session, passport, etc.
-  if (typeof options.beforeParsers === "function") {
+  if (typeof options.beforeParsers === 'function') {
     options.beforeParsers(app);
   }
 
@@ -37,12 +37,12 @@ function createApp(router, options = {}) {
   // If beforeRouter is defined, add all middleware to the app
   // before we define the router. Useful for adding middleware just
   // before the router.
-  if (typeof options.beforeRouter === "function") {
+  if (typeof options.beforeRouter === 'function') {
     options.beforeRouter(app);
   }
 
   // Include our router with all endpoints added by the user
-  app.use("/", router);
+  app.use('/', router);
 
   // 404
   app.use(function (req, res, next) {

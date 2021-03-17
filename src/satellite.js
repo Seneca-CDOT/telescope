@@ -1,14 +1,14 @@
-const { createServer } = require("http");
-const { createTerminus } = require("@godaddy/terminus");
+const { createServer } = require('http');
+const { createTerminus } = require('@godaddy/terminus');
 
-const { createApp, createRouter } = require("./app");
-const logger = require("./logger");
+const { createApp, createRouter } = require('./app');
+const logger = require('./logger');
 
 class Satellite {
   constructor(options = {}) {
     // If we're given a healthCheck function, we'll use it with terminus below.
     // NOTE: this function should return a Promise.
-    if (typeof options.healthCheck === "function") {
+    if (typeof options.healthCheck === 'function') {
       this.healthCheck = options.healthCheck;
     }
 
@@ -20,10 +20,10 @@ class Satellite {
 
   start(port, callback) {
     if (this.server) {
-      throw new Error("server already started");
+      throw new Error('server already started');
     }
 
-    if (typeof port !== "number") {
+    if (typeof port !== 'number') {
       throw new Error(`port number required, got ${port}`);
     }
 
@@ -33,9 +33,9 @@ class Satellite {
     // Graceful shutdown and healthcheck
     createTerminus(this.server, {
       healthChecks: {
-        "/healthcheck": this.healthCheck || (() => Promise.resolve()),
+        '/healthcheck': this.healthCheck || (() => Promise.resolve()),
       },
-      signal: "SIGINT",
+      signal: 'SIGINT',
       logger: (...args) => logger.error(...args),
     });
 
@@ -48,7 +48,7 @@ class Satellite {
 
     function finished() {
       self.server = null;
-      if (typeof callback === "function") {
+      if (typeof callback === 'function') {
         callback();
       }
     }

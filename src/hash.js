@@ -1,4 +1,4 @@
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 /**
  * Hash function used to generate our unique data ids.
@@ -16,7 +16,7 @@ const crypto = require("crypto");
  * data to require the entire hash.
  */
 function hash(input) {
-  return crypto.createHash("sha256").update(input).digest("hex").slice(0, 10);
+  return crypto.createHash('sha256').update(input).digest('hex').slice(0, 10);
 }
 
 module.exports = hash;
