@@ -17,15 +17,15 @@
   "homepage": "https://github.com/Seneca-CDOT/satellite#readme",
   "dependencies": {
     "@elastic/ecs-pino-format": "^1.0.0",
-    "@godaddy/terminus": "^4.6.0",
+    "@godaddy/terminus": "^4.7.0",
     "cors": "2.8.5",
-    "elastic-apm-node": "^3.12.0",
+    "elastic-apm-node": "^3.12.1",
     "express": "4.17.1",
     "express-jwt": "^6.0.0",
     "express-pino-logger": "^6.0.0",
     "helmet": "4.4.1",
     "http-errors": "^1.8.0",
-    "pino": "^6.11.1",
+    "pino": "^6.11.2",
     "pino-colada": "^2.1.0"
   },
   "engines": {
