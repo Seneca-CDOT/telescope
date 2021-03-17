@@ -39,19 +39,19 @@ In its most basic form, a Satellite-based microservice looks like this:
 const {
   Satellite, // the Satellite constructor
   logger, // pre-configured logger
-} = require("@senecacdot/satellite");
+} = require('@senecacdot/satellite');
 
 // Define your microservice
 const service = new Satellite();
 
 // Add your routes to the service's router
-service.router.get("/my-route", (req, res) => {
-  res.json({ message: "hello world" });
+service.router.get('/my-route', (req, res) => {
+  res.json({ message: 'hello world' });
 });
 
 // Start the service on the specified port
 service.start(8888, () => {
-  logger.info("Satellite Microservice running on port 8888");
+  logger.info('Satellite Microservice running on port 8888');
 });
 ```
 
@@ -158,9 +158,9 @@ router.get('/admin', isAuthenticated(), isAuthorized({ roles: ["admin"] }), (req
 The `logger` object is a pre-configured logger based on [Pino](https://getpino.io/#/).
 
 ```js
-const { logger } = require("@senecacdot/satellite");
+const { logger } = require('@senecacdot/satellite');
 
-logger.info("Hello World!");
+logger.info('Hello World!');
 ```
 
 ### Hash
@@ -168,7 +168,21 @@ logger.info("Hello World!");
 The `hash()` function is a convenience hashing function, which returns a 10 character hash:
 
 ```js
-const { hash } = require("@senecacdot/satellite");
+const { hash } = require('@senecacdot/satellite');
 
-const id = hash("http://someurl.com");
+const id = hash('http://someurl.com');
+```
+
+### Create Error
+
+The `createError()` function creates a unique HTTP Error Object which is based on [http-errors](https://www.npmjs.com/package/http-errors).
+
+```js
+const { createError } = require('@senecacdot/satellite');
+
+const e = createError(404, 'This is a message that describes your Error object');
+
+console.log(e.status); // of type: Number
+
+console.log(e.message); // of type: String
 ```
