@@ -13,9 +13,14 @@ const useStyles = makeStyles((theme: Theme) =>
       color: '#e5e5e5',
       backgroundColor: '#121D59',
       fontSize: '2.5rem',
-      width: '3em',
-      height: '3em',
+      width: '2.5em',
+      height: '2.5em',
       [theme.breakpoints.down(1200)]: {
+        fontSize: '2.5em',
+        width: '2.5em',
+        height: '2.5em',
+      },
+      [theme.breakpoints.down(1024)]: {
         fontSize: '2em',
         width: '2.5em',
         height: '2.5em',

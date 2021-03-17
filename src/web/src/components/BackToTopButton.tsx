@@ -13,16 +13,18 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: 1100,
 
       [theme.breakpoints.up(1024)]: {
-        bottom: theme.spacing(4),
-        right: 'calc((100vw - 930px) / 2)',
+        bottom: theme.spacing(8),
+        right: 'calc((100vw - 955px) / 2)',
       },
     },
     arrowUpIcon: {
       color: theme.palette.text.primary,
-      fontSize: '3rem',
+      fontSize: '2rem',
     },
     MuiFab: {
       boxShadow: 'none',
+      width: '61px',
+      height: '61px',
     },
   })
 );
