@@ -30,16 +30,12 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Prettier
-        runs-on: ubuntu-latest
-        run: |
-          npm install
-          npm run prettier-check
       - name: Test
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
+      - run: npm run prettier-check
       - run: npm test
 
   release:
