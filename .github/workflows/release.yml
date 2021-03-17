@@ -86,7 +86,6 @@ jobs:
           npm install
           npm run services:start
           npm run jest:e2e
-          npm run services:stop
   release:
     needs: [prettier, eslint, unit, e2e]
     runs-on: ubuntu-latest
