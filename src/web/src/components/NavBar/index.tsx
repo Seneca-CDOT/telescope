@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   grow: {
+    marginTop: '2.5em',
     flex: 1,
   },
   logoIcon: {
@@ -103,6 +104,7 @@ export default function NavBar() {
             <div className={classes.grow} />
           </>
         )}
+
         {iconProps.map((props) => (
           <NavBarButton {...props} key={props.title} />
         ))}
