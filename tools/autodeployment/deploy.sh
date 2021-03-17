@@ -4,14 +4,6 @@ set -e
 set -u
 set -x
 
-if [[ $(docker ps -f name=blue -q) ]]; then
-    ENV="green"
-    OLD="blue"
-else
-    ENV="blue"
-    OLD="green"
-fi
-
 # Delete and Clone Latest
 cd ..
 rm -rf telescope
@@ -31,6 +23,13 @@ else
   exit 1
 fi
 
+if [[ $(docker-compose --env-file $ENV_FILE --project-name=blue ps -q) ]]; then
+    ENV="green"
+    OLD="blue"
+else
+    ENV="blue"
+    OLD="green"
+fi
 
 echo "Building $ENV Container"
 docker-compose --env-file $ENV_FILE --project-name=$ENV build
