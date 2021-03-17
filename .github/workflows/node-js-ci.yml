@@ -86,4 +86,3 @@ jobs:
           npm install
           npm run services:start
           npm run jest:e2e
-          npm run services:stop
