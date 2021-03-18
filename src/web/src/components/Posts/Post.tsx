@@ -154,22 +154,8 @@ const useStyles = makeStyles((theme: Theme) =>
         shapeMargin: '1rem',
         borderRadius: '50%',
         padding: '0',
-      },
-    },
-    circle: {
-      marginLeft: '2em',
-      display: 'block',
-      borderRadius: '50%',
-      backgroundColor: '#121D59',
-      width: '8em',
-      height: '8em',
-      [theme.breakpoints.down(1200)]: {
-        marginLeft: '0',
-      },
-      [theme.breakpoints.down(1024)]: {
-        width: '6em',
-        height: '6em',
-        margin: '0',
+        display: 'grid',
+        alignItems: 'center',
       },
     },
     content: {
