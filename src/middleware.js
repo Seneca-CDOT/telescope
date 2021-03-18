@@ -14,29 +14,72 @@ function isAuthenticated() {
   });
 }
 
-// Check to see if an already Authenticated user is Authorized to do something,
-// based on their role. For example, if a user must have the 'admin' role.
-// NOTE: isAuthorized() assumes (and depends upon) isAuthenticated() being
-// called first.
-function isAuthorized(options) {
-  // We expect to get an array (roles) of strings with 1 or more values
+// Determine whether the authorization options passed to isAuthorized are valid.
+function validateAuthorizationOptions(options = {}) {
+  let isValid = false;
+
+  // It's possible that `roles` is defined, an array (roles) of strings with 1 or more values
   const { roles } = options;
-  if (!(Array.isArray(roles) && roles.length && roles.every((role) => typeof role === 'string'))) {
-    throw new Error('missing roles option');
+  if (Array.isArray(roles) && roles.length && roles.every((role) => typeof role === 'string')) {
+    isValid = true;
   }
 
+  // It's possible that an authorizeUser() function is attached
+  const { authorizeUser } = options;
+  if (typeof authorizeUser === 'function') {
+    isValid = true;
+  }
+
+  return isValid;
+}
+
+// Check to see if an already Authenticated user is Authorized to do something,
+// based on: a) their role; b) arbitrary aspects of the user payload. For
+// example, if a user must have the 'admin' role, or a user's `sub` claim
+// must match an expected id. NOTE: isAuthorized() assumes (and depends upon)
+// isAuthenticated() being called first.
+function isAuthorized(options) {
+  if (!validateAuthorizationOptions(options)) {
+    throw new Error('invalid authorization options');
+  }
+
+  const { roles, authorizeUser } = options;
+
   return function (req, res, next) {
-    if (!(req.user && req.user.roles)) {
+    if (!req.user) {
       next(createError(401, `no user or role info`));
       return;
     }
 
-    // Check that all of the expected roles are present in this user's roles
-    for (const role of roles) {
-      if (!req.user.roles.includes(role)) {
-        next(createError(403, `user missing required role: ${role}`));
-        return;
+    // If these checks fail for any reason, return a 403
+    try {
+      const { user } = req;
+
+      // If defined, check that all of the expected roles are present in this user's roles
+      if (roles) {
+        if (!user.roles) {
+          next(createError(403, `user missing roles`));
+          return;
+        }
+        for (const role of roles) {
+          if (!user.roles.includes(role)) {
+            next(createError(403, `user missing required role: ${role}`));
+            return;
+          }
+        }
       }
+
+      // If defined, check that the user's payload data matches what's expected
+      if (authorizeUser) {
+        if (!authorizeUser(user)) {
+          next(createError(403, `user not authorized`));
+          return;
+        }
+      }
+    } catch (err) {
+      logger.warn({ err }, 'Unexpected error authorizing user');
+      next(createError(403, `user not authorized`));
+      return;
     }
 
     // Authorized, let this proceed.

@@ -147,10 +147,39 @@ A number of middleware functions are available to help with your routes.
 router.get('/private-route', isAuthenticated(), (req, res) => {...});
 ```
 
-- `isAuthorized()` - used to check if an authenticated user is authorized to something, based on their role. For example, if a user has the 'admin' role. You must use `isAuthorized()` in conjunction with `isAuthenticated()`:
+- `isAuthorized()` - used to check if an authenticated user is authorized to something, based either on their role, or a function that compares the user's claims with known values. NOTE: `isAuthorized()` must be used in conjunction with `isAuthenticated()`:
+
+Here are some examples:
 
 ```js
+// Authorize based on `roles`
 router.get('/admin', isAuthenticated(), isAuthorized({ roles: ["admin"] }), (req, res) => {...});
+
+// Authorize based on arbitrary user claims
+router.post(
+  '/:user',
+  isAuthenticated(),
+  isAuthorized({
+    // `user` is the decoded payload of the user's token.  Here we use it
+    // to make sure that the user param matches the user's `sub` claim,
+    // or that the user is an admin.
+    authorizeUser: (user) => {
+      // Check if the user making the request is the same one for the route
+      if(user.sub === req.params.user) {
+        return true;
+      }
+
+      // If not, check if they are an admin
+      if(user.roles && user.roles.includes('admin')) {
+        return true;
+      }
+
+      // Otherwise, they can't do this
+      return false;
+    }
+  }),
+  (req, res) => {...}
+);
 ```
 
 ### Logger
