@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5rem',
       width: '100%',
       backgroundColor: theme.palette.background.default,
+      minHeight: '300px',
     },
     spinner: {
       padding: '20px',
