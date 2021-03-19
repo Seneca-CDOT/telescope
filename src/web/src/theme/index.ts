@@ -21,7 +21,7 @@ export const lightTheme: Theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      default: '#E5E5E5',
+      default: '#FFFFFF',
       paper: '#d1d1d1',
     },
     text: {
@@ -29,7 +29,7 @@ export const lightTheme: Theme = createMuiTheme({
       secondary: '#121D59',
     },
     action: {
-      selected: '#ffffff',
+      selected: '#FFFFFF',
     },
   },
 });
@@ -52,8 +52,11 @@ export const darkTheme: Theme = createMuiTheme({
       paper: '#424242',
     },
     text: {
-      primary: '#FFF',
+      primary: '#FFFFFF',
       secondary: '#A0D1FB',
+    },
+    action: {
+      selected: '#FFFFFF',
     },
   },
 });

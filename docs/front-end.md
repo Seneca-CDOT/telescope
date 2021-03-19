@@ -32,10 +32,10 @@ Here is the colour palette that we use to make our web site looks pretty and up-
 - hex: #A0D1FB
 - rgb: (160,209,251)
 
-![#E5E5E5](https://placehold.it/15/E5E5E5/000000?text=+) **Background**
+![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Background**
 
-- hex: #E5E5E5
-- rgb: (229, 229, 229)
+- hex: #FFFFFF
+- rgb: (255, 255, 255)
 
 #### Typography
 
@@ -70,10 +70,10 @@ Here is the colour palette that we use to make our web site looks pretty and up-
 
 #### Typography
 
-![#E6E6E6](https://placehold.it/15/E6E6E6/000000?text=+) **Primary**
+![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Primary**
 
-- hex: #E6E6E6
-- rgb: (230,230,230)
+- hex: #FFFFFF
+- rgb: (255,255,255)
 
 ![#121D59](https://placehold.it/15/A0D1FB/000000?text=+) **Secondary**
 
