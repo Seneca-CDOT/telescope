@@ -12,6 +12,7 @@ const imageServiceUrl = process.env.NEXT_PUBLIC_IMAGE_URL;
 const authServiceUrl = process.env.NEXT_PUBLIC_AUTH_URL;
 const postsServiceUrl = process.env.NEXT_PUBLIC_POSTS_URL;
 const searchServiceUrl = process.env.NEXT_PUBLIC_SEARCH_URL;
+const feedDiscoveryServiceUrl = process.env.NEXT_PUBLIC_FEED_DISCOVERY_URL;
 
 const title = `Telescope`;
 const description = `A tool for tracking blogs in orbit around Seneca's open source involvement`;
@@ -41,4 +42,5 @@ export {
   imageAlt,
   postsServiceUrl,
   searchServiceUrl,
+  feedDiscoveryServiceUrl,
 };

@@ -73,14 +73,16 @@ const LandingButtons = () => {
           >
             Sign in
           </Button>
-          <Button
-            style={{
-              fontSize: '1.3rem',
-            }}
-            variant="outlined"
-          >
-            Sign up
-          </Button>
+          <Link href="/signup" passHref>
+            <Button
+              style={{
+                fontSize: '1.3rem',
+              }}
+              variant="outlined"
+            >
+              Sign up
+            </Button>
+          </Link>
         </>
       )}
     </div>

@@ -15,4 +15,20 @@ export type Post = {
   html: string;
 };
 
+export type SignUpForm = {
+  displayName: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  github: {
+    username: string;
+    avatarUrl: string;
+  };
+  githubUsername: string;
+  githubOwnership: boolean;
+  blogUrl: string;
+  feeds: Array<string>;
+  blogOwnership: boolean;
+};
+
 export type ThemeName = 'light' | 'dark';
