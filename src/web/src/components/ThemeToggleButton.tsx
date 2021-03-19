@@ -27,7 +27,7 @@ const ThemeToggleButton = () => {
   const { themeName, toggleTheme } = useTheme();
 
   return (
-    <ButtonTooltip title="Toggle Mode" arrow placement="top" TransitionComponent={Zoom}>
+    <ButtonTooltip title="Toggle Light/Dark Theme" arrow placement="top" TransitionComponent={Zoom}>
       <IconButton onClick={toggleTheme} className={classes.themeToggleButton}>
         {themeName === 'light' ? (
           <Brightness4Icon fontSize="large" />
