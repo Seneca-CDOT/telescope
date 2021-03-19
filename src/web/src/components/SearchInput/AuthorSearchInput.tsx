@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: '60px',
       border: 'none',
       outline: 'none',
+      color: theme.palette.text.primary,
     },
   })
 );

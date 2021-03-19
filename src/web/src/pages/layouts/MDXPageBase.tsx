@@ -19,16 +19,20 @@ type MDXPageBaseProps = {
 const useStyles = makeStyles((theme) => {
   return {
     root: {
+      backgroundColor: theme.palette.background.default,
       fontFamily: 'Spartan',
+      paddingTop: '0.67em',
       '& h1': {
         color: theme.palette.text.secondary,
         fontSize: 24,
         paddingLeft: '5px',
+        transition: 'color 1s',
       },
       '& h2': {
         color: theme.palette.text.secondary,
         fontSize: 20,
         paddingLeft: '5px',
+        transition: 'color 1s',
       },
       '& p': {
         color: theme.palette.text.primary,

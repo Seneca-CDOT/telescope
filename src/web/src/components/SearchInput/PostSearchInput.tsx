@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       border: 'none',
       borderRadius: '7px',
       outline: 'none',
+      color: theme.palette.text.primary,
     },
   })
 );
