@@ -1,7 +1,7 @@
 const request = require('supertest');
 const firebaseTesting = require('@firebase/rules-unit-testing');
 
-const { app } = require('../../index');
+const { app } = require('../../src/index');
 const User = require('../../src/models/users');
 
 // Utility functions
@@ -132,7 +132,6 @@ describe('GET REQUESTS', () => {
 
 describe('PUT REQUESTS', () => {
   beforeEach(() => clearData());
-  afterEach(() => clearData());
 
   test('Accepted - Update a user', async () => {
     await createUser({ id: 10001 });
@@ -192,7 +191,6 @@ describe('PUT REQUESTS', () => {
 
 describe('POST REQUESTS', () => {
   beforeEach(() => clearData());
-  afterEach(() => clearData());
 
   test('Accepted - Create a user', async () => {
     const { response } = await createUser({ id: 10001 });
@@ -334,7 +332,6 @@ describe('POST REQUESTS', () => {
 
 describe('DELETE REQUESTS', () => {
   beforeEach(() => clearData());
-  afterEach(() => clearData());
 
   test('Accepted - Deleted a user', async () => {
     await createUser({ id: 10001 });
