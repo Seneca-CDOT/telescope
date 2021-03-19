@@ -35,17 +35,14 @@
     "start": "node src/backend",
     "server": "node src/backend/web/server",
     "test-ci": "run-s prettier-check test",
+    "pre-commit": "pretty-quick --staged",
     "preversion": "npm run test-ci",
     "postversion": "git push upstream master --tags",
     "services:start": "node bin/services-start.js --",
     "services:stop": "node bin/services-stop.js",
     "services:logs": "node bin/services-logs.js --",
-    "services:clean": "node bin/services-clean.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
+    "services:clean": "node bin/services-clean.js",
+    "prepare": "husky install"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
