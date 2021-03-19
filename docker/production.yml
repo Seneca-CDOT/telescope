@@ -227,6 +227,20 @@ services:
       # Disable Elasticsearch routing via Traefik in production (we enable it in development)
       - 'traefik.enable=false'
 
+  portainer:
+    image: portainer/portainer-ce:alpine
+    container_name: 'portainer'
+    command: -H unix:///var/run/docker.sock --admin-password-file '/data/portainer'
+    restart: unless-stopped
+    ports:
+      - 9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../../config:/data
+      - ../../config/portainer:/data/portainer
+    depends_on:
+      - nginx
+
   # TODO: Kibana + APM, see https://github.com/Seneca-CDOT/telescope/blob/372a6076540351cd54d85478521bcfbe8edefc87/src/api/production.yml
 
 volumes:
