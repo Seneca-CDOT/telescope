@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "A service for getting the status of our services",
   "scripts": {
-    "start": "node server.js"
+    "start": "node src/server.js"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
