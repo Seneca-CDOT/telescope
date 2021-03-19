@@ -1,19 +1,9 @@
 import { MouseEvent } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import {
-  Grid,
-  MenuItem,
-  TextField,
-  FormControl,
-  Paper,
-  IconButton,
-  Box,
-  Typography,
-} from '@material-ui/core';
+import { Grid, MenuItem, TextField, FormControl, Paper, IconButton, Box } from '@material-ui/core';
 
 import SearchInput from './SearchInput/SearchInput';
-import SearchHelp from './SearchHelp';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,11 +21,11 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       alignItems: 'center',
       borderRadius: '50px',
-      background: '#d1d1d1',
+      background: theme.palette.background.paper,
       border: 'solid 1px transparent',
       transition: 'background-color .5s',
       '&:hover': {
-        backgroundColor: '#ffffff',
+        backgroundColor: theme.palette.action.selected,
         border: 'solid 1px #999999',
       },
       [theme.breakpoints.down('xs')]: {
