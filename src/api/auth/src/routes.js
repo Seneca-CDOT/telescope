@@ -36,6 +36,7 @@ function validateRedirectAndStateParams() {
       redirect_uri: Joi.string()
         .uri({
           scheme: [/https?/],
+          allowRelative: true,
         })
         .required(),
       // state is optional
@@ -49,9 +50,10 @@ function validateRedirectAndStateParams() {
 // We want to avoid redirecting users to apps we don't know about.
 function validateRedirectUriOrigin() {
   return (req, res, next) => {
-    const redirectUri = req.query.redirect_uri;
     try {
-      const redirectOrigin = new URL(redirectUri).origin;
+      // If redirect_uri is relative path, add Telescope base url to it
+      const redirectUri = new URL(req.query.redirect_uri, allowedOrigins[0]);
+      const redirectOrigin = redirectUri.origin;
       if (!allowedOrigins.includes(redirectOrigin)) {
         logger.warn(
           `Invalid redirect_uri passed to /login: ${redirectUri}, [${allowedOrigins.join(', ')}]`
@@ -59,6 +61,7 @@ function validateRedirectUriOrigin() {
         next(createError(401, `redirect_uri not allowed`));
       } else {
         // Origin is allowed, let this request continue
+        req.query.redirect_uri = redirectUri.href;
         next();
       }
     } catch (err) {

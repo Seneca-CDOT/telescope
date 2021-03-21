@@ -107,9 +107,14 @@ const AuthProvider = ({ children }: Props) => {
     removeToken();
     removeAuthState();
 
-    // Set our return URL
-    const redirectUri = encodeURIComponent(returnTo || window.location.href);
-    window.location.href = `${logoutUrl}?redirect_uri=${redirectUri}`;
+    // Set our return URL, if the user is on /myfeeds, redirect them to the home page
+    const redirectUri = encodeURIComponent(
+      returnTo || window.location.pathname.match(/^\/myfeeds/)?.length
+        ? window.location.href.replace(/\/myfeeds.*$/, '/')
+        : window.location.href
+    );
+    // Redirect to logout immediately
+    router.push(`${logoutUrl}?redirect_uri=${redirectUri}`, undefined, { shallow: true });
   };
 
   return (
