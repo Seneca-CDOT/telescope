@@ -7,7 +7,7 @@ const MyFeedsPage = () => {
 
   // Redirect the user to login if they aren't authenticated already
   if (!user) {
-    return login('/myfeeds');
+    return login(`/myfeeds`);
   }
 
   return (
