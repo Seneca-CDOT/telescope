@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
 
 import User from '../User';
-import { loginUrl, logoutUrl } from '../config';
+import { loginUrl, logoutUrl, telescopeUrl } from '../config';
 
 export interface AuthContextInterface {
   login: (returnTo?: string) => void;
-  logout: (returnTo?: string) => void;
+  logout: () => void;
   user?: User;
   token?: string;
 }
@@ -98,18 +98,17 @@ const AuthProvider = ({ children }: Props) => {
     setAuthState(loginState);
 
     // Set our return URL
-    const redirectUri = encodeURIComponent(returnTo || window.location.href);
-    window.location.href = `${loginUrl}?redirect_uri=${redirectUri}&state=${loginState}`;
+    const url = new URL(returnTo || '', telescopeUrl);
+    window.location.href = `${loginUrl}?redirect_uri=${url.href}&state=${loginState}`;
   };
 
-  const logout = (returnTo?: string) => {
+  const logout = () => {
     // Clear our existing token and state
     removeToken();
     removeAuthState();
 
-    // Set our return URL
-    const redirectUri = encodeURIComponent(returnTo || window.location.href);
-    window.location.href = `${logoutUrl}?redirect_uri=${redirectUri}`;
+    // Redirect to logout
+    window.location.href = `${logoutUrl}?redirect_uri=${telescopeUrl}`;
   };
 
   return (
