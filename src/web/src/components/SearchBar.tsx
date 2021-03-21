@@ -1,19 +1,12 @@
-import { MouseEvent } from 'react';
+import { useState, MouseEvent } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import {
-  Grid,
-  MenuItem,
-  TextField,
-  FormControl,
-  Paper,
-  IconButton,
-  Box,
-  Typography,
-} from '@material-ui/core';
+import { useRouter } from 'next/router';
 
-import SearchInput from './SearchInput/SearchInput';
-import SearchHelp from './SearchHelp';
+import {
+  FormControl,
+  Box,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,81 +15,82 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '785px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      padding: theme.spacing(2, 2, 0, 2),
+      padding: theme.spacing(2, 2, 2, 2),
       marginBottom: theme.spacing(6),
     },
-    card: {
-      padding: theme.spacing(0, 0, 0, 2),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderRadius: '50px',
-      background: '#d1d1d1',
-      border: 'solid 1px transparent',
-      transition: 'background-color .5s',
-      '&:hover': {
-        backgroundColor: '#ffffff',
-        border: 'solid 1px #999999',
-      },
-      [theme.breakpoints.down('xs')]: {
-        borderRadius: '15px',
-        padding: theme.spacing(0, 0, 0, 2),
-      },
+    input: {
+      fontSize: '1.5rem',
+      background: 'white',
+      padding: '15px 25px',
+      boxSizing: 'border-box',
+      borderRadius: '9px',
+      outline: 'none',
+      width: '100%',
+      border: 'solid 1px grey',
+      '&:focus': {
+        // borderRadius: '9px 9px 0 0',
+        border: 'solid 1px grey',
+      }
     },
-    header: {
-      padding: 0,
-      marginBottom: theme.spacing(2),
-      backgroundColor: theme.palette.background.default,
-    },
-    h1: {
-      display: 'block',
-      transition: 'all linear 350ms',
-      fontWeight: 600,
-      color: theme.palette.text.secondary,
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '3rem',
-      },
-      [theme.breakpoints.between('md', 'lg')]: {
-        fontSize: '4rem',
-      },
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '5rem',
-      },
-    },
-    iconButton: {
-      backgroundColor: '#999999',
-      '&:hover': {
-        backgroundColor: theme.palette.secondary.dark,
-      },
-      '& * > .MuiSvgIcon-root': {
-        fontSize: '2rem',
-        color: theme.palette.primary.contrastText,
-      },
-      margin: 0,
+    dropdownBox: {
+      background: 'white',
+      width: '100%',
       position: 'absolute',
-      right: '10px',
-      top: '6px',
+      transform: 'translateY(40px)',
+      zIndex: 999,
+      boxSizing: 'border-box',
+      border: 'solid 1px grey',
+      borderTop: 0
     },
-    selectControl: {
-      '& > *': {
-        width: 'auto',
-        transform: 'translateY(2px)',
+    listSearch: {
+      padding: '0 0px',
+      '& li': {
+        listStyleType: 'none',
         fontSize: '1.5rem',
-        textTransform: 'capitalize',
-        color: theme.palette.primary.main,
-        paddingLeft: '2rem',
-        [theme.breakpoints.down('xs')]: {
-          paddingLeft: '1rem',
-          width: '10rem',
-          transform: 'translateY(15px)',
-        },
+        padding: '6px 25px',
       },
+      '&li div': {
+        display: 'inline'
+      },
+      '& li:hover': {
+        background: '#C1F1FF'
+      }
     },
-    selectItem: {
-      fontSize: '1.4rem',
-      textTransform: 'capitalize',
-      color: theme.palette.primary.main,
+    searchDropdownBottom: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      background: '#eeeeee',
+      height: '50px'
     },
+    advancedSearchButton: {
+      border: 'none',
+      marginRight: '10px',
+      outline: 'none',
+      background: 'transparent',
+      cursor: 'pointer',
+      color: '#BABABA',
+      '&:hover': {
+        color: '#5D5D5D'
+      }
+    }, 
+    searchButton: {
+      marginRight: '10px',
+      background: '#5EB8EC',
+      border: 'none',
+      borderRadius: '4px',
+      color: 'white',
+      padding: '10px 18px',
+      cursor: 'pointer',
+      '&:hover': {
+        background: '#569DD7'
+      }
+    },
+    xxx: {
+      
+      top: '10px',
+      right: '10px',
+    }
   })
 );
 
@@ -110,48 +104,64 @@ type searchBarProps = {
 
 const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: searchBarProps) => {
   const classes = useStyles();
+  const [keyword, setKeyword] = useState('');
+  const [dropdownVisible, setdropdownVisible] = useState(false);
+  const router = useRouter();
 
-  const searchOptions = ['post', 'author'];
+  const handleSearch = (searchType: string) => {
+    if (searchType) {
+      if(searchType.toUpperCase() === 'AUTHOR') {
+        router.push(`/search?text=${keyword}&filter=author`);
+      } else {
+        router.push(`/search?text=${keyword}&filter=post`);
+      }
+    } else {
+      router.push(`/search?text=${keyword}&filter=post`);
+    }
+  }
 
   return (
     <Box className={classes.root}>
-      <Paper component="form" className={classes.card} elevation={0}>
-        <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
-          <Grid item xs={12} sm={2} lg={2}>
-            <FormControl fullWidth>
-              <TextField
-                id="standard-select-search-type"
-                select
-                value={filter}
-                InputProps={{ disableUnderline: true }}
-                className={classes.selectControl}
-                onChange={(event) => onFilterChange(event.target.value)}
+      <FormControl fullWidth>
+
+              <form onSubmit={e => {
+                  e.preventDefault();
+                  handleSearch('');
+                }
+              }
               >
-                {searchOptions.map((option) => (
-                  <MenuItem key={option} value={option} className={classes.selectItem}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={10} lg={10}>
-            <FormControl fullWidth>
-              <SearchInput searchFilter={filter} text={text} onTextChange={onTextChange} />
-              <IconButton
-                className={classes.iconButton}
-                type="submit"
-                onClick={onSubmit}
-                aria-label="search"
-              >
-                <SearchIcon />
-              </IconButton>
-            </FormControl>
-          </Grid>
-        </Grid>
-      </Paper>
+                <input 
+                  className={classes.input} 
+                  value={keyword} 
+                  placeholder='Search...' 
+                  onChange={e => setKeyword(e.target.value)}
+                  onFocus={() => setdropdownVisible(true)}
+                  // onBlur={() => setdropdownVisible(false)} 
+                />
+              </form>
+              
+              {Boolean(dropdownVisible && keyword) && (
+                <div className={classes.dropdownBox}>
+                  <ul className={classes.listSearch}>
+                    <li onClick={() => handleSearch('POST')}>
+                      <div><SearchIcon /> {keyword} (in posts) - ENTER <span className={classes.xxx}>Search in Posts</span></div>
+                    </li>
+                    <li onClick={() => handleSearch('AUTHOR')}>
+                      <div><SearchIcon /> {keyword} (in authors) <span className={classes.xxx}>Search in Authors</span></div>
+                    </li>
+                  </ul>
+
+
+                  <div className={classes.searchDropdownBottom}>
+                    <button className={classes.advancedSearchButton}>Advanced Search</button>
+                    <button className={classes.searchButton} onClick={()=>handleSearch('')}>Search</button>
+                  </div>
+
+                </div>
+              )}
+      </FormControl>
     </Box>
-  );
+  )
 };
 
 export default SearchBar;
