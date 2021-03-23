@@ -252,7 +252,7 @@ const PostComponent = ({ postUrl }: Props) => {
         {!desktop && (
           <>
             <div className={classes.authorAvatarContainer}>
-              <PostAvatar name={post.feed.author} postURL={post.feed.link} />
+              <PostAvatar name={post.feed.author} blog={post.feed.link} />
             </div>
             <div className={classes.authorNameContainer}>
               <h1 className={classes.author}>
