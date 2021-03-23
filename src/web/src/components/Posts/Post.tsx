@@ -69,17 +69,17 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     title: {
-      fontSize: '4.5em',
+      fontSize: '3em',
       fontWeight: 'bold',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       textAlign: 'center',
-      letterSpacing: '-3px',
+      letterSpacing: '-1.5px',
       [theme.breakpoints.down(1200)]: {
-        fontSize: '3.5em',
+        fontSize: '2em',
         fontWeight: 'bold',
         textAlign: 'start',
-        letterSpacing: '-3px',
+        letterSpacing: '-1.5px',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         lineHeight: '1.3',
@@ -252,7 +252,7 @@ const PostComponent = ({ postUrl }: Props) => {
         {!desktop && (
           <>
             <div className={classes.authorAvatarContainer}>
-              <PostAvatar name={post.feed.author} />
+              <PostAvatar name={post.feed.author} postURL={post.feed.link} />
             </div>
             <div className={classes.authorNameContainer}>
               <h1 className={classes.author}>

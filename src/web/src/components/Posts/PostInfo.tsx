@@ -69,7 +69,7 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
   return (
     <ListSubheader className={classes.root}>
       <div className={classes.authorAvatarContainer}>
-        <PostAvatar name={authorName} />
+        <PostAvatar name={authorName} postURL={postUrl} />
       </div>
       <div className={classes.authorNameContainer}>
         <h1 className={classes.author}>
