@@ -140,7 +140,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.down(1024)]: {
         fontSize: '1.1em',
-        width: '30vw',
+        width: '40vw',
         height: '5px',
         margin: '-1.6em 0 -1em .5px',
       },
@@ -235,7 +235,6 @@ const PostComponent = ({ postUrl }: Props) => {
   return (
     <Box className={classes.root}>
       <ListSubheader className={classes.postInfo}>
-        <AdminButtons />
         <div className={classes.titleContainer}>
           <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
             <span
@@ -266,6 +265,7 @@ const PostComponent = ({ postUrl }: Props) => {
                 <a href={post.url} rel="bookmark" className={classes.link}>
                   {`${formatPublishedDate(post.updated)}`}
                 </a>
+                <AdminButtons />
               </h1>
             </div>
           </>
