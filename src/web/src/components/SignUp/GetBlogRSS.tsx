@@ -58,7 +58,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GetBlogRSS = () => {
+type GetBlogRssProps = {
+  handleChange: Function;
+  agreement: boolean;
+};
+
+const GetBlogRSS = ({ handleChange, agreement }: GetBlogRssProps) => {
   const classes = useStyles();
   const rssExample = ['www.test1.feed.com', 'www.test2.feed.com', 'www.test3.feed.com'];
   return (
@@ -90,7 +95,7 @@ const GetBlogRSS = () => {
           </div>
           <div className={classes.infoContainer}>
             {/* Error and checked must be set */}
-            <FormControl required error={null} component="fieldset">
+            <FormControl required component="fieldset">
               <FormGroup>
                 {rssExample.map((rss) => (
                   <FormControlLabel
@@ -107,13 +112,19 @@ const GetBlogRSS = () => {
           </div>
         </div>
         <div>
-          <FormControl required error={null} component="fieldset">
+          <FormControl required component="fieldset">
             <FormLabel component="legend" className={classes.formLabel}>
               I declare that I’m the owner and the maintainer of the Blog account provided:
             </FormLabel>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox checked={false} name="agree" onChange={null} />}
+                control={
+                  <Checkbox
+                    checked={agreement}
+                    name="blogOwnership"
+                    onChange={(e) => handleChange(e)}
+                  />
+                }
                 label={<h1 className={classes.formControlLabel}>Yes</h1>}
               />
             </FormGroup>

@@ -1,12 +1,9 @@
-import { useState } from 'react';
-
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import PostAvatar from '../Posts/PostAvatar';
@@ -66,19 +63,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GetGitHub = () => {
+type GetGitHubProps = {
+  handleChange: Function;
+  agreement: boolean;
+};
+
+const GetGitHub = ({ handleChange, agreement }: GetGitHubProps) => {
   const classes = useStyles();
-  // I think this state should be on the parent like the others. not sure. it's up to you Duc.
-  const [userAgree, setUserAgree] = useState({
-    agree: false,
-  });
-
-  // lock the person here until no error exist.
-  const error = ['agree'].filter((v) => v).length !== 1;
-
-  const handleChange = () => {};
-
-  const { agree } = userAgree;
 
   return (
     <div className={classes.root}>
@@ -134,17 +125,23 @@ const GetGitHub = () => {
             <PostAvatar name="" postURL="" />
           </div>
         </div>
-        <FormControl required error={error} component="fieldset">
+        <FormControl required component="fieldset">
           <FormLabel component="legend" className={classes.formLabel}>
             I declare that I’m the owner and the maintainer of the GitHub account provided:
           </FormLabel>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox checked={agree} name="agree" onChange={handleChange} />}
+              control={
+                <Checkbox
+                  checked={agreement}
+                  name="githubOwnership"
+                  onChange={(e) => handleChange(e)}
+                />
+              }
               label={<h1 className={classes.formControlLabel}>Yes</h1>}
             />
           </FormGroup>
-          {error && <FormHelperText>Field Required.</FormHelperText>}
+          {/* {error && <FormHelperText>Field Required.</FormHelperText>} */}
         </FormControl>
       </div>
     </div>

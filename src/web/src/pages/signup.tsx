@@ -3,12 +3,28 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
+import useAuth from '../hooks/use-auth';
 import FirstMessage from '../components/SignUp/WelcomeMessage';
 import GetGitHub from '../components/SignUp/GetGitHub';
 import GetBlogRSS from '../components/SignUp/GetBlogRSS';
 import FinalMessage from '../components/SignUp/FinalMessage';
+
+type UserInfo = {
+  id?: string;
+  isAdmin?: boolean;
+  firstName?: string;
+  lastName?: string;
+  displayName?: string;
+  feeds?: string[];
+  github?: {
+    username: string;
+    avatarUrl: string;
+  };
+  blogOwnership: boolean;
+  githubOwnership: boolean;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,10 +63,29 @@ const useStyles = makeStyles((theme: Theme) =>
 const SignUpPage = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
-  const [userInfo, setUserInfo] = useState({ email: '', name: '' });
-  const [userGitHub, setUserGitHub] = useState('');
-  const [userRSS, setUserRSS] = useState({});
-  const [userAgree, setUserAgree] = useState(0);
+  const { user, login } = useAuth();
+
+  if (!user) {
+    login();
+  }
+
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    id: user?.id,
+    isAdmin: user?.isAdmin,
+    displayName: user?.name,
+    blogOwnership: false,
+    githubOwnership: false,
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name } = e.target;
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setUserInfo({
+      ...userInfo,
+      [name]: value,
+    });
+  };
+
   const steps = ['Start', 'Get GitHub', 'Get Blog', 'End'];
 
   const handleNext = () => {
@@ -66,8 +101,12 @@ const SignUpPage = () => {
       <h1 className={classes.title}>Create your Telescope Account</h1>
       <div className={classes.infoContainer}>
         {activeStep === 0 && <FirstMessage />}
-        {activeStep === 1 && <GetGitHub />}
-        {activeStep === 2 && <GetBlogRSS />}
+        {activeStep === 1 && (
+          <GetGitHub handleChange={handleChange} agreement={userInfo.githubOwnership} />
+        )}
+        {activeStep === 2 && (
+          <GetBlogRSS handleChange={handleChange} agreement={userInfo.blogOwnership} />
+        )}
         {activeStep === 3 && <FinalMessage />}
       </div>
 
@@ -83,7 +122,18 @@ const SignUpPage = () => {
                 <Button className={classes.button} onClick={handlePrevious}>
                   Previous
                 </Button>
-                <Button className={classes.button} onClick={handleNext}>
+                <Button
+                  className={classes.button}
+                  onClick={handleNext}
+                  disabled={
+                    // eslint-disable-next-line no-nested-ternary
+                    activeStep === 1
+                      ? !userInfo.githubOwnership
+                      : activeStep === 2
+                      ? !userInfo.blogOwnership
+                      : false
+                  }
+                >
                   {activeStep < 2 ? 'Next' : 'Finish'}
                 </Button>
               </>

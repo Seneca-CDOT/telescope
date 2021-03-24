@@ -1,5 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import useAuth from '../../hooks/use-auth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,20 +56,26 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const WelcomeMessage = () => {
   const classes = useStyles();
+  const { user } = useAuth();
+
+  if (user === undefined) return null;
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
         <div className={classes.welcomeMessage}>
           {/* Full Name and E-mail from SSO. */}
-          <h1>Hello Tiffany Wise, let’s create your Telescope Account!</h1>
+          <h1>Hello {user.name}, let’s create your Telescope Account</h1>
           <h2>Follow the information that we already have:</h2>
         </div>
         <div className={classes.userInfo}>
           <h2>
-            <b>Full Name: </b>Tiffany Wise
+            <b>Full Name: </b>
+            {user.name}
           </h2>
           <h2>
-            <b>Email: </b>tiffanywise@myseneca.ca
+            <b>Email: </b>
+            {user.email}
           </h2>
         </div>
         <div className={classes.telescopeInfo}>
