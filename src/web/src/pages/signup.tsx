@@ -94,7 +94,11 @@ const SignUpPage = () => {
   const steps = ['Start', 'GitHub', 'Blog', 'Review'];
 
   const handleNext = () => {
-    setActiveStep(activeStep < 3 ? activeStep + 1 : 3);
+    setActiveStep(activeStep + 1);
+  };
+
+  const handlePrevious = () => {
+    setActiveStep(activeStep - 1);
   };
 
   // I like to have this here so later we can easily add or remove a step
@@ -120,9 +124,25 @@ const SignUpPage = () => {
       <div className={classes.infoContainer}>{renderContent()}</div>
 
       <div className={classes.buttonsContainer}>
-        {activeStep === 0 ? (
-          <Button className={classes.button} onClick={handleNext}>
-            Start
+        {activeStep > 0 && (
+          <Button className={classes.button} onClick={handlePrevious}>
+            Previous
+          </Button>
+        )}
+        {activeStep < steps.length - 1 ? (
+          <Button
+            className={classes.button}
+            onClick={handleNext}
+            disabled={
+              // eslint-disable-next-line no-nested-ternary
+              activeStep === 1
+                ? !userInfo.githubOwnership
+                : activeStep === 2
+                ? !userInfo.blogOwnership
+                : false
+            }
+          >
+            Next
           </Button>
         ) : (
           <Link href="/" passHref>
