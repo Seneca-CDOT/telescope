@@ -62,7 +62,7 @@ By default the server is running on <http://localhost:6666/>.
 
 \- `GET /:id` - returns 200 with the user specified by the id, or 404 if a user does not exist.
 
-\- `GET /` - returns 200 with all Telescope users in an array, or 404 if the `users` collection is empty.
+\- `GET /?per_page=20&page=1` - returns 200 with the first 20 Telescope users (numerically sorted by `id`) in an array, or 404 if the `users` collection is empty.
 
 \- `POST /` - returns 201 if a Telescope user was successfully validated and added to the db, or 400 if the user already exists. (_An example of the JSON data to send as the POST body can be found in `api/user/test/user.test.js`_)
 
