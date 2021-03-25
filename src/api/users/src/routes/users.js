@@ -1,6 +1,6 @@
 const { Router, logger } = require('@senecacdot/satellite');
 const { errors } = require('celebrate');
-const { validateId, validateUser } = require('../models/celebrateSchema');
+const { validatePagingParams, validateId, validateUser } = require('../models/celebrateSchema');
 const User = require('../models/users');
 const db = require('../services/firestore');
 
@@ -28,27 +28,35 @@ router.get('/:id', validateId(), async (req, res, next) => {
 });
 
 // get all users
-// rejected if the user collection is empty, otherwise users returned
-router.get('/', async (req, res, next) => {
+// rejected if the users collection is empty
+// otherwise n (specified via params) users are returned
+router.get('/', validatePagingParams(), async (req, res, next) => {
+  /*
+   *  celebrateSchema.js performs data validation via validatePagingParams() middleware
+   *  per_page is an integer validated to have a range between 1 and 20
+   *  page is an integer validated to have a min value of 1
+   */
+  const { per_page: perPage, page } = req.query;
+
+  // When requesting page 1 the user we start to build the query off of will be user 0
+  // when requesting page >= 2 the user we start at is determined by perPage * (page - 1)
+  const userToStartAt = page === 1 ? 0 : perPage * (page - 1);
+  const users = [];
+
   try {
-    const usersRef = db.collection('users');
-    const snapshot = await usersRef.get();
+    const query = await db
+      .collection('users')
+      .orderBy('id')
+      .startAt(userToStartAt)
+      .limit(perPage)
+      .get();
 
-    if (snapshot.empty) {
-      logger.debug(`All users were requested by ${req.ip} but could not be found.`);
-      res.status(404).json({
-        msg: `That collection could not be found, or contains no data.`,
-      });
-    } else {
-      logger.debug(`All users were requested by ${req.ip} and served successfully.`);
+    query.forEach((doc) => {
+      users.push(doc.data());
+    });
 
-      const usersArray = [];
-      snapshot.forEach((doc) => {
-        usersArray.push(doc.data());
-      });
-
-      res.status(200).json(usersArray);
-    }
+    logger.debug(`Users were requested by ${req.ip} and served successfully.`);
+    res.status(200).json(users);
   } catch (err) {
     next(err);
   }

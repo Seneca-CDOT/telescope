@@ -11,6 +11,8 @@ const getUser = (id) => request(app).get(`/${id}`);
 
 const getUsers = () => request(app).get('/');
 
+const getUsersParams = (perPage, page) => request(app).get(`/?per_page=${perPage}&page=${page}`);
+
 const createUser = async (editedUser = {}) => {
   const defaultUser = {
     // Use a unique id number for each user
@@ -94,6 +96,159 @@ describe('GET REQUESTS', () => {
         feeds: ['https://dev.to/feed/carlsagan'],
         github: {
           username: 'carlsagan',
+          avatarUrl:
+            'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+        },
+      },
+    ]);
+  });
+
+  test('Accepted - Get all users (using params), only two users should be returned', async () => {
+    // create 3 users
+    const galileo1 = await createUser({ id: 10001 });
+    const galileo2 = await createUser({ id: 10002 });
+    const galileo3 = await createUser({ id: 10003 });
+
+    expect(galileo1.response.status).toBe(201);
+    expect(galileo2.response.status).toBe(201);
+    expect(galileo3.response.status).toBe(201);
+
+    // request 3 users per page on page 1, three users should be returned
+    const response = await getUsersParams(3, 1);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(3);
+    expect(response.body).toEqual([
+      {
+        id: 10001,
+        firstName: 'Galileo',
+        lastName: 'Galilei',
+        displayName: 'Galileo Galilei',
+        isAdmin: true,
+        isFlagged: true,
+        feeds: ['https://dev.to/feed/galileogalilei'],
+        github: {
+          username: 'galileogalilei',
+          avatarUrl:
+            'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+        },
+      },
+      {
+        id: 10002,
+        firstName: 'Galileo',
+        lastName: 'Galilei',
+        displayName: 'Galileo Galilei',
+        isAdmin: true,
+        isFlagged: true,
+        feeds: ['https://dev.to/feed/galileogalilei'],
+        github: {
+          username: 'galileogalilei',
+          avatarUrl:
+            'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+        },
+      },
+      {
+        id: 10003,
+        firstName: 'Galileo',
+        lastName: 'Galilei',
+        displayName: 'Galileo Galilei',
+        isAdmin: true,
+        isFlagged: true,
+        feeds: ['https://dev.to/feed/galileogalilei'],
+        github: {
+          username: 'galileogalilei',
+          avatarUrl:
+            'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+        },
+      },
+    ]);
+  });
+
+  test('Accepted - Get 20 (uncreated) users using params, receive empty array', async () => {
+    // create no users, request 20 users
+    const response = await getUsersParams(20, 1);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(0);
+    expect(response.body).toEqual([]);
+  });
+
+  test('Accepted - Test negative perPage parameter, positive page parameter', async () => {
+    const galileo = await createUser({ id: 10001 });
+    expect(galileo.response.status).toBe(201);
+
+    const response = await getUsersParams(-20, 1);
+    expect(response.status).toBe(400);
+    expect(response.body.validation.query.message).toEqual(
+      '"per_page" must be greater than or equal to 1'
+    );
+  });
+
+  test('Accepted - Test negative perPage parameter, negative page parameter', async () => {
+    const galileo = await createUser({ id: 10001 });
+    expect(galileo.response.status).toBe(201);
+
+    const response = await getUsersParams(-20, -1);
+    expect(response.status).toBe(400);
+    expect(response.body.validation.query.message).toEqual(
+      '"per_page" must be greater than or equal to 1'
+    );
+  });
+
+  test('Accepted - Test positive perPage parameter, negative page parameter', async () => {
+    const galileo = await createUser({ id: 10001 });
+    expect(galileo.response.status).toBe(201);
+
+    const response = await getUsersParams(20, -1);
+    expect(response.status).toBe(400);
+    expect(response.body.validation.query.message).toEqual(
+      '"page" must be greater than or equal to 1'
+    );
+  });
+
+  test('Accepted - Test page and per_page parameters', async () => {
+    await createUser({ id: 0 });
+    await createUser({ id: 1 });
+
+    // create 2 users, request 1 user per page and page 2
+    const response = await getUsersParams(1, 2);
+    expect(response.body.length).toBe(1);
+    expect(response.body).toEqual([
+      {
+        id: 1,
+        firstName: 'Galileo',
+        lastName: 'Galilei',
+        displayName: 'Galileo Galilei',
+        isAdmin: true,
+        isFlagged: true,
+        feeds: ['https://dev.to/feed/galileogalilei'],
+        github: {
+          username: 'galileogalilei',
+          avatarUrl:
+            'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+        },
+      },
+    ]);
+  });
+
+  test('Accepted - Test parameterized get, post one user, ask for five, receive one user', async () => {
+    const galileo = await createUser({ id: 10001 });
+
+    expect(galileo.response.status).toBe(201);
+
+    // request 5 users per page on page 2
+    const response = await getUsersParams(5, 2);
+    expect(response.status).toBe(200);
+    expect(response.body.length).toBe(1);
+    expect(response.body).toEqual([
+      {
+        id: 10001,
+        firstName: 'Galileo',
+        lastName: 'Galilei',
+        displayName: 'Galileo Galilei',
+        isAdmin: true,
+        isFlagged: true,
+        feeds: ['https://dev.to/feed/galileogalilei'],
+        github: {
+          username: 'galileogalilei',
           avatarUrl:
             'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
         },
