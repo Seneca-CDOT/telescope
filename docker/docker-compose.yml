@@ -119,7 +119,6 @@ services:
       - 'traefik.http.middlewares.strip_feed_discovery_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.feed-discovery.middlewares=strip_feed_discovery_prefix'
 
-<<<<<<< HEAD
   # users service
   users:
     container_name: 'users'
@@ -145,7 +144,6 @@ services:
       - 'traefik.http.middlewares.strip_users_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.users.middlewares=strip_users_prefix'
 
-=======
   # parser service
   parser:
     container_name: 'parser'
@@ -161,6 +159,7 @@ services:
       - redis
       - users
       - posts
+      - elasticsearch
     labels:
       # Enable Traefik
       - 'traefik.enable=true'
@@ -172,7 +171,6 @@ services:
       - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.prefixes=/${API_VERSION}/parser'
       - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'
->>>>>>> 44b0841... docker files + readme
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
