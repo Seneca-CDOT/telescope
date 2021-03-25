@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const FinalMessage = () => {
+const Review = () => {
   const classes = useStyles();
   const loading = false;
   return (
@@ -34,10 +34,10 @@ const FinalMessage = () => {
           <Spinner />
         </>
       ) : (
-        <h2>WELCOME TO TELESCOPE</h2>
+        <h2>We would show all information here for reviewing</h2>
       )}
     </div>
   );
 };
 
-export default FinalMessage;
+export default Review;

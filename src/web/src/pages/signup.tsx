@@ -3,13 +3,13 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import { useState, ChangeEvent } from 'react';
+import { useState, SyntheticEvent, ChangeEvent } from 'react';
 import Link from 'next/link';
 import useAuth from '../hooks/use-auth';
-import FirstMessage from '../components/SignUp/WelcomeMessage';
+import Overview from '../components/SignUp/Overview';
 import GetGitHub from '../components/SignUp/GetGitHub';
 import GetBlogRSS from '../components/SignUp/GetBlogRSS';
-import FinalMessage from '../components/SignUp/FinalMessage';
+import Review from '../components/SignUp/Review';
 
 type UserInfo = {
   id?: string;
@@ -86,29 +86,38 @@ const SignUpPage = () => {
     });
   };
 
-  const steps = ['Start', 'Get GitHub', 'Get Blog', 'End'];
+  const handleSubmit = (e: SyntheticEvent) => {
+    e.preventDefault();
+    console.log(userInfo);
+  };
+
+  const steps = ['Start', 'GitHub', 'Blog', 'Review'];
 
   const handleNext = () => {
     setActiveStep(activeStep < 3 ? activeStep + 1 : 3);
   };
 
-  const handlePrevious = () => {
-    setActiveStep(activeStep > 0 ? activeStep - 1 : 0);
+  // I like to have this here so later we can easily add or remove a step
+  // Feel free to change components' name
+  const renderContent = () => {
+    switch (activeStep) {
+      case 0:
+        return <Overview />;
+      case 1:
+        return <GetGitHub handleChange={handleChange} agreement={userInfo.githubOwnership} />;
+      case 2:
+        return <GetBlogRSS handleChange={handleChange} agreement={userInfo.blogOwnership} />;
+      case 3:
+        return <Review />;
+      default:
+        return null;
+    }
   };
 
   return (
-    <div className={classes.root}>
-      <h1 className={classes.title}>Create your Telescope Account</h1>
-      <div className={classes.infoContainer}>
-        {activeStep === 0 && <FirstMessage />}
-        {activeStep === 1 && (
-          <GetGitHub handleChange={handleChange} agreement={userInfo.githubOwnership} />
-        )}
-        {activeStep === 2 && (
-          <GetBlogRSS handleChange={handleChange} agreement={userInfo.blogOwnership} />
-        )}
-        {activeStep === 3 && <FinalMessage />}
-      </div>
+    <form className={classes.root} onSubmit={handleSubmit} autoComplete="off">
+      <h1 className={classes.title}>Telescope Account</h1>
+      <div className={classes.infoContainer}>{renderContent()}</div>
 
       <div className={classes.buttonsContainer}>
         {activeStep === 0 ? (
@@ -116,35 +125,16 @@ const SignUpPage = () => {
             Start
           </Button>
         ) : (
-          <>
-            {activeStep <= 2 ? (
-              <>
-                <Button className={classes.button} onClick={handlePrevious}>
-                  Previous
-                </Button>
-                <Button
-                  className={classes.button}
-                  onClick={handleNext}
-                  disabled={
-                    // eslint-disable-next-line no-nested-ternary
-                    activeStep === 1
-                      ? !userInfo.githubOwnership
-                      : activeStep === 2
-                      ? !userInfo.blogOwnership
-                      : false
-                  }
-                >
-                  {activeStep < 2 ? 'Next' : 'Finish'}
-                </Button>
-              </>
-            ) : (
-              <Button className={classes.button} onClick={handleNext}>
-                <Link href="/" passHref>
-                  HOME
-                </Link>
-              </Button>
-            )}
-          </>
+          <Link href="/" passHref>
+            <Button
+              className={classes.button}
+              onClick={() => {
+                console.log(userInfo);
+              }}
+            >
+              Confirm
+            </Button>
+          </Link>
         )}
       </div>
 
@@ -157,7 +147,7 @@ const SignUpPage = () => {
           ))}
         </Stepper>
       </div>
-    </div>
+    </form>
   );
 };
 

@@ -54,11 +54,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const WelcomeMessage = () => {
+const Overview = () => {
   const classes = useStyles();
   const { user } = useAuth();
 
-  if (user === undefined) return null;
+  if (!user) return null;
 
   return (
     <div className={classes.root}>
@@ -94,4 +94,4 @@ const WelcomeMessage = () => {
   );
 };
 
-export default WelcomeMessage;
+export default Overview;
