@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
     selectItem: {
       fontSize: '1.4rem',
       textTransform: 'capitalize',
-      color: '#121d59',
+      color: theme.palette.primary.main,
     },
   })
 );
