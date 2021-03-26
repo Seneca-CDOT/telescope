@@ -47,14 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     infoContainer: {
       width: '100%',
-      // alignSelf: 'stretch',
-      backgroundColor: 'black',
-      // height: '70vh',
-      [theme.breakpoints.down(1024)]: {
-        // height: '65vh',
-      },
     },
-    buttonsContainer: {},
     button: {
       fontSize: '1.3em',
       padding: '1.5em',

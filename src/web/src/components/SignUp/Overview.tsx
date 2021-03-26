@@ -7,14 +7,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: '0',
       margin: '0',
-      // backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.background.default,
       width: '100%',
       minHeight: '100%',
-      // alignSelf: 'stretch',
-      backgroundColor: 'yellow',
     },
     container: {
-      backgroundColor: 'gray',
       display: 'grid',
       gridTemplateColumns: '1fr',
       justifyItems: 'center',
@@ -22,8 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       width: '100%',
       height: '70vh',
-      // height: '70vh',
-      // background: 'black',
     },
     welcomeMessage: {
       fontSize: '1.3em',

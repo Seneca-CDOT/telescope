@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       width: '100%',
       height: '50vh',
-      // backgroundColor: 'yellow',
     },
   })
 );
@@ -34,7 +33,7 @@ const Review = () => {
           <Spinner />
         </>
       ) : (
-        <h2>We would show all information here for reviewing</h2>
+        <h2>We will show all information here for reviewing</h2>
       )}
     </div>
   );
