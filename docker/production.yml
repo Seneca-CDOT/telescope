@@ -138,11 +138,13 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - USERS_PORT
       # TODO
       # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       # - ELASTIC_APM_SERVICE_NAME=user
       # - ELASTIC_APM_SERVER_URL=http://apm:8200
+    volumes:
+      # This will take care of copying the serviceAccountKey.json file needed by firestore.js
+      - ../../config/firebase:/app
 
   ##############################################################################
   # Third-Party Dependencies and Support Services
