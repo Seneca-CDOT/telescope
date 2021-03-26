@@ -44,15 +44,16 @@ npm install:users-service
 # normal mode
 npm start
 
-# running firestore emulator locally
+# running firestore emulator and users microservice locally
+npm run services:start firebase users
+
+# dev mode with automatic restarts
 npm run services:start firebase
-npm start
+cd src/api/users
+npm run dev
 
 # test runner (must be used in conjunction with the firebase service)
 npm run jest:e2e (or npm run jest:e2e src\api\users\test\e2e)
-
-# dev mode with automatic restarts
-npm run dev
 ```
 
 By default the server is running on <http://localhost:6666/>.
