@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       border: 'solid 1px grey',
       '&:focus': {
-        // borderRadius: '9px 9px 0 0',
         border: 'solid 1px grey',
       }
     },
@@ -112,11 +111,14 @@ const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: sea
     if (searchType) {
       if(searchType.toUpperCase() === 'AUTHOR') {
         router.push(`/search?text=${keyword}&filter=author`);
+        setdropdownVisible(false);
       } else {
         router.push(`/search?text=${keyword}&filter=post`);
+        setdropdownVisible(false);
       }
     } else {
       router.push(`/search?text=${keyword}&filter=post`);
+      setdropdownVisible(false);
     }
   }
 
@@ -136,7 +138,13 @@ const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: sea
                   placeholder='Search...' 
                   onChange={e => setKeyword(e.target.value)}
                   onFocus={() => setdropdownVisible(true)}
-                  // onBlur={() => setdropdownVisible(false)} 
+                  onBlur={() => {
+                    if(keyword) {
+                      setdropdownVisible(true);
+                    } else {
+                      setdropdownVisible(false);
+                    }
+                  }} 
                 />
               </form>
               
