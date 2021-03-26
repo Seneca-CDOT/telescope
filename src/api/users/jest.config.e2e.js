@@ -1,8 +1,7 @@
-const path = require('path');
 const baseConfig = require('../../../jest.config.base');
-require('dotenv').config({
-  path: path.join(__dirname, '../../../config/env.development'),
-});
+
+// override to pass e2e tests
+process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8088';
 
 module.exports = {
   ...baseConfig,
