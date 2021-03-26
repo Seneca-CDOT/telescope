@@ -166,10 +166,10 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.default,
       width: '95%',
       '& a': {
-        color: theme.palette.type === 'dark' ? theme.palette.secondary.main : 'default',
+        color: theme.palette.type === 'dark' ? '#7BA4DB' : 'default',
       },
       '& a:visited': {
-        color: theme.palette.type === 'dark' ? 'grey' : 'default',
+        color: theme.palette.type === 'dark' ? '#CCA1A6' : 'default',
       },
     },
   })
