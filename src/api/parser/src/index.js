@@ -64,11 +64,13 @@ async function processAllFeeds() {
   try {
     // Get an Array of Feed objects from the Users microservice and Redis
     const res = await fetch(`${process.env.USER_URL}/`);
-    // flatMap required otherwise we'll have a 2d array since a user can have more than one feed
-    const feeds = res.body.flatMap((user) => (user.isFlagged ? user.feeds : null));
-    const [all, userFeeds] = await Promise.all([Feed.all(), feeds]);
-    // Process these feeds into the database and feed queue
-    await processFeeds([...all, ...userFeeds]);
+    if (res.status === 200) {
+      // flatMap required otherwise we'll have a 2d array since a user can have more than one feed
+      const feeds = res.body.flatMap((user) => (!user.isFlagged ? user.feeds : null));
+      const [all, userFeeds] = await Promise.all([Feed.all(), feeds]);
+      // Process these feeds into the database and feed queue
+      await processFeeds([...all, ...userFeeds]);
+    }
   } catch (err) {
     logger.error({ err }, 'Error queuing feeds');
   }
