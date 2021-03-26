@@ -105,6 +105,17 @@ const service = new Satellite({
 });
 ```
 
+- `credentials`: an optional Object containing a `key` and `cert`, to be used in the creation of a secure HTTPS server. If `credentials` is not provided, an HTTP server is created instead (the default).
+
+```js
+const service = new Satellite({
+  credentials: {
+    key: fs.readFileSync('/path/to/privkey.pem'),
+    cert: fs.readFileSync('/path/to/fullchain.pem'),
+  },
+});
+```
+
 There are also a number of optional objects and functions available to further
 customize your service.
 

@@ -1,8 +1,15 @@
-const { createServer } = require('http');
 const { createTerminus } = require('@godaddy/terminus');
 
 const { createApp, createRouter } = require('./app');
 const logger = require('./logger');
+
+function createServer(app, credentials) {
+  // If we're given key/cert credentials, use HTTPS, otherwise HTTP
+  if (credentials) {
+    return require('https').createServer(credentials, app);
+  }
+  return require('http').createServer(app);
+}
 
 class Satellite {
   constructor(options = {}) {
@@ -12,6 +19,8 @@ class Satellite {
       this.healthCheck = options.healthCheck;
     }
 
+    // Keep track of credentials if we're passed any
+    this.credentials = options.credentials;
     // Use the router passed to us
     this.router = options.router || createRouter();
     // Expose the app
@@ -28,7 +37,7 @@ class Satellite {
     }
 
     // Expose the server
-    this.server = createServer(this.app);
+    this.server = createServer(this.app, this.credentials);
 
     // Graceful shutdown and healthcheck
     createTerminus(this.server, {
