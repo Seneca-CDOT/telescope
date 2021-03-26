@@ -152,10 +152,10 @@ const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: sea
                 <div className={classes.dropdownBox}>
                   <ul className={classes.listSearch}>
                     <li onClick={() => handleSearch('POST')}>
-                      <div><SearchIcon /> {keyword} (in posts) - ENTER <span className={classes.xxx}>Search in Posts</span></div>
+                      <div><SearchIcon /> in Posts: {keyword}</div>
                     </li>
                     <li onClick={() => handleSearch('AUTHOR')}>
-                      <div><SearchIcon /> {keyword} (in authors) <span className={classes.xxx}>Search in Authors</span></div>
+                      <div><SearchIcon /> in Authors: {keyword}</div>
                     </li>
                   </ul>
 
