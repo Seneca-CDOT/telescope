@@ -10,10 +10,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      borderLeft: '2.5px solid #707070',
-      [theme.breakpoints.up('lg')]: {
-        width: '22rem',
-      },
+      marginBottom: '80vh',
+      opacity: '0.4',
+      transition: 'opacity .5s',
+      '&:hover': {
+        opacity: '1'
+      }
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
@@ -30,12 +32,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     authorNameContainer: {
       width: '100%',
+      height: '3rem'
     },
     author: {
       width: '100%',
       wordWrap: 'break-word',
-      fontSize: '2em',
-      lineHeight: '1.5em',
+      fontSize: '1.6em',
+      lineHeight: '1em',
       fontWeight: 'bold',
       marginLeft: '.5em',
       color: theme.palette.text.primary,
@@ -49,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     published: {
       marginLeft: '.5em',
-      fontSize: '1.5em',
+      fontSize: '1.2em',
       fontWeight: 'lighter',
       textDecoration: 'none',
       color: theme.palette.text.primary,
@@ -76,11 +79,11 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
         <PostAvatar name={authorName} blog={blogUrl} />
       </div>
       <div className={classes.authorNameContainer}>
-        <h1 className={classes.author}>
+        <p className={classes.author}>
           <a className={classes.link} href={blogUrl}>
             {authorName}
           </a>
-        </h1>
+        </p>
       </div>
       <div>
         <a href={postUrl} rel="bookmark" className={classes.published}>
