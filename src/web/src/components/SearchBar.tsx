@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       border: 'solid 1px transparent',
       transition: 'background-color .5s',
       '&:hover': {
-        backgroundColor: theme.palette.action.selected,
+        backgroundColor: theme.palette.type === 'light' ? '#ffffff' : '#000000',
         border: 'solid 1px #999999',
       },
       [theme.breakpoints.down('xs')]: {
@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
     selectItem: {
       fontSize: '1.4rem',
       textTransform: 'capitalize',
-      color: theme.palette.primary.main,
+      color: '#121d59',
     },
   })
 );
