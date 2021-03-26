@@ -20,15 +20,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     input: {
       fontSize: '1.5rem',
-      background: 'white',
       padding: '15px 25px',
       boxSizing: 'border-box',
       borderRadius: '9px',
       outline: 'none',
       width: '100%',
       border: 'solid 1px grey',
+      transition: 'background .3s',
       '&:focus': {
         border: 'solid 1px grey',
+        background: 'white'
+      },
+      '&:hover': {
+        boxShadow: '0 0 10px #C1F1FF'
       }
     },
     dropdownBox: {
@@ -37,9 +41,11 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       transform: 'translateY(40px)',
       zIndex: 999,
+      borderRadius: '0 0 9px 9px',
       boxSizing: 'border-box',
       border: 'solid 1px grey',
-      borderTop: 0
+      borderTop: 0,
+      
     },
     listSearch: {
       padding: '0 0px',
@@ -60,7 +66,8 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       justifyContent: 'flex-end',
       background: '#eeeeee',
-      height: '50px'
+      height: '50px',
+      borderRadius: '0 0 9px 9px',
     },
     advancedSearchButton: {
       border: 'none',
