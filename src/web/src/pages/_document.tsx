@@ -20,6 +20,8 @@ class MyDocument extends Document {
           <link rel="icon" href={logoUrl} type="image/svg+xml" />
           <meta charSet="utf-8" />
           <meta name="theme-color" content={lightTheme.palette.primary.main} />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" sizes="180x180" href="/logoImages/apple-icon-180.png" />
 
           <meta name="description" content={description} />
           <meta name="author" content={author} />

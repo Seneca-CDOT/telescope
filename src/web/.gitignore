@@ -1,3 +1,6 @@
 # next.js specific
 .next/
 out
+
+**/public/sw*
+**/public/workbox*
