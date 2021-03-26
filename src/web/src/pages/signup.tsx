@@ -33,9 +33,12 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0',
       backgroundColor: theme.palette.background.default,
       width: '100%',
+      height: '100vh',
       display: 'grid',
+      gridTemplateRows: '10% 70% 10% 10%',
       justifyItems: 'center',
       fontFamily: 'Spartan',
+      position: 'relative',
     },
     title: {
       marginTop: '1em',
@@ -44,18 +47,25 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     infoContainer: {
       width: '100%',
-      height: '70vh',
+      // alignSelf: 'stretch',
+      backgroundColor: 'black',
+      // height: '70vh',
+      [theme.breakpoints.down(1024)]: {
+        // height: '65vh',
+      },
     },
     buttonsContainer: {},
-    stepper: {
-      width: '80%',
-      margin: '5px 0',
-    },
     button: {
       fontSize: '1.3em',
       padding: '1.5em',
       margin: '5px 10px',
-      background: '#DDDBCB',
+      background: '#E0C05A',
+    },
+    stepper: {
+      position: 'absolute',
+      bottom: '0',
+      width: '80%',
+      margin: '5px 0',
     },
   })
 );

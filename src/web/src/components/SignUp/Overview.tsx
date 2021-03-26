@@ -7,18 +7,22 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: '0',
       margin: '0',
-      backgroundColor: theme.palette.background.default,
+      // backgroundColor: theme.palette.background.default,
       width: '100%',
+      minHeight: '100%',
+      // alignSelf: 'stretch',
+      backgroundColor: 'yellow',
     },
     container: {
+      backgroundColor: 'gray',
       display: 'grid',
       gridTemplateColumns: '1fr',
       justifyItems: 'center',
-      alignItems: 'center',
       textAlign: 'center',
       color: theme.palette.text.primary,
       width: '100%',
-      height: '60vh',
+      height: '70vh',
+      // height: '70vh',
       // background: 'black',
     },
     welcomeMessage: {
@@ -27,23 +31,28 @@ const useStyles = makeStyles((theme: Theme) =>
     userInfo: {
       margin: 0,
       padding: 0,
-      fontSize: '1.2em',
+      fontSize: '1.3em',
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
     },
+    userInfoLabel: {
+      gridColumnStart: '1',
+      gridColumnEnd: '3',
+    },
     telescopeInfo: {
-      fontSize: '1.4em',
+      fontSize: '1.3em',
+      textAlign: 'center',
     },
     helpButtons: {
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
     },
     button: {
-      padding: '1.5em',
+      padding: '0 0.5em',
       background: theme.palette.text.secondary,
       color: theme.palette.secondary.main,
       fontSize: '1em',
-      margin: '1em',
+      margin: '0 2em 5em 0',
       '&:hover': {
         color: 'black',
       },
@@ -66,9 +75,9 @@ const Overview = () => {
         <div className={classes.welcomeMessage}>
           {/* Full Name and E-mail from SSO. */}
           <h1>Hello {user.name}, let’s create your Telescope Account</h1>
-          <h2>Follow the information that we already have:</h2>
         </div>
         <div className={classes.userInfo}>
+          <h2 className={classes.userInfoLabel}>Follow the information that we already have:</h2>
           <h2>
             <b>Full Name: </b>
             {user.name}
@@ -87,7 +96,7 @@ const Overview = () => {
           <Button className={classes.button}>How to create a GitHub Account</Button>
         </div>
         <div className={classes.text}>
-          <p>If you already have a GitHub account and a personal blog page click start.</p>
+          <h3>If you already have a GitHub account and a personal blog page click NEXT.</h3>
         </div>
       </div>
     </div>
