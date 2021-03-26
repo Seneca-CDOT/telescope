@@ -1,11 +1,11 @@
 {
   "name": "@senecacdot/telescope",
   "private": true,
-  "version": "1.8.1",
+  "version": "1.9.0",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "bin": {
-    "add-feed": "./tools/add-feed.js",
-    "html-elements": "./tools/html-elements.js"
+    "add-feed": "tools/add-feed.js",
+    "html-elements": "tools/html-elements.js"
   },
   "scripts": {
     "api:start": "docker-compose -f ./src/api/docker-compose-api.yml up --build -d",
