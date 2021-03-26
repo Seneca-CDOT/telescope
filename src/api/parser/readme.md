@@ -1,6 +1,6 @@
 # Image Service
 
-The Post Service parses posts from user's feeds to display them on Telescope.
+The Parser service parses posts from user's feeds.
 
 ## Install
 
@@ -18,17 +18,13 @@ npm start
 npm run dev
 ```
 
-By default the server is running on <http://localhost:5555/>.
+By default the server is running on <http://localhost:8888/>.
 
 ### Examples
 
-- `GET /posts` - Returns the 10 latests posts parsed
-
-- `GET /posts/:id` - Returns information about a specific post
-
-- `GET /healthcheck` - returns `{ "status": "ok" }` if everything is running properly
+- `GET /queues` - Displays Bull-Board
 
 ## Docker
 
-- To build and tag: `docker build . -t telescope_posts_svc:latest`
-- To run locally: `docker run -p 5555:5555 telescope_posts_svc:latest`
+- To build and tag: `docker build . -t telescope_parser_svc:latest`
+- To run locally: `docker run -p 8888:8888 telescope_parser_svc:latest`
