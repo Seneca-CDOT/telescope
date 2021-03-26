@@ -158,7 +158,6 @@ services:
       - traefik
       - redis
       - users
-      - posts
       - elasticsearch
     labels:
       # Enable Traefik
