@@ -8,6 +8,12 @@
  */
 const path = require('path');
 const dotenv = require('dotenv');
+const withPlugins = require('next-compose-plugins');
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+});
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
 
 // Load an env file
 const loadApiUrlFromEnv = (envFile) => dotenv.config({ path: envFile });
@@ -55,11 +61,8 @@ envVarsToForward.forEach((envVar) =>
   console.info(`Using NEXT_PUBLIC_${envVar}=${process.env[`NEXT_PUBLIC_${envVar}`]}`)
 );
 
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
-});
-
-module.exports = withMDX({
+// Configs for Next
+const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
   poweredByHeader: false,
   reactStrictMode: true,
@@ -67,4 +70,21 @@ module.exports = withMDX({
   future: {
     webpack5: true,
   },
-});
+};
+
+// Compose all plugins
+module.exports = withPlugins([
+  [withMDX],
+  [
+    withPWA,
+    {
+      pwa: {
+        disable: process.env.NODE_ENV === 'development',
+        dest: 'public',
+        publicExcludes: ['!google*.html'],
+        runtimeCaching,
+      },
+    },
+  ],
+  nextConfig,
+]);
