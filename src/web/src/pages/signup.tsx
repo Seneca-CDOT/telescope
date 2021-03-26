@@ -104,8 +104,6 @@ const SignUpPage = () => {
     setActiveStep(activeStep - 1);
   };
 
-  // I like to have this here so later we can easily add or remove a step
-  // Feel free to change components' name
   const renderContent = () => {
     switch (activeStep) {
       case 0:
@@ -126,7 +124,7 @@ const SignUpPage = () => {
       <h1 className={classes.title}>Telescope Account</h1>
       <div className={classes.infoContainer}>{renderContent()}</div>
 
-      <div className={classes.buttonsContainer}>
+      <div>
         {activeStep > 0 && (
           <Button className={classes.button} onClick={handlePrevious}>
             Previous

@@ -4,6 +4,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import PostAvatar from '../Posts/PostAvatar';
@@ -25,7 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       width: '100%',
       height: '50vh',
-      // backgroundColor: 'yellow',
     },
     infoContainer: {
       display: 'grid',
@@ -120,9 +120,7 @@ const GetGitHub = ({ handleChange, agreement }: GetGitHubProps) => {
 
           <div className={classes.avatarPreview}>
             <h1>Avatar Preview</h1>
-            {/* DISPLAY THE DISPLAY NAME */}
-            {/* <PostAvatar name={displayName} /> */}
-            <PostAvatar name="" postURL="" />
+            <PostAvatar name="Preview" blog="test" />
           </div>
         </div>
         <FormControl required component="fieldset">
@@ -141,7 +139,7 @@ const GetGitHub = ({ handleChange, agreement }: GetGitHubProps) => {
               label={<h1 className={classes.formControlLabel}>Yes</h1>}
             />
           </FormGroup>
-          {/* {error && <FormHelperText>Field Required.</FormHelperText>} */}
+          <FormHelperText>Field Required.</FormHelperText>
         </FormControl>
       </div>
     </div>

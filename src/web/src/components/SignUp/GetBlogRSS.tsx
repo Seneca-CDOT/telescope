@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       width: '100%',
       height: '50vh',
-      // backgroundColor: 'yellow',
     },
     infoContainer: {
       display: 'grid',
@@ -66,6 +65,9 @@ type GetBlogRssProps = {
 const GetBlogRSS = ({ handleChange, agreement }: GetBlogRssProps) => {
   const classes = useStyles();
   const rssExample = ['www.test1.feed.com', 'www.test2.feed.com', 'www.test3.feed.com'];
+
+  const dumbHandleChange = () => null;
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -94,13 +96,12 @@ const GetBlogRSS = ({ handleChange, agreement }: GetBlogRssProps) => {
             />
           </div>
           <div className={classes.infoContainer}>
-            {/* Error and checked must be set */}
             <FormControl required component="fieldset">
               <FormGroup>
                 {rssExample.map((rss) => (
                   <FormControlLabel
                     key={rss}
-                    control={<Checkbox checked name={rss} onChange={null} />}
+                    control={<Checkbox checked name={rss} onChange={dumbHandleChange} />}
                     label={<h1 className={classes.formControlLabel}>{rss}</h1>}
                   />
                 ))}
@@ -128,7 +129,7 @@ const GetBlogRSS = ({ handleChange, agreement }: GetBlogRssProps) => {
                 label={<h1 className={classes.formControlLabel}>Yes</h1>}
               />
             </FormGroup>
-            {/* {error && <FormHelperText>Field Required.</FormHelperText>} */}
+            <FormHelperText>Field Required.</FormHelperText>
           </FormControl>
         </div>
       </div>

@@ -68,7 +68,6 @@ const Overview = () => {
     <div className={classes.root}>
       <div className={classes.container}>
         <div className={classes.welcomeMessage}>
-          {/* Full Name and E-mail from SSO. */}
           <h1>Hello {user.name}, let’s create your Telescope Account</h1>
         </div>
         <div className={classes.userInfo}>
