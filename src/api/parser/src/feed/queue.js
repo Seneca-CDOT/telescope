@@ -1,6 +1,5 @@
 const { setQueues, BullAdapter } = require('bull-board');
 
-require('../lib/config');
 const { logger } = require('@senecacdot/satellite');
 const { createQueue } = require('../lib/queue');
 

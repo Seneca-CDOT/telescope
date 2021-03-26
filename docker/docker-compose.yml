@@ -163,11 +163,11 @@ services:
     labels:
       # Enable Traefik
       - 'traefik.enable=true'
-      # Traefik routing for the feed discovery service at /v1/image
+      # Traefik routing for the parser service at /v1/parser
       - 'traefik.http.routers.parser.rule=PathPrefix(`/${API_VERSION}/parser`)'
-      # Specify the feed discovery service port
+      # Specify the parser service port
       - 'traefik.http.services.parser.loadbalancer.server.port=${PARSER_PORT}'
-      # Add middleware to this route to strip the /v1/feed-discovery prefix
+      # Add middleware to this route to strip the /v1/parser prefix
       - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.prefixes=/${API_VERSION}/parser'
       - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'

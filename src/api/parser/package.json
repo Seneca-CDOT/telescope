@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@senecacdot/satellite": "^1.8.0"
+    "@senecacdot/satellite": "^1.8.0",
+    "bull": "^3.22.0",
+    "bull-board": "^1.5.1"
   }
 }

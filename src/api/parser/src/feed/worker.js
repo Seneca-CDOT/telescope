@@ -1,4 +1,3 @@
-require('../lib/config');
 const { cpus } = require('os');
 const path = require('path');
 
