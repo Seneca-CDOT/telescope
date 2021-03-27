@@ -9,7 +9,6 @@
     "coverage": "jest -c jest.config.js --collect-coverage",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
-    "postinstall": "husky install",
     "prepare": "husky install"
   },
   "repository": "Seneca-CDOT/satellite",
