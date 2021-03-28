@@ -184,6 +184,20 @@ const formatPublishedDate = (dateString: string) => {
   }).format(date);
 };
 
+const extractBlogClassName = (url: string) => {
+  const blogClassName = new URL(url).hostname;
+  if (blogClassName.endsWith('medium.com')) {
+    return 'is-medium';
+  }
+  if (blogClassName.endsWith('dev.to')) {
+    return 'is-devto';
+  }
+  if (blogClassName.endsWith('blogspot.com')) {
+    return 'is-blogspot';
+  }
+  return 'is-generic';
+};
+
 const PostComponent = ({ postUrl }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -284,7 +298,7 @@ const PostComponent = ({ postUrl }: Props) => {
       <div className={classes.content}>
         <section
           ref={sectionEl}
-          className="telescope-post-content"
+          className={`telescope-post-content ${extractBlogClassName(post.url)}`}
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
       </div>
