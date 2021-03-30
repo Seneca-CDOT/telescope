@@ -40,7 +40,7 @@ services:
       - ELASTIC_PORT=9200
       - ELASTIC_URL=http://elasticsearch
       # Environment values we expect from our legacy .env file
-      - NODE_ENV
+      - NODE_ENV=production
       - PORT
       - POSTS_URL
       - API_URL
@@ -84,7 +84,15 @@ services:
       context: ../src/api/status
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV=production
       - STATUS_PORT
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+      # TODO - add APM monitoring support for Satellite
+      # - ELASTIC_APM_SERVER_URL
+      # - ELASTIC_APM_SERVICE_NAME
     ports:
       - '${STATUS_PORT}'
     depends_on:
@@ -107,10 +115,13 @@ services:
     environment:
       - NODE_ENV=production
       - IMAGE_PORT
-      # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      # - ELASTIC_APM_SERVICE_NAME=image
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+      # TODO - add APM monitoring support for Satellite
+      # - ELASTIC_APM_SERVER_URL
+      # - ELASTIC_APM_SERVICE_NAME
 
   # auth service
   auth:
@@ -119,7 +130,6 @@ services:
       - NODE_ENV=production
       - AUTH_PORT
       # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       # - ELASTIC_APM_SERVICE_NAME=auth
       # - ELASTIC_APM_SERVER_URL=http://apm:8200
 
@@ -129,20 +139,26 @@ services:
     environment:
       - NODE_ENV=production
       - POSTS_PORT
-      # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      # - ELASTIC_APM_SERVICE_NAME=posts
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+      # TODO - add APM monitoring support for Satellite
+      # - ELASTIC_APM_SERVER_URL
+      # - ELASTIC_APM_SERVICE_NAME
 
   # users service
   users:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      # - ELASTIC_APM_SERVICE_NAME=user
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+      # TODO - add APM monitoring support for Satellite
+      # - ELASTIC_APM_SERVER_URL
+      # - ELASTIC_APM_SERVICE_NAME
     volumes:
       # This will take care of copying the serviceAccountKey.json file needed by firestore.js
       - ../../firebase/serviceAccountKey.json:/app/serviceAccountKey.json
