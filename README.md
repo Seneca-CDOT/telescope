@@ -163,6 +163,8 @@ router.get('/private-route', isAuthenticated(), (req, res) => {...});
 Here are some examples:
 
 ```js
+const { isAuthenticated, isAuthorized } = require("@senecacdot/satellite");
+
 // Authorize based on `roles`
 router.get('/admin', isAuthenticated(), isAuthorized({ roles: ["admin"] }), (req, res) => {...});
 
@@ -211,6 +213,36 @@ The `hash()` function is a convenience hashing function, which returns a 10 char
 const { hash } = require('@senecacdot/satellite');
 
 const id = hash('http://someurl.com');
+```
+
+### Create Service Token
+
+Services authorize requests using the `isAuthenticated()` and `isAuthorized()` middleware discussed above.
+For the most part, this is meant to be used for the case of user-to-service requests: an authenticated
+user passes a JWT token (acquired via the `auth` service), and uses it to request authorization to some
+protected route.
+
+However, in cases where you need to do a service-to-service request, you can use the `createServiceToken()`
+function in order to get a short-lived access token that will include the `"service"` role:
+
+```js
+const { createServiceToken } = require('@senecacdot/satellite');
+...
+const res = await fetch(`some/protected/route`, {
+  headers: {
+    Authorization: `bearer ${createServiceToken()}`,
+  },
+});
+```
+
+The receiving service can then opt-into allowing this service to be authorized by using
+the `isAuthenticated()` and `isAuthorized()` middleware like so:
+
+```js
+const { isAuthenticated, isAuthorized } = require("@senecacdot/satellite");
+
+// Allow requests with a token bearing the 'service' role to proceed
+router.get('/admin-or-service', isAuthenticated(), isAuthorized({ roles: ["service"] }), (req, res) => {...});
 ```
 
 ### Create Error

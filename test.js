@@ -14,6 +14,7 @@ const {
   logger,
   hash,
   createError,
+  createServiceToken,
 } = require('./src');
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
@@ -427,7 +428,6 @@ describe('Satellite()', () => {
       isAuthorized({
         authorizeUser: (user) => {
           expect(user).toEqual(decoded);
-          console.log({ user, decoded });
           return user.sub === 'admin@email.com';
         },
       }),
@@ -452,6 +452,53 @@ describe('Satellite()', () => {
         },
       });
       expect(res.ok).toBe(true);
+
+      service.stop(done);
+    });
+  });
+
+  test('isAuthenticated() + isAuthorized() for service token and role should work on a specific route', (done) => {
+    const service = createSatelliteInstance({
+      name: 'test',
+    });
+    const token = createServiceToken();
+
+    const router = service.router;
+    router.get('/public', (req, res) => res.json({ hello: 'public' }));
+    router.get(
+      '/protected',
+      isAuthenticated(),
+      isAuthorized({ roles: ['service'] }),
+      (req, res) => {
+        // Make sure an admin user payload was added to req
+        expect(req.user.sub).toEqual('telescope-service');
+        expect(Array.isArray(req.user.roles)).toBe(true);
+        expect(req.user.roles).toContain('service');
+        res.json({ hello: 'protected' });
+      }
+    );
+
+    service.start(port, async () => {
+      // Public should need no bearer token
+      let res = await fetch(`${url}/public`);
+      expect(res.ok).toBe(true);
+      let body = await res.json();
+      expect(body).toEqual({ hello: 'public' });
+
+      // Protected should fail without authorization header
+      res = await fetch(`${url}/protected`);
+      expect(res.ok).toBe(false);
+      expect(res.status).toEqual(401);
+
+      // Protected should work with authorization header
+      res = await fetch(`${url}/protected`, {
+        headers: {
+          Authorization: `bearer ${token}`,
+        },
+      });
+      expect(res.ok).toBe(true);
+      body = await res.json();
+      expect(body).toEqual({ hello: 'protected' });
 
       service.stop(done);
     });
@@ -819,5 +866,19 @@ describe('Create Error tests for Satellite', () => {
     const testError = createError(404, 'Satellite Test for Errors');
     expect(testError.status).toBe(404);
     expect(testError.message).toBe('Satellite Test for Errors');
+  });
+});
+
+describe('createServiceToken()', () => {
+  test('should create a service token', () => {
+    const token = createServiceToken();
+    const decoded = jwt.verify(token, SECRET);
+
+    expect(decoded.sub).toEqual('telescope-service');
+    expect(Array.isArray(decoded.roles)).toBe(true);
+    expect(decoded.roles).toContain('service');
+
+    const currentDateSeconds = Date.now() / 1000;
+    expect(decoded.exp).toBeGreaterThan(currentDateSeconds);
   });
 });
