@@ -4,8 +4,7 @@ const session = require('express-session');
 
 // Setup SAML SSO-based Authentication
 require('./authentication');
-// Setup JWT-based Authorization
-require('./authorization');
+
 const routes = require('./routes');
 
 const service = new Satellite({

@@ -52,6 +52,7 @@ services:
       - ALLOWED_APP_ORIGINS
       - JWT_ISSUER
       - JWT_EXPIRES_IN
+      - USERS_URL
     ports:
       - ${AUTH_PORT}
     depends_on:

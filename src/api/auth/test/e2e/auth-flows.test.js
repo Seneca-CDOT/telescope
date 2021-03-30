@@ -1,21 +1,98 @@
 // NOTE: you need to run the auth and login services in docker for these to work
 const { chromium } = require('playwright');
 const { decode } = require('jsonwebtoken');
+const { createServiceToken, hash } = require('@senecacdot/satellite');
+const fetch = require('node-fetch');
 
 // We need to get the URL to the auth service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
-const { AUTH_URL, ALLOWED_APP_ORIGINS } = process.env;
+const { AUTH_URL, ALLOWED_APP_ORIGINS, USERS_URL } = process.env;
 
 let browser;
 let context;
 let page;
 
+// We have 3 SSO user accounts in the login service (see config/simplesamlphp-users.php):
+//
+// | Username    | Email                       | Password  | Display Name    |
+// |-------------|-----------------------------|-----------|-----------------|
+// | user1       | user1@example.com           | user1pass | Johannes Kepler |
+// | user2       | user2@example.com           | user2pass | Galileo Galilei |
+// | lippersheyh | hans-lippershey@example.com | telescope | Hans Lippershey |
+//
+// Create 2 Telescope accounts, one for user1@example.com and one for hans-lippershey@example.com.
+const createTelescopeUsers = () =>
+  Promise.all(
+    [
+      {
+        firstName: 'Johannes',
+        lastName: 'Kepler',
+        email: 'user1@example.com',
+        displayName: 'Johannes Kepler',
+        // this is a Telescope admin
+        isAdmin: true,
+        isFlagged: false,
+        feeds: ['https://imaginary.blog.com/feed/johannes'],
+        github: {
+          username: 'jkepler',
+          avatarUrl:
+            'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+        },
+      },
+      {
+        firstName: 'Hans',
+        lastName: 'Lippershey',
+        email: 'hans-lippershey@example.com',
+        displayName: 'Hans Lippershey',
+        // Regular Telescope user
+        isAdmin: false,
+        isFlagged: false,
+        feeds: ['https://imaginary.blog.com/feed/hans'],
+        github: {
+          username: 'hlippershey',
+          avatarUrl:
+            'https://avatars.githubusercontent.com/u/33902374?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+        },
+      },
+    ].map((user) =>
+      fetch(`${USERS_URL}/${hash(user.email)}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `bearer ${createServiceToken()}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      }).catch((err) => {
+        console.error('Unable to create user with Users service', { err });
+      })
+    )
+  );
+
+// Delete the Telescope users we created in the Users service.
+const cleanupTelescopeUsers = () =>
+  Promise.all(
+    ['user1@example.com', 'hans-lippershey@example.com'].map((email) =>
+      fetch(`${USERS_URL}/${hash(email)}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `bearer ${createServiceToken()}`,
+        },
+      })
+    )
+  );
+
 beforeAll(async () => {
-  // Use { headless: false, slowMo: 500 } as options to launch() to debug
+  // We need some Telescope users created in our Users service, so we can try
+  // logging into both the Login service and Users.  In case we somehow have
+  // these users created from some other test, remove then recreate.
+  await cleanupTelescopeUsers();
+  await createTelescopeUsers();
+  // Use launch({ headless: false, slowMo: 500 }) as options to debug
   browser = await chromium.launch();
 });
 afterAll(async () => {
   await browser.close();
+  await cleanupTelescopeUsers();
 });
 
 beforeEach(async () => {
@@ -107,16 +184,42 @@ describe('Login', () => {
     expect(jwt.sub).toEqual('user2@example.com');
   });
 
-  it('Admin user can login', async () => {
+  it('Admin user can login, and has expected token payload', async () => {
     const { jwt } = await login('user1', 'user1pass');
-    // The sub claim should match our user's email
-    expect(typeof jwt === 'object').toBe(true);
     expect(jwt.sub).toEqual('user1@example.com');
+    expect(jwt.name).toEqual('Johannes Kepler');
+    expect(Array.isArray(jwt.roles)).toBe(true);
+    expect(jwt.roles.length).toBe(3);
+    expect(jwt.roles).toEqual(['seneca', 'telescope', 'admin']);
+    expect(jwt.picture).toEqual(
+      'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4'
+    );
+  });
+
+  it('Telescope user can login, and has expected token payload', async () => {
+    const { jwt } = await login('lippersheyh', 'telescope');
+    expect(jwt.sub).toEqual('hans-lippershey@example.com');
+    expect(jwt.name).toEqual('Hans Lippershey');
+    expect(Array.isArray(jwt.roles)).toBe(true);
+    expect(jwt.roles.length).toBe(2);
+    expect(jwt.roles).toEqual(['seneca', 'telescope']);
+    expect(jwt.picture).toEqual(
+      'https://avatars.githubusercontent.com/u/33902374?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4'
+    );
+  });
+
+  it('Seneca user can login, and has expected token payload', async () => {
+    const { jwt } = await login('user2', 'user2pass');
+    expect(jwt.sub).toEqual('user2@example.com');
+    expect(jwt.name).toEqual('Galileo Galilei');
+    expect(Array.isArray(jwt.roles)).toBe(true);
+    expect(jwt.roles.length).toBe(1);
+    expect(jwt.roles).toEqual(['seneca']);
+    expect(jwt.picture).toBe(undefined);
   });
 
   it("Logging in twice doesn't require username and password again", async () => {
     const firstLogin = await login('user1', 'user1pass');
-    expect(typeof firstLogin.jwt === 'object').toBe(true);
     expect(firstLogin.jwt.sub).toEqual('user1@example.com');
 
     // Click login again, but we should get navigated back to this page right away
@@ -130,7 +233,6 @@ describe('Login', () => {
 
     // The sub claim should be the same as before (we're still logged in)
     const secondLogin = getTokenAndState();
-    expect(typeof secondLogin.jwt === 'object').toBe(true);
     expect(secondLogin.jwt.sub).toEqual(firstLogin.jwt.sub);
   });
 });
@@ -138,7 +240,6 @@ describe('Login', () => {
 describe('Logout', () => {
   it('Logout works after logging in', async () => {
     const firstLogin = await login('user1', 'user1pass');
-    expect(typeof firstLogin.jwt === 'object').toBe(true);
     expect(firstLogin.jwt.sub).toEqual('user1@example.com');
 
     // The sub claim should be the same as before (we're still logged in)
@@ -149,7 +250,6 @@ describe('Logout', () => {
 
   it('Logging in works after logout', async () => {
     const firstLogin = await login('user1', 'user1pass');
-    expect(typeof firstLogin.jwt === 'object').toBe(true);
     expect(firstLogin.jwt.sub).toEqual('user1@example.com');
 
     // The sub claim should be the same as before (we're still logged in)
@@ -158,38 +258,6 @@ describe('Logout', () => {
     expect(logoutResult.token).toEqual(undefined);
 
     const secondLogin = await login('user2', 'user2pass');
-    expect(typeof secondLogin.jwt === 'object').toBe(true);
     expect(secondLogin.jwt.sub).toEqual('user2@example.com');
-  });
-});
-
-describe('Authorization', () => {
-  it('Should return 401 if missing Authorization header', async () => {
-    const res = await page.goto(`${AUTH_URL}/authorize`);
-    expect(res.status()).toEqual(401);
-  });
-
-  it('Should return 401 if Authorization header invalid', async () => {
-    page.setExtraHTTPHeaders({ Authorization: 'invalid-token' });
-    const res = await page.goto(`${AUTH_URL}/authorize`);
-    expect(res.status()).toEqual(401);
-  });
-
-  it('Should return 401 if Authorization header uses bogus bearer token', async () => {
-    // Use a real JWT, but not one we created.
-    const jwt =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
-    page.setExtraHTTPHeaders({ Authorization: `bearer ${jwt}` });
-    const res = await page.goto(`${AUTH_URL}/authorize`);
-    expect(res.status()).toEqual(401);
-  });
-
-  it('Should return 200 if passed correct bearer token for logged in user', async () => {
-    const { accessToken } = await login('user1', 'user1pass');
-    expect(typeof accessToken === 'string').toBe(true);
-
-    page.setExtraHTTPHeaders({ Authorization: `bearer ${accessToken}` });
-    const res = await page.goto(`${AUTH_URL}/authorize`);
-    expect(res.status()).toEqual(200);
   });
 });
