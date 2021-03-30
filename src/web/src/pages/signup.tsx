@@ -59,12 +59,6 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '5px 10px',
       background: '#E0C05A',
     },
-    stepper: {
-      position: 'absolute',
-      bottom: '0',
-      width: '80%',
-      margin: '5px 0',
-    },
   })
 );
 
@@ -98,8 +92,6 @@ const SignUpPage = () => {
     e.preventDefault();
     console.log(userInfo);
   };
-
-  const steps = ['Start', 'GitHub', 'Blog', 'Review'];
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -135,7 +127,7 @@ const SignUpPage = () => {
             Previous
           </Button>
         )}
-        {activeStep < steps.length - 1 ? (
+        {activeStep < 3 ? (
           <Button
             className={classes.button}
             onClick={handleNext}
@@ -163,16 +155,6 @@ const SignUpPage = () => {
           </Link>
         )}
       </div>
-
-      {/* <div className={classes.stepper}>
-        <Stepper activeStep={activeStep} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      </div> */}
     </form>
   );
 };
