@@ -15,7 +15,7 @@ export interface SearchContextInterface {
 }
 
 const SearchContext = createContext<SearchContextInterface>({
-  text: 'someSearchValue',
+  text: '',
   filter: 'post',
   showHelp: true,
   onTextChange() {
