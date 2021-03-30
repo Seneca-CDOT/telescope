@@ -39,6 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyItems: 'center',
       fontFamily: 'Spartan',
       position: 'relative',
+      // [theme.breakpoints.down(1200)]: {
+      //   gridTemplateRows: '10% 65% 10% 15%',
+      // },
+      // [theme.breakpoints.down(1024)]: {
+      //   // gridTemplateRows: '10% 50% 10% 30%',
+      // },
     },
     title: {
       color: theme.palette.text.secondary,
@@ -158,7 +164,7 @@ const SignUpPage = () => {
         )}
       </div>
 
-      <div className={classes.stepper}>
+      {/* <div className={classes.stepper}>
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>
@@ -166,7 +172,7 @@ const SignUpPage = () => {
             </Step>
           ))}
         </Stepper>
-      </div>
+      </div> */}
     </form>
   );
 };

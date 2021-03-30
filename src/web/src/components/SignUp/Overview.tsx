@@ -19,6 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       width: '100%',
       height: '70vh',
+      // [theme.breakpoints.down(1024)]: {
+      //   height: '50vh',
+      // },
     },
     welcomeMessage: {
       fontSize: '1.3em',
