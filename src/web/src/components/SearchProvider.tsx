@@ -2,18 +2,22 @@ import { createContext, ReactNode, useState, useEffect, FormEvent } from 'react'
 import { useRouter } from 'next/router';
 
 type FilterProp = {
-  filter: 'post' | 'author';
+  filter: 'post' | 'author' | string;
 };
 
 export interface SearchContextInterface {
-  text?: string;
-  filter?: FilterProp['filter'];
+  text: string;
+  filter: FilterProp['filter'];
+  showHelp: boolean;
   onTextChange: (value: string) => void;
   onFilterChange: (value: FilterProp['filter']) => void;
   onSubmitHandler: (value: FormEvent) => void;
 }
 
 const SearchContext = createContext<SearchContextInterface>({
+  text: 'someSearchValue',
+  filter: 'post',
+  showHelp: true,
   onTextChange() {
     throw new Error('This context must be wrapped inside SearchProvider');
   },
@@ -43,10 +47,14 @@ const SearchProvider = ({ children }: Props) => {
   // form submit only.  These are used in the <SearchBar>, and the user can change them.
   const [text, setText] = useState('');
   const [filter, setFilter] = useState<FilterProp['filter']>('post');
+  const [showHelp, setShowHelp] = useState(true);
 
   const onSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
     router.push(`/search?text=${text}&filter=${filter}`);
+
+    // On form submit, hide help list
+    setShowHelp(false);
   };
 
   const onTextChange = (value: string) => {
@@ -63,7 +71,9 @@ const SearchProvider = ({ children }: Props) => {
   }, [textParam, filterParam]);
 
   return (
-    <SearchContext.Provider value={{ text, filter, onTextChange, onFilterChange, onSubmitHandler }}>
+    <SearchContext.Provider
+      value={{ text, showHelp, filter, onTextChange, onFilterChange, onSubmitHandler }}
+    >
       {children}
     </SearchContext.Provider>
   );
