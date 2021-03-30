@@ -41,7 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
     },
     title: {
-      marginTop: '1em',
       color: theme.palette.text.secondary,
       fontSize: '35px',
     },
