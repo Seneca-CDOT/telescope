@@ -144,7 +144,7 @@ services:
       # - ELASTIC_APM_SERVER_URL=http://apm:8200
     volumes:
       # This will take care of copying the serviceAccountKey.json file needed by firestore.js
-      - ../../config/firebase:/app
+      - ../../firebase/serviceAccountKey.json:/app/serviceAccountKey.json
 
   ##############################################################################
   # Third-Party Dependencies and Support Services
@@ -238,8 +238,8 @@ services:
       - 9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ../../config:/data
-      - ../../config/portainer:/data/portainer
+      - ../../portainer:/data
+      - ../../portainer/portainer:/data/portainer
     depends_on:
       - nginx
 
