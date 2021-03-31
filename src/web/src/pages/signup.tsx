@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SignUpPage = () => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState<number>(0);
   const { user, login } = useAuth();
 
   if (!user) {
@@ -117,45 +117,46 @@ const SignUpPage = () => {
   };
 
   return (
-    <form className={classes.root} onSubmit={handleSubmit} autoComplete="off">
+    <div className={classes.root}>
       <h1 className={classes.title}>Telescope Account</h1>
       <div className={classes.infoContainer}>{renderContent()}</div>
-
-      <div>
-        {activeStep > 0 && (
-          <Button className={classes.button} onClick={handlePrevious}>
-            Previous
-          </Button>
-        )}
-        {activeStep < 3 ? (
-          <Button
-            className={classes.button}
-            onClick={handleNext}
-            disabled={
-              // eslint-disable-next-line no-nested-ternary
-              activeStep === 1
-                ? !userInfo.githubOwnership
-                : activeStep === 2
-                ? !userInfo.blogOwnership
-                : false
-            }
-          >
-            Next
-          </Button>
-        ) : (
-          <Link href="/" passHref>
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <div>
+          {activeStep > 0 && (
+            <Button className={classes.button} onClick={handlePrevious}>
+              Previous
+            </Button>
+          )}
+          {activeStep < 3 ? (
             <Button
               className={classes.button}
-              onClick={() => {
-                console.log(userInfo);
-              }}
+              onClick={handleNext}
+              disabled={
+                // eslint-disable-next-line no-nested-ternary
+                activeStep === 1
+                  ? !userInfo.githubOwnership
+                  : activeStep === 2
+                  ? !userInfo.blogOwnership
+                  : false
+              }
             >
-              Confirm
+              Next
             </Button>
-          </Link>
-        )}
-      </div>
-    </form>
+          ) : (
+            <Link href="/" passHref>
+              <Button
+                className={classes.button}
+                onClick={() => {
+                  console.log(userInfo);
+                }}
+              >
+                Confirm
+              </Button>
+            </Link>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 
