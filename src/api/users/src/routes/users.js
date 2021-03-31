@@ -1,25 +1,30 @@
-const { Router, logger } = require('@senecacdot/satellite');
+const { Router, createError } = require('@senecacdot/satellite');
 const { errors } = require('celebrate');
-const { validatePagingParams, validateId, validateUser } = require('../models/celebrateSchema');
-const User = require('../models/users');
-const db = require('../services/firestore');
+
+const {
+  validatePagingParams,
+  validateId,
+  validateUser,
+  validateEmailHash,
+} = require('../models/schema');
+const { User } = require('../models/user');
+const { db, documentId } = require('../services/firestore');
+const { addNextLinkHeader } = require('../util');
 
 const router = Router();
 
-// get a user with a supplied id, validated by the celebrateSchema
+// get a user with a supplied id, validated by the schema
 // rejected if a user could not be found, otherwise user returned
 router.get('/:id', validateId(), async (req, res, next) => {
+  const { id } = req.params;
+
   try {
-    const userRef = db.collection('users').doc(req.params.id);
+    const userRef = db.doc(id);
     const doc = await userRef.get();
 
     if (!doc.exists) {
-      logger.debug(`User data (id: ${doc.id}) was requested by ${req.ip} but could not be found.`);
-      res.status(404).json({
-        msg: `User data (id: ${doc.id}) was requested but could not be found.`,
-      });
+      next(createError(404, `user ${id} not found.`));
     } else {
-      logger.debug(`User data (id: ${doc.id}) was requested by ${req.ip} and served successfully.`);
       res.status(200).json(doc.data());
     }
   } catch (err) {
@@ -29,112 +34,95 @@ router.get('/:id', validateId(), async (req, res, next) => {
 
 // get all users
 // rejected if the users collection is empty
-// otherwise n (specified via params) users are returned
+// otherwise perPage (specified via params) users are returned, starting at
+// the beginning of the users collection or the provided document path id (if present)
 router.get('/', validatePagingParams(), async (req, res, next) => {
   /*
-   *  celebrateSchema.js performs data validation via validatePagingParams() middleware
-   *  per_page is an integer validated to have a range between 1 and 20
-   *  page is an integer validated to have a min value of 1
+   *  schema.js performs data validation via validatePagingParams() middleware
+   *  per_page is an integer validated to have a range between 1 and 100
+   *  start_after is the id (hashed email) of the user to begin after
    */
-  const { per_page: perPage, page } = req.query;
-
-  // When requesting page 1 the user we start to build the query off of will be user 0
-  // when requesting page >= 2 the user we start at is determined by perPage * (page - 1)
-  const userToStartAt = page === 1 ? 0 : perPage * (page - 1);
-  const users = [];
+  const { per_page: perPage, start_after: startAfter } = req.query;
 
   try {
-    const query = await db
-      .collection('users')
-      .orderBy('id')
-      .startAt(userToStartAt)
-      .limit(perPage)
-      .get();
+    let query = db.orderBy(documentId()).limit(perPage);
 
-    query.forEach((doc) => {
-      users.push(doc.data());
-    });
+    // If we were given a user ID to start after, use that document path to add .startAfter()
+    if (startAfter) {
+      query = query.startAfter(startAfter);
+    }
 
-    logger.debug(`Users were requested by ${req.ip} and served successfully.`);
+    const snapshot = await query.get();
+    const users = snapshot.docs.map((doc) => doc.data());
+
+    // Add paging link header if necessary, so caller can request next page
+    addNextLinkHeader(res, users, perPage);
     res.status(200).json(users);
   } catch (err) {
     next(err);
   }
 });
 
-// post a user with supplied info, validated by the celebrateSchema
+// post a user with supplied info, validated by the schema
 // rejected if a user already exists with that id, otherwise user created
-router.post('/', validateUser(), async (req, res, next) => {
+router.post('/:id', validateId(), validateUser(), validateEmailHash(), async (req, res, next) => {
+  const { id } = req.params;
+  const { body } = req;
+
   try {
-    const userRef = db.collection('users').doc(`${req.body.id}`);
+    const userRef = db.doc(id);
     const doc = await userRef.get();
 
     if (doc.exists) {
-      logger.debug(`User (id: ${doc.id}) was posted by ${req.ip} but already exists.`);
-      res.status(400).json({
-        msg: `User with id ${doc.id} was requested to be added, but already exists in the db.`,
-      });
+      next(createError(400, `user with id ${id} already exists.`));
     } else {
-      const user = new User(req.body);
-      await db
-        .collection('users')
-        .doc(`${req.body.id}`)
-        .set(JSON.parse(JSON.stringify(user))); // the user object must be parsed and stringified to be persisted to firestore
-      res.status(201).json({ msg: `Added user with id: ${req.body.id}` });
-      logger.debug(`User added with id: ${req.body.id}:\n${JSON.stringify(req.body)} by ${req.ip}`);
+      const user = new User(body);
+      await db.doc(id).set(user);
+      res.status(201).json({ msg: `Added user with id: ${id}` });
     }
   } catch (err) {
     next(err);
   }
 });
 
-// put (update) a user with a supplied id, validated by the celebrateSchema
+// put (update) a user with a supplied id, validated by the schema
 // rejected if a user could not be found, otherwise user updated
-router.put('/:id', validateUser(), async (req, res, next) => {
+router.put('/:id', validateId(), validateUser(), validateEmailHash(), async (req, res, next) => {
+  const { id } = req.params;
+  const { body } = req;
+
   try {
-    const userRef = db.collection('users').doc(`${req.body.id}`);
+    const userRef = db.doc(id);
     const doc = await userRef.get();
 
     if (!doc.exists) {
-      logger.debug(`User data (id: ${doc.id}) was requested by ${req.ip} but could not be found.`);
-      res.status(404).json({
-        msg: `User with id ${doc.id} was requested to be updated, but does not exist in the db.`,
-      });
+      next(createError(404, `user ${id} not found.`));
     } else {
-      const user = new User(req.body);
-      await db
-        .collection('users')
-        .doc(`${req.body.id}`)
-        .update(JSON.parse(JSON.stringify(user))); // the user object must be parsed and stringified to be persisted to firestore
-      res.status(200).json({ msg: `Updated user ${req.body.id}` });
-      logger.debug(`User added with id: ${req.body.id}:\n${JSON.stringify(req.body)} by ${req.ip}`);
+      const user = new User(body);
+      // NOTE: doc().update() doesn't use the converter, we have to make a plain object.
+      await db.doc(id).update(user.toJSON());
+      res.status(200).json({ msg: `Updated user ${id}` });
     }
   } catch (err) {
     next(err);
   }
 });
 
-// delete a user with a supplied id, validated by the celebrateSchema
+// delete a user with a supplied id, validated by the schema
 // rejected if a user could not be found, otherwise user deleted
 router.delete('/:id', validateId(), async (req, res, next) => {
+  const { id } = req.params;
+
   try {
-    const userRef = db.collection('users').doc(req.params.id);
+    const userRef = db.doc(id);
     const doc = await userRef.get();
 
     if (!doc.exists) {
-      logger.debug(
-        `User data (id: ${doc.id}) was attempted to be deleted by ${req.ip} but that user could not be found.`
-      );
-      res.status(404).json({
-        msg: `User (id: ${req.params.id}) was attempted to be removed but could not be found.`,
-      });
+      next(createError(404, `user ${id} not found.`));
     } else {
-      logger.debug(
-        `User data (id: ${doc.id}) was requested by ${req.ip} and deleted successfully.`
-      );
-      await db.collection('users').doc(req.params.id).delete();
+      await db.doc(id).delete();
       res.status(200).json({
-        msg: `User (id: ${req.params.id}) was removed.`,
+        msg: `user ${id} was removed.`,
       });
     }
   } catch (err) {
