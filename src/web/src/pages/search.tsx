@@ -4,12 +4,10 @@ import SearchProvider from '../components/SearchProvider';
 
 const Search = () => {
   return (
-    <>
-      <SearchProvider>
-        <SEO pageTitle="Search | Telescope" />
-        <SearchPage />
-      </SearchProvider>
-    </>
+    <SearchProvider>
+      <SEO pageTitle="Search | Telescope" />
+      <SearchPage />
+    </SearchProvider>
   );
 };
 
