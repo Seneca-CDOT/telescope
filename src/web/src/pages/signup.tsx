@@ -77,6 +77,10 @@ const SignUpPage = () => {
     displayName: user?.name,
     blogOwnership: false,
     githubOwnership: false,
+    github: {
+      username: '',
+      avatarUrl: '',
+    },
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +90,7 @@ const SignUpPage = () => {
       ...userInfo,
       [name]: value,
     });
+    console.log(userInfo);
   };
 
   const handleSubmit = (e: SyntheticEvent) => {
@@ -106,7 +111,14 @@ const SignUpPage = () => {
       case 0:
         return <Overview />;
       case 1:
-        return <GetGitHub handleChange={handleChange} agreement={userInfo.githubOwnership} />;
+        return (
+          <GetGitHub
+            handleChange={handleChange}
+            agreement={userInfo.githubOwnership}
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+          />
+        );
       case 2:
         return <GetBlogRSS handleChange={handleChange} agreement={userInfo.blogOwnership} />;
       case 3:

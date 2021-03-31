@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { Button, createStyles, makeStyles, Theme } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -36,6 +36,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inputsContainer: {
       width: '100%',
+      display: 'grid',
+      gridTemplateColumns: '70% 30%',
     },
     avatarPreview: {
       display: 'grid',
@@ -64,11 +66,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type GetGitHubProps = {
-  handleChange: Function;
+  handleChange: any;
+  userInfo: any;
+  setUserInfo: Function;
   agreement: boolean;
 };
 
-const GetGitHub = ({ handleChange, agreement }: GetGitHubProps) => {
+const GetGitHub = ({ handleChange, agreement, userInfo, setUserInfo }: GetGitHubProps) => {
   const classes = useStyles();
 
   return (
@@ -100,10 +104,14 @@ const GetGitHub = ({ handleChange, agreement }: GetGitHubProps) => {
                 },
               }}
             />
+
+            <Button>Validate Git</Button>
+
             <TextField
               fullWidth
               id="standard-basic"
               label="Display Name"
+              name="displayName"
               className={classes.inputs}
               InputProps={{
                 classes: {
@@ -116,11 +124,13 @@ const GetGitHub = ({ handleChange, agreement }: GetGitHubProps) => {
                 },
               }}
             />
+            <Button type="submit">Validate Name</Button>
           </div>
 
           <div className={classes.avatarPreview}>
             <h1>Avatar Preview</h1>
-            <PostAvatar name="Preview" blog="test" />
+            <PostAvatar name={userInfo.displayName} blog="test" />
+            <h2>{userInfo.displayName}</h2>
           </div>
         </div>
         <FormControl required component="fieldset">
