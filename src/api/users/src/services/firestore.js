@@ -3,6 +3,7 @@
 
 const admin = require('firebase-admin');
 const { logger } = require('@senecacdot/satellite');
+const { userConverter } = require('../models/user');
 
 try {
   // Docker is responsible for putting this file in the root of the container
@@ -26,4 +27,7 @@ try {
   logger.debug('Server running in emulator mode');
 }
 
-module.exports = admin.firestore();
+module.exports.db = admin.firestore().collection('users').withConverter(userConverter);
+
+// We use the document id (hashed email) as our sort field
+module.exports.documentId = () => admin.firestore.FieldPath.documentId();

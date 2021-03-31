@@ -126,6 +126,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - USERS_PORT
+      - USERS_URL
     ports:
       - ${USERS_PORT}
     depends_on:

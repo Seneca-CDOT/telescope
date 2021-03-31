@@ -4,17 +4,17 @@
   "private": true,
   "scripts": {
     "start": "node src/server.js",
-    "dev": "cross-env FIRESTORE_EMULATOR_HOST=localhost:8088 nodemon src/server.js"
+    "dev": "env-cmd -f env.local nodemon src/server.js"
   },
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
     "celebrate": "^14.0.0",
-    "firebase-admin": "^9.6.0"
+    "firebase-admin": "^9.6.0",
+    "http-link-header": "^1.0.3"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^1.2.6",
-    "cross-env": "^7.0.3",
-    "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
     "firebase-tools": "^9.8.0",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"
