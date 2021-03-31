@@ -6,6 +6,7 @@
   word-wrap: break-word;
   hyphens: auto;
   font-family: PT Serif, Serif;
+  letter-spacing: 0.5px;
 }
 
 .telescope-post-content p {
