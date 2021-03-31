@@ -1,9 +1,9 @@
-import { MouseEvent } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { Grid, MenuItem, TextField, FormControl, Paper, IconButton, Box } from '@material-ui/core';
 
 import SearchInput from './SearchInput/SearchInput';
+import useSearchValue from '../hooks/use-search-value';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -90,16 +90,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-type searchBarProps = {
-  text: string;
-  onTextChange: Function;
-  filter: string;
-  onFilterChange: Function;
-  onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
-};
-
-const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: searchBarProps) => {
+const SearchBar = () => {
   const classes = useStyles();
+
+  const { filter, onFilterChange, onSubmitHandler } = useSearchValue();
 
   const searchOptions = ['post', 'author'];
 
@@ -127,11 +121,11 @@ const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: sea
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth>
-              <SearchInput searchFilter={filter} text={text} onTextChange={onTextChange} />
+              <SearchInput />
               <IconButton
                 className={classes.iconButton}
                 type="submit"
-                onClick={onSubmit}
+                onClick={onSubmitHandler}
                 aria-label="search"
               >
                 <SearchIcon />
