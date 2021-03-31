@@ -1,11 +1,14 @@
 import SEO from '../components/SEO';
 import SearchPage from '../components/SearchPage';
+import SearchProvider from '../components/SearchProvider';
 
 const Search = () => {
   return (
     <>
-      <SEO pageTitle="Search | Telescope" />
-      <SearchPage />
+      <SearchProvider>
+        <SEO pageTitle="Search | Telescope" />
+        <SearchPage />
+      </SearchProvider>
     </>
   );
 };
