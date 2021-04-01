@@ -32,6 +32,7 @@
     "jest:e2e": "jest -c jest.config.e2e.js --",
     "coverage": "cross-env NODE_ENV=test LOG_LEVEL=silent MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest -c jest.config.js --collectCoverage --",
     "jest-watch": "cross-env MOCK_REDIS=1 jest --watch --",
+    "jest:e2e-watch": "jest -c jest.config.e2e.js --watch --",
     "start": "node src/backend",
     "server": "node src/backend/web/server",
     "test-ci": "run-s prettier-check test",
