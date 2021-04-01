@@ -1,8 +1,6 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
-
 import SearchResults from './SearchResults';
 import SearchBar from './SearchBar';
-import BackToTopButton from './BackToTopButton';
 import SearchHelp from './SearchHelp';
 import useSearchValue from '../hooks/use-search-value';
 
@@ -33,7 +31,6 @@ const SearchPage = () => {
       <SearchBar />
       <SearchResults />
       {showHelp && <SearchHelp />}
-      <BackToTopButton />
     </div>
   );
 };
