@@ -33,7 +33,8 @@
     "jest": "cross-env NODE_ENV=test LOG_LEVEL=error MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest -c jest.config.js --",
     "jest:e2e": "jest -c jest.config.e2e.js --",
     "coverage": "cross-env NODE_ENV=test LOG_LEVEL=silent MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest -c jest.config.js --collectCoverage --",
-    "jest-watch": "cross-env MOCK_REDIS=1 jest --watch --",
+    "jest-watch": "cross-env MOCK_REDIS=1 jest -c jest.config.js --watch --",
+    "jest-update": "cross-env MOCK_REDIS=1 jest -c jest.config.js --updateSnapshot --",
     "jest:e2e-watch": "jest -c jest.config.e2e.js --watch --",
     "start": "node src/backend",
     "server": "node src/backend/web/server",
@@ -127,7 +128,6 @@
     "playwright": "1.9.2",
     "prettier": "2.2.1",
     "pretty-quick": "3.1.0",
-    "react-test-renderer": "17.0.1",
     "run.env": "1.1.0",
     "supertest": "6.1.3",
     "ts-jest": "26.5.4"

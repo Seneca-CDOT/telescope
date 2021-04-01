@@ -1,10 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<img
-  alt="Telescope Logo"
-  height={50}
-  src="/logo.svg"
-  width={50}
-/>
+<DocumentFragment>
+  <img
+    alt="Telescope Logo"
+    height="50"
+    src="/logo.svg"
+    width="50"
+  />
+</DocumentFragment>
 `;
