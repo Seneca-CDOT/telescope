@@ -7,6 +7,7 @@ type FilterProp = {
 
 export interface SearchContextInterface {
   text: string;
+  textParam: string;
   filter: FilterProp['filter'];
   showHelp: boolean;
   onTextChange: (value: string) => void;
@@ -16,6 +17,7 @@ export interface SearchContextInterface {
 
 const SearchContext = createContext<SearchContextInterface>({
   text: '',
+  textParam: '',
   filter: 'post',
   showHelp: true,
   onTextChange() {
@@ -72,7 +74,7 @@ const SearchProvider = ({ children }: Props) => {
 
   return (
     <SearchContext.Provider
-      value={{ text, showHelp, filter, onTextChange, onFilterChange, onSubmitHandler }}
+      value={{ text, textParam, showHelp, filter, onTextChange, onFilterChange, onSubmitHandler }}
     >
       {children}
     </SearchContext.Provider>
