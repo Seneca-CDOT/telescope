@@ -1,7 +1,9 @@
-import TestRenderer from 'react-test-renderer';
+import { render, cleanup } from '@testing-library/react';
 import Logo from './Logo';
 
+afterEach(cleanup);
+
 it('renders correctly', () => {
-  const tree = TestRenderer.create(<Logo height={50} width={50} />).toJSON();
-  expect(tree).toMatchSnapshot();
+  const { asFragment } = render(<Logo height={50} width={50} />);
+  expect(asFragment()).toMatchSnapshot();
 });
