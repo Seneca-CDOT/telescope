@@ -1,5 +1,10 @@
+import { ChangeEvent } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import useSearchValue from '../../hooks/use-search-value';
+
+type PostSearchInputProps = {
+  text: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,10 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PostSearchInput = () => {
+const PostSearchInput = ({ text, onChange }: PostSearchInputProps) => {
   const classes = useStyles();
-
-  const { text, onTextChange } = useSearchValue();
 
   return (
     <>
@@ -39,7 +42,7 @@ const PostSearchInput = () => {
         className={classes.input}
         placeholder="How to contribute to Open Source"
         value={text}
-        onChange={(event) => onTextChange(event.target.value)}
+        onChange={onChange}
       />
     </>
   );

@@ -1,11 +1,18 @@
 import PostSearchInput from './PostSearchInput';
 import AuthorSearchInput from './AuthorSearchInput';
-import useSearchValue from '../../hooks/use-search-value';
 
-const SearchInput = () => {
-  const { filter } = useSearchValue();
+type searchInputProps = {
+  text: string;
+  onTextChange: Function;
+  searchFilter: string;
+};
 
-  return filter === 'author' ? <AuthorSearchInput /> : <PostSearchInput />;
+const SearchInput = ({ text, onTextChange, searchFilter }: searchInputProps) => {
+  return searchFilter === 'author' ? (
+    <AuthorSearchInput text={text} onChange={(event) => onTextChange(event.target.value)} />
+  ) : (
+    <PostSearchInput text={text} onChange={(event) => onTextChange(event.target.value)} />
+  );
 };
 
 export default SearchInput;
