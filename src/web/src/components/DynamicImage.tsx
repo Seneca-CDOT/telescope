@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { imageServiceUrl } from '../config';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   img: {
     visibility: 'inherit',
     position: 'absolute',
@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     width: 0,
     height: 0,
-    minWidth: '100%',
     maxWidth: '100%',
-    minHeight: '100%',
     maxHeight: '100%',
+    minWidth: '100%',
+    minHeight: '100%',
     objectFit: 'cover',
   },
   backdrop: {
@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     boxSizing: 'border-box',
     margin: 0,
-    backgroundColor: theme.palette.type === 'light' ? '#E5E5E5' : '#000000',
-    opacity: '.35',
+    backgroundColor: '#000000',
+    opacity: '.75',
   },
 }));
 
