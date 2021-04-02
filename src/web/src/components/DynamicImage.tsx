@@ -31,8 +31,8 @@ const useStyles = makeStyles(() => ({
     right: 0,
     boxSizing: 'border-box',
     margin: 0,
-    backgroundColor: '#000000',
-    opacity: '.75',
+    backgroundColor: 'black',
+    opacity: '.85',
   },
 }));
 

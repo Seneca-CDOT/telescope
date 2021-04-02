@@ -1,6 +1,4 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import Link from 'next/link';
 import DynamicImage from './DynamicImage';
 
 const useStyles = makeStyles((theme: Theme) => ({

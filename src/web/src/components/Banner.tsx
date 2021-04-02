@@ -9,25 +9,13 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     h1: {
       position: 'absolute',
-      color: theme.palette.text.primary,
+      color: '#A0D1FB',
       fontWeight: 'bold',
-      fontSize: '12rem',
+      fontSize: '7rem',
+      letterSpacing: '.45em',
       display: 'block',
-      top: theme.spacing(20),
-      left: theme.spacing(15),
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '4rem',
-        textAlign: 'left',
-        left: theme.spacing(4),
-        right: theme.spacing(4),
-        top: theme.spacing(14),
-      },
-      [theme.breakpoints.between('md', 'lg')]: {
-        fontSize: '8rem',
-      },
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '12rem',
-      },
+      top: theme.spacing(50),
+      left: theme.spacing(65),
     },
     heroBanner: {
       maxHeight: '100vh',
@@ -61,12 +49,13 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '5.6rem',
       width: '5.6rem',
       position: 'relative',
-      bottom: theme.spacing(20),
+      bottom: theme.spacing(10),
       zIndex: 300,
       margin: '0 auto',
-      [theme.breakpoints.down(1080)]: {
-        left: '55%',
-        bottom: theme.spacing(18),
+      '& .MuiFab-root': {
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        display: 'grid',
       },
     },
     anchor: {
@@ -74,11 +63,11 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '1rem',
     },
     container: {
-      height: 0,
+      bottom: '0',
     },
     arrowDownIcon: {
-      color: theme.palette.text.primary,
-      fontSize: '3rem',
+      color: 'white',
+      fontSize: '5rem',
     },
   })
 );
@@ -138,7 +127,7 @@ export default function Banner() {
         <Grid id="back-to-top-anchor-mobile" item xs={8}>
           <div className={classes.icon}>
             <ScrollAction>
-              <Fab color="secondary" aria-label="scroll-down">
+              <Fab color="primary" aria-label="scroll-down">
                 <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
               </Fab>
             </ScrollAction>
