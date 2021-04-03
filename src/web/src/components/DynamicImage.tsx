@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { imageServiceUrl } from '../config';
 
 type ImageProps = {
-  filter: boolean;
+  filter?: boolean;
 };
 
 const useStyles = makeStyles(() => ({
