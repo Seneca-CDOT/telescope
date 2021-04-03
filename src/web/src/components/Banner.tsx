@@ -1,9 +1,16 @@
-import { useEffect, useState } from 'react';
-import { makeStyles, Theme, createStyles, Fab, Typography } from '@material-ui/core';
+import { useEffect, useState, useRef } from 'react';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  Typography,
+  useScrollTrigger,
+  Fab,
+} from '@material-ui/core';
+import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
-import ScrollAction from './ScrollAction';
 import LandingButtons from './BannerButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -91,6 +98,37 @@ export default function Banner() {
     version: '',
   });
 
+  const timelineAnchor = useRef<HTMLDivElement>(null);
+  const bannerAnchor = useRef<HTMLDivElement>(null);
+
+  const toTimelineTrigger = useScrollTrigger({
+    threshold: 50,
+    disableHysteresis: true,
+  });
+  const toBannerTrigger = !useScrollTrigger({
+    threshold: (timelineAnchor.current?.offsetTop || 0) - 50,
+    disableHysteresis: true,
+  });
+
+  useEffect(() => {
+    if (window) {
+      // Apply smooth scroll polyfill on mobile
+      smoothscroll.polyfill();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (toTimelineTrigger && timelineAnchor?.current) {
+      timelineAnchor.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [toTimelineTrigger]);
+
+  useEffect(() => {
+    if (toBannerTrigger && bannerAnchor?.current) {
+      bannerAnchor.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [toBannerTrigger]);
+
   useEffect(() => {
     async function getGitData() {
       try {
@@ -108,11 +146,11 @@ export default function Banner() {
       }
     }
     getGitData();
-  }, [telescopeUrl]);
+  }, []);
 
   return (
     <>
-      <div className={classes.heroBanner}>
+      <div className={classes.heroBanner} ref={bannerAnchor}>
         <BannerDynamicItems />
         <LandingButtons />
       </div>
@@ -134,13 +172,11 @@ export default function Banner() {
         >
           v {gitInfo.version}
         </a>
-        <ScrollAction>
-          <Fab color="primary" aria-label="scroll-down">
-            <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
-          </Fab>
-        </ScrollAction>
+        <Fab color="primary" aria-label="scroll-down">
+          <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
+        </Fab>
       </div>
-      <div className={classes.anchor} id="posts-anchor" />
+      <div className={classes.anchor} id="posts-anchor" ref={timelineAnchor} />
     </>
   );
 }
