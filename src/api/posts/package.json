@@ -18,9 +18,9 @@
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
     "express-validator": "^6.10.0",
-    "ioredis": "^4.22.0",
-    "ioredis-mock": "^5.2.4",
-    "jsdom": "^16.4.0",
+    "ioredis": "^4.25.0",
+    "ioredis-mock": "^5.4.1",
+    "jsdom": "^16.5.2",
     "normalize-url": "^5.3.0"
   },
   "devDependencies": {
