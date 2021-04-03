@@ -49,4 +49,7 @@ module.exports = withMDX({
   poweredByHeader: false,
   reactStrictMode: true,
   trailingSlash: true,
+  future: {
+    webpack5: true,
+  },
 });
