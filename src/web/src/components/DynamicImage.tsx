@@ -2,6 +2,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { imageServiceUrl } from '../config';
 
+type ImageProps = {
+  filter: boolean;
+};
+
 const useStyles = makeStyles(() => ({
   img: {
     visibility: 'inherit',
@@ -36,7 +40,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DynamicImage = () => {
+const DynamicImage = ({ filter }: ImageProps) => {
   const classes = useStyles();
 
   return (
@@ -51,7 +55,7 @@ const DynamicImage = () => {
         // Define a series of sizes, and let the browser figure out which one to use
         srcSet={`${imageServiceUrl}?w=200 200w, ${imageServiceUrl}?w=375 375w, ${imageServiceUrl}?w=450 450w, ${imageServiceUrl}?w=640 640w, ${imageServiceUrl}?w=750 750w, ${imageServiceUrl}?w=828 828w, ${imageServiceUrl}?w=1080 1080w, ${imageServiceUrl}?w=1250 1250w, ${imageServiceUrl}?w=1500 1500w, ${imageServiceUrl}?w=1920 1920w, ${imageServiceUrl}?w=2000 2000w`}
       />
-      <div className={classes.backdrop} />
+      {filter && <div className={classes.backdrop} />}
     </picture>
   );
 };
