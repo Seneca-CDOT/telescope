@@ -7,6 +7,14 @@ import ScrollAction from './ScrollAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    heroBanner: {
+      maxHeight: '100vh',
+      overflow: 'hidden',
+      position: 'relative',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     h1: {
       position: 'absolute',
       color: '#A0D1FB',
@@ -14,13 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '7rem',
       letterSpacing: '.45em',
       display: 'block',
-      top: theme.spacing(50),
-      left: theme.spacing(65),
-    },
-    heroBanner: {
-      maxHeight: '100vh',
-      overflow: 'hidden',
-      position: 'relative',
+      // top: theme.spacing(50),
+      // left: theme.spacing(65),
     },
     version: {
       position: 'absolute',
