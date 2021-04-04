@@ -2,11 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { imageServiceUrl } from '../config';
 
-type ImageProps = {
-  filter?: boolean;
-};
-
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   img: {
     visibility: 'inherit',
     position: 'absolute',
@@ -18,10 +14,10 @@ const useStyles = makeStyles(() => ({
     display: 'block',
     width: 0,
     height: 0,
-    maxWidth: '100%',
-    maxHeight: '100%',
     minWidth: '100%',
+    maxWidth: '100%',
     minHeight: '100%',
+    maxHeight: '100%',
     objectFit: 'cover',
   },
   backdrop: {
@@ -35,12 +31,12 @@ const useStyles = makeStyles(() => ({
     right: 0,
     boxSizing: 'border-box',
     margin: 0,
-    backgroundColor: 'black',
-    opacity: '.85',
+    backgroundColor: '#000000',
+    opacity: '.75',
   },
 }));
 
-const DynamicImage = ({ filter }: ImageProps) => {
+const DynamicImage = () => {
   const classes = useStyles();
 
   return (
@@ -55,7 +51,7 @@ const DynamicImage = ({ filter }: ImageProps) => {
         // Define a series of sizes, and let the browser figure out which one to use
         srcSet={`${imageServiceUrl}?w=200 200w, ${imageServiceUrl}?w=375 375w, ${imageServiceUrl}?w=450 450w, ${imageServiceUrl}?w=640 640w, ${imageServiceUrl}?w=750 750w, ${imageServiceUrl}?w=828 828w, ${imageServiceUrl}?w=1080 1080w, ${imageServiceUrl}?w=1250 1250w, ${imageServiceUrl}?w=1500 1500w, ${imageServiceUrl}?w=1920 1920w, ${imageServiceUrl}?w=2000 2000w`}
       />
-      {filter && <div className={classes.backdrop} />}
+      <div className={classes.backdrop} />
     </picture>
   );
 };
