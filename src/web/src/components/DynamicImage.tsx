@@ -7,8 +7,16 @@ type DynamicImageProps = {
   backgroundMode?: boolean;
 };
 
+type StyleProps = {
+  customColor: boolean;
+  isBackground: boolean;
+  display: string;
+  backgroundColor: string;
+  zIndex: number;
+};
+
 const buildStyleProps = (propsToStyle: DynamicImageProps) => {
-  const stylesProps = {
+  const stylesProps: StyleProps = {
     customColor: false,
     isBackground: false,
     display: 'none',
@@ -44,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100%',
     maxHeight: '100%',
     objectFit: 'cover',
-    zIndex: (stylesProps) => {
+    zIndex: (stylesProps: StyleProps) => {
       if (stylesProps.isBackground) return stylesProps.zIndex;
       return { zIndex: 0 };
     },
