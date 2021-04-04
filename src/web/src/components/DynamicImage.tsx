@@ -1,6 +1,31 @@
 import { makeStyles } from '@material-ui/core/styles';
-
 import { imageServiceUrl } from '../config';
+
+type DynamicImageProps = {
+  filter?: boolean;
+  color?: string;
+  backgroundMode?: boolean;
+};
+
+const buildStyleProps = (propsToStyle: DynamicImageProps) => {
+  const stylesProps = {
+    customColor: false,
+    isBackground: false,
+    display: 'none',
+    backgroundColor: '',
+    zIndex: -1,
+  };
+  if (propsToStyle.filter) {
+    stylesProps.display = 'block';
+  }
+  if (propsToStyle.color) {
+    stylesProps.backgroundColor = propsToStyle.color;
+    stylesProps.customColor = true;
+  }
+  if (propsToStyle.backgroundMode) stylesProps.isBackground = true;
+
+  return stylesProps;
+};
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -19,9 +44,13 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100%',
     maxHeight: '100%',
     objectFit: 'cover',
+    zIndex: (stylesProps) => {
+      if (stylesProps.isBackground) return stylesProps.zIndex;
+      return { zIndex: 0 };
+    },
   },
   backdrop: {
-    display: 'block',
+    display: (stylesProps) => stylesProps.display,
     height: '100%',
     overflow: 'hidden',
     position: 'absolute',
@@ -31,13 +60,21 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     boxSizing: 'border-box',
     margin: 0,
-    backgroundColor: '#000000',
-    opacity: '.75',
+    backgroundColor: (stylesProps) => {
+      if (stylesProps.customColor) return stylesProps.backgroundColor;
+      return theme.palette.type === 'light' ? '#E5E5E5' : '#000000';
+    },
+    opacity: '.35',
+    zIndex: (stylesProps) => {
+      if (stylesProps.isBackground) return stylesProps.zIndex;
+      return { zIndex: 0 };
+    },
   },
 }));
 
-const DynamicImage = () => {
-  const classes = useStyles();
+const DynamicImage = (dynamicImageProps: DynamicImageProps) => {
+  const stylesProps = buildStyleProps(dynamicImageProps);
+  const classes = useStyles(stylesProps);
 
   return (
     <picture>
