@@ -12,19 +12,37 @@ const useStyles = makeStyles((theme: Theme) =>
       maxHeight: '100vh',
       overflow: 'hidden',
       position: 'relative',
+    },
+    textsContainer: {
+      position: 'absolute',
+      width: '100%',
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
+      // backgroundColor: 'yellow',
+      top: '45%',
+      // marginLeft: '25%',
     },
-    h1: {
-      position: 'absolute',
+    telescopeTitle: {
+      // position: 'absolute',
       color: '#A0D1FB',
       fontWeight: 'bold',
       fontSize: '7rem',
       letterSpacing: '.45em',
       display: 'block',
+      zIndex: 1000,
+      marginBottom: '10px',
       // top: theme.spacing(50),
       // left: theme.spacing(65),
+    },
+    quoteText: {
+      width: '70%',
+      color: '#FFFFFF',
+      fontSize: '2em',
+      display: 'block',
+      textAlign: 'center',
+      zIndex: 1000,
     },
     version: {
       position: 'absolute',
@@ -109,10 +127,6 @@ export default function Banner() {
         <BannerDynamicItems />
         <ButtonsTest />
 
-        <Typography variant="h1" className={classes.h1}>
-          Telescope
-        </Typography>
-
         <a
           href={`${gitInfo.gitHubUrl}`}
           title={`git commit ${gitInfo.sha}`}
@@ -120,6 +134,16 @@ export default function Banner() {
         >
           v {gitInfo.version}
         </a>
+      </div>
+      <div className={classes.textsContainer}>
+        <Typography variant="h1" className={classes.telescopeTitle}>
+          Telescope
+        </Typography>
+        <Typography variant="h4" className={classes.quoteText}>
+          “I think one of my proudest contributions to date was for Node.js.
+          <br /> This is something I never would have imagined contributing to even just a year
+          ago.”
+        </Typography>
       </div>
       <Grid
         container
