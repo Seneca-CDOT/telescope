@@ -21,7 +21,13 @@ const BannerDynamicText = () => {
 
   return (
     <div className={classes.dynamic}>
-      <DynamicImage />
+      <DynamicImage filter />
+      <Typography variant="caption" className={classes.stats}>
+        This year 83 of us have written over 250K words and counting.{' '}
+        <Link href="/myfeeds">
+          <a className={classes.addYours}>Add yours!</a>
+        </Link>
+      </Typography>
     </div>
   );
 };
