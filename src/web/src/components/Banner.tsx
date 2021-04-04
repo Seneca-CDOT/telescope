@@ -4,6 +4,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import ScrollAction from './ScrollAction';
+import ButtonsTest from './ButtonsTest';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -106,6 +107,7 @@ export default function Banner() {
     <>
       <div className={classes.heroBanner}>
         <BannerDynamicItems />
+        <ButtonsTest />
 
         <Typography variant="h1" className={classes.h1}>
           Telescope
