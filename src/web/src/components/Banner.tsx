@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: theme.spacing(4),
       left: theme.spacing(6),
       fontSize: '1em',
-      color: theme.palette.text.primary,
+      color: 'white',
       [theme.breakpoints.between('xs', 'sm')]: {
         left: theme.spacing(4),
         right: theme.spacing(4),
@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     arrowDownIcon: {
       color: 'white',
-      fontSize: '5rem',
+      fontSize: '4em',
     },
   })
 );
