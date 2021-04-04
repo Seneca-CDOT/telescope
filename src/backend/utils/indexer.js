@@ -2,7 +2,7 @@ require('../lib/config');
 
 const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
-const { ELASTIC_MAX_RESULTS_PER_PAGE = 5 } = process.env;
+const { ELASTIC_MAX_RESULTS_PER_PAGE = 5, POSTS_URL = 'http://localhost/v1/posts' } = process.env;
 const { client } = require('../lib/elastic');
 const { logger } = require('./logger');
 
@@ -120,7 +120,7 @@ const search = async (
 
   return {
     results: hits.total.value,
-    values: hits.hits.map(({ _id }) => ({ id: _id, url: `/posts/${_id}` })),
+    values: hits.hits.map(({ _id }) => ({ id: _id, url: `${POSTS_URL}/${_id}` })),
   };
 };
 
