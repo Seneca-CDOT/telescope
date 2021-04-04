@@ -68,10 +68,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     icon: {
-      height: '5.6rem',
-      width: '5.6rem',
-      position: 'relative',
-      bottom: theme.spacing(10),
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      width: '100%',
+      position: 'absolute',
+      bottom: theme.spacing(1),
       zIndex: 300,
       margin: '0 auto',
       '& .MuiFab-root': {
@@ -145,25 +147,14 @@ export default function Banner() {
           ago.”
         </Typography>
       </div>
-      <Grid
-        container
-        spacing={0}
-        direction="row"
-        alignItems="center"
-        justify="center"
-        className={classes.container}
-      >
-        <Grid id="back-to-top-anchor-mobile" item xs={8}>
-          <div className={classes.icon}>
-            <ScrollAction>
-              <Fab color="primary" aria-label="scroll-down">
-                <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
-              </Fab>
-            </ScrollAction>
-          </div>
-        </Grid>
-      </Grid>
-      <div className={classes.anchor} id="back-to-top-anchor" />
+      <div className={classes.icon}>
+        <ScrollAction>
+          <Fab color="primary" aria-label="scroll-down">
+            <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
+          </Fab>
+        </ScrollAction>
+      </div>
+      <div className={classes.anchor} id="posts-anchor" />
     </>
   );
 }

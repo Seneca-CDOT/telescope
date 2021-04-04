@@ -7,7 +7,7 @@ type ScrollActionProps = {
 const ScrollAction = ({ children }: ScrollActionProps) => {
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     const doc = event.currentTarget.ownerDocument || document;
-    const selector = '#back-to-top-anchor';
+    const selector = '#posts-anchor';
     const anchor = doc.querySelector(selector);
     if (anchor) {
       anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
