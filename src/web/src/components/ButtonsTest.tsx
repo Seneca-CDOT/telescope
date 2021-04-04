@@ -3,12 +3,14 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
+    // backgroundColor: 'green',
     position: 'absolute',
     color: 'white',
     top: '20px',
-    width: '90%',
+    width: '230px',
+    right: '5%',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-around',
     '& > .MuiButton-root': {
       color: 'white',
       border: '1.5px solid white',
@@ -25,15 +27,25 @@ const ButtonsTest = () => {
 
   return (
     <div className={classes.buttonsContainer}>
-      <Button className={classes.buttons} variant="outlined">
+      <Button
+        style={{
+          border: 'none',
+          padding: 0,
+        }}
+        variant="outlined"
+      >
         About us
       </Button>
-      <Button className={classes.buttons} variant="outlined">
+      <Button
+        style={{
+          border: 'none',
+          padding: 0,
+        }}
+        variant="outlined"
+      >
         Sign in
       </Button>
-      <Button className={classes.signupButton} variant="outlined">
-        Sign up
-      </Button>
+      <Button variant="outlined">Sign up</Button>
     </div>
   );
 };

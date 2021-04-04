@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       alignItems: 'center',
       // backgroundColor: 'yellow',
-      top: '45%',
+      top: '40%',
       // marginLeft: '25%',
     },
     telescopeTitle: {
@@ -47,20 +47,20 @@ const useStyles = makeStyles((theme: Theme) =>
     version: {
       position: 'absolute',
       opacity: 0.85,
-      bottom: theme.spacing(6),
-      left: theme.spacing(15),
-      fontSize: '1.75rem',
+      bottom: theme.spacing(4),
+      left: theme.spacing(6),
+      fontSize: '1em',
       color: theme.palette.text.primary,
       [theme.breakpoints.between('xs', 'sm')]: {
         left: theme.spacing(4),
         right: theme.spacing(4),
-        fontSize: '1.75rem',
+        fontSize: '1.5em',
       },
       [theme.breakpoints.between('md', 'lg')]: {
         fontSize: '2rem',
       },
       [theme.breakpoints.up('xl')]: {
-        fontSize: '4rem',
+        fontSize: '1.5em',
       },
       textDecorationLine: 'none',
       '&:hover': {
