@@ -55,6 +55,12 @@ const useStyles = makeStyles((theme) => {
           wordWrap: 'break-word',
         },
       },
+      '& a': {
+        color: theme.palette.action.active,
+      },
+      '& a:visited': {
+        color: theme.palette.action.selected,
+      },
     },
   };
 });
