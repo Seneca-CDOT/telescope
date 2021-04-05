@@ -1,6 +1,7 @@
+import Link from 'next/link';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Link from 'next/link';
+import useAuth from '../hooks/use-auth';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LandingButtons = () => {
   const classes = useStyles();
+  const { login } = useAuth();
 
   return (
     <div className={classes.buttonsContainer}>
@@ -46,6 +48,7 @@ const LandingButtons = () => {
           border: 'none',
           padding: 0,
         }}
+        onClick={() => login()}
         variant="outlined"
       >
         Sign in
