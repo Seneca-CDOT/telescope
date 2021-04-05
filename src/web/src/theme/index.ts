@@ -29,7 +29,8 @@ export const lightTheme: Theme = createMuiTheme({
       secondary: '#121D59',
     },
     action: {
-      selected: '#FFFFFF',
+      active: '#335A7E',
+      selected: '#35001d',
     },
   },
 });
@@ -56,7 +57,8 @@ export const darkTheme: Theme = createMuiTheme({
       secondary: '#A0D1FB',
     },
     action: {
-      selected: '#FFFFFF',
+      active: '#7BA4DB',
+      selected: '#CCA1A6',
     },
   },
 });
