@@ -65,6 +65,9 @@ const useStyles = makeStyles((theme: Theme) =>
         boxShadow: 'none',
         display: 'grid',
       },
+      [theme.breakpoints.down(1024)]: {
+        marginBottom: '60px',
+      },
     },
     anchor: {
       position: 'relative',
