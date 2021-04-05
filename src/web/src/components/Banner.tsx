@@ -25,8 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     telescopeTitle: {
       color: '#A0D1FB',
       fontWeight: 'bold',
-      // fontSize: '6em',
-      fontSize: '4.2vw',
+      fontSize: 'clamp(2.5rem, 4.2vw, 6em)',
       letterSpacing: '.45em',
       display: 'block',
       zIndex: 1000,
@@ -35,8 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     quoteText: {
       width: '70%',
       color: '#FFFFFF',
-      // fontSize: '1.6em',
-      fontSize: '.95vw',
+      fontSize: 'clamp(.7rem, .95vw, 1.6em)',
       display: 'block',
       textAlign: 'center',
       zIndex: 1000,
