@@ -4,7 +4,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import ScrollAction from './ScrollAction';
-import ButtonsTest from './ButtonsTest';
+import LandingButtons from './LandingButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,26 +20,23 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      // backgroundColor: 'yellow',
       top: '40%',
-      // marginLeft: '25%',
     },
     telescopeTitle: {
-      // position: 'absolute',
       color: '#A0D1FB',
       fontWeight: 'bold',
-      fontSize: '7rem',
+      // fontSize: '6em',
+      fontSize: '4.2vw',
       letterSpacing: '.45em',
       display: 'block',
       zIndex: 1000,
       marginBottom: '10px',
-      // top: theme.spacing(50),
-      // left: theme.spacing(65),
     },
     quoteText: {
       width: '70%',
       color: '#FFFFFF',
-      fontSize: '2em',
+      // fontSize: '1.6em',
+      fontSize: '.95vw',
       display: 'block',
       textAlign: 'center',
       zIndex: 1000,
@@ -127,7 +124,7 @@ export default function Banner() {
     <>
       <div className={classes.heroBanner}>
         <BannerDynamicItems />
-        <ButtonsTest />
+        <LandingButtons />
 
         <a
           href={`${gitInfo.gitHubUrl}`}

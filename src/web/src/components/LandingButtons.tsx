@@ -1,5 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Link from 'next/link';
+import Login from './Login';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
@@ -22,20 +24,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ButtonsTest = () => {
+const LandingButtons = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.buttonsContainer}>
-      <Button
-        style={{
-          border: 'none',
-          padding: 0,
-        }}
-        variant="outlined"
-      >
-        About us
-      </Button>
+      <Link href="/about" passHref>
+        <Button
+          style={{
+            border: 'none',
+            padding: 0,
+          }}
+          variant="outlined"
+        >
+          About us
+        </Button>
+      </Link>
       <Button
         style={{
           border: 'none',
@@ -50,4 +54,4 @@ const ButtonsTest = () => {
   );
 };
 
-export default ButtonsTest;
+export default LandingButtons;
