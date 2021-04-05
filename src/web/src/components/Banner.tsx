@@ -42,21 +42,10 @@ const useStyles = makeStyles((theme: Theme) =>
     version: {
       position: 'absolute',
       opacity: 0.85,
-      bottom: theme.spacing(4),
-      left: theme.spacing(6),
+      bottom: theme.spacing(3),
+      left: theme.spacing(3),
       fontSize: '1em',
       color: 'white',
-      [theme.breakpoints.between('xs', 'sm')]: {
-        left: theme.spacing(4),
-        right: theme.spacing(4),
-        fontSize: '1.5em',
-      },
-      [theme.breakpoints.between('md', 'lg')]: {
-        fontSize: '2rem',
-      },
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '1.5em',
-      },
       textDecorationLine: 'none',
       '&:hover': {
         textDecorationLine: 'underline',
