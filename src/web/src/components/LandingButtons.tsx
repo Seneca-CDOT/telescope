@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     color: 'white',
     top: '20px',
-    width: '230px',
+    width: '250px',
     right: '5%',
     display: 'flex',
     justifyContent: 'space-around',
@@ -37,6 +37,7 @@ const LandingButtons = () => {
           style={{
             border: 'none',
             padding: 0,
+            fontSize: '1.2rem',
           }}
           variant="outlined"
         >
@@ -47,13 +48,21 @@ const LandingButtons = () => {
         style={{
           border: 'none',
           padding: 0,
+          fontSize: '1.2rem',
         }}
         onClick={() => login()}
         variant="outlined"
       >
         Sign in
       </Button>
-      <Button variant="outlined">Sign up</Button>
+      <Button
+        style={{
+          fontSize: '1.3rem',
+        }}
+        variant="outlined"
+      >
+        Sign up
+      </Button>
     </div>
   );
 };
