@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import useAuth from '../hooks/use-auth';
+import PostAvatar from './Posts/PostAvatar';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const LandingButtons = () => {
   const classes = useStyles();
-  const { login } = useAuth();
+  const { login, logout, user } = useAuth();
 
   return (
     <div className={classes.buttonsContainer}>
@@ -44,25 +45,44 @@ const LandingButtons = () => {
           About us
         </Button>
       </Link>
-      <Button
-        style={{
-          border: 'none',
-          padding: 0,
-          fontSize: '1.2rem',
-        }}
-        onClick={() => login()}
-        variant="outlined"
-      >
-        Sign in
-      </Button>
-      <Button
-        style={{
-          fontSize: '1.3rem',
-        }}
-        variant="outlined"
-      >
-        Sign up
-      </Button>
+      {user ? (
+        <>
+          <Button
+            onClick={() => logout()}
+            style={{
+              border: 'none',
+              padding: 0,
+              fontSize: '1.2rem',
+            }}
+            variant="outlined"
+          >
+            Sign out
+          </Button>
+          <PostAvatar name={user.name} />
+        </>
+      ) : (
+        <>
+          <Button
+            style={{
+              border: 'none',
+              padding: 0,
+              fontSize: '1.2rem',
+            }}
+            onClick={() => login()}
+            variant="outlined"
+          >
+            Sign in
+          </Button>
+          <Button
+            style={{
+              fontSize: '1.3rem',
+            }}
+            variant="outlined"
+          >
+            Sign up
+          </Button>
+        </>
+      )}
     </div>
   );
 };

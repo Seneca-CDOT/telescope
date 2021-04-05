@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 type AvatarProps = {
   name: string;
   img?: string;
-  blog: string;
+  blog?: string;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PostAvatar = ({ name, img, blog }: AvatarProps) => {
+const PostAvatar = ({ name, img, blog = '' }: AvatarProps) => {
   const classes = useStyles();
 
   if (img) {
