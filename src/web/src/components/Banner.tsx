@@ -22,19 +22,19 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       top: '40%',
     },
-    telescopeTitle: {
+    title: {
       color: '#A0D1FB',
       fontWeight: 'bold',
-      fontSize: 'clamp(2.5rem, 4.2vw, 6em)',
+      fontSize: 'clamp(2.6rem, 4.2vw, 6em)',
       letterSpacing: '.45em',
       display: 'block',
       zIndex: 1000,
-      marginBottom: '10px',
+      marginBottom: '25px',
     },
     quoteText: {
       width: '70%',
       color: '#FFFFFF',
-      fontSize: 'clamp(.9rem, .95vw, 1.6em)',
+      fontSize: 'clamp(1.1rem, .95vw, 1.6em)',
       display: 'block',
       textAlign: 'center',
       zIndex: 1000,
@@ -117,7 +117,7 @@ export default function Banner() {
         <LandingButtons />
       </div>
       <div className={classes.textsContainer}>
-        <Typography variant="h1" className={classes.telescopeTitle}>
+        <Typography variant="h1" className={classes.title}>
           Telescope
         </Typography>
         <Typography variant="h4" className={classes.quoteText}>
