@@ -18,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
         color: '#9ABDFF',
       },
     },
+    [theme.breakpoints.down(490)]: {
+      width: '100%',
+      right: 0,
+    },
   },
 }));
 
