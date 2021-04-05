@@ -137,19 +137,10 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 
 ## After installing the prerequisites:
 
-In the root directory, run `cp env.example .env` on Linux/Mac or `copy env.example .env`.
+### Start Docker
 
-_Note: The `env.example` file has examples commented on top of each variable_
-
-### Now you can start Redis and Elasticsearch without errors using one of the following methods:
-
-_Note: Make sure only one of the below options are used when starting Telescope_
-
-#### Option 1: Using Docker
-
-```
+```bash
 sudo systemctl start docker
-docker-compose up --build redis elasticsearch
 ```
 
 _Note: You may need to add your user to the docker group in Linux to use `docker-compose` without `sudo`. To do this, try `groups $USER` in a terminal and check if docker is in the list of groups. If not, add it with `usermod -aG docker $USER` and reboot._
@@ -157,47 +148,69 @@ _Note: You may need to add your user to the docker group in Linux to use `docker
 **Important:** Docker builds Telescope's dependencies at launch and keeps them on disk. In some cases, Docker might try to reuse already-built dependencies or cached data, causing misleading results when testing Telescope. To avoid this, it is recommended to use the command `docker system prune -af --volumes` to remove all already-built Telescope dependencies and ensure fresh deployments.
 More information about docker: [images vs containers](https://www.baeldung.com/docker-images-vs-containers) and [volumes](https://docs.docker.com/storage/volumes/).
 
-#### Option 2: Natively installed:
+### Start telescope
 
-#### Redis:
+There are different ways to run the application. By default, [env.development](../config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
 
-Run `redis-server`
+There are also [env.production](../config/env.production) and [env.staging](../config/env.staging) to choose based on developer's need. For example, if you want to use staging, you can do `cp ./config/env.staging ./.env` on Linux/macOS, or `copy config/env.staging .env` on windows.
 
-_Note: If experiencing an error such as `Error starting userland proxy: listen tcp 0.0.0.0:6379: bind: address already in use` when using either option to start Redis. Check if an existing instance of redis is already running (Docker/Native) and stop it before starting another instance_
+Here are instructions for different scenarios:
+_Note: Make sure you're running these commands in the root of telescope project. If any of the commands below are failing, use the command `pwd` to find your current directory and navigate back to project root (e.g., `cd <the path of directory you place telescope project>/telescope`)_
 
-#### Elasticsearch:
+#### Want to run back-end services locally, and to have front-end using the services
 
-To run Elasticsearch natively, follow the instructions for your OS [here](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
+This is the default setting, you do not need to copy or modify any `env` file.
 
-#### Login/SSO (Optional):
+```bash
+npm run services:start
 
-This step is only required if you need to login to Telescope or developing/testing requiring a logged in user. Login/SSO can be started by using the command `docker-compose up login`, this will start up a container only for Login/SSO service. For more information on Login please refer to our [Login Document](login.md).
+npm run dev
+```
 
-\_Note: Users must have docker and docker-compose installed. Please refer to `Docker and Docker-Compose Set Up` earlier in this document for more information regarding Docker.
+Microservices will start downloading feeds and processing them until stopped. For more information about the services, please read [Telescope API Services](../src/api/readme.md).
 
-### Finally:
+If this doesn't work for you, it is possible that you have an old `.env` file in the root that you copied from `env.example` from telescope 1.0. Please remove it, and try again.
 
-Telescope requires a running back-end and front-end to start. The following steps assume you are running the back-end locally. For more information on running the front-end with our staging/production as the back-end, please refer to our [Front-End Document](gatsbyjs.md).
+#### Working strictly on the front-end
 
-Start the back-end for Telescope, the back-end will start downloading feeds and processing them until stopped. The default port # for the back-end is `3000` and can be modified with the `PORT` variable in the `.env` file. Different routes such as `http://localhost:3000/posts` and
-`http://localhost:3000/feeds` now return data:
+```bash
+cp config/env.staging .env
 
-Run `npm start`
+npm run dev
+```
 
-Make sure the `API_URL` variable in the `.env` file is set to the backend port # (default is http://localhost:3000)
-Build the front-end for Telescope in a new terminal:
+This will provide you staging back-end without running it locally.
 
-Run `npm run develop`
-
-If using default settings, a front-end should now be available:
-
-Open `localhost:8000`
+#### Want to mix and match services between local and staging
 
 See [staging-production-deployment](staging-production-deployment) for more information on running Telescope in staging or production mode.
 
-**Note**: If login function is required, `npm run build` must be used instead of `npm run develop`. For more information on test accounts to log into Telescope for development, please refer to section 5 of our [Login Document](login.md):
+This one depends on which part you're working with. For example, if you want to work with authorization, you need to specify the URL of AUTH in your `.env` file by going to `.env` and modifying `AUTH_URL=...` and modify it to the one you want to work with. If you're testing auth locally, use `AUTH_URL=http://localhost/v1/auth`; otherwise, use the staging one, `AUTH_URL=http://dev.api.telescope.cdot.systems/v1/auth`.
 
-Open `localhost:3000`
+After modify the `.env` file, run these commands,
+
+```bash
+npm run services:start
+
+npm run dev
+```
+
+#### Want to run `auth/image/posts` service solely
+
+`npm run services:start auth` or `npm run services:start image` or `npm run services:start posts`
+
+#### Want to update the Docker image(s) after making some changes
+
+Run the following commands to rebuild the image(s):
+
+```bash
+npm run services:clean
+npm run services:start
+```
+
+#### Login/SSO:
+
+If you need to login to Telescope or your work requires logging in for testing purposes, you don't need to start an extra container for login, it is included in auth service. You can simply use UI to login. For more information on Login please refer to our [Login Document](login.md).
 
 ## Frequently Asked Questions (FAQ)
 
