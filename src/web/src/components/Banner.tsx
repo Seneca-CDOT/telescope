@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { makeStyles, Theme, createStyles, Fab, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Fab, Typography } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import ScrollAction from './ScrollAction';
-import LandingButtons from './LandingButtons';
+import LandingButtons from './BannerButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     quoteText: {
       width: '70%',
       color: '#FFFFFF',
-      fontSize: 'clamp(.7rem, .95vw, 1.6em)',
+      fontSize: 'clamp(.9rem, .95vw, 1.6em)',
       display: 'block',
       textAlign: 'center',
       zIndex: 1000,
@@ -115,14 +115,6 @@ export default function Banner() {
       <div className={classes.heroBanner}>
         <BannerDynamicItems />
         <LandingButtons />
-
-        <a
-          href={`${gitInfo.gitHubUrl}`}
-          title={`git commit ${gitInfo.sha}`}
-          className={classes.version}
-        >
-          v {gitInfo.version}
-        </a>
       </div>
       <div className={classes.textsContainer}>
         <Typography variant="h1" className={classes.telescopeTitle}>
@@ -135,6 +127,13 @@ export default function Banner() {
         </Typography>
       </div>
       <div className={classes.icon}>
+        <a
+          href={`${gitInfo.gitHubUrl}`}
+          title={`git commit ${gitInfo.sha}`}
+          className={classes.version}
+        >
+          v {gitInfo.version}
+        </a>
         <ScrollAction>
           <Fab color="primary" aria-label="scroll-down">
             <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
