@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     quoteText: {
       width: '70%',
       color: '#FFFFFF',
-      fontSize: 'clamp(1.4rem, 1.2vw, 2.5rem)',
+      fontSize: 'clamp(1.6rem, 1.2vw, 2.5rem)',
       display: 'block',
       textAlign: 'center',
       zIndex: 1000,
