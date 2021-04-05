@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       color: '#A0D1FB',
       fontWeight: 'bold',
-      fontSize: 'clamp(2.6rem, 4.2vw, 6em)',
+      fontSize: 'clamp(3.2rem, 3.5vw, 6.5rem)',
       letterSpacing: '.45em',
       display: 'block',
       zIndex: 1000,
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     quoteText: {
       width: '70%',
       color: '#FFFFFF',
-      fontSize: 'clamp(1.1rem, .95vw, 1.6em)',
+      fontSize: 'clamp(1.4rem, 1.2vw, 2.5rem)',
       display: 'block',
       textAlign: 'center',
       zIndex: 1000,
