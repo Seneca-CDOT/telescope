@@ -1,11 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link';
-import Login from './Login';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
-    // backgroundColor: 'green',
     position: 'absolute',
     color: 'white',
     top: '20px',
@@ -18,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
       border: '1.5px solid white',
       '&:hover': {
         color: '#9ABDFF',
-        // backgroundColor: 'rgb(154 189 255)',
       },
     },
   },
