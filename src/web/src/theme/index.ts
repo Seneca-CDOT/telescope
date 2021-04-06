@@ -29,8 +29,8 @@ export const lightTheme: Theme = createMuiTheme({
       secondary: '#121D59',
     },
     action: {
-      active: '#335A7E',
-      selected: '#35001d',
+      active: '#390099',
+      selected: '#9E0059',
     },
   },
 });
