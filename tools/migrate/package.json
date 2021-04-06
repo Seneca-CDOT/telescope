@@ -1,0 +1,16 @@
+{
+  "name": "migrate",
+  "version": "1.0.0",
+  "description": "Migrates users from the planet feed wiki list to a JSON file.",
+  "main": "migrate.js",
+  "scripts": {
+    "start": "node migrate.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsdom": "^16.5.2",
+    "node-fetch": "^2.6.1",
+    "valid-url": "^1.0.9"
+  }
+}
