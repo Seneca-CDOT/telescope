@@ -58,7 +58,7 @@ const LandingButtons = () => {
           >
             Sign out
           </Button>
-          <PostAvatar name={user.name} />
+          <PostAvatar name={user.name} img={user.avatarUrl} />
         </>
       ) : (
         <>
