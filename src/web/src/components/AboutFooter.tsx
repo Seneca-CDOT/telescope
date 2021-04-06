@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     color: theme.palette.primary.contrastText,
+    [theme.breakpoints.down('sm')]: {
+      paddingBottom: '6.5rem',
+    },
   },
   card: {
     marginTop: '2rem',
