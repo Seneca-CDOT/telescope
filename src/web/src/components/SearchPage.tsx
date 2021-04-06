@@ -26,8 +26,6 @@ const SearchPage = () => {
 
   return (
     <div className={classes.searchPage}>
-      <div className={classes.anchor} id="back-to-top-anchor" />
-      <div className={classes.anchorMobile} id="back-to-top-anchor-mobile" />
       <SearchBar />
       <SearchResults />
       {showHelp && <SearchHelp />}

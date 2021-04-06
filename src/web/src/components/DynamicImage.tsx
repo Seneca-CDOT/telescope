@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     boxSizing: 'border-box',
     margin: 0,
-    backgroundColor: theme.palette.type === 'light' ? '#E5E5E5' : '#000000',
-    opacity: '.35',
+    backgroundColor: '#000000',
+    opacity: '.75',
   },
 }));
 

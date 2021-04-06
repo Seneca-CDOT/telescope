@@ -1,6 +1,4 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
-import Link from 'next/link';
 import DynamicImage from './DynamicImage';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -16,34 +14,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       height: 'calc(100vh - 56px)',
     },
   },
-  stats: {
-    position: 'absolute',
-    color: theme.palette.text.primary,
-    fontSize: '0.875rem',
-    display: 'block',
-    bottom: theme.spacing(12),
-    left: theme.spacing(15),
-    right: theme.spacing(8),
-    lineHeight: '1.43',
-    letterSpacing: 'inherit',
-    transition: 'all linear 1s',
-    [theme.breakpoints.between('xs', 'sm')]: {
-      textAlign: 'left',
-      fontSize: '2rem',
-      left: theme.spacing(4),
-      right: theme.spacing(4),
-    },
-    [theme.breakpoints.between('md', 'lg')]: {
-      fontSize: '4rem',
-    },
-    [theme.breakpoints.up('xl')]: {
-      fontSize: '8rem',
-    },
-  },
-  addYours: {
-    color: theme.palette.text.primary,
-    textDecorationLine: 'underline',
-  },
 }));
 
 const BannerDynamicText = () => {
@@ -52,12 +22,6 @@ const BannerDynamicText = () => {
   return (
     <div className={classes.dynamic}>
       <DynamicImage />
-      <Typography variant="caption" className={classes.stats}>
-        This year 83 of us have written over 250K words and counting.{' '}
-        <Link href="/myfeeds">
-          <a className={classes.addYours}>Add yours!</a>
-        </Link>
-      </Typography>
     </div>
   );
 };
