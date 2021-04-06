@@ -89,6 +89,16 @@
 }
 
 /**
+ * Custom styling for different blogging platforms.
+ * Known hosts so far are: [medium.com, dev.to, blogspot.com], otherwise the class is "is-generic".
+ * To add to this list see the Post.tsx file, under the `extractBlogClassName()` function.
+ */
+.telescope-post-content.is-blogspot img {
+  display: block;
+  width: auto;
+}
+
+/**
  * Styling for <code> (inline), <pre> (block), and <pre><code>...</code></pre>
  */
 .telescope-post-content code,
