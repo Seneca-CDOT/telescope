@@ -6,4 +6,5 @@ module.exports = {
   coverageDirectory: '<rootDir>/coverage',
   moduleDirectories: ['node_modules'],
   automock: false,
+  testTimeout: 30000,
 };

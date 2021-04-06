@@ -8,7 +8,7 @@ module.exports = {
   serverOptions: {
     command: 'npx http-server src/api/auth/test/e2e -p 8888',
     port: 8888,
-    launchTime: 10000,
+    launchTimeout: 30000,
     usedPortAction: 'kill',
     debug: true,
   },
