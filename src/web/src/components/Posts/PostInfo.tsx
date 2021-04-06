@@ -5,13 +5,13 @@ import AdminButtons from '../AdminButtons';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      margin: '0',
+      marginLeft: '2rem',
       padding: '0',
       display: 'flex',
+      borderLeft: '2.5px solid #CBCBCB',
       flexDirection: 'column',
       justifyContent: 'center',
-      marginBottom: '80vh',
-      opacity: '0.4',
+      opacity: '0.7',
       transition: 'opacity .5s',
       '&:hover': {
         opacity: '1'
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
+      marginLeft: '1.5rem'
     },
     circle: {
       display: 'block',
@@ -32,7 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     authorNameContainer: {
       width: '100%',
-      height: '3rem'
+      height: '3rem',
+      marginLeft: '1.5rem'
     },
     author: {
       width: '100%',
@@ -40,7 +42,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.6em',
       lineHeight: '1em',
       fontWeight: 'bold',
-      marginLeft: '.5em',
       color: theme.palette.text.primary,
     },
     link: {
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     published: {
-      marginLeft: '.5em',
+      marginLeft: '1.5rem',
       fontSize: '1.2em',
       fontWeight: 'lighter',
       textDecoration: 'none',
