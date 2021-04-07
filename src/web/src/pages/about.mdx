@@ -2,10 +2,12 @@ import SEO from '../components/SEO';
 import MDXPageBase from '../pages/layouts/MDXPageBase';
 import About from '../markdown-pages/about.md';
 import AboutFooter from '../components/AboutFooter';
+import NavBar from '../components/NavBar';
 const AboutPage = () => {
   return (
     <>
       <MDXPageBase title={'About | Telescope'}>
+        <NavBar />
         <About />
       </MDXPageBase>
       <AboutFooter />
