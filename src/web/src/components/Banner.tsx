@@ -78,7 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     anchor: {
       position: 'relative',
-      top: '1rem',
     },
     container: {
       bottom: '0',
@@ -90,7 +89,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Banner() {
+type BannerProps = {
+  onVisibilityChange: (visible: boolean) => void;
+};
+
+export default function Banner({ onVisibilityChange }: BannerProps) {
   const classes = useStyles();
   const [gitInfo, setGitInfo] = useState({
     gitHubUrl: '',
@@ -100,7 +103,6 @@ export default function Banner() {
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
   const bannerAnchor = useRef<HTMLDivElement>(null);
-
   const toTimelineTrigger = useScrollTrigger({
     threshold: 50,
     disableHysteresis: true,
@@ -147,6 +149,26 @@ export default function Banner() {
     }
     getGitData();
   }, []);
+
+  // Observer banner
+  useEffect(() => {
+    const options = {
+      root: null,
+      threshold: 0.9,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => onVisibilityChange(entry.isIntersecting)),
+      options
+    );
+    observer.observe(timelineAnchor.current!);
+
+    const timelineAnchorCopy = timelineAnchor.current;
+
+    return () => {
+      observer.unobserve(timelineAnchorCopy as HTMLDivElement);
+    };
+  }, [onVisibilityChange]);
 
   return (
     <>

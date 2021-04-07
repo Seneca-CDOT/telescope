@@ -61,6 +61,9 @@ const useStyles = makeStyles((theme) => {
       '& a:visited': {
         color: theme.palette.action.selected,
       },
+      '& svg': {
+        color: theme.palette.primary.main,
+      },
     },
   };
 });
