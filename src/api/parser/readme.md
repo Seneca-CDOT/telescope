@@ -18,13 +18,13 @@ npm start
 npm run dev
 ```
 
-By default the server is running on <http://localhost:8888/>.
+By default the server is running on <http://localhost:10000/>.
 
 ### Examples
 
-- `GET /queues` - Displays Bull-Board
+- `GET /` - Displays Bull-Board
 
 ## Docker
 
 - To build and tag: `docker build . -t telescope_parser_svc:latest`
-- To run locally: `docker run -p 8888:8888 telescope_parser_svc:latest`
+- To run locally: `docker run -p 10000:10000 telescope_parser_svc:latest`

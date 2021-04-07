@@ -170,6 +170,7 @@ services:
       - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.prefixes=/${API_VERSION}/parser'
       - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
