@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     backgroundColor: 'transparent',
     transition: 'width 100ms linear,top 300ms linear',
+    animation: `$navbar 400ms`,
     [theme.breakpoints.down(1200)]: {
       left: '-3vw',
     },
@@ -41,6 +42,25 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'row',
       alignItems: 'center',
       background: theme.palette.background.default,
+      animation: `$mobileNavbar 400ms`,
+    },
+  },
+  '@keyframes navbar': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateY(-200%)',
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'translateY(0)',
+    },
+  },
+  '@keyframes mobileNavbar': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1,
     },
   },
   toolbar: {
@@ -84,11 +104,18 @@ const iconProps: NavBarIconProps[] = [
   },
 ];
 
-export default function NavBar() {
+type NavBarProps = {
+  disabled?: boolean;
+};
+
+export default function NavBar({ disabled }: NavBarProps) {
   const classes = useStyles();
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up(1024));
 
+  if (disabled) {
+    return null;
+  }
   return (
     <AppBar className={classes.root} position="fixed">
       <Toolbar className={classes.toolbar}>
