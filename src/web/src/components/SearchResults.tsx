@@ -51,13 +51,13 @@ const useStyles = makeStyles(() => ({
 
 const SearchResults = () => {
   const classes = useStyles();
-  const { text, filter } = useSearchValue();
+  const { textParam, filter } = useSearchValue();
 
   const prepareUrl = (index: number) =>
-    `${telescopeUrl}/query?text=${encodeURIComponent(text)}&filter=${filter}&page=${index}`;
+    `${telescopeUrl}/query?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
-  const shouldFetch = () => text.length > 0;
+  const shouldFetch = () => textParam.length > 0;
   const { data, size, setSize, error } = useSWRInfinite(
     (index) => (shouldFetch() ? prepareUrl(index) : null),
     async (u) => {
@@ -92,7 +92,7 @@ const SearchResults = () => {
     );
   }
 
-  if (text.length && loading) {
+  if (textParam.length && loading) {
     return (
       <Container className={classes.searchResults}>
         <h1 className={classes.spinner}>
