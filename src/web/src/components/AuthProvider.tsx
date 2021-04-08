@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
 
 import User from '../User';
-import { loginUrl, logoutUrl, telescopeUrl } from '../config';
+import { loginUrl, logoutUrl, webUrl } from '../config';
 
 export interface AuthContextInterface {
   login: (returnTo?: string) => void;
@@ -98,7 +98,7 @@ const AuthProvider = ({ children }: Props) => {
     setAuthState(loginState);
 
     // Set our return URL
-    const url = new URL(returnTo || '', telescopeUrl);
+    const url = new URL(returnTo || '', webUrl);
     window.location.href = `${loginUrl}?redirect_uri=${url.href}&state=${loginState}`;
   };
 
@@ -108,7 +108,7 @@ const AuthProvider = ({ children }: Props) => {
     removeAuthState();
 
     // Redirect to logout
-    window.location.href = `${logoutUrl}?redirect_uri=${telescopeUrl}`;
+    window.location.href = `${logoutUrl}?redirect_uri=${webUrl}`;
   };
 
   return (
