@@ -5,8 +5,16 @@ class User {
   constructor(senecaProfile, telescopeProfile) {
     // All authenticated users are Seneca Users
     this.seneca = {
+      // first name
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname':
+        senecaProfile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'],
+      // last name
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname':
+        senecaProfile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'],
+      // display name
       'http://schemas.microsoft.com/identity/claims/displayname':
         senecaProfile['http://schemas.microsoft.com/identity/claims/displayname'],
+      // email address
       'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress':
         senecaProfile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
       nameID: senecaProfile.nameID,
@@ -39,11 +47,17 @@ class User {
   }
 
   get firstName() {
-    return this.telescope?.firstName;
+    return (
+      this.telescope?.firstName ||
+      this.seneca['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname']
+    );
   }
 
   get lastName() {
-    return this.telescope?.lastName;
+    return (
+      this.telescope?.lastName ||
+      this.seneca['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname']
+    );
   }
 
   get isAdmin() {

@@ -66,14 +66,14 @@ describe('User()', () => {
       expect(user.nameIDFormat).toEqual('urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress');
     });
 
-    it('should not have a firstName property', () => {
+    it('should have a firstName property', () => {
       const user = new User(createSenecaProfile());
-      expect(user.firstName).toBe(undefined);
+      expect(user.firstName).toBe('First');
     });
 
-    it('should not have a lastName property', () => {
+    it('should have a lastName property', () => {
       const user = new User(createSenecaProfile());
-      expect(user.lastName).toBe(undefined);
+      expect(user.lastName).toBe('Last');
     });
 
     it('should have isAdmin false', () => {
@@ -106,6 +106,10 @@ describe('User()', () => {
       const json = JSON.stringify(user);
       const deserialized = JSON.parse(json);
       expect(deserialized.seneca).toEqual({
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname':
+          profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'],
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname':
+          profile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'],
         'http://schemas.microsoft.com/identity/claims/displayname':
           profile['http://schemas.microsoft.com/identity/claims/displayname'],
         'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress':
@@ -124,8 +128,8 @@ describe('User()', () => {
       expect(user2.email).toEqual('first.last@senecacollege.ca');
       expect(user2.nameID).toEqual('first.last@senecacollege.ca');
       expect(user2.nameIDFormat).toEqual('urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress');
-      expect(user2.firstName).toBe(undefined);
-      expect(user2.lastName).toBe(undefined);
+      expect(user2.firstName).toBe('First');
+      expect(user2.lastName).toBe('Last');
       expect(user2.displayName).toEqual('Seneca Display Name');
       expect(user2.isAdmin).toBe(false);
       expect(user2.isFlagged).toBe(false);
@@ -170,6 +174,26 @@ describe('User()', () => {
     it('should respect isFlagged value', () => {
       const user = new User(createSenecaProfile(), createTelescopeProfile({ isFlagged: false }));
       expect(user.isFlagged).toBe(false);
+    });
+
+    it('should prefer the Telescope first name when available', () => {
+      const user = new User(
+        createSenecaProfile({
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname': 'seneca',
+        }),
+        createTelescopeProfile({ firstName: 'telescope' })
+      );
+      expect(user.firstName).toBe('telescope');
+    });
+
+    it('should prefer the Telescope display name when available', () => {
+      const user = new User(
+        createSenecaProfile({
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname': 'seneca',
+        }),
+        createTelescopeProfile({ lastName: 'telescope' })
+      );
+      expect(user.lastName).toBe('telescope');
     });
 
     it('should prefer the Telescope display name when available', () => {
@@ -223,6 +247,10 @@ describe('User()', () => {
       const json = JSON.stringify(user);
       const deserialized = JSON.parse(json);
       expect(deserialized.seneca).toEqual({
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname':
+          senecaProfile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'],
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname':
+          senecaProfile['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'],
         'http://schemas.microsoft.com/identity/claims/displayname':
           senecaProfile['http://schemas.microsoft.com/identity/claims/displayname'],
         'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress':

@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { hash } = require('@senecacdot/satellite');
 
 const { JWT_ISSUER, JWT_AUDIENCE, SECRET, JWT_EXPIRES_IN } = process.env;
 
@@ -10,16 +11,23 @@ const { JWT_ISSUER, JWT_AUDIENCE, SECRET, JWT_EXPIRES_IN } = process.env;
  * @param {string} picture [optional] a URL to the user's picture
  * @returns {string} the JWT for this user
  */
-function createToken(email, name, roles, picture) {
-  // The token we create includes a number of claims in the payload
+function createToken(email, firstName, lastName, name, roles, picture) {
+  // The token we create includes a number of claims in the payload, using the
+  // recommended claims for OpenID, https://openid.net/specs/openid-connect-basic-1_0.html#StandardClaims
   const payload = {
     // iss claim: the token is issued by us (e.g., this server)
     iss: JWT_ISSUER,
     // aud claim: it is intended for the services running at this api origin
     aud: JWT_AUDIENCE,
-    // sub claim: the subject of this token (e.g., their email address)
-    sub: email,
-    // name claim: the display name
+    // sub claim: the subject of this token (e.g., their hashed email address)
+    sub: hash(email),
+    // email claim: the user's email address
+    email,
+    // given_name claim: the user's given, or first name(s).
+    given_name: firstName,
+    // family_name: the user's surnames or last name(s).
+    family_name: lastName,
+    // name claim: the user's full display name
     name,
     // roles claim: an Arry of one or more authorization roles. There are various
     // combinations possible. For authenticated users, we currently have the

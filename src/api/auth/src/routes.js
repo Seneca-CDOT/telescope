@@ -118,7 +118,14 @@ router.post('/login/callback', passport.authenticate('saml'), (req, res, next) =
 
   // Create a token for this user, setting their authorization roles
   const { user } = req;
-  const token = createToken(user.email, user.displayName, user.roles, user.avatarUrl);
+  const token = createToken(
+    user.email,
+    user.firstName,
+    user.lastName,
+    user.displayName,
+    user.roles,
+    user.avatarUrl
+  );
 
   let url = `${redirectUri}?access_token=${token}`;
   // Add the state we received before, if it was given at all
