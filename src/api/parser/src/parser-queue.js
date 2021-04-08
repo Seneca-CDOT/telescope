@@ -1,4 +1,6 @@
-const { logger, fetch } = require('@senecacdot/satellite');
+const { logger } = require('@senecacdot/satellite');
+const fetch = require('node-fetch');
+
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');
 const Feed = require('./data/feed');
@@ -60,7 +62,7 @@ function processFeeds(feeds) {
 async function processAllFeeds() {
   try {
     // Get an Array of Feed objects from the Users microservice and Redis
-    const res = await fetch(`${process.env.USER_URL}/`);
+    const res = await fetch(`${process.env.USERS_URL}/`);
     if (res.status === 200) {
       // flatMap required otherwise we'll have a 2d array since a user can have more than one feed
       const feeds = res.body.flatMap((user) => (!user.isFlagged ? user.feeds : null));

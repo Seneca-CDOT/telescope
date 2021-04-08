@@ -152,6 +152,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - PARSER_PORT
+      - USERS_URL
     ports:
       - ${PARSER_PORT}
     depends_on:

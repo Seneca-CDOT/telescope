@@ -5,9 +5,9 @@
  */
 
 const { parse } = require('feedparser-promised');
+const { logger } = require('@senecacdot/satellite');
 const fetch = require('node-fetch');
 
-const { logger } = require('@senecacdot/satellite');
 const Post = require('../data/post');
 const Feed = require('../data/feed');
 const ArticleError = require('../data/article-error');
