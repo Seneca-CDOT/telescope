@@ -1,6 +1,10 @@
+/* eslint-disable camelcase */
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 
 interface TelescopeJwtPayload extends JwtPayload {
+  email: string;
+  given_name: string;
+  family_name: string;
   name: string;
   picture?: string;
   roles: Array<string>;
@@ -11,7 +15,10 @@ const isExpired = (exp?: number) => typeof exp === 'undefined' || new Date().get
 
 export default class User {
   constructor(
+    public id: string,
     public email: string,
+    public firstName: string,
+    public lastName: string,
     public name: string,
     // If the user has a Telescope account
     public isRegistered: boolean,
@@ -37,6 +44,9 @@ export default class User {
     // Otherwise, return a new User based on this data
     return new User(
       decoded.sub,
+      decoded.email,
+      decoded.given_name,
+      decoded.family_name,
       decoded.name,
       decoded.roles.includes('telescope'),
       decoded.roles.includes('admin'),

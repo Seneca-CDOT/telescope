@@ -1,48 +1,53 @@
+/* eslint-disable camelcase */
 const jwt = require('jsonwebtoken');
+const { hash } = require('@senecacdot/satellite');
+
 const { createToken } = require('../src/token');
 
 const { JWT_AUDIENCE, JWT_ISSUER, SECRET } = process.env;
 
+const token = () =>
+  createToken('email', 'first', 'last', 'name', ['seneca', 'telescope'], 'picture');
+
 describe('createToken()', () => {
-  it('should return a valid JWT', () => {
-    const token = createToken('email', 'name');
-    const { sub, name } = jwt.verify(token, SECRET);
-    expect(sub).toBe('email');
-    expect(name).toBe('name');
+  it('should return a JWT with the expected sub claim', () => {
+    const { sub } = jwt.verify(token(), SECRET);
+    // sub should be the hashed email value
+    expect(sub).toBe(hash('email'));
   });
 
-  it('should return a JWT with the expected sub claim', () => {
-    const token = createToken('email', 'name');
-    const { sub } = jwt.verify(token, SECRET);
-    expect(sub).toBe('email');
+  it('should return a JWT with the expected email claim', () => {
+    const { email } = jwt.verify(token(), SECRET);
+    expect(email).toBe('email');
+  });
+
+  it('should return a JWT with the expected given_name claim', () => {
+    const { given_name } = jwt.verify(token(), SECRET);
+    expect(given_name).toBe('first');
+  });
+
+  it('should return a JWT with the expected family_name claim', () => {
+    const { family_name } = jwt.verify(token(), SECRET);
+    expect(family_name).toBe('last');
   });
 
   it('should return a JWT with the expected name claim', () => {
-    const token = createToken('email', 'name');
-    const { name } = jwt.verify(token, SECRET);
+    const { name } = jwt.verify(token(), SECRET);
     expect(name).toBe('name');
   });
 
   it('should return a JWT with the expected "seneca" roles claim', () => {
-    const token = createToken('email', 'name', ['seneca']);
-    const { roles } = jwt.verify(token, SECRET);
-    expect(Array.isArray(roles)).toBe(true);
-    expect(roles.length).toBe(1);
-    expect(roles[0]).toEqual('seneca');
-  });
-
-  it('should return a JWT with the expected "seneca" and "telescope" roles claim', () => {
-    const token = createToken('email', 'name', ['seneca', 'telescope']);
-    const { roles } = jwt.verify(token, SECRET);
+    const { roles } = jwt.verify(token(), SECRET);
     expect(Array.isArray(roles)).toBe(true);
     expect(roles.length).toBe(2);
-    expect(roles).toContain('seneca');
-    expect(roles).toContain('telescope');
+    expect(roles).toEqual(['seneca', 'telescope']);
   });
 
   it('should return a JWT with the expected "seneca" and "telescope" and "admin" roles claim', () => {
-    const token = createToken('email', 'name', ['seneca', 'telescope', 'admin']);
-    const { roles } = jwt.verify(token, SECRET);
+    const { roles } = jwt.verify(
+      createToken('email', 'first', 'last', 'name', ['seneca', 'telescope', 'admin'], 'picture'),
+      SECRET
+    );
     expect(Array.isArray(roles)).toBe(true);
     expect(roles.length).toBe(3);
     expect(roles).toContain('seneca');
@@ -51,20 +56,17 @@ describe('createToken()', () => {
   });
 
   it('should return a JWT with the expected audience claim', () => {
-    const token = createToken('email', 'name', ['seneca']);
-    const { aud } = jwt.verify(token, SECRET);
+    const { aud } = jwt.verify(token(), SECRET);
     expect(aud).toBe(JWT_AUDIENCE);
   });
 
   it('should return a JWT with the expected issuer claim', () => {
-    const token = createToken('email', 'name', ['seneca']);
-    const { iss } = jwt.verify(token, SECRET);
+    const { iss } = jwt.verify(token(), SECRET);
     expect(iss).toBe(JWT_ISSUER);
   });
 
   it('should return a JWT with an expiry claim', () => {
-    const token = createToken('email', 'name', ['seneca']);
-    const { exp } = jwt.verify(token, SECRET);
+    const { exp } = jwt.verify(token(), SECRET);
     expect(typeof exp === 'number').toBe(true);
     // The expiry time should be in the future
     const nowSeconds = Date.now() / 1000;
@@ -72,8 +74,7 @@ describe('createToken()', () => {
   });
 
   it('should return a JWT with an issued at claim', () => {
-    const token = createToken('email', 'name', ['seneca']);
-    const { iat } = jwt.verify(token, SECRET);
+    const { iat } = jwt.verify(token(), SECRET);
     expect(typeof iat === 'number').toBe(true);
     // The issued at time should be in the past
     const nowSeconds = Date.now() / 1000;
@@ -81,14 +82,18 @@ describe('createToken()', () => {
   });
 
   it('should return a JWT without the picture claim, if picture not defined', () => {
-    const token = createToken('email', 'name', ['seneca']);
-    const { picture } = jwt.verify(token, SECRET);
+    const { picture } = jwt.verify(
+      createToken('email', 'first', 'last', 'name', ['seneca', 'telescope']),
+      SECRET
+    );
     expect(picture).toBe(undefined);
   });
 
   it('should return a JWT with the picture claim, if picture defined', () => {
-    const token = createToken('email', 'name', ['seneca'], 'http://picture.com');
-    const { picture } = jwt.verify(token, SECRET);
-    expect(picture).toEqual('http://picture.com');
+    const { picture } = jwt.verify(
+      createToken('email', 'first', 'last', 'name', ['seneca', 'telescope'], 'https://picture.com'),
+      SECRET
+    );
+    expect(picture).toEqual('https://picture.com');
   });
 });

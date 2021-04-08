@@ -103,6 +103,8 @@ const strategy = new SamlStrategy(
      *   "spNameQualifier": "...",
      *   "uid": "1",
      *   "eduPersonAffiliation": "group1",
+     *   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname: "Johannes",
+     *   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname": "Kepler",
      *   "http://schemas.microsoft.com/identity/claims/displayname": "First Last",
      *   "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress": "first.last@email.com"
      *   "email": "first.last@email.com"
