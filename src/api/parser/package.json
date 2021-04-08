@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A service for parsing posts",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node src/server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Seneca-CDOT/telescope.git"
