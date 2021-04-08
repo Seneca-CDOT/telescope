@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { telescopeUrl } from '../config';
+import { webUrl } from '../config';
 
 type SEOProps = {
   pageTitle: string;
@@ -8,8 +8,8 @@ type SEOProps = {
 
 const SEO = ({ pageTitle }: SEOProps) => {
   const { pathname } = useRouter();
-  const currentUrl = `${telescopeUrl}${pathname}`;
-  // This variable explicitly points to our production API_URL.
+  const currentUrl = `${webUrl}${pathname}`;
+  // This variable explicitly points to our production web URL.
   // For reference, see https://developers.google.com/search/docs/advanced/crawling/consolidate-duplicate-urls#rel-canonical-header-method
   const canonicalUrl = `https://telescope.cdot.systems${pathname}`;
 

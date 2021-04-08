@@ -21,6 +21,8 @@ services:
       dockerfile: Dockerfile
       # next.js needs build-time access to a number of API URL values, forward as ARGs
       args:
+        # Web front-end URL
+        - WEB_URL=${WEB_URL}
         # Telescope 1.0 API URL
         - API_URL=${API_URL}
         # Telescope 2.0 Microservice URLs
@@ -44,6 +46,7 @@ services:
       - PORT
       - POSTS_URL
       - API_URL
+      - WEB_URL
       - LOG_LEVEL
       - FEED_URL
       - FEED_URL_INTERVAL_MS
