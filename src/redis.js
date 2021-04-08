@@ -31,4 +31,4 @@ if (useMockRedis && typeof MockRedis.prototype.info !== 'function') {
   MockRedis.prototype.info = () => Promise.resolve('redis_version:999.999.999');
 }
 
-module.exports = createRedisClient();
+module.exports = createRedisClient;

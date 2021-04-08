@@ -885,11 +885,9 @@ describe('createServiceToken()', () => {
 });
 
 describe('Redis()', () => {
-  test('Redis ping command should return pong', () => {
-    const redis = Redis();
+  const redis = Redis();
 
-    // Ping command with no parameters should return PONG
-    // ?? I'm not sure if this is correct, ping takes a callback, should I check the result there?
+  test('Redis ping command should return pong', () => {
     const pong = redis.ping((err, result) => {
       expect(result).toEqual('PONG');
     });
