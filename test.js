@@ -15,6 +15,7 @@ const {
   hash,
   createError,
   createServiceToken,
+  Redis,
 } = require('./src');
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
@@ -880,5 +881,17 @@ describe('createServiceToken()', () => {
 
     const currentDateSeconds = Date.now() / 1000;
     expect(decoded.exp).toBeGreaterThan(currentDateSeconds);
+  });
+});
+
+describe('Redis()', () => {
+  test('Redis ping command should return pong', () => {
+    const redis = Redis();
+
+    // Ping command with no parameters should return PONG
+    // ?? I'm not sure if this is correct, ping takes a callback, should I check the result there?
+    const pong = redis.ping((err, result) => {
+      expect(result).toEqual('PONG');
+    });
   });
 });

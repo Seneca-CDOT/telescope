@@ -11,3 +11,4 @@ module.exports.createServiceToken = require('./service-token');
 module.exports.Router = (options) => createRouter(options);
 module.exports.isAuthenticated = isAuthenticated;
 module.exports.isAuthorized = isAuthorized;
+module.exports.Redis = require('./redis');
