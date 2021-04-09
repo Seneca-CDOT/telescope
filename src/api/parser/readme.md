@@ -12,7 +12,7 @@ npm install
 
 # dev mode with automatic restarts
 
-npm run dev
+npm run start
 
 ```
 
