@@ -35,6 +35,13 @@ loadApiUrlFromEnv(envDevelopmentPath);
 // Try to copy them across from existing values
 envVarsToForward.forEach((envVar) => forwardToNext(envVar));
 
+// NOTE: on Vercel, the value we get from VERCEL_URL for the WEB_URL will be
+// missing the leading https://.  If it's not there, add it now so the front-end
+// can count on it always being an absolute URL.
+process.env.NEXT_PUBLIC_WEB_URL = process.env.NEXT_PUBLIC_WEB_URL.startsWith('https://')
+  ? process.env.NEXT_PUBLIC_WEB_URL
+  : `https://${process.env.NEXT_PUBLIC_WEB_URL}`;
+
 // Indicate what the build values we're using are going to be.
 envVarsToForward.forEach((envVar) =>
   console.info(`Using NEXT_PUBLIC_${envVar}=${process.env[`NEXT_PUBLIC_${envVar}`]}`)
