@@ -8,20 +8,15 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: '2rem',
       padding: '0',
       display: 'flex',
-      borderLeft: '2.5px solid #CBCBCB',
+      borderLeft: '1.5px solid #EEEEEE',
       flexDirection: 'column',
       justifyContent: 'center',
-      opacity: '0.7',
-      transition: 'opacity .5s',
-      '&:hover': {
-        opacity: '1'
-      }
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
-      marginLeft: '1.5rem'
+      marginLeft: '1.5rem',
     },
     circle: {
       display: 'block',
@@ -34,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     authorNameContainer: {
       width: '100%',
       height: '3rem',
-      marginLeft: '1.5rem'
+      marginLeft: '1.5rem',
     },
     author: {
       width: '100%',
