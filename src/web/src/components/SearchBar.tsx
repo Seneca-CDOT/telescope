@@ -138,7 +138,6 @@ const SearchBar = () => {
             {Boolean(advancedSearchButtonVisible && keyword) && (
               <IconButton
                 className={classes.iconButton}
-                type="submit"
                 // onClick={() => openDialog()}
                 aria-label="search"
               >
