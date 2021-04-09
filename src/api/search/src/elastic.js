@@ -1,4 +1,4 @@
-const { ELASTICSEARCH_HOSTS } = process.env;
+const { ELASTIC_URL, ELASTIC_PORT } = process.env;
 const { Client } = require('@elastic/elasticsearch');
 const Mock = require('@elastic/elasticsearch-mock');
 const { logger } = require('@senecacdot/satellite');
@@ -31,11 +31,11 @@ const useMockElastic = process.env.MOCK_ELASTIC;
 const ElasticConstructor = useMockElastic ? MockClient : Client;
 
 function createElasticClient() {
+  const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}`;
   try {
-    const elasticUrl = ELASTICSEARCH_HOSTS;
     return new ElasticConstructor({ node: elasticUrl });
   } catch (error) {
-    const message = `Unable to parse elastic URL:PORT "${ELASTICSEARCH_HOSTS}"`;
+    const message = `Unable to parse elastic URL:PORT "${elasticUrl}"`;
     logger.error({ error }, message);
     throw new Error(message);
   }

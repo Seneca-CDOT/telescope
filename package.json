@@ -14,6 +14,7 @@
     "install:image-service": "cd src/api/image && npm install",
     "install:users-service": "cd src/api/users && npm install",
     "install:posts-service": "cd src/api/posts && npm install",
+    "install:search-service": "cd src/api/search && npm install",
     "install:feed-discovery-service": "cd src/api/feed-discovery && npm install",
     "install:parser-service": "cd src/api/parser && npm install",
     "install:autodeployment": "cd tools/autodeployment && npm install",

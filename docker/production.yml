@@ -177,6 +177,14 @@ services:
       # - ELASTIC_APM_SERVICE_NAME=user
       # - ELASTIC_APM_SERVER_URL=http://apm:8200
 
+  # search service
+  search:
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - ELASTIC_URL=http://elasticsearch
+      - ELASTIC_PORT=9200
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################

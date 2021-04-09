@@ -5,7 +5,7 @@ The Search Service provides a direct querying controller which interfaces with o
 ## Install
 
 ```
-npm install
+You can go to `<rootDir>/src/api/search/` and run `npm install` or run `npm install` from the root.
 ```
 
 ## Usage
