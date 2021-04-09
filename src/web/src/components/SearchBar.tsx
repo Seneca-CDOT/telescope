@@ -126,12 +126,7 @@ const SearchBar = () => {
               onFocus={() => setAdvancedSearchButtonVisible(true)}
             />
 
-            <IconButton
-              className={classes.iconButton}
-              type="submit"
-              onClick={() => handleSearch('')}
-              aria-label="search"
-            >
+            <IconButton className={classes.iconButton} aria-label="search">
               <SearchIcon />
             </IconButton>
 
