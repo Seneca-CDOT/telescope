@@ -49,9 +49,6 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         border: 'solid 1px #999999',
       },
-      '&:focus': {
-        border: 'solid 1px #999999',
-      },
     },
     iconButton: {
       backgroundColor: '#EEEEEE',
@@ -75,15 +72,10 @@ const useStyles = makeStyles((theme: Theme) =>
       '& * > .MuiSvgIcon-root': {
         fontSize: '3rem',
       },
-
       margin: 0,
       position: 'absolute',
       right: '5px',
       top: '1px',
-    },
-    xxx: {
-      top: '10px',
-      right: '10px',
     },
   })
 );
@@ -125,7 +117,6 @@ const SearchBar = () => {
               onChange={(e) => setKeyword(e.target.value)}
               onFocus={() => setAdvancedSearchButtonVisible(true)}
             />
-
             <IconButton className={classes.iconButton} aria-label="search">
               <SearchIcon />
             </IconButton>
