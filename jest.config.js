@@ -4,6 +4,7 @@ process.env = Object.assign(process.env, {
   JWT_AUDIENCE: 'http://localhost',
   JWT_ISSUER: 'http://localhost',
   JWT_EXPIRES_IN: '1h',
+  MOCK_REDIS: '1',
 });
 
 module.exports = {
@@ -14,4 +15,5 @@ module.exports = {
   testEnvironment: 'node',
   coverageDirectory: '<rootDir>/coverage',
   collectCoverageFrom: ['<rootDir>/src/**/*.js'],
+  testTimeout: 8000,
 };

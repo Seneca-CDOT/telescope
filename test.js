@@ -15,6 +15,7 @@ const {
   hash,
   createError,
   createServiceToken,
+  Redis,
 } = require('./src');
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
@@ -880,5 +881,25 @@ describe('createServiceToken()', () => {
 
     const currentDateSeconds = Date.now() / 1000;
     expect(decoded.exp).toBeGreaterThan(currentDateSeconds);
+  });
+});
+
+describe('Redis()', () => {
+  let redis;
+
+  beforeEach(() => {
+    redis = Redis();
+  });
+
+  afterEach(() => {
+    redis.quit();
+  });
+
+  test('Redis ping command should return pong', (done) => {
+    redis.ping((err, result) => {
+      expect(err).toBe(null);
+      expect(result).toEqual('PONG');
+      done();
+    });
   });
 });
