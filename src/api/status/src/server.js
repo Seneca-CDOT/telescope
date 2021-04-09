@@ -5,11 +5,16 @@ const { check } = require('./services');
 
 const service = new Satellite();
 
-service.router.use(serveStatic('public'));
+// Static web assets can be cached for a long time
+service.router.use(serveStatic('public', { immutable: true, maxAge: '1y' }));
 
 service.router.get('/status', (req, res) => {
   check()
-    .then((status) => res.json(status))
+    .then((status) => {
+      // This status response shouldn't be cached (we need current status info)
+      res.set('Cache-Control', 'no-store, max-age=0');
+      return res.json(status);
+    })
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 

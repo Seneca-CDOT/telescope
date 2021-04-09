@@ -1,7 +1,7 @@
 const { Satellite } = require('@senecacdot/satellite');
 
 const service = new Satellite();
-const users = require('./src/routes/users');
+const users = require('./routes/users');
 
 service.router.use('/', users);
 

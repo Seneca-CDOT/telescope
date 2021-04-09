@@ -1,10 +1,5 @@
-import { ChangeEvent } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-type AuthorSearchInputProps = {
-  text: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-};
+import useSearchValue from '../../hooks/use-search-value';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,12 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingRight: '60px',
       border: 'none',
       outline: 'none',
+      color: theme.palette.text.primary,
     },
   })
 );
 
-const AuthorSearchInput = ({ text, onChange }: AuthorSearchInputProps) => {
+const AuthorSearchInput = () => {
   const classes = useStyles();
+  const { text, onTextChange } = useSearchValue();
 
   return (
     <>
@@ -41,7 +38,7 @@ const AuthorSearchInput = ({ text, onChange }: AuthorSearchInputProps) => {
         list="search-suggestions"
         placeholder="How to contribute to Open Source"
         value={text}
-        onChange={onChange}
+        onChange={(event) => onTextChange(event.target.value)}
       />
 
       <datalist aria-label="search telescope" id="search-suggestions" />

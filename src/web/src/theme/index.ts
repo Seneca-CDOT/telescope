@@ -21,11 +21,16 @@ export const lightTheme: Theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      default: '#E5E5E5',
+      default: '#FFFFFF',
+      paper: '#d1d1d1',
     },
     text: {
       primary: '#000000',
       secondary: '#121D59',
+    },
+    action: {
+      active: '#390099',
+      selected: '#9E0059',
     },
   },
 });
@@ -35,9 +40,7 @@ export const darkTheme: Theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: '#242424',
-      contrastText: '#E5E5E5',
-      light: '#FFFFFF',
+      main: '#A0D1FB',
     },
     secondary: {
       main: '#4f96d8',
@@ -46,12 +49,16 @@ export const darkTheme: Theme = createMuiTheme({
       main: red.A400,
     },
     background: {
-      paper: '#303030',
-      default: '#121212',
+      default: '#000000',
+      paper: '#424242',
     },
     text: {
-      primary: '#E5E5E5',
-      secondary: '#4f96d8',
+      primary: '#FFFFFF',
+      secondary: '#A0D1FB',
+    },
+    action: {
+      active: '#7BA4DB',
+      selected: '#CCA1A6',
     },
   },
 });

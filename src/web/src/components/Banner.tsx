@@ -1,72 +1,79 @@
-import { useEffect, useState } from 'react';
-import { makeStyles, Theme, createStyles, Fab, Grid, Typography } from '@material-ui/core';
+import { useEffect, useState, useRef } from 'react';
+import {
+  makeStyles,
+  Theme,
+  createStyles,
+  Typography,
+  useScrollTrigger,
+  Fab,
+} from '@material-ui/core';
+import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
-import ScrollAction from './ScrollAction';
+import LandingButtons from './BannerButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    h1: {
-      position: 'absolute',
-      color: theme.palette.primary.contrastText,
-      fontWeight: 'bold',
-      fontSize: '12rem',
-      display: 'block',
-      top: theme.spacing(20),
-      left: theme.spacing(15),
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '4rem',
-        textAlign: 'left',
-        left: theme.spacing(4),
-        right: theme.spacing(4),
-        top: theme.spacing(14),
-      },
-      [theme.breakpoints.between('md', 'lg')]: {
-        fontSize: '8rem',
-      },
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '12rem',
-      },
-    },
     heroBanner: {
       maxHeight: '100vh',
       overflow: 'hidden',
       position: 'relative',
     },
+    textsContainer: {
+      position: 'absolute',
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      top: '40%',
+    },
+    title: {
+      color: '#A0D1FB',
+      fontWeight: 'bold',
+      fontSize: 'clamp(3.2rem, 3.5vw, 6.5rem)',
+      letterSpacing: '.45em',
+      display: 'block',
+      zIndex: 1000,
+      marginBottom: '25px',
+    },
+    quoteText: {
+      width: '70%',
+      color: '#FFFFFF',
+      fontSize: 'clamp(1.6rem, 1.2vw, 2.5rem)',
+      display: 'block',
+      textAlign: 'center',
+      zIndex: 1000,
+    },
     version: {
       position: 'absolute',
       opacity: 0.85,
-      bottom: theme.spacing(6),
-      left: theme.spacing(15),
-      fontSize: '1.75rem',
-      color: theme.palette.primary.contrastText,
-      [theme.breakpoints.between('xs', 'sm')]: {
-        left: theme.spacing(4),
-        right: theme.spacing(4),
-        fontSize: '1.75rem',
-      },
-      [theme.breakpoints.between('md', 'lg')]: {
-        fontSize: '2rem',
-      },
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '4rem',
-      },
+      bottom: theme.spacing(3),
+      left: theme.spacing(3),
+      fontSize: '1.3em',
+      color: 'white',
       textDecorationLine: 'none',
       '&:hover': {
         textDecorationLine: 'underline',
       },
     },
     icon: {
-      height: '5.6rem',
-      width: '5.6rem',
-      position: 'relative',
-      bottom: theme.spacing(20),
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      width: '100%',
+      position: 'absolute',
+      bottom: theme.spacing(1),
       zIndex: 300,
       margin: '0 auto',
-      [theme.breakpoints.down(1080)]: {
-        left: '55%',
-        bottom: theme.spacing(18),
+      '& .MuiFab-root': {
+        backgroundColor: 'transparent',
+        boxShadow: 'none',
+        display: 'grid',
+      },
+      [theme.breakpoints.down(1024)]: {
+        marginBottom: '60px',
       },
     },
     anchor: {
@@ -74,11 +81,11 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '1rem',
     },
     container: {
-      backgroundColor: '#E5E5E5',
+      bottom: '0',
     },
     arrowDownIcon: {
-      color: theme.palette.text.primary,
-      fontSize: '3rem',
+      color: 'white',
+      fontSize: '4em',
     },
   })
 );
@@ -90,6 +97,37 @@ export default function Banner() {
     sha: '',
     version: '',
   });
+
+  const timelineAnchor = useRef<HTMLDivElement>(null);
+  const bannerAnchor = useRef<HTMLDivElement>(null);
+
+  const toTimelineTrigger = useScrollTrigger({
+    threshold: 50,
+    disableHysteresis: true,
+  });
+  const toBannerTrigger = !useScrollTrigger({
+    threshold: (timelineAnchor.current?.offsetTop || 0) - 50,
+    disableHysteresis: true,
+  });
+
+  useEffect(() => {
+    if (window) {
+      // Apply smooth scroll polyfill on mobile
+      smoothscroll.polyfill();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (toTimelineTrigger && timelineAnchor?.current) {
+      timelineAnchor.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [toTimelineTrigger]);
+
+  useEffect(() => {
+    if (toBannerTrigger && bannerAnchor?.current) {
+      bannerAnchor.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [toBannerTrigger]);
 
   useEffect(() => {
     async function getGitData() {
@@ -108,17 +146,25 @@ export default function Banner() {
       }
     }
     getGitData();
-  }, [telescopeUrl]);
+  }, []);
 
   return (
     <>
-      <div className={classes.heroBanner}>
+      <div className={classes.heroBanner} ref={bannerAnchor}>
         <BannerDynamicItems />
-
-        <Typography variant="h1" className={classes.h1}>
+        <LandingButtons />
+      </div>
+      <div className={classes.textsContainer}>
+        <Typography variant="h1" className={classes.title}>
           Telescope
         </Typography>
-
+        <Typography variant="h4" className={classes.quoteText}>
+          “I think one of my proudest contributions to date was for Node.js.
+          <br /> This is something I never would have imagined contributing to even just a year
+          ago.”
+        </Typography>
+      </div>
+      <div className={classes.icon}>
         <a
           href={`${gitInfo.gitHubUrl}`}
           title={`git commit ${gitInfo.sha}`}
@@ -126,26 +172,11 @@ export default function Banner() {
         >
           v {gitInfo.version}
         </a>
+        <Fab color="primary" aria-label="scroll-down">
+          <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
+        </Fab>
       </div>
-      <Grid
-        container
-        spacing={0}
-        direction="row"
-        alignItems="center"
-        justify="center"
-        className={classes.container}
-      >
-        <Grid id="back-to-top-anchor-mobile" item xs={8}>
-          <div className={classes.icon}>
-            <ScrollAction>
-              <Fab color="secondary" aria-label="scroll-down">
-                <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
-              </Fab>
-            </ScrollAction>
-          </div>
-        </Grid>
-      </Grid>
-      <div className={classes.anchor} id="back-to-top-anchor" />
+      <div className={classes.anchor} id="posts-anchor" ref={timelineAnchor} />
     </>
   );
 }

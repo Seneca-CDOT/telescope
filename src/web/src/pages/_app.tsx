@@ -11,6 +11,7 @@ import { ThemeContext } from '../components/ThemeProvider';
 
 import '../styles/globals.css';
 import '@fontsource/spartan';
+import '@fontsource/pt-serif';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_app.js
 const App = ({ Component, pageProps }: AppProps) => {

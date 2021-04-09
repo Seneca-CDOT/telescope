@@ -16,10 +16,10 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
-    "celebrate": "^13.0.4",
+    "celebrate": "^14.0.0",
     "got": "^11.8.1",
     "http-errors": "^1.8.0",
-    "sharp": "^0.27.1"
+    "sharp": "^0.28.0"
   },
   "engines": {
     "node": ">=12.0.0"

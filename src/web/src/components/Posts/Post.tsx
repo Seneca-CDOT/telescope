@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5rem',
       width: '100%',
       backgroundColor: theme.palette.background.default,
+      minHeight: '300px',
     },
     spinner: {
       padding: '20px',
@@ -68,17 +69,17 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     title: {
-      fontSize: '4.5em',
+      fontSize: '3em',
       fontWeight: 'bold',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       textAlign: 'center',
-      letterSpacing: '-3px',
+      letterSpacing: '-1.5px',
       [theme.breakpoints.down(1200)]: {
-        fontSize: '3.5em',
+        fontSize: '2em',
         fontWeight: 'bold',
         textAlign: 'start',
-        letterSpacing: '-3px',
+        letterSpacing: '-1.5px',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         lineHeight: '1.3',
@@ -139,7 +140,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.down(1024)]: {
         fontSize: '1.1em',
-        width: '30vw',
+        width: '40vw',
         height: '5px',
         margin: '-1.6em 0 -1em .5px',
       },
@@ -164,6 +165,12 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.text.primary,
       backgroundColor: theme.palette.background.default,
       width: '95%',
+      '& a': {
+        color: theme.palette.action.active,
+      },
+      '& a:visited': {
+        color: theme.palette.action.selected,
+      },
     },
   })
 );
@@ -175,6 +182,20 @@ const formatPublishedDate = (dateString: string) => {
     day: 'numeric',
     year: 'numeric',
   }).format(date);
+};
+
+const extractBlogClassName = (url: string) => {
+  const blogClassName = new URL(url).hostname;
+  if (blogClassName.endsWith('medium.com')) {
+    return 'is-medium';
+  }
+  if (blogClassName.endsWith('dev.to')) {
+    return 'is-devto';
+  }
+  if (blogClassName.endsWith('blogspot.com')) {
+    return 'is-blogspot';
+  }
+  return 'is-generic';
 };
 
 const PostComponent = ({ postUrl }: Props) => {
@@ -228,7 +249,6 @@ const PostComponent = ({ postUrl }: Props) => {
   return (
     <Box className={classes.root}>
       <ListSubheader className={classes.postInfo}>
-        <AdminButtons />
         <div className={classes.titleContainer}>
           <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
             <span
@@ -245,7 +265,7 @@ const PostComponent = ({ postUrl }: Props) => {
         {!desktop && (
           <>
             <div className={classes.authorAvatarContainer}>
-              <PostAvatar name={post.feed.author} />
+              <PostAvatar name={post.feed.author} blog={post.feed.link} />
             </div>
             <div className={classes.authorNameContainer}>
               <h1 className={classes.author}>
@@ -259,6 +279,7 @@ const PostComponent = ({ postUrl }: Props) => {
                 <a href={post.url} rel="bookmark" className={classes.link}>
                   {`${formatPublishedDate(post.updated)}`}
                 </a>
+                <AdminButtons />
               </h1>
             </div>
           </>
@@ -277,7 +298,7 @@ const PostComponent = ({ postUrl }: Props) => {
       <div className={classes.content}>
         <section
           ref={sectionEl}
-          className="telescope-post-content"
+          className={`telescope-post-content ${extractBlogClassName(post.url)}`}
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
       </div>

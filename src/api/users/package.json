@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node src/server.js",
+    "dev": "env-cmd -f env.local nodemon src/server.js"
   },
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
-    "celebrate": "^13.0.4",
-    "firebase-admin": "^9.5.0"
+    "celebrate": "^14.0.0",
+    "firebase-admin": "^9.6.0",
+    "http-link-header": "^1.0.3"
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^1.2.2",
-    "dotenv": "^6.2.0",
-    "firebase-tools": "^9.6.1",
+    "@firebase/rules-unit-testing": "^1.2.6",
+    "env-cmd": "^10.1.0",
+    "firebase-tools": "^9.8.0",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"
   }

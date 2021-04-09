@@ -4,14 +4,15 @@ import { makeStyles } from '@material-ui/core/styles';
 type AvatarProps = {
   name: string;
   img?: string;
+  blog?: string;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     avatar: {
       marginLeft: '0.5rem',
-      color: '#e5e5e5',
-      backgroundColor: '#121D59',
+      color: theme.palette.type === 'light' ? '#e5e5e5' : '#121D59',
+      backgroundColor: theme.palette.primary.main,
       fontSize: '2.5rem',
       width: '2.5em',
       height: '2.5em',
@@ -32,10 +33,13 @@ const useStyles = makeStyles((theme: Theme) =>
         transform: 'translateY(2px)',
       },
     },
+    link: {
+      textDecoration: 'none',
+    },
   })
 );
 
-const PostAvatar = ({ name, img }: AvatarProps) => {
+const PostAvatar = ({ name, img, blog = '' }: AvatarProps) => {
   const classes = useStyles();
 
   if (img) {
@@ -54,9 +58,11 @@ const PostAvatar = ({ name, img }: AvatarProps) => {
       )
       .join('');
     return (
-      <Avatar className={classes.avatar}>
-        <p className={classes.text}>{initials}</p>
-      </Avatar>
+      <a href={blog} className={classes.link}>
+        <Avatar className={classes.avatar}>
+          <p className={classes.text}>{initials}</p>
+        </Avatar>
+      </a>
     );
   }
 

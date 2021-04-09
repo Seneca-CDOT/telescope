@@ -5,7 +5,8 @@
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
-  font-family: Spartan, sans-serif;
+  font-family: PT Serif, Serif;
+  letter-spacing: 0.5px;
 }
 
 .telescope-post-content p {
@@ -16,15 +17,41 @@
   margin-left: auto;
   margin-right: auto;
   max-width: 100%;
+  max-height: 80vh;
   padding-top: 1.5rem;
   padding-bottom: 1rem;
   display: block;
   height: auto;
 }
+
+.telescope-post-content div > a > img {
+  width: 32px;
+  display: inline;
+  vertical-align: middle;
+}
+
+.telescope-post-content h1 > a > img {
+  width: 32px;
+  display: inline;
+  vertical-align: middle;
+}
+
+.telescope-post-content div > div {
+  display: inline;
+}
+
+.telescope-post-content div > h1 {
+  font-size: 1.8rem;
+}
+
 .telescope-post-content figure {
   display: block;
   margin: 0;
   text-align: center;
+}
+
+.telescope-post-content figure > table {
+  text-align: start;
 }
 
 .telescope-post-content img[src*='emoji'],
@@ -59,6 +86,16 @@
   padding: 0 1.5em;
   line-height: 25px;
   margin: 12px 0;
+}
+
+/**
+ * Custom styling for different blogging platforms.
+ * Known hosts so far are: [medium.com, dev.to, blogspot.com], otherwise the class is "is-generic".
+ * To add to this list see the Post.tsx file, under the `extractBlogClassName()` function.
+ */
+.telescope-post-content.is-blogspot img {
+  display: block;
+  width: auto;
 }
 
 /**

@@ -59,3 +59,13 @@ services:
   elasticsearch:
     ports:
       - '9200:9200'
+
+  users:
+    environment:
+      - FIRESTORE_EMULATOR_HOST
+
+  auth:
+    environment:
+      # We development and testing, the Auth service needs to contact the users
+      # service directly via Docker vs through the http://localhost domain.
+      - USERS_URL=http://users:6666

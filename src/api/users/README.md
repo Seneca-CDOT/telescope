@@ -44,15 +44,16 @@ npm install:users-service
 # normal mode
 npm start
 
-# running firestore emulator locally
+# running firestore emulator and users microservice locally
+npm run services:start firebase users
+
+# dev mode with automatic restarts
 npm run services:start firebase
-npm start
+cd src/api/users
+npm run dev
 
 # test runner (must be used in conjunction with the firebase service)
 npm run jest:e2e (or npm run jest:e2e src\api\users\test\e2e)
-
-# dev mode with automatic restarts
-npm run dev
 ```
 
 By default the server is running on <http://localhost:6666/>.
@@ -61,7 +62,7 @@ By default the server is running on <http://localhost:6666/>.
 
 \- `GET /:id` - returns 200 with the user specified by the id, or 404 if a user does not exist.
 
-\- `GET /` - returns 200 with all Telescope users in an array, or 404 if the `users` collection is empty.
+\- `GET /?per_page=20&page=1` - returns 200 with the first 20 Telescope users (numerically sorted by `id`) in an array, or 404 if the `users` collection is empty.
 
 \- `POST /` - returns 201 if a Telescope user was successfully validated and added to the db, or 400 if the user already exists. (_An example of the JSON data to send as the POST body can be found in `api/user/test/user.test.js`_)
 

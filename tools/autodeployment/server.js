@@ -2,7 +2,6 @@ require('dotenv').config();
 const path = require('path');
 const https = require('https');
 const express = require('express');
-const bodyParser = require('body-parser');
 const { Webhooks } = require('@octokit/webhooks');
 const shell = require('shelljs');
 const mergeStream = require('merge-stream');
@@ -11,7 +10,7 @@ const fs = require('fs');
 const { buildStart, buildStop, handleStatus } = require('./info');
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 // Current build process output stream (if any)
 let out;

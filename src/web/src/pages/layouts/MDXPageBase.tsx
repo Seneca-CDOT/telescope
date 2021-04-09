@@ -9,7 +9,6 @@
 
 import { makeStyles } from '@material-ui/core/styles';
 import SEO from '../../components/SEO';
-import AboutFooter from '../../components/AboutFooter';
 
 type MDXPageBaseProps = {
   children: object;
@@ -19,21 +18,48 @@ type MDXPageBaseProps = {
 const useStyles = makeStyles((theme) => {
   return {
     root: {
+      backgroundColor: theme.palette.background.default,
       fontFamily: 'Spartan',
+      padding: '1em 0 2em 0',
+      wordWrap: 'break-word',
+      [theme.breakpoints.down(1024)]: {
+        maxWidth: 'none',
+      },
       '& h1': {
         color: theme.palette.text.secondary,
         fontSize: 24,
-        paddingLeft: '5px',
+        transition: 'color 1s',
+        padding: '2vh 22vw',
+        [theme.breakpoints.down(1024)]: {
+          padding: '1vh 8vw',
+          wordWrap: 'break-word',
+        },
       },
       '& h2': {
         color: theme.palette.text.secondary,
         fontSize: 20,
-        paddingLeft: '5px',
+        transition: 'color 1s',
+        padding: '2vh 22vw',
+        [theme.breakpoints.down(1024)]: {
+          padding: '1vh 8vw',
+          wordWrap: 'break-word',
+        },
       },
       '& p': {
         color: theme.palette.text.primary,
         fontSize: 16,
-        padding: '3px 5px',
+        padding: '1vh 20vw',
+        marginBottom: '0',
+        [theme.breakpoints.down(1024)]: {
+          padding: '1vh 5vw',
+          wordWrap: 'break-word',
+        },
+      },
+      '& a': {
+        color: theme.palette.action.active,
+      },
+      '& a:visited': {
+        color: theme.palette.action.selected,
       },
     },
   };
@@ -45,7 +71,6 @@ const Pagebase = ({ children, title }: MDXPageBaseProps) => {
     <div className={classes.root}>
       <SEO pageTitle={title} />
       {children}
-      <AboutFooter />
     </div>
   );
 };

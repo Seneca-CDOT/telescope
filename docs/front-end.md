@@ -20,6 +20,8 @@ When working on a new component for the Telescope frontend, please consider the 
 
 Here is the colour palette that we use to make our web site looks pretty and up-to-date.
 
+### Light Palette
+
 ![#121D59](https://placehold.it/15/121D59/000000?text=+) **Primary**
 
 - hex: #121D59
@@ -30,17 +32,17 @@ Here is the colour palette that we use to make our web site looks pretty and up-
 - hex: #A0D1FB
 - rgb: (160,209,251)
 
-![#E5E5E5](https://placehold.it/15/E5E5E5/000000?text=+) **Background**
+![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Background**
 
-- hex: #E5E5E5
-- rgb: (229, 229, 229)
+- hex: #FFFFFF
+- rgb: (255, 255, 255)
 
-## Typography
+#### Typography
 
-![#000000](https://placehold.it/15/000000/000000?text=+) **Primary**
+![#A0D1FB](https://placehold.it/15/A0D1FB/000000?text=+) **Primary**
 
-- hex: #000000
-- rgb: (0, 0, 0)
+- hex: #A0D1FB
+- rgb:
 
 ![#121D59](https://placehold.it/15/121D59/000000?text=+) **Secondary**
 
@@ -49,7 +51,35 @@ Here is the colour palette that we use to make our web site looks pretty and up-
 
 “The Free Image Placeholder Service Favoured By Designers.” Placeholder.com, 17 Dec. 2019, placeholder.com/.
 
-<br/>
+### Dark Palette
+
+![#A0D1FB](https://placehold.it/15/A0D1FB/000000?text=+) **Primary**
+
+- hex: #A0D1FB
+- rgb: (160,209,251)
+
+![#4f96d8](https://placehold.it/15/4f96d8/000000?text=+) **Secondary**
+
+- hex: #4f96d8
+- rgb: (79,150,216)
+
+![#000000](https://placehold.it/15/000000/000000?text=+) **Background**
+
+- hex: #000000
+- rgb: (0,0,0)
+
+#### Typography
+
+![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Primary**
+
+- hex: #FFFFFF
+- rgb: (255,255,255)
+
+![#121D59](https://placehold.it/15/A0D1FB/000000?text=+) **Secondary**
+
+- hex: #A0D1FB
+- rgb: (160,209,251)
+  <br/>
 
 # Theming Palette
 

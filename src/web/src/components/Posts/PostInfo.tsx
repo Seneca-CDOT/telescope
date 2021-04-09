@@ -1,5 +1,6 @@
 import { createStyles, ListSubheader, makeStyles, Theme } from '@material-ui/core';
 import PostAvatar from './PostAvatar';
+import AdminButtons from '../AdminButtons';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -10,6 +11,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'center',
       borderLeft: '2.5px solid #707070',
+      [theme.breakpoints.up('lg')]: {
+        width: '22rem',
+      },
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
@@ -69,7 +73,7 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
   return (
     <ListSubheader className={classes.root}>
       <div className={classes.authorAvatarContainer}>
-        <PostAvatar name={authorName} />
+        <PostAvatar name={authorName} blog={blogUrl} />
       </div>
       <div className={classes.authorNameContainer}>
         <h1 className={classes.author}>
@@ -85,6 +89,7 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
           </time>
         </a>
       </div>
+      <AdminButtons />
     </ListSubheader>
   );
 };

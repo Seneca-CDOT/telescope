@@ -5,14 +5,6 @@ export type Feed = {
   link: string;
 };
 
-export type FeedHash = {
-  [key: string]: {
-    author: string;
-    url: string;
-    link: string;
-  };
-};
-
 export type Post = {
   feed: Feed;
   id: string;

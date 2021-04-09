@@ -30,6 +30,7 @@ class MyDocument extends Document {
           <meta property="og:site_name" content={title} />
           <meta property="og:description" content={description} />
           <meta property="og:image" content={image} />
+          <meta property="og:image:alt" content={imageAlt} />
           <meta property="og:locale" content="en_CA" />
 
           <meta name="twitter:card" content="summary_large_image" />

@@ -6,8 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 
-// 1.7 band-aid (Removing theme | line 6)
-// import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 
 import NavBarButton, { NavBarIconProps } from './NavBarButton';
 import Logo from '../Logo';
@@ -17,10 +16,9 @@ import Login from '../Login';
  * This ensures that the version displayed to user is the client view which ties to the client's preference theme.
  * This is only an issue on DesktopHeader since on MobileHeader there is a listener triggering rerendering.
  * */
-// 1.7 band-aid (Removing theme | line 16 - 18)
-// const DynamicThemeToggleButton = dynamic(() => import('../ThemeToggleButton'), {
-//   ssr: false,
-// });
+const DynamicThemeToggleButton = dynamic(() => import('../ThemeToggleButton'), {
+  ssr: false,
+});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,8 +107,7 @@ export default function NavBar() {
           <NavBarButton {...props} key={props.title} />
         ))}
         <Login />
-        {/* 1.7 band-aid (Removing theme| line 87) */}
-        {/* <DynamicThemeToggleButton /> */}
+        <DynamicThemeToggleButton />
       </Toolbar>
     </AppBar>
   );

@@ -44,7 +44,14 @@ router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
 if (process.env.NODE_ENV === 'development') {
   if (process.env.PROXY_FRONTEND) {
     // Allow proxying the Next dev server through our backend if PROXY_FRONTEND=1 is set in env
-    router.use('/', createProxyMiddleware({ target: 'http://localhost:8000', changeOrigin: true }));
+    router.use(
+      '/',
+      createProxyMiddleware({
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        logLevel: 'silent',
+      })
+    );
   } else {
     // Or serve the static files in the Next build directory
     router.use(express.static(path.join(__dirname, '../../../web/out')));

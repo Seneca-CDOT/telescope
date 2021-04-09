@@ -116,8 +116,16 @@ router.post('/login/callback', passport.authenticate('saml'), (req, res, next) =
   delete req.session.authDetails;
   logger.debug({ redirectUri, state }, 'processing /login/callback');
 
-  // TODO - need actual user subject info...
-  const token = createToken(req.user.email);
+  // Create a token for this user, setting their authorization roles
+  const { user } = req;
+  const token = createToken(
+    user.email,
+    user.firstName,
+    user.lastName,
+    user.displayName,
+    user.roles,
+    user.avatarUrl
+  );
 
   let url = `${redirectUri}?access_token=${token}`;
   // Add the state we received before, if it was given at all
@@ -186,17 +194,6 @@ router.get(
     }
   }
 );
-
-/**
- * Determine whether a user with the attached bearer token in the Authorization
- * header is an authorized user. Services can pass a token to the /authorize
- * endpoint, received from a client app, and determine whether or not the token
- * is valid, verified, and allowed to proceed.
- */
-router.get('/authorize', passport.authenticate('jwt', { session: false }), (req, res) => {
-  // TODO: send back any info?
-  res.status(200).end();
-});
 
 /**
  * Provide SAML Metadata endpoint for our Service Provider's Entity ID.

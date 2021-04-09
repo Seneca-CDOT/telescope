@@ -193,6 +193,20 @@ http {
       proxy_pass http://telescope:3000;
     }
 
+    # Non-cached /portainer route
+    location /portainer/api/websocket/  {
+      proxy_cache_bypass 1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_pass  http://portainer:9000/api/websocket;
+    }
+
+    location /portainer/ {
+      proxy_cache_bypass 1;
+      proxy_set_header Connection "";
+      proxy_pass http://portainer:9000/;
+    }
+
     # Static next.js front-end
     location / {
       # Directory from which we serve Next's static content

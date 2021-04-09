@@ -43,22 +43,6 @@ describe('/logout', () => {
   });
 });
 
-describe('/authorize', () => {
-  it('should respond with 401 when no authentication bearer token provided', (done) => {
-    request(app).get('/authorize').expect(401, done);
-  });
-
-  it('should respond with 401 when invalid authentication bearer token provided', (done) => {
-    request(app).get('/authorize').set('Authorization', 'bearer invalid').expect(401, done);
-  });
-
-  it('should respond with 401 when bogus JWT authentication bearer token provided', (done) => {
-    const jwt =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
-    request(app).get('/authorize').set('Authorization', `bearer ${jwt}`).expect(401, done);
-  });
-});
-
 describe('/sp', () => {
   it('should respond with XML', (done) => {
     request(app)

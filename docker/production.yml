@@ -21,6 +21,8 @@ services:
       dockerfile: Dockerfile
       # next.js needs build-time access to a number of API URL values, forward as ARGs
       args:
+        # Web front-end URL
+        - WEB_URL=${WEB_URL}
         # Telescope 1.0 API URL
         - API_URL=${API_URL}
         # Telescope 2.0 Microservice URLs
@@ -40,9 +42,11 @@ services:
       - ELASTIC_PORT=9200
       - ELASTIC_URL=http://elasticsearch
       # Environment values we expect from our legacy .env file
-      - NODE_ENV
+      - NODE_ENV=production
       - PORT
+      - POSTS_URL
       - API_URL
+      - WEB_URL
       - LOG_LEVEL
       - FEED_URL
       - FEED_URL_INTERVAL_MS
@@ -83,7 +87,15 @@ services:
       context: ../src/api/status
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV=production
       - STATUS_PORT
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+      # TODO - add APM monitoring support for Satellite
+      # - ELASTIC_APM_SERVER_URL
+      # - ELASTIC_APM_SERVICE_NAME
     ports:
       - '${STATUS_PORT}'
     depends_on:
@@ -106,10 +118,13 @@ services:
     environment:
       - NODE_ENV=production
       - IMAGE_PORT
-      # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      # - ELASTIC_APM_SERVICE_NAME=image
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+      # TODO - add APM monitoring support for Satellite
+      # - ELASTIC_APM_SERVER_URL
+      # - ELASTIC_APM_SERVICE_NAME
 
   # auth service
   auth:
@@ -118,7 +133,6 @@ services:
       - NODE_ENV=production
       - AUTH_PORT
       # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
       # - ELASTIC_APM_SERVICE_NAME=auth
       # - ELASTIC_APM_SERVER_URL=http://apm:8200
 
@@ -128,21 +142,29 @@ services:
     environment:
       - NODE_ENV=production
       - POSTS_PORT
-      # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      # - ELASTIC_APM_SERVICE_NAME=posts
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+      # TODO - add APM monitoring support for Satellite
+      # - ELASTIC_APM_SERVER_URL
+      # - ELASTIC_APM_SERVICE_NAME
 
   # users service
   users:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - USERS_PORT
-      # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      # - ELASTIC_APM_SERVICE_NAME=user
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+      # TODO - add APM monitoring support for Satellite
+      # - ELASTIC_APM_SERVER_URL
+      # - ELASTIC_APM_SERVICE_NAME
+    volumes:
+      # This will take care of copying the serviceAccountKey.json file needed by firestore.js
+      - ../../firebase/serviceAccountKey.json:/app/serviceAccountKey.json
 
   ##############################################################################
   # Third-Party Dependencies and Support Services
@@ -226,6 +248,20 @@ services:
     labels:
       # Disable Elasticsearch routing via Traefik in production (we enable it in development)
       - 'traefik.enable=false'
+
+  portainer:
+    image: portainer/portainer-ce:alpine
+    container_name: 'portainer'
+    command: -H unix:///var/run/docker.sock --admin-password-file '/data/portainer'
+    restart: unless-stopped
+    ports:
+      - 9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../../portainer:/data
+      - ../../portainer/portainer:/data/portainer
+    depends_on:
+      - nginx
 
   # TODO: Kibana + APM, see https://github.com/Seneca-CDOT/telescope/blob/372a6076540351cd54d85478521bcfbe8edefc87/src/api/production.yml
 

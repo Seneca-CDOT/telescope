@@ -1,12 +1,10 @@
 import { useState, MouseEvent } from 'react';
+import { useRouter } from 'next/router';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { useRouter } from 'next/router';
-
-import {
-  FormControl,
-  Box,
-} from '@material-ui/core';
+import { Grid, MenuItem, TextField, FormControl, Paper, IconButton, Box } from '@material-ui/core';
+import SettingsIcon from '@material-ui/icons/Settings';
+import ClearIcon from '@material-ui/icons/Clear';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,168 +13,152 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '785px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      padding: theme.spacing(2, 2, 2, 2),
-      marginBottom: theme.spacing(6),
+      padding: theme.spacing(2, 2, 0, 2),
+      marginBottom: theme.spacing(10),
+    },
+    card: {
+      padding: theme.spacing(0, 0, 0, 2),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      borderRadius: '50px',
+      background: theme.palette.background.paper,
+      border: 'solid 1px transparent',
+      transition: 'background-color .5s',
+      '&:hover': {
+        backgroundColor: theme.palette.type === 'light' ? '#ffffff' : '#000000',
+        border: 'solid 1px #999999',
+      },
+      [theme.breakpoints.down('xs')]: {
+        borderRadius: '15px',
+        padding: theme.spacing(0, 0, 0, 2),
+      },
     },
     input: {
-      fontSize: '1.5rem',
-      padding: '15px 25px',
+      fontSize: '1.8rem',
+      width: '100%',
       boxSizing: 'border-box',
-      borderRadius: '9px',
+      height: '56px',
       outline: 'none',
-      width: '100%',
-      border: 'solid 1px grey',
-      transition: 'background .3s',
-      '&:focus': {
-        border: 'solid 1px grey',
-        background: 'white'
-      },
-      '&:hover': {
-        boxShadow: '0 0 10px #C1F1FF'
-      }
-    },
-    dropdownBox: {
-      background: 'white',
-      width: '100%',
+      border: 'solid 1px transparent',
+      borderRadius: '50px',
+      paddingLeft: '55px',
+      background: '#EEEEEE',
       position: 'absolute',
-      transform: 'translateY(40px)',
-      zIndex: 999,
-      borderRadius: '0 0 9px 9px',
-      boxSizing: 'border-box',
-      border: 'solid 1px grey',
-      borderTop: 0,
-      
-    },
-    listSearch: {
-      padding: '0 0px',
-      '& li': {
-        listStyleType: 'none',
-        fontSize: '1.5rem',
-        padding: '6px 25px',
-      },
-      '&li div': {
-        display: 'inline'
-      },
-      '& li:hover': {
-        background: '#C1F1FF'
-      }
-    },
-    searchDropdownBottom: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      background: '#eeeeee',
-      height: '50px',
-      borderRadius: '0 0 9px 9px',
-    },
-    advancedSearchButton: {
-      border: 'none',
-      marginRight: '10px',
-      outline: 'none',
-      background: 'transparent',
-      cursor: 'pointer',
-      color: '#BABABA',
+      transition: 'border .2s',
       '&:hover': {
-        color: '#5D5D5D'
-      }
-    }, 
-    searchButton: {
-      marginRight: '10px',
-      background: '#5EB8EC',
-      border: 'none',
-      borderRadius: '4px',
-      color: 'white',
-      padding: '10px 18px',
-      cursor: 'pointer',
+        border: 'solid 1px #999999',
+      },
+      '&:focus': {
+        border: 'solid 1px #999999',
+      },
+    },
+    iconButton: {
+      backgroundColor: '#EEEEEE',
+      color: '#999999',
       '&:hover': {
-        background: '#569DD7'
-      }
+        backgroundColor: '#EEEEEE',
+      },
+      '& * > .MuiSvgIcon-root': {
+        fontSize: '2rem',
+      },
+      margin: 0,
+      position: 'absolute',
+      left: '10px',
+      top: '6px',
+    },
+    clearIcon: {
+      color: '#999999',
+      '&:hover': {
+        backgroundColor: '#EEEEEE',
+      },
+      '& * > .MuiSvgIcon-root': {
+        fontSize: '3rem',
+      },
+
+      margin: 0,
+      position: 'absolute',
+      right: '5px',
+      top: '1px',
     },
     xxx: {
-      
       top: '10px',
       right: '10px',
-    }
+    },
   })
 );
 
-type searchBarProps = {
-  text: string;
-  onTextChange: Function;
-  filter: string;
-  onFilterChange: Function;
-  onSubmit: (e: MouseEvent<HTMLButtonElement>) => void;
-};
-
-const SearchBar = ({ text, onTextChange, onFilterChange, filter, onSubmit }: searchBarProps) => {
+const SearchBar = () => {
   const classes = useStyles();
   const [keyword, setKeyword] = useState('');
-  const [dropdownVisible, setdropdownVisible] = useState(false);
+
+  const [advancedSearchButtonVisible, setAdvancedSearchButtonVisible] = useState(false);
+
   const router = useRouter();
 
   const handleSearch = (searchType: string) => {
     if (searchType) {
-      if(searchType.toUpperCase() === 'AUTHOR') {
+      if (searchType.toUpperCase() === 'AUTHOR') {
         router.push(`/search?text=${keyword}&filter=author`);
-        setdropdownVisible(false);
       } else {
         router.push(`/search?text=${keyword}&filter=post`);
-        setdropdownVisible(false);
       }
     } else {
       router.push(`/search?text=${keyword}&filter=post`);
-      setdropdownVisible(false);
     }
-  }
+  };
 
   return (
     <Box className={classes.root}>
       <FormControl fullWidth>
+        <Grid item xs={12} sm={10} lg={10}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearch('');
+            }}
+          >
+            <input
+              className={classes.input}
+              value={keyword}
+              placeholder="Search..."
+              onChange={(e) => setKeyword(e.target.value)}
+              onFocus={() => setAdvancedSearchButtonVisible(true)}
+              // onBlur={() => setdropdownVisible(false)}
+            />
 
-              <form onSubmit={e => {
-                  e.preventDefault();
-                  handleSearch('');
-                }
-              }
+            <IconButton
+              className={classes.iconButton}
+              type="submit"
+              onClick={() => handleSearch('')}
+              aria-label="search"
+            >
+              <SearchIcon />
+            </IconButton>
+
+            {Boolean(advancedSearchButtonVisible && keyword) && (
+              <IconButton
+                className={classes.iconButton}
+                type="submit"
+                onClick={() => handleSearch('')}
+                aria-label="search"
               >
-                <input 
-                  className={classes.input} 
-                  value={keyword} 
-                  placeholder='Search...' 
-                  onChange={e => setKeyword(e.target.value)}
-                  onFocus={() => setdropdownVisible(true)}
-                  onBlur={() => {
-                    if(keyword) {
-                      setdropdownVisible(true);
-                    } else {
-                      setdropdownVisible(false);
-                    }
-                  }} 
-                />
-              </form>
-              
-              {Boolean(dropdownVisible && keyword) && (
-                <div className={classes.dropdownBox}>
-                  <ul className={classes.listSearch}>
-                    <li onClick={() => handleSearch('POST')}>
-                      <div><SearchIcon /> in Posts: {keyword}</div>
-                    </li>
-                    <li onClick={() => handleSearch('AUTHOR')}>
-                      <div><SearchIcon /> in Authors: {keyword}</div>
-                    </li>
-                  </ul>
+                <SettingsIcon />
+              </IconButton>
+            )}
 
-
-                  <div className={classes.searchDropdownBottom}>
-                    <button className={classes.advancedSearchButton}>Advanced Search</button>
-                    <button className={classes.searchButton} onClick={()=>handleSearch('')}>Search</button>
-                  </div>
-
-                </div>
-              )}
+            <IconButton
+              className={classes.clearIcon}
+              onClick={() => setKeyword('')}
+              aria-label="search"
+            >
+              <ClearIcon />
+            </IconButton>
+          </form>
+        </Grid>
       </FormControl>
     </Box>
-  )
+  );
 };
 
 export default SearchBar;

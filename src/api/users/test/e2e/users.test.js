@@ -1,36 +1,67 @@
 const request = require('supertest');
 const firebaseTesting = require('@firebase/rules-unit-testing');
+const { hash } = require('@senecacdot/satellite');
 
-const { app } = require('../../index');
-const User = require('../../src/models/users');
+const { app } = require('../../src/index');
+const { User } = require('../../src/models/user');
+
+const { USERS_URL } = process.env;
 
 // Utility functions
 const clearData = () => firebaseTesting.clearFirestoreData({ projectId: 'telescope' });
 
 const getUser = (id) => request(app).get(`/${id}`);
 
-const getUsers = () => request(app).get('/');
+const getUsers = (query = '') => request(app).get(`/${query}`);
 
-const createUser = async (editedUser = {}) => {
-  const defaultUser = {
-    // Use a unique id number for each user
-    id: Date.now(),
-    firstName: 'Galileo',
-    lastName: 'Galilei',
-    displayName: 'Galileo Galilei',
-    isAdmin: true,
-    isFlagged: true,
-    feeds: ['https://dev.to/feed/galileogalilei'],
-    github: {
-      username: 'galileogalilei',
-      avatarUrl:
-        'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-    },
-  };
+const createUserHash = (email = 'galileo@email.com') => hash(email);
 
-  // If the user sends use any user properties, override the default values.  If not, use default as is.
-  const user = new User({ ...defaultUser, ...editedUser });
-  const response = await request(app).post('/').set('Content-Type', 'application/json').send(user);
+const defaultUsers = {
+  galileo() {
+    return {
+      firstName: 'Galileo',
+      lastName: 'Galilei',
+      email: 'galileo@email.com',
+      displayName: 'Galileo Galilei',
+      isAdmin: true,
+      isFlagged: true,
+      feeds: ['https://dev.to/feed/galileogalilei'],
+      github: {
+        username: 'galileogalilei',
+        avatarUrl:
+          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+      },
+    };
+  },
+
+  carl() {
+    return {
+      firstName: 'Carl',
+      lastName: 'Sagan',
+      email: 'carl@email.com',
+      displayName: 'Carl Sagan',
+      isAdmin: true,
+      isFlagged: true,
+      feeds: ['https://dev.to/feed/carlsagan'],
+      github: {
+        username: 'carlsagan',
+        avatarUrl:
+          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+      },
+    };
+  },
+};
+
+const createUser = async (editedUser = {}, ignoreDefaults = false) => {
+  const defaultUser = defaultUsers.galileo();
+
+  // If the user sends use any user properties, override the default values.
+  // unless explicitly told not to. If not, use default as is.
+  const user = ignoreDefaults ? new User(editedUser) : new User({ ...defaultUser, ...editedUser });
+  const response = await request(app)
+    .post(`/${user.id}`)
+    .set('Content-Type', 'application/json')
+    .send(user);
 
   // Return both the user object and the response, so we can compare the two.
   return { user, response };
@@ -44,24 +75,11 @@ describe('Ensure environment variable(s) are set', () => {
 });
 
 describe('GET REQUESTS', () => {
-  beforeEach(() => clearData());
+  beforeEach(clearData);
 
   test('Accepted - Get all users', async () => {
-    const galileo = await createUser({ id: 10001 });
-    const carl = await createUser({
-      id: 10002,
-      firstName: 'Carl',
-      lastName: 'Sagan',
-      displayName: 'Carl Sagan',
-      isAdmin: true,
-      isFlagged: true,
-      feeds: ['https://dev.to/feed/carlsagan'],
-      github: {
-        username: 'carlsagan',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
-    });
+    const galileo = await createUser();
+    const carl = await createUser(defaultUsers.carl());
 
     expect(galileo.response.status).toBe(201);
     expect(carl.response.status).toBe(201);
@@ -69,77 +87,113 @@ describe('GET REQUESTS', () => {
     const response = await getUsers();
     expect(response.status).toBe(200);
     expect(response.body.length).toBe(2);
+    expect(response.body).toEqual([defaultUsers.galileo(), defaultUsers.carl()]);
+  });
+
+  test('Accepted - Get all users (using params), only two users should be returned', async () => {
+    // create 3 users
+    const galileo1 = await createUser({ email: 'user1@email.com' });
+    const galileo2 = await createUser({ email: 'user2@email.com' });
+    const galileo3 = await createUser({ email: 'user3@email.com' });
+
+    expect(galileo1.response.status).toBe(201);
+    expect(galileo2.response.status).toBe(201);
+    expect(galileo3.response.status).toBe(201);
+
+    // request 2 users per page (less than the total available)
+    const response = await getUsers('?per_page=2');
+    expect(response.status).toBe(200);
+    expect(response.headers.link).toEqual(
+      `<${USERS_URL}?start_after=${galileo2.user.id}&per_page=2>; rel=next`
+    );
+    expect(response.body.length).toBe(2);
     expect(response.body).toEqual([
       {
-        id: 10001,
-        firstName: 'Galileo',
-        lastName: 'Galilei',
-        displayName: 'Galileo Galilei',
-        isAdmin: true,
-        isFlagged: true,
-        feeds: ['https://dev.to/feed/galileogalilei'],
-        github: {
-          username: 'galileogalilei',
-          avatarUrl:
-            'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-        },
+        ...defaultUsers.galileo(),
+        email: 'user1@email.com',
       },
       {
-        id: 10002,
-        firstName: 'Carl',
-        lastName: 'Sagan',
-        displayName: 'Carl Sagan',
-        isAdmin: true,
-        isFlagged: true,
-        feeds: ['https://dev.to/feed/carlsagan'],
-        github: {
-          username: 'carlsagan',
-          avatarUrl:
-            'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-        },
+        ...defaultUsers.galileo(),
+        email: 'user2@email.com',
       },
     ]);
   });
 
+  // test.skip('Accepted - Get 20 (uncreated) users using params, receive empty array', async () => {
+  //   // create no users, request 20 users
+  //   const response = await getUsersParams(20, 1);
+  //   expect(response.status).toBe(200);
+  //   expect(response.body.length).toBe(0);
+  //   expect(response.body).toEqual([]);
+  // });
+
+  // test.skip('Accepted - Test negative perPage parameter, positive page parameter', async () => {
+  //   const galileo = await createUser();
+  //   expect(galileo.response.status).toBe(201);
+
+  //   const response = await getUsersParams(-20, 1);
+  //   expect(response.status).toBe(400);
+  // });
+
+  // test.skip('Accepted - Test negative perPage parameter, negative page parameter', async () => {
+  //   const galileo = await createUser();
+  //   expect(galileo.response.status).toBe(201);
+
+  //   const response = await getUsersParams(-20, -1);
+  //   expect(response.status).toBe(400);
+  // });
+
+  // test.skip('Accepted - Test positive perPage parameter, negative page parameter', async () => {
+  //   const galileo = await createUser();
+  //   expect(galileo.response.status).toBe(201);
+
+  //   const response = await getUsersParams(20, -1);
+  //   expect(response.status).toBe(400);
+  // });
+
+  // test.skip('Accepted - Test page and per_page parameters', async () => {
+  //   await createUser(defaultUsers.galileo());
+  //   await createUser(defaultUsers.carl());
+
+  //   // create 2 users, request 1 user per page and page 2
+  //   const response = await getUsersParams(1, 2);
+  //   expect(response.body.length).toBe(1);
+  //   expect(response.body).toEqual([defaultUsers.galileo()]);
+  // });
+
+  // test('Accepted - Test parameterized get, post one user, ask for five, receive one user', async () => {
+  //   const galileo = await createUser();
+  //   expect(galileo.response.status).toBe(201);
+
+  //   // request 5 users per page on page 2
+  //   const response = await getUsersParams(5, 2);
+  //   expect(response.status).toBe(200);
+  //   expect(response.body.length).toBe(1);
+  //   expect(response.body).toEqual([defaultUsers.galileo()]);
+  // });
+
   test('Accepted - Get one user', async () => {
-    await createUser({ id: 10001 });
-    const response = await getUser(10001);
+    const { user } = await createUser();
+    const response = await getUser(user.id);
     expect(response.statusCode).toBe(200);
-    expect(response.body).toEqual({
-      id: 10001,
-      firstName: 'Galileo',
-      lastName: 'Galilei',
-      displayName: 'Galileo Galilei',
-      isAdmin: true,
-      isFlagged: true,
-      feeds: ['https://dev.to/feed/galileogalilei'],
-      github: {
-        username: 'galileogalilei',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
-    });
+    expect(response.body).toEqual(defaultUsers.galileo());
   });
 
-  test('Rejected - Get one user which not exist', async () => {
-    const response = await getUser(10001);
+  test('Rejected - Get a user which does not exist', async () => {
+    const response = await getUser(createUserHash('no-such-user@nowhere.com'));
     expect(response.statusCode).toBe(404);
-    expect(response.body).toStrictEqual({
-      msg: 'User data (id: 10001) was requested but could not be found.',
-    });
   });
 });
 
 describe('PUT REQUESTS', () => {
-  beforeEach(() => clearData());
-  afterEach(() => clearData());
+  beforeEach(clearData);
 
   test('Accepted - Update a user', async () => {
-    await createUser({ id: 10001 });
-    const body = {
-      id: 10001,
+    const { user } = await createUser();
+    const updated = {
       firstName: 'Galileo',
       lastName: 'Galilei',
+      email: 'galileo@email.com',
       displayName: 'Sir Galileo Galilei',
       isAdmin: true,
       isFlagged: true,
@@ -152,207 +206,176 @@ describe('PUT REQUESTS', () => {
     };
 
     const response = await request(app)
-      .put('/10001')
+      .put(`/${user.id}`)
       .set('Content-Type', 'application/json')
-      .send(body);
+      .send(updated);
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toStrictEqual({
-      msg: 'Updated user 10001',
-    });
+  });
+
+  test('Rejected - Ensure that the id param has to match the hashed email of the body', async () => {
+    const { user } = await createUser();
+    // Get the original id (based on current email)
+    const { id } = user;
+    // Change the email
+    user.email = 'modified@email.com';
+
+    const response = await request(app)
+      // Use the original id
+      .put(`/${id}`)
+      .set('Content-Type', 'application/json')
+      // But the newly updated data, with modified email
+      .send(user);
+
+    expect(response.statusCode).toBe(400);
   });
 
   test('Rejected - Update a nonexistent user', async () => {
-    const body = {
-      id: 10002,
-      firstName: 'Carl',
-      lastName: 'Sagan',
-      displayName: 'Carl Sagan',
-      isAdmin: true,
-      isFlagged: true,
-      feeds: ['https://dev.to/feed/carlsagan'],
-      github: {
-        username: 'carlsagan',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
-    };
+    const user = new User(defaultUsers.carl());
 
     const response = await request(app)
-      .put('/10002')
+      .put(`/${user.id}`)
       .set('Content-Type', 'application/json')
-      .send(body);
+      .send(user);
 
     expect(response.statusCode).toBe(404);
-    expect(response.body).toStrictEqual({
-      msg: 'User with id 10002 was requested to be updated, but does not exist in the db.',
-    });
   });
 });
 
 describe('POST REQUESTS', () => {
-  beforeEach(() => clearData());
-  afterEach(() => clearData());
+  beforeEach(clearData);
 
   test('Accepted - Create a user', async () => {
-    const { response } = await createUser({ id: 10001 });
+    const { response } = await createUser();
     expect(response.statusCode).toBe(201);
-    expect(response.body).toStrictEqual({ msg: 'Added user with id: 10001' });
   });
 
   test('Rejected - Create two of the same user', async () => {
-    await createUser({ id: 10001 });
-    const { response } = await createUser({ id: 10001 });
+    const { response: response1 } = await createUser();
+    expect(response1.statusCode).toBe(201);
 
-    expect(response.statusCode).toBe(400);
-    expect(response.body).toStrictEqual({
-      msg: 'User with id 10001 was requested to be added, but already exists in the db.',
-    });
+    const { response: response2 } = await createUser();
+    expect(response2.statusCode).toBe(400);
   });
 
-  test('Rejected - Ensure that the feeds array can only contain strings', async () => {
-    const body = {
-      id: 10002,
-      firstName: 'Carl',
-      lastName: 'Sagan',
-      displayName: 'Carl Sagan',
+  test('Rejected - Ensure that the id param has to match the hashed email of the body', async () => {
+    const user1 = new User({ ...defaultUsers.carl() });
+    const user2 = new User({ ...defaultUsers.galileo() });
+
+    const response = await request(app)
+      // Use user1's id
+      .post(`/${user1.id}`)
+      .set('Content-Type', 'application/json')
+      // But user2's data
+      .send(user2);
+
+    expect(response.statusCode).toBe(400);
+  });
+
+  test('Rejected - Ensure that the feeds array can only contain URI strings', async () => {
+    const user = new User({ ...defaultUsers.carl(), feeds: ['123'] });
+
+    const response = await request(app)
+      .post(`/${user.id}`)
+      .set('Content-Type', 'application/json')
+      .send(user);
+
+    expect(response.statusCode).toBe(400);
+  });
+
+  test('Accepted - Ensure users without GitHub data can be created correctly', async () => {
+    const user = {
+      firstName: 'Galileo',
+      lastName: 'Galilei',
+      email: 'galileo@email.com',
+      displayName: 'Galileo Galilei',
       isAdmin: true,
       isFlagged: true,
-      feeds: [123],
+      feeds: ['https://dev.to/feed/galileogalilei'],
+    };
+
+    const { response } = await createUser(user, true);
+    expect(response.statusCode).toBe(201);
+  });
+
+  test('Rejected - Ensure users with GitHub username but without avatarUrl are not allowed', async () => {
+    const user = {
+      firstName: 'Galileo',
+      lastName: 'Galilei',
+      email: 'galileo@email.com',
+      displayName: 'Galileo Galilei',
+      isAdmin: true,
+      isFlagged: true,
+      feeds: ['https://dev.to/feed/galileogalilei'],
       github: {
-        username: 'carlsagan',
+        username: 'galileogalilei',
+      },
+    };
+
+    const { response } = await createUser(user, true);
+    expect(response.statusCode).toBe(400);
+  });
+
+  test('Rejected - Ensure users without GitHub username but with avatarUrl are not allowed', async () => {
+    const user = {
+      firstName: 'Galileo',
+      lastName: 'Galilei',
+      email: 'galileo@email.com',
+      displayName: 'Galileo Galilei',
+      isAdmin: true,
+      isFlagged: true,
+      feeds: ['https://dev.to/feed/galileogalilei'],
+      github: {
         avatarUrl:
           'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
       },
     };
 
-    const response = await request(app)
-      .post('/')
-      .set('Content-Type', 'application/json')
-      .send(body);
-
+    const { response } = await createUser(user, true);
     expect(response.statusCode).toBe(400);
-    expect(response.body.validation.body.message).toStrictEqual('"feeds[0]" must be a string');
   });
 
-  test('Rejected - Ensure that a user id is supplied', async () => {
-    const body = {
-      firstName: 'Carl',
-      lastName: 'Sagan',
-      displayName: 'Carl Sagan',
-      isAdmin: true,
-      isFlagged: true,
-      feeds: ['https://dev.to/feed/carlsagan'],
-      github: {
-        username: 'carlsagan',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
-    };
+  test('Rejected - Ensure that user objects fail validation if properties are not valid or missing', async () => {
+    const required = ['firstName', 'lastName', 'displayName', 'isAdmin', 'isFlagged', 'feeds'];
 
-    const response = await request(app)
-      .post('/')
-      .set('Content-Type', 'application/json')
-      .send(body);
+    // Loop through all the required fields and try removing them and sending.  We expect 400s
+    await Promise.all(
+      required.map(async (property) => {
+        const user = new User(defaultUsers.carl());
 
-    expect(response.statusCode).toBe(400);
-    expect(response.body.validation.body.message).toStrictEqual('"id" is required');
-  });
+        // Delete this property from the data we send
+        const invalidData = user;
+        invalidData[property] = null;
 
-  test('Rejected - Ensure that a first name is supplied', async () => {
-    const body = {
-      id: 10002,
-      lastName: 'Sagan',
-      displayName: 'Carl Sagan',
-      isAdmin: true,
-      isFlagged: true,
-      feeds: ['https://dev.to/feed/carlsagan'],
-      github: {
-        username: 'carlsagan',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
-    };
+        const response = await request(app)
+          .post(`/${user.id}`)
+          .set('Content-Type', 'application/json')
+          .send(invalidData);
 
-    const response = await request(app)
-      .post('/')
-      .set('Content-Type', 'application/json')
-      .send(body);
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.validation.body.message).toStrictEqual('"firstName" is required');
-  });
-
-  test('Rejected - Ensure that a last name is supplied', async () => {
-    const body = {
-      id: 10002,
-      firstName: 'Carl',
-      displayName: 'Carl Sagan',
-      isAdmin: true,
-      isFlagged: true,
-      feeds: ['https://dev.to/feed/carlsagan'],
-      github: {
-        username: 'carlsagan',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
-    };
-
-    const response = await request(app)
-      .post('/')
-      .set('Content-Type', 'application/json')
-      .send(body);
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.validation.body.message).toStrictEqual('"lastName" is required');
-  });
-
-  test('Rejected - Ensure that a blog feed url is supplied', async () => {
-    const body = {
-      id: 10002,
-      firstName: 'Carl',
-      lastName: 'Sagan',
-      displayName: 'Carl Sagan',
-      isAdmin: true,
-      isFlagged: true,
-      github: {
-        username: 'carlsagan',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
-    };
-
-    const response = await request(app)
-      .post('/')
-      .set('Content-Type', 'application/json')
-      .send(body);
-
-    expect(response.statusCode).toBe(400);
-    expect(response.body.validation.body.message).toStrictEqual('"feeds" is required');
+        // Make sure we get back a 400
+        expect(response.statusCode).toBe(400);
+      })
+    );
   });
 });
 
 describe('DELETE REQUESTS', () => {
-  beforeEach(() => clearData());
-  afterEach(() => clearData());
+  beforeEach(clearData);
 
   test('Accepted - Deleted a user', async () => {
-    await createUser({ id: 10001 });
+    const { user } = await createUser();
 
-    const response = await request(app).delete('/10001').set('Content-Type', 'application/json');
+    const response = await request(app)
+      .delete(`/${user.id}`)
+      .set('Content-Type', 'application/json');
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toStrictEqual({
-      msg: 'User (id: 10001) was removed.',
-    });
   });
 
   test('Rejected - Deleted a nonexistent user', async () => {
-    const response = await request(app).delete('/10001').set('Content-Type', 'application/json');
+    const id = createUserHash('no-such-user@email.com');
+    const response = await request(app).delete(`/${id}`).set('Content-Type', 'application/json');
 
     expect(response.statusCode).toBe(404);
-    expect(response.body).toStrictEqual({
-      msg: 'User (id: 10001) was attempted to be removed but could not be found.',
-    });
   });
 });
