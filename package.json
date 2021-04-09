@@ -15,6 +15,7 @@
     "install:users-service": "cd src/api/users && npm install",
     "install:posts-service": "cd src/api/posts && npm install",
     "install:feed-discovery-service": "cd src/api/feed-discovery && npm install",
+    "install:parser-service": "cd src/api/parser && npm install",
     "install:autodeployment": "cd tools/autodeployment && npm install",
     "install:next": "cd src/web && npm install",
     "build": "npm run build --prefix src/web --",

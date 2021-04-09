@@ -1,0 +1,29 @@
+{
+  "name": "parser",
+  "version": "1.0.0",
+  "description": "A service for parsing posts",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seneca-CDOT/telescope.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.12.0",
+    "@elastic/elasticsearch-mock": "^0.3.0",
+    "@senecacdot/satellite": "^1.x",
+    "bull": "^3.22.0",
+    "bull-board": "^1.5.1",
+    "feedparser-promised": "^2.0.1",
+    "jsdom": "^16.5.2",
+    "node-fetch": "^2.6.1",
+    "normalize-url": "^6.0.0"
+  }
+}
