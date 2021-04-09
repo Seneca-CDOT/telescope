@@ -885,11 +885,21 @@ describe('createServiceToken()', () => {
 });
 
 describe('Redis()', () => {
-  const redis = Redis();
+  let redis;
 
-  test('Redis ping command should return pong', () => {
-    const pong = redis.ping((err, result) => {
+  beforeEach(() => {
+    redis = Redis();
+  });
+
+  afterEach(() => {
+    redis.quit();
+  });
+
+  test('Redis ping command should return pong', (done) => {
+    redis.ping((err, result) => {
+      expect(err).toBe(null);
       expect(result).toEqual('PONG');
+      done();
     });
   });
 });

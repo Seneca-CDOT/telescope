@@ -9,20 +9,10 @@ const redisUrl = process.env.REDIS_URL || 'redis://redis:6379';
 const useMockRedis = process.env.MOCK_REDIS;
 
 // RedisConstructor is one of Redis or MockRedis
-const redisConstructor = useMockRedis ? MockRedis : Redis;
+const RedisConstructor = useMockRedis ? MockRedis : Redis;
 
-function createRedisClient() {
-  try {
-    const { port, host } = new URL(redisUrl);
-    return new redisConstructor(port, host, {
-      password: process.env.REDIS_PASSWORD,
-    });
-  } catch (error) {
-    const message = `Unable to parse port and host from "${redisUrl}"`;
-    logger.error({ error }, message);
-    throw new Error(message);
-    //createError(error, message); Future Proofing when createError is merged.
-  }
+function createRedisClient(options) {
+  return new RedisConstructor(redisUrl, options);
 }
 
 // If using MockRedis, shim info() until https://github.com/stipsan/ioredis-mock/issues/841 ships
