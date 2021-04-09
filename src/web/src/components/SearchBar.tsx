@@ -124,7 +124,6 @@ const SearchBar = () => {
               placeholder="Search..."
               onChange={(e) => setKeyword(e.target.value)}
               onFocus={() => setAdvancedSearchButtonVisible(true)}
-              // onBlur={() => setdropdownVisible(false)}
             />
 
             <IconButton
@@ -140,7 +139,7 @@ const SearchBar = () => {
               <IconButton
                 className={classes.iconButton}
                 type="submit"
-                onClick={() => handleSearch('')}
+                // onClick={() => openDialog()}
                 aria-label="search"
               >
                 <SettingsIcon />
