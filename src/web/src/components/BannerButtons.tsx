@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import useAuth from '../hooks/use-auth';
-import PostAvatar from './Posts/PostAvatar';
+import TelescopeAvatar from './TelescopeAvatar';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
@@ -58,7 +58,7 @@ const LandingButtons = () => {
           >
             Sign out
           </Button>
-          <PostAvatar name={user.name} img={user.avatarUrl} />
+          <TelescopeAvatar name={user.name} img={user.avatarUrl} size="45" />
         </>
       ) : (
         <>
