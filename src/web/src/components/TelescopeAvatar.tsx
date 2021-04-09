@@ -20,7 +20,7 @@ const getInitials = (name: string) => {
   return initials;
 };
 
-const TelescopeAvatar = ({ name, img = '', size }: TelescopeAvatarProps) => {
+const TelescopeAvatar = ({ name, img, size }: TelescopeAvatarProps) => {
   const initials = getInitials(name);
 
   return (
