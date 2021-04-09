@@ -4,15 +4,8 @@
 // The URL to use when accessing the Telescope 1.0 backend APIs
 const telescopeUrl = process.env.NEXT_PUBLIC_API_URL;
 
-// The URL where our front-end is being hosted. If we don't have a URL,
-// we use the current page's, and include a fallback of '/' for server-side rendering.
-const webUrl =
-  // Either we have it defined via Docker env,
-  process.env.NEXT_PUBLIC_WEB_URL ||
-  // Or we're in Vercel, and the host provides it,
-  process.env.VERCEL_URL ||
-  // Or we need to make a guess.
-  (typeof window !== 'undefined' ? window.location.href : '/');
+// The URL where our front-end is being hosted.
+const webUrl = process.env.NEXT_PUBLIC_WEB_URL;
 
 // The various Telescope 2.0 microservice endpoints we use
 const imageServiceUrl = process.env.NEXT_PUBLIC_IMAGE_URL;
