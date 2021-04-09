@@ -1,5 +1,6 @@
 import { useState, MouseEvent } from 'react';
 import { useRouter } from 'next/router';
+import useSearchValue from '../hooks/use-search-value';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { Grid, MenuItem, TextField, FormControl, Paper, IconButton, Box } from '@material-ui/core';
@@ -86,11 +87,12 @@ const SearchBar = () => {
 
   const [advancedSearchButtonVisible, setAdvancedSearchButtonVisible] = useState(false);
 
+  const { filter, onFilterChange, onSubmitHandler } = useSearchValue();
   const router = useRouter();
 
-  const handleSearch = (searchType: string) => {
-    if (searchType) {
-      if (searchType.toUpperCase() === 'AUTHOR') {
+  const handleSearch = () => {
+    if (filter) {
+      if (filter.toUpperCase() === 'AUTHOR') {
         router.push(`/search?text=${keyword}&filter=author`);
       } else {
         router.push(`/search?text=${keyword}&filter=post`);
@@ -107,7 +109,7 @@ const SearchBar = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleSearch('');
+              handleSearch();
             }}
           >
             <input
