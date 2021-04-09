@@ -30,7 +30,7 @@ const TelescopeAvatar = ({ name, img = '', size }: TelescopeAvatarProps) => {
       style={{
         width: size,
         height: size,
-        fontSize: `calc(${size}px * 0.45)`,
+        fontSize: `calc(${size}px * 0.43)`,
         backgroundColor: '#A0D1FB',
         color: '#000',
       }}
