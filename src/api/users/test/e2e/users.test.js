@@ -1,6 +1,6 @@
 const request = require('supertest');
 const firebaseTesting = require('@firebase/rules-unit-testing');
-const { hash } = require('@senecacdot/satellite');
+const { hash, createServiceToken } = require('@senecacdot/satellite');
 
 const { app } = require('../../src/index');
 const { User } = require('../../src/models/user');
@@ -10,10 +10,16 @@ const { USERS_URL } = process.env;
 // Utility functions
 const clearData = () => firebaseTesting.clearFirestoreData({ projectId: 'telescope' });
 
-const getUser = (id) => request(app).get(`/${id}`);
-
-const getUsers = (query = '') => request(app).get(`/${query}`);
-
+const getUser = (id) =>
+  request(app)
+    .get(`/${id}`)
+    .set('Content-Type', 'application/json')
+    .set('Authorization', `bearer ${createServiceToken()}`);
+const getUsers = (query = '') =>
+  request(app)
+    .get(`/${query}`)
+    .set('Content-Type', 'application/json')
+    .set('Authorization', `bearer ${createServiceToken()}`);
 const createUserHash = (email = 'galileo@email.com') => hash(email);
 
 const defaultUsers = {
@@ -61,6 +67,7 @@ const createUser = async (editedUser = {}, ignoreDefaults = false) => {
   const response = await request(app)
     .post(`/${user.id}`)
     .set('Content-Type', 'application/json')
+    .set('Authorization', `bearer ${createServiceToken()}`)
     .send(user);
 
   // Return both the user object and the response, so we can compare the two.
@@ -208,6 +215,7 @@ describe('PUT REQUESTS', () => {
     const response = await request(app)
       .put(`/${user.id}`)
       .set('Content-Type', 'application/json')
+      .set('Authorization', `bearer ${createServiceToken()}`)
       .send(updated);
 
     expect(response.statusCode).toBe(200);
@@ -224,6 +232,7 @@ describe('PUT REQUESTS', () => {
       // Use the original id
       .put(`/${id}`)
       .set('Content-Type', 'application/json')
+      .set('Authorization', `bearer ${createServiceToken()}`)
       // But the newly updated data, with modified email
       .send(user);
 
@@ -236,6 +245,7 @@ describe('PUT REQUESTS', () => {
     const response = await request(app)
       .put(`/${user.id}`)
       .set('Content-Type', 'application/json')
+      .set('Authorization', `bearer ${createServiceToken()}`)
       .send(user);
 
     expect(response.statusCode).toBe(404);
@@ -266,6 +276,7 @@ describe('POST REQUESTS', () => {
       // Use user1's id
       .post(`/${user1.id}`)
       .set('Content-Type', 'application/json')
+      .set('Authorization', `bearer ${createServiceToken()}`)
       // But user2's data
       .send(user2);
 
@@ -278,6 +289,7 @@ describe('POST REQUESTS', () => {
     const response = await request(app)
       .post(`/${user.id}`)
       .set('Content-Type', 'application/json')
+      .set('Authorization', `bearer ${createServiceToken()}`)
       .send(user);
 
     expect(response.statusCode).toBe(400);
@@ -350,6 +362,7 @@ describe('POST REQUESTS', () => {
         const response = await request(app)
           .post(`/${user.id}`)
           .set('Content-Type', 'application/json')
+          .set('Authorization', `bearer ${createServiceToken()}`)
           .send(invalidData);
 
         // Make sure we get back a 400
@@ -367,6 +380,7 @@ describe('DELETE REQUESTS', () => {
 
     const response = await request(app)
       .delete(`/${user.id}`)
+      .set('Authorization', `bearer ${createServiceToken()}`)
       .set('Content-Type', 'application/json');
 
     expect(response.statusCode).toBe(200);
@@ -374,8 +388,10 @@ describe('DELETE REQUESTS', () => {
 
   test('Rejected - Deleted a nonexistent user', async () => {
     const id = createUserHash('no-such-user@email.com');
-    const response = await request(app).delete(`/${id}`).set('Content-Type', 'application/json');
-
+    const response = await request(app)
+      .delete(`/${id}`)
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `bearer ${createServiceToken()}`);
     expect(response.statusCode).toBe(404);
   });
 });
