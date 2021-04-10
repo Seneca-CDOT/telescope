@@ -285,19 +285,13 @@ describe('Satellite()', () => {
     });
   });
 
-  test('isAuthorized() without providing proper options should throw', () => {
+  test('isAuthorized() without providing a proper authorizeUser function should throw', () => {
     // No options passed
     expect(() => isAuthorized()).toThrow();
     expect(() => isAuthorized({})).toThrow();
 
-    // roles
-    expect(() => isAuthorized({ roles: 'admin' })).toThrow();
-    expect(() => isAuthorized({ roles: [] })).toThrow();
-    expect(() => isAuthorized({ roles: [true] })).toThrow();
-
     // authorizeUser
     expect(() => isAuthorized({ authorizeUser: true })).toThrow();
-    expect(() => isAuthorized({ authorize: function () {} })).toThrow();
   });
 
   test('isAuthorized() without isAuthenticated() fails with 401', (done) => {
@@ -315,7 +309,7 @@ describe('Satellite()', () => {
     router.get(
       '/protected',
       /* isAuthenticated() is required here, but we aren't calling it */
-      isAuthorized({ roles: ['admin'] }),
+      isAuthorized((req, user) => true),
       (req, res) => {
         // Make sure an admin user payload was added to req
         expect(req.user.sub).toEqual('admin-user@email.com');
@@ -371,13 +365,18 @@ describe('Satellite()', () => {
 
     const router = service.router;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
-    router.get('/protected', isAuthenticated(), isAuthorized({ roles: ['admin'] }), (req, res) => {
-      // Make sure an admin user payload was added to req
-      expect(req.user.sub).toEqual('admin-user@email.com');
-      expect(Array.isArray(req.user.roles)).toBe(true);
-      expect(req.user.roles).toContain('admin');
-      res.json({ hello: 'protected' });
-    });
+    router.get(
+      '/protected',
+      isAuthenticated(),
+      isAuthorized((req, user) => user.roles.includes('admin')),
+      (req, res) => {
+        // Make sure an admin user payload was added to req
+        expect(req.user.sub).toEqual('admin-user@email.com');
+        expect(Array.isArray(req.user.roles)).toBe(true);
+        expect(req.user.roles).toContain('admin');
+        res.json({ hello: 'protected' });
+      }
+    );
 
     service.start(port, async () => {
       // Public should need no bearer token
@@ -426,11 +425,9 @@ describe('Satellite()', () => {
     router.get(
       '/protected',
       isAuthenticated(),
-      isAuthorized({
-        authorizeUser: (user) => {
-          expect(user).toEqual(decoded);
-          return user.sub === 'admin@email.com';
-        },
+      isAuthorized((req, user) => {
+        expect(user).toEqual(decoded);
+        return user.sub === 'admin@email.com';
       }),
       (req, res) => {
         // Should get here...
@@ -469,7 +466,7 @@ describe('Satellite()', () => {
     router.get(
       '/protected',
       isAuthenticated(),
-      isAuthorized({ roles: ['service'] }),
+      isAuthorized((req, user) => user.roles.includes('service')),
       (req, res) => {
         // Make sure an admin user payload was added to req
         expect(req.user.sub).toEqual('telescope-service');
@@ -513,13 +510,18 @@ describe('Satellite()', () => {
 
     const router = service.router;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
-    router.get('/protected', isAuthenticated(), isAuthorized({ roles: ['admin'] }), (req, res) => {
-      // Make sure an admin user payload was added to req
-      expect(req.user.sub).toEqual('admin@email.com');
-      expect(Array.isArray(req.user.roles)).toBe(true);
-      expect(req.user.roles).toContain('admin');
-      res.json({ hello: 'protected' });
-    });
+    router.get(
+      '/protected',
+      isAuthenticated(),
+      isAuthorized((req, user) => user.roles.includes('admin')),
+      (req, res) => {
+        // Make sure an admin user payload was added to req
+        expect(req.user.sub).toEqual('admin@email.com');
+        expect(Array.isArray(req.user.roles)).toBe(true);
+        expect(req.user.roles).toContain('admin');
+        res.json({ hello: 'protected' });
+      }
+    );
 
     service.start(port, async () => {
       // Public should need no bearer token
@@ -558,7 +560,7 @@ describe('Satellite()', () => {
     router.get(
       '/protected',
       isAuthenticated(),
-      isAuthorized({ authorizeUser: (user) => user.sub === 'admin@email.com' }),
+      isAuthorized((req, user) => user.sub === 'admin@email.com'),
       (req, res) => {
         // Make sure an admin user payload was added to req
         expect(req.user.sub).toEqual('admin@email.com');
@@ -603,7 +605,7 @@ describe('Satellite()', () => {
     router.get(
       '/protected',
       isAuthenticated(),
-      isAuthorized({ authorizeUser: (user) => user.sub === 'not-the-same-user' }),
+      isAuthorized((req, user) => user.sub === 'not-the-same-user'),
       (req, res) => {
         // Should never get here...
         expect(false).toBe(true);
@@ -647,10 +649,8 @@ describe('Satellite()', () => {
     router.get(
       '/protected',
       isAuthenticated(),
-      isAuthorized({
-        authorizeUser: (user) => {
-          throw new Error('whoops!');
-        },
+      isAuthorized((req, user) => {
+        throw new Error('whoops!');
       }),
       (req, res) => {
         // Should never get here...
