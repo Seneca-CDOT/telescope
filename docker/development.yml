@@ -79,3 +79,4 @@ services:
   search:
     environment:
       - ELASTIC_URL=http://localhost
+      - ELASTIC_PORT=9200

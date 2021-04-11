@@ -16,7 +16,12 @@ services:
       context: ../src/api/image
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - IMAGE_PORT
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${IMAGE_PORT}
     depends_on:
@@ -40,6 +45,7 @@ services:
       context: ../src/api/auth
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - AUTH_PORT
       - SSO_LOGIN_URL
       - SSO_LOGIN_CALLBACK_URL
@@ -47,12 +53,14 @@ services:
       - SLO_LOGOUT_CALLBACK_URL
       - SSO_IDP_PUBLIC_KEY_CERT
       - SAML_ENTITY_ID
-      - SECRET
       - ADMINISTRATORS
       - ALLOWED_APP_ORIGINS
-      - JWT_ISSUER
       - JWT_EXPIRES_IN
       - USERS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${AUTH_PORT}
     depends_on:
@@ -76,10 +84,13 @@ services:
       context: ../src/api/search
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - SEARCH_PORT
       - ELASTIC_MAX_RESULTS_PER_PAGE
-      - ELASTIC_URL
-      - ELASTIC_PORT
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     depends_on:
       - elasticsearch
       - traefik
@@ -104,8 +115,13 @@ services:
       context: ../src/api/posts
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - POSTS_PORT
       - POSTS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${POSTS_PORT}
     depends_on:
@@ -130,7 +146,12 @@ services:
       context: ../src/api/feed-discovery
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - FEED_DISCOVERY_PORT
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${FEED_DISCOVERY_PORT}
     depends_on:
@@ -154,8 +175,13 @@ services:
       context: ../src/api/users
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - USERS_PORT
       - USERS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${USERS_PORT}
     depends_on:
@@ -179,8 +205,13 @@ services:
       context: ../src/api/parser
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - PARSER_PORT
       - USERS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${PARSER_PORT}
     depends_on:

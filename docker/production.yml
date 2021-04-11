@@ -87,7 +87,7 @@ services:
       context: ../src/api/status
       dockerfile: Dockerfile
     environment:
-      - NODE_ENV=production
+      - NODE_ENV
       - STATUS_PORT
       # Satellite authentication/authorization support
       - JWT_ISSUER
@@ -115,53 +115,18 @@ services:
   # image service
   image:
     restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      - IMAGE_PORT
-      # Satellite authentication/authorization support
-      - JWT_ISSUER
-      - JWT_AUDIENCE
-      - SECRET
-      # TODO - add APM monitoring support for Satellite
-      # - ELASTIC_APM_SERVER_URL
-      # - ELASTIC_APM_SERVICE_NAME
 
   # auth service
   auth:
     restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      - AUTH_PORT
-      # TODO
-      # - ELASTIC_APM_SERVICE_NAME=auth
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
 
   # posts service
   posts:
     restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      - POSTS_PORT
-      # Satellite authentication/authorization support
-      - JWT_ISSUER
-      - JWT_AUDIENCE
-      - SECRET
-      # TODO - add APM monitoring support for Satellite
-      # - ELASTIC_APM_SERVER_URL
-      # - ELASTIC_APM_SERVICE_NAME
 
   # users service
   users:
     restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      # Satellite authentication/authorization support
-      - JWT_ISSUER
-      - JWT_AUDIENCE
-      - SECRET
-      # TODO - add APM monitoring support for Satellite
-      # - ELASTIC_APM_SERVER_URL
-      # - ELASTIC_APM_SERVICE_NAME
     volumes:
       # This will take care of copying the serviceAccountKey.json file needed by firestore.js
       - ../../firebase/serviceAccountKey.json:/app/serviceAccountKey.json
@@ -169,19 +134,11 @@ services:
   # users service
   parser:
     restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      - PARSER_PORT
-      # TODO
-      # - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      # - ELASTIC_APM_SERVICE_NAME=user
-      # - ELASTIC_APM_SERVER_URL=http://apm:8200
 
   # search service
   search:
     restart: unless-stopped
     environment:
-      - NODE_ENV=production
       - ELASTIC_URL=http://elasticsearch
       - ELASTIC_PORT=9200
 
