@@ -64,7 +64,26 @@ updates:
     directory: '/src/api/auth'
     schedule:
       interval: 'weekly'
-      day: 'wednesday'
+      day: 'monday'
+      time: '09:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: microservices'
+    rebase-strategy: 'disabled'
+
+  # Feed-Discovery Service package.json
+  - package-ecosystem: 'npm'
+    directory: '/src/api/feed-discovery'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '17:00'
       timezone: 'America/Toronto'
     open-pull-requests-limit: 1
     commit-message:
@@ -81,8 +100,98 @@ updates:
     directory: '/src/api/image'
     schedule:
       interval: 'weekly'
+      day: 'tuesday'
+      time: '09:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: microservices'
+    rebase-strategy: 'disabled'
+
+  # Parser Service package.json
+  - package-ecosystem: 'npm'
+    directory: '/src/api/parser'
+    schedule:
+      interval: 'weekly'
+      day: 'tuesday'
+      time: '17:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: microservices'
+    rebase-strategy: 'disabled'
+
+  # Posts Service package.json
+  - package-ecosystem: 'npm'
+    directory: '/src/api/posts'
+    schedule:
+      interval: 'weekly'
+      day: 'wednesday'
+      time: '09:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: microservices'
+    rebase-strategy: 'disabled'
+
+  # Search Service package.json
+  - package-ecosystem: 'npm'
+    directory: '/src/api/search'
+    schedule:
+      interval: 'weekly'
+      day: 'wednesday'
+      time: '17:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: microservices'
+    rebase-strategy: 'disabled'
+
+  # Status Service package.json
+  - package-ecosystem: 'npm'
+    directory: '/src/api/status'
+    schedule:
+      interval: 'weekly'
       day: 'thursday'
-      time: '04:00'
+      time: '09:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: microservices'
+    rebase-strategy: 'disabled'
+
+  # Users Service package.json
+  - package-ecosystem: 'npm'
+    directory: '/src/api/users'
+    schedule:
+      interval: 'weekly'
+      day: 'thursday'
+      time: '17:00'
       timezone: 'America/Toronto'
     open-pull-requests-limit: 1
     commit-message:
@@ -117,7 +226,26 @@ updates:
     directory: '/src/api/auth'
     schedule:
       interval: 'weekly'
-      day: 'friday'
+      day: 'monday'
+      time: '13:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # Feed Discovery Service Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/src/api/feed-discovery'
+    schedule:
+      interval: 'weekly'
+      day: 'tuesday'
+      time: '13:00'
       timezone: 'America/Toronto'
     open-pull-requests-limit: 1
     commit-message:
@@ -134,7 +262,98 @@ updates:
     directory: '/src/api/image'
     schedule:
       interval: 'weekly'
+      day: 'wednesday'
+      time: '13:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # Parser Service Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/src/api/parser'
+    schedule:
+      interval: 'weekly'
+      day: 'thursday'
+      time: '13:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # Posts Service Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/src/api/posts'
+    schedule:
+      interval: 'weekly'
+      day: 'friday'
+      time: '13:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # Search Service Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/src/api/search'
+    schedule:
+      interval: 'weekly'
       day: 'saturday'
+      time: '09:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # Status Service Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/src/api/status'
+    schedule:
+      interval: 'weekly'
+      day: 'saturday'
+      time: '13:00'
+      timezone: 'America/Toronto'
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: 'chore: '
+    reviewers:
+      - 'Seneca-CDOT/telescope-maintainers'
+    labels:
+      - 'dependencies'
+      - 'area: docker'
+    rebase-strategy: 'disabled'
+
+  # Users Service Dockerfile
+  - package-ecosystem: 'docker'
+    directory: '/src/api/users'
+    schedule:
+      interval: 'weekly'
+      day: 'saturday'
+      time: '17:00'
       timezone: 'America/Toronto'
     open-pull-requests-limit: 1
     commit-message:
