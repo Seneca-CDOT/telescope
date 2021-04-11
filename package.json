@@ -31,7 +31,7 @@
     "pretest": "npm run lint",
     "test": "npm run jest",
     "jest": "cross-env NODE_ENV=test LOG_LEVEL=error MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest -c jest.config.js --",
-    "jest:e2e": "jest -c jest.config.e2e.js --",
+    "jest:e2e": "jest -c jest.config.e2e.js --runInBand --",
     "coverage": "cross-env NODE_ENV=test LOG_LEVEL=silent MOCK_REDIS=1 FEED_URL_INTERVAL_MS=200 jest -c jest.config.js --collectCoverage --",
     "jest-watch": "cross-env MOCK_REDIS=1 jest -c jest.config.js --watch --",
     "jest-update": "cross-env MOCK_REDIS=1 jest -c jest.config.js --updateSnapshot --",
