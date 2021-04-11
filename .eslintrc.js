@@ -14,6 +14,7 @@ module.exports = {
     'plugin:promise/recommended',
     'plugin:react-hooks/recommended',
     'plugin:import/typescript',
+    'plugin:jest-playwright/recommended',
   ],
   plugins: ['prettier', 'promise', 'react', 'react-hooks', 'jest'],
   settings: {
