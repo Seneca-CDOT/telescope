@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: '2rem',
       padding: '0',
       display: 'flex',
-      borderLeft: '1.5px solid #EEEEEE',
+      borderLeft: '1.5px solid #999999',
       flexDirection: 'column',
       justifyContent: 'center',
     },
