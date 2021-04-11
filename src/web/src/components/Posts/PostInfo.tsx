@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderLeft: '1.5px solid #999999',
       flexDirection: 'column',
       justifyContent: 'center',
+      width: '100%',
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
