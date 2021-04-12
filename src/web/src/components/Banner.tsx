@@ -12,6 +12,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import LandingButtons from './BannerButtons';
+import ScrollAction from './ScrollAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -194,9 +195,11 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
         >
           v {gitInfo.version}
         </a>
-        <Fab color="primary" aria-label="scroll-down">
-          <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
-        </Fab>
+        <ScrollAction>
+          <Fab color="primary" aria-label="scroll-down">
+            <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
+          </Fab>
+        </ScrollAction>
       </div>
       <div className={classes.anchor} id="posts-anchor" ref={timelineAnchor} />
     </>
