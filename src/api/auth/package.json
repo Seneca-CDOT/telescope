@@ -17,6 +17,7 @@
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
     "celebrate": "^14.0.0",
+    "connect-redis": "^5.1.0",
     "express-session": "^1.17.1",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
