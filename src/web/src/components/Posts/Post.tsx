@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: '0',
+      paddingBottom: '2em',
+      marginBottom: '3em',
+      borderBottom: '1.5px solid #cccccc',
       fontSize: '1.5rem',
       width: '100%',
       backgroundColor: theme.palette.background.default,
