@@ -83,24 +83,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchBar = () => {
   const classes = useStyles();
-  const [keyword, setKeyword] = useState('');
 
   const [advancedSearchButtonVisible, setAdvancedSearchButtonVisible] = useState(false);
 
-  const { filter, onFilterChange, onSubmitHandler } = useSearchValue();
-  const router = useRouter();
-
-  const handleSearch = () => {
-    if (filter) {
-      if (filter.toUpperCase() === 'AUTHOR') {
-        router.push(`/search?text=${keyword}&filter=author`);
-      } else {
-        router.push(`/search?text=${keyword}&filter=post`);
-      }
-    } else {
-      router.push(`/search?text=${keyword}&filter=post`);
-    }
-  };
+  const { text, onTextChange, onSubmitHandler } = useSearchValue();
 
   return (
     <Box className={classes.root}>
@@ -108,25 +94,24 @@ const SearchBar = () => {
         <Grid item xs={12} sm={10} lg={10}>
           <form
             onSubmit={(e) => {
-              e.preventDefault();
-              handleSearch();
+              onSubmitHandler(e);
             }}
           >
             <input
               className={classes.input}
-              value={keyword}
+              value={text}
               placeholder="Search..."
-              onChange={(e) => setKeyword(e.target.value)}
+              onChange={(e) => onTextChange(e.target.value)}
               onFocus={() => setAdvancedSearchButtonVisible(true)}
             />
             <IconButton className={classes.iconButton} aria-label="search">
               <SearchIcon />
             </IconButton>
 
-            {Boolean(advancedSearchButtonVisible && keyword) && (
+            {Boolean(advancedSearchButtonVisible && text) && (
               <IconButton
                 className={classes.iconButton}
-                // onClick={() => openDialog()}
+                onClick={() => console.log('Huy Nguyen')}
                 aria-label="search"
               >
                 <SettingsIcon />
@@ -135,7 +120,7 @@ const SearchBar = () => {
 
             <IconButton
               className={classes.clearIcon}
-              onClick={() => setKeyword('')}
+              onClick={() => onTextChange('')}
               aria-label="search"
             >
               <ClearIcon />
