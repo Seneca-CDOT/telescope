@@ -29,6 +29,7 @@ services:
         - IMAGE_URL=${IMAGE_URL}
         - AUTH_URL=${AUTH_URL}
         - POSTS_URL=${POSTS_URL}
+        - SEARCH_URL=${SEARCH_URL}
     container_name: 'telescope'
     restart: unless-stopped
     environment:
@@ -47,6 +48,7 @@ services:
       - POSTS_URL
       - API_URL
       - WEB_URL
+      - SEARCH_URL
       - LOG_LEVEL
       - FEED_URL
       - FEED_URL_INTERVAL_MS
@@ -141,6 +143,7 @@ services:
     environment:
       - ELASTIC_URL=http://elasticsearch
       - ELASTIC_PORT=9200
+      - SEARCH_PORT
 
   ##############################################################################
   # Third-Party Dependencies and Support Services

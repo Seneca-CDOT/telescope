@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSWRInfinite } from 'swr';
 import { Container, Box } from '@material-ui/core';
 
-import { telescopeUrl } from '../config';
+import { searchServiceUrl } from '../config';
 import Timeline from './Posts/Timeline';
 import Spinner from './Spinner';
 import useSearchValue from '../hooks/use-search-value';
@@ -54,7 +54,9 @@ const SearchResults = () => {
   const { textParam, filter } = useSearchValue();
 
   const prepareUrl = (index: number) =>
-    `${telescopeUrl}/query?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
+    `${searchServiceUrl}/query?text=${encodeURIComponent(
+      textParam
+    )}&filter=${filter}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
   const shouldFetch = () => textParam.length > 0;

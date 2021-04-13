@@ -18,6 +18,7 @@ ARG API_URL
 ARG IMAGE_URL
 ARG AUTH_URL
 ARG POSTS_URL
+ARG SEARCH_URL
 # Front-end Web URL, set via ENV in docker or next build
 ARG WEB_URL
 
@@ -46,6 +47,7 @@ ARG IMAGE_URL
 ARG AUTH_URL
 ARG POSTS_URL
 ARG WEB_URL
+ARG SEARCH_URL
 
 # Install Production Modules!
 # Disable postinstall hook in this case since we are being explict with installs
@@ -72,6 +74,9 @@ ENV NEXT_PUBLIC_AUTH_URL ${AUTH_URL}
 
 ARG POSTS_URL
 ENV NEXT_PUBLIC_POSTS_URL ${POSTS_URL}
+
+ARG SEARCH_URL
+ENV NEXT_PUBLIC_SEARCH_URL ${SEARCH_URL}
 
 ARG WEB_URL
 ENV NEXT_PUBLIC_WEB_URL ${WEB_URL}
