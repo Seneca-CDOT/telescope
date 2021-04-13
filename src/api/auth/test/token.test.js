@@ -76,9 +76,9 @@ describe('createToken()', () => {
   it('should return a JWT with an issued at claim', () => {
     const { iat } = jwt.verify(token(), SECRET);
     expect(typeof iat === 'number').toBe(true);
-    // The issued at time should be in the past
+    // The issued at time should be in the past (or now)
     const nowSeconds = Date.now() / 1000;
-    expect(iat).toBeLessThan(nowSeconds);
+    expect(iat).toBeLessThanOrEqual(nowSeconds);
   });
 
   it('should return a JWT without the picture claim, if picture not defined', () => {
