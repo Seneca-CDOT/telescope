@@ -21,7 +21,7 @@ router.get(
   validateId(),
   isAuthorized((req, user) => {
     // A user can request their own data
-    if (user.sub === req.param.id) {
+    if (user.sub === req.params.id) {
       return true;
     }
     // Or an admin, or another authorized microservice
@@ -93,7 +93,7 @@ router.post(
   validateEmailHash(),
   isAuthorized((req, user) => {
     // A user can add their own data (signup)
-    if (user.sub === req.param.id) {
+    if (user.sub === req.params.id) {
       return true;
     }
     // Or an admin, or another authorized microservice
@@ -130,7 +130,7 @@ router.put(
   validateEmailHash(),
   isAuthorized((req, user) => {
     // A user can update their own data
-    if (user.sub === req.param.id) {
+    if (user.sub === req.params.id) {
       return true;
     }
     // Or an admin, or another authorized microservice
@@ -166,7 +166,7 @@ router.delete(
   validateId(),
   isAuthorized((req, user) => {
     // A user can delete their own data
-    if (user.sub === req.param.id) {
+    if (user.sub === req.params.id) {
       return true;
     }
     // Or an admin, or another authorized microservice
