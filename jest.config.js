@@ -5,6 +5,7 @@ process.env = Object.assign(process.env, {
   JWT_ISSUER: 'http://localhost',
   JWT_EXPIRES_IN: '1h',
   MOCK_REDIS: '1',
+  MOCK_ELASTIC: '1',
 });
 
 module.exports = {

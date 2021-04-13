@@ -12,3 +12,4 @@ module.exports.Router = (options) => createRouter(options);
 module.exports.isAuthenticated = isAuthenticated;
 module.exports.isAuthorized = isAuthorized;
 module.exports.Redis = require('./redis');
+module.exports.Elastic = require('./elastic');
