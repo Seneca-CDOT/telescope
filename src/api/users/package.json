@@ -13,9 +13,9 @@
     "http-link-header": "^1.0.3"
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^1.2.6",
+    "@firebase/rules-unit-testing": "^1.2.8",
     "env-cmd": "^10.1.0",
-    "firebase-tools": "^9.8.0",
+    "firebase-tools": "^9.9.0",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"
   }
