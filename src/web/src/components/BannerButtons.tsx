@@ -58,7 +58,7 @@ const LandingButtons = () => {
           >
             Sign out
           </Button>
-          <TelescopeAvatar name={user.name} img={user.avatarUrl} size="45" />
+          <TelescopeAvatar name={user.name} img={user.avatarUrl} size="40px" />
         </>
       ) : (
         <>

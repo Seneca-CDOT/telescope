@@ -2,8 +2,9 @@ import { Avatar } from '@material-ui/core';
 
 type TelescopeAvatarProps = {
   name: string;
-  img?: string;
   size: string;
+  img?: string;
+  blog?: string;
 };
 
 const getInitials = (name: string) => {
@@ -20,23 +21,30 @@ const getInitials = (name: string) => {
   return initials;
 };
 
-const TelescopeAvatar = ({ name, img, size }: TelescopeAvatarProps) => {
+const TelescopeAvatar = ({ name, img, size, blog }: TelescopeAvatarProps) => {
   const initials = getInitials(name);
 
   return (
-    <Avatar
-      alt={name}
-      src={img}
+    <a
+      href={blog}
       style={{
-        width: size,
-        height: size,
-        fontSize: `calc(${size}px * 0.43)`,
-        backgroundColor: '#A0D1FB',
-        color: '#000',
+        textDecoration: 'none',
       }}
     >
-      {initials}
-    </Avatar>
+      <Avatar
+        alt={name}
+        src={img}
+        style={{
+          width: size,
+          height: size,
+          fontSize: `calc(${size} * 0.43)`,
+          backgroundColor: '#A0D1FB',
+          color: '#000',
+        }}
+      >
+        {initials}
+      </Avatar>
+    </a>
   );
 };
 
