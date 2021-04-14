@@ -1,19 +1,11 @@
 // NOTE: you need to run the auth and login services in docker for these to work
-const { decode } = require('jsonwebtoken');
 const { createServiceToken, hash } = require('@senecacdot/satellite');
 const fetch = require('node-fetch');
 
 // We need to get the URL to the auth service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
 const { AUTH_URL, ALLOWED_APP_ORIGINS } = process.env;
-const {
-  login,
-  logout,
-  USERS_URL,
-  getTokenAndState,
-  createTelescopeUsers,
-  cleanupTelescopeUsers,
-} = require('./utils');
+const { login, logout, USERS_URL, getTokenAndState, createTelescopeUsers } = require('./utils');
 
 // We have 3 SSO user accounts in the login service (see config/simplesamlphp-users.php):
 //
@@ -22,7 +14,6 @@ const {
 // | user1       | user1@example.com           | user1pass | Johannes Kepler |
 // | user2       | user2@example.com           | user2pass | Galileo Galilei |
 // | lippersheyh | hans-lippershey@example.com | telescope | Hans Lippershey |
-//
 
 // Admin Telescope user
 const johannesKepler = {
@@ -30,7 +21,6 @@ const johannesKepler = {
   lastName: 'Kepler',
   email: 'user1@example.com',
   displayName: 'Johannes Kepler',
-  // this is a Telescope admin
   isAdmin: true,
   isFlagged: false,
   feeds: ['https://imaginary.blog.com/feed/johannes'],
