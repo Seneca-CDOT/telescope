@@ -5,8 +5,8 @@
 import { nanoid } from 'https://cdn.jsdelivr.net/npm/nanoid/nanoid.js';
 import jwtDecode from 'https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.esm.js';
 
-// Use same URL as your env.local
-const authServer = 'http://localhost:7777';
+const authServer = 'http://localhost/v1/auth';
+const frontEnd = 'http://localhost:8888/manual-auth/index.html';
 
 function printToken(token) {
   const jwtElem = document.querySelector('#jwt');
@@ -48,7 +48,7 @@ window.onload = function () {
   login.onclick = () => {
     localStorage.setItem('state', expectedState);
     window.location.href = `${authServer}/login?redirect_uri=${encodeURIComponent(
-      `${url.origin}/`
+      frontEnd
     )}&state=${expectedState}`;
   };
 
@@ -56,7 +56,7 @@ window.onload = function () {
   logout.onclick = () => {
     localStorage.setItem('state', expectedState);
     window.location.href = `${authServer}/logout?redirect_uri=${encodeURIComponent(
-      `${url.origin}/`
+      frontEnd
     )}&state=${expectedState}`;
   };
 };

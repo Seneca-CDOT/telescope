@@ -19,7 +19,7 @@ const galileoGalilei = {
   displayName: 'Galileo Galilei',
   isAdmin: false,
   isFlagged: false,
-  feeds: ['https://hans.blog.com/feed'],
+  feeds: ['http://localhost:8888/feed.xml'],
   github: {
     username: 'hlippershey',
     avatarUrl:
@@ -36,12 +36,13 @@ describe('Signup Flow', () => {
   });
   afterAll(async () => {
     await browser.close();
+    await cleanupTelescopeUsers(users);
   });
 
   beforeEach(async () => {
     context = await browser.newContext();
     page = await browser.newPage();
-    await page.goto(`http://localhost:8888/`);
+    await page.goto(`http://localhost:8888/auth.html`);
   });
   afterEach(async () => {
     await context.close();
@@ -87,10 +88,8 @@ describe('Signup Flow', () => {
     async function partTwo(accessToken) {
       // See the file blog.html in this same folder.  NOTE: the blog is hosted
       // on port 8888 running on the host, and the feed-discovery service needs
-      // to access :8888 on the docker host vs. it's own localhost, so we use
-      // host.docker.internal vs. localhost.
-      const blogUrl = 'http://host.docker.internal:8888/blog.html';
-      const feedUrl = 'https://hans.blog.com/feed';
+      // to access it via the test-web-content domain internally vs. localhost.
+      const blogUrl = 'http://test-web-content/blog.html';
 
       const res = await fetch('http://localhost/v1/feed-discovery', {
         method: 'POST',
@@ -102,14 +101,14 @@ describe('Signup Flow', () => {
       });
       expect(res.status).toBe(200);
       const result = await res.json();
-      expect(result).toEqual({ feedUrls: [feedUrl] });
-      return feedUrl;
+      expect(result).toEqual({ feedUrls: [...galileoGalilei.feeds] });
+      return result.feedUrls;
     }
 
     // Part 3: use the access token to POST to the Users service in order to
     // register with Telescope.
-    async function partThree(feedUrl, accessToken, jwt) {
-      const user = { ...galileoGalilei, feeds: [feedUrl] };
+    async function partThree(feedUrls, accessToken, jwt) {
+      const user = { ...galileoGalilei, feeds: [...feedUrls] };
       const res = await fetch(`${USERS_URL}/${jwt.sub}`, {
         method: 'POST',
         headers: {
@@ -154,8 +153,8 @@ describe('Signup Flow', () => {
     }
 
     const { accessToken, jwt } = await partOne();
-    const feedUrl = await partTwo(accessToken);
-    await partThree(feedUrl, accessToken, jwt);
+    const feedUrls = await partTwo(accessToken);
+    await partThree(feedUrls, accessToken, jwt);
     await partFour();
   });
 });

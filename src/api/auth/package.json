@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "An Authorization Service",
   "scripts": {
-    "test:manual": "http-server test/manual -p 8888",
     "dev": "env-cmd -f env.local nodemon src/server.js",
     "start": "node src/server.js"
   },
@@ -31,7 +30,6 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "http-server": "^0.12.3",
     "nodemon": "^2.0.7"
   }
 }
