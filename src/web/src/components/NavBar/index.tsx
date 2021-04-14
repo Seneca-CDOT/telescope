@@ -114,7 +114,7 @@ export default function NavBar({ disabled }: NavBarProps) {
   const classes = useStyles();
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up(1024));
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   if (disabled) {
     return null;
@@ -136,9 +136,13 @@ export default function NavBar({ disabled }: NavBarProps) {
         {iconProps.map((props) => (
           <NavBarButton {...props} key={props.title} />
         ))}
-        <Login />
+        {!user && <Login />}
         <DynamicThemeToggleButton />
-        {user && <TelescopeAvatar name={user.name} img={user.avatarUrl} size="30" />}
+        {user && (
+          <div onClick={() => logout()}>
+            <TelescopeAvatar name={user.name} img={user.avatarUrl} size="27px" />
+          </div>
+        )}
       </Toolbar>
     </AppBar>
   );
