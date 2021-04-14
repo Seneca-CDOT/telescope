@@ -5,6 +5,8 @@ type TelescopeAvatarProps = {
   size: string;
   img?: string;
   blog?: string;
+  backgroundColor?: string;
+  fontColor?: string;
 };
 
 const getInitials = (name: string) => {
@@ -21,9 +23,17 @@ const getInitials = (name: string) => {
   return initials;
 };
 
-const TelescopeAvatar = ({ name, img, size, blog }: TelescopeAvatarProps) => {
+const TelescopeAvatar = ({
+  name,
+  img,
+  size,
+  blog,
+  backgroundColor,
+  fontColor,
+}: TelescopeAvatarProps) => {
   const initials = getInitials(name);
-
+  const backColor = backgroundColor || '#A0D1FB';
+  const color = fontColor || '#000';
   return (
     <a
       href={blog}
@@ -38,8 +48,8 @@ const TelescopeAvatar = ({ name, img, size, blog }: TelescopeAvatarProps) => {
           width: size,
           height: size,
           fontSize: `calc(${size} * 0.43)`,
-          backgroundColor: '#A0D1FB',
-          color: '#000',
+          backgroundColor: `${backColor}`,
+          color: `${color}`,
         }}
       >
         {initials}
