@@ -31,8 +31,8 @@ const services = [
   },
   {
     name: 'user',
-    staging: stagingUrl('/user/healthcheck'),
-    production: prodUrl('/user/healthcheck'),
+    staging: stagingUrl('/users/healthcheck'),
+    production: prodUrl('/users/healthcheck'),
   },
   {
     name: 'search',
