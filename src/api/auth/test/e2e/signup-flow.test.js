@@ -2,14 +2,16 @@
 const { createServiceToken, hash } = require('@senecacdot/satellite');
 const fetch = require('node-fetch');
 
-const { cleanupTelescopeUsers, login, logout, USERS_URL } = require('./utils');
+// We need to get the URL to the auth service running in docker, and the list
+// of allowed origins, to compare with assumptions in the tests below.
+const { login, logout, USERS_URL, cleanupTelescopeUsers } = require('./utils');
 
 // The user info we'll use to register. We have the following user in our login
 // SSO already:
 //
 // | Username    | Email                       | Password  | Display Name    |
 // |-------------|-----------------------------|-----------|-----------------|
-// | user2 | user2@example.com | user2pass | Galileo Galilei |
+// | user2       | user2@example.com           | user2pass | Galileo Galilei |
 const galileoGalilei = {
   firstName: 'Galileo',
   lastName: 'Galilei',
@@ -17,7 +19,7 @@ const galileoGalilei = {
   displayName: 'Galileo Galilei',
   isAdmin: false,
   isFlagged: false,
-  feeds: ['https://imaginary.blog.com/feed/hans'],
+  feeds: ['https://hans.blog.com/feed'],
   github: {
     username: 'hlippershey',
     avatarUrl:
@@ -69,32 +71,61 @@ describe('Signup Flow', () => {
 
       // Step 2: confirm the token's payload for this user
       expect(jwt.sub).toEqual(hash(galileoGalilei.email));
+      expect(jwt.email).toEqual(galileoGalilei.email);
+      expect(jwt.given_name).toEqual(galileoGalilei.firstName);
+      expect(jwt.family_name).toEqual(galileoGalilei.lastName);
       expect(jwt.name).toEqual(galileoGalilei.displayName);
       expect(jwt.roles).toEqual(['seneca']);
+      // There shouldn't be a picture
       expect(jwt.picture).toBe(undefined);
 
       return { accessToken, jwt };
     }
 
-    // Part 2: use the access token to POST to the Users service in order to
+    // Part 2: use the access token to POST to the feed-discovery service in order to
+    // get a list of feed URLs.
+    async function partTwo(accessToken) {
+      // See the file blog.html in this same folder.  NOTE: the blog is hosted
+      // on port 8888 running on the host, and the feed-discovery service needs
+      // to access :8888 on the docker host vs. it's own localhost, so we use
+      // host.docker.internal vs. localhost.
+      const blogUrl = 'http://host.docker.internal:8888/blog.html';
+      const feedUrl = 'https://hans.blog.com/feed';
+
+      const res = await fetch('http://localhost/v1/feed-discovery', {
+        method: 'POST',
+        headers: {
+          Authorization: `bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ blogUrl }),
+      });
+      expect(res.status).toBe(200);
+      const result = await res.json();
+      expect(result).toEqual({ feedUrls: [feedUrl] });
+      return feedUrl;
+    }
+
+    // Part 3: use the access token to POST to the Users service in order to
     // register with Telescope.
-    async function partTwo(accessToken, jwt) {
+    async function partThree(feedUrl, accessToken, jwt) {
+      const user = { ...galileoGalilei, feeds: [feedUrl] };
       const res = await fetch(`${USERS_URL}/${jwt.sub}`, {
         method: 'POST',
         headers: {
           Authorization: `bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(galileoGalilei),
+        body: JSON.stringify(user),
       });
-      expect(res.ok).toBe(true);
+      expect(res.status).toBe(201);
     }
 
-    // Part 3: logout so we can try logging in again as a registered user.
+    // Part 4: logout so we can try logging in again as a registered user.
     // Confirm that the token payload matches our upgraded user status.
     // Confirm that the data in the Users service for this user
     // matches what we expect, and that our token allows us to access it.
-    async function partThree() {
+    async function partFour() {
       // Logout
       await logout(page);
 
@@ -103,6 +134,9 @@ describe('Signup Flow', () => {
 
       // Check token payload, make sure it matches what we expect
       expect(jwt.sub).toEqual(hash(galileoGalilei.email));
+      expect(jwt.email).toEqual(galileoGalilei.email);
+      expect(jwt.given_name).toEqual(galileoGalilei.firstName);
+      expect(jwt.family_name).toEqual(galileoGalilei.lastName);
       expect(jwt.name).toEqual(galileoGalilei.displayName);
       expect(jwt.roles).toEqual(['seneca', 'telescope']);
       expect(jwt.picture).toEqual(galileoGalilei.github.avatarUrl);
@@ -120,7 +154,8 @@ describe('Signup Flow', () => {
     }
 
     const { accessToken, jwt } = await partOne();
-    await partTwo(accessToken, jwt);
-    await partThree();
+    const feedUrl = await partTwo(accessToken);
+    await partThree(feedUrl, accessToken, jwt);
+    await partFour();
   });
 });
