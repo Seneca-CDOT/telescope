@@ -5,7 +5,14 @@ const fetch = require('node-fetch');
 // We need to get the URL to the auth service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
 const { AUTH_URL, ALLOWED_APP_ORIGINS } = process.env;
-const { login, logout, USERS_URL, getTokenAndState, createTelescopeUsers } = require('./utils');
+const {
+  login,
+  logout,
+  USERS_URL,
+  getTokenAndState,
+  createTelescopeUsers,
+  cleanupTelescopeUsers,
+} = require('./utils');
 
 // We have 3 SSO user accounts in the login service (see config/simplesamlphp-users.php):
 //
@@ -62,10 +69,11 @@ describe('Authentication Flows', () => {
 
     context = await browser.newContext();
     page = await browser.newPage();
-    await page.goto(`http://localhost:8888/`);
+    await page.goto(`http://localhost:8888/auth.html`);
   });
 
   afterEach(async () => {
+    await cleanupTelescopeUsers(users);
     await context.close();
     await page.close();
   });
@@ -152,7 +160,7 @@ describe('Authentication Flows', () => {
     // Click login again, but we should get navigated back to this page right away
     await Promise.all([
       page.waitForNavigation({
-        url: /^http:\/\/localhost:\d+\/\?access_token=[^&]+&state=/,
+        url: /^http:\/\/localhost:\d+\/auth\.html\?access_token=[^&]+&state=/,
         waitUtil: 'load',
       }),
       page.click('#login'),

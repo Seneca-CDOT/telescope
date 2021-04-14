@@ -73,7 +73,7 @@ const login = async (page, username, password) => {
   // Click login button and then wait for the new page to load
   await Promise.all([
     page.waitForNavigation({
-      url: /^http:\/\/localhost:\d+\/\?access_token=[^&]+&state=/,
+      url: /^http:\/\/localhost:\d+\/auth\.html\?access_token=[^&]+&state=/,
       waitUtil: 'load',
     }),
     page.click('text=/.*Login.*/'),
@@ -88,7 +88,7 @@ const logout = async (page) => {
   // Click logout and we should get navigated back to this page right away
   await Promise.all([
     page.waitForNavigation({
-      url: /^http:\/\/localhost:\d+\/\?state=/,
+      url: /^http:\/\/localhost:\d+\/auth\.html\?state=/,
       waitUtil: 'load',
     }),
     page.click('#logout'),
