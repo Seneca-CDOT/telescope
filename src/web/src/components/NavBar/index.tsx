@@ -11,6 +11,8 @@ import dynamic from 'next/dynamic';
 import NavBarButton, { NavBarIconProps } from './NavBarButton';
 import Logo from '../Logo';
 import Login from '../Login';
+import TelescopeAvatar from '../TelescopeAvatar';
+import useAuth from '../../hooks/use-auth';
 
 /**  This will solve the problem of incorrect rendering of theme icon when theme preference is dark
  * This ensures that the version displayed to user is the client view which ties to the client's preference theme.
@@ -112,6 +114,7 @@ export default function NavBar({ disabled }: NavBarProps) {
   const classes = useStyles();
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up(1024));
+  const { user } = useAuth();
 
   if (disabled) {
     return null;
@@ -135,6 +138,7 @@ export default function NavBar({ disabled }: NavBarProps) {
         ))}
         <Login />
         <DynamicThemeToggleButton />
+        {user && <TelescopeAvatar name={user.name} img={user.avatarUrl} size="30" />}
       </Toolbar>
     </AppBar>
   );
