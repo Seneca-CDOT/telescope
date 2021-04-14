@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { AppBar, Toolbar } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Tooltip, Zoom } from '@material-ui/core';
+import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
@@ -83,7 +83,17 @@ const useStyles = makeStyles((theme) => ({
   logoIcon: {
     margin: '0 0.5rem',
   },
+  avatar: {
+    padding: '12px',
+  },
 }));
+
+const ButtonTooltip = withStyles({
+  tooltip: {
+    fontSize: '1.5rem',
+    margin: 0,
+  },
+})(Tooltip);
 
 const iconProps: NavBarIconProps[] = [
   {
@@ -139,9 +149,11 @@ export default function NavBar({ disabled }: NavBarProps) {
         {!user && <Login />}
         <DynamicThemeToggleButton />
         {user && (
-          <div onClick={() => logout()}>
-            <TelescopeAvatar name={user.name} img={user.avatarUrl} size="27px" />
-          </div>
+          <ButtonTooltip title="Logout" arrow placement="top" TransitionComponent={Zoom}>
+            <div className={classes.avatar} onClick={() => logout()}>
+              <TelescopeAvatar name={user.name} img={user.avatarUrl} size="27px" />
+            </div>
+          </ButtonTooltip>
         )}
       </Toolbar>
     </AppBar>
