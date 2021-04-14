@@ -163,13 +163,18 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'auto',
       padding: '1em',
       color: theme.palette.text.primary,
-      backgroundColor: theme.palette.background.default,
+      // backgroundColor: theme.palette.background.default,
+      backgroundColor: 'lightblue',
       width: '95%',
       '& a': {
         color: theme.palette.action.active,
       },
       '& a:visited': {
         color: theme.palette.action.selected,
+      },
+      [theme.breakpoints.down(600)]: {
+        padding: '.5em',
+        width: 'auto',
       },
     },
   })
