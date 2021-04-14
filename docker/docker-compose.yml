@@ -65,6 +65,7 @@ services:
       - ${AUTH_PORT}
     depends_on:
       - traefik
+      - users
     labels:
       # Enable Traefik
       - 'traefik.enable=true'
