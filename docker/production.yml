@@ -143,7 +143,6 @@ services:
     environment:
       - ELASTIC_URL=http://elasticsearch
       - ELASTIC_PORT=9200
-      - SEARCH_PORT
 
   ##############################################################################
   # Third-Party Dependencies and Support Services
