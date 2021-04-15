@@ -6,10 +6,8 @@ const RedisStore = require('connect-redis')(session);
 // Setup SAML SSO-based Authentication
 require('./authentication');
 
-const routes = require('./routes');
-
 const service = new Satellite({
-  router: routes,
+  router: require('./routes'),
   beforeRouter(app) {
     // Initialize and use Session and Passport middleware on the app. In production
     // we use Redis for session storage, and in-memory otherwise.
