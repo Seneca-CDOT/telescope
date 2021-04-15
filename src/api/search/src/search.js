@@ -1,4 +1,4 @@
-const { ELASTIC_MAX_RESULTS_PER_PAGE = 5 } = process.env;
+const { ELASTIC_MAX_RESULTS_PER_PAGE = 5, POSTS_URL } = process.env;
 const { client } = require('./elastic');
 
 const index = 'posts';
@@ -72,7 +72,7 @@ const search = async (
 
   return {
     results: hits.total.value,
-    values: hits.hits.map(({ _id }) => ({ id: _id, url: `/posts/${_id}` })),
+    values: hits.hits.map(({ _id }) => ({ id: _id, url: `${POSTS_URL}/${_id}` })),
   };
 };
 

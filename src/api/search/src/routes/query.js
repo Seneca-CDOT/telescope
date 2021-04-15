@@ -4,12 +4,12 @@ const search = require('../search');
 
 const router = Router();
 
-router.get('/', validateQuery, async (req, res) => {
+router.get('/', validateQuery, async (req, res, next) => {
   try {
     const { text, filter, page, perPage } = req.query;
     res.send(await search(text, filter, page, perPage));
   } catch (error) {
-    next(err);
+    next(error);
   }
 });
 
