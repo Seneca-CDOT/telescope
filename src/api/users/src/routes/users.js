@@ -108,7 +108,7 @@ router.post(
       const doc = await userRef.get();
 
       if (doc.exists) {
-        next(createError(400, `user with id ${id} already exists.`));
+        next(createError(409, `user with id ${id} already exists.`));
       } else {
         const user = new User(body);
         await db.doc(id).set(user);
