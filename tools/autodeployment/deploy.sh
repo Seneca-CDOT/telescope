@@ -44,11 +44,9 @@ docker volume prune -f
 echo "Starting $ENV Environment"
 docker-compose --env-file $ENV_FILE --project-name=$ENV up -d
 
-# Will fail on final container
-# this is anticipated and doesn't affect new environment
-echo "Deleting $OLD Containers"
-docker rmi $(docker images $OLD\_* -aq ) -f  2> /dev/null
+echo "Removing dangling images"
+docker rmi $(docker images -f "dangling=true" -q)
 
-# Delete all older containers which were build artifacts.
-# On dev environment, this should reduce all usage by min ~20%
-docker rmi $(docker images -a | grep "^<none>" | awk '{print $3}') 2> /dev/null
+
+echo "Removing $OLD Environment"
+docker rmi $(docker images $OLD\_* -aq ) -f 2> /dev/null
