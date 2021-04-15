@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
       background: '#EEEEEE',
       position: 'absolute',
       transition: 'border .2s',
-      '&:hover': {
+      '&:hover, &:focus': {
         border: 'solid 1px #999999',
       },
     },
@@ -109,11 +109,7 @@ const SearchBar = () => {
             </IconButton>
 
             {Boolean(advancedSearchButtonVisible && text) && (
-              <IconButton
-                className={classes.iconButton}
-                onClick={() => console.log('Huy Nguyen')}
-                aria-label="search"
-              >
+              <IconButton className={classes.iconButton} aria-label="search">
                 <SettingsIcon />
               </IconButton>
             )}
