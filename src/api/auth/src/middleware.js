@@ -1,7 +1,10 @@
 const { logger, createError } = require('@senecacdot/satellite');
 const { celebrate, Segments, Joi } = require('celebrate');
+const fetch = require('node-fetch');
 
-const { matchOrigin } = require('./util');
+const { matchOrigin, getUserId } = require('./util');
+
+const { USERS_URL } = process.env;
 
 // Space-separated list of App origins that we know about and will allow
 // to be used as part of login redirects. You only need to specify
@@ -80,5 +83,65 @@ module.exports.captureAuthDetailsOnSession = function captureAuthDetailsOnSessio
 
     logger.debug({ authDetails: req.session.authDetails }, 'adding session details');
     next();
+  };
+};
+
+// Forward a request to create a new user to the Users service.
+module.exports.createTelescopeUser = function createTelescopeUser() {
+  return async (req, res, next) => {
+    try {
+      const id = getUserId(req);
+      const response = await fetch(`${USERS_URL}/${id}`, {
+        method: 'POST',
+        headers: {
+          // re-use the user's authorization header and token
+          Authorization: req.get('Authorization'),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(req.body),
+      });
+
+      if (response.status !== 201) {
+        logger.warn(
+          { status: response.status, id, data: req.body },
+          'unable to create user with Users service'
+        );
+        next(createError(response.status, 'unable to create user'));
+        return;
+      }
+
+      next();
+    } catch (err) {
+      logger.error({ err }, 'error creating Telescope user');
+      next(createError(500, 'unable to create Telescope user'));
+    }
+  };
+};
+
+// Get user's Telescope profile info from the Users service
+module.exports.getTelescopeProfile = function getTelescopeProfile() {
+  return async (req, res, next) => {
+    try {
+      const id = getUserId(req);
+      const response = await fetch(`${USERS_URL}/${id}`, {
+        headers: {
+          // re-use the user's authorization header and token
+          Authorization: req.get('Authorization'),
+        },
+      });
+
+      if (!response.ok) {
+        logger.warn({ status: response.status, id }, 'unable to get user info from Users service');
+        next(createError(response.status, 'unable to get updated user info'));
+        return;
+      }
+
+      // Otherwise, it worked. Pass along the user's details
+      res.locals.telescopeProfile = await response.json();
+      next();
+    } catch (err) {
+      logger.error({ err }, 'error getting Telescope profile for user');
+      next(createError(500, 'unable to get Telescope user profile'));
+    }
   };
 };

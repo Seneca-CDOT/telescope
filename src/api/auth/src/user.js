@@ -1,5 +1,7 @@
 const { hash } = require('@senecacdot/satellite');
 
+const roles = require('./roles');
+
 // A User represents a Seneca SSO Authenticated user who might also be a Telescope user.
 class User {
   constructor(senecaProfile, telescopeProfile) {
@@ -95,14 +97,14 @@ class User {
 
   // Get a list of roles for this user
   get roles() {
-    const roles = ['seneca'];
     if (this.telescope) {
-      roles.push('telescope');
       if (this.telescope.isAdmin === true) {
-        roles.push('admin');
+        return roles.admin();
       }
+      return roles.telescope();
     }
-    return roles;
+    // Default to only Seneca
+    return roles.seneca();
   }
 
   // Serialize the user data into the two main parts

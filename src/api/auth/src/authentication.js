@@ -141,7 +141,6 @@ const strategy = new SamlStrategy(
         logger.debug({ senecaProfile, telescopeProfile }, 'Telescope user authenticated');
         done(null, new User(senecaProfile, telescopeProfile));
       } catch (err) {
-        console.log({ err });
         logger.error({ err });
         done(err, false);
       }

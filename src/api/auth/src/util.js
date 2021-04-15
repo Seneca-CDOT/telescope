@@ -12,3 +12,6 @@ module.exports.matchOrigin = (origin, allowedOrigins) =>
     // Otherwise, do a full comparison
     return origin === allowedOrigin;
   });
+
+// Get the sub claim from the authenticated user's JWT payload
+module.exports.getUserId = (req) => req.user.sub;
