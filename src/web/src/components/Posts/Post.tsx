@@ -163,8 +163,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflow: 'auto',
       padding: '1em',
       color: theme.palette.text.primary,
-      // backgroundColor: theme.palette.background.default,
-      backgroundColor: 'lightblue',
+      backgroundColor: theme.palette.background.default,
       width: '95%',
       '& a': {
         color: theme.palette.action.active,
