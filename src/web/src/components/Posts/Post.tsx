@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1024)]: {
         width: '80vw',
       },
+      [theme.breakpoints.down(321)]: {
+        width: '78vw',
+      },
     },
     title: {
       fontSize: '3em',
