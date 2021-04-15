@@ -1,10 +1,13 @@
 // NOTE: you need to run the auth and login services in docker for these to work
 const { createServiceToken, hash } = require('@senecacdot/satellite');
+const { decode } = require('jsonwebtoken');
 const fetch = require('node-fetch');
 
 // We need to get the URL to the auth service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
 const { login, logout, USERS_URL, cleanupTelescopeUsers } = require('./utils');
+
+const { AUTH_URL, FEED_DISCOVERY_URL } = process.env;
 
 // The user info we'll use to register. We have the following user in our login
 // SSO already:
@@ -30,16 +33,13 @@ const galileoGalilei = {
 const users = [galileoGalilei];
 
 describe('Signup Flow', () => {
-  beforeAll(async () => {
-    // Make sure the user account we want to use for signup isn't already there.
-    await cleanupTelescopeUsers(users);
-  });
   afterAll(async () => {
     await browser.close();
     await cleanupTelescopeUsers(users);
   });
 
   beforeEach(async () => {
+    await cleanupTelescopeUsers(users);
     context = await browser.newContext();
     page = await browser.newPage();
     await page.goto(`http://localhost:8888/auth.html`);
@@ -91,7 +91,7 @@ describe('Signup Flow', () => {
       // to access it via the test-web-content domain internally vs. localhost.
       const blogUrl = 'http://test-web-content/blog.html';
 
-      const res = await fetch('http://localhost/v1/feed-discovery', {
+      const res = await fetch(FEED_DISCOVERY_URL, {
         method: 'POST',
         headers: {
           Authorization: `bearer ${accessToken}`,
@@ -106,10 +106,10 @@ describe('Signup Flow', () => {
     }
 
     // Part 3: use the access token to POST to the Users service in order to
-    // register with Telescope.
-    async function partThree(feedUrls, accessToken, jwt) {
+    // register a new Telescope user..
+    async function partThree(feedUrls, accessToken) {
       const user = { ...galileoGalilei, feeds: [...feedUrls] };
-      const res = await fetch(`${USERS_URL}/${jwt.sub}`, {
+      const res = await fetch(`${AUTH_URL}/register`, {
         method: 'POST',
         headers: {
           Authorization: `bearer ${accessToken}`,
@@ -118,19 +118,10 @@ describe('Signup Flow', () => {
         body: JSON.stringify(user),
       });
       expect(res.status).toBe(201);
-    }
 
-    // Part 4: logout so we can try logging in again as a registered user.
-    // Confirm that the token payload matches our upgraded user status.
-    // Confirm that the data in the Users service for this user
-    // matches what we expect, and that our token allows us to access it.
-    async function partFour() {
-      // Logout
-      await logout(page);
-
-      // Login again
-      const { accessToken, jwt } = await login(page, 'user2', 'user2pass');
-
+      // We should get back an upgraded token for this user
+      const { token } = await res.json();
+      const jwt = decode(token);
       // Check token payload, make sure it matches what we expect
       expect(jwt.sub).toEqual(hash(galileoGalilei.email));
       expect(jwt.email).toEqual(galileoGalilei.email);
@@ -140,10 +131,21 @@ describe('Signup Flow', () => {
       expect(jwt.roles).toEqual(['seneca', 'telescope']);
       expect(jwt.picture).toEqual(galileoGalilei.github.avatarUrl);
 
-      // See if we can use this token to talk to the Users service, confirm our data.
-      const res = await fetch(`${USERS_URL}/${jwt.sub}`, {
+      return { id: jwt.sub, token };
+    }
+
+    // Part 4: logout so we can try logging in again as a registered user.
+    // Confirm that the token payload matches our upgraded user status.
+    // Confirm that the data in the Users service for this user
+    // matches what we expect, and that our token allows us to access it.
+    async function partFour(id, token) {
+      // Logout
+      await logout(page);
+
+      // Use this upgraded token to get our user profile info and confirm.
+      const res = await fetch(`${USERS_URL}/${id}`, {
         headers: {
-          Authorization: `bearer ${accessToken}`,
+          Authorization: `bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
@@ -152,9 +154,61 @@ describe('Signup Flow', () => {
       expect(data).toEqual(galileoGalilei);
     }
 
-    const { accessToken, jwt } = await partOne();
+    const { accessToken } = await partOne();
     const feedUrls = await partTwo(accessToken);
-    await partThree(feedUrls, accessToken, jwt);
-    await partFour();
+    const { id, token } = await partThree(feedUrls, accessToken);
+    await partFour(id, token);
+  });
+
+  it('signup flow fails if user is not authenticated', async () => {
+    const invalidUser = { ...galileoGalilei, email: 'wrong@email.com' };
+    const res = await fetch(`${AUTH_URL}/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(invalidUser),
+    });
+    expect(res.status).toBe(401);
+  });
+
+  it('signup flow fails if user data is missing required properties', async () => {
+    const { accessToken } = await login(page, 'user2', 'user2pass');
+    const invalidUser = { ...galileoGalilei };
+    // Delete the firstName, which is required
+    delete invalidUser.firstName;
+    const res = await fetch(`${AUTH_URL}/register`, {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(invalidUser),
+    });
+    expect(res.status).toBe(400);
+  });
+
+  it('signup flow fails if user is already a Telescope user', async () => {
+    const { accessToken } = await login(page, 'user2', 'user2pass');
+    const res = await fetch(`${AUTH_URL}/register`, {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(galileoGalilei),
+    });
+    expect(res.status).toBe(201);
+    const { token } = await res.json();
+
+    const res2 = await fetch(`${AUTH_URL}/register`, {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(galileoGalilei),
+    });
+    expect(res2.status).toBe(403);
   });
 });
