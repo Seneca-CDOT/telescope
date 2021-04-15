@@ -16,6 +16,7 @@ const {
   createError,
   createServiceToken,
   Redis,
+  Elastic,
 } = require('./src');
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
@@ -901,5 +902,17 @@ describe('Redis()', () => {
       expect(result).toEqual('PONG');
       done();
     });
+  });
+});
+
+describe('Elastic()', () => {
+  test('Testing the name property which should be a string', (done) => {
+    const elastic = Elastic({ name: 'client-test' });
+
+    elastic.info(console.log);
+
+    elastic.end();
+
+    done();
   });
 });

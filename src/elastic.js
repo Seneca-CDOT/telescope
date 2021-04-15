@@ -4,12 +4,11 @@ const Mock = require('@elastic/elasticsearch-mock');
 
 function MockClient(options) {
   const mock = new Mock();
-  options.Connection = mock.getConnection();
   // Mock out various responses we'll need:
   mock.add(
     {
       method: ['PUT', 'POST', 'GET', 'DELETE'],
-      path: '/posts/post/:post_id',
+      path: '*',
     },
     () => {
       return { status: 'ok' };
@@ -29,9 +28,11 @@ const useMockElastic = process.env.MOCK_ELASTIC;
 // Use either a real Elastic Client or a Mock instance, depending on env setting
 const ElasticConstructor = useMockElastic ? MockClient : Client;
 
-function createElasticClient() {
-  const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}`;
-  return new ElasticConstructor({ node: elasticUrl });
+// elasticUrl will either come from the ENV or will be defined locally
+const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}`;
+
+function createElasticClient(options = {}) {
+  return new ElasticConstructor({ ...options, node: elasticUrl });
 }
 
 module.exports = createElasticClient;
