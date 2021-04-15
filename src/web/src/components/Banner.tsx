@@ -17,7 +17,7 @@ import ScrollAction from './ScrollAction';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heroBanner: {
-      maxHeight: '100vh',
+      minHeight: '100vh',
       overflow: 'hidden',
       position: 'relative',
     },
@@ -72,9 +72,6 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: 'transparent',
         boxShadow: 'none',
         display: 'grid',
-      },
-      [theme.breakpoints.down(1024)]: {
-        marginBottom: '60px',
       },
     },
     anchor: {
