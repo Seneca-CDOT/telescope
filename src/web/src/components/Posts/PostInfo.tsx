@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'center',
       width: '100%',
+      [theme.breakpoints.up('lg')]: {
+        width: '22rem',
+      },
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
