@@ -9,11 +9,16 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: 'auto',
     paddingTop: 0,
   },
+  title: {
+    color: theme.palette.text.secondary,
+    fontWeight: 'bold',
+    paddingBottom: '1.5rem',
+  },
   list: {
     fontFamily: 'Times New Roman',
     fontSize: '1.7rem',
     lineHeight: '3rem',
-    color: theme.palette.text.disabled,
+    color: theme.palette.text.primary,
     listStyleType: 'none',
     [theme.breakpoints.down('xs')]: {
       paddingLeft: theme.spacing(4),
@@ -30,7 +35,7 @@ const SearchHelp = () => {
   return (
     <div className={classes.root}>
       <ul className={classes.list}>
-        <Typography color='textSecondary' variant="h5">
+        <Typography className={classes.title} variant="h5">
           HOW TO USE SEARCH:
         </Typography>
         <li>
