@@ -54,9 +54,7 @@ const SearchResults = () => {
   const { textParam, filter } = useSearchValue();
 
   const prepareUrl = (index: number) =>
-    `${searchServiceUrl}/query?text=${encodeURIComponent(
-      textParam
-    )}&filter=${filter}&page=${index}`;
+    `${searchServiceUrl}?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
   const shouldFetch = () => textParam.length > 0;
