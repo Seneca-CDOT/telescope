@@ -61,11 +61,24 @@ service.start(8888, () => {
 
 ```js
 const service = new Satellite({
-  healthCheck = async () => {
+  healthCheck: async () => {
     // Connect to db and return a promise
     const ok = await doSomeAsyncTask();
     return ok;
   },
+});
+```
+
+- `shutDown`: an optional `function` returning a `Promise`, used to run any shutdown logic (sync or async) before the server is shut down. If no function is defined, a default one will be provided.
+
+```js
+// Open connections to Redis and Elasticsearch
+const redis = Redis();
+const elastic = Elastic();
+
+const service = new Satellite({
+  // On shut down, close the open connection to Redis and Elasticsearch
+  shutDown: () => Promise.all([redis.quit(), elastic.close()]),
 });
 ```
 

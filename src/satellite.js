@@ -15,9 +15,13 @@ class Satellite {
   constructor(options = {}) {
     // If we're given a healthCheck function, we'll use it with terminus below.
     // NOTE: this function should return a Promise.
-    if (typeof options.healthCheck === 'function') {
-      this.healthCheck = options.healthCheck;
-    }
+    this.healthCheck =
+      typeof options.healthCheck === 'function' ? options.healthCheck : () => Promise.resolve();
+
+    // If we're given a shutDown function, we'll use it with terminus below.
+    // NOTE: this function should return a Promise.
+    this.shutDown =
+      typeof options.shutDown === 'function' ? options.shutDown : () => Promise.resolve();
 
     // Keep track of credentials if we're passed any
     this.credentials = options.credentials;
@@ -42,9 +46,13 @@ class Satellite {
     // Graceful shutdown and healthcheck
     createTerminus(this.server, {
       healthChecks: {
-        '/healthcheck': this.healthCheck || (() => Promise.resolve()),
+        '/healthcheck': this.healthCheck,
       },
       signal: 'SIGINT',
+      onSignal() {
+        // Do any async cleanup required to gracefully shutdown
+        return this.shutDown();
+      },
       logger: (...args) => logger.error(...args),
     });
 
