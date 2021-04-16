@@ -96,10 +96,12 @@ const useStyles = makeStyles((theme: Theme) =>
     expandHeader: {
       whiteSpace: 'normal',
       cursor: 'pointer',
+      outline: 'none',
     },
     collapseHeader: {
       whiteSpace: 'nowrap',
       cursor: 'pointer',
+      outline: 'none',
     },
     authorNameContainer: {
       [theme.breakpoints.down(1200)]: {
