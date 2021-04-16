@@ -906,13 +906,11 @@ describe('Redis()', () => {
 });
 
 describe('Elastic()', () => {
-  test('Testing the name property which should be a string', (done) => {
-    const elastic = Elastic({ name: 'client-test' });
+  test('Testing the name property which should be a string', async () => {
+    let client = Elastic();
 
-    elastic.info(console.log);
+    const clientInfo = await client.info();
 
-    elastic.end();
-
-    done();
+    expect(clientInfo.statusCode).toBe(200);
   });
 });

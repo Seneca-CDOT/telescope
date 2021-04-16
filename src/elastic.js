@@ -2,7 +2,7 @@ const { ELASTIC_URL, ELASTIC_PORT } = process.env;
 const { Client } = require('@elastic/elasticsearch');
 const Mock = require('@elastic/elasticsearch-mock');
 
-function MockClient(options) {
+function MockClient() {
   const mock = new Mock();
   // Mock out various responses we'll need:
   mock.add(
@@ -15,7 +15,10 @@ function MockClient(options) {
     }
   );
 
-  const client = new Client(options);
+  const client = new Client({
+    node: 'http://localhost:9200',
+    Connection: mock.getConnection(),
+  });
   // Provide a fake health check
   client.cluster.health = () => Promise.resolve();
 
