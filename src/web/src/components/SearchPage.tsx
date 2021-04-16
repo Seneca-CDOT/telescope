@@ -21,14 +21,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const SearchPage = () => {
   const classes = useStyles();
-
   const { showHelp } = useSearchValue();
 
   return (
     <div className={classes.searchPage}>
       <SearchBar />
-      <SearchResults />
       {showHelp && <SearchHelp />}
+      <SearchResults />
     </div>
   );
 };
