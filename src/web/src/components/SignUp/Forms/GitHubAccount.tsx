@@ -1,15 +1,14 @@
-/* eslint-disable camelcase */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { connect } from 'formik';
-import useSWR from 'swr';
 
 import { SignUpForm } from '../../../interfaces';
 import formModels from '../Schema/FormModel';
 import { TextInput, CheckBoxInput } from '../FormFields';
 import PostAvatar from '../../Posts/PostAvatar';
 
-const { githubUsername, github: githubModel, githubOwnership } = formModels;
+const { githubUsername, github, githubOwnership } = formModels;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,13 +55,29 @@ const useStyles = makeStyles((theme: Theme) =>
     inputsContainer: {
       width: '100%',
       display: 'grid',
-      gridTemplateColumns: '100%',
+      gridTemplateColumns: '80% 20%',
       '& .MuiFormHelperText-root': {
         fontSize: '0.9em',
         color: 'black',
       },
       '& .MuiFormLabel-root': {
         color: 'black',
+      },
+    },
+    button: {
+      height: '35px',
+      width: '50%',
+      alignSelf: 'center',
+      fontSize: '0.8em',
+      background: '#121D59',
+      color: '#A0D1FB',
+      marginLeft: '5%',
+      '&:hover': {
+        color: 'black',
+        border: '1px solid #121D59',
+      },
+      '&.Mui-disabled': {
+        backgroundColor: 'inherit',
       },
     },
     avatarPreview: {
@@ -89,52 +104,51 @@ const gitHubApiUrl = 'https://api.github.com/users';
 const GitHubAccount = connect<{}, SignUpForm>((props) => {
   const classes = useStyles();
   const { values, setFieldValue } = props.formik;
-  const [username, setUsername] = useState(values.githubUsername);
-  const [inputTimeout, setInputTimeout] = useState(setTimeout(() => {}, 0));
+  const [validating, setValidating] = useState(false);
+  const [error, setError] = useState('');
+  const controllerRef = useRef<AbortController | null>();
 
-  const { data: github, error } = useSWR(
-    values.githubUsername ? `${gitHubApiUrl}/${values.githubUsername}` : null,
-    async (u) => {
+  const validateGit = async () => {
+    if (values.githubUsername) {
+      setValidating(true);
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+      controllerRef.current = new AbortController();
       try {
-        const response = await fetch(u);
+        const response = await fetch(`${gitHubApiUrl}/${values.githubUsername}`, {
+          signal: controllerRef.current?.signal,
+        });
         if (!response.ok) {
           throw new Error(response.statusText);
         }
-        return response.json();
+        const res = await response.json();
+
+        setFieldValue('github', {
+          username: res.login,
+          avatarUrl: res.avatar_url,
+        });
+        setError('');
       } catch (err) {
-        throw err;
+        console.error(err, 'Unable to get GitHub profile');
+
+        setError('Unable to get GitHub profile');
+        setFieldValue('github', {}, true);
+      } finally {
+        setValidating(false);
+        controllerRef.current = null;
       }
+    } else {
+      setError('');
+      setFieldValue('github', {}, true);
     }
-  );
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
-    clearTimeout(inputTimeout);
-
-    // Update githubUsername 1000ms after input change
-    setInputTimeout(
-      setTimeout(() => {
-        setFieldValue('githubUsername', e.target.value);
-      }, 1000)
-    );
   };
 
   useEffect(() => {
-    if (error) {
-      setFieldValue('github', {}, true);
-    }
-
-    if (github) {
-      setFieldValue(
-        'github',
-        {
-          username: github.login,
-          avatarUrl: github.avatar_url,
-        },
-        true
-      );
-    }
-  }, [github, error, setFieldValue]);
+    return () => {
+      controllerRef.current?.abort();
+    };
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -147,15 +161,20 @@ const GitHubAccount = connect<{}, SignUpForm>((props) => {
               label={githubUsername.label}
               name={githubUsername.name}
               error={!!error}
-              helperText={!!error && githubModel.invalidErrorMsg}
-              onChange={handleInputChange}
-              value={username}
+              helperText={error || github.invalidErrorMsg}
             />
+            <Button className={classes.button} onClick={validateGit} disabled={validating}>
+              Get profile
+            </Button>
           </div>
-          {!error && github && (
+          {!error && (
             <div className={classes.avatarPreview}>
-              <PostAvatar name={github.login} blog={github.avatar_url} img={github.avatar_url} />
-              <h2 className={classes.username}>{github.login}</h2>
+              <PostAvatar
+                name={values.github.username || values.displayName}
+                blog={values.github.avatarUrl}
+                img={values.github?.avatarUrl}
+              />
+              <h2 className={classes.username}>{values.github.username}</h2>
             </div>
           )}
         </div>

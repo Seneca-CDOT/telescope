@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button, createStyles, makeStyles, Theme } from '@material-ui/core';
 import { connect } from 'formik';
 import FormControl from '@material-ui/core/FormControl';
@@ -142,19 +142,18 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
   const [feedUrls, setFeedUrls] = useState<Array<string>>([]);
   const [blogUrlError, setBlogUrlError] = useState('');
   const [validating, setValidating] = useState(false);
-
-  // A controller to cancel undesired requests
-  const [controller, setController] = useState(new AbortController());
+  const controllerRef = useRef<AbortController | null>();
 
   const validateBlog = async () => {
-    if (!errors.blogUrl && feedDiscoveryServiceUrl) {
+    if (!errors.blogUrl) {
       try {
         setValidating(true);
-        const abortController = new AbortController();
-        setController(abortController);
-        const signal = abortController.signal;
-        const response = await fetch(feedDiscoveryServiceUrl, {
-          signal,
+        if (controllerRef.current) {
+          controllerRef.current.abort();
+        }
+        controllerRef.current = new AbortController();
+        const response = await fetch(`${feedDiscoveryServiceUrl}`, {
+          signal: controllerRef.current?.signal,
           method: 'post',
           headers: {
             Authorization: `bearer ${token}`,
@@ -164,7 +163,6 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
             blogUrl: values.blogUrl,
           }),
         });
-        console.log(values.blogUrl);
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -172,11 +170,13 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
 
         setBlogUrlError('');
         setFeedUrls(res.feedUrls);
-        setValidating(false);
       } catch (err) {
         console.error(err, 'Unable to discover feeds');
-        setBlogUrlError(`Unable to find RSS link at ${values.blogUrl}`);
+
+        setBlogUrlError('Unable to discover feeds');
         setFeedUrls([]);
+      } finally {
+        controllerRef.current = null;
         setValidating(false);
       }
     } else {
@@ -197,9 +197,8 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
       validateBlog();
     }
 
-    // Abort feed-discovery on component unmounting
     return () => {
-      controller.abort();
+      controllerRef.current?.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

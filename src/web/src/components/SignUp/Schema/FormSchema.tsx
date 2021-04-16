@@ -14,28 +14,15 @@ const {
   blogOwnership,
 } = formModels;
 
-const validateLength = (min: number, max: number) => (val: string | undefined): boolean =>
-  !!val && val.length >= min && val.length <= max;
-
-const validateCheckBox = (val: boolean | undefined) => !!val;
-
 // Each signup step has one validation schema
 export default [
   // First step has no validation logic
   Yup.object().shape({}),
 
   Yup.object().shape({
-    [firstName.name]: Yup.string()
-      .required(`${firstName.requiredErrorMsg}`)
-      .test('len', firstName.invalidErrorMsg, validateLength(2, 16)),
-    [lastName.name]: Yup.string()
-      .required(`${lastName.requiredErrorMsg}`)
-      .test('len', lastName.invalidErrorMsg, validateLength(2, 16)),
-    [displayName.name]: Yup.string().test(
-      'len',
-      displayName.invalidErrorMsg,
-      validateLength(2, 16)
-    ),
+    [firstName.name]: Yup.string().required(`${firstName.requiredErrorMsg}`),
+    [lastName.name]: Yup.string().required(`${lastName.requiredErrorMsg}`),
+    [displayName.name]: Yup.string(),
   }),
 
   Yup.object().shape({
@@ -49,7 +36,7 @@ export default [
     [githubOwnership.name]: Yup.boolean().test(
       'agreed',
       githubOwnership.invalidErrorMsg,
-      validateCheckBox
+      (val) => !!val
     ),
   }),
 
@@ -59,7 +46,7 @@ export default [
     [blogOwnership.name]: Yup.boolean().test(
       'agreed',
       blogOwnership.invalidErrorMsg,
-      validateCheckBox
+      (val) => !!val
     ),
   }),
 

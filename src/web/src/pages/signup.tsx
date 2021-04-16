@@ -1,8 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useState, useEffect } from 'react';
-
-import Button from '@material-ui/core/Button';
 import { Formik, Form, FormikHelpers } from 'formik';
+import Button from '@material-ui/core/Button';
 
 import useAuth from '../hooks/use-auth';
 import Overview from '../components/SignUp/Forms/Overview';
@@ -15,7 +14,7 @@ import DynamicImage from '../components/DynamicImage';
 import { SignUpForm } from '../interfaces';
 import formModels from '../components/SignUp/Schema/FormModel';
 import formSchema from '../components/SignUp/Schema/FormSchema';
-import { usersServiceUrl, webUrl } from '../config';
+import { usersServiceUrl } from '../config';
 
 const {
   firstName,
@@ -136,7 +135,7 @@ const SignUpPage = () => {
   const [activeStep, setActiveStep] = useState<number>(0);
   const currentSchema = formSchema[activeStep];
   const { user, token, login } = useAuth();
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(!!user);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -164,6 +163,7 @@ const SignUpPage = () => {
           github,
           feeds,
         };
+        // TODO Update register URL
         const response = await fetch(`${usersServiceUrl}/${user?.id}`, {
           method: 'post',
           headers: {
@@ -174,14 +174,12 @@ const SignUpPage = () => {
         });
 
         if (!response.ok) {
-          alert('Unable to create account.');
-          throw new Error('Unable to post - create account');
+          throw new Error(response.statusText);
         }
         login();
         return;
       } catch (err) {
         console.error(err, 'Unable to Post');
-        window.location.href = `${webUrl}`;
       }
     } else {
       handleNext();

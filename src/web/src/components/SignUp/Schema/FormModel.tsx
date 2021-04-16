@@ -2,19 +2,16 @@ export default {
   displayName: {
     name: 'displayName',
     label: 'Display Name',
-    invalidErrorMsg: 'Make sure display name contains 2-16 characters',
   },
   firstName: {
     name: 'firstName',
     label: 'First name',
     requiredErrorMsg: 'First name is required',
-    invalidErrorMsg: 'Make sure first name contains 2-16 characters',
   },
   lastName: {
     name: 'lastName',
     label: 'Last name',
     requiredErrorMsg: 'Last name is required',
-    invalidErrorMsg: 'Make sure last name contains 2-16 characters',
   },
   email: {
     name: 'email',
