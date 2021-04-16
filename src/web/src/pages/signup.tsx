@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
     },
     buttonsWrapper: {
-      margin: '20px auto',
+      margin: '30px auto',
       width: '50%',
       display: 'flex',
       alignItems: 'center',
