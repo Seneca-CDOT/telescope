@@ -32,6 +32,7 @@ export {
   author,
   telescopeUrl,
   webUrl,
+  authServiceUrl,
   imageServiceUrl,
   loginUrl,
   logoutUrl,
