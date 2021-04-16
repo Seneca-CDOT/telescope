@@ -238,9 +238,11 @@ const SignUpPage = () => {
             <>
               <Form autoComplete="off" className={classes.infoContainer}>
                 {renderForm()}
-                <div className={classes.text}>
-                  <h3>Click NEXT to continue</h3>
-                </div>
+                {!loggedIn && (
+                  <div className={classes.text}>
+                    <h3>Click LOGIN to start creating your Telescope Account.</h3>
+                  </div>
+                )}
                 <div className={classes.buttonsWrapper}>
                   {!loggedIn && (
                     <Button className={classes.buttonLogin} onClick={() => login('/signup')}>

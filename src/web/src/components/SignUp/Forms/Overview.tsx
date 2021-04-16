@@ -57,9 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
       alignSelf: 'end',
       lineHeight: '2.5em',
     },
-    helpStartText: {
-      color: '#474747',
-    },
   })
 );
 
@@ -91,10 +88,9 @@ const Overview = () => {
           </Button>
         </div>
         <div className={classes.text}>
-          <h3>Click Next to complete your Telescope account</h3>
-          <h4 className={classes.helpStartText}>
-            * After clicking Next you will be prompted to login to your Seneca account{' '}
-          </h4>
+          <h3>
+            After creating a blog and a GitHub account you need to login with your Seneca email.
+          </h3>
         </div>
       </div>
     </div>
