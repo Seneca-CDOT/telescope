@@ -1,6 +1,7 @@
-const { logger } = require('@senecacdot/satellite');
-const { redis } = require('./libs/redis');
+const { logger, Redis } = require('@senecacdot/satellite');
 // Redis Keys
+
+const redis = Redis();
 const feedsKey = 't:feeds';
 const flaggedFeedsKey = 't:feeds:flagged';
 const postsKey = 't:posts';
