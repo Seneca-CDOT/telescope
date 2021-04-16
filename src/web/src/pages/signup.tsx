@@ -142,14 +142,15 @@ const SignUpPage = () => {
   };
 
   const handlePrevious = () => {
-    setActiveStep(activeStep - 1);
+    if (activeStep > 1) setActiveStep(activeStep - 1);
   };
 
   useEffect(() => {
     if (user) {
-      setLoggedIn(true);
+      setLoggedIn(!!user);
+      handleNext();
     }
-  }, [user]);
+  }, []);
 
   const handleSubmit = async (values: SignUpForm, actions: FormikHelpers<SignUpForm>) => {
     if (activeStep === 4) {
@@ -251,7 +252,7 @@ const SignUpPage = () => {
                       Previous
                     </Button>
                   )}
-                  {activeStep < 5 && loggedIn && (
+                  {activeStep > 0 && loggedIn && (
                     <Button className={classes.button} type="submit" disabled={isSubmitting}>
                       {activeStep === 4 ? 'Confirm' : 'Next'}
                     </Button>
