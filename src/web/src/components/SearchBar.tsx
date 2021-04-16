@@ -83,36 +83,29 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchBar = () => {
   const classes = useStyles();
-
-  const [advancedSearchButtonVisible, setAdvancedSearchButtonVisible] = useState(false);
-
   const { text, onTextChange, onSubmitHandler } = useSearchValue();
 
   return (
     <Box className={classes.root}>
       <FormControl fullWidth>
         <Grid item xs={12} sm={10} lg={10}>
-          <form
-            onSubmit={(e) => {
-              onSubmitHandler(e);
-            }}
-          >
+          <form onSubmit={(e) => onSubmitHandler(e)}>
             <input
               className={classes.input}
               value={text}
               placeholder="Search..."
               onChange={(e) => onTextChange(e.target.value)}
-              onFocus={() => setAdvancedSearchButtonVisible(true)}
             />
-            <IconButton className={classes.iconButton} aria-label="search">
+
+            <IconButton
+              className={classes.iconButton}
+              aria-label="search"
+              onClick={(e) => {
+                if (text) onSubmitHandler(e);
+              }}
+            >
               <SearchIcon />
             </IconButton>
-
-            {Boolean(advancedSearchButtonVisible && text) && (
-              <IconButton className={classes.iconButton} aria-label="search">
-                <SettingsIcon />
-              </IconButton>
-            )}
 
             <IconButton
               className={classes.clearIcon}
