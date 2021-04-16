@@ -146,11 +146,13 @@ const SignUpPage = () => {
   };
 
   useEffect(() => {
+    console.log('useEffect-USER');
     if (user) {
-      setLoggedIn(!!user);
+      setLoggedIn(true);
+      console.log('USER:', user);
       handleNext();
     }
-  }, []);
+  }, [user]);
 
   const handleSubmit = async (values: SignUpForm, actions: FormikHelpers<SignUpForm>) => {
     if (activeStep === 4) {
@@ -164,7 +166,6 @@ const SignUpPage = () => {
           github,
           feeds,
         };
-        // TODO Update register URL
         const response = await fetch(`${authServiceUrl}/register`, {
           method: 'post',
           headers: {
@@ -214,7 +215,9 @@ const SignUpPage = () => {
       </div>
       <div className={classes.signUpContainer}>
         <h1 className={classes.title}>Telescope Account</h1>
+
         <Formik
+          enableReinitialize
           onSubmit={handleSubmit}
           validationSchema={currentSchema}
           initialValues={
@@ -245,12 +248,12 @@ const SignUpPage = () => {
                   </div>
                 )}
                 <div className={classes.buttonsWrapper}>
-                  {!loggedIn && (
+                  {activeStep === 0 && (
                     <Button className={classes.buttonLogin} onClick={() => login('/signup')}>
                       Login
                     </Button>
                   )}
-                  {activeStep > 0 && loggedIn && (
+                  {activeStep > 1 && loggedIn && (
                     <Button className={classes.button} onClick={handlePrevious}>
                       Previous
                     </Button>
