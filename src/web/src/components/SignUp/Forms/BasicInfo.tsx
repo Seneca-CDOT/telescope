@@ -7,7 +7,7 @@ import useAuth from '../../../hooks/use-auth';
 import formModels from '../Schema/FormModel';
 import { TextInput } from '../FormFields';
 
-const { firstName, lastName, displayName, email } = formModels;
+const { firstName, lastName, displayName } = formModels;
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) =>
     },
     container: {
       display: 'grid',
+      gridGap: '5px',
       gridTemplateColumns: '1fr',
       justifyItems: 'center',
       textAlign: 'center',
@@ -90,16 +91,14 @@ const useStyles = makeStyles((theme) =>
       alignItems: 'center',
       justifyItems: 'center',
       width: '90%',
+      fontSize: '1.2em',
       gridTemplateColumns: '80% 20%',
-      '& .MuiFormHelperText-root': {
-        fontSize: '0.9em',
-        color: 'black',
-      },
       '& .MuiFormLabel-root': {
         color: 'black',
       },
-      '& .MuiInputBase-input.Mui-disabled': {
+      '& .MuiInputBase-input': {
         marginTop: '16px',
+        fontSize: '1.2em',
       },
     },
   })
@@ -124,37 +123,31 @@ const BasicInfo = connect<{}, SignUpForm>((props) => {
     <div className={classes.root}>
       <div className={classes.container}>
         <div className={classes.helloMessage}>
-          <h1>Hello {user?.name || values.displayName}</h1>
+          <h2>Hello {user?.name}</h2>
         </div>
         <div className={classes.userInfo}>
-          <h2 className={classes.userInfoLabel}>
+          <h3 className={classes.userInfoLabel}>
             The following information is what we already have:
-          </h2>
-          <h2>
-            <b>Display name: </b>
-            <span>{user?.name || values.displayName}</span>
-          </h2>
-          <h2>
+          </h3>
+          <h3>
+            <b>Name: </b>
+            <span>{user?.name}</span>
+          </h3>
+          <h3>
             <b>Email: </b>
             <span>{values.email}</span>
-          </h2>
+          </h3>
         </div>
-        <InputContainer>
-          <TextInput disabled name={email.name} value={values.email} />
-        </InputContainer>
-        <InputContainer>
-          <TextInput
-            label={displayName.label}
-            helperText="Will be displayed in all your interactions within Telescope"
-            name={displayName.name}
-          />
-        </InputContainer>
         <InputContainer>
           <TextInput label={firstName.label} name={firstName.name} />
         </InputContainer>
         <InputContainer>
           <TextInput label={lastName.label} name={lastName.name} />
         </InputContainer>
+        <InputContainer>
+          <TextInput label={displayName.label} name={displayName.name} />
+        </InputContainer>
+        <h4>Your display name will be used in all your interactions within Telescope</h4>
       </div>
     </div>
   );

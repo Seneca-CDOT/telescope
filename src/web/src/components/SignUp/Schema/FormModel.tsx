@@ -2,6 +2,7 @@ export default {
   displayName: {
     name: 'displayName',
     label: 'Display Name',
+    requiredErrorMsg: 'Display Name is required',
   },
   firstName: {
     name: 'firstName',

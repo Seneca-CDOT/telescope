@@ -22,7 +22,7 @@ export default [
   Yup.object().shape({
     [firstName.name]: Yup.string().required(`${firstName.requiredErrorMsg}`),
     [lastName.name]: Yup.string().required(`${lastName.requiredErrorMsg}`),
-    [displayName.name]: Yup.string(),
+    [displayName.name]: Yup.string().required(`${displayName.requiredErrorMsg}`),
   }),
 
   Yup.object().shape({
