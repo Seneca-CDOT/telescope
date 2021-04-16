@@ -14,7 +14,7 @@ import DynamicImage from '../components/DynamicImage';
 import { SignUpForm } from '../interfaces';
 import formModels from '../components/SignUp/Schema/FormModel';
 import formSchema from '../components/SignUp/Schema/FormSchema';
-import { usersServiceUrl } from '../config';
+import { authServiceUrl } from '../config';
 
 const {
   firstName,
@@ -134,7 +134,7 @@ const SignUpPage = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState<number>(0);
   const currentSchema = formSchema[activeStep];
-  const { user, token, login } = useAuth();
+  const { user, token, login, register } = useAuth();
   const [loggedIn, setLoggedIn] = useState(!!user);
 
   const handleNext = () => {
@@ -165,7 +165,7 @@ const SignUpPage = () => {
           feeds,
         };
         // TODO Update register URL
-        const response = await fetch(`${usersServiceUrl}/${user?.id}`, {
+        const response = await fetch(`${authServiceUrl}/register`, {
           method: 'post',
           headers: {
             Authorization: `bearer ${token}`,
@@ -177,7 +177,8 @@ const SignUpPage = () => {
         if (!response.ok) {
           throw new Error(response.statusText);
         }
-        login();
+        const result = await response.json();
+        register(result.token);
         return;
       } catch (err) {
         console.error(err, 'Unable to Post');
