@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
-      marginLeft: '1.5rem',
+      marginLeft: '1rem',
     },
     circle: {
       display: 'block',
