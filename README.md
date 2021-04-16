@@ -19,7 +19,7 @@ npm install --save @senecacdot/satellite
 You need to set the following environment variables if you want Elastic APM
 monitoring for your service:
 
-- `ELASTIC_APM_SERVER_URL`: the URL to the APM server (e.g., http://localhost:8200)
+- `ELASTIC_APM_SERVER_URL`: the URL to the APM server (e.g., <http://localhost:8200>)
 - `ELASTIC_APM_SERVICE_NAME`: the name of the service as it will appear in APM
 
 If you don't provide these values in your environment, APM monitoring will be
@@ -249,4 +249,33 @@ const e = createError(404, 'This is a message that describes your Error object')
 console.log(e.status); // of type: Number
 
 console.log(e.message); // of type: String
+```
+
+### Elastic
+
+The `Elastic()` function creates an instance of ElasticSearch connected to the elasticsearch url and port number specified in your config environment.
+An optional object can be passed to this function which will contain client settings that can be used with ElasticSearch.
+
+```js
+const { Elastic } = require('@senecacdot/satellite');
+
+const client = Elastic();
+
+const indexPost = async ({ text, id, title, published, author }) => {
+  try {
+    await client.index({
+      index,
+      type,
+      id,
+      body: {
+        text,
+        title,
+        published,
+        author,
+      },
+    });
+  } catch (error) {
+    logger.error({ error }, `There was an error indexing a post for id ${id}`);
+  }
+};
 ```
