@@ -55,10 +55,8 @@ router.get(
       passport._strategy('saml').logout(req, (error, requestUrl) => {
         if (error) {
           logger.error({ error }, 'logout error - unable to generate logout URL');
-          next(createError(500, `unable to logout`));
-        } else {
-          res.redirect(requestUrl);
         }
+        res.redirect(requestUrl);
       });
     } catch (error) {
       logger.error({ error }, 'logout error');
