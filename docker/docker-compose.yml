@@ -87,7 +87,10 @@ services:
     environment:
       - NODE_ENV
       - SEARCH_PORT
+      - POSTS_URL
       - ELASTIC_MAX_RESULTS_PER_PAGE
+      - ELASTIC_URL=http://elasticsearch
+      - ELASTIC_PORT=9200
       # Satellite authentication/authorization support
       - JWT_ISSUER
       - JWT_AUDIENCE
