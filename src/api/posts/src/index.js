@@ -2,10 +2,10 @@ const { Satellite, Redis } = require('@senecacdot/satellite');
 
 const posts = require('./routes/posts');
 
+const redis = Redis();
+
 const service = new Satellite({
   healthCheck: async () => {
-    const redis = Redis();
-
     const ok = await redis.ping();
 
     return { status: `Redis has responded with ${ok}` };
@@ -15,3 +15,5 @@ const service = new Satellite({
 service.router.use('/', posts);
 
 module.exports = service;
+
+module.exports.redis = redis;
