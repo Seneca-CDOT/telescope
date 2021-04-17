@@ -19,6 +19,11 @@ import { authServiceUrl } from '../config';
 import PopUp from '../components/PopUp';
 import Spinner from '../components/Spinner';
 
+type TelescopeAccountStatus = {
+  error?: boolean;
+  created?: boolean;
+};
+
 const {
   firstName,
   lastName,
@@ -140,17 +145,10 @@ const SignUpPage = () => {
   const currentSchema = formSchema[activeStep];
   const { user, token, login, register } = useAuth();
   const [loggedIn, setLoggedIn] = useState(!!user);
-  const [telescopeAccount, setTelescopeAccount] = useState<boolean | undefined>(undefined);
+  const [telescopeAccount, setTelescopeAccount] = useState<TelescopeAccountStatus>({});
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
-
-  const resetStates = () => {
-    setActiveStep(0);
-    setLoggedIn(false);
-    setTelescopeAccount(undefined);
-    setLoading(false);
-  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -197,11 +195,12 @@ const SignUpPage = () => {
       });
 
       if (!response.ok) {
+        setTelescopeAccount({ error: true });
         throw new Error(response.statusText);
       }
       const result = await response.json();
       register(result.token);
-      setTelescopeAccount(true);
+      setTelescopeAccount({ created: true });
       handleNext();
       return;
     } catch (err) {
@@ -231,18 +230,26 @@ const SignUpPage = () => {
       <div className={classes.imageContainer}>
         <DynamicImage />
       </div>
-      {user?.isRegistered && (
+      {telescopeAccount.error && (
         <PopUp
           messageTitle="Telescope"
-          message={`Hi ${user?.name} \n you already have a Telescope.`}
+          message={`Hi ${user?.name} there was a problem creating your account. Please try again later or contact us on Slack`}
           agreeAction={() => router.push('/')}
           agreeButtonText="Ok"
         />
       )}
-      {telescopeAccount && (
+      {user?.isRegistered && (
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hi ${user?.name} you already have a Telescope account.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      )}
+      {telescopeAccount.created && (
         <PopUp
           messageTitle="Welcome to Telescope"
-          message={`Hello ${user?.name} your Telescope account was successful created!`}
+          message={`Hello ${user?.name} your Telescope account was successfully created!`}
           agreeAction={() => router.push('/')}
           agreeButtonText="Ok"
         />
