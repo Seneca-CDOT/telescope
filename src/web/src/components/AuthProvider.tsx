@@ -126,7 +126,6 @@ const AuthProvider = ({ children }: Props) => {
 
   const register = (token: string) => {
     setToken(token);
-    router.push('/');
   };
 
   return (
