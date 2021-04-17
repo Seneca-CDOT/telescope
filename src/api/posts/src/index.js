@@ -1,17 +1,12 @@
-const { Satellite, Redis } = require('@senecacdot/satellite');
+const { Satellite } = require('@senecacdot/satellite');
+const { redis } = require('./redis');
 
 const posts = require('./routes/posts');
 
-const redis = Redis();
-
 const service = new Satellite({
-  healthCheck: () => {
-    redis.ping();
-  },
+  healthCheck: () => redis.ping(),
 });
 
 service.router.use('/', posts);
 
 module.exports = service;
-
-module.exports.redis = redis;
