@@ -28,6 +28,7 @@ export type SignUpForm = {
   githubOwnership: boolean;
   blogUrl: string;
   feeds: Array<string>;
+  allFeeds: Array<string>;
   blogOwnership: boolean;
 };
 

@@ -139,48 +139,47 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
   const { values, errors, setFieldValue } = props.formik;
   const { token } = useAuth();
 
-  const [feedUrls, setFeedUrls] = useState<Array<string>>([]);
   const [blogUrlError, setBlogUrlError] = useState('');
   const [validating, setValidating] = useState(false);
   const controllerRef = useRef<AbortController | null>();
 
   const validateBlog = async () => {
-    if (!errors.blogUrl) {
-      try {
-        setValidating(true);
-        if (controllerRef.current) {
-          controllerRef.current.abort();
-        }
-        controllerRef.current = new AbortController();
-        const response = await fetch(`${feedDiscoveryServiceUrl}`, {
-          signal: controllerRef.current?.signal,
-          method: 'post',
-          headers: {
-            Authorization: `bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            blogUrl: values.blogUrl,
-          }),
-        });
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        const res = await response.json();
-
-        setBlogUrlError('');
-        setFeedUrls(res.feedUrls);
-      } catch (err) {
-        console.error(err, 'Unable to discover feeds');
-
-        setBlogUrlError('Unable to discover feeds');
-        setFeedUrls([]);
-      } finally {
-        controllerRef.current = null;
-        setValidating(false);
-      }
-    } else {
+    if (errors.blogUrl) {
       setFieldValue('feeds', [], true);
+      return;
+    }
+    try {
+      setValidating(true);
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+      controllerRef.current = new AbortController();
+      const response = await fetch(`${feedDiscoveryServiceUrl}`, {
+        signal: controllerRef.current?.signal,
+        method: 'post',
+        headers: {
+          Authorization: `bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          blogUrl: values.blogUrl,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const res = await response.json();
+
+      setBlogUrlError('');
+      setFieldValue('allFeeds', res.feedUrls);
+    } catch (err) {
+      console.error(err, 'Unable to discover feeds');
+
+      setBlogUrlError('Unable to discover feeds');
+      setFieldValue('allFeeds', []);
+    } finally {
+      controllerRef.current = null;
+      setValidating(false);
     }
   };
 
@@ -224,10 +223,10 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
           </div>
           <div className={classes.RssButtonContainer}>
             <div className={classes.infoRSSContainer}>
-              {feedUrls.length ? (
+              {values.allFeeds.length ? (
                 <FormControl required component="fieldset">
                   <FormGroup>
-                    {feedUrls.map((url) => (
+                    {values.allFeeds.map((url) => (
                       <FormControlLabel
                         key={url}
                         control={

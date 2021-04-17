@@ -25,6 +25,7 @@ const {
   githubOwnership,
   blogUrl,
   feeds,
+  allFeeds,
   email,
   blogOwnership,
 } = formModels;
@@ -146,48 +147,46 @@ const SignUpPage = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect-USER');
     if (user) {
       setLoggedIn(true);
-      console.log('USER:', user);
       handleNext();
     }
   }, [user]);
 
   const handleSubmit = async (values: SignUpForm, actions: FormikHelpers<SignUpForm>) => {
-    if (activeStep === 4) {
-      try {
-        const { firstName, lastName, email, displayName, github, feeds } = values;
-        const telescopeUser = {
-          firstName,
-          lastName,
-          email,
-          displayName,
-          github,
-          feeds,
-        };
-        const response = await fetch(`${authServiceUrl}/register`, {
-          method: 'post',
-          headers: {
-            Authorization: `bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(telescopeUser),
-        });
-
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        const result = await response.json();
-        register(result.token);
-        return;
-      } catch (err) {
-        console.error(err, 'Unable to Post');
-      }
-    } else {
+    if (activeStep < 4) {
       handleNext();
       actions.setTouched({});
       actions.setSubmitting(false);
+      return;
+    }
+    try {
+      const { firstName, lastName, email, displayName, github, feeds } = values;
+      const telescopeUser = {
+        firstName,
+        lastName,
+        email,
+        displayName,
+        github,
+        feeds,
+      };
+      const response = await fetch(`${authServiceUrl}/register`, {
+        method: 'post',
+        headers: {
+          Authorization: `bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(telescopeUser),
+      });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      const result = await response.json();
+      register(result.token);
+      return;
+    } catch (err) {
+      console.error(err, 'Unable to Post');
     }
   };
 
@@ -234,6 +233,7 @@ const SignUpPage = () => {
               },
               [blogUrl.name]: 'https://',
               [feeds.name]: [] as Array<string>,
+              [allFeeds.name]: [] as Array<string>,
               [blogOwnership.name]: false,
             } as SignUpForm
           }

@@ -10,6 +10,7 @@ const {
   github,
   githubOwnership,
   feeds,
+  allFeeds,
   blogUrl,
   blogOwnership,
 } = formModels;
@@ -43,6 +44,7 @@ export default [
   Yup.object().shape({
     [blogUrl.name]: Yup.string().url().required(`${blogUrl.requiredErrorMsg}`),
     [feeds.name]: Yup.array().of(Yup.string()).min(1, feeds.requiredErrorMsg),
+    [allFeeds.name]: Yup.array().of(Yup.string()),
     [blogOwnership.name]: Yup.boolean().test(
       'agreed',
       blogOwnership.invalidErrorMsg,

@@ -109,38 +109,38 @@ const GitHubAccount = connect<{}, SignUpForm>((props) => {
   const controllerRef = useRef<AbortController | null>();
 
   const validateGit = async () => {
-    if (values.githubUsername) {
+    if (!values.githubUsername) {
+      setError('');
+      setFieldValue('github', {}, true);
+      return;
+    }
+    try {
       setValidating(true);
       if (controllerRef.current) {
         controllerRef.current.abort();
       }
       controllerRef.current = new AbortController();
-      try {
-        const response = await fetch(`${gitHubApiUrl}/${values.githubUsername}`, {
-          signal: controllerRef.current?.signal,
-        });
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        const res = await response.json();
-
-        setFieldValue('github', {
-          username: res.login,
-          avatarUrl: res.avatar_url,
-        });
-        setError('');
-      } catch (err) {
-        console.error(err, 'Unable to get GitHub profile');
-
-        setError('Unable to get GitHub profile');
-        setFieldValue('github', {}, true);
-      } finally {
-        setValidating(false);
-        controllerRef.current = null;
+      const response = await fetch(`${gitHubApiUrl}/${values.githubUsername}`, {
+        signal: controllerRef.current?.signal,
+      });
+      if (!response.ok) {
+        throw new Error(response.statusText);
       }
-    } else {
+      const res = await response.json();
+
+      setFieldValue('github', {
+        username: res.login,
+        avatarUrl: res.avatar_url,
+      });
       setError('');
+    } catch (err) {
+      console.error(err, 'Unable to get GitHub profile');
+
+      setError('Unable to get GitHub profile');
       setFieldValue('github', {}, true);
+    } finally {
+      setValidating(false);
+      controllerRef.current = null;
     }
   };
 

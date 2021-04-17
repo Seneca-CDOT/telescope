@@ -1,8 +1,8 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { connect } from 'formik';
-import PostAvatar from '../../Posts/PostAvatar';
 
 import { SignUpForm } from '../../../interfaces';
+import PostAvatar from '../../Posts/PostAvatar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,7 +77,6 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'start',
       padding: '1%',
       minHeight: '60px',
-      maxHeight: '60px',
       overflowY: 'auto',
       [theme.breakpoints.down(600)]: {
         width: '90%',
@@ -103,21 +102,19 @@ const Review = connect<{}, SignUpForm>((props) => {
         <div className={classes.contentContainer}>
           <div className={classes.avatar}>
             <PostAvatar name={displayName} blog={blogUrl} img={github.avatarUrl} />
-            <h2>
-              Display Name:
-              <h3>{displayName}</h3>
-            </h2>
+            <h2>{displayName}</h2>
           </div>
           <div className={classes.senecaBlogInfo}>
             <h2>From seneca:</h2>
-            <h3>Full Name: {displayName || `${firstName} ${lastName}`}</h3>
+            <h3>
+              Full Name: {firstName} {lastName}
+            </h3>
             <h3>Email : {email}</h3>
-            <h3>Blog URL:</h3>
-            <h3>{blogUrl}</h3>
+            <h3>Blog URL: {blogUrl}</h3>
           </div>
           <div>
             <div className={classes.gitHubInfo}>
-              <h4>GitHub Account:</h4>
+              <h4>GitHub Account</h4>
               <h3>{github.username}</h3>
             </div>
           </div>

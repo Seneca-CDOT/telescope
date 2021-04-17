@@ -44,6 +44,9 @@ export default {
     label: 'RSS Feeds',
     requiredErrorMsg: 'Please select at least one URL',
   },
+  allFeeds: {
+    name: 'allFeeds',
+  },
   blogOwnership: {
     name: 'blogOwnership',
     label: 'I declare I’m the owner and the maintainer of this blog account',
