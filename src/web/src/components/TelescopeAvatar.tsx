@@ -1,3 +1,4 @@
+import { MouseEventHandler } from 'react';
 import { Avatar } from '@material-ui/core';
 
 type TelescopeAvatarProps = {
@@ -7,6 +8,7 @@ type TelescopeAvatarProps = {
   blog?: string;
   backgroundColor?: string;
   fontColor?: string;
+  action?: MouseEventHandler;
 };
 
 const getInitials = (name: string) => {
@@ -30,6 +32,7 @@ const TelescopeAvatar = ({
   blog,
   backgroundColor,
   fontColor,
+  action,
 }: TelescopeAvatarProps) => {
   const initials = getInitials(name);
   const backColor = backgroundColor || '#A0D1FB';
@@ -42,6 +45,7 @@ const TelescopeAvatar = ({
       }}
     >
       <Avatar
+        onClick={action}
         alt={name}
         src={img}
         style={{
