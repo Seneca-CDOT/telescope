@@ -1,6 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import { Formik, Form, FormikHelpers } from 'formik';
+import { useRouter } from 'next/router';
 import Button from '@material-ui/core/Button';
 
 import useAuth from '../hooks/use-auth';
@@ -15,6 +16,8 @@ import { SignUpForm } from '../interfaces';
 import formModels from '../components/SignUp/Schema/FormModel';
 import formSchema from '../components/SignUp/Schema/FormSchema';
 import { authServiceUrl } from '../config';
+import PopUp from '../components/PopUp';
+import Spinner from '../components/Spinner';
 
 const {
   firstName,
@@ -133,10 +136,21 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SignUpPage = () => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState<number>(0);
+  const [activeStep, setActiveStep] = useState(0);
   const currentSchema = formSchema[activeStep];
   const { user, token, login, register } = useAuth();
   const [loggedIn, setLoggedIn] = useState(!!user);
+  const [telescopeAccount, setTelescopeAccount] = useState<boolean | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  const resetStates = () => {
+    setActiveStep(0);
+    setLoggedIn(false);
+    setTelescopeAccount(undefined);
+    setLoading(false);
+  };
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -170,6 +184,9 @@ const SignUpPage = () => {
         github,
         feeds,
       };
+
+      setLoading(true);
+
       const response = await fetch(`${authServiceUrl}/register`, {
         method: 'post',
         headers: {
@@ -184,6 +201,8 @@ const SignUpPage = () => {
       }
       const result = await response.json();
       register(result.token);
+      setTelescopeAccount(true);
+      handleNext();
       return;
     } catch (err) {
       console.error(err, 'Unable to Post');
@@ -212,63 +231,83 @@ const SignUpPage = () => {
       <div className={classes.imageContainer}>
         <DynamicImage />
       </div>
-      <div className={classes.signUpContainer}>
-        <h1 className={classes.title}>Telescope Account</h1>
+      {user?.isRegistered && (
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hi ${user?.name} \n you already have a Telescope.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      )}
+      {telescopeAccount && (
+        <PopUp
+          messageTitle="Welcome to Telescope"
+          message={`Hello ${user?.name} your Telescope account was successful created!`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      )}
+      {!loading ? (
+        <div className={classes.signUpContainer}>
+          <h1 className={classes.title}>Telescope Account</h1>
 
-        <Formik
-          enableReinitialize
-          onSubmit={handleSubmit}
-          validationSchema={currentSchema}
-          initialValues={
-            {
-              [firstName.name]: user?.firstName,
-              [lastName.name]: user?.lastName,
-              [displayName.name]: user?.name,
-              [email.name]: user?.email,
-              [githubUsername.name]: '',
-              [githubOwnership.name]: false,
-              [github.name]: {
-                username: '',
-                avatarUrl: '',
-              },
-              [blogUrl.name]: 'https://',
-              [feeds.name]: [] as Array<string>,
-              [allFeeds.name]: [] as Array<string>,
-              [blogOwnership.name]: false,
-            } as SignUpForm
-          }
-        >
-          {({ isSubmitting }) => (
-            <>
-              <Form autoComplete="off" className={classes.infoContainer}>
-                {renderForm()}
-                {!loggedIn && (
-                  <div className={classes.text}>
-                    <h3>Click LOGIN to start creating your Telescope Account.</h3>
+          <Formik
+            enableReinitialize
+            onSubmit={handleSubmit}
+            validationSchema={currentSchema}
+            initialValues={
+              {
+                [firstName.name]: user?.firstName,
+                [lastName.name]: user?.lastName,
+                [displayName.name]: user?.name,
+                [email.name]: user?.email,
+                [githubUsername.name]: '',
+                [githubOwnership.name]: false,
+                [github.name]: {
+                  username: '',
+                  avatarUrl: '',
+                },
+                [blogUrl.name]: 'https://',
+                [feeds.name]: [] as Array<string>,
+                [allFeeds.name]: [] as Array<string>,
+                [blogOwnership.name]: false,
+              } as SignUpForm
+            }
+          >
+            {({ isSubmitting }) => (
+              <>
+                <Form autoComplete="off" className={classes.infoContainer}>
+                  {renderForm()}
+                  {!loggedIn && (
+                    <div className={classes.text}>
+                      <h3>Click LOGIN to start creating your Telescope Account.</h3>
+                    </div>
+                  )}
+                  <div className={classes.buttonsWrapper}>
+                    {activeStep === 0 && (
+                      <Button className={classes.buttonLogin} onClick={() => login('/signup')}>
+                        Login
+                      </Button>
+                    )}
+                    {activeStep > 1 && loggedIn && (
+                      <Button className={classes.button} onClick={handlePrevious}>
+                        Previous
+                      </Button>
+                    )}
+                    {activeStep > 0 && loggedIn && (
+                      <Button className={classes.button} type="submit" disabled={isSubmitting}>
+                        {activeStep === 4 ? 'Confirm' : 'Next'}
+                      </Button>
+                    )}
                   </div>
-                )}
-                <div className={classes.buttonsWrapper}>
-                  {activeStep === 0 && (
-                    <Button className={classes.buttonLogin} onClick={() => login('/signup')}>
-                      Login
-                    </Button>
-                  )}
-                  {activeStep > 1 && loggedIn && (
-                    <Button className={classes.button} onClick={handlePrevious}>
-                      Previous
-                    </Button>
-                  )}
-                  {activeStep > 0 && loggedIn && (
-                    <Button className={classes.button} type="submit" disabled={isSubmitting}>
-                      {activeStep === 4 ? 'Confirm' : 'Next'}
-                    </Button>
-                  )}
-                </div>
-              </Form>
-            </>
-          )}
-        </Formik>
-      </div>
+                </Form>
+              </>
+            )}
+          </Formik>
+        </div>
+      ) : (
+        <Spinner />
+      )}
     </div>
   );
 };
