@@ -37,12 +37,17 @@ const ButtonTooltip = withStyles({
 })(Tooltip);
 
 const LandingButtons = () => {
-  const classes = useStyles();
   const { login, logout, user } = useAuth();
+
+  const classes = useStyles();
+
   const router = useRouter();
 
   return (
-    <div className={classes.buttonsContainer}>
+    <div
+      className={classes.buttonsContainer}
+      style={user?.isRegistered ? { width: '155px' } : { width: '250px' }}
+    >
       {user && !user?.isRegistered && (
         <PopUp
           messageTitle="Telescope"
