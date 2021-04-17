@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, Tooltip, withStyles, Zoom } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import useAuth from '../hooks/use-auth';
 import TelescopeAvatar from './TelescopeAvatar';
@@ -26,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+const ButtonTooltip = withStyles({
+  tooltip: {
+    fontSize: '1.5rem',
+    margin: 0,
+  },
+})(Tooltip);
 
 const LandingButtons = () => {
   const classes = useStyles();
@@ -58,7 +65,16 @@ const LandingButtons = () => {
           >
             Sign out
           </Button>
-          <TelescopeAvatar name={user.name} img={user.avatarUrl} size="40px" />
+          <ButtonTooltip title="Logout" arrow placement="top" TransitionComponent={Zoom}>
+            <div>
+              <TelescopeAvatar
+                action={() => logout()}
+                name={user.name}
+                img={user.avatarUrl}
+                size="40px"
+              />
+            </div>
+          </ButtonTooltip>
         </>
       ) : (
         <>

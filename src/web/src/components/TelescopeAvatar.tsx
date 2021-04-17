@@ -49,6 +49,7 @@ const TelescopeAvatar = ({
         alt={name}
         src={img}
         style={{
+          cursor: 'pointer',
           width: size,
           height: size,
           fontSize: `calc(${size} * 0.43)`,
