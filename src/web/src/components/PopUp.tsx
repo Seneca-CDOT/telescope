@@ -12,11 +12,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 type PopUpProps = {
   messageTitle: string;
   message: string;
-  agreeAction: MouseEventHandler;
+  buttonText?: string;
+  agreeAction?: MouseEventHandler;
   disagreeAction?: MouseEventHandler;
   agreeButtonText: string;
   disagreeButtonText?: string;
-  cancelButton?: boolean;
+  simple?: boolean;
 };
 
 const PopUp = ({
@@ -26,7 +27,8 @@ const PopUp = ({
   disagreeAction,
   agreeButtonText,
   disagreeButtonText,
-  cancelButton,
+  simple,
+  buttonText,
 }: PopUpProps) => {
   const [open, setOpen] = useState(true);
 
@@ -39,7 +41,7 @@ const PopUp = ({
   return (
     <>
       <Dialog
-        open={!cancelButton ? true : open}
+        open={simple ? open : true}
         onClose={() => router.push('/')}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -54,9 +56,9 @@ const PopUp = ({
               {disagreeButtonText}
             </Button>
           )}
-          {cancelButton && (
+          {simple && (
             <Button onClick={handleClose} color="primary">
-              Cancel
+              {buttonText}
             </Button>
           )}
           <Button onClick={agreeAction} color="primary" autoFocus>
