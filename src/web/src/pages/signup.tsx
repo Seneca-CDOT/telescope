@@ -227,6 +227,18 @@ const SignUpPage = () => {
 
   return (
     <div className={classes.root}>
+      <Button
+        variant="contained"
+        style={{
+          position: 'absolute',
+          // backgroundColor: 'yellow',
+          top: '30px',
+          right: '50px',
+        }}
+        onClick={() => router.push('/')}
+      >
+        BACK TO HOME
+      </Button>
       <div className={classes.imageContainer}>
         <DynamicImage />
       </div>
