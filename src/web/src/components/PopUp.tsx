@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useState } from 'react';
 
 import { useRouter } from 'next/router';
 
@@ -16,6 +16,7 @@ type PopUpProps = {
   disagreeAction?: MouseEventHandler;
   agreeButtonText: string;
   disagreeButtonText?: string;
+  cancelButton?: boolean;
 };
 
 const PopUp = ({
@@ -25,12 +26,20 @@ const PopUp = ({
   disagreeAction,
   agreeButtonText,
   disagreeButtonText,
+  cancelButton,
 }: PopUpProps) => {
+  const [open, setOpen] = useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const router = useRouter();
+
   return (
     <>
       <Dialog
-        open
+        open={!cancelButton ? true : open}
         onClose={() => router.push('/')}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -43,6 +52,11 @@ const PopUp = ({
           {disagreeAction && (
             <Button onClick={disagreeAction} color="primary">
               {disagreeButtonText}
+            </Button>
+          )}
+          {cancelButton && (
+            <Button onClick={handleClose} color="primary">
+              Cancel
             </Button>
           )}
           <Button onClick={agreeAction} color="primary" autoFocus>

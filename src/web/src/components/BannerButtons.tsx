@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { makeStyles, Tooltip, withStyles, Zoom } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import useAuth from '../hooks/use-auth';
 import TelescopeAvatar from './TelescopeAvatar';
+import PopUp from './PopUp';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
@@ -37,9 +39,20 @@ const ButtonTooltip = withStyles({
 const LandingButtons = () => {
   const classes = useStyles();
   const { login, logout, user } = useAuth();
+  const router = useRouter();
 
   return (
     <div className={classes.buttonsContainer}>
+      {user && !user?.isRegistered && (
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hello ${user?.name}, you need to create your Telescope account. Click SIGN UP to start.`}
+          agreeAction={() => router.push('/signup')}
+          agreeButtonText="SIGN UP"
+          disagreeAction={() => logout()}
+          disagreeButtonText="ABORT"
+        />
+      )}
       <Link href="/about" passHref>
         <Button
           style={{
@@ -52,20 +65,9 @@ const LandingButtons = () => {
           About us
         </Button>
       </Link>
-      {user ? (
+      {user?.isRegistered ? (
         <>
-          <Button
-            onClick={() => logout()}
-            style={{
-              border: 'none',
-              padding: 0,
-              fontSize: '1.2rem',
-            }}
-            variant="outlined"
-          >
-            Sign out
-          </Button>
-          <ButtonTooltip title="Logout" arrow placement="top" TransitionComponent={Zoom}>
+          <ButtonTooltip title="Sign out" arrow placement="top" TransitionComponent={Zoom}>
             <div>
               <TelescopeAvatar
                 action={() => logout()}
