@@ -233,7 +233,7 @@ const SignUpPage = () => {
       {telescopeAccount.error && (
         <PopUp
           messageTitle="Telescope"
-          message={`Hi ${user?.name} there was a problem creating your account. Please try again later or contact us on Slack`}
+          message={`Hi ${user?.name} there was a problem creating your account. Please try again later or contact us on our Slack channel.`}
           agreeAction={() => router.push('/')}
           agreeButtonText="Ok"
         />
@@ -249,12 +249,12 @@ const SignUpPage = () => {
       {telescopeAccount.created && (
         <PopUp
           messageTitle="Welcome to Telescope"
-          message={`Hello ${user?.name} your Telescope account was successfully created!`}
+          message={`Hello ${user?.name} your Telescope account was created.`}
           agreeAction={() => router.push('/')}
           agreeButtonText="Ok"
         />
       )}
-      {!loading ? (
+      {!loading && !user?.isRegistered ? (
         <div className={classes.signUpContainer}>
           <h1 className={classes.title}>Telescope Account</h1>
 
