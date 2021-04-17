@@ -51,7 +51,7 @@ const LandingButtons = () => {
       {user && !user?.isRegistered && (
         <PopUp
           messageTitle="Telescope"
-          message={`Hello ${user?.name}, you need to create your Telescope account. Click SIGN UP to start.`}
+          message={`Hello ${user?.name}, to sign in you need to create your Telescope account. Click SIGN UP to start.`}
           agreeAction={() => router.push('/signup')}
           agreeButtonText="SIGN UP"
           disagreeAction={() => logout()}
