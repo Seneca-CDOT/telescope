@@ -55,7 +55,7 @@ const LandingButtons = () => {
           agreeAction={() => router.push('/signup')}
           agreeButtonText="SIGN UP"
           disagreeAction={() => logout()}
-          disagreeButtonText="ABORT"
+          disagreeButtonText="CANCEL"
         />
       )}
       <Link href="/about" passHref>

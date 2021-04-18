@@ -48,6 +48,7 @@ services:
       - PORT
       - POSTS_URL
       - API_URL
+      - AUTH_URL
       - WEB_URL
       - SEARCH_URL
       - FEED_DISCOVERY_URL
