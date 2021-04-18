@@ -17,7 +17,7 @@ const {
 
 // Each signup step has one validation schema
 export default [
-  // First step has no validation logic
+  // First step we receive data from SSO.
   Yup.object().shape({}),
 
   Yup.object().shape({
@@ -26,6 +26,7 @@ export default [
     [displayName.name]: Yup.string().required(`${displayName.requiredErrorMsg}`),
   }),
 
+  // Second step we fetch data from GitHub.
   Yup.object().shape({
     [githubUsername.name]: Yup.string().required(`${githubUsername.requiredErrorMsg}`),
     [github.name]: Yup.object()
@@ -41,6 +42,7 @@ export default [
     ),
   }),
 
+  // Third step we collect the user blog and the RSSfeeds from it.
   Yup.object().shape({
     [blogUrl.name]: Yup.string().url().required(`${blogUrl.requiredErrorMsg}`),
     [feeds.name]: Yup.array().of(Yup.string()).min(1, feeds.requiredErrorMsg),
@@ -52,6 +54,6 @@ export default [
     ),
   }),
 
-  // Reviewing step has no validation logic
+  // Reviewing step has no validation logic. We just display all data that we collected.
   Yup.object().shape({}),
 ];

@@ -126,11 +126,11 @@ const GitHubAccount = connect<{}, SignUpForm>((props) => {
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      const res = await response.json();
+      const result = await response.json();
 
       setFieldValue('github', {
-        username: res.login,
-        avatarUrl: res.avatar_url,
+        username: result.login,
+        avatarUrl: result.avatar_url,
       });
       setError('');
     } catch (err) {

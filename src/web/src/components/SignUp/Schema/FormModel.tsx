@@ -2,7 +2,7 @@ export default {
   displayName: {
     name: 'displayName',
     label: 'Display Name',
-    requiredErrorMsg: 'Display Name is required',
+    requiredErrorMsg: 'Display name is required',
   },
   firstName: {
     name: 'firstName',
@@ -36,7 +36,7 @@ export default {
   blogUrl: {
     name: 'blogUrl',
     label: 'Blog URl',
-    requiredErrorMsg: 'Blog Url is required',
+    requiredErrorMsg: 'Blog URL is required',
     invalidErrorMsg: 'Invalid URL',
   },
   feeds: {
