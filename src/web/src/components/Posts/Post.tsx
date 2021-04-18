@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme: Theme) =>
     postInfo: {
       [theme.breakpoints.down(1200)]: {
         display: 'grid',
-        gridTemplateAreas: "'avatar title title title''avatar author date .'",
+        gridTemplateAreas: "'avatar title title title''avatar author date date'",
+        gridTemplateColumns: 'auto auto auto auto',
         justifyContent: 'left',
         width: '100%',
         padding: '1em 0 1em 0',
@@ -70,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1024)]: {
         width: '80vw',
       },
-      [theme.breakpoints.down(321)]: {
+      [theme.breakpoints.down(600)]: {
         width: '78vw',
       },
     },
@@ -122,7 +123,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       [theme.breakpoints.down(1024)]: {
         fontSize: '1.1em',
-        marginRight: '1em',
+        marginRight: '.3em',
       },
     },
     link: {
@@ -135,22 +136,25 @@ const useStyles = makeStyles((theme: Theme) =>
     publishedDateContainer: {
       [theme.breakpoints.down(1200)]: {
         gridArea: 'date',
+        display: 'flex',
+        flexWrap: 'nowrap',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-start',
       },
+      [theme.breakpoints.down(1024)]: {},
     },
     published: {
       [theme.breakpoints.down(1200)]: {
-        width: '200px',
         height: '10px',
-        margin: '-.6em 0 -1em 1.5em',
+        margin: '-.6em 1em -1em 1.5em',
         fontSize: '1.3em',
         fontWeight: 'lighter',
         color: theme.palette.text.primary,
       },
       [theme.breakpoints.down(1024)]: {
         fontSize: '1.1em',
-        width: '40vw',
         height: '5px',
-        margin: '-1.6em 0 -1em .5px',
+        margin: '-1.6em 1em -1em .5px',
       },
       '&:hover': {
         textDecorationLine: 'underline',
@@ -291,8 +295,10 @@ const PostComponent = ({ postUrl }: Props) => {
                 <a href={post.url} rel="bookmark" className={classes.link}>
                   {`${formatPublishedDate(post.updated)}`}
                 </a>
-                <AdminButtons />
               </h1>
+              <div>
+                <AdminButtons />
+              </div>
             </div>
           </>
         )}
