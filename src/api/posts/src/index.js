@@ -1,5 +1,5 @@
 const { Satellite } = require('@senecacdot/satellite');
-const { redis } = require('./redis');
+const redis = require('./redis');
 
 const posts = require('./routes/posts');
 
