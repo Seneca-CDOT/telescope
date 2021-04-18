@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2.5rem',
   },
   button: {
-    margin: '0 0.5rem 0 0.5rem',
     '&:hover': {
       backgroundColor: 'transparent',
       color: theme.palette.text.primary,

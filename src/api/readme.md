@@ -41,12 +41,14 @@ npm run services:stop
 
 ## API Lookup Table
 
-| API   | Docker Tag          | URL                         | Description                                       |
-| ----- | ------------------- | --------------------------- | ------------------------------------------------- |
-| posts | telescope_posts_svc | <http://localhost/v1/posts> | Provides access to cached user posts              |
-| image | telescope_img_svc   | <http://localhost/v1/image> | Provides a dynamic image processing service       |
-| auth  | telescope_auth_svc  | <http://localhost/v1/auth>  | Provides authentication and authorization service |
-| users | telescope_users_svc | <http://localhost/v1/users> | Provides telescope's user services                |
+| API    | Docker Tag           | URL                          | Description                                       |
+| ------ | -------------------- | ---------------------------- | ------------------------------------------------- |
+| posts  | telescope_posts_svc  | <http://localhost/v1/posts>  | Provides access to cached user posts              |
+| image  | telescope_img_svc    | <http://localhost/v1/image>  | Provides a dynamic image processing service       |
+| auth   | telescope_auth_svc   | <http://localhost/v1/auth>   | Provides authentication and authorization service |
+| users  | telescope_users_svc  | <http://localhost/v1/users>  | Provides telescope's user services                |
+| parser | telescope_parser_svc | <http://localhost/v1/parser> | Provides telescope's parser services              |
+| search | telescope_search_svc | http://localhost/v1/search   | Provides an ELK query controller service          |
 
 ## Support Services Lookup Table (development only)
 

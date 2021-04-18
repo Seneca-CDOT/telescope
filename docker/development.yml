@@ -52,6 +52,17 @@ services:
       # Cloud Firestore
       - '8088:8088'
 
+  # Static Web Content for tests, hosting the contents of test/test-web-content.
+  # The host can use http://localhost:8888 to access these files, and Docker
+  # containers can use http://test-web-content instead.
+  test-web-content:
+    container_name: 'test-web-content'
+    image: 'nginx:stable-alpine'
+    ports:
+      - '8888:80'
+    volumes:
+      - ../test/test-web-content:/usr/share/nginx/html:ro
+
   redis:
     ports:
       - '6379:6379'
@@ -67,5 +78,13 @@ services:
   auth:
     environment:
       # We development and testing, the Auth service needs to contact the users
+      # service directly via Docker vs through the http://localhost domain.
+      - USERS_URL=http://users:6666
+    depends_on:
+      - test-web-content
+
+  parser:
+    environment:
+      # For development and testing, the Parser service needs to contact the users
       # service directly via Docker vs through the http://localhost domain.
       - USERS_URL=http://users:6666

@@ -10,6 +10,7 @@ export interface SearchContextInterface {
   textParam: string;
   filter: FilterProp['filter'];
   showHelp: boolean;
+  toggleHelp: (value: boolean) => void;
   onTextChange: (value: string) => void;
   onFilterChange: (value: FilterProp['filter']) => void;
   onSubmitHandler: (value: FormEvent) => void;
@@ -20,6 +21,9 @@ const SearchContext = createContext<SearchContextInterface>({
   textParam: '',
   filter: 'post',
   showHelp: true,
+  toggleHelp() {
+    throw new Error('This context must be wrapped inside SearchProvider');
+  },
   onTextChange() {
     throw new Error('This context must be wrapped inside SearchProvider');
   },
@@ -54,9 +58,10 @@ const SearchProvider = ({ children }: Props) => {
   const onSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
     router.push(`/search?text=${text}&filter=${filter}`);
+  };
 
-    // On form submit, hide help list
-    setShowHelp(false);
+  const toggleHelp = (value: boolean) => {
+    setShowHelp(value);
   };
 
   const onTextChange = (value: string) => {
@@ -74,7 +79,16 @@ const SearchProvider = ({ children }: Props) => {
 
   return (
     <SearchContext.Provider
-      value={{ text, textParam, showHelp, filter, onTextChange, onFilterChange, onSubmitHandler }}
+      value={{
+        text,
+        textParam,
+        showHelp,
+        filter,
+        onTextChange,
+        onFilterChange,
+        onSubmitHandler,
+        toggleHelp,
+      }}
     >
       {children}
     </SearchContext.Provider>

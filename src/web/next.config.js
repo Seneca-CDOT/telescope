@@ -13,7 +13,7 @@ const dotenv = require('dotenv');
 const loadApiUrlFromEnv = (envFile) => dotenv.config({ path: envFile });
 
 // ENV Variables we need to forward to next by prefix with NEXT_PUBLIC_*
-const envVarsToForward = ['WEB_URL', 'API_URL', 'IMAGE_URL', 'POSTS_URL', 'AUTH_URL'];
+const envVarsToForward = ['WEB_URL', 'API_URL', 'IMAGE_URL', 'POSTS_URL', 'AUTH_URL', 'SEARCH_URL'];
 
 // Copy an existing ENV Var so it's visible to next: API_URL -> NEXT_PUBLIC_API_URL
 const forwardToNext = (envVar) => {
@@ -38,7 +38,7 @@ envVarsToForward.forEach((envVar) => forwardToNext(envVar));
 // NOTE: on Vercel, the value we get from VERCEL_URL for the WEB_URL will be
 // missing the leading https://.  If it's not there, add it now so the front-end
 // can count on it always being an absolute URL.
-process.env.NEXT_PUBLIC_WEB_URL = process.env.NEXT_PUBLIC_WEB_URL.startsWith('https://')
+process.env.NEXT_PUBLIC_WEB_URL = /^https?:\/\//.test(process.env.NEXT_PUBLIC_WEB_URL)
   ? process.env.NEXT_PUBLIC_WEB_URL
   : `https://${process.env.NEXT_PUBLIC_WEB_URL}`;
 

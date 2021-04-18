@@ -14,8 +14,9 @@ module.exports = {
     'plugin:promise/recommended',
     'plugin:react-hooks/recommended',
     'plugin:import/typescript',
+    'plugin:jest-playwright/recommended',
   ],
-  plugins: ['prettier', 'promise', 'react', 'react-hooks'],
+  plugins: ['prettier', 'promise', 'react', 'react-hooks', 'jest'],
   settings: {
     'importer/resolver': {
       node: {},
@@ -52,6 +53,11 @@ module.exports = {
         // Allow using TypeScript constructor shorthand: `Foo(public bar: string){}`
         'no-useless-constructor': 'off',
         'no-empty-function': 'off',
+        'jest/no-disabled-tests': 'warn',
+        'jest/no-focused-tests': 'error',
+        'jest/no-identical-title': 'error',
+        'jest/prefer-to-have-length': 'warn',
+        'jest/valid-expect': 'error',
       },
     },
 
@@ -65,7 +71,7 @@ module.exports = {
 
     // Jest Test files
     {
-      files: ['test/**/*.js', '*.test.js', '*.test.ts', '**/__mocks__/**/*.js'],
+      files: ['test/**/*.js', '*.test.js', '*.test.ts', '*.test.tsx', '**/__mocks__/**/*.js'],
       env: { jest: true, node: true },
     },
   ],

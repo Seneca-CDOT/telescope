@@ -5,12 +5,13 @@ import AdminButtons from '../AdminButtons';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      margin: '0',
+      marginLeft: '2rem',
       padding: '0',
       display: 'flex',
+      borderLeft: '1.5px solid #999999',
       flexDirection: 'column',
       justifyContent: 'center',
-      borderLeft: '2.5px solid #707070',
+      width: '100%',
       [theme.breakpoints.up('lg')]: {
         width: '22rem',
       },
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
+      marginLeft: '1rem',
     },
     circle: {
       display: 'block',
@@ -30,14 +32,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     authorNameContainer: {
       width: '100%',
+      height: '3rem',
+      marginLeft: '1.5rem',
     },
     author: {
       width: '100%',
       wordWrap: 'break-word',
-      fontSize: '2em',
-      lineHeight: '1.5em',
+      fontSize: '1.6em',
+      lineHeight: '1em',
       fontWeight: 'bold',
-      marginLeft: '.5em',
       color: theme.palette.text.primary,
     },
     link: {
@@ -48,8 +51,8 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     published: {
-      marginLeft: '.5em',
-      fontSize: '1.5em',
+      marginLeft: '1.5rem',
+      fontSize: '1.2em',
       fontWeight: 'lighter',
       textDecoration: 'none',
       color: theme.palette.text.primary,
@@ -76,11 +79,11 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
         <PostAvatar name={authorName} blog={blogUrl} />
       </div>
       <div className={classes.authorNameContainer}>
-        <h1 className={classes.author}>
+        <p className={classes.author}>
           <a className={classes.link} href={blogUrl}>
             {authorName}
           </a>
-        </h1>
+        </p>
       </div>
       <div>
         <a href={postUrl} rel="bookmark" className={classes.published}>

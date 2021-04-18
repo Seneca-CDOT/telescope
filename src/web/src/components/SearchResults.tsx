@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSWRInfinite } from 'swr';
 import { Container, Box } from '@material-ui/core';
 
-import { telescopeUrl } from '../config';
+import { searchServiceUrl } from '../config';
 import Timeline from './Posts/Timeline';
 import Spinner from './Spinner';
 import useSearchValue from '../hooks/use-search-value';
@@ -51,10 +51,10 @@ const useStyles = makeStyles(() => ({
 
 const SearchResults = () => {
   const classes = useStyles();
-  const { textParam, filter } = useSearchValue();
+  const { textParam, filter, toggleHelp } = useSearchValue();
 
   const prepareUrl = (index: number) =>
-    `${telescopeUrl}/query?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
+    `${searchServiceUrl}?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
   const shouldFetch = () => textParam.length > 0;
@@ -74,6 +74,13 @@ const SearchResults = () => {
   // Another page is being loaded when size is incremented but data[size - 1] is still undefined
   const loadingMoreData =
     !isReachingEnd && data && size > 0 && typeof data[size - 1] === 'undefined';
+
+  // If there is no posts or if the search bar is empty, then show the search help, otherwise hide it
+  if (!error && (isEmpty || textParam.length == 0)) {
+    toggleHelp(true);
+  } else {
+    toggleHelp(false);
+  }
 
   if (error) {
     return (

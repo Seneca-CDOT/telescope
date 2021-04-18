@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { AppBar, Toolbar } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Tooltip, Zoom } from '@material-ui/core';
+import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
@@ -11,6 +11,8 @@ import dynamic from 'next/dynamic';
 import NavBarButton, { NavBarIconProps } from './NavBarButton';
 import Logo from '../Logo';
 import Login from '../Login';
+import TelescopeAvatar from '../TelescopeAvatar';
+import useAuth from '../../hooks/use-auth';
 
 /**  This will solve the problem of incorrect rendering of theme icon when theme preference is dark
  * This ensures that the version displayed to user is the client view which ties to the client's preference theme.
@@ -30,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     backgroundColor: 'transparent',
     transition: 'width 100ms linear,top 300ms linear',
+    animation: `$navbar 400ms`,
     [theme.breakpoints.down(1200)]: {
       left: '-3vw',
     },
@@ -41,6 +44,25 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'row',
       alignItems: 'center',
       background: theme.palette.background.default,
+      animation: `$mobileNavbar 400ms`,
+    },
+  },
+  '@keyframes navbar': {
+    '0%': {
+      opacity: 0,
+      transform: 'translateY(-200%)',
+    },
+    '100%': {
+      opacity: 1,
+      transform: 'translateY(0)',
+    },
+  },
+  '@keyframes mobileNavbar': {
+    '0%': {
+      opacity: 0,
+    },
+    '100%': {
+      opacity: 1,
     },
   },
   toolbar: {
@@ -61,7 +83,17 @@ const useStyles = makeStyles((theme) => ({
   logoIcon: {
     margin: '0 0.5rem',
   },
+  avatar: {
+    padding: '12px',
+  },
 }));
+
+const ButtonTooltip = withStyles({
+  tooltip: {
+    fontSize: '1.5rem',
+    margin: 0,
+  },
+})(Tooltip);
 
 const iconProps: NavBarIconProps[] = [
   {
@@ -84,11 +116,19 @@ const iconProps: NavBarIconProps[] = [
   },
 ];
 
-export default function NavBar() {
+type NavBarProps = {
+  disabled?: boolean;
+};
+
+export default function NavBar({ disabled }: NavBarProps) {
   const classes = useStyles();
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up(1024));
+  const { user, logout } = useAuth();
 
+  if (disabled) {
+    return null;
+  }
   return (
     <AppBar className={classes.root} position="fixed">
       <Toolbar className={classes.toolbar}>
@@ -106,8 +146,15 @@ export default function NavBar() {
         {iconProps.map((props) => (
           <NavBarButton {...props} key={props.title} />
         ))}
-        <Login />
+        {!user && <Login />}
         <DynamicThemeToggleButton />
+        {user && (
+          <ButtonTooltip title="Logout" arrow placement="top" TransitionComponent={Zoom}>
+            <div className={classes.avatar} onClick={() => logout()}>
+              <TelescopeAvatar name={user.name} img={user.avatarUrl} size="27px" />
+            </div>
+          </ButtonTooltip>
+        )}
       </Toolbar>
     </AppBar>
   );

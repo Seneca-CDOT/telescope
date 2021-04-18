@@ -1,12 +1,20 @@
-const { Router } = require('@senecacdot/satellite');
-const { checkValidUrl, checkValidBlogPage, discoverFeedUrls } = require('./lib');
+const { Router, isAuthenticated } = require('@senecacdot/satellite');
+const { checkValidUrl, checkValidBlog, discoverFeedUrls } = require('./middleware');
 
 const router = Router();
 
-router.post('/', [checkValidUrl, checkValidBlogPage, discoverFeedUrls], (req, res) => {
-  res.status(200).json({
-    feedUrls: res.locals.feedUrls,
-  });
-});
+router.post(
+  '/',
+  // Any authenticated user is fine (i.e., any role/user will work, as long as logged in)
+  isAuthenticated(),
+  checkValidUrl(),
+  checkValidBlog(),
+  discoverFeedUrls(),
+  (req, res) => {
+    res.status(200).json({
+      feedUrls: res.locals.feedUrls,
+    });
+  }
+);
 
 module.exports = router;

@@ -1,3 +1,9 @@
+/*
+ * NOTE: This has been ported to ~/src/api/search
+ * Future updates will remove the codebase below
+ * and point towards `service.docker.localhost` for querying.
+ */
+
 const { ELASTIC_URL, ELASTIC_PORT } = process.env;
 const { Client } = require('@elastic/elasticsearch');
 const Mock = require('@elastic/elasticsearch-mock');

@@ -16,7 +16,12 @@ services:
       context: ../src/api/image
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - IMAGE_PORT
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${IMAGE_PORT}
     depends_on:
@@ -40,6 +45,7 @@ services:
       context: ../src/api/auth
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - AUTH_PORT
       - SSO_LOGIN_URL
       - SSO_LOGIN_CALLBACK_URL
@@ -47,16 +53,19 @@ services:
       - SLO_LOGOUT_CALLBACK_URL
       - SSO_IDP_PUBLIC_KEY_CERT
       - SAML_ENTITY_ID
-      - SECRET
       - ADMINISTRATORS
       - ALLOWED_APP_ORIGINS
-      - JWT_ISSUER
       - JWT_EXPIRES_IN
       - USERS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${AUTH_PORT}
     depends_on:
       - traefik
+      - users
     labels:
       # Enable Traefik
       - 'traefik.enable=true'
@@ -69,6 +78,40 @@ services:
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.auth.middlewares=strip_auth_prefix'
 
+  # search service
+  search:
+    container_name: 'search'
+    build:
+      context: ../src/api/search
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV
+      - SEARCH_PORT
+      - POSTS_URL
+      - ELASTIC_MAX_RESULTS_PER_PAGE
+      - ELASTIC_URL=http://elasticsearch
+      - ELASTIC_PORT=9200
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+    depends_on:
+      - elasticsearch
+      - traefik
+    ports:
+      - ${SEARCH_PORT}
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the search service at /v1/search
+      - 'traefik.http.routers.search.rule=PathPrefix(`/${API_VERSION}/search`)'
+      # Specify the search service port
+      - 'traefik.http.services.search.loadbalancer.server.port=${SEARCH_PORT}'
+      # Add middleware to this route to strip the /v1/search prefix
+      - 'traefik.http.middlewares.strip_search_prefix.stripprefix.prefixes=/${API_VERSION}/search'
+      - 'traefik.http.middlewares.strip_search_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.search.middlewares=strip_search_prefix'
+
   # posts service
   posts:
     container_name: 'posts'
@@ -76,8 +119,13 @@ services:
       context: ../src/api/posts
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - POSTS_PORT
       - POSTS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${POSTS_PORT}
     depends_on:
@@ -102,7 +150,12 @@ services:
       context: ../src/api/feed-discovery
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - FEED_DISCOVERY_PORT
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${FEED_DISCOVERY_PORT}
     depends_on:
@@ -126,8 +179,13 @@ services:
       context: ../src/api/users
       dockerfile: Dockerfile
     environment:
+      - NODE_ENV
       - USERS_PORT
       - USERS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
     ports:
       - ${USERS_PORT}
     depends_on:
@@ -143,6 +201,39 @@ services:
       - 'traefik.http.middlewares.strip_users_prefix.stripprefix.prefixes=/${API_VERSION}/users'
       - 'traefik.http.middlewares.strip_users_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.users.middlewares=strip_users_prefix'
+
+  # parser service
+  parser:
+    container_name: 'parser'
+    build:
+      context: ../src/api/parser
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV
+      - PARSER_PORT
+      - USERS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+    ports:
+      - ${PARSER_PORT}
+    depends_on:
+      - traefik
+      - redis
+      - users
+      - elasticsearch
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the parser service at /v1/parser
+      - 'traefik.http.routers.parser.rule=PathPrefix(`/${API_VERSION}/parser`)'
+      # Specify the parser service port
+      - 'traefik.http.services.parser.loadbalancer.server.port=${PARSER_PORT}'
+      # Add middleware to this route to strip the /v1/parser prefix
+      - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.prefixes=/${API_VERSION}/parser'
+      - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'
 
   ##############################################################################
   # Third-Party Dependencies and Support Services

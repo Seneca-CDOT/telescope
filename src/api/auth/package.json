@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "description": "An Authorization Service",
   "scripts": {
-    "test:manual": "http-server test/manual -p 8888",
     "dev": "env-cmd -f env.local nodemon src/server.js",
     "start": "node src/server.js"
   },
@@ -15,11 +14,12 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@senecacdot/satellite": "^1.x.0",
+    "@senecacdot/satellite": "^1.x",
     "celebrate": "^14.0.0",
+    "connect-redis": "^5.1.0",
     "express-session": "^1.17.1",
-    "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
+    "minimatch": "^3.0.4",
     "node-fetch": "^2.6.1",
     "passport": "^0.4.1",
     "passport-saml": "^2.1.0"
@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
-    "http-server": "^0.12.3",
     "nodemon": "^2.0.7"
   }
 }

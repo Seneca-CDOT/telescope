@@ -12,11 +12,12 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import LandingButtons from './BannerButtons';
+import ScrollAction from './ScrollAction';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heroBanner: {
-      maxHeight: '100vh',
+      minHeight: '100vh',
       overflow: 'hidden',
       position: 'relative',
     },
@@ -72,13 +73,9 @@ const useStyles = makeStyles((theme: Theme) =>
         boxShadow: 'none',
         display: 'grid',
       },
-      [theme.breakpoints.down(1024)]: {
-        marginBottom: '60px',
-      },
     },
     anchor: {
       position: 'relative',
-      top: '1rem',
     },
     container: {
       bottom: '0',
@@ -90,7 +87,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Banner() {
+type BannerProps = {
+  onVisibilityChange: (visible: boolean) => void;
+};
+
+export default function Banner({ onVisibilityChange }: BannerProps) {
   const classes = useStyles();
   const [gitInfo, setGitInfo] = useState({
     gitHubUrl: '',
@@ -100,7 +101,6 @@ export default function Banner() {
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
   const bannerAnchor = useRef<HTMLDivElement>(null);
-
   const toTimelineTrigger = useScrollTrigger({
     threshold: 50,
     disableHysteresis: true,
@@ -148,6 +148,26 @@ export default function Banner() {
     getGitData();
   }, []);
 
+  // Observer banner
+  useEffect(() => {
+    const options = {
+      root: null,
+      threshold: 0.9,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((entry) => onVisibilityChange(entry.isIntersecting)),
+      options
+    );
+    observer.observe(timelineAnchor.current!);
+
+    const timelineAnchorCopy = timelineAnchor.current;
+
+    return () => {
+      observer.unobserve(timelineAnchorCopy as HTMLDivElement);
+    };
+  }, [onVisibilityChange]);
+
   return (
     <>
       <div className={classes.heroBanner} ref={bannerAnchor}>
@@ -172,9 +192,11 @@ export default function Banner() {
         >
           v {gitInfo.version}
         </a>
-        <Fab color="primary" aria-label="scroll-down">
-          <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
-        </Fab>
+        <ScrollAction>
+          <Fab color="primary" aria-label="scroll-down">
+            <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
+          </Fab>
+        </ScrollAction>
       </div>
       <div className={classes.anchor} id="posts-anchor" ref={timelineAnchor} />
     </>

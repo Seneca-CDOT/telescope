@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1024)]: {
         width: '80vw',
       },
+      [theme.breakpoints.down(321)]: {
+        width: '78vw',
+      },
     },
     title: {
       fontSize: '3em',
@@ -93,10 +96,12 @@ const useStyles = makeStyles((theme: Theme) =>
     expandHeader: {
       whiteSpace: 'normal',
       cursor: 'pointer',
+      outline: 'none',
     },
     collapseHeader: {
       whiteSpace: 'nowrap',
       cursor: 'pointer',
+      outline: 'none',
     },
     authorNameContainer: {
       [theme.breakpoints.down(1200)]: {
@@ -170,6 +175,10 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       '& a:visited': {
         color: theme.palette.action.selected,
+      },
+      [theme.breakpoints.down(600)]: {
+        padding: '.5em',
+        width: 'auto',
       },
     },
   })

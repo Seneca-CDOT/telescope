@@ -1,5 +1,7 @@
 const request = require('supertest');
 const nock = require('nock');
+const { createServiceToken } = require('@senecacdot/satellite');
+
 const { app } = require('../src');
 
 describe('POST /', () => {
@@ -28,7 +30,10 @@ describe('POST /', () => {
         'Content-Type': 'text/html',
       });
 
-      const res = await request(app).post('/').send({ blogUrl });
+      const res = await request(app)
+        .post('/')
+        .set('Authorization', `bearer ${createServiceToken()}`)
+        .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
       done();
@@ -54,7 +59,10 @@ describe('POST /', () => {
         'Content-Type': 'text/html',
       });
 
-      const res = await request(app).post('/').send({ blogUrl });
+      const res = await request(app)
+        .post('/')
+        .set('Authorization', `bearer ${createServiceToken()}`)
+        .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
       done();
@@ -80,7 +88,10 @@ describe('POST /', () => {
         'Content-Type': 'text/html',
       });
 
-      const res = await request(app).post('/').send({ blogUrl });
+      const res = await request(app)
+        .post('/')
+        .set('Authorization', `bearer ${createServiceToken()}`)
+        .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
       done();
@@ -106,7 +117,10 @@ describe('POST /', () => {
         'Content-Type': 'text/html',
       });
 
-      const res = await request(app).post('/').send({ blogUrl });
+      const res = await request(app)
+        .post('/')
+        .set('Authorization', `bearer ${createServiceToken()}`)
+        .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
       done();
@@ -143,9 +157,18 @@ describe('POST /', () => {
         'Content-Type': 'text/html',
       });
 
-      const res = await request(app).post('/').send({ blogUrl });
+      const res = await request(app)
+        .post('/')
+        .set('Authorization', `bearer ${createServiceToken()}`)
+        .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
+      done();
+    });
+
+    it('should return 401 if no authorization token is included in headers', async (done) => {
+      const res = await request(app).post('/').send({ blogUrl: 'https://test321.blogspot.com/' });
+      expect(res.status).toBe(401);
       done();
     });
   });
