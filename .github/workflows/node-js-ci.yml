@@ -43,7 +43,7 @@ jobs:
         node-version: [12.x, 14.x]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.5
         env:
           cache-name: cache-node-modules
         with:
@@ -70,7 +70,7 @@ jobs:
       matrix:
         node-version: [12.x, 14.x]
     steps:
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.5
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
