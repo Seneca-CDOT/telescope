@@ -134,4 +134,10 @@ describe('Sanitize HTML', () => {
       '<table><tbody><tr><td><a href="www.senecacollege.ca"><img src="https://1.bp.blogspot.com/11.JPG" /></a></td></tr><tr><td>The Final Product</td></tr></tbody></table>'
     );
   });
+
+  test('test unique HTML Bug from Chris', () => {
+    const h = sanitizeHTML(`<><MDXPageBase title='About Us'><About /></MDXPageBase></>`);
+
+    expect(h).toBe(`<><MDXPageBase title="About Us"><About /></MDXPageBase></>`);
+  });
 });

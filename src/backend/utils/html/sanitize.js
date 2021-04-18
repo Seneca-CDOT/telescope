@@ -1,12 +1,10 @@
 // Sanitize HTML and prevent XSS attacks
 // <img src=x onerror=alert(1)> becomes <img src="x">
 
-const sanitizeHtml = require('sanitize-html');
-
+const sanitizeHtml = require('dompurify');
 module.exports = function (dirty) {
-  return sanitizeHtml(dirty, {
-    // https://github.com/apostrophecms/sanitize-html#what-are-the-default-options
-    allowedTags: [
+  var e = sanitizeHtml.sanitize(dirty, {
+    ALLOWED_TAGS: [
       'a',
       'b',
       'blockquote',
@@ -40,19 +38,23 @@ module.exports = function (dirty) {
       'thread',
       'tr',
       'ul',
+      'MDXPageBase',
     ],
-    allowedSchemesByTag: { img: ['http', 'https', 'data'] },
-    allowedAttributes: {
-      iframe: ['src'],
-      img: ['src'],
-      a: ['href'],
-    },
-    allowedIframeHostnames: [
-      'www.youtube.com',
-      'player.vimeo.com',
-      'giphy.com',
-      'cdn.embedly.com',
-      'open.spotify.com',
+    ADD_TAGS: ['iframe', 'MDXPageBase'],
+    ADD_ATTR: ['src'],
+    FORBID_TAGS: ['style', 'class', 'cellspacing', 'align', 'cellpadding'],
+    FORBID_ATTR: [
+      'style',
+      'class',
+      'width',
+      'height',
+      'cellspacing',
+      'align',
+      'cellpadding',
+      'border',
+      'alt',
     ],
+    RETURN_DOM: true,
   });
+  return e.getElementsByTagName('body');
 };
