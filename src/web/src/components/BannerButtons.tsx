@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import { makeStyles } from '@material-ui/core';
+import { useRouter } from 'next/router';
+import { makeStyles, Tooltip, withStyles, Zoom } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import useAuth from '../hooks/use-auth';
 import TelescopeAvatar from './TelescopeAvatar';
+import PopUp from './PopUp';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
@@ -27,12 +29,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const ButtonTooltip = withStyles({
+  tooltip: {
+    fontSize: '1.5rem',
+    margin: 0,
+  },
+})(Tooltip);
+
 const LandingButtons = () => {
-  const classes = useStyles();
   const { login, logout, user } = useAuth();
 
+  const classes = useStyles();
+
+  const router = useRouter();
+
   return (
-    <div className={classes.buttonsContainer}>
+    <div
+      className={classes.buttonsContainer}
+      style={user?.isRegistered ? { width: '155px' } : { width: '250px' }}
+    >
+      {user && !user?.isRegistered && (
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hello ${user?.name}, to sign in you need to create your Telescope account. Click SIGN UP to start.`}
+          agreeAction={() => router.push('/signup')}
+          agreeButtonText="SIGN UP"
+          disagreeAction={() => logout()}
+          disagreeButtonText="CANCEL"
+        />
+      )}
       <Link href="/about" passHref>
         <Button
           style={{
@@ -45,20 +70,18 @@ const LandingButtons = () => {
           About us
         </Button>
       </Link>
-      {user ? (
+      {user?.isRegistered ? (
         <>
-          <Button
-            onClick={() => logout()}
-            style={{
-              border: 'none',
-              padding: 0,
-              fontSize: '1.2rem',
-            }}
-            variant="outlined"
-          >
-            Sign out
-          </Button>
-          <TelescopeAvatar name={user.name} img={user.avatarUrl} size="40px" />
+          <ButtonTooltip title="Sign out" arrow placement="top" TransitionComponent={Zoom}>
+            <div>
+              <TelescopeAvatar
+                action={() => logout()}
+                name={user.name}
+                img={user.avatarUrl}
+                size="40px"
+              />
+            </div>
+          </ButtonTooltip>
         </>
       ) : (
         <>
@@ -73,14 +96,16 @@ const LandingButtons = () => {
           >
             Sign in
           </Button>
-          <Button
-            style={{
-              fontSize: '1.3rem',
-            }}
-            variant="outlined"
-          >
-            Sign up
-          </Button>
+          <Link href="/signup" passHref>
+            <Button
+              style={{
+                fontSize: '1.3rem',
+              }}
+              variant="outlined"
+            >
+              Sign up
+            </Button>
+          </Link>
         </>
       )}
     </div>

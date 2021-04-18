@@ -1,4 +1,4 @@
-import { createContext, ReactNode } from 'react';
+import { createContext, ReactNode, useState, useEffect } from 'react';
 import { useLocalStorage } from 'react-use';
 import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
@@ -9,6 +9,7 @@ import { loginUrl, logoutUrl, webUrl } from '../config';
 export interface AuthContextInterface {
   login: (returnTo?: string) => void;
   logout: () => void;
+  register: (token: string) => void;
   user?: User;
   token?: string;
 }
@@ -20,6 +21,9 @@ const AuthContext = createContext<AuthContextInterface>({
   logout() {
     throw new Error('You need to wrap your component in <AuthProvider>');
   },
+  register() {
+    throw new Error('You need to wrap your component in <AuthProvider>');
+  },
 });
 
 type Props = {
@@ -29,6 +33,7 @@ type Props = {
 const AuthProvider = ({ children }: Props) => {
   const router = useRouter();
   const { pathname, asPath } = router;
+  const [user, setUser] = useState<User | undefined>();
   const [authState, setAuthState, removeAuthState] = useLocalStorage<string>(
     'auth:state',
     undefined,
@@ -43,11 +48,33 @@ const AuthProvider = ({ children }: Props) => {
   // Server-side rendering.
   if (typeof window === 'undefined') {
     return (
-      <AuthContext.Provider value={{ login: () => null, logout: () => null }}>
+      <AuthContext.Provider value={{ login: () => null, logout: () => null, register: () => null }}>
         {children}
       </AuthContext.Provider>
     );
   }
+
+  // Mange the user state based on the presence and validity of the token
+  useEffect(() => {
+    const cleanup = () => {
+      removeToken();
+      removeAuthState();
+      setUser(undefined);
+    };
+
+    if (!token) {
+      cleanup();
+      return;
+    }
+
+    try {
+      setUser(User.fromToken(token));
+    } catch (err) {
+      // This token isn't parsable, remove all auth info from storage
+      console.error('Error parsing token for user', err);
+      cleanup();
+    }
+  }, [token]);
 
   // Browser-side rendering
   try {
@@ -78,20 +105,6 @@ const AuthProvider = ({ children }: Props) => {
     console.error('Error parsing access_token from URL', err.message);
   }
 
-  // If we have a token, see if we can extract user info from it
-  let user: User | undefined;
-  if (token) {
-    try {
-      user = User.fromToken(token);
-    } catch (err) {
-      // This token isn't ok, remove all auth info from storage
-      removeToken();
-      removeAuthState();
-
-      console.error('Error parsing token for user', err);
-    }
-  }
-
   const login = (returnTo?: string) => {
     // Create and store some random state that we'll send along with this login request
     const loginState = nanoid();
@@ -111,8 +124,14 @@ const AuthProvider = ({ children }: Props) => {
     window.location.href = `${logoutUrl}?redirect_uri=${webUrl}`;
   };
 
+  const register = (token: string) => {
+    setToken(token);
+  };
+
   return (
-    <AuthContext.Provider value={{ login, logout, user, token }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ login, logout, register, user, token }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

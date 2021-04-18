@@ -30,6 +30,7 @@ services:
         - AUTH_URL=${AUTH_URL}
         - POSTS_URL=${POSTS_URL}
         - SEARCH_URL=${SEARCH_URL}
+        - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
     container_name: 'telescope'
     restart: unless-stopped
     environment:
@@ -47,8 +48,10 @@ services:
       - PORT
       - POSTS_URL
       - API_URL
+      - AUTH_URL
       - WEB_URL
       - SEARCH_URL
+      - FEED_DISCOVERY_URL
       - LOG_LEVEL
       - FEED_URL
       - FEED_URL_INTERVAL_MS
