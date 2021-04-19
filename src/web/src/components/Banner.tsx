@@ -74,6 +74,11 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'grid',
       },
     },
+    space: {
+      position: 'relative',
+      height: '0.5rem',
+      backgroundColor: theme.palette.background.default,
+    },
     anchor: {
       position: 'relative',
     },
@@ -152,19 +157,19 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
   useEffect(() => {
     const options = {
       root: null,
-      threshold: 0.9,
+      threshold: 0,
     };
 
     const observer = new IntersectionObserver(
       (entries) => entries.forEach((entry) => onVisibilityChange(entry.isIntersecting)),
       options
     );
-    observer.observe(timelineAnchor.current!);
+    observer.observe(bannerAnchor.current!);
 
-    const timelineAnchorCopy = timelineAnchor.current;
+    const bannerAnchorCopy = bannerAnchor.current;
 
     return () => {
-      observer.unobserve(timelineAnchorCopy as HTMLDivElement);
+      observer.unobserve(bannerAnchorCopy as HTMLDivElement);
     };
   }, [onVisibilityChange]);
 
@@ -198,6 +203,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
           </Fab>
         </ScrollAction>
       </div>
+      <div className={classes.space} />
       <div className={classes.anchor} id="posts-anchor" ref={timelineAnchor} />
     </>
   );
