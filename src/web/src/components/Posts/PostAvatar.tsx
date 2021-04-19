@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 type AvatarProps = {
   name: string;
   img?: string;
-  blog?: string;
+  url?: string;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PostAvatar = ({ name, img, blog = '' }: AvatarProps) => {
+const PostAvatar = ({ name, img, url }: AvatarProps) => {
   const classes = useStyles();
 
   if (img) {
@@ -58,11 +58,19 @@ const PostAvatar = ({ name, img, blog = '' }: AvatarProps) => {
       )
       .join('');
     return (
-      <a href={blog} className={classes.link}>
-        <Avatar className={classes.avatar}>
-          <p className={classes.text}>{initials}</p>
-        </Avatar>
-      </a>
+      <div>
+        {url?.length ? (
+          <a href={url} className={classes.link}>
+            <Avatar className={classes.avatar}>
+              <p className={classes.text}>{initials}</p>
+            </Avatar>
+          </a>
+        ) : (
+          <Avatar className={classes.avatar}>
+            <p className={classes.text}>{initials}</p>
+          </Avatar>
+        )}
+      </div>
     );
   }
 

@@ -177,7 +177,7 @@ const GitHubAccount = connect<{}, SignUpForm>((props) => {
             <div className={classes.avatarPreview}>
               <PostAvatar
                 name={values.github.username || values.displayName}
-                blog={values.github.avatarUrl}
+                url={values.github.avatarUrl}
                 img={values.github?.avatarUrl}
               />
               <h2 className={classes.username}>{values.github.username}</h2>
