@@ -108,7 +108,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       height: '4rem',
-      width: '40%',
+      width: 'auto',
       fontSize: '1.1em',
       padding: '0.7em',
       margin: '5px',
@@ -116,6 +116,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         color: 'black',
         background: '#EBD898',
+      },
+      '& .MuiButton-root': {
+        minWidth: 'none',
       },
     },
     buttonLogin: {
