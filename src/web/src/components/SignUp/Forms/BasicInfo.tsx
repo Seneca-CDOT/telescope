@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme) =>
       margin: '0',
       padding: '.5%',
       width: '90%',
-      height: '80%',
       fontSize: '0.8em',
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
