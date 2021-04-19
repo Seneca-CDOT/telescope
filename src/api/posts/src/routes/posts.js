@@ -1,4 +1,4 @@
-const { Router, logger } = require('@senecacdot/satellite');
+const { Router, logger, createError } = require('@senecacdot/satellite');
 const Post = require('../data/post');
 const { getPosts, getPostsCount } = require('../storage');
 const { validatePostsQuery, validatePostsIdParam } = require('../validation');
@@ -7,7 +7,7 @@ const postsUrl = process.env.POSTS_URL || '/';
 
 const posts = Router();
 
-posts.get('/', validatePostsQuery(), async (req, res) => {
+posts.get('/', validatePostsQuery(), async (req, res, next) => {
   const defaultNumberOfPosts = process.env.MAX_POSTS_PER_PAGE || 30;
   const capNumOfPosts = 100;
   const page = parseInt(req.query.page || 1, 10);
@@ -40,10 +40,7 @@ posts.get('/', validatePostsQuery(), async (req, res) => {
     ids = await getPosts(from, to);
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
-    res.status(503).json({
-      message: 'Unable to connect to database',
-    });
-    return;
+    next(createError(503, 'Unable to connect to database'));
   }
 
   /**
@@ -73,7 +70,7 @@ posts.get('/', validatePostsQuery(), async (req, res) => {
   );
 });
 
-posts.get('/:id', validatePostsIdParam(), async (req, res) => {
+posts.get('/:id', validatePostsIdParam(), async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -104,9 +101,7 @@ posts.get('/:id', validatePostsIdParam(), async (req, res) => {
     }
   } catch (err) {
     logger.error({ err }, 'Unable to get posts from Redis');
-    res.status(503).json({
-      message: 'Unable to connect to database',
-    });
+    next(createError(503, 'Unable to connect to database'));
   }
 });
 
