@@ -16,7 +16,10 @@ const useStyles = makeStyles((theme) =>
       margin: '0',
       width: '100%',
       position: 'relative',
-      minHeight: '100%',
+      minHeight: '80%',
+      [theme.breakpoints.down(600)]: {
+        minHeight: '75%',
+      },
     },
     container: {
       display: 'grid',
