@@ -82,6 +82,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '&.Mui-disabled': {
         backgroundColor: 'inherit',
       },
+      [theme.breakpoints.down(600)]: {
+        width: 'auto',
+      },
     },
     avatarPreview: {
       textAlign: 'center',
