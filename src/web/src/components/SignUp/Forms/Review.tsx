@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
         gridTemplateColumns: '1fr',
         height: '100%',
         alignItems: 'center',
+        gridGap: '1%',
       },
     },
     avatar: {
