@@ -8,17 +8,14 @@ const { validateNewFeed, validateFeedsIdParam } = require('../validation');
 
 const feeds = express.Router();
 
-feeds.get('/', async (req, res) => {
+feeds.get('/', async (req, res, next) => {
   let ids;
 
   try {
     ids = await getFeeds();
   } catch (error) {
     logger.error({ error }, 'Unable to get feeds from Redis');
-    res.status(503).json({
-      message: 'Unable to connect to database',
-    });
-    return;
+    next(error);
   }
 
   res.set('X-Total-Count', ids.length);
@@ -32,7 +29,7 @@ feeds.get('/', async (req, res) => {
   );
 });
 
-feeds.get('/:id', validateFeedsIdParam(), async (req, res) => {
+feeds.get('/:id', validateFeedsIdParam(), async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -47,13 +44,11 @@ feeds.get('/:id', validateFeedsIdParam(), async (req, res) => {
     }
   } catch (error) {
     logger.error({ error }, 'Unable to get feeds from Redis');
-    res.status(503).json({
-      message: 'Unable to connect to database',
-    });
+    next(error);
   }
 });
 
-feeds.put('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res) => {
+feeds.put('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res, next) => {
   const { id } = req.params;
   try {
     const feed = await Feed.byId(id);
@@ -68,13 +63,11 @@ feeds.put('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res) 
     });
   } catch (error) {
     logger.error({ error }, 'Unable to flag feed in Redis');
-    return res.status(503).json({
-      message: 'Unable to flag Feed',
-    });
+    next(error);
   }
 });
 
-feeds.post('/', protect(), validateNewFeed(), async (req, res) => {
+feeds.post('/', protect(), validateNewFeed(), async (req, res, next) => {
   const feedData = req.body;
   const { user } = req;
   feedData.user = user.id;
@@ -91,25 +84,21 @@ feeds.post('/', protect(), validateNewFeed(), async (req, res) => {
       .json({ message: `Feed was successfully added.`, id: feedId, url: `/feeds/${feedId}` });
   } catch (error) {
     logger.error({ error }, 'Unable to add feed to Redis');
-    return res.status(503).json({
-      message: 'Unable to add to Feed',
-    });
+    next(error);
   }
 });
 
-feeds.delete('/cache', protectAdmin(true), async (req, res) => {
+feeds.delete('/cache', protectAdmin(true), async (req, res, next) => {
   try {
     await Feed.clearCache();
     return res.status(204).send();
   } catch (error) {
     logger.error({ error }, 'Unable to reset Feed data in Redis');
-    return res.status(503).json({
-      message: 'Unable to reset data for Feeds',
-    });
+    next(error);
   }
 });
 
-feeds.delete('/:id', validateFeedsIdParam(), protect(), async (req, res) => {
+feeds.delete('/:id', validateFeedsIdParam(), protect(), async (req, res, next) => {
   const { user } = req;
   const { id } = req.params;
   try {
@@ -124,13 +113,11 @@ feeds.delete('/:id', validateFeedsIdParam(), protect(), async (req, res) => {
     return res.status(204).json({ message: `Feed ${id} was successfully deleted.` });
   } catch (error) {
     logger.error({ error }, 'Unable to delete feed to Redis');
-    return res.status(503).json({
-      message: 'Unable to delete to Feed',
-    });
+    next(error);
   }
 });
 
-feeds.delete('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res) => {
+feeds.delete('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res, next) => {
   const { id } = req.params;
   try {
     const feed = await Feed.byId(id);
@@ -141,9 +128,7 @@ feeds.delete('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, re
     return res.status(204).json({ message: `Feed ${id} was successfully unflagged.` });
   } catch (error) {
     logger.error({ error }, 'Unable to unflag feed in Redis');
-    return res.status(503).json({
-      message: 'Unable to unflag Feed',
-    });
+    next(error);
   }
 });
 

@@ -26,7 +26,7 @@ const allFeeds = async () => Promise.all((await getFeeds()).map(Feed.byId));
  * Generate an express route for returning a feed type.
  * @param {String} type is the feed type, one of 'rss', 'json', or 'atom'
  */
-const feedRoute = (type) => async (req, res) => {
+const feedRoute = (type) => async (req, res, next) => {
   const feed = new FeedMeta({
     title: 'Telescope',
     description: "The Seneca College open source community's blog feed",
@@ -49,12 +49,9 @@ const feedRoute = (type) => async (req, res) => {
   try {
     const ids = await getPosts(0, 50);
     posts = await Promise.all(ids.map(Post.byId));
-  } catch (err) {
-    logger.error({ err }, 'Error processing posts from Redis');
-    res.status(503).send({
-      message: `Error processing posts: ${err.message}`,
-    });
-    return;
+  } catch (error) {
+    logger.error({ error }, 'Error processing posts from Redis');
+    next(error);
   }
 
   // Convert these posts to "feed" objects and add to our outgoing feed
@@ -107,7 +104,7 @@ router.get('/json', feedRoute('json'));
 /**
  * Expose our feed list as OPML
  */
-router.get('/opml', async (req, res) => {
+router.get('/opml', async (req, res, next) => {
   const header = {
     title: 'Telescope Feeds',
     dateCreated: new Date(),
@@ -119,8 +116,7 @@ router.get('/opml', async (req, res) => {
     feeds = await allFeeds();
   } catch (error) {
     logger.error({ error }, 'Failed to get feeds from database');
-    res.status(503).send('Failed to get feeds from database');
-    return;
+    next(error);
   }
 
   const outlines = feeds.map((feed) => ({
@@ -142,7 +138,7 @@ router.get('/opml', async (req, res) => {
  *   [http://url.to/blog/feed]
  *   name=Author Name
  */
-router.get('/wiki', async (req, res) => {
+router.get('/wiki', async (req, res, next) => {
   let feeds;
   try {
     feeds = await allFeeds();
@@ -152,7 +148,7 @@ router.get('/wiki', async (req, res) => {
     res.send(wikiFeedList.join('\n'));
   } catch (error) {
     logger.error({ error }, 'Failed to get feeds from database');
-    res.status(503).send('Failed to get feeds from database');
+    next(error);
   }
 });
 

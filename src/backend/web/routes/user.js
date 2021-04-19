@@ -16,14 +16,14 @@ router.get('/info', protect(), (req, res) => {
   return res.json(req.user);
 });
 
-router.get('/feeds', protect(), async (req, res) => {
+router.get('/feeds', protect(), async (req, res, next) => {
   const { user } = req;
   try {
     const feeds = await user.feeds();
     return res.status(200).send(feeds);
   } catch (error) {
     logger.error('Error with GET feeds');
-    return res.status(503).json({ message: "Can't get feeds" });
+    next(error);
   }
 });
 

@@ -5,15 +5,13 @@ const { logger } = require('../../utils/logger');
 
 const stats = express.Router();
 
-const statsRoute = (statsPeriod) => async (req, res) => {
+const statsRoute = (statsPeriod) => async (req, res, next) => {
   try {
     const data = await statsPeriod.calculate();
     res.json(data);
-  } catch (err) {
-    logger.error({ err }, 'Unable to get stats from database');
-    res.status(503).json({
-      message: 'Unable to get stats from database',
-    });
+  } catch (error) {
+    logger.error({ error }, 'Unable to get stats from database');
+    next(error);
   }
 };
 
