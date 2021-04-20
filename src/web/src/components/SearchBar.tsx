@@ -25,9 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: '55px',
       background: '#EEEEEE',
       position: 'absolute',
-      transition: 'border .2s',
+      transition: 'box-shadow .3s, background .3s',
       '&:focus': {
         boxShadow: '0 0 5px 2px #CCCCCC',
+        background: '#FFFFFF',
       },
     },
     iconButton: {
