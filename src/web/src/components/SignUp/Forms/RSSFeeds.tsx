@@ -22,7 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0',
       position: 'relative',
       width: '100%',
-      minHeight: '100%',
+      minHeight: '80%',
+      [theme.breakpoints.down(600)]: {
+        minHeight: '75%',
+      },
     },
     container: {
       display: 'grid',
@@ -86,6 +89,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       '&.Mui-disabled': {
         backgroundColor: 'inherit',
+      },
+      [theme.breakpoints.down(600)]: {
+        width: 'auto',
       },
     },
     RssButtonContainer: {

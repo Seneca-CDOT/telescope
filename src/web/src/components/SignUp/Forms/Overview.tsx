@@ -8,7 +8,10 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0',
       width: '100%',
       position: 'relative',
-      minHeight: '100%',
+      minHeight: '75%',
+      [theme.breakpoints.down(600)]: {
+        minHeight: '70%',
+      },
     },
     container: {
       display: 'grid',
