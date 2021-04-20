@@ -19,6 +19,7 @@ ARG IMAGE_URL
 ARG AUTH_URL
 ARG POSTS_URL
 ARG SEARCH_URL
+ARG FEED_DISCOVERY_URL
 # Front-end Web URL, set via ENV in docker or next build
 ARG WEB_URL
 
@@ -48,6 +49,7 @@ ARG AUTH_URL
 ARG POSTS_URL
 ARG WEB_URL
 ARG SEARCH_URL
+ARG FEED_DISCOVERY_URL
 
 # Install Production Modules!
 # Disable postinstall hook in this case since we are being explict with installs
@@ -80,6 +82,9 @@ ENV NEXT_PUBLIC_SEARCH_URL ${SEARCH_URL}
 
 ARG WEB_URL
 ENV NEXT_PUBLIC_WEB_URL ${WEB_URL}
+
+ARG FEED_DISCOVERY_URL
+ENV NEXT_PUBLIC_FEED_DISCOVERY_URL ${FEED_DISCOVERY_URL}
 
 COPY ./src/web ./src/web
 COPY ./.git ./.git
