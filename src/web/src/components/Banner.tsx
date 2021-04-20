@@ -11,7 +11,7 @@ import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
-import LandingButtons from './BannerButtons';
+import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -178,7 +178,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
     <>
       <div className={classes.heroBanner} ref={bannerAnchor}>
         <BannerDynamicItems />
-        <LandingButtons />
+        <BannerButtons />
       </div>
       <div className={classes.textsContainer}>
         <Typography variant="h1" className={classes.title}>
