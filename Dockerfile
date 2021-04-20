@@ -19,6 +19,7 @@ ARG IMAGE_URL
 ARG AUTH_URL
 ARG POSTS_URL
 ARG SEARCH_URL
+ARG FEED_DISCOVERY_URL
 # Front-end Web URL, set via ENV in docker or next build
 ARG WEB_URL
 
