@@ -141,7 +141,9 @@ const useStyles = makeStyles((theme: Theme) =>
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
       },
-      [theme.breakpoints.down(1024)]: {},
+      [theme.breakpoints.down(300)]: {
+        minWidth: '140px',
+      },
     },
     published: {
       [theme.breakpoints.down(1200)]: {

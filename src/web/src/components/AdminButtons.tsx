@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       margin: '-1em .5em 0 0',
     },
     [theme.breakpoints.down(1024)]: {
-      marginTop: '-1.9em',
+      marginTop: '-2.1em',
     },
   },
   iconSpan: {
