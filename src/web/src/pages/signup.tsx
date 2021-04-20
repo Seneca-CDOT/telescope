@@ -134,6 +134,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     homeButton: {
+      zIndex: 3000,
       width: '120px',
       position: 'absolute',
       top: '2vh',
