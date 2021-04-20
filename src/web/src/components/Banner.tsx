@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
       opacity: 0.85,
       bottom: theme.spacing(3),
       left: theme.spacing(3),
+      fontFamily: 'Spartan',
       fontSize: '1.3em',
       color: 'white',
       textDecorationLine: 'none',
