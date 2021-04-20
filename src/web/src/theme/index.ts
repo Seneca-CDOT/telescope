@@ -44,6 +44,7 @@ export const darkTheme: Theme = createMuiTheme({
     },
     secondary: {
       main: '#4f96d8',
+      dark: '#121d59',
     },
     error: {
       main: red.A400,
