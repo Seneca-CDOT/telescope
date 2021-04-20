@@ -14,24 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2, 2, 0, 2),
       marginBottom: theme.spacing(10),
     },
-    card: {
-      padding: theme.spacing(0, 0, 0, 2),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderRadius: '50px',
-      background: theme.palette.background.paper,
-      border: 'solid 1px transparent',
-      transition: 'background-color .5s',
-      '&:hover': {
-        backgroundColor: theme.palette.type === 'light' ? '#ffffff' : '#000000',
-        border: 'solid 1px #999999',
-      },
-      [theme.breakpoints.down('xs')]: {
-        borderRadius: '15px',
-        padding: theme.spacing(0, 0, 0, 2),
-      },
-    },
     input: {
       fontSize: '1.8rem',
       width: '100%',
@@ -44,12 +26,12 @@ const useStyles = makeStyles((theme: Theme) =>
       background: '#EEEEEE',
       position: 'absolute',
       transition: 'border .2s',
-      '&:hover, &:focus': {
-        border: 'solid 1px #999999',
+      '&:focus': {
+        boxShadow: '0 0 5px 2px #CCCCCC',
       },
     },
     iconButton: {
-      backgroundColor: '#EEEEEE',
+      backgroundColor: 'transparent',
       color: '#999999',
       '&:hover': {
         backgroundColor: '#EEEEEE',
@@ -65,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
     clearIcon: {
       color: '#999999',
       '&:hover': {
-        backgroundColor: '#EEEEEE',
+        backgroundColor: 'transparent',
       },
       '& * > .MuiSvgIcon-root': {
         fontSize: '3rem',
