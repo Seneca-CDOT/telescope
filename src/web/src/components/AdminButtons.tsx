@@ -8,21 +8,19 @@ const useStyles = makeStyles((theme: Theme) => ({
   adminButtons: {
     float: 'right',
     [theme.breakpoints.down(1200)]: {
-      float: 'none',
+      height: '20px',
+      margin: '-1em .5em 0 0',
     },
     [theme.breakpoints.down(1024)]: {
-      float: 'none',
+      marginTop: '-2.1em',
     },
   },
   iconSpan: {
     paddingLeft: '10px',
     paddingRight: '10px',
     [theme.breakpoints.down(1200)]: {
-      paddingLeft: '15px',
       paddingRight: '0px',
-    },
-    [theme.breakpoints.down(1024)]: {
-      paddingLeft: '8px',
+      paddingLeft: '0px',
     },
   },
   icon: {
