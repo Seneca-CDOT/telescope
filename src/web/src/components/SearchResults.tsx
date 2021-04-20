@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useSWRInfinite } from 'swr';
-import { Container, Box } from '@material-ui/core';
+import { Container, Box, createStyles } from '@material-ui/core';
 
 import { searchServiceUrl } from '../config';
 import Timeline from './Posts/Timeline';
@@ -9,45 +9,48 @@ import useSearchValue from '../hooks/use-search-value';
 
 const NoResultsImg = '/noResults.svg';
 
-const useStyles = makeStyles(() => ({
-  spinner: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  searchResults: {
-    padding: 0,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  errorBackground: {
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '10px',
-    background: '#353F61',
-    boxShadow: '0 15px 30px rgba(0,0,0,.5)',
-    lineHeight: '1rem',
-  },
-  errorTitle: {
-    textAlign: 'center',
-    fontSize: '5rem',
-    color: '#fff',
-  },
-  errorMessage: {
-    lineHeight: '2rem',
-    fontSize: '2rem',
-    textAlign: 'center',
-    margin: '2rem',
-    color: '#96C1E7',
-  },
-  noResults: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    margin: '2rem',
-  },
-}));
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    spinner: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    searchResults: {
+      padding: 0,
+      width: '100%',
+      justifyContent: 'center',
+    },
+    errorBackground: {
+      position: 'relative',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: '10px',
+      background: '#353F61',
+      boxShadow: '0 15px 30px rgba(0,0,0,.5)',
+      lineHeight: '1rem',
+    },
+    errorTitle: {
+      textAlign: 'center',
+      fontSize: '5rem',
+      color: '#fff',
+    },
+    errorMessage: {
+      lineHeight: '2rem',
+      fontSize: '2rem',
+      textAlign: 'center',
+      margin: '2rem',
+      color: '#96C1E7',
+    },
+    noResults: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      margin: '2rem',
+      color: theme.palette.primary.main,
+    },
+  })
+);
 
 const SearchResults = () => {
   const classes = useStyles();

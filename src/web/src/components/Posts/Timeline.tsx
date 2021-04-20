@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       flexDirection: 'column',
       margin: '2rem',
+      color: theme.palette.primary.main,
     },
   })
 );
