@@ -95,12 +95,25 @@ const AdvancedSearchDialog = (props: Props) => {
 
         <p className={classes.title}>Advanced Search</p>
 
-        <button className={classes.searchButton}>Search</button>
+        <button
+          className={classes.searchButton}
+          onClick={(e) => {
+            onSubmitHandler(e);
+            handleClose();
+          }}
+        >
+          Search
+        </button>
       </DialogTitle>
 
       <DialogContent className={classes.dialogContent}>
         Keywords:
-        <form onSubmit={(e) => onSubmitHandler(e)}>
+        <form
+          onSubmit={(e) => {
+            onSubmitHandler(e);
+            handleClose();
+          }}
+        >
           <input
             autoFocus
             type="text"
