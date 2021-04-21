@@ -57,7 +57,6 @@ const BannerButtons = () => {
       className={`${classes.buttonsContainer} ${
         user?.isRegistered ? classes.userSignedInClass : classes.userNotSignedClass
       }`}
-      // style={user?.isRegistered ? { width: '155px' } : { width: '250px' }}
     >
       {user && !user?.isRegistered && (
         <PopUp
