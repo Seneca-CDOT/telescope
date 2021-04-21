@@ -4,7 +4,7 @@
   "description": "A tool for automatic deployment",
   "main": "server.js",
   "dependencies": {
-    "@octokit/webhooks": "^8.6.0",
+    "@octokit/webhooks": "^9.1.0",
     "date-fns": "^2.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
