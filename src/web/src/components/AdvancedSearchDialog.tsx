@@ -98,8 +98,12 @@ const AdvancedSearchDialog = (props: Props) => {
         <button
           className={classes.searchButton}
           onClick={(e) => {
-            onSubmitHandler(e);
-            handleClose();
+            if (text) {
+              onSubmitHandler(e);
+              handleClose();
+            } else {
+              handleClose();
+            }
           }}
         >
           Search
@@ -110,8 +114,12 @@ const AdvancedSearchDialog = (props: Props) => {
         Keywords:
         <form
           onSubmit={(e) => {
-            onSubmitHandler(e);
-            handleClose();
+            if (text) {
+              onSubmitHandler(e);
+              handleClose();
+            } else {
+              handleClose();
+            }
           }}
         >
           <input
