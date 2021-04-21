@@ -82,7 +82,7 @@ const SearchBar = () => {
   const classes = useStyles();
   const searchInput = useRef(null);
   const [openDialog, setOpenDialog] = useState(false);
-  const [dataToDialog, setDataToDialog] = useState({});
+  const [dataToDialog, setDataToDialog] = useState('');
 
   const { text, onTextChange, onSubmitHandler } = useSearchValue();
 
