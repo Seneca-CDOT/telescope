@@ -3,8 +3,7 @@ import { Box, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core
 import GitHubIcon from '@material-ui/icons/GitHub';
 import GitHubContributorCard from './GitHubContributorCard';
 import Logo from './Logo';
-
-const slackLogo = '/slack-logo.svg';
+import { FaSlack } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -121,7 +120,7 @@ const AboutFooter = () => {
                     href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
                     className={classes.links}
                   >
-                    <img src={slackLogo} alt="logo" height="20" width="20" />
+                    <FaSlack size="22" />
                   </a>
                 </Grid>
               </Grid>
@@ -187,7 +186,7 @@ const AboutFooter = () => {
                     href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
                     className={classes.links}
                   >
-                    <img src={slackLogo} alt="logo" height="20" width="20" />
+                    <FaSlack size="22" />
                   </a>
                 </Grid>
               </Grid>
@@ -208,4 +207,3 @@ const AboutFooter = () => {
 };
 
 export default AboutFooter;
-export { slackLogo };
