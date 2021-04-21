@@ -48,7 +48,6 @@ router.get(
   validateRedirectAndStateParams(),
   validateRedirectUriOrigin(),
   captureAuthDetailsOnSession(),
-  // passport.authenticate('saml'),
   (req, res, next) => {
     try {
       // eslint-disable-next-line no-underscore-dangle
