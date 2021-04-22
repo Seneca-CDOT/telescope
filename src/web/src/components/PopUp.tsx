@@ -8,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { createStyles, makeStyles } from '@material-ui/core';
 
 type PopUpProps = {
   messageTitle: string;
@@ -19,6 +20,22 @@ type PopUpProps = {
   disagreeButtonText?: string;
   simple?: boolean;
 };
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    dialogTitle: {
+      '& .MuiTypography-h6': {
+        fontSize: '2rem',
+      },
+    },
+    dialogContent: {
+      fontSize: '1.3rem',
+    },
+    button: {
+      fontSize: '1.1rem',
+    },
+  })
+);
 
 const PopUp = ({
   messageTitle,
@@ -36,6 +53,7 @@ const PopUp = ({
     setOpen(false);
   };
 
+  const classes = useStyles();
   const router = useRouter();
 
   return (
@@ -46,22 +64,27 @@ const PopUp = ({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{messageTitle}</DialogTitle>
+        <DialogTitle id="alert-dialog-title" className={classes.dialogTitle}>
+          {messageTitle}
+        </DialogTitle>
+
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">{message}</DialogContentText>
+          <DialogContentText id="alert-dialog-description" className={classes.dialogContent}>
+            {message}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           {disagreeAction && (
-            <Button onClick={disagreeAction} color="primary">
+            <Button onClick={disagreeAction} color="primary" className={classes.button}>
               {disagreeButtonText}
             </Button>
           )}
           {simple && (
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleClose} color="primary" className={classes.button}>
               {buttonText}
             </Button>
           )}
-          <Button onClick={agreeAction} color="primary" autoFocus>
+          <Button onClick={agreeAction} color="primary" autoFocus className={classes.button}>
             {agreeButtonText}
           </Button>
         </DialogActions>
