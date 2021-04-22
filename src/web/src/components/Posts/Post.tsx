@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
       bottom: '100%',
     },
     postInfo: {
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down(1205)]: {
         display: 'grid',
         gridTemplateAreas: "'avatar title title title''avatar author date date'",
         gridTemplateColumns: 'auto auto auto auto',
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '2em 0 1.5em',
       lineHeight: '1.3',
       top: '-1.1em',
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down(1205)]: {
         top: '-1.1em',
         width: '725px',
         padding: '1em 0 .1em',
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textOverflow: 'ellipsis',
       textAlign: 'center',
       letterSpacing: '-1.5px',
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down(1205)]: {
         fontSize: '2em',
         fontWeight: 'bold',
         textAlign: 'start',
@@ -108,13 +108,13 @@ const useStyles = makeStyles((theme: Theme) =>
       outline: 'none',
     },
     authorNameContainer: {
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down(1205)]: {
         gridArea: 'author',
         width: '100%',
       },
     },
     author: {
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down(1205)]: {
         fontSize: '2em',
         lineHeight: '1.5em',
         fontWeight: 'bold',
@@ -134,7 +134,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     publishedDateContainer: {
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down(1205)]: {
         gridArea: 'date',
         display: 'flex',
         flexWrap: 'nowrap',
@@ -146,7 +146,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     published: {
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down(1205)]: {
         height: '10px',
         margin: '-.6em 1em -1em 1.5em',
         fontSize: '1.3em',
@@ -163,7 +163,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     authorAvatarContainer: {
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down(1205)]: {
         gridArea: 'avatar',
         shapeOutside: 'circle(50%) border-box',
         shapeMargin: '1rem',
@@ -219,7 +219,7 @@ const extractBlogClassName = (url: string) => {
 const PostComponent = ({ postUrl }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up(1200));
+  const desktop = useMediaQuery(theme.breakpoints.up(1205));
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef<HTMLElement>(null);
   // Grab the post data from our backend so we can render it
