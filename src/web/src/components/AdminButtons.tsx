@@ -24,12 +24,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   icon: {
-    color: theme.palette.type === 'light' ? '#121d59' : '#e5e5e5',
+    color: theme.palette.primary.main,
     [theme.breakpoints.down(1200)]: {
       transform: 'scale(0.7)',
     },
     '&:hover': {
-      color: theme.palette.type === 'light' ? '#4f96d8' : '#a0d1fb',
+      color: theme.palette.primary.light,
     },
   },
 }));
