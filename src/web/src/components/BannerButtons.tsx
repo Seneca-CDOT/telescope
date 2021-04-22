@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     color: 'white',
     top: '20px',
-    width: '250px',
     right: '5%',
     display: 'flex',
     justifyContent: 'space-around',
@@ -22,6 +21,16 @@ const useStyles = makeStyles((theme) => ({
         color: '#9ABDFF',
       },
     },
+  },
+  userSignedInClass: {
+    width: '155px',
+    [theme.breakpoints.down(490)]: {
+      width: '100%',
+      right: 0,
+    },
+  },
+  userNotSignedClass: {
+    width: '250px',
     [theme.breakpoints.down(490)]: {
       width: '100%',
       right: 0,
@@ -36,7 +45,7 @@ const ButtonTooltip = withStyles({
   },
 })(Tooltip);
 
-const LandingButtons = () => {
+const BannerButtons = () => {
   const { login, logout, user } = useAuth();
 
   const classes = useStyles();
@@ -45,8 +54,9 @@ const LandingButtons = () => {
 
   return (
     <div
-      className={classes.buttonsContainer}
-      style={user?.isRegistered ? { width: '155px' } : { width: '250px' }}
+      className={`${classes.buttonsContainer} ${
+        user?.isRegistered ? classes.userSignedInClass : classes.userNotSignedClass
+      }`}
     >
       {user && !user?.isRegistered && (
         <PopUp
@@ -112,4 +122,4 @@ const LandingButtons = () => {
   );
 };
 
-export default LandingButtons;
+export default BannerButtons;
