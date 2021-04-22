@@ -5,22 +5,21 @@ import AdminButtons from '../AdminButtons';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      marginLeft: '2rem',
+      margin: '0',
       padding: '0',
       display: 'flex',
       borderLeft: '1.5px solid #999999',
       flexDirection: 'column',
       justifyContent: 'center',
-      width: '100%',
       [theme.breakpoints.up('lg')]: {
-        width: '22rem',
+        width: '21rem',
       },
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
       shapeMargin: '1rem',
       borderRadius: '50%',
-      marginLeft: '1rem',
+      marginLeft: '.5rem',
     },
     circle: {
       display: 'block',
@@ -33,13 +32,13 @@ const useStyles = makeStyles((theme: Theme) =>
     authorNameContainer: {
       width: '100%',
       height: '3rem',
-      marginLeft: '1.5rem',
+      marginLeft: '1rem',
     },
     author: {
       width: '100%',
       wordWrap: 'break-word',
       fontSize: '1.6em',
-      lineHeight: '1em',
+      lineHeight: '1.3em',
       fontWeight: 'bold',
       color: theme.palette.text.primary,
     },
@@ -51,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     published: {
-      marginLeft: '1.5rem',
+      marginLeft: '1rem',
       fontSize: '1.2em',
       fontWeight: 'lighter',
       textDecoration: 'none',
