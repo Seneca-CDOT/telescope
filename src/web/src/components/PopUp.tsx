@@ -32,7 +32,7 @@ const useStyles = makeStyles(() =>
       fontSize: '1.3rem',
     },
     button: {
-      fontSize: '1.1rem',
+      fontSize: '1rem',
     },
   })
 );
