@@ -1,4 +1,4 @@
-const { Router } = require('@senecacdot/satellite');
+const { Router, createError } = require('@senecacdot/satellite');
 const { validateQuery } = require('../bin/validation');
 const search = require('../search');
 
@@ -9,7 +9,7 @@ router.get('/', validateQuery, async (req, res, next) => {
     const { text, filter, page, perPage } = req.query;
     res.send(await search(text, filter, page, perPage));
   } catch (error) {
-    next(error);
+    next(createError(503, error));
   }
 });
 
