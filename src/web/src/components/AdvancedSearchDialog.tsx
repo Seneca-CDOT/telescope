@@ -38,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '300px',
       color: 'black',
       fontSize: '1.8rem',
+      '& p': {
+        color: '#999999',
+      },
     },
     input: {
       width: '100%',
@@ -96,21 +99,24 @@ const AdvancedSearchDialog = (props: Props) => {
   const classes = useStyles();
   const { text, onTextChange, onFilterChange, onSubmitHandler } = useSearchValue();
 
-  const [searchInAuthor, setSearchInAuthor] = useState(false);
+  const [searchInAuthor, setSearchInAuthor] = useState(true);
 
   const handleClose = () => {
     props.setOpenDialog(false);
     setSearchInAuthor(false);
+
+    console.log('close: ' + searchInAuthor);
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInAuthor(e.target.checked);
+    // if (searchInAuthor) {
+    //   onFilterChange('author');
+    // } else {
+    //   onFilterChange('post');
+    // }
 
-    if (searchInAuthor) {
-      onFilterChange('author');
-    } else {
-      onFilterChange('post');
-    }
+    console.log('checkbox: ' + searchInAuthor);
   };
 
   return (
@@ -132,6 +138,11 @@ const AdvancedSearchDialog = (props: Props) => {
         <button
           className={classes.searchButton}
           onClick={(e) => {
+            if (searchInAuthor) {
+              onFilterChange('author');
+            } else {
+              onFilterChange('post');
+            }
             if (text) {
               onSubmitHandler(e);
             }
@@ -143,7 +154,7 @@ const AdvancedSearchDialog = (props: Props) => {
       </DialogTitle>
 
       <DialogContent className={classes.dialogContent}>
-        <p>Keyword:</p>
+        <p>Keyword</p>
         <form
           onSubmit={(e) => {
             if (text) {
