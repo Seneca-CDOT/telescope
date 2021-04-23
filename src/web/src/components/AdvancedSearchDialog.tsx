@@ -2,6 +2,12 @@ import useSearchValue from '../hooks/use-search-value';
 import CloseIcon from '@material-ui/icons/Close';
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 import React from 'react';
 
 interface Props {
@@ -13,18 +19,24 @@ interface Props {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      transform: 'translateY(-230px)',
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-120%)',
     },
     dialogTitle: {
       display: 'flex',
       flexDirection: 'column',
-      width: '758px',
+      width: '600px',
+      [theme.breakpoints.down('xs')]: {
+        width: 'calc(100vw - 80px)',
+      },
       height: '25px',
       padding: 15,
-      background: 'pink',
+      background: '#eeeeee',
+      overflow: 'hidden',
     },
     dialogContent: {
-      background: 'cyan',
+      background: '#eeeeee',
       height: '300px',
       color: 'black',
       fontSize: '1.8rem',
@@ -67,26 +79,48 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       top: 0,
       marginLeft: '20px',
+      overflow: 'hidden',
       fontSize: '1.8rem',
+      color: '#999999',
+    },
+    formControl: {
+      // margin: theme.spacing(3),
+      padding: 0,
+      margin: 0,
+    },
+    formLabel: {
+      fontSize: '1.8rem',
+      color: 'black',
     },
   })
 );
 
 const AdvancedSearchDialog = (props: Props) => {
   const classes = useStyles();
-  const { text, onTextChange, onSubmitHandler } = useSearchValue();
+  const { text, onTextChange, onFilterChange, onSubmitHandler } = useSearchValue();
+  const [state, setState] = React.useState({
+    searchInPost: false,
+    searchInAuthor: false,
+  });
 
   const handleClose = () => {
     props.setOpenDialog(false);
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+
+  // const { searchInPost, searchInAuthor } = state;
+
   return (
     <Dialog
       maxWidth="md"
-      className={classes.root}
-      BackdropProps={{ style: { backgroundColor: 'transparent' } }}
       open={props.openDialog}
       onClose={handleClose}
+      classes={{
+        paper: classes.root,
+      }}
     >
       <DialogTitle className={classes.dialogTitle}>
         <IconButton onClick={handleClose} aria-label="search">
@@ -99,6 +133,11 @@ const AdvancedSearchDialog = (props: Props) => {
           className={classes.searchButton}
           onClick={(e) => {
             if (text) {
+              if (state.searchInAuthor) {
+                onFilterChange('author');
+              } else {
+                onFilterChange('post');
+              }
               onSubmitHandler(e);
               handleClose();
             } else {
@@ -111,10 +150,15 @@ const AdvancedSearchDialog = (props: Props) => {
       </DialogTitle>
 
       <DialogContent className={classes.dialogContent}>
-        Keywords:
+        <p>Keyword:</p>
         <form
           onSubmit={(e) => {
             if (text) {
+              if (state.searchInAuthor) {
+                onFilterChange('author');
+              } else {
+                onFilterChange('post');
+              }
               onSubmitHandler(e);
               handleClose();
             } else {
@@ -130,7 +174,21 @@ const AdvancedSearchDialog = (props: Props) => {
             className={classes.input}
           />
         </form>
-        Search options:
+        <FormControl component="fieldset" className={classes.formControl}>
+          <p>Search Options</p>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={state.searchInAuthor}
+                  onChange={handleChange}
+                  name="searchInAuthor"
+                />
+              }
+              label="Search in Authors"
+            />
+          </FormGroup>
+        </FormControl>
       </DialogContent>
     </Dialog>
   );
