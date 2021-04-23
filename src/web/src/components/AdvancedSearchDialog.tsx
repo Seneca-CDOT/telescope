@@ -98,7 +98,7 @@ const AdvancedSearchDialog = (props: Props) => {
   const classes = useStyles();
   const { text, onTextChange, onFilterChange, onSubmitHandler } = useSearchValue();
 
-  const [searchInAuthor, setSearchInAuthor] = useState(true);
+  const [searchInAuthor, setSearchInAuthor] = useState(false);
 
   const handleClose = () => {
     props.setOpenDialog(false);
@@ -128,9 +128,9 @@ const AdvancedSearchDialog = (props: Props) => {
       }}
     >
       <DialogTitle className={classes.dialogTitle}>
-        <IconButton onClick={handleClose} aria-label="search">
+        {/* <IconButton onClick={handleClose} aria-label="search">
           <CloseIcon className={classes.closeIcon} />
-        </IconButton>
+        </IconButton> */}
 
         <p className={classes.title}>Advanced Search</p>
 
@@ -142,13 +142,13 @@ const AdvancedSearchDialog = (props: Props) => {
             } else {
               onFilterChange('post');
             }
-            if (text) {
-              onSubmitHandler(e);
-            }
+            // if (text) {
+            //   onSubmitHandler(e);
+            // }
             handleClose();
           }}
         >
-          Search
+          Close
         </button>
       </DialogTitle>
 
@@ -166,7 +166,7 @@ const AdvancedSearchDialog = (props: Props) => {
             autoFocus
             type="text"
             value={text}
-            // onChange={(e) => onTextChange(e.target.value)}
+            onChange={(e) => onTextChange(e.target.value)}
             className={classes.input}
           />
         </form>
