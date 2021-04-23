@@ -96,10 +96,6 @@ const AdvancedSearchDialog = (props: Props) => {
   const classes = useStyles();
   const { text, onTextChange, onFilterChange, onSubmitHandler } = useSearchValue();
 
-  // const [state, setState] = React.useState({
-  //   searchInAuthor: false,
-  // });
-
   const [searchInAuthor, setSearchInAuthor] = useState(false);
 
   const handleClose = () => {
@@ -107,14 +103,14 @@ const AdvancedSearchDialog = (props: Props) => {
     setSearchInAuthor(false);
   };
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInAuthor(event.target.checked);
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInAuthor(e.target.checked);
+
     if (searchInAuthor) {
       onFilterChange('author');
     } else {
       onFilterChange('post');
     }
-    console.log('search in author:' + searchInAuthor);
   };
 
   return (
@@ -150,7 +146,10 @@ const AdvancedSearchDialog = (props: Props) => {
         <p>Keyword:</p>
         <form
           onSubmit={(e) => {
-            // do later
+            if (text) {
+              onSubmitHandler(e);
+            }
+            handleClose();
           }}
         >
           <input
@@ -165,13 +164,7 @@ const AdvancedSearchDialog = (props: Props) => {
           <p>Search Options</p>
           <FormGroup>
             <FormControlLabel
-              control={
-                <Checkbox
-                  checked={searchInAuthor}
-                  onChange={handleCheckboxChange}
-                  name="searchInAuthor"
-                />
-              }
+              control={<Checkbox checked={searchInAuthor} onChange={handleCheckboxChange} />}
               label="Search in Authors"
             />
           </FormGroup>
