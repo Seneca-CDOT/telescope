@@ -96,26 +96,31 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const AdvancedSearchDialog = (props: Props) => {
   const classes = useStyles();
-  const { text, onTextChange, onFilterChange, onSubmitHandler } = useSearchValue();
-
-  const [searchInAuthor, setSearchInAuthor] = useState(false);
+  const {
+    text,
+    advancedSearchInAuthor,
+    onTextChange,
+    onFilterChange,
+    onSubmitHandler,
+    toggleAdvancedSearchInAuthor,
+  } = useSearchValue();
 
   const handleClose = () => {
     props.setOpenDialog(false);
-    setSearchInAuthor(false);
+    toggleAdvancedSearchInAuthor(false);
 
-    console.log('close: ' + searchInAuthor);
+    console.log('state after dialog closed: ' + advancedSearchInAuthor);
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchInAuthor(e.target.checked);
-    // if (searchInAuthor) {
-    //   onFilterChange('author');
-    // } else {
-    //   onFilterChange('post');
-    // }
+    toggleAdvancedSearchInAuthor(e.target.checked);
+    if (advancedSearchInAuthor) {
+      onFilterChange('author');
+    } else {
+      onFilterChange('post');
+    }
 
-    console.log('checkbox: ' + searchInAuthor);
+    console.log('checkbox toggled: ' + advancedSearchInAuthor);
   };
 
   return (
@@ -128,27 +133,22 @@ const AdvancedSearchDialog = (props: Props) => {
       }}
     >
       <DialogTitle className={classes.dialogTitle}>
-        {/* <IconButton onClick={handleClose} aria-label="search">
+        <IconButton onClick={handleClose} aria-label="search">
           <CloseIcon className={classes.closeIcon} />
-        </IconButton> */}
+        </IconButton>
 
         <p className={classes.title}>Advanced Search</p>
 
         <button
           className={classes.searchButton}
           onClick={(e) => {
-            if (searchInAuthor) {
-              onFilterChange('author');
-            } else {
-              onFilterChange('post');
+            if (text) {
+              onSubmitHandler(e);
             }
-            // if (text) {
-            //   onSubmitHandler(e);
-            // }
             handleClose();
           }}
         >
-          Close
+          Search
         </button>
       </DialogTitle>
 
@@ -174,7 +174,9 @@ const AdvancedSearchDialog = (props: Props) => {
           <p>Search Options</p>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox checked={searchInAuthor} onChange={handleCheckboxChange} />}
+              control={
+                <Checkbox checked={advancedSearchInAuthor} onChange={handleCheckboxChange} />
+              }
               label="Search in Authors"
             />
           </FormGroup>

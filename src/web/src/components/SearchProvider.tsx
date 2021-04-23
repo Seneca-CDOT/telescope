@@ -10,7 +10,11 @@ export interface SearchContextInterface {
   textParam: string;
   filter: FilterProp['filter'];
   showHelp: boolean;
+
+  advancedSearchInAuthor: boolean;
+
   toggleHelp: (value: boolean) => void;
+  toggleAdvancedSearchInAuthor: (value: boolean) => void;
   onTextChange: (value: string) => void;
   onFilterChange: (value: FilterProp['filter']) => void;
   onSubmitHandler: (value: FormEvent) => void;
@@ -21,7 +25,11 @@ const SearchContext = createContext<SearchContextInterface>({
   textParam: '',
   filter: 'post',
   showHelp: true,
+  advancedSearchInAuthor: false,
   toggleHelp() {
+    throw new Error('This context must be wrapped inside SearchProvider');
+  },
+  toggleAdvancedSearchInAuthor() {
     throw new Error('This context must be wrapped inside SearchProvider');
   },
   onTextChange() {
@@ -54,6 +62,7 @@ const SearchProvider = ({ children }: Props) => {
   const [text, setText] = useState('');
   const [filter, setFilter] = useState<FilterProp['filter']>('post');
   const [showHelp, setShowHelp] = useState(true);
+  const [advancedSearchInAuthor, setAdvancedSearchInAuthor] = useState(false);
 
   const onSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
@@ -62,6 +71,10 @@ const SearchProvider = ({ children }: Props) => {
 
   const toggleHelp = (value: boolean) => {
     setShowHelp(value);
+  };
+
+  const toggleAdvancedSearchInAuthor = (value: boolean) => {
+    setAdvancedSearchInAuthor(value);
   };
 
   const onTextChange = (value: string) => {
@@ -84,10 +97,12 @@ const SearchProvider = ({ children }: Props) => {
         textParam,
         showHelp,
         filter,
+        advancedSearchInAuthor,
         onTextChange,
         onFilterChange,
         onSubmitHandler,
         toggleHelp,
+        toggleAdvancedSearchInAuthor,
       }}
     >
       {children}
