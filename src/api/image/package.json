@@ -18,7 +18,6 @@
     "@senecacdot/satellite": "^1.x",
     "celebrate": "^14.0.0",
     "got": "^11.8.1",
-    "http-errors": "^1.8.0",
     "sharp": "^0.28.0"
   },
   "engines": {

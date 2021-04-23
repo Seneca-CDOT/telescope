@@ -1,8 +1,7 @@
 const got = require('got');
 const cheerio = require('cheerio');
 const validUrl = require('valid-url');
-const createError = require('http-errors');
-const { logger } = require('@senecacdot/satellite');
+const { logger, createError } = require('@senecacdot/satellite');
 
 // A middleware to check if Url provided is valid
 module.exports.checkValidUrl = function checkValidUrl() {
