@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       border: 'solid 1px transparent',
       transition: 'background-color .5s',
       '&:hover': {
-        backgroundColor: theme.palette.type === 'light' ? '#ffffff' : '#000000',
+        backgroundColor: theme.palette.background.default,
         border: 'solid 1px #999999',
       },
       [theme.breakpoints.down('xs')]: {
