@@ -118,7 +118,7 @@ const SearchBar = () => {
                 <SearchIcon />
               </IconButton>
 
-              {Boolean(text) && (
+              {text && (
                 <IconButton
                   className={classes.clearIcon}
                   onClick={() => {
@@ -136,7 +136,6 @@ const SearchBar = () => {
             color="primary"
             className={classes.advancedSearchBtn}
             onClick={() => {
-              setDataToDialog(text);
               setOpenDialog(true);
             }}
           >
@@ -145,11 +144,7 @@ const SearchBar = () => {
         </FormControl>
       </Box>
 
-      <AdvancedSearchDialog
-        searchTerm={dataToDialog}
-        openDialog={openDialog}
-        setOpenDialog={setOpenDialog}
-      />
+      <AdvancedSearchDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
     </div>
   );
 };

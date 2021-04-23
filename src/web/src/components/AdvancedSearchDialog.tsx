@@ -11,7 +11,6 @@ import React, { useState } from 'react';
 interface Props {
   setOpenDialog: Function;
   openDialog: boolean;
-  searchTerm: string;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -167,7 +166,7 @@ const AdvancedSearchDialog = (props: Props) => {
             autoFocus
             type="text"
             value={text}
-            onChange={(e) => onTextChange(e.target.value)}
+            // onChange={(e) => onTextChange(e.target.value)}
             className={classes.input}
           />
         </form>
