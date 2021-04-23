@@ -2,13 +2,12 @@ import useSearchValue from '../hooks/use-search-value';
 import CloseIcon from '@material-ui/icons/Close';
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
-import React from 'react';
+import React, { useState } from 'react';
+import { findAllByTestId } from '@testing-library/dom';
 
 interface Props {
   setOpenDialog: Function;
@@ -84,7 +83,6 @@ const useStyles = makeStyles((theme: Theme) =>
       color: '#999999',
     },
     formControl: {
-      // margin: theme.spacing(3),
       padding: 0,
       margin: 0,
     },
@@ -98,20 +96,27 @@ const useStyles = makeStyles((theme: Theme) =>
 const AdvancedSearchDialog = (props: Props) => {
   const classes = useStyles();
   const { text, onTextChange, onFilterChange, onSubmitHandler } = useSearchValue();
-  const [state, setState] = React.useState({
-    searchInPost: false,
-    searchInAuthor: false,
-  });
+
+  // const [state, setState] = React.useState({
+  //   searchInAuthor: false,
+  // });
+
+  const [searchInAuthor, setSearchInAuthor] = useState(false);
 
   const handleClose = () => {
     props.setOpenDialog(false);
+    setSearchInAuthor(false);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInAuthor(event.target.checked);
+    if (searchInAuthor) {
+      onFilterChange('author');
+    } else {
+      onFilterChange('post');
+    }
+    console.log('search in author:' + searchInAuthor);
   };
-
-  // const { searchInPost, searchInAuthor } = state;
 
   return (
     <Dialog
@@ -133,16 +138,9 @@ const AdvancedSearchDialog = (props: Props) => {
           className={classes.searchButton}
           onClick={(e) => {
             if (text) {
-              if (state.searchInAuthor) {
-                onFilterChange('author');
-              } else {
-                onFilterChange('post');
-              }
               onSubmitHandler(e);
-              handleClose();
-            } else {
-              handleClose();
             }
+            handleClose();
           }}
         >
           Search
@@ -153,17 +151,7 @@ const AdvancedSearchDialog = (props: Props) => {
         <p>Keyword:</p>
         <form
           onSubmit={(e) => {
-            if (text) {
-              if (state.searchInAuthor) {
-                onFilterChange('author');
-              } else {
-                onFilterChange('post');
-              }
-              onSubmitHandler(e);
-              handleClose();
-            } else {
-              handleClose();
-            }
+            // do later
           }}
         >
           <input
@@ -180,8 +168,8 @@ const AdvancedSearchDialog = (props: Props) => {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={state.searchInAuthor}
-                  onChange={handleChange}
+                  checked={searchInAuthor}
+                  onChange={handleCheckboxChange}
                   name="searchInAuthor"
                 />
               }
