@@ -7,7 +7,7 @@ const { validatePostsQuery, validatePostsIdParam } = require('../validation');
 
 const posts = express.Router();
 
-posts.get('/', validatePostsQuery(), async (req, res) => {
+posts.get('/', validatePostsQuery(), async (req, res, next) => {
   const defaultNumberOfPosts = process.env.MAX_POSTS_PER_PAGE || 30;
   const capNumOfPosts = 100;
   const page = parseInt(req.query.page || 1, 10);
@@ -38,12 +38,9 @@ posts.get('/', validatePostsQuery(), async (req, res) => {
     to = perPage * page > postsCount ? postsCount : perPage * page;
 
     ids = await getPosts(from, to);
-  } catch (err) {
-    logger.error({ err }, 'Unable to get posts from Redis');
-    res.status(503).json({
-      message: 'Unable to connect to database',
-    });
-    return;
+  } catch (error) {
+    logger.error({ error }, 'Unable to get posts from Redis');
+    next(error);
   }
 
   /**
@@ -73,7 +70,7 @@ posts.get('/', validatePostsQuery(), async (req, res) => {
   );
 });
 
-posts.get('/:id', validatePostsIdParam(), async (req, res) => {
+posts.get('/:id', validatePostsIdParam(), async (req, res, next) => {
   const { id } = req.params;
 
   try {
@@ -102,11 +99,9 @@ posts.get('/:id', validatePostsIdParam(), async (req, res) => {
           break;
       }
     }
-  } catch (err) {
-    logger.error({ err }, 'Unable to get posts from Redis');
-    res.status(503).json({
-      message: 'Unable to connect to database',
-    });
+  } catch (error) {
+    logger.error({ error }, 'Unable to get posts from Redis');
+    next(error);
   }
 });
 

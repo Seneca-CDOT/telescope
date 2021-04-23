@@ -17,7 +17,6 @@
     "@senecacdot/satellite": "^1.x",
     "cheerio": "^1.0.0-rc.5",
     "got": "^11.8.1",
-    "http-errors": "^1.8.0",
     "valid-url": "^1.0.9"
   },
   "engines": {

@@ -60,15 +60,13 @@ async function getFeedData() {
   });
 }
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const [grouped, feeds] = await Promise.all([getPostDataGrouped(), getFeedData()]);
     res.render('planet', { feeds, ...grouped });
-  } catch (err) {
-    logger.error({ err }, 'Error processing posts from Redis');
-    res.status(503).json({
-      message: `Error processing posts: ${err.message}`,
-    });
+  } catch (error) {
+    logger.error({ error }, 'Error processing posts from Redis');
+    next(error);
   }
 });
 

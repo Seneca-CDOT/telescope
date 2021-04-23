@@ -1,7 +1,6 @@
 const fs = require('fs');
-const { Router } = require('@senecacdot/satellite');
+const { Router, createError } = require('@senecacdot/satellite');
 const { celebrate, Joi, errors, Segments } = require('celebrate');
-const createError = require('http-errors');
 
 const { optimize } = require('../lib/image');
 const { getRandomPhotoFilename, getPhotoFilename } = require('../lib/photos');
