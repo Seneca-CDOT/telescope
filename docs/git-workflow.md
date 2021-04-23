@@ -14,7 +14,7 @@ When working on fixing bugs, please use the following workflow:
    git checkout master
    git pull upstream master
    ```
-1. Additionally, it is a good idea to run `npm install` to make sure everything is up to date and you have everything necessary.
+1. Additionally, it is a good idea to run `pnpm install` to make sure everything is up to date and you have everything necessary.
 1. Create a branch for your work, using the issue number:
    ```
    git checkout -b issue-123
@@ -28,13 +28,13 @@ When working on fixing bugs, please use the following workflow:
 
 ## Testing Your Code
 
-Run the test suite, using `npm test`. Fix any lint errors, warnings, or other failures (NOTE: if you're not sure what an eslint rule means, [look it up in the docs](https://eslint.org/docs/rules/)):
+Run the test suite, using `pnpm test`. Fix any lint errors, warnings, or other failures (NOTE: if you're not sure what an eslint rule means, [look it up in the docs](https://eslint.org/docs/rules/)):
 
 ```
-npm test
+pnpm test
 ...if there are lint errors, try having eslint fix them for you
-npm run eslint-fix
-npm test
+pnpm run eslint-fix
+pnpm test
 ...manually fix any errors yourself, rerunning npm test each time to confirm
 ```
 
@@ -42,25 +42,15 @@ You can also run the tests in _watch_ mode, so that they will automatically ru-r
 when you make changes:
 
 ```
-npm run jest-watch
+pnpm run jest-watch
 ```
 
 In addition, you can run individual tests, in both normal or watch mode, by
 adding the name of a file. For example, to run tests in a file called parser.test.js:
 
 ```
-npm test parser
+pnpm test parser
 ```
-
-You can add feeds to the queue manually using `add-feed` followed by the name of the blogger and url of the feed. This can be useful for testing purposes.
-
-First, add a link to the binary:
-
-`npm link`
-
-Then use `add-feed`
-
-`add-feed --name "Bender Bending Rodriguez" --url futurama.wordpress.com/feed`
 
 ## Debugging
 
@@ -110,7 +100,7 @@ fixup b85d7a9 Final Build
    ...edit files to fix review comments
    git add file1
    git commit -m "Updated file1 to fix review comments"
-   npm test
+   pnpm test
    ...if the tests fail, fix things, and repeat until they pass
    git push origin issue-123
    ```
@@ -124,7 +114,7 @@ fixup b85d7a9 Final Build
    git add file1
    git rebase --continue
    ...repeat until your rebase completes.  If you get stuck, use git rebase --abort to stop
-   npm install
+   pnpm install
    ...this is likely necessary to update your node_modules/, see below
    git push origin issue-123 -f
    ```
@@ -135,6 +125,5 @@ If you get stuck with any of this, ask in your issue or pull request, and we'll 
 
 If you are doing any work that relates to the `package.json` file, you need to do this with care. Here are some tips:
 
-- we don't include `package-lock.json` in our tree. Instead, we use [exact](https://docs.npmjs.com/misc/config#save-exact) versions in `package.json`. When you `npm install` a package, we specify an exact version number vs. using a semver range.
-- don't hand-edit this file to add packages. Instead, use `npm install --save package-name` or `npm install --save-dev package-name` to add packages to the `dependencies` or `devDependencies` sections.
-- if you touch `package.json`, always re-run `npm install`.
+- don't hand-edit any of the `package.json` files, use [pnpm add](https://pnpm.io/cli/add) instead.
+- we store the `pnpm-lock.yaml` lock file in git. See https://pnpm.io/git#lockfiles for more details. If you add or update dependencies, you will need to also include the updated lockfile.

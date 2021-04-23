@@ -30,13 +30,19 @@ docker-compose --env-file config/env.development up -d
 You can access logs for one or more services:
 
 ```
-npm run services:logs image firebase
+pnpm run services:logs image firebase
 ```
 
 To stop the services:
 
 ```
-npm run services:stop
+pnpm run services:stop
+```
+
+To see logs for one of the running services (e.g., `image`):
+
+```
+pnpm run services:logs image
 ```
 
 ## API Lookup Table

@@ -15,23 +15,48 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Cache pnpm modules
+        uses: actions/cache@v2.1.5
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
       - uses: actions/setup-node@v2.1.5
-      - name: Install dependencies and run prettier-check
+      - uses: pnpm/action-setup@v1.2.1
+        with:
+          version: 6.0.1
+          run_install: true
+      - name: Run prettier-check
         run: |
-          npm install
-          npm run prettier-check
+          pnpm run prettier-check
 
+  # Make sure eslint passes
   # Make sure eslint passes
   eslint:
     name: ESLint Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Cache pnpm modules
+        uses: actions/cache@v2.1.5
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
       - uses: actions/setup-node@v2.1.5
-      - name: Install dependencies and run eslint
+      - uses: pnpm/action-setup@v1.2.1
+        with:
+          version: 6.0.1
+          run_install: true
+      - name: Run eslint
         run: |
-          npm install
-          npm run eslint
+          pnpm run eslint
 
   # Run unit tests on all platforms/versions of node
   unit:
@@ -43,26 +68,27 @@ jobs:
         node-version: [12.x, 14.x]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2.1.5
+      - name: Cache pnpm modules
+        uses: actions/cache@v2.1.5
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-pnpm-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node-version }}
+      - uses: pnpm/action-setup@v1.2.1
+        with:
+          version: 6.0.1
+          run_install: true
       - name: Get number of CPU cores
         uses: SimenB/github-actions-cpu-cores@v1
-      - name: Install dependencies and run tests with default env
+      - name: Run unit tests with default env
         run: |
-          npm install
-          npm run jest --max-workers ${{ steps.cpu-cores.outputs.count }}
+          pnpm run jest --max-workers ${{ steps.cpu-cores.outputs.count }}
 
   # Run end-to-end tests along with the microservices in docker-compose on Linux
   e2e:
@@ -72,22 +98,25 @@ jobs:
       matrix:
         node-version: [12.x, 14.x]
     steps:
-      - uses: actions/cache@v2.1.5
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
       - uses: actions/checkout@v2
+      - name: Cache pnpm modules
+        uses: actions/cache@v2.1.5
+        env:
+          cache-name: cache-pnpm-modules
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.node-version }}-
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ matrix.node-version }}
       - uses: microsoft/playwright-github-action@v1
-      - name: Start microservices and run tests
+      - name: Start microservices and run e2e tests
         run: |
-          npm install
-          npm run services:start
-          npm run jest:e2e
+          pnpm run services:start
+          pnpm run jest:e2e
+
   release:
     needs: [prettier, eslint, unit, e2e]
     runs-on: ubuntu-latest

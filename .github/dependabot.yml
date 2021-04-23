@@ -3,6 +3,9 @@
 # Please see the documentation for all configuration options:
 # https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
+# TODO: update for pnpm when possible:
+# https://github.com/dependabot/dependabot-core/issues/1736
+
 version: 2
 updates:
   # Root package.json
