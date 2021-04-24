@@ -85,7 +85,8 @@ jobs:
         uses: SimenB/github-actions-cpu-cores@v1
       - name: Run unit tests with default env
         run: |
-          pnpm run jest --max-workers ${{ steps.cpu-cores.outputs.count }}
+          # pnpm can't handle passing args through to run scripts: https://github.com/pnpm/pnpm/issues/2764
+          npm run jest --max-workers ${{ steps.cpu-cores.outputs.count }}
 
   # Run end-to-end tests along with the microservices in docker-compose on Linux
   e2e:
