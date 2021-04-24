@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.5
-      - uses: pnpm/action-setup@v1.2.1
+      - uses: pnpm/action-setup@v2.0.0
         with:
           version: 6.0.1
           run_install: true
@@ -40,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.5
-      - uses: pnpm/action-setup@v1.2.1
+      - uses: pnpm/action-setup@v2.0.0
         with:
           version: 6.0.1
           run_install: true
@@ -68,7 +68,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.5
-      - uses: pnpm/action-setup@v1.2.1
+      - uses: pnpm/action-setup@v2.0.0
         with:
           version: 6.0.1
           run_install: true
@@ -97,7 +97,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2.1.5
-      - uses: pnpm/action-setup@v1.2.1
+      - uses: pnpm/action-setup@v2.0.0
         with:
           version: 6.0.1
           run_install: true
