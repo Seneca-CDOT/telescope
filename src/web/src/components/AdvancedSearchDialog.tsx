@@ -7,6 +7,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
 interface Props {
   setOpenDialog: Function;
@@ -95,32 +96,27 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const AdvancedSearchDialog = (props: Props) => {
+  const router = useRouter();
   const classes = useStyles();
-  const {
-    text,
-    advancedSearchInAuthor,
-    onTextChange,
-    onFilterChange,
-    onSubmitHandler,
-    toggleAdvancedSearchInAuthor,
-  } = useSearchValue();
+
+  const [newSearchTerm, setnewSearchTerm] = useState('');
+  const [advancedSearchInAuthor, setAdvancedSearchInAuthor] = useState(false);
+
+  const { text, onTextChange, onFilterChange, onSubmitHandler } = useSearchValue();
 
   const handleClose = () => {
     props.setOpenDialog(false);
-    toggleAdvancedSearchInAuthor(false);
-
-    console.log('state after dialog closed: ' + advancedSearchInAuthor);
+    setAdvancedSearchInAuthor(false);
+    onFilterChange('post');
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    toggleAdvancedSearchInAuthor(e.target.checked);
-    if (advancedSearchInAuthor) {
-      onFilterChange('author');
-    } else {
-      onFilterChange('post');
-    }
+    setAdvancedSearchInAuthor(e.target.checked);
+  };
 
-    console.log('checkbox toggled: ' + advancedSearchInAuthor);
+  const handleSearch = (searchTerm: string) => {
+    if (advancedSearchInAuthor) router.push(`/search?text=${searchTerm}&filter=author`);
+    else router.push(`/search?text=${searchTerm}&filter=post`);
   };
 
   return (
@@ -142,8 +138,9 @@ const AdvancedSearchDialog = (props: Props) => {
         <button
           className={classes.searchButton}
           onClick={(e) => {
-            if (text) {
-              onSubmitHandler(e);
+            if (newSearchTerm) {
+              e.preventDefault();
+              handleSearch(newSearchTerm);
             }
             handleClose();
           }}
@@ -156,8 +153,9 @@ const AdvancedSearchDialog = (props: Props) => {
         <p>Keyword</p>
         <form
           onSubmit={(e) => {
-            if (text) {
-              onSubmitHandler(e);
+            if (newSearchTerm) {
+              e.preventDefault();
+              handleSearch(newSearchTerm);
             }
             handleClose();
           }}
@@ -165,8 +163,8 @@ const AdvancedSearchDialog = (props: Props) => {
           <input
             autoFocus
             type="text"
-            value={text}
-            onChange={(e) => onTextChange(e.target.value)}
+            value={newSearchTerm}
+            onChange={(e) => setnewSearchTerm(e.target.value)}
             className={classes.input}
           />
         </form>
