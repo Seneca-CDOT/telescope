@@ -229,7 +229,7 @@ const PostComponent = ({ postUrl }: Props) => {
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
     return (
-      <Box className={classes.root}>
+      <Box component={Box} className={classes.root}>
         <ListSubheader className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
