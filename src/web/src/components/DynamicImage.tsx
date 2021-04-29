@@ -1,11 +1,13 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core';
 
 import { imageServiceUrl } from '../config';
 
 type DynamicImageProps = {
   filter?: boolean;
-  color?: string;
-  backgroundMode?: boolean;
+};
+
+type DynamicImageStyles = {
+  filter: string;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     objectFit: 'cover',
   },
   backdrop: {
-    display: 'block',
+    display: ({ filter }: DynamicImageStyles) => filter,
     height: '100%',
     overflow: 'hidden',
     position: 'absolute',
@@ -42,8 +44,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DynamicImage = () => {
-  const classes = useStyles();
+const DynamicImage = ({ filter }: DynamicImageProps) => {
+  const dynamicImageStyles: DynamicImageStyles = {
+    filter: filter ? 'block' : 'none',
+  };
+
+  const classes = useStyles(dynamicImageStyles);
 
   return (
     <picture>
