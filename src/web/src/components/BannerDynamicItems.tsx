@@ -21,7 +21,7 @@ const BannerDynamicText = () => {
 
   return (
     <div className={classes.dynamic}>
-      <DynamicImage filter color="#000000" />
+      <DynamicImage filter color="#000000" opacity=".75" />
     </div>
   );
 };
