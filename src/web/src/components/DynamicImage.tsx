@@ -2,6 +2,12 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { imageServiceUrl } from '../config';
 
+type DynamicImageProps = {
+  filter?: boolean;
+  color?: string;
+  backgroundMode?: boolean;
+};
+
 const useStyles = makeStyles((theme) => ({
   img: {
     visibility: 'inherit',
