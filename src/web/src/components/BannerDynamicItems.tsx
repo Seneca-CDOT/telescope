@@ -21,7 +21,7 @@ const BannerDynamicText = () => {
 
   return (
     <div className={classes.dynamic}>
-      <DynamicImage filter backgroundMode />
+      <DynamicImage />
     </div>
   );
 };
