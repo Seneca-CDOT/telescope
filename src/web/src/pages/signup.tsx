@@ -246,7 +246,7 @@ const SignUpPage = () => {
       </Button>
       <div className={classes.root}>
         <div className={classes.imageContainer}>
-          <DynamicImage />
+          <DynamicImage filter color="#000000" />
         </div>
         {telescopeAccount.error && (
           <PopUp

@@ -1,13 +1,16 @@
 import { makeStyles, useTheme } from '@material-ui/core';
 
 import { imageServiceUrl } from '../config';
+import { ThemeContext } from './ThemeProvider';
 
 type DynamicImageProps = {
   filter?: boolean;
+  color?: string;
 };
 
 type DynamicImageStyles = {
   filter: string;
+  color: string;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -39,14 +42,17 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     boxSizing: 'border-box',
     margin: 0,
-    backgroundColor: '#000000',
+    backgroundColor: ({ color }: DynamicImageStyles) => color,
     opacity: '.75',
   },
 }));
 
-const DynamicImage = ({ filter }: DynamicImageProps) => {
+const DynamicImage = ({ filter, color }: DynamicImageProps) => {
+  const theme = useTheme();
+
   const styles: DynamicImageStyles = {
     filter: filter ? 'block' : 'none',
+    color: color ? color : theme.palette.background.default,
   };
 
   const classes = useStyles(styles);
