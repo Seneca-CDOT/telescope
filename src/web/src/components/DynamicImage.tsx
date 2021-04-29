@@ -45,11 +45,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DynamicImage = ({ filter }: DynamicImageProps) => {
-  const dynamicImageStyles: DynamicImageStyles = {
+  const styles: DynamicImageStyles = {
     filter: filter ? 'block' : 'none',
   };
 
-  const classes = useStyles(dynamicImageStyles);
+  const classes = useStyles(styles);
 
   return (
     <picture>

@@ -32,7 +32,6 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@material-ui/types": "^5.1.0",
     "@mdx-js/loader": "^1.6.22",
     "@mdx-js/mdx": "^1.6.22",
     "@testing-library/react": "^11.2.6",
