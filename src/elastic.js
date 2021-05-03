@@ -34,8 +34,25 @@ const ElasticConstructor = useMockElastic ? MockClient : Client;
 // elasticUrl will either come from the ENV or will be defined locally
 const elasticUrl = `${ELASTIC_URL}:${ELASTIC_PORT}`;
 
+// Keep track of all clients we create, so we can close them on shutdown
+const clients = [];
+
 function createElasticClient(options = {}) {
-  return new ElasticConstructor({ ...options, node: elasticUrl });
+  const client = new ElasticConstructor({ ...options, node: elasticUrl });
+  clients.push(client);
+  return client;
 }
 
-module.exports = createElasticClient;
+module.exports.Elastic = createElasticClient;
+
+// Quit all connections gracefully
+module.exports.shutDown = () =>
+  Promise.all(
+    clients.map(async (client) => {
+      try {
+        await client.close();
+      } catch (err) {
+        logger.debug({ err }, 'unable to close elasticsearch connection');
+      }
+    })
+  );

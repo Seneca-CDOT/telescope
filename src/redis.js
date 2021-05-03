@@ -11,8 +11,13 @@ const useMockRedis = process.env.MOCK_REDIS;
 // RedisConstructor is one of Redis or MockRedis
 const RedisConstructor = useMockRedis ? MockRedis : Redis;
 
+// Keep track of all clients we create, so we can close them on shutdown
+const clients = [];
+
 function createRedisClient(options) {
-  return new RedisConstructor(redisUrl, options);
+  const client = new RedisConstructor(redisUrl, options);
+  clients.push(client);
+  return client;
 }
 
 // If using MockRedis, shim info() until https://github.com/stipsan/ioredis-mock/issues/841 ships
@@ -21,4 +26,16 @@ if (useMockRedis && typeof MockRedis.prototype.info !== 'function') {
   MockRedis.prototype.info = () => Promise.resolve('redis_version:999.999.999');
 }
 
-module.exports = createRedisClient;
+module.exports.Redis = createRedisClient;
+
+// Quit all connections gracefully
+module.exports.shutDown = () =>
+  Promise.all(
+    clients.map(async (client) => {
+      try {
+        await client.quit();
+      } catch (err) {
+        logger.debug({ err }, 'unable to close redis connection');
+      }
+    })
+  );

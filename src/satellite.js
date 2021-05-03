@@ -1,6 +1,8 @@
 const { createTerminus } = require('@godaddy/terminus');
 
 const { createApp, createRouter } = require('./app');
+const redis = require('./redis');
+const elastic = require('./elastic');
 const logger = require('./logger');
 
 function createServer(app, credentials) {
@@ -50,8 +52,11 @@ class Satellite {
       },
       signal: 'SIGINT',
       onSignal() {
-        // Do any async cleanup required to gracefully shutdown
-        return this.shutDown();
+        // Do any async cleanup required to gracefully shutdown. The calls to
+        // redis/elastic shutDown() will be no-ops if no connections are open.
+        return Promise.all([this.shutDown(), redis.shutDown(), elastic.shutDown()]).catch((err) =>
+          logger.error({ err }, 'unexpected error while shutting down')
+        );
       },
       logger: (...args) => logger.error(...args),
     });
