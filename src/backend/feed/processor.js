@@ -4,7 +4,7 @@
  * https://github.com/OptimalBits/bull#separate-processes
  */
 
-const { parse } = require('feedparser-promised');
+const Parser = require('rss-parser');
 const fetch = require('node-fetch');
 
 const { logger } = require('../utils/logger');
@@ -173,27 +173,34 @@ module.exports = async function processor(job) {
 
     // Download the updated feed contents
     logger.info(`${info.status} Feed has new content: ${feed.url}`);
-    const articles = await parse(
+    const parser = new Parser(
       addHeaders(
         {
-          url: feed.url,
           // ms to wait for a connection to be assumed to have failed
           timeout: 20 * 1000,
           gzip: true,
+          customFields: {
+            item: [
+              ['pubDate', 'pubdate'],
+              ['creator', 'author'],
+              ['content:encoded', 'contentEncoded'],
+            ],
+          },
         },
         feed
       )
     );
+    const articles = await parser.parseURL(feed.url);
     // Transform the list of articles to a list of Post objects
-    await articlesToPosts(articles, feed);
+    await articlesToPosts(articles.items, feed);
 
     // Version info for this feed changed, so update the database
     feed.etag = feed.etag || info.etag;
     feed.lastModified = feed.lastModified || info.lastModified;
     // If feed.link is empty or there are blog posts
-    if (!feed.link && articles.length) {
+    if (!feed.link && articles.items.length) {
       // Assign link from first post to feed's link
-      const article = articles[0];
+      const article = articles.items[0];
       const { meta } = article;
       feed.link = meta ? meta.link : null;
     }

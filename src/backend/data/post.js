@@ -93,11 +93,13 @@ class Post {
       throw new Error('unable to parse, missing article');
     }
 
+    if (article.contentEncoded) article.content = article.contentEncoded;
+
     // A valid RSS/Atom feed can have missing fields that we care about.
     // Keep track of any that are missing, and throw if necessary.
     const missing = [];
-    // description is the content of the post
-    if (!article.description) missing.push('description');
+    // article.content is the content of the post
+    if (!article.content) missing.push('content');
     // link is the URL of the post
     if (!article.link) missing.push('link');
     // guid is the unique identifier of the post
@@ -125,11 +127,11 @@ class Post {
 
     let html;
     try {
-      // The article.description is frequently the full HTML article content.
+      // The article.content is frequently the full HTML article content.
       // Sanitize it of any scripts or other dangerous attributes/elements,
       // add lazy loading for <img> and <iframe>, and syntax highlight all
       // <pre><code>...</code></pre> blocks.
-      html = processHTML(article.description);
+      html = processHTML(article.content);
     } catch (error) {
       logger.error({ error }, 'Unable to process HTML for feed');
       throw error;

@@ -21,9 +21,9 @@
     "@senecacdot/satellite": "^1.x",
     "bull": "^3.22.0",
     "bull-board": "^1.5.1",
-    "feedparser-promised": "^2.0.1",
     "jsdom": "^16.5.2",
     "node-fetch": "^2.6.1",
-    "normalize-url": "^6.0.0"
+    "normalize-url": "^6.0.0",
+    "rss-parser": "^3.12.0"
   }
 }

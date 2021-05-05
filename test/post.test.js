@@ -1,4 +1,13 @@
-const { parse } = require('feedparser-promised');
+const Parser = require('rss-parser');
+const parse = new Parser({
+  customFields: {
+    item: [
+      ['pubDate', 'pubdate'],
+      ['creator', 'author'],
+      ['content:encoded', 'contentEncoded'],
+    ],
+  },
+});
 
 const {
   nockRealWorldRssResponse,
@@ -169,9 +178,9 @@ describe('Post data class tests', () => {
     let articles;
     beforeEach(async () => {
       nockRealWorldRssResponse();
-      articles = await parse(getRealWorldRssUri());
-      expect(Array.isArray(articles)).toBe(true);
-      expect(articles.length).toBe(15);
+      articles = await parse.parseURL(getRealWorldRssUri());
+      expect(Array.isArray(articles.items)).toBe(true);
+      expect(articles.items.length).toBe(15);
     });
 
     test('should throw if passed no article', async () => {
@@ -195,7 +204,7 @@ describe('Post data class tests', () => {
     });
 
     test('should work with real world RSS', async () => {
-      const article = articles[0];
+      const article = articles.items[0];
       const id = await Post.createFromArticle(article, feed);
       const post = await Post.byId(id);
 
@@ -214,19 +223,21 @@ describe('Post data class tests', () => {
     });
 
     test('when missing description should throw', async () => {
-      const article = articles[0];
-      delete article.description;
+      const article = articles.items[0];
+      delete article.content;
+      delete article.contentEncoded;
+      delete article.contentSnippet;
       await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
 
     test('Post.createFromArticle() with missing pubdate should throw', async () => {
-      const article = articles[0];
+      const article = articles.items[0];
       delete article.pubdate;
       await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
 
     test('Post.createFromArticle() with missing date should not throw', async () => {
-      const article = articles[0];
+      const article = articles.items[0];
       delete article.date;
       const id = await Post.createFromArticle(article, feed);
       const post = await Post.byId(id);
@@ -235,7 +246,7 @@ describe('Post data class tests', () => {
     });
 
     test('Post.createFromArticle() with missing link should throw', async () => {
-      const article = articles[0];
+      const article = articles.items[0];
       delete article.link;
 
       let err;
@@ -248,13 +259,13 @@ describe('Post data class tests', () => {
     });
 
     test('Post.createFromArticle() with missing guid should throw', async () => {
-      const article = articles[0];
+      const article = articles.items[0];
       delete article.guid;
       await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
 
     test('Post.createFromArticle() with missing title should use Untitled', async () => {
-      const article = articles[0];
+      const article = articles.items[0];
       delete article.title;
       const id = await Post.createFromArticle(article, feed);
       const post = await Post.byId(id);
@@ -262,8 +273,8 @@ describe('Post data class tests', () => {
     });
 
     test('Post.createFromArticle() with whitespace only in description should throw', async () => {
-      const article = articles[0];
-      article.description = getInvalidDescription();
+      const article = articles.items[0];
+      article.content = article.contentEncoded = article.contentSnippet = getInvalidDescription();
       await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
   });
