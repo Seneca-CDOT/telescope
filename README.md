@@ -296,7 +296,7 @@ const indexPost = async ({ text, id, title, published, author }) => {
 ### Fetch
 
 The `Fetch(url, options)` function will initiate an http request to an endpoint url specified by `url` with any options also specified by the `options` parameter.
-This function uses `node-fetch` on the side to make the http requests. Will either return a promise or an http error, made using `http-errors`.
+This function uses `node-fetch` on the side to make the http requests. Returns a promise.
 
 ```js
 const { Fetch } = require('@senecacdot/satellite');

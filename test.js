@@ -929,8 +929,10 @@ describe('Fetch()', () => {
   test('Fetch(url) should return 404', async (done) => {
     const url = 'https://dev.api.telescope.cdot.systems/v1/status/21';
     const response = await Fetch(url);
-    expect(response.name).toBe('NotFoundError');
+    expect(response.ok).toBe(false);
     expect(response.status).toEqual(404);
+    expect(response.statusText).toEqual('Not Found');
+    expect(response.url).toEqual(url);
     done();
   });
 
