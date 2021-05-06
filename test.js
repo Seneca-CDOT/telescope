@@ -17,6 +17,7 @@ const {
   createServiceToken,
   Redis,
   Elastic,
+  Fetch,
 } = require('./src');
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
@@ -912,5 +913,45 @@ describe('Elastic()', () => {
     const clientInfo = await client.info();
 
     expect(clientInfo.statusCode).toBe(200);
+  });
+});
+
+describe('Fetch()', () => {
+  test('Fetch(url) should return 200 on success with a GET request', async (done) => {
+    const url = 'https://www.google.ca';
+    const response = await Fetch(url);
+    expect(response.ok).toBe(true);
+    expect(response.status).toBe(200);
+    expect(response.url).toEqual(`${url}/`);
+    done();
+  });
+
+  test('Fetch(url) should return 404', async (done) => {
+    const url = 'https://dev.api.telescope.cdot.systems/v1/status/21';
+    const response = await Fetch(url);
+    expect(response.name).toBe('NotFoundError');
+    expect(response.status).toEqual(404);
+    done();
+  });
+
+  test('Fetch(url, options) should return 201 on a successful POST request', async (done) => {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        userId: 11,
+        title: 'Test post',
+        body:
+          'A simple post where we can talk about activities that we enjoy in life without any fears',
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+    const response = await Fetch(url, options);
+    expect(response.status).toEqual(201);
+    expect();
+    done();
   });
 });

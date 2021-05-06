@@ -13,3 +13,4 @@ module.exports.isAuthenticated = isAuthenticated;
 module.exports.isAuthorized = isAuthorized;
 module.exports.Redis = require('./redis').Redis;
 module.exports.Elastic = require('./elastic').Elastic;
+module.exports.Fetch = require('./fetch').Fetch;
