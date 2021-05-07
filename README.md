@@ -293,15 +293,15 @@ const indexPost = async ({ text, id, title, published, author }) => {
 };
 ```
 
-### Fetch
+### fetch
 
-The `Fetch(url, options)` function will initiate an http request to an endpoint url specified by `url` with any options also specified by the `options` parameter.
+The `fetch(url, options)` function will initiate an http request to an endpoint url specified by `url` with any options also specified by the `options` parameter.
 This function uses `node-fetch` on the side to make the http requests. Returns a promise.
 
 ```js
-const { Fetch } = require('@senecacdot/satellite');
+const { fetch } = require('@senecacdot/satellite');
 
-const response = await Fetch('https://jsonplaceholder.typicode.com/posts');
+const response = await fetch('https://jsonplaceholder.typicode.com/posts');
 
 const data = await response.json();
 

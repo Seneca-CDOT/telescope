@@ -1,5 +1,5 @@
 /* global describe, test, beforeEach, afterEach, expect */
-const fetch = require('node-fetch');
+const nock = require('nock');
 const getPort = require('get-port');
 const jwt = require('jsonwebtoken');
 
@@ -17,7 +17,7 @@ const {
   createServiceToken,
   Redis,
   Elastic,
-  Fetch,
+  fetch,
 } = require('./src');
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
@@ -916,44 +916,60 @@ describe('Elastic()', () => {
   });
 });
 
-describe('Fetch()', () => {
-  test('Fetch(url) should return 200 on success with a GET request', async (done) => {
+describe('fetch()', () => {
+  test('fetch(url) should return 200 on success with a GET request', async (done) => {
     const url = 'https://www.google.ca';
-    const response = await Fetch(url);
+    nock(url).get('/').reply(200);
+
+    const response = await fetch(url);
     expect(response.ok).toBe(true);
     expect(response.status).toBe(200);
     expect(response.url).toEqual(`${url}/`);
     done();
   });
 
-  test('Fetch(url) should return 404', async (done) => {
-    const url = 'https://dev.api.telescope.cdot.systems/v1/status/21';
-    const response = await Fetch(url);
+  test('fetch(url) should return 404', async (done) => {
+    const url = 'https://dev.api.telescope.cdot.systems';
+    const api = '/v1/status/21';
+    nock(url).get(api).reply(404);
+
+    const response = await fetch(`${url}${api}`);
+
     expect(response.ok).toBe(false);
     expect(response.status).toEqual(404);
-    expect(response.statusText).toEqual('Not Found');
-    expect(response.url).toEqual(url);
+    expect(response.statusText).toBe('Not Found');
+    expect(response.url).toEqual(`${url}${api}`);
     done();
   });
 
-  test('Fetch(url, options) should return 201 on a successful POST request', async (done) => {
+  test('fetch(url, options) should return 201 on a successful POST request', async (done) => {
+    const url = 'https://jsonplaceholder.typicode.com';
+    const api = '/posts';
+    const data = {
+      userId: 11,
+      title: 'Test post',
+      body:
+        'A simple post where we can talk about activities that we enjoy in life without any fears',
+    };
     const options = {
-      method: 'POST',
-      body: JSON.stringify({
-        userId: 11,
-        title: 'Test post',
-        body:
-          'A simple post where we can talk about activities that we enjoy in life without any fears',
-      }),
+      body: JSON.stringify(data),
       headers: {
         'Content-Type': 'application/json',
       },
     };
 
-    const url = 'https://jsonplaceholder.typicode.com/posts';
-    const response = await Fetch(url, options);
+    nock(url).post(api, data).reply(201, data);
+
+    const response = await fetch(`${url}${api}`, {
+      method: 'POST',
+      ...options,
+    });
+    const values = await response.json();
     expect(response.status).toEqual(201);
-    expect();
+    expect(values.title).toEqual('Test post');
+    expect(values.body).toEqual(
+      'A simple post where we can talk about activities that we enjoy in life without any fears'
+    );
     done();
   });
 });
