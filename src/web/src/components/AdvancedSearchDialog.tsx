@@ -1,4 +1,3 @@
-import useSearchValue from '../hooks/use-search-value';
 import CloseIcon from '@material-ui/icons/Close';
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -44,12 +43,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     input: {
       width: '100%',
-      height: '25px',
       boxSizing: 'border-box',
       borderRadius: '20px',
-      padding: '5px 18px',
+      padding: '10px 15px',
       outline: 'none',
-      border: 'none',
+      border: 'solid 1px #999',
       marginBottom: '15px',
     },
     closeIcon: {
@@ -81,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: 0,
       marginLeft: '20px',
       overflow: 'hidden',
-      fontSize: '1.8rem',
+      fontSize: '1.6rem',
       color: '#999999',
     },
     formControl: {
@@ -102,12 +100,9 @@ const AdvancedSearchDialog = (props: Props) => {
   const [newSearchTerm, setnewSearchTerm] = useState('');
   const [advancedSearchInAuthor, setAdvancedSearchInAuthor] = useState(false);
 
-  const { text, onTextChange, onFilterChange, onSubmitHandler } = useSearchValue();
-
   const handleClose = () => {
     props.setOpenDialog(false);
     setAdvancedSearchInAuthor(false);
-    onFilterChange('post');
   };
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,7 +145,6 @@ const AdvancedSearchDialog = (props: Props) => {
       </DialogTitle>
 
       <DialogContent className={classes.dialogContent}>
-        <p>Keyword</p>
         <form
           onSubmit={(e) => {
             if (newSearchTerm) {
@@ -169,7 +163,7 @@ const AdvancedSearchDialog = (props: Props) => {
           />
         </form>
         <FormControl component="fieldset" className={classes.formControl}>
-          <p>Search Options</p>
+          <p>Filters</p>
           <FormGroup>
             <FormControlLabel
               control={
