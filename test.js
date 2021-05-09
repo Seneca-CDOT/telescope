@@ -917,7 +917,7 @@ describe('Elastic()', () => {
 });
 
 describe('fetch()', () => {
-  test('fetch(url) should return 200 on success with a GET request', async (done) => {
+  test('fetch(url) should return 200 on success with a GET request', async () => {
     const url = 'https://www.google.ca';
     nock(url).get('/').reply(200);
 
@@ -925,10 +925,9 @@ describe('fetch()', () => {
     expect(response.ok).toBe(true);
     expect(response.status).toBe(200);
     expect(response.url).toEqual(`${url}/`);
-    done();
   });
 
-  test('fetch(url) should return 404', async (done) => {
+  test('fetch(url) should return 404', async () => {
     const url = 'https://dev.api.telescope.cdot.systems';
     const api = '/v1/status/21';
     nock(url).get(api).reply(404);
@@ -939,10 +938,9 @@ describe('fetch()', () => {
     expect(response.status).toEqual(404);
     expect(response.statusText).toBe('Not Found');
     expect(response.url).toEqual(`${url}${api}`);
-    done();
   });
 
-  test('fetch(url, options) should return 201 on a successful POST request', async (done) => {
+  test('fetch(url, options) should return 201 on a successful POST request', async () => {
     const url = 'https://jsonplaceholder.typicode.com';
     const api = '/posts';
     const data = {
@@ -970,6 +968,5 @@ describe('fetch()', () => {
     expect(values.body).toEqual(
       'A simple post where we can talk about activities that we enjoy in life without any fears'
     );
-    done();
   });
 });
