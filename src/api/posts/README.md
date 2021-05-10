@@ -1,4 +1,4 @@
-# Image Service
+# Posts Service
 
 The Post Service parses posts from user's feeds to display them on Telescope.
 
