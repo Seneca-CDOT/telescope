@@ -199,10 +199,7 @@ module.exports = async function processor(job) {
     feed.lastModified = feed.lastModified || info.lastModified;
     // If feed.link is empty or there are blog posts
     if (!feed.link && articles.items.length) {
-      // Assign link from first post to feed's link
-      const article = articles.items[0];
-      const { meta } = article;
-      feed.link = meta ? meta.link : null;
+      feed.link = articles?.link || null;
     }
     await feed.save();
   } catch (error) {
