@@ -4,7 +4,6 @@
   "version": "2.0.0",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "bin": {
-    "add-feed": "tools/add-feed.js",
     "html-elements": "tools/html-elements.js"
   },
   "scripts": {
