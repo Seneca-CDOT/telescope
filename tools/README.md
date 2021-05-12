@@ -18,7 +18,6 @@ npm link
 
 NOTE: if you have issues running `npm link` (e.g., `Error: EACCESS: permission denied`), see [this discussion of possible solutions](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally).
 
-
 ### [html-elements](html-elements.js)
 
 `html-elements` allows you to get a list and count of all HTML elements seen
