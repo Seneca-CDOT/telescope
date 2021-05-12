@@ -52,16 +52,6 @@ adding the name of a file. For example, to run tests in a file called parser.tes
 npm test parser
 ```
 
-You can add feeds to the queue manually using `add-feed` followed by the name of the blogger and url of the feed. This can be useful for testing purposes.
-
-First, add a link to the binary:
-
-`npm link`
-
-Then use `add-feed`
-
-`add-feed --name "Bender Bending Rodriguez" --url futurama.wordpress.com/feed`
-
 ## Debugging
 
 The Telescope backend can be debugged using VSCode. See the [VSCode Debugging docs](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) and use the Launch Telescope configuration to start the server and debugger within VSCode.

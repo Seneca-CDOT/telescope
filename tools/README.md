@@ -18,15 +18,6 @@ npm link
 
 NOTE: if you have issues running `npm link` (e.g., `Error: EACCESS: permission denied`), see [this discussion of possible solutions](https://docs.npmjs.com/resolving-eacces-permissions-errors-when-installing-packages-globally).
 
-### [add-feed](add-feed.js)
-
-`add-feed` allows you to manually insert feeds into the queue, specifying the
-`name` and `url` of a feed:
-
-```
-add-feed --name "Bender Bending Rodriguez" --url futurama.wordpress.com/feed
-```
-
 ### [html-elements](html-elements.js)
 
 `html-elements` allows you to get a list and count of all HTML elements seen
