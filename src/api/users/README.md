@@ -56,7 +56,7 @@ npm run dev
 npm run jest:e2e (or npm run jest:e2e src\api\users\test\e2e)
 ```
 
-By default the server is running on <http://localhost:6666/>.
+By default the server is running on <http://localhost:7000/>.
 
 ### Examples
 
@@ -74,4 +74,4 @@ By default the server is running on <http://localhost:6666/>.
 
 \- To build and tag: `docker build . -t telescope_users_svc:latest`
 
-\- To run locally: `docker run -p 6666:6666 telescope_users_svc:latest`
+\- To run locally: `docker run -p 7000:7000 telescope_users_svc:latest`
