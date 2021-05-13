@@ -27,14 +27,6 @@ describe('Feed Processor Tests', () => {
     await expect(processor(job)).resolves.not.toBeDefined();
   });
 
-  test('Passing a valid URI with HTML response should work', async () => {
-    const url = fixtures.getHtmlUri();
-    const id = await createFeed(url);
-    fixtures.nockValidHtmlResponse();
-    const job = fixtures.createMockJobObjectFromFeedId(id);
-    await expect(processor(job)).resolves.not.toBeDefined();
-  });
-
   test('Passing an invalid RSS category feed should pass', async () => {
     const url = fixtures.getRssUri();
     const id = await createFeed(url);
@@ -47,14 +39,6 @@ describe('Feed Processor Tests', () => {
     const url = fixtures.getRssUri();
     const id = await createFeed(url);
     fixtures.nockValidRssResponse();
-    const job = fixtures.createMockJobObjectFromFeedId(id);
-    await expect(processor(job)).resolves.not.toBeDefined();
-  });
-
-  test('Non existent feed failure case: 404 should work', async () => {
-    const url = fixtures.getHtmlUri();
-    const id = await createFeed(url);
-    fixtures.nock404Response();
     const job = fixtures.createMockJobObjectFromFeedId(id);
     await expect(processor(job)).resolves.not.toBeDefined();
   });
