@@ -1,5 +1,5 @@
 /* global describe, test, beforeEach, afterEach, expect */
-const fetch = require('node-fetch');
+const nock = require('nock');
 const getPort = require('get-port');
 const jwt = require('jsonwebtoken');
 
@@ -17,6 +17,7 @@ const {
   createServiceToken,
   Redis,
   Elastic,
+  fetch,
 } = require('./src');
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
@@ -912,5 +913,60 @@ describe('Elastic()', () => {
     const clientInfo = await client.info();
 
     expect(clientInfo.statusCode).toBe(200);
+  });
+});
+
+describe('fetch()', () => {
+  test('fetch(url) should return 200 on success with a GET request', async () => {
+    const url = 'https://www.google.ca';
+    nock(url).get('/').reply(200);
+
+    const response = await fetch(url);
+    expect(response.ok).toBe(true);
+    expect(response.status).toBe(200);
+    expect(response.url).toEqual(`${url}/`);
+  });
+
+  test('fetch(url) should return 404', async () => {
+    const url = 'https://dev.api.telescope.cdot.systems';
+    const api = '/v1/status/21';
+    nock(url).get(api).reply(404);
+
+    const response = await fetch(`${url}${api}`);
+
+    expect(response.ok).toBe(false);
+    expect(response.status).toEqual(404);
+    expect(response.statusText).toBe('Not Found');
+    expect(response.url).toEqual(`${url}${api}`);
+  });
+
+  test('fetch(url, options) should return 201 on a successful POST request', async () => {
+    const url = 'https://jsonplaceholder.typicode.com';
+    const api = '/posts';
+    const data = {
+      userId: 11,
+      title: 'Test post',
+      body:
+        'A simple post where we can talk about activities that we enjoy in life without any fears',
+    };
+    const options = {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    nock(url).post(api, data).reply(201, data);
+
+    const response = await fetch(`${url}${api}`, {
+      method: 'POST',
+      ...options,
+    });
+    const values = await response.json();
+    expect(response.status).toEqual(201);
+    expect(values.title).toEqual('Test post');
+    expect(values.body).toEqual(
+      'A simple post where we can talk about activities that we enjoy in life without any fears'
+    );
   });
 });
