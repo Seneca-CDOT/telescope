@@ -79,7 +79,7 @@ services:
     environment:
       # We development and testing, the Auth service needs to contact the users
       # service directly via Docker vs through the http://localhost domain.
-      - USERS_URL=http://users:6666
+      - USERS_URL=http://users:7000
     depends_on:
       - test-web-content
 
@@ -87,4 +87,4 @@ services:
     environment:
       # For development and testing, the Parser service needs to contact the users
       # service directly via Docker vs through the http://localhost domain.
-      - USERS_URL=http://users:6666
+      - USERS_URL=http://users:7000
