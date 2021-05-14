@@ -111,6 +111,8 @@ router.post(
         next(createError(409, `user with id ${id} already exists.`));
       } else {
         const user = new User(body);
+        // no user can be created as an admin by default
+        user.isAdmin = false;
         await db.doc(id).set(user);
         res.status(201).json({ msg: `Added user with id: ${id}` });
       }
@@ -135,6 +137,43 @@ router.put(
     }
     // Or an admin, or another authorized microservice
     return user.roles.includes('admin') || user.roles.includes('service');
+  }),
+  async (req, res, next) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    try {
+      const userRef = db.doc(id);
+      const doc = await userRef.get();
+
+      if (!doc.exists) {
+        next(createError(404, `user ${id} not found.`));
+      } else {
+        const user = new User(body);
+        // no user can be created as an admin by default
+        user.isAdmin = false;
+        // NOTE: doc().update() doesn't use the converter, we have to make a plain object.
+        await db.doc(id).update(user.toJSON());
+        res.status(200).json({ msg: `Updated user ${id}` });
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// put (update) a user with a supplied id, validated by the schema
+// rejected if a user could not be found, otherwise user updated
+// this route is only accessible by administrators
+// it allows the modification of the isAdmin property
+router.put(
+  '/:id/admin',
+  isAuthenticated(),
+  validateId(),
+  validateUser(),
+  validateEmailHash(),
+  isAuthorized((req, user) => {
+    return user.roles.includes('admin');
   }),
   async (req, res, next) => {
     const { id } = req.params;
