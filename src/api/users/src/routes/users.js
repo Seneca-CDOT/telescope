@@ -6,6 +6,8 @@ const {
   validateId,
   validateUser,
   validateEmailHash,
+  validateUserRights,
+  updateUser,
 } = require('../models/schema');
 const { User } = require('../models/user');
 const { db, documentId } = require('../services/firestore');
@@ -90,6 +92,7 @@ router.post(
   isAuthenticated(),
   validateId(),
   validateUser(),
+  validateUserRights(),
   validateEmailHash(),
   isAuthorized((req, user) => {
     // A user can add their own data (signup)
@@ -111,8 +114,6 @@ router.post(
         next(createError(409, `user with id ${id} already exists.`));
       } else {
         const user = new User(body);
-        // no user can be created as an admin by default
-        user.isAdmin = false;
         await db.doc(id).set(user);
         res.status(201).json({ msg: `Added user with id: ${id}` });
       }
@@ -130,6 +131,7 @@ router.put(
   validateId(),
   validateUser(),
   validateEmailHash(),
+  validateUserRights(),
   isAuthorized((req, user) => {
     // A user can update their own data
     if (user.sub === req.params.id) {
@@ -138,28 +140,7 @@ router.put(
     // Or an admin, or another authorized microservice
     return user.roles.includes('admin') || user.roles.includes('service');
   }),
-  async (req, res, next) => {
-    const { id } = req.params;
-    const { body } = req;
-
-    try {
-      const userRef = db.doc(id);
-      const doc = await userRef.get();
-
-      if (!doc.exists) {
-        next(createError(404, `user ${id} not found.`));
-      } else {
-        const user = new User(body);
-        // no user can be created as an admin by default
-        user.isAdmin = false;
-        // NOTE: doc().update() doesn't use the converter, we have to make a plain object.
-        await db.doc(id).update(user.toJSON());
-        res.status(200).json({ msg: `Updated user ${id}` });
-      }
-    } catch (err) {
-      next(err);
-    }
-  }
+  updateUser()
 );
 
 // put (update) a user with a supplied id, validated by the schema
@@ -172,29 +153,8 @@ router.put(
   validateId(),
   validateUser(),
   validateEmailHash(),
-  isAuthorized((req, user) => {
-    return user.roles.includes('admin');
-  }),
-  async (req, res, next) => {
-    const { id } = req.params;
-    const { body } = req;
-
-    try {
-      const userRef = db.doc(id);
-      const doc = await userRef.get();
-
-      if (!doc.exists) {
-        next(createError(404, `user ${id} not found.`));
-      } else {
-        const user = new User(body);
-        // NOTE: doc().update() doesn't use the converter, we have to make a plain object.
-        await db.doc(id).update(user.toJSON());
-        res.status(200).json({ msg: `Updated user ${id}` });
-      }
-    } catch (err) {
-      next(err);
-    }
-  }
+  isAuthorized((req, user) => user.roles.includes('admin')),
+  updateUser(true)
 );
 
 // delete a user with a supplied id, validated by the schema

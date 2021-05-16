@@ -16,6 +16,34 @@ const validateId = () =>
     },
   });
 
+// no user can be created as an admin by default
+const validateUserRights = () => (req, res, next) => {
+  req.body.isAdmin = false;
+  next();
+};
+
+const updateUser = (makeAdmin = false) => async (req, res, next) => {
+  const { id } = req.params;
+  const { body } = req;
+
+  try {
+    const userRef = db.doc(id);
+    const doc = await userRef.get();
+
+    if (!doc.exists) {
+      next(createError(404, `user ${id} not found.`));
+    } else {
+      // if makeAdmin is true turn the user into an admin, if not use body to update user.
+      const user = new User(makeAdmin ? { ...body, isAdmin: true } : body);
+      // NOTE: doc().update() doesn't use the converter, we have to make a plain object.
+      await db.doc(id).update(user.toJSON());
+      res.status(200).json({ msg: `Updated user ${id}` });
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 // Generate a display name if none given
 const generateDisplayName = (parent) => `${parent.firstName} ${parent.lastName}`;
 
@@ -52,5 +80,7 @@ const validateEmailHash = () => (req, res, next) => {
 
 exports.validateUser = validateUser;
 exports.validateId = validateId;
+exports.validateUserRights = validateUserRights;
 exports.validateEmailHash = validateEmailHash;
 exports.validatePagingParams = validatePagingParams;
+exports.updateUser = updateUser;
