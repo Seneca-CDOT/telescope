@@ -45,7 +45,8 @@ services:
     volumes:
       # Copy firebase.config into the container so we get proper ip/port binding
       - ../config/firebase.json:/home/node/firebase.json
-    command: firebase emulators:start --project telescope --only firestore
+      - ../config/export:/export
+    command: firebase emulators:start --project telescope --only firestore --import=/export
     ports:
       # Emulator Suite UI
       - '4000:4000'
