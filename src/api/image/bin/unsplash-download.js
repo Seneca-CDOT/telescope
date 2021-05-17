@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-const { logger } = require('@senecacdot/satellite');
+const { logger, fetch } = require('@senecacdot/satellite');
 const stream = require('stream');
 const path = require('path');
 const fs = require('fs');
-const got = require('got');
 const { promisify } = require('util');
 
 const unsplashPhotoUrls = require('../unsplash-photos.json');
@@ -18,7 +17,7 @@ const pipeline = promisify(stream.pipeline);
  * @param {string} filename - the local filename to use when writing
  */
 function downloadPhoto(url, filename) {
-  return pipeline(got.stream(url), fs.createWriteStream(filename)).then(() =>
+  return pipeline(fetch(url), fs.createWriteStream(filename)).then(() =>
     logger.debug(`Wrote ${url} to ${filename}`)
   );
 }

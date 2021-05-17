@@ -1,7 +1,6 @@
-const got = require('got');
 const cheerio = require('cheerio');
 const validUrl = require('valid-url');
-const { logger, createError } = require('@senecacdot/satellite');
+const { logger, createError, fetch } = require('@senecacdot/satellite');
 
 // A middleware to check if Url provided is valid
 module.exports.checkValidUrl = function checkValidUrl() {
@@ -20,14 +19,14 @@ module.exports.checkValidUrl = function checkValidUrl() {
 module.exports.checkValidBlog = function checkValidBlog() {
   return async (req, res, next) => {
     try {
-      const { statusCode, headers, body } = await got(req.body.blogUrl);
-      const contentType = headers['content-type'];
+      const response = await fetch(req.body.blogUrl);
+      const contentType = response.headers;
       // If status code is not 200 or content-type is not text/html then send 400 error
-      if (!(statusCode === 200 && contentType.includes('text/html'))) {
+      if (!(response.status === 200 && contentType.includes('text/html'))) {
         next(createError(400, 'Invalid Blog'));
         return;
       }
-      res.locals.document = body;
+      res.locals.document = response.body;
       next();
     } catch (err) {
       // if there is err (eg: 404 status), return 400 error
