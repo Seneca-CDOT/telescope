@@ -16,8 +16,9 @@ const pipeline = promisify(stream.pipeline);
  * @param {string} url - the URL to the image
  * @param {string} filename - the local filename to use when writing
  */
-function downloadPhoto(url, filename) {
-  return pipeline(fetch(url), fs.createWriteStream(filename)).then(() =>
+async function downloadPhoto(url, filename) {
+  const response = await fetch(url);
+  return pipeline(response.body, fs.createWriteStream(filename)).then(() =>
     logger.debug(`Wrote ${url} to ${filename}`)
   );
 }

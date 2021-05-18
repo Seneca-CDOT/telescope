@@ -20,7 +20,7 @@ module.exports.checkValidBlog = function checkValidBlog() {
   return async (req, res, next) => {
     try {
       const response = await fetch(req.body.blogUrl);
-      const contentType = response.headers;
+      const contentType = response.headers.get('content-type');
       // If status code is not 200 or content-type is not text/html then send 400 error
       if (!(response.status === 200 && contentType.includes('text/html'))) {
         next(createError(400, 'Invalid Blog'));
