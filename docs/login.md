@@ -4,7 +4,7 @@
 
 Telescope uses a cookie based, single sign on (SSO) authentication flow. You can
 find an excellent high-level overview of how this works in the
-[Single-Page App Authentication Using Cookies](https://auth0.com/docs/login/spa/authenticate-with-cookies) article.
+[Single-Page App Authentication Using Cookies](https://auth0.com/docs/sessions/cookies/spa-authenticate-with-cookies) article.
 
 The general idea is that users click a "login" link in Telescope, and are
 redirected to an identify provider, where they enter username and password.
@@ -16,7 +16,7 @@ to certain features, pages, or routes.
 In our backend server, we use the [Passport](http://www.passportjs.org/) node
 authentication middleware with a [SAML2 Passport authentication strategy](https://github.com/bergie/passport-saml).
 
-In our frontend app, we use [Gatsby techniques like client-only routes](https://www.gatsbyjs.org/tutorial/authentication-tutorial/),
+In our frontend app, we use [Next.js routes](https://nextjs.org/docs/api-reference/next/router),
 and communicate with the backend server to get logged-in user information.
 
 ## Using Passport

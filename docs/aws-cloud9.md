@@ -1,6 +1,6 @@
 # Setting up Telescope in AWS Cloud9 IDE
 
-**Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Gatsby and Docker in development is CPU intensive so these are the EC2 instances I recommend:
+**Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
 
 - Minimum: `t2.medium (4 GiB RAM + 2 vCPU)`
 - Recommended: `t2.large (8 GiB RAM + 2 vCPU)`
@@ -256,12 +256,6 @@ sh ./tools/aws-ip.sh
 You should see `API_URL=http://35.174.16.133:3000` at the bottom of our `.env` file. Make sure the other `API_URL=` lines are commented out in `.env` file.
 
 5. Set `PROXY_FRONTEND=1` in your .env
-
-6. Install the Gatsby-CLI
-
-```
-npm install -g gatsby-cli
-```
 
 ### If you did everything correctly, you've completed the environment setup using AWS Cloud9! Yay!
 

@@ -26,7 +26,7 @@ Telescope uses quite a few different technologies, and we have some project spec
 docs available for each, including our:
 
 - database [Redis](redis.md)
-- frontend framework [GatsbyJS](gatsbyjs.md)
+- frontend framework [Next.js](front-end.md)
 - single-sign-on (SSO) [login](login.md) using SAML2
 - backend logging framework [Pino](logging.md)
 - search engine indexing [Elasticsearch](elasticsearch.md)
