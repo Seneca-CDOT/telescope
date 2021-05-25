@@ -8,6 +8,7 @@ import PopUp from './PopUp';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
+    paddingTop: ' env(safe-area-inset-top, 0px)',
     position: 'absolute',
     color: 'white',
     top: '20px',
