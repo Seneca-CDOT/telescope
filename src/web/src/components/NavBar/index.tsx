@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
       left: '-3vw',
     },
     [theme.breakpoints.down(1024)]: {
-      paddingTop: '0px',
       transition: 'width 100ms linear,top 100ms cubic-bezier(0.5, 1, 0.89, 1)',
       top: 'auto',
       bottom: '0',
@@ -75,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'space-around',
       flexDirection: 'row',
       alignItems: 'center',
-      paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+      paddingBottom: 'env(safe-area-inset-bottom, 0)',
     },
   },
   grow: {

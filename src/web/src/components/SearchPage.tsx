@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   searchPage: {
     backgroundColor: theme.palette.background.default,
     minHeight: '100vh',
+    paddingTop: 'env(safe-area-inset-top)',
   },
   anchor: {
     position: 'absolute',

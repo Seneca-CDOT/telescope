@@ -7,14 +7,14 @@ import NavBar from '../components/NavBar';
 const Home = () => {
   const [bannerIsVisible, setBannerVisibility] = useState(true);
   return (
-    <div>
+    <>
       <SEO pageTitle="Telescope" />
       <Banner onVisibilityChange={(visible) => setBannerVisibility(visible)} />
       <main className="main">
         <NavBar disabled={bannerIsVisible} />
         <Posts />
       </main>
-    </div>
+    </>
   );
 };
 
