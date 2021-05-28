@@ -2,7 +2,8 @@
 
 ### Prerequisites:
 
-- [Node.js (npm)](https://nodejs.org/en/download/)
+- [Node.js](https://nodejs.org/en/download/)
+- [pnpm](https://pnpm.io/) (we use `pnpm` vs. `npm` for package installation)
 - [Redis](https://redis.io/) (2 methods)
   - Use [Docker and docker-compose](https://docs.docker.com/install/)
   - Install as a [native application](#Install-Redis-as-a-native-application)
@@ -137,6 +138,32 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 
 ## After installing the prerequisites:
 
+### Installing Dependencies with pnpm
+
+Telescope is structured as a [monrepo](https://en.wikipedia.org/wiki/Monorepo) with more than a dozen separate projects all contained within a single git repository. Because monorepos often share many of the same dependencies, there can be a lot of duplication (and waste) when installing packages.
+
+To help reduce the number of packages that must be stored in `node_modules`, we use [pnpm](https://pnpm.io/) intead of the usual `npm` command. With [pnpm we can save a lot of disk space and installation time](https://pnpm.io/motivation).
+
+The cost of using pnpm is that there are a few differences in how [packages are installed](https://pnpm.io/cli/install), [added to package.json](https://pnpm.io/cli/add), etc. The [docs](https://pnpm.io/pnpm-cli) have full details on how it works, and after a few minutes you'll have no trouble.
+
+To install all of Telescope's dependencies, use the following command:
+
+```bash
+pnpm install
+```
+
+Similarly, to run tests:
+
+```bash
+pnpm test
+```
+
+And to run npm scripts:
+
+```bash
+pnpm run <script-name>
+```
+
 ### Start Docker
 
 ```bash
@@ -162,9 +189,9 @@ _Note: Make sure you're running these commands in the root of telescope project.
 This is the default setting, you do not need to copy or modify any `env` file.
 
 ```bash
-npm run services:start
+pnpm run services:start
 
-npm run dev
+pnpm run dev
 ```
 
 Microservices will start downloading feeds and processing them until stopped. For more information about the services, please read [Telescope API Services](../src/api/readme.md).
@@ -176,7 +203,7 @@ If this doesn't work for you, it is possible that you have an old `.env` file in
 ```bash
 cp config/env.staging .env
 
-npm run dev
+pnpm run dev
 ```
 
 This will provide you staging back-end without running it locally.
@@ -190,22 +217,22 @@ This one depends on which part you're working with. For example, if you want to 
 After modify the `.env` file, run these commands,
 
 ```bash
-npm run services:start
+pnpm run services:start
 
-npm run dev
+pnpm run dev
 ```
 
 #### Want to run `auth/image/posts` service solely
 
-`npm run services:start auth` or `npm run services:start image` or `npm run services:start posts`
+`pnpm run services:start auth` or `pnpm run services:start image` or `pnpm run services:start posts`
 
 #### Want to update the Docker image(s) after making some changes
 
 Run the following commands to rebuild the image(s):
 
 ```bash
-npm run services:clean
-npm run services:start
+pnpm run services:clean
+pnpm run services:start
 ```
 
 #### Login/SSO:
