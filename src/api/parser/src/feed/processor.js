@@ -5,8 +5,7 @@
  */
 
 const Parser = require('rss-parser');
-const { logger } = require('@senecacdot/satellite');
-const fetch = require('node-fetch');
+const { logger, fetch } = require('@senecacdot/satellite');
 
 const Post = require('../data/post');
 const Feed = require('../data/feed');

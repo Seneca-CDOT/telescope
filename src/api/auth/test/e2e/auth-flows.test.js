@@ -1,6 +1,5 @@
 // NOTE: you need to run the auth and login services in docker for these to work
-const { createServiceToken, hash } = require('@senecacdot/satellite');
-const fetch = require('node-fetch');
+const { createServiceToken, hash, fetch } = require('@senecacdot/satellite');
 
 // We need to get the URL to the auth service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.

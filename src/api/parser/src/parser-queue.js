@@ -1,5 +1,4 @@
-const { logger, createServiceToken } = require('@senecacdot/satellite');
-const fetch = require('node-fetch');
+const { logger, createServiceToken, fetch } = require('@senecacdot/satellite');
 
 const feedQueue = require('./feed/queue');
 const feedWorker = require('./feed/worker');

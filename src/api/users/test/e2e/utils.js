@@ -1,5 +1,4 @@
-const fetch = require('node-fetch');
-const { hash, createServiceToken } = require('@senecacdot/satellite');
+const { hash, createServiceToken, fetch } = require('@senecacdot/satellite');
 
 const USERS_URL = 'http://localhost/v1/users';
 
