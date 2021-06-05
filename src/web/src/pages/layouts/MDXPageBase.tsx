@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: theme.palette.background.default,
       fontFamily: 'Spartan',
       padding: '1em 0 2em 0',
+      paddingTop: 'env(safe-area-inset-top)',
       wordWrap: 'break-word',
       [theme.breakpoints.down(1024)]: {
         maxWidth: 'none',

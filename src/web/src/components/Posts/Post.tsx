@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1205)]: {
         top: '-1.1em',
         width: '725px',
-        padding: '1em 0 .1em',
+        padding: 'env(safe-area-inset-top, 1em) 0 .1em',
       },
       [theme.breakpoints.down(1024)]: {
         width: '80vw',
@@ -171,6 +171,7 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: '0',
         display: 'grid',
         alignItems: 'center',
+        paddingTop: 'env(safe-area-inset-top, 1em)',
       },
     },
     content: {

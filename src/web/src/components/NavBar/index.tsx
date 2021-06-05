@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'space-around',
       flexDirection: 'row',
       alignItems: 'center',
+      paddingBottom: 'env(safe-area-inset-bottom, 0)',
     },
   },
   grow: {
