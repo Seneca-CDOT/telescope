@@ -81,7 +81,7 @@
     "ioredis-mock": "5.5.5",
     "jsdom": "16.5.1",
     "node-fetch": "2.6.1",
-    "normalize-url": "5.3.0",
+    "normalize-url": "6.0.1",
     "opml-generator": "1.1.1",
     "passport": "0.4.1",
     "passport-saml": "2.0.5",
