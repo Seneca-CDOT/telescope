@@ -161,6 +161,11 @@ http {
       # We run Traefik via Docker on port 8888
       proxy_pass        http://traefik:8888;
     }
+
+    # Let's Encrypt route
+    location /.well-known/acme-challenge/ {
+      root /var/www/certbot;
+    }
   }
 
   # Default server redirects traffic on 80 to 443, prefer secure connection
