@@ -4,8 +4,11 @@ const { errors } = require('celebrate');
 const {
   validatePagingParams,
   validateId,
+  validateAdminStatus,
   validateUser,
   validateEmailHash,
+  validateUserRights,
+  updateUser,
 } = require('../models/schema');
 const { User } = require('../models/user');
 const { db, documentId } = require('../services/firestore');
@@ -90,6 +93,7 @@ router.post(
   isAuthenticated(),
   validateId(),
   validateUser(),
+  validateUserRights(),
   validateEmailHash(),
   isAuthorized((req, user) => {
     // A user can add their own data (signup)
@@ -128,6 +132,7 @@ router.put(
   validateId(),
   validateUser(),
   validateEmailHash(),
+  validateUserRights(),
   isAuthorized((req, user) => {
     // A user can update their own data
     if (user.sub === req.params.id) {
@@ -136,26 +141,21 @@ router.put(
     // Or an admin, or another authorized microservice
     return user.roles.includes('admin') || user.roles.includes('service');
   }),
-  async (req, res, next) => {
-    const { id } = req.params;
-    const { body } = req;
+  updateUser()
+);
 
-    try {
-      const userRef = db.doc(id);
-      const doc = await userRef.get();
-
-      if (!doc.exists) {
-        next(createError(404, `user ${id} not found.`));
-      } else {
-        const user = new User(body);
-        // NOTE: doc().update() doesn't use the converter, we have to make a plain object.
-        await db.doc(id).update(user.toJSON());
-        res.status(200).json({ msg: `Updated user ${id}` });
-      }
-    } catch (err) {
-      next(err);
-    }
-  }
+// put (update) a user with a supplied id, validated by the schema
+// rejected if a user could not be found, otherwise user updated
+// this route is only accessible by administrators
+// it allows the modification of the isAdmin property
+router.put(
+  '/:id/admin/:adminStatus',
+  isAuthenticated(),
+  validateAdminStatus(),
+  validateUser(),
+  validateEmailHash(),
+  isAuthorized((req, user) => user.roles.includes('admin')),
+  updateUser(true)
 );
 
 // delete a user with a supplied id, validated by the schema
