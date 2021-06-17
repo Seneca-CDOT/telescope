@@ -1,5 +1,7 @@
 const { createError, hash } = require('@senecacdot/satellite');
 const { celebrate, Joi, Segments } = require('celebrate');
+const { User } = require('../models/user');
+const { db } = require('../services/firestore');
 
 const validatePagingParams = () =>
   celebrate({
@@ -16,6 +18,14 @@ const validateId = () =>
     },
   });
 
+const validateAdminStatus = () =>
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().hex().required(),
+      adminStatus: Joi.boolean().required(),
+    },
+  });
+
 // no user can be created as an admin by default
 const validateUserRights = () => (req, res, next) => {
   req.body.isAdmin = false;
@@ -23,7 +33,7 @@ const validateUserRights = () => (req, res, next) => {
 };
 
 const updateUser = (makeAdmin = false) => async (req, res, next) => {
-  const { id } = req.params;
+  const { id, adminStatus } = req.params;
   const { body } = req;
 
   try {
@@ -34,7 +44,7 @@ const updateUser = (makeAdmin = false) => async (req, res, next) => {
       next(createError(404, `user ${id} not found.`));
     } else {
       // if makeAdmin is true turn the user into an admin, if not use body to update user.
-      const user = new User(makeAdmin ? { ...body, isAdmin: true } : body);
+      const user = new User(makeAdmin ? { ...body, isAdmin: adminStatus } : body);
       // NOTE: doc().update() doesn't use the converter, we have to make a plain object.
       await db.doc(id).update(user.toJSON());
       res.status(200).json({ msg: `Updated user ${id}` });
@@ -80,6 +90,7 @@ const validateEmailHash = () => (req, res, next) => {
 
 exports.validateUser = validateUser;
 exports.validateId = validateId;
+exports.validateAdminStatus = validateAdminStatus;
 exports.validateUserRights = validateUserRights;
 exports.validateEmailHash = validateEmailHash;
 exports.validatePagingParams = validatePagingParams;

@@ -4,6 +4,7 @@ const { errors } = require('celebrate');
 const {
   validatePagingParams,
   validateId,
+  validateAdminStatus,
   validateUser,
   validateEmailHash,
   validateUserRights,
@@ -148,9 +149,9 @@ router.put(
 // this route is only accessible by administrators
 // it allows the modification of the isAdmin property
 router.put(
-  '/:id/admin',
+  '/:id/admin/:adminStatus',
   isAuthenticated(),
-  validateId(),
+  validateAdminStatus(),
   validateUser(),
   validateEmailHash(),
   isAuthorized((req, user) => user.roles.includes('admin')),
