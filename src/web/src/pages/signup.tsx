@@ -208,7 +208,7 @@ const SignUpPage = () => {
       setLoading(true);
 
       const response = await fetch(`${authServiceUrl}/register`, {
-        method: 'post',
+        method: 'POST',
         headers: {
           Authorization: `bearer ${token}`,
           'Content-Type': 'application/json',
@@ -220,10 +220,15 @@ const SignUpPage = () => {
         setTelescopeAccount({ error: true });
         throw new Error(response.statusText);
       }
+
       const result = await response.json();
+
       register(result.token);
+
       setTelescopeAccount({ created: true });
+
       handleNext();
+
       return;
     } catch (err) {
       console.error(err, 'Unable to Post');
@@ -252,39 +257,66 @@ const SignUpPage = () => {
     }
   };
 
+  if (user?.isRegistered && !loading)
+    return (
+      <>
+        <div className={classes.imageContainer}>
+          <DynamicImage />
+        </div>
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hi ${user?.name} you already have a Telescope account.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      </>
+    );
+
+  if (telescopeAccount.error)
+    return (
+      <>
+        <div className={classes.imageContainer}>
+          <DynamicImage />
+        </div>
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hi ${user?.name} there was a problem creating your account. Please try again later or contact us on our Slack channel.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      </>
+    );
+
+  if (telescopeAccount.created)
+    return (
+      <>
+        <div className={classes.imageContainer}>
+          <DynamicImage />
+        </div>
+        <PopUp
+          messageTitle="Welcome to Telescope"
+          message={`Hello ${user?.name} your Telescope account was created.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      </>
+    );
+
   return (
     <>
-      <Button className={classes.homeButton} variant="contained" onClick={() => router.push('/')}>
+      <Button
+        className={classes.homeButton}
+        variant="contained"
+        onClick={() => {
+          router.push('/');
+        }}
+      >
         BACK TO HOME
       </Button>
       <div className={classes.root}>
         <div className={classes.imageContainer}>
           <DynamicImage />
         </div>
-        {telescopeAccount.error && (
-          <PopUp
-            messageTitle="Telescope"
-            message={`Hi ${user?.name} there was a problem creating your account. Please try again later or contact us on our Slack channel.`}
-            agreeAction={() => router.push('/')}
-            agreeButtonText="Ok"
-          />
-        )}
-        {user?.isRegistered && (
-          <PopUp
-            messageTitle="Telescope"
-            message={`Hi ${user?.name} you already have a Telescope account.`}
-            agreeAction={() => router.push('/')}
-            agreeButtonText="Ok"
-          />
-        )}
-        {telescopeAccount.created && (
-          <PopUp
-            messageTitle="Welcome to Telescope"
-            message={`Hello ${user?.name} your Telescope account was created.`}
-            agreeAction={() => router.push('/')}
-            agreeButtonText="Ok"
-          />
-        )}
         {!loading && !user?.isRegistered ? (
           <div className={classes.signUpContainer}>
             <h1 className={classes.title}>Telescope Account</h1>
