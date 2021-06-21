@@ -153,6 +153,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+enum SIGN_UP_STEPS {
+  OVERVIEW = 0,
+  BASIC_INFO = 1,
+  GITHUB_ACCOUNT = 2,
+  RSS_FEEDS = 3,
+  REVIEW = 4,
+}
+
 const SignUpPage = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
@@ -224,16 +232,21 @@ const SignUpPage = () => {
 
   const renderForm = () => {
     switch (activeStep) {
-      case 0:
+      case SIGN_UP_STEPS.OVERVIEW:
         return <Overview />;
-      case 1:
+
+      case SIGN_UP_STEPS.BASIC_INFO:
         return <BasicInfo />;
-      case 2:
+
+      case SIGN_UP_STEPS.GITHUB_ACCOUNT:
         return <GitHubAccount />;
-      case 3:
+
+      case SIGN_UP_STEPS.RSS_FEEDS:
         return <RSSFeeds />;
-      case 4:
+
+      case SIGN_UP_STEPS.REVIEW:
         return <Review />;
+
       default:
         return null;
     }
