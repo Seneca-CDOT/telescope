@@ -257,6 +257,7 @@ const SignUpPage = () => {
     }
   };
 
+  // In this case, 'loading' is being used not to let an already telescope user start a signup flow again.
   if (user?.isRegistered && !loading)
     return (
       <>
