@@ -154,16 +154,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 enum SIGN_UP_STEPS {
-  OVERVIEW = 0,
-  BASIC_INFO = 1,
-  GITHUB_ACCOUNT = 2,
-  RSS_FEEDS = 3,
-  REVIEW = 4,
+  OVERVIEW,
+  BASIC_INFO,
+  GITHUB_ACCOUNT,
+  RSS_FEEDS,
+  REVIEW,
 }
 
 const SignUpPage = () => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(SIGN_UP_STEPS.OVERVIEW);
   const currentSchema = formSchema[activeStep];
   const { user, token, login, register } = useAuth();
   const [loggedIn, setLoggedIn] = useState(!!user);
