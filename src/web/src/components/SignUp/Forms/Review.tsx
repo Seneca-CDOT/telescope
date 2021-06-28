@@ -109,7 +109,6 @@ const Review = connect<{}, SignUpForm>((props) => {
             <h2>{displayName}</h2>
           </div>
           <div className={classes.senecaBlogInfo}>
-            <h2>From seneca:</h2>
             <h3>
               Full Name: {firstName} {lastName}
             </h3>

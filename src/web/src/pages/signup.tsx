@@ -153,9 +153,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+enum SIGN_UP_STEPS {
+  OVERVIEW,
+  BASIC_INFO,
+  GITHUB_ACCOUNT,
+  RSS_FEEDS,
+  REVIEW,
+}
+
 const SignUpPage = () => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(SIGN_UP_STEPS.OVERVIEW);
   const currentSchema = formSchema[activeStep];
   const { user, token, login, register } = useAuth();
   const [loggedIn, setLoggedIn] = useState(!!user);
@@ -200,7 +208,7 @@ const SignUpPage = () => {
       setLoading(true);
 
       const response = await fetch(`${authServiceUrl}/register`, {
-        method: 'post',
+        method: 'POST',
         headers: {
           Authorization: `bearer ${token}`,
           'Content-Type': 'application/json',
@@ -212,10 +220,15 @@ const SignUpPage = () => {
         setTelescopeAccount({ error: true });
         throw new Error(response.statusText);
       }
+
       const result = await response.json();
+
       register(result.token);
+
       setTelescopeAccount({ created: true });
+
       handleNext();
+
       return;
     } catch (err) {
       console.error(err, 'Unable to Post');
@@ -224,54 +237,87 @@ const SignUpPage = () => {
 
   const renderForm = () => {
     switch (activeStep) {
-      case 0:
+      case SIGN_UP_STEPS.OVERVIEW:
         return <Overview />;
-      case 1:
+
+      case SIGN_UP_STEPS.BASIC_INFO:
         return <BasicInfo />;
-      case 2:
+
+      case SIGN_UP_STEPS.GITHUB_ACCOUNT:
         return <GitHubAccount />;
-      case 3:
+
+      case SIGN_UP_STEPS.RSS_FEEDS:
         return <RSSFeeds />;
-      case 4:
+
+      case SIGN_UP_STEPS.REVIEW:
         return <Review />;
+
       default:
         return null;
     }
   };
 
+  // In this case, 'loading' is being used not to let an already telescope user start a signup flow again.
+  if (user?.isRegistered && !loading)
+    return (
+      <>
+        <div className={classes.imageContainer}>
+          <DynamicImage />
+        </div>
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hi ${user?.name} you already have a Telescope account.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      </>
+    );
+
+  if (telescopeAccount.error)
+    return (
+      <>
+        <div className={classes.imageContainer}>
+          <DynamicImage />
+        </div>
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hi ${user?.name} there was a problem creating your account. Please try again later or contact us on our Slack channel.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      </>
+    );
+
+  if (telescopeAccount.created)
+    return (
+      <>
+        <div className={classes.imageContainer}>
+          <DynamicImage />
+        </div>
+        <PopUp
+          messageTitle="Welcome to Telescope"
+          message={`Hello ${user?.name} your Telescope account was created.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      </>
+    );
+
   return (
     <>
-      <Button className={classes.homeButton} variant="contained" onClick={() => router.push('/')}>
+      <Button
+        className={classes.homeButton}
+        variant="contained"
+        onClick={() => {
+          router.push('/');
+        }}
+      >
         BACK TO HOME
       </Button>
       <div className={classes.root}>
         <div className={classes.imageContainer}>
           <DynamicImage />
         </div>
-        {telescopeAccount.error && (
-          <PopUp
-            messageTitle="Telescope"
-            message={`Hi ${user?.name} there was a problem creating your account. Please try again later or contact us on our Slack channel.`}
-            agreeAction={() => router.push('/')}
-            agreeButtonText="Ok"
-          />
-        )}
-        {user?.isRegistered && (
-          <PopUp
-            messageTitle="Telescope"
-            message={`Hi ${user?.name} you already have a Telescope account.`}
-            agreeAction={() => router.push('/')}
-            agreeButtonText="Ok"
-          />
-        )}
-        {telescopeAccount.created && (
-          <PopUp
-            messageTitle="Welcome to Telescope"
-            message={`Hello ${user?.name} your Telescope account was created.`}
-            agreeAction={() => router.push('/')}
-            agreeButtonText="Ok"
-          />
-        )}
         {!loading && !user?.isRegistered ? (
           <div className={classes.signUpContainer}>
             <h1 className={classes.title}>Telescope Account</h1>
