@@ -21,7 +21,7 @@
     "ioredis": "^4.25.0",
     "ioredis-mock": "^5.4.1",
     "jsdom": "^16.5.2",
-    "normalize-url": "^6.0.1"
+    "normalize-url": "^7.0.0"
   },
   "devDependencies": {
     "supertest": "^6.1.3"
