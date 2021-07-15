@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
-    "celebrate": "^14.0.0",
+    "celebrate": "^15.0.0",
     "firebase-admin": "^9.6.0",
     "http-link-header": "^1.0.3"
   },
