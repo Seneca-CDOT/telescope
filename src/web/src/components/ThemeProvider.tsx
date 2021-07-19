@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme } from '@material-ui/core/styles';
 
 import { ThemeName } from '../interfaces';
 import { lightTheme } from '../theme';
