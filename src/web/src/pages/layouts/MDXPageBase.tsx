@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => {
         maxWidth: 'none',
       },
       '& h1': {
+        margin: '0 0',
         color: theme.palette.text.secondary,
         fontSize: 24,
         transition: 'color 1s',
