@@ -22,8 +22,6 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - SECRET
-    ports:
-      - ${IMAGE_PORT}
     depends_on:
       - traefik
     labels:
@@ -61,8 +59,6 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - SECRET
-    ports:
-      - ${AUTH_PORT}
     depends_on:
       - traefik
       - users
@@ -98,8 +94,6 @@ services:
     depends_on:
       - elasticsearch
       - traefik
-    ports:
-      - ${SEARCH_PORT}
     labels:
       # Enable Traefik
       - 'traefik.enable=true'
@@ -126,8 +120,6 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - SECRET
-    ports:
-      - ${POSTS_PORT}
     depends_on:
       - traefik
       - redis
@@ -156,8 +148,6 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - SECRET
-    ports:
-      - ${FEED_DISCOVERY_PORT}
     depends_on:
       - traefik
     labels:
@@ -186,8 +176,6 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - SECRET
-    ports:
-      - ${USERS_PORT}
     depends_on:
       - traefik
     labels:
@@ -216,8 +204,6 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - SECRET
-    ports:
-      - ${PARSER_PORT}
     depends_on:
       - traefik
       - redis
@@ -252,8 +238,6 @@ services:
   redis:
     image: redis:latest
     container_name: 'redis'
-    ports:
-      - '6379'
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
       - ../redis-data:/data
@@ -273,5 +257,3 @@ services:
       memlock:
         soft: -1
         hard: -1
-    ports:
-      - '9200'
