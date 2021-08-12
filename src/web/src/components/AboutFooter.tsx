@@ -1,56 +1,58 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Box, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
+import { Box, createStyles, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import GitHubContributorCard from './GitHubContributorCard';
 import Logo from './Logo';
 import { FaSlack } from 'react-icons/fa';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.primary.main,
-    padding: '2rem',
-  },
-  heading: {
-    color: theme.palette.primary.contrastText,
-    [theme.breakpoints.down('md')]: {
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.primary.main,
+      padding: '2rem',
+    },
+    heading: {
+      color: theme.palette.primary.contrastText,
+      [theme.breakpoints.down('md')]: {
+        marginTop: '2rem',
+      },
+    },
+    leftDivider: {
+      backgroundColor: theme.palette.primary.contrastText,
+      height: '2px',
+      marginBottom: '8px',
+      marginRight: '1rem',
+      marginTop: '5px',
+      width: '50%',
+    },
+    rightDivider: {
+      backgroundColor: theme.palette.primary.contrastText,
+      height: '2px',
+      marginBottom: '10px',
+      marginLight: '1rem',
+      marginTop: '5px',
+      width: '30%',
+    },
+    links: {
+      color: theme.palette.primary.contrastText,
+      textDecorationLine: 'none',
+      '&:hover': {
+        textDecorationLine: 'underline',
+      },
+      alignItems: 'flex-start',
+    },
+    footer: {
+      color: theme.palette.primary.contrastText,
+      [theme.breakpoints.down('sm')]: {
+        paddingBottom: '6.5rem',
+      },
+    },
+    card: {
       marginTop: '2rem',
     },
-  },
-  leftDivider: {
-    backgroundColor: theme.palette.primary.contrastText,
-    height: '2px',
-    marginBottom: '8px',
-    marginRight: '1rem',
-    marginTop: '5px',
-    width: '50%',
-  },
-  rightDivider: {
-    backgroundColor: theme.palette.primary.contrastText,
-    height: '2px',
-    marginBottom: '10px',
-    marginLight: '1rem',
-    marginTop: '5px',
-    width: '30%',
-  },
-  links: {
-    color: theme.palette.primary.contrastText,
-    textDecorationLine: 'none',
-    '&:hover': {
-      textDecorationLine: 'underline',
-    },
-    alignItems: 'flex-start',
-  },
-  footer: {
-    color: theme.palette.primary.contrastText,
-    [theme.breakpoints.down('sm')]: {
-      paddingBottom: '6.5rem',
-    },
-  },
-  card: {
-    marginTop: '2rem',
-  },
-}));
+  })
+);
 
 const AboutFooter = () => {
   const classes = useStyles();
