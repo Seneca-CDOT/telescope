@@ -72,9 +72,6 @@ services:
     depends_on:
       - redis
       - elasticsearch
-    ports:
-      # NOTE: we don't expose Telescope through Traefik, nginx serves it.
-      - '${PORT}'
     volumes:
       # Volume to be shared with nginx for serving static content
       - static:/telescope/src/web/out
@@ -101,8 +98,6 @@ services:
       # TODO - add APM monitoring support for Satellite
       # - ELASTIC_APM_SERVER_URL
       # - ELASTIC_APM_SERVICE_NAME
-    ports:
-      - '${STATUS_PORT}'
     depends_on:
       - traefik
     labels:
@@ -186,8 +181,6 @@ services:
       - '--providers.docker=true'
       - '--providers.docker.exposedbydefault=false'
       - '--entryPoints.web.address=:8888'
-    ports:
-      - '8888'
 
   # SSL certificate management for nginx
   certbot:
@@ -211,9 +204,6 @@ services:
 
   redis:
     restart: unless-stopped
-    ports:
-      # In production, we don't allow access to redis via local port binding
-      - '6739'
     volumes:
       # TODO: confirm this path...
       - ../../redis-data:/data
@@ -235,8 +225,6 @@ services:
     container_name: 'portainer'
     command: -H unix:///var/run/docker.sock --admin-password-file '/data/portainer'
     restart: unless-stopped
-    ports:
-      - 9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../portainer:/data
