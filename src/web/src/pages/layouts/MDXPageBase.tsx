@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => {
         color: theme.palette.text.secondary,
         fontSize: 24,
         transition: 'color 1s',
+        marginTop: 0,
         padding: '2vh 22vw',
         [theme.breakpoints.down(1024)]: {
           padding: '1vh 8vw',
