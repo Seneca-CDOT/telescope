@@ -67,9 +67,6 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   trailingSlash: true,
-  future: {
-    webpack5: true,
-  },
 };
 
 // Compose all plugins
