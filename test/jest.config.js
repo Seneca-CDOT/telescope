@@ -6,4 +6,5 @@ module.exports = {
   rootDir: '../',
   testMatch: ['<rootDir>/test/**/*.test.js'],
   collectCoverageFrom: ['<rootDir>/src/backend/**/*.js'],
+  testEnvironment: 'node',
 };
