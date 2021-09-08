@@ -102,7 +102,7 @@ const AuthProvider = ({ children }: Props) => {
     }
   } catch (err) {
     // TODO: should we do more in the error case?  If so, what?
-    console.error('Error parsing access_token from URL', err.message);
+    console.error('Error parsing access_token from URL', err);
   }
 
   const login = (returnTo?: string) => {
