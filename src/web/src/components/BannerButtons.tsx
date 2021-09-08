@@ -107,7 +107,8 @@ const BannerButtons = () => {
           >
             Sign in
           </Button>
-          <Link href="/signup" passHref>
+          {/* Bandaid solution to avoid signing up */}
+          {/* <Link href="/signup" passHref>
             <Button
               style={{
                 fontSize: '1.3rem',
@@ -116,7 +117,7 @@ const BannerButtons = () => {
             >
               Sign up
             </Button>
-          </Link>
+          </Link> */}
         </>
       )}
     </div>
