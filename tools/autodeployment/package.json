@@ -4,10 +4,10 @@
   "description": "A tool for automatic deployment",
   "main": "server.js",
   "dependencies": {
-    "@octokit/webhooks": "^9.1.0",
-    "date-fns": "^2.19.0",
+    "@octokit/webhooks": "^9.15.0",
+    "@senecacdot/satellite": "^1.x",
+    "date-fns": "^2.24.0",
     "dotenv": "^10.0.0",
-    "express": "^4.17.1",
     "merge-stream": "^2.0.0",
     "pm2": "^5.1.1",
     "shelljs": "^0.8.4"
