@@ -32,10 +32,18 @@ router.post('/', createNodeMiddleware(webhooks, { path: '/' }));
  * @param {string} repo - Repository name (should be 'telescope')
  * @param {string} buildType - Build type: staging or production
  * @param {string} action - Action for a specific release event: created, published or released.
+ * @param {string} ref - .Git reference resource.
+ * @param {string} mainBranch - Brach used in the repo as main branch.
  */
-function requestFilter(repo, buildType, action) {
+function requestFilter(repo, buildType, action, ref, mainBranch) {
+  const currentBranch = ref.split('/').pop();
+
   return (
+    // Check repo
     repo === REPO_NAME &&
+    // Check if the reference is the branch used as main or if it is a tag
+    (currentBranch === mainBranch || ref.includes('tags/')) &&
+    // Check the build type and the action
     (buildType === 'staging' || (buildType === 'production' && action === 'published'))
   );
 }
@@ -57,7 +65,15 @@ function handleEventType(buildType, gitHubEvent) {
   webhooks.on(gitHubEvent, (event) => {
     const githubData = event.payload;
 
-    if (requestFilter(githubData.repository.name, buildType, githubData.action)) {
+    if (
+      requestFilter(
+        githubData.repository.name,
+        buildType,
+        githubData.action,
+        githubData.ref,
+        githubData.repository.master_branch
+      )
+    ) {
       addBuild(buildType, githubData);
     }
   });
