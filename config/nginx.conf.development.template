@@ -1,0 +1,173 @@
+################################################################################
+# Telescope NGINX config template.  We use NGINX as our default router,
+# receiving all traffic on 80/443 and forwarding it to our front-end and
+# back-end services.
+#
+# NOTE: this is a template vs. final conf file, and meant to be used with Docker
+# in order to replace the TELESCOPE_HOST and API_HOST variables
+# with values from the env.  See the section "Using environment variables in
+# nginx configuration (new in 1.19)" in:
+#
+#  https://hub.docker.com/_/nginx
+#
+# A lot of this is based on the following amazing resources:
+#   - https://github.com/h5bp/server-configs-nginx
+#   - https://www.digitalocean.com/community/tools/nginx
+################################################################################
+
+# Run as a unique, less privileged user for security reasons.
+# Default: nobody nobody
+# https://nginx.org/en/docs/ngx_core_module.html#user
+# https://en.wikipedia.org/wiki/Principle_of_least_privilege
+user www-data;
+
+# Let nginx pick how many worker processes to run (based on CPU cores)
+worker_processes auto;
+
+# Maximum number of open files per worker process.
+# Should be > worker_connections.
+# Default: no limit
+# https://nginx.org/en/docs/ngx_core_module.html#worker_rlimit_nofile
+worker_rlimit_nofile 8192;
+
+events {
+  # Number of simultaneous client connections we can handle per worker
+  worker_connections 8000;
+  # Reduce CPU load (requires Linux 2.6 or later)
+  use epoll;
+}
+
+http {
+  # Use utf-8 for the charset on our content-type headers
+  charset   utf-8;
+
+  # Don't send version number in the "Server" response header.
+  server_tokens off;
+
+  # Serve resources with proper MIME type
+  include       mime.types;
+
+  # Log errors and warnings to this file
+  # This is only used when you don't override it on a `server` level
+  error_log /var/log/nginx/error.log warn;
+  # Log access to this file
+  # https://nginx.org/en/docs/http/ngx_http_log_module.html#access_log
+  access_log /var/log/nginx/access.log;
+
+  # Default to binary data if we can't map the type
+  default_type  application/octet-stream;
+
+  # Update charset_types to match updated mime.types.
+  charset_types
+      text/css
+      text/plain
+      text/vnd.wap.wml
+      text/javascript
+      text/markdown
+      text/calendar
+      text/x-component
+      text/vcard
+      text/cache-manifest
+      text/vtt
+      application/json
+      application/manifest+json;
+
+  # Improve the efficiency of writes
+  sendfile on;
+
+  # Don't send out partial frames; this increases throughput
+  tcp_nopush on;
+
+  # Enable gzip compression
+  gzip on;
+  # Compression level of 5 to find a balance between CPU and size (levels are 1-9)
+  gzip_comp_level 5;
+  # Don't compress anything that's already small
+  gzip_min_length 256;
+  # Compress data even for clients that are connecting to us via proxies
+  gzip_proxied any;
+  # Tell proxies to cache both the gzipped and regular version of a resource
+  # whenever the client's Accept-Encoding capabilities header varies;
+  gzip_vary on;
+  # Compress all output labeled with one of the following MIME-types.
+  # NOTE: `text/html` is always compressed by gzip module.
+  gzip_types
+    application/atom+xml
+    application/geo+json
+    application/javascript
+    application/x-javascript
+    application/json
+    application/ld+json
+    application/manifest+json
+    application/rdf+xml
+    application/rss+xml
+    application/vnd.ms-fontobject
+    application/wasm
+    application/x-web-app-manifest+json
+    application/xhtml+xml
+    application/xml
+    font/eot
+    font/otf
+    font/ttf
+    image/bmp
+    image/svg+xml
+    text/cache-manifest
+    text/calendar
+    text/css
+    text/javascript
+    text/markdown
+    text/plain
+    text/xml
+    text/vcard
+    text/vnd.rim.location.xloc
+    text/vtt
+    text/x-component
+    text/x-cross-domain-policy;
+
+  # levels        - Defines hierarchy levels
+  # keys_zone     - Name for these settings
+  # inactive      - Cached data that are not accessed during the time specified by the inactive parameter get removed from the cache regardless of their freshness
+  # max_size      - When this size is exceeded, it removes the least recently used data
+  # use_temp_path - Use a temp directory before moving all cached files into the cache directory
+  proxy_cache_path /tmp/nginx levels=1:2 keys_zone=telescope_cache:10m inactive=60m max_size=100M use_temp_path=off;
+  proxy_cache_key "$scheme$request_method$host$request_uri";
+
+  # Front-end and Legacy Back-end node.js app are served here
+  server {
+    listen 80 default_server;
+    server_name localhost:8000;
+
+    # Static next.js front-end
+    location / {
+      # Directory from which we serve Next's static content
+      root /var/www/data;
+
+      # TODO: update this for next.js, see https://github.com/vercel/next.js/blob/27555c8ef9b06ff71e245e086db191103ecd2026/packages/next/next-server/server/next-server.ts#L664
+      # for how they cache things.
+
+      # Specify cache behaviour, see docs: https://www.gatsbyjs.org/docs/caching.
+      # 1. Don't cache HTML
+      location ~* \.(?:html)$ {
+        add_header Cache-Control "public, max-age=0";
+      }
+      # 2. Don't cache /page-data (including app-data.json)
+      location /page-data {
+        add_header Cache-Control "public, max-age=0";
+      }
+      # 3. Don't cache the service worker /sw.js script, see:
+      location = /sw.js {
+        add_header Cache-Control "public, max-age=0";
+      }
+      # 4. Files in icons/ and static/ can be cached forever
+      location  ~ ^/(static|icons) {
+        expires max;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+      }
+      # 5. Cache js and css forever
+      location ~* \.(?:js|css)$ {
+        expires max;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+      }
+    }
+  }
+}

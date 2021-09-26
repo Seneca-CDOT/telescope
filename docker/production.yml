@@ -73,8 +73,6 @@ services:
       - redis
       - elasticsearch
     volumes:
-      # Volume to be shared with nginx for serving static content
-      - static:/telescope/src/web/out
       # Volume to be shared for log rotation
       - rotate:/telescope/log
 
@@ -148,25 +146,17 @@ services:
 
   # Our main ingress router, handling all traffic on 80/443
   nginx:
-    image: nginx:latest
-    container_name: 'nginx'
-    environment:
-      - TELESCOPE_HOST
-      - API_HOST
     volumes:
       # Pass a templated version of our nginx.conf so the Telescope domains are replaced
       - ../config/nginx.conf.template:/etc/nginx/nginx.conf.template
       - ../../certbot/conf:/etc/letsencrypt
       - ../../certbot/www:/var/www/certbot
-      # Volume to be shared with Telescope for serving static content
-      - static:/var/www/data
     ports:
       - 80:80
       - 443:443
     restart: unless-stopped
     depends_on:
       - telescope
-      - traefik
     # This makes nginx swap only the 2 specified environment variables in our template (see:
     # https://github.com/docker-library/docs/issues/496) and then reload this configuration
     # (and the associated certificates) every six hours in the background and launches nginx
@@ -235,5 +225,4 @@ services:
   # TODO: Kibana + APM, see https://github.com/Seneca-CDOT/telescope/blob/372a6076540351cd54d85478521bcfbe8edefc87/src/api/production.yml
 
 volumes:
-  static:
   rotate:
