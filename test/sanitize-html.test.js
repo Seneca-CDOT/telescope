@@ -121,6 +121,15 @@ describe('Sanitize HTML', () => {
     );
   });
 
+  test('medium.com embedded content including Gist code should not get removed', () => {
+    const data = sanitizeHTML(
+      '<iframe src="https://medium.com/media/e19a2999dc5dcb71e7a5ad152fdb2a2a"></iframe>'
+    );
+    expect(data).toBe(
+      '<iframe src="https://medium.com/media/e19a2999dc5dcb71e7a5ad152fdb2a2a"></iframe>'
+    );
+  });
+
   test('<pre> with inline style, sanitize strips inline style', () => {
     const data = sanitizeHTML('<pre class="brush: plain; title: ; notranslate">Hello World</pre>');
     expect(data).toBe('<pre>Hello World</pre>');
