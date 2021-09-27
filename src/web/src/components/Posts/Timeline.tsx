@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       flexDirection: 'column',
-      margin: '2rem',
+      padding: '2rem',
       color: theme.palette.primary.main,
     },
   })
