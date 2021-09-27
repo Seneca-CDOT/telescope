@@ -53,6 +53,7 @@ module.exports = function (dirty) {
       'giphy.com',
       'cdn.embedly.com',
       'open.spotify.com',
+      'medium.com',
     ],
   });
 };
