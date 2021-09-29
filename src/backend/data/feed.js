@@ -111,7 +111,7 @@ class Feed {
    * Returns a Promise<Boolean>
    */
   async isDelayed() {
-    return (await isDelayed(this.id)) === '1';
+    return (await isDelayed(this.id)) === 1;
   }
 
   /**
