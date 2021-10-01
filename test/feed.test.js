@@ -134,9 +134,9 @@ describe('Post data class tests', () => {
 
     test('Feed.isDelayed() should return true only after Feed.setDelayed() is called', async () => {
       const feed = await Feed.byUrl(data.url);
-      expect(feed.isDelayed()).resolves.toBe(false);
+      expect(await feed.isDelayed()).toBe(false);
       await feed.setDelayed(60);
-      expect(feed.isDelayed()).resolves.toBe(true);
+      expect(await feed.isDelayed()).toBe(true);
     });
 
     test('Updated feed should be different from data', async () => {
