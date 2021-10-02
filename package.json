@@ -7,8 +7,6 @@
     "html-elements": "tools/html-elements.js"
   },
   "scripts": {
-    "api:start": "docker-compose -f ./src/api/docker-compose-api.yml up --build -d",
-    "api:stop": "docker-compose -f ./src/api/docker-compose-api.yml down",
     "install:auth-service": "cd src/api/auth && npm install",
     "install:image-service": "cd src/api/image && npm install",
     "install:users-service": "cd src/api/users && npm install",
