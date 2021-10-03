@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.4.0
+      - uses: actions/setup-node@v2.4.1
       - name: Install dependencies and run prettier-check
         run: |
           npm install
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.4.0
+      - uses: actions/setup-node@v2.4.1
       - name: Install dependencies and run eslint
         run: |
           npm install
@@ -54,7 +54,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - uses: actions/setup-node@v2.4.0
+      - uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ matrix.node-version }}
       - name: Get number of CPU cores
@@ -79,7 +79,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.4.0
+      - uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ matrix.node-version }}
       - uses: microsoft/playwright-github-action@v1
