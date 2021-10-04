@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     authorNameContainer: {
       width: '100%',
-      height: '3rem',
       marginLeft: '1rem',
     },
     author: {
@@ -48,6 +47,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         textDecorationLine: 'underline',
       },
+    },
+    postDate: {
+      lineHeight: '1rem',
     },
     published: {
       marginLeft: '1rem',
@@ -84,7 +86,7 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
           </a>
         </p>
       </div>
-      <div>
+      <div className={classes.postDate}>
         <a href={postUrl} rel="bookmark" className={classes.published}>
           <time className={classes.time} dateTime={postDate}>
             {postDate}
