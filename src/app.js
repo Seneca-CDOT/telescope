@@ -34,6 +34,14 @@ function createApp(router, options = {}) {
   // Parse application/json
   app.use(express.json());
 
+  // Allow adding auto-opt-out of FLoC (disabled by default)
+  if (options.optOutFloc) {
+    app.use((req, res, next) => {
+      res.setHeader('Permissions-Policy', 'interest-cohort=()');
+      next();
+    });
+  }
+
   // If beforeRouter is defined, add all middleware to the app
   // before we define the router. Useful for adding middleware just
   // before the router.

@@ -86,6 +86,14 @@ const service = new Satellite({
 
 - `helmet`: the options to pass to the [helmet](https://www.npmjs.com/package/helmet) middleware. By default all options are turned on. Use `helmet: false` to disable helmet.
 
+- `optOutFloc`: Enable adding the appropriate headers to Satellite to opt out of [Google's Floc](https://www.wired.com/story/google-floc-privacy-ad-tracking-explainer/). Disabled by default.
+
+```js
+const service = new Satellite({
+  options.optOutFloc: true,
+});
+```
+
 - `beforeParsers`: an optional hook function that allows access to the `app` during creation prior to adding the body parsers
 
 ```js

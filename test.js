@@ -117,6 +117,33 @@ describe('Satellite()', () => {
     });
   });
 
+  describe('auto-oup-out FLoC', () => {
+    test('Satellite() instance should include the { Permission-Policy: interest-cohort } header when the option is enabled', (done) => {
+      const service = createSatelliteInstance({
+        name: 'test',
+        optOutFloc: true,
+      });
+      service.start(port, async () => {
+        const res = await fetch(`${url}/always-200`);
+        expect(res.ok).toBe(true);
+        expect(res.headers.get('permissions-policy')).toBe('interest-cohort=()');
+        service.stop(done);
+      });
+    });
+
+    test('Satellite() instance should not include the { Permission-Policy: interest-cohort } header when the option is disabled', (done) => {
+      const service = createSatelliteInstance({
+        name: 'test',
+      });
+      service.start(port, async () => {
+        const res = await fetch(`${url}/always-200`);
+        expect(res.ok).toBe(true);
+        expect(res.headers.get('permissions-policy')).toBe(null);
+        service.stop(done);
+      });
+    });
+  });
+
   test('start() should throw if called twice', (done) => {
     service.start(port, () => {
       expect(() => service.start(port2, async () => {})).toThrow();
