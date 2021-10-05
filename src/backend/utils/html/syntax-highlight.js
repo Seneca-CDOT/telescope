@@ -53,8 +53,9 @@ module.exports = function (dom) {
     if (pre) {
       pre.classList.add('hljs', language);
     }
-
+    // Value from hljs.highlightAuto turn escape character to e.g &lt; to &amp;lt;
+    // Adding regex to convert &amp; of that escape character back to &
     // Replace the contents with newly marked up syntax highlighting
-    code.innerHTML = value;
+    code.innerHTML = value.replace(/\&amp;([^;|^&]+);/gm, '&$1');
   });
 };

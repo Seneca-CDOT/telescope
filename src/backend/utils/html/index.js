@@ -3,7 +3,6 @@ const sanitize = require('./sanitize');
 const fixIFrameWidth = require('./fix-iframe-width');
 const lazyLoad = require('./lazy-load');
 const syntaxHighlight = require('./syntax-highlight');
-const replaceCodeEntities = require('./replace-entities');
 const fixEmptyPre = require('./modify-pre');
 const toDOM = require('./dom');
 
@@ -40,8 +39,6 @@ module.exports = function process(html) {
   fixIFrameWidth(dom);
   // Update <img> and <iframe> elements to use native lazy loading.
   lazyLoad(dom);
-  // Replace <code> elements with encoded entities to use characters
-  replaceCodeEntities(dom);
 
   // Return the resulting HTML
   return dom.window.document.body.innerHTML;
