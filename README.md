@@ -1,4 +1,4 @@
-# Telescope <img align="left" width="150" height="150" src=https://github.com/Seneca-CDOT/telescope/blob/master/src/web/public/logo.svg>
+# Telescope <img align="left" width="100" height="100" src=https://github.com/Seneca-CDOT/telescope/blob/master/src/web/public/logo.svg>
 
 [![js-airbnb/prettier-style](https://img.shields.io/badge/code%20style-airbnb%2Fprettier-blue)](https://github.com/airbnb/javascript)
 ![Node.js CI](https://github.com/Seneca-CDOT/telescope/workflows/node-js-ci/badge.svg)
@@ -18,7 +18,7 @@ to see what's happening with open source at Seneca right now.
 You can read a more detailed discussion of the project's original goals in
 the [Overview](docs/overview.md) document.
 
-### Why the name 'Telescope'?
+## Why the name 'Telescope'?
 
 The Telescope project is an example of ["planet"](<https://en.wikipedia.org/wiki/Planet_(software)>):
 a tool for aggregating blog feeds. Since we've used our old Planet to keep track
@@ -26,7 +26,7 @@ of what people are doing in open source at Seneca, we decided to call our softwa
 "Telescope," because it lets us look out and see what's happening in orbit around
 Seneca.
 
-### Who built it?
+## Who built it?
 
 Telescope was created in the fall of 2019 by 60 students in Seneca's open source courses
 OSD600 and DPS909.
