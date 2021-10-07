@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     errorTitle: {
       textAlign: 'center',
       fontSize: '5rem',
-      color: '#fff',
+      color: '#FFF',
     },
     errorMessage: {
       lineHeight: '2rem',

@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '0',
       paddingBottom: '2em',
       marginBottom: '3em',
-      borderBottom: '1.5px solid #cccccc',
+      borderBottom: '1.5px solid #CCCCCC',
       fontSize: '1.5rem',
       width: '100%',
       backgroundColor: theme.palette.background.default,
