@@ -42,7 +42,6 @@ const Posts = () => {
 
   const { data, size, setSize, error } = useSWRInfinite<Post[]>(
     (index: number) => `${postsServiceUrl}/?page=${index + 1}`,
-    (url: string) => fetch(url).then((res) => res.json()),
     {
       refreshInterval: REFRESH_INTERVAL,
       refreshWhenHidden: true,

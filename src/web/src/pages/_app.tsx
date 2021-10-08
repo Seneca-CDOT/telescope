@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { SWRConfig } from 'swr';
 
 import AuthProvider from '../components/AuthProvider';
 
@@ -34,13 +35,17 @@ const App = ({ Component, pageProps }: AppProps) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, themeName: theme.palette.type, toggleTheme }}>
-      <ThemeProvider theme={theme}>
-        <AuthProvider>
-          <Component {...pageProps} />
-        </AuthProvider>
-      </ThemeProvider>
-    </ThemeContext.Provider>
+    <SWRConfig
+      value={{ fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()) }}
+    >
+      <ThemeContext.Provider value={{ theme, themeName: theme.palette.type, toggleTheme }}>
+        <ThemeProvider theme={theme}>
+          <AuthProvider>
+            <Component {...pageProps} />
+          </AuthProvider>
+        </ThemeProvider>
+      </ThemeContext.Provider>
+    </SWRConfig>
   );
 };
 
