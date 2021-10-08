@@ -12,4 +12,8 @@ describe('roles', () => {
   it('should return correct roles for Admin user', () => {
     expect(roles.admin()).toEqual(['seneca', 'telescope', 'admin']);
   });
+
+  it('should return correct roles for a Super user', () => {
+    expect(roles.superUser()).toEqual(['seneca', 'admin']);
+  });
 });

@@ -42,14 +42,23 @@ describe('User()', () => {
   describe('All users', () => {
     it('should have an id property that returns the hashed email in the form we expect', () => {
       const email = 'first.last@senecacollege.ca';
-      const user = new User(createSenecaProfile({ email }));
+      const user = new User(
+        createSenecaProfile({
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': email,
+        })
+      );
       const expectedId = hash(email);
       expect(user.id).toEqual(expectedId);
     });
 
     it('should have an email property', () => {
-      const user = new User(createSenecaProfile({ email: 'first.last@senecacollege.ca' }));
-      expect(user.email).toEqual('first.last@senecacollege.ca');
+      const email = 'first.last@senecacollege.ca';
+      const user = new User(
+        createSenecaProfile({
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': email,
+        })
+      );
+      expect(user.email).toEqual(email);
     });
 
     it('should have a nameID property', () => {
@@ -58,12 +67,13 @@ describe('User()', () => {
     });
 
     it('should have a nameIDFormat property', () => {
+      const nameIDFormat = 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress';
       const user = new User(
         createSenecaProfile({
-          nameIDFormat: 'urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress',
+          nameIDFormat,
         })
       );
-      expect(user.nameIDFormat).toEqual('urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress');
+      expect(user.nameIDFormat).toEqual(nameIDFormat);
     });
 
     it('should have a firstName property', () => {
@@ -284,6 +294,21 @@ describe('User()', () => {
       });
       expect(user2.isTelescopeUser).toBe(true);
       expect(user2.roles).toEqual(['seneca', 'telescope', 'admin']);
+    });
+  });
+
+  describe('Seneca super user', () => {
+    it('should have isAdmin for user in ADMINISTRATORS env', () => {
+      const email = 'user1@example.com';
+      const { ADMINISTRATORS } = process.env;
+      const user = new User(
+        createSenecaProfile({
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress': email,
+        })
+      );
+      expect(ADMINISTRATORS).toEqual(email);
+      expect(user.isAdmin).toBe(true);
+      expect(user.roles).toEqual(['seneca', 'admin']);
     });
   });
 });

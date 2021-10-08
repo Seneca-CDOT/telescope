@@ -2,6 +2,11 @@ const { hash } = require('@senecacdot/satellite');
 
 const roles = require('./roles');
 
+// Support special Telescope "super user" accounts that we can bootstrap from
+// the env. The admins are space separated list of admin accounts from env
+const telescopeAdmins = process.env.ADMINISTRATORS ? process.env.ADMINISTRATORS.split(' ') : [];
+const isSuperUser = (email) => telescopeAdmins.includes(email);
+
 // A User represents a Seneca SSO Authenticated user who might also be a Telescope user.
 class User {
   constructor(senecaProfile, telescopeProfile) {
@@ -63,7 +68,7 @@ class User {
   }
 
   get isAdmin() {
-    return !!(this.telescope && this.telescope.isAdmin === true);
+    return !!(this.telescope && this.telescope.isAdmin === true) || isSuperUser(this.email);
   }
 
   get isFlagged() {
@@ -98,11 +103,17 @@ class User {
   // Get a list of roles for this user
   get roles() {
     if (this.telescope) {
-      if (this.telescope.isAdmin === true) {
+      if (this.isAdmin) {
         return roles.admin();
       }
       return roles.telescope();
     }
+
+    // Special case for super users defined via ADMINISTRATORS env variable
+    if (this.isAdmin) {
+      return roles.superUser();
+    }
+
     // Default to only Seneca
     return roles.seneca();
   }

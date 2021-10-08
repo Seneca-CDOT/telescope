@@ -1,11 +1,11 @@
 // NOTE: you need to run the auth and login services in docker for these to work
-const { createServiceToken, hash } = require('@senecacdot/satellite');
+const { hash } = require('@senecacdot/satellite');
 const { decode } = require('jsonwebtoken');
 const fetch = require('node-fetch');
 
 // We need to get the URL to the auth service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
-const { login, logout, USERS_URL, cleanupTelescopeUsers } = require('./utils');
+const { login, logout, USERS_URL, cleanupTelescopeUsers, ensureUsers } = require('./utils');
 
 const { AUTH_URL, FEED_DISCOVERY_URL } = process.env;
 
@@ -50,18 +50,7 @@ describe('Signup Flow', () => {
   });
 
   it('should have none of the users in the Users service for test data accounts', () =>
-    Promise.all(
-      users.map((user) =>
-        fetch(`${USERS_URL}/${hash(user.email)}`, {
-          headers: {
-            Authorization: `bearer ${createServiceToken()}`,
-            'Content-Type': 'application/json',
-          },
-        }).then((res) => {
-          expect(res.status).toEqual(404);
-        })
-      )
-    ));
+    ensureUsers(users, 404));
 
   it('signup flow works to login and register a new Telescope user', async () => {
     // Part 1: login using SSO, as a user who does not have a Telescope account.
