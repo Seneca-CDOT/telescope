@@ -1,5 +1,5 @@
 require('./lib/config.js');
-const feedQueue = require('./feed/queue');
+const { feedQueue } = require('./feed/queue');
 const feedWorker = require('./feed/worker');
 const { logger } = require('./utils/logger');
 const getWikiFeeds = require('./utils/wiki-feed-parser');
