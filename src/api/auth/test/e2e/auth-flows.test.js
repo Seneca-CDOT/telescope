@@ -1,6 +1,5 @@
 // NOTE: you need to run the auth and login services in docker for these to work
-const { createServiceToken, hash } = require('@senecacdot/satellite');
-const fetch = require('node-fetch');
+const { hash } = require('@senecacdot/satellite');
 
 // We need to get the URL to the auth service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
@@ -8,10 +7,10 @@ const { AUTH_URL, ALLOWED_APP_ORIGINS } = process.env;
 const {
   login,
   logout,
-  USERS_URL,
   getTokenAndState,
   createTelescopeUsers,
   cleanupTelescopeUsers,
+  ensureUsers,
 } = require('./utils');
 
 // We have 3 SSO user accounts in the login service (see config/simplesamlphp-users.php):
@@ -88,18 +87,7 @@ describe('Authentication Flows', () => {
   });
 
   it('should have all expected Telescope users in Users service for test data accounts', () =>
-    Promise.all(
-      users.map((user) =>
-        fetch(`${USERS_URL}/${hash(user.email)}`, {
-          headers: {
-            Authorization: `bearer ${createServiceToken()}`,
-            'Content-Type': 'application/json',
-          },
-        }).then((res) => {
-          expect(res.status).toEqual(200);
-        })
-      )
-    ));
+    ensureUsers(users));
 
   it('Login flow preserves state param', async () => {
     const { state } = await login(page, 'user1', 'user1pass');

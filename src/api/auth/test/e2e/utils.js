@@ -98,9 +98,26 @@ const logout = async (page) => {
   return getTokenAndState(page);
 };
 
+// Given an array of users, make sure they all respond with the expected HTTP
+// result via the Users Service.
+const ensureUsers = (users, result = 200) =>
+  Promise.all(
+    users.map((user) =>
+      fetch(`${USERS_URL}/${hash(user.email)}`, {
+        headers: {
+          Authorization: `bearer ${createServiceToken()}`,
+          'Content-Type': 'application/json',
+        },
+      }).then((res) => {
+        expect(res.status).toEqual(result);
+      })
+    )
+  );
+
 module.exports.USERS_URL = USERS_URL;
 module.exports.createTelescopeUsers = createTelescopeUsers;
 module.exports.cleanupTelescopeUsers = cleanupTelescopeUsers;
 module.exports.getTokenAndState = getTokenAndState;
 module.exports.login = login;
 module.exports.logout = logout;
+module.exports.ensureUsers = ensureUsers;
