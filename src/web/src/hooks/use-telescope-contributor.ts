@@ -59,8 +59,9 @@ const useTelescopeContributor = () => {
   }, [shouldUpdate, maxContributors]);
 
   // Github api returns an array of contributors [ {...} ]
-  const { data: contributors, error: contributorError } = useSWR<Contributor[] | null>(() =>
-    random !== -1 ? prepareURL(random) : null
+  const { data: contributors, error: contributorError } = useSWR<Contributor[] | null>(
+    () => (random !== -1 ? prepareURL(random) : null),
+    (url: string) => fetch(url).then((res) => res.json())
   );
 
   const error = countError || contributorError || null;

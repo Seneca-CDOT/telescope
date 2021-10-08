@@ -1,5 +1,5 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { useSWRInfinite } from 'swr';
+import useSWRInfinite from 'swr/infinite';
 import { Container, Box, createStyles } from '@material-ui/core';
 
 import { searchServiceUrl } from '../config';
@@ -62,7 +62,7 @@ const SearchResults = () => {
   // We only bother doing the request if we have something to search for.
   const shouldFetch = () => textParam.length > 0;
   const { data, size, setSize, error } = useSWRInfinite(
-    (index) => (shouldFetch() ? prepareUrl(index) : null),
+    (index: number) => (shouldFetch() ? prepareUrl(index) : null),
     async (u: string) => {
       const res = await fetch(u);
       const results = await res.json();
