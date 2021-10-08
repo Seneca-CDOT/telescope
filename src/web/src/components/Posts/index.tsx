@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSWRInfinite } from 'swr';
+import useSWRInfinite from 'swr/infinite';
 import { Container, createStyles, Grid } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { usePrevious } from 'react-use';
