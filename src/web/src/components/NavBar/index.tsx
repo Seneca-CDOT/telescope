@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import { useMemo } from 'react';
 import { AppBar, Toolbar, Tooltip, Zoom } from '@material-ui/core';
 import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import { Transition } from 'react-transition-group';
 
 import dynamic from 'next/dynamic';
 
@@ -24,45 +26,32 @@ const DynamicThemeToggleButton = dynamic(() => import('../ThemeToggleButton'), {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    overflow: 'hidden',
+    position: 'fixed',
     top: '1.4em',
     left: '0',
     width: '15em',
-    boxShadow: 'none',
-    color: theme.palette.primary.main,
-    backgroundColor: 'transparent',
-    transition: 'width 100ms linear,top 300ms linear',
-    animation: `$navbar 400ms`,
+    height: 'fit-content',
+    transition: `transform 200ms ease-in-out, opacity 200ms ease-in-out`,
     [theme.breakpoints.down(1200)]: {
       left: '-3vw',
     },
     [theme.breakpoints.down(1024)]: {
-      transition: 'width 100ms linear,top 100ms cubic-bezier(0.5, 1, 0.89, 1)',
+      left: '0',
       top: 'auto',
       bottom: '0',
-      width: 'auto',
+      width: '100vw',
+    },
+  },
+  appBar: {
+    boxShadow: 'none',
+    color: theme.palette.primary.main,
+    backgroundColor: 'transparent',
+    transition: 'width 100ms linear,top 300ms linear',
+    [theme.breakpoints.down(1024)]: {
+      transition: 'width 100ms linear,top 100ms cubic-bezier(0.5, 1, 0.89, 1)',
       flexDirection: 'row',
       alignItems: 'center',
       background: theme.palette.background.default,
-      animation: `$mobileNavbar 400ms`,
-    },
-  },
-  '@keyframes navbar': {
-    '0%': {
-      opacity: 0,
-      transform: 'translateY(-200%)',
-    },
-    '100%': {
-      opacity: 1,
-      transform: 'translateY(0)',
-    },
-  },
-  '@keyframes mobileNavbar': {
-    '0%': {
-      opacity: 0,
-    },
-    '100%': {
-      opacity: 1,
     },
   },
   toolbar: {
@@ -127,36 +116,49 @@ export default function NavBar({ disabled }: NavBarProps) {
   const desktop = useMediaQuery(theme.breakpoints.up(1024));
   const { user, logout } = useAuth();
 
-  if (disabled) {
-    return null;
-  }
-  return (
-    <AppBar className={classes.root} position="fixed">
-      <Toolbar className={classes.toolbar}>
-        {desktop && (
-          <>
-            <Link href="/" passHref>
-              <a className={classes.logoIcon}>
-                <Logo height={45} width={45} />
-              </a>
-            </Link>
-            <div className={classes.grow} />
-          </>
-        )}
+  const slideTransition: { [state: string]: React.CSSProperties } = useMemo(
+    () => ({
+      entered: { opacity: 1, transform: 'translateY(0)' },
+      entering: { opacity: 0, transform: `translateY(${desktop ? '-50%' : '50%'})` },
+      exited: { opacity: 0, transform: `translateY(${desktop ? '-100%' : '100%'})` },
+      exiting: { opacity: 0, transform: `translateY(${desktop ? '-100%' : '100%'})` },
+    }),
+    [desktop]
+  );
 
-        {iconProps.map((props) => (
-          <NavBarButton {...props} key={props.title} />
-        ))}
-        {!user && <Login />}
-        <DynamicThemeToggleButton />
-        {user && (
-          <ButtonTooltip title="Logout" arrow placement="top" TransitionComponent={Zoom}>
-            <div className={classes.avatar} onClick={() => logout()}>
-              <TelescopeAvatar name={user.name} img={user.avatarUrl} size="27px" />
-            </div>
-          </ButtonTooltip>
-        )}
-      </Toolbar>
-    </AppBar>
+  return (
+    <Transition in={!disabled} timeout={300} unmountOnExit>
+      {(state) => (
+        <div style={{ ...slideTransition[state] }} className={classes.root}>
+          <AppBar className={classes.appBar} position="static">
+            <Toolbar className={classes.toolbar}>
+              {desktop && (
+                <>
+                  <Link href="/" passHref>
+                    <a className={classes.logoIcon}>
+                      <Logo height={45} width={45} />
+                    </a>
+                  </Link>
+                  <div className={classes.grow} />
+                </>
+              )}
+
+              {iconProps.map((props) => (
+                <NavBarButton {...props} key={props.title} />
+              ))}
+              {!user && <Login />}
+              <DynamicThemeToggleButton />
+              {user && (
+                <ButtonTooltip title="Logout" arrow placement="top" TransitionComponent={Zoom}>
+                  <div className={classes.avatar} onClick={() => logout()}>
+                    <TelescopeAvatar name={user.name} img={user.avatarUrl} size="27px" />
+                  </div>
+                </ButtonTooltip>
+              )}
+            </Toolbar>
+          </AppBar>
+        </div>
+      )}
+    </Transition>
   );
 }
