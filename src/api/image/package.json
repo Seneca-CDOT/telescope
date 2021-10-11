@@ -18,7 +18,7 @@
     "@senecacdot/satellite": "^1.x",
     "celebrate": "^14.0.0",
     "got": "^11.8.1",
-    "sharp": "^0.28.0"
+    "sharp": "^0.29.1"
   },
   "engines": {
     "node": ">=12.0.0"
