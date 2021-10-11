@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
-const { isWebUri } = require('valid-url');
 const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 
 require('../lib/config');
@@ -90,12 +89,13 @@ module.exports = async function () {
       // The name will follow the URL that goes with it, so add this feed now
       // Make sure the URL for this feed is a valid http/https web URI,
       // then process into a Feed object.
-      if (!isWebUri(currentFeedInfo.url)) {
+      try {
+        new URL(currentFeedInfo.url);
+        feeds.push(currentFeedInfo);
+      } catch {
         logger.info(
           `Skipping invalid wiki feed url ${currentFeedInfo.url} for author ${currentFeedInfo.author}`
         );
-      } else {
-        feeds.push(currentFeedInfo);
       }
 
       currentFeedInfo = {};

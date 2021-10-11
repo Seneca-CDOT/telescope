@@ -1,18 +1,18 @@
 const got = require('got');
 const cheerio = require('cheerio');
-const validUrl = require('valid-url');
 const { logger, createError } = require('@senecacdot/satellite');
 
 // A middleware to check if Url provided is valid
 module.exports.checkValidUrl = function checkValidUrl() {
   return (req, res, next) => {
-    // If the URL is invalid, return 400 error
-    if (!validUrl.isUri(req.body.blogUrl)) {
+    try {
+      new URL(req.body.blogUrl);
+      // If the URL is valid, continue
+      next();
+    } catch {
+      // If the URL is invalid, return 400 error
       next(createError(400, 'Invalid Blog URL'));
-      return;
     }
-    // Else, continue
-    next();
   };
 };
 

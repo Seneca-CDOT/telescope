@@ -1,10 +1,9 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
-const { isWebUri } = require('valid-url');
 const fs = require('fs');
 
 const { JSDOM } = jsdom;
-const URL = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
+const FEED_URL = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
 const FILE = 'legacy_users.json';
 
 const getWikiText = async (url) => {
@@ -24,8 +23,8 @@ const getWikiText = async (url) => {
 
   // Try to fetch the feed list from 'FEED_URL'
   try {
-    wikiText = await getWikiText(URL);
-    console.info(`Extracting users from ${URL}`);
+    wikiText = await getWikiText(FEED_URL);
+    console.info(`Extracting users from ${FEED_URL}`);
   } catch (error) {
     console.error(error);
     process.exit(1);
@@ -45,10 +44,13 @@ const getWikiText = async (url) => {
     if (!commentRegex.test(line) && line.startsWith('[')) {
       feed = line.replace(/[[\]']/g, '');
 
-      if (feed.length && isWebUri(feed)) {
+      try {
+        new URL(feed);
+        // If the URL is valid, continue
         [firstName, lastName] = lines[index + 1].replace(/^\s*name\s*=\s*/, '').split(' ');
         users.push({ firstName, lastName, feed });
-      } else {
+      } catch {
+        // If the URL is invalid, display error message
         console.error(`Skipping invalid wiki feed url ${feed} for author ${firstName} ${lastName}`);
       }
     }
