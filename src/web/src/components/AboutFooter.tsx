@@ -63,7 +63,7 @@ const AboutFooter = () => {
     <Grid container className={classes.root}>
       <Box width={1} pb={5}>
         {matches ? (
-          <Grid container direction="row" justify="space-between" alignItems="flex-start">
+          <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
             <Grid container item xs={12} sm={3}>
               <Grid container direction="column" item xs={6}>
                 <Typography variant="h5" className={classes.heading}>
@@ -102,7 +102,7 @@ const AboutFooter = () => {
                 </Typography>
               </Grid>
             </Grid>
-            <Grid container item xs={12} sm={6} justify="center">
+            <Grid container item xs={12} sm={6} justifyContent="center">
               <Logo height={60} width={60} />
             </Grid>
             <Grid container direction="column" item xs={12} sm={3} alignItems="flex-end">
@@ -110,7 +110,7 @@ const AboutFooter = () => {
                 COMMUNITY
               </Typography>
               <Divider className={classes.rightDivider} />
-              <Grid container direction="row" justify="flex-end" spacing={1}>
+              <Grid container direction="row" justifyContent="flex-end" spacing={1}>
                 <Grid item>
                   <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
                     {' '}
@@ -129,8 +129,8 @@ const AboutFooter = () => {
             </Grid>
           </Grid>
         ) : (
-          <Grid container direction="row" justify="space-between" alignItems="flex-start">
-            <Grid container item xs={12} justify="center">
+          <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
+            <Grid container item xs={12} justifyContent="center">
               <Logo height={60} width={60} />
             </Grid>
             <Grid container item xs={12}>
