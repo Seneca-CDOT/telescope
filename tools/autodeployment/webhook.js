@@ -36,7 +36,7 @@ router.post('/', createNodeMiddleware(webhooks, { path: '/' }));
  * @param {string} mainBranch - Brach used in the repo as main branch.
  */
 function requestFilter(repo, buildType, action, ref, mainBranch) {
-  const currentBranch = ref.split('/').pop();
+  const currentBranch = ref?.split('/').pop();
 
   return (
     // Check repo
