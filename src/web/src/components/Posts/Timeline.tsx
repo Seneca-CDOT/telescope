@@ -24,7 +24,14 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       flexDirection: 'column',
       padding: '2rem',
+      fontFamily: 'Spartan',
       color: theme.palette.primary.main,
+      [theme.breakpoints.down(1024)]: {
+        paddingBottom: '74px',
+      },
+      [theme.breakpoints.down(600)]: {
+        paddingBottom: '65px',
+      },
     },
   })
 );
