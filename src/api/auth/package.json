@@ -15,7 +15,7 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
-    "celebrate": "^14.0.0",
+    "celebrate": "^15.0.0",
     "connect-redis": "^6.0.0",
     "express-session": "^1.17.1",
     "jsonwebtoken": "^8.5.1",
