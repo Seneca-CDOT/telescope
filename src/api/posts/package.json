@@ -20,7 +20,7 @@
     "express-validator": "^6.10.0",
     "ioredis": "^4.25.0",
     "ioredis-mock": "^5.4.1",
-    "jsdom": "^16.5.2",
+    "jsdom": "^18.0.0",
     "normalize-url": "^6.0.1"
   },
   "devDependencies": {
