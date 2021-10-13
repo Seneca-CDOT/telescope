@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme: Theme) =>
       fontFamily: 'Spartan',
       color: theme.palette.primary.main,
       [theme.breakpoints.down(1024)]: {
-        paddingBottom: '74px',
+        paddingBottom: 'calc(84px + env(safe-area-inset-bottom))',
       },
       [theme.breakpoints.down(600)]: {
-        paddingBottom: '65px',
+        paddingBottom: 'calc(76px + env(safe-area-inset-bottom))',
       },
     },
   })
