@@ -1,3 +1,8 @@
+// polyfill global text encoder/decoder from node if necessary
+const { TextEncoder, TextDecoder } = require('util');
+global.TextEncoder = global.TextEncoder || TextEncoder;
+global.TextDecoder = global.TextDecoder || TextDecoder;
+
 const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
