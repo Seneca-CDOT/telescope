@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { BsInfoCircle } from 'react-icons/bs';
 import {
   makeStyles,
   Theme,
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       opacity: 0.85,
       bottom: theme.spacing(3),
-      left: theme.spacing(3),
+      left: theme.spacing(6.5),
       fontFamily: 'Spartan',
       fontSize: '1.3em',
       color: 'white',
@@ -59,6 +60,12 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         textDecorationLine: 'underline',
       },
+    },
+    infoIcon: {
+      position: 'absolute',
+      bottom: theme.spacing(3),
+      left: theme.spacing(3),
+      color: 'white',
     },
     icon: {
       display: 'flex',
@@ -191,6 +198,13 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
         </Typography>
       </div>
       <div className={classes.icon}>
+        <a
+          className={classes.infoIcon}
+          href="https://api.telescope.cdot.systems/v1/status"
+          title="API Status"
+        >
+          <BsInfoCircle size="15" />
+        </a>
         <a
           href={`${gitInfo.gitHubUrl}`}
           title={`git commit ${gitInfo.sha}`}
