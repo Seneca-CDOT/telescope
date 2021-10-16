@@ -217,6 +217,23 @@ const extractBlogClassName = (url: string) => {
   return 'is-generic';
 };
 
+const extractGitHubUrlsFromPost = (htmlString: string): string[] => {
+  const parser = new DOMParser();
+  const postDoc = parser.parseFromString(htmlString, 'text/html');
+
+  const allGithubLinks = Array.from(
+    // all links that have href starts with 'https://github.com'
+    postDoc.querySelectorAll("a[href^='https://github.com']"),
+    (element) => (element as HTMLAnchorElement).href
+  );
+
+  // unique links only
+  return allGithubLinks.reduce(
+    (acc: string[], element) => (acc.includes(element) ? acc : [...acc, element]),
+    []
+  );
+};
+
 const PostComponent = ({ postUrl }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
