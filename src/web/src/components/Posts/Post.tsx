@@ -15,6 +15,7 @@ import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
+import GitHubInfo from './GitHubInfo';
 
 type Props = {
   postUrl: string;
@@ -243,6 +244,8 @@ const PostComponent = ({ postUrl }: Props) => {
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR<Post>(postUrl);
   const [expandHeader, setExpandHeader] = useState(false);
+  // Extract all the github urls from the post
+  const extractedGitHubUrls: string[] = post?.html ? extractGitHubUrlsFromPost(post.html) : [];
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
@@ -331,6 +334,7 @@ const PostComponent = ({ postUrl }: Props) => {
             postDate={formatPublishedDate(post.updated)}
             blogUrl={post.feed.link}
           />
+          {extractedGitHubUrls.length ? <GitHubInfo ghUrls={extractedGitHubUrls} /> : null}
         </ListSubheader>
       )}
       <div className={classes.content}>
