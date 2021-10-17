@@ -11,6 +11,12 @@ version: '3'
 
 services:
   # API Gateway
+  nginx:
+    volumes:
+      - ../config/nginx.conf.development.template:/etc/nginx/nginx.conf
+    ports:
+      - '8000:80'
+
   traefik:
     command:
       - '--log.level=DEBUG'
