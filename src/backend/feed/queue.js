@@ -1,5 +1,6 @@
-const { setQueues, BullAdapter } = require('bull-board');
-
+const { createBullBoard } = require('@bull-board/api');
+const { BullAdapter } = require('@bull-board/api/bullAdapter');
+const { ExpressAdapter } = require('@bull-board/express');
 require('../lib/config');
 const { logger } = require('../utils/logger');
 const { createQueue } = require('../lib/queue');
@@ -8,7 +9,8 @@ const { createQueue } = require('../lib/queue');
 const queue = createQueue('feed-queue');
 
 // For visualizing queues using bull board
-setQueues([new BullAdapter(queue)]);
+const serverAdapter = new ExpressAdapter();
+createBullBoard({ queues: [new BullAdapter(queue)], serverAdapter: serverAdapter });
 
 /**
  * Provide a helper for adding a feed with our desired default options.
@@ -35,4 +37,4 @@ queue.addFeed = async function (job) {
   }
 };
 
-module.exports = queue;
+module.exports = { feedQueue: queue, serverAdapter };

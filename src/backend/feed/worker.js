@@ -2,7 +2,7 @@ require('../lib/config');
 const { cpus } = require('os');
 const path = require('path');
 
-const feedQueue = require('./queue');
+const { feedQueue } = require('./queue');
 const { logger } = require('../utils/logger');
 const { waitOnReady } = require('../utils/indexer');
 

@@ -1,6 +1,6 @@
 const { promisify } = require('util');
 
-const feedQueue = require('../feed/queue');
+const { feedQueue } = require('../feed/queue');
 const { logger } = require('../utils/logger');
 const server = require('../web/server');
 
