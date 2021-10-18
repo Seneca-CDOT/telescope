@@ -71,14 +71,18 @@ function run() {
   builds.pending = null;
 
   logger.debug('run() called, starting pending build');
-  build.proc = shell.exec(`./deploy.sh ${build.type}`, { silent: true }, (code) => {
-    build.finish(code);
-    builds.current = builds.previous;
-    builds.current = null;
+  build.proc = shell.exec(
+    `./deploy.sh ${build.type} ${build.githubData.after}`,
+    { silent: true },
+    (code) => {
+      build.finish(code);
+      builds.current = builds.previous;
+      builds.current = null;
 
-    // See if there's another build ready to go
-    run();
-  });
+      // See if there's another build ready to go
+      run();
+    }
+  );
 
   // Combine stderr and stdout, like 2>&1
   build.out = mergeStream(build.proc.stdout, build.proc.stderr);
