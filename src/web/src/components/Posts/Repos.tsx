@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '1rem',
       verticalAlign: 'text-bottom',
     },
+    repo: {
+      marginTop: '2rem',
+      lineHeight: '0.5rem',
+    },
   })
 );
 
@@ -42,7 +46,7 @@ const Repos = ({ repoUrls }: Props) => {
         {repoUrls.length === 1 ? 'Repo' : 'Repos'}
       </h1>
       {repoUrls.map((repo) => (
-        <p key={repo}>
+        <p key={repo} className={classes.repo}>
           <a href={repo} rel="bookmark" className={classes.link}>
             {repo.replace(/https:\/\/github\.com\//, '')}
           </a>
