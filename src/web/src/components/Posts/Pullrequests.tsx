@@ -1,4 +1,4 @@
-import { VscRepoForked } from 'react-icons/vsc';
+import { VscGitPullRequest } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -44,7 +44,7 @@ const PullRequests = ({ prUrls }: Props) => {
   return (
     <div className={classes.GitHubInfo}>
       <h1 className={classes.GitHubLinkTitle}>
-        <VscRepoForked className={classes.icon}></VscRepoForked>
+        <VscGitPullRequest className={classes.icon}></VscGitPullRequest>
         {prUrls.length === 1 ? 'Pull Request' : 'Pull Requests'}
       </h1>
       <p className={classes.pullRequests}>
