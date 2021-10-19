@@ -25,37 +25,71 @@ type Props = {
   ghUrls: string[];
 };
 
-const filterGitHubUrls = (ghUrls: string[]) => {
-  const issues: string[] = [];
-  const pullRequests: string[] = [];
-  const repos: string[] = [];
+const filterGitHubUrls = (urls: string[]) => {
+  const issues: Set<string> = new Set();
+  const pullRequests: Set<string> = new Set();
+  const repos: Set<string> = new Set();
+  const commits: Set<string> = new Set();
 
-  ghUrls.forEach((ghUrl) => {
-    // add unique repo urls to repos array
-    if (
-      ghUrl.match(/https:\/\/github\.com\/[^\/]+\/[^\/]+/) &&
-      !repos.includes(ghUrl.replace(/(https:\/\/github\.com\/[^\/]+\/[^\/]+)\/.*/, '$1'))
-    ) {
-      repos.push(ghUrl.replace(/(https:\/\/github\.com\/[^\/]+\/[^\/]+)\/.*/, '$1'));
-    }
+  const ghUrls = urls.map((url) => parseGitHubUrl(url)).filter((url) => url !== null) as URL[];
 
-    // remove trailing characters after issue or pullRequest number from ghUrl
-    const trimmedUrl: string = ghUrl.replace(
-      /(https:\/\/github\.com\/[^\/]+\/[^\/]+\/(issues|pull)\/[0-9]+).*/,
-      '$1'
+  for (const url of ghUrls) {
+    const { pathname } = url;
+
+    // Match urls that start with /<user>/<repo>, and optionally end with /<anything-in-between>/<type>/<id>
+    // Ex: /Seneca-CDOT/telescope/pull/2367 ✅
+    // Ex: /Seneca-CDOT/telescope ✅
+    // Ex: /Seneca-CDOT/telescope/pull/2367/commits/d3fag ✅
+    // Ex: /Seneca-CDOT/telescope/issues ✅
+    const matches = /^\/(?<user>[^\/]+)\/(?<repo>[^\/]+)((\/(.*))?\/(?<type>[^\/]+)\/(?<id>(\w+))$)?/i.exec(
+      pathname
     );
-
-    // add unique issue urls to issues array
-    if (trimmedUrl.match(/https:\/\/github\.com\/[^\/]+\/[^\/]+\/issues\/[0-9]+/)) {
-      if (!issues.includes(trimmedUrl)) issues.push(trimmedUrl);
+    if (matches?.groups === undefined) {
+      continue;
     }
+    const { type, user, repo } = matches.groups;
 
-    // add unique pull request urls to pullRequests array
-    if (trimmedUrl.match(/https:\/\/github\.com\/[^\/]+\/[^\/]+\/pull\/[0-9]+/)) {
-      if (!pullRequests.includes(trimmedUrl)) pullRequests.push(trimmedUrl);
+    const repoUrl = `/${user}/${repo}`;
+    repos.add(repoUrl);
+    switch (type?.toLowerCase()) {
+      case 'pull':
+        pullRequests.add(pathname);
+        break;
+
+      case 'issues':
+        issues.add(pathname);
+        break;
+
+      case 'commit':
+      case 'commits':
+        commits.add(pathname);
+        break;
+
+      default:
+        break;
     }
-  });
-  return { repos, issues, pullRequests };
+  }
+
+  return {
+    repos: Array.from(repos),
+    issues: Array.from(issues),
+    pullRequests: Array.from(pullRequests),
+    commits: Array.from(commits),
+  };
+};
+
+const parseGitHubUrl = (url: string): URL | null => {
+  const trimmedUrl = url.endsWith('/') ? url.slice(0, -1) : url;
+
+  try {
+    const ghUrl = new URL(trimmedUrl);
+    if (ghUrl.hostname !== 'github.com') {
+      return null;
+    }
+    return ghUrl;
+  } catch (err) {
+    return null;
+  }
 };
 
 const GitHubInfo = ({ ghUrls }: Props) => {

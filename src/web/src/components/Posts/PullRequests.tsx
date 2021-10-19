@@ -55,7 +55,7 @@ const PullRequests = ({ prUrls }: Props) => {
         {prUrls.map((pullRequest) => (
           <p key={pullRequest} className={classes.pullRequest}>
             <a
-              href={pullRequest}
+              href={`https://github.com${pullRequest}`}
               rel="bookmark"
               target="_blank"
               title={'Pull Request #' + getPullRequestNumber(pullRequest)}
