@@ -34,7 +34,7 @@ const filterGitHubUrls = (urls: string[]) => {
   const ghUrls = urls.map((url) => parseGitHubUrl(url)).filter((url) => url !== null) as URL[];
 
   for (const url of ghUrls) {
-    const { pathname, href } = url;
+    const { pathname } = url;
 
     // Match urls that start with /<user>/<repo>, and optionally end with /<anything-in-between>/<type>/<id>
     // Ex: /Seneca-CDOT/telescope/pull/2367 ✅
@@ -49,20 +49,20 @@ const filterGitHubUrls = (urls: string[]) => {
     }
     const { type, user, repo } = matches.groups;
 
-    const repoUrl = `https://github.com/${user}/${repo}`;
+    const repoUrl = `/${user}/${repo}`;
     repos.add(repoUrl);
     switch (type?.toLowerCase()) {
       case 'pull':
-        pullRequests.add(href);
+        pullRequests.add(pathname);
         break;
 
       case 'issues':
-        issues.add(href);
+        issues.add(pathname);
         break;
 
       case 'commit':
       case 'commits':
-        commits.add(href);
+        commits.add(pathname);
         break;
 
       default:

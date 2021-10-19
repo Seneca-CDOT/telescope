@@ -55,7 +55,7 @@ const Issues = ({ issueUrls }: Props) => {
         {issueUrls.map((issue) => (
           <p key={issue} className={classes.issue}>
             <a
-              href={issue}
+              href={`https://github.com${issue}`}
               rel="bookmark"
               target="_blank"
               title={'Issue #' + getIssueNumber(issue)}
