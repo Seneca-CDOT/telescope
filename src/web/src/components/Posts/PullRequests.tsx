@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const getPullRequestNumber = (pullRequest: string) => {
+  return pullRequest.replace(/.+\/pull\/([0-9]+).*/, '$1');
+};
+
 type Props = {
   prUrls: string[];
 };
@@ -50,8 +54,14 @@ const PullRequests = ({ prUrls }: Props) => {
       <p className={classes.pullRequests}>
         {prUrls.map((pullRequest) => (
           <p key={pullRequest} className={classes.pullRequest}>
-            <a href={pullRequest} rel="bookmark" className={classes.link}>
-              #{pullRequest.replace(/https:\/\/github\.com\/.+\/pull\/([0-9]+).*/, '$1')}
+            <a
+              href={pullRequest}
+              rel="bookmark"
+              target="_blank"
+              title={'Pull Request #' + getPullRequestNumber(pullRequest)}
+              className={classes.link}
+            >
+              #{getPullRequestNumber(pullRequest)}
             </a>
           </p>
         ))}

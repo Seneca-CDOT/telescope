@@ -34,6 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const getIssueNumber = (issue: string) => {
+  return issue.replace(/.+\/issues\/([0-9]+).*/, '$1');
+};
+
 type Props = {
   issueUrls: string[];
 };
@@ -50,8 +54,14 @@ const Issues = ({ issueUrls }: Props) => {
       <p className={classes.issues}>
         {issueUrls.map((issue) => (
           <p key={issue} className={classes.issue}>
-            <a href={issue} rel="bookmark" className={classes.link}>
-              #{issue.replace(/https:\/\/github\.com\/.+\/issues\/([0-9]+).*/, '$1')}
+            <a
+              href={issue}
+              rel="bookmark"
+              target="_blank"
+              title={'Issue #' + getIssueNumber(issue)}
+              className={classes.link}
+            >
+              #{getIssueNumber(issue)}
             </a>
           </p>
         ))}
