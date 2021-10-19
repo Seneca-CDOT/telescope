@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme, ListSubheader } from '@material-ui/core';
 import Repos from './Repos';
 import Issues from './Issues';
-import PullRequests from './Pullrequests';
+import PullRequests from './PullRequests';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
