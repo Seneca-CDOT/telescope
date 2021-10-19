@@ -31,6 +31,8 @@ else
     OLD="green"
 fi
 
+echo "GIT_COMMIT=$2" >> $ENV_FILE
+
 echo "Building $ENV Container"
 docker-compose --env-file $ENV_FILE --project-name=$ENV build
 
