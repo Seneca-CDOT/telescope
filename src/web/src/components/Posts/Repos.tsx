@@ -32,6 +32,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const getUserName = (repo: string) => {
+  return repo.replace(/https:\/\/github\.com\/([^\/]+).*/, '$1');
+};
+
+const getRepoName = (repo: string) => {
+  return repo.replace(/https:\/\/github\.com\/[^\/]+\/([^\/]+).*/, '$1');
+};
+
 type Props = {
   repoUrls: string[];
 };
@@ -47,8 +55,14 @@ const Repos = ({ repoUrls }: Props) => {
       </h1>
       {repoUrls.map((repo) => (
         <p key={repo} className={classes.repo}>
-          <a href={repo} rel="bookmark" className={classes.link}>
-            {repo.replace(/https:\/\/github\.com\//, '')}
+          <a
+            href={repo}
+            rel="bookmark"
+            target="_blank"
+            title={getUserName(repo) + '/' + getRepoName(repo)}
+            className={classes.link}
+          >
+            {getRepoName(repo)}
           </a>
         </p>
       ))}
