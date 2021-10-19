@@ -2,7 +2,6 @@ import { createStyles, makeStyles, Theme, ListSubheader } from '@material-ui/cor
 import Repos from './Repos';
 import Issues from './Issues';
 import PullRequests from './PullRequests';
-import { Url } from 'url';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,12 +26,12 @@ type Props = {
 };
 
 const filterGitHubUrls = (urls: string[]) => {
-  const issues: string[] = [];
-  const pullRequests: string[] = [];
-  const repos: string[] = [];
-  const commits: string[] = [];
+  const issues: Set<string> = new Set();
+  const pullRequests: Set<string> = new Set();
+  const repos: Set<string> = new Set();
+  const commits: Set<string> = new Set();
 
-  const ghUrls = urls.map(parseGitHubUrl).filter((url) => url !== null) as URL[];
+  const ghUrls = urls.map((url) => parseGitHubUrl(url)).filter((url) => url !== null) as URL[];
 
   for (const url of ghUrls) {
     const { pathname, href } = url;
@@ -45,23 +44,25 @@ const filterGitHubUrls = (urls: string[]) => {
     const matches = /^\/(?<user>[^\/]+)\/(?<repo>[^\/]+)((\/(.*))?\/(?<type>[^\/]+)\/(?<id>(\w+))$)?/i.exec(
       pathname
     );
-    if (matches?.groups === undefined) continue;
+    if (matches?.groups === undefined) {
+      continue;
+    }
     const { type, user, repo } = matches.groups;
 
     const repoUrl = `https://github.com/${user}/${repo}`;
-    !repos.includes(repoUrl) && repos.push(repoUrl);
+    repos.add(repoUrl);
     switch (type?.toLowerCase()) {
       case 'pull':
-        !pullRequests.includes(href) && pullRequests.push(href);
+        pullRequests.add(href);
         break;
 
       case 'issues':
-        !issues.includes(href) && issues.push(href);
+        issues.add(href);
         break;
 
       case 'commit':
       case 'commits':
-        !commits.includes(href) && commits.push(href);
+        commits.add(href);
         break;
 
       default:
@@ -69,7 +70,12 @@ const filterGitHubUrls = (urls: string[]) => {
     }
   }
 
-  return { repos, issues, pullRequests, commits };
+  return {
+    repos: Array.from(repos),
+    issues: Array.from(issues),
+    pullRequests: Array.from(pullRequests),
+    commits: Array.from(commits),
+  };
 };
 
 const parseGitHubUrl = (url: string): URL | null => {
