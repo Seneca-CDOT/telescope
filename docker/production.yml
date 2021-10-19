@@ -69,6 +69,7 @@ services:
       - FEED_QUEUE_DELAY_MS
       - FEED_QUEUE_PARALLEL_WORKERS
       - MAX_POSTS_PER_PAGE
+      - GIT_COMMIT
     depends_on:
       - redis
       - elasticsearch
