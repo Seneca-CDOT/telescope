@@ -41,7 +41,7 @@ const filterGitHubUrls = (urls: string[]) => {
     // Ex: /Seneca-CDOT/telescope ✅
     // Ex: /Seneca-CDOT/telescope/pull/2367/commits/d3fag ✅
     // Ex: /Seneca-CDOT/telescope/issues ✅
-    const matches = /^\/(?<user>[^\/]+)\/(?<repo>[^\/]+)((\/(.*))?\/(?<type>[^\/]+)\/(?<id>(\w+))$)?/i.exec(
+    const matches = /^\/(?<user>[^\/]+)\/(?<repo>[^\/]+)((\/(.*))?\/(?<type>[^\/]+)\/(?<id>(\w+))\/?$)?/i.exec(
       pathname
     );
     if (matches?.groups === undefined) {
@@ -79,10 +79,8 @@ const filterGitHubUrls = (urls: string[]) => {
 };
 
 const parseGitHubUrl = (url: string): URL | null => {
-  const trimmedUrl = url.endsWith('/') ? url.slice(0, -1) : url;
-
   try {
-    const ghUrl = new URL(trimmedUrl);
+    const ghUrl = new URL(url);
     if (ghUrl.hostname !== 'github.com') {
       return null;
     }

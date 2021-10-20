@@ -34,9 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const getPullRequestNumber = (pullRequest: string) => {
-  return pullRequest.replace(/.+\/pull\/([0-9]+).*/, '$1');
-};
+const getPullRequestNumber = (pullRequest: string) =>
+  pullRequest.replace(/.+\/pull\/([0-9]+).*/, '$1');
 
 type Props = {
   prUrls: string[];

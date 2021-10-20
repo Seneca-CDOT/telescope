@@ -36,9 +36,7 @@ const getUserName = (repo: string) => {
   return repo.replace(/\/([^\/]+).*/, '$1');
 };
 
-const getRepoName = (repo: string) => {
-  return repo.replace(/\/[^\/]+\/([^\/]+).*/, '$1');
-};
+const getRepoName = (repo: string) => repo.replace(/\/[^\/]+\/([^\/]+).*/, '$1');
 
 type Props = {
   repoUrls: string[];

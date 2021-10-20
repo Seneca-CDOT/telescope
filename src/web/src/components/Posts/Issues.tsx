@@ -34,9 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const getIssueNumber = (issue: string) => {
-  return issue.replace(/.+\/issues\/([0-9]+).*/, '$1');
-};
+const getIssueNumber = (issue: string) => issue.replace(/.+\/issues\/([0-9]+).*/, '$1');
 
 type Props = {
   issueUrls: string[];
