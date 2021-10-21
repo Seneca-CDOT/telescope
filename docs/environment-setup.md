@@ -1,6 +1,41 @@
-## Environment Setup
+# Environment Setup
 
-### Prerequisites:
+#### Table of Contents
+
+[Prerequisites](#prerequisites)
+
+- [Install Redis as a native application](#install-redis-as-a-native-application)
+  - [Linux](#linux)
+  - [Windows](#windows)
+    - [Option 1: Using WSL2 Windows Subsystem Linux](#option-1-using-wsl2-windows-subsystem-linux)
+    - [Option 2: Using Chocolatey package manager](#option-2-using-chocolatey-package-manager)
+- [Install Elasticsearch as a native application](#install-elasticsearch-as-a-native-application)
+- [Docker and Docker-Compose Setup](#docker-and-docker-compose-setup)
+  - [Linux-Ubuntu](#linux-ubuntu)
+    - [Install Docker Engine (Community Edition)](#install-docker-engine-community-edition)
+    - [Install Docker-Compose](#install-docker-compose)
+  - [MacOS (Sierra 10.12 or above)](#macos-sierra-10-12-or-above)
+  - [Windows 10 Pro, Enterprise, or Education (Hyper-V)](#windows-10-pro-enterprise-or-education-hyper-v)
+  - [Windows 10 Home, Pro, Enterprise or Education (Insiders / WSL 2 / Docker)](#windows-10-home-pro-enterprise-or-education-insiders-wsl-2-docker)
+- [After installing the prerequisites:](#after-installing-the-prerequisites)
+
+  - [Start Docker](#start-docker)
+  - [Start Telescope](#start-telescope)
+
+    - [Option 1: Run frontend and backend microservices locally](#option-1-run-frontend-and-backend-microservices-locally)
+    - [Option 2: Run frontend only](#option-2-run-frontend-only)
+    - [Option 3: Mix and match services between local and staging](#option-3-mix-and-match-services-between-local-and-staging)
+    - [Option 4: Run microservices individually](#option-4-run-microservices-individually)
+    - [Option 5: Update Docker image(s) after changes](#option-5-update-docker-images-after-changes)
+    - [Option 6: Run Login/SSO](#option-6-run-login-sso)
+
+- [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+  - [How do I start Docker Daemon?](#how-do-i-start-docker-daemon)
+  - [I followed all the steps but my browser still can't run Telescope locally](#i-followed-all-the-steps-but-my-browser-still-cant-run-telescope-locally)
+  - [`Cannot find cgroup mount destination` error](#cannot-find-cgroup-mount-destination-error)
+  - [`Malformed input, repository not added` message while installing Docker on Linux Mint](#malformed-input-repository-not-added-message)
+
+## Prerequisites:
 
 - [Node.js (npm)](https://nodejs.org/en/download/)
 - [Redis](https://redis.io/) (2 methods)
@@ -13,9 +48,9 @@
 
 **Important: Both Redis and Elasticsearch must be running in order for Telescope to work. Otherwise, it will crash.**
 
-### Install Redis as a native application
+## Install Redis as a native application
 
-#### Linux:
+### Linux:
 
 Install Redis using your distribution's package manager, for example:
 
@@ -28,7 +63,7 @@ _Once Redis is installed, you can start it in a terminal by running:_
 redis-server
 ```
 
-#### Windows:
+### Windows:
 
 There are two methods to install Redis on Windows. We strongly recommend the first approach.
 
@@ -47,17 +82,17 @@ To get Chocolatey, simply follow this [guide](https://chocolatey.org/install) an
 1. To start Redis: `redis-server --service-start`
 1. To check if running and display server information: `redis-cli info`
 
-### Install Elasticsearch as a native application
+## Install Elasticsearch as a native application
 
 To install Elasticsearch as a native application, follow the instructions for your OS [here](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
 
-### Docker and Docker-Compose Set Up
+## Docker and Docker-Compose Setup
 
-#### Linux-Ubuntu
+### Linux-Ubuntu
 
 This guide is sourced from the official [Docker-CE](https://docs.docker.com/install/linux/docker-ce/ubuntu/) and [Docker-Compose](https://docs.docker.com/compose/install/) Installation Documentation.
 
-**Install Docker Engine - Community Edition**
+#### Install Docker Engine (Community Edition)
 
 1. Update the apt package index: `sudo apt-get update`
 2. Install packages to allow apt to use a repository over HTTPS:
@@ -100,7 +135,7 @@ sudo chmod g+rwx "$HOME/.docker" -R
     1. Enable docker on startup: `sudo systemctl enable docker`
     1. Disable docker on startup: `sudo systemctl disable docker`
 
-**Install Docker-Compose**
+#### Install Docker-Compose
 
 12. Run to download the current stable version of Docker-Compose:
 
@@ -113,17 +148,17 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-
 
 _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
 
-#### MacOS (Sierra 10.12 or above)
+### MacOS (Sierra 10 12 or above)
 
 1. Get [Docker for Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
 1. Docker for Desktop comes with docker-compose installed.
 
-#### Windows 10 Pro, Enterprise, or Education (Hyper-V)
+### Windows 10 Pro, Enterprise, or Education (Hyper-V)
 
 1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 1. Docker for Desktop comes with docker-compose installed.
 
-#### Windows 10 Home, Pro, Enterprise, or Education (Insiders / WSL 2 / Docker)
+### Windows 10 Home, Pro, Enterprise, or Education (Insiders WSL 2 Docker)
 
 1. If your [Windows build number](https://www.windowscentral.com/how-check-your-windows-10-build) is below [18917](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install/), join the [insiders program](https://insider.windows.com/en-us/). Then, update your machine to a newer build through Automatic Updates.
 2. Once installed successfully, install [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install).
@@ -148,7 +183,7 @@ _Note: You may need to add your user to the docker group in Linux to use `docker
 **Important:** Docker builds Telescope's dependencies at launch and keeps them on disk. In some cases, Docker might try to reuse already-built dependencies or cached data, causing misleading results when testing Telescope. To avoid this, it is recommended to use the command `docker system prune -af --volumes` to remove all already-built Telescope dependencies and ensure fresh deployments.
 More information about docker: [images vs containers](https://www.baeldung.com/docker-images-vs-containers) and [volumes](https://docs.docker.com/storage/volumes/).
 
-### Start telescope
+### Start Telescope
 
 There are different ways to run the application. By default, [env.development](../config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
 
@@ -157,7 +192,7 @@ There are also [env.production](../config/env.production) and [env.staging](../c
 Here are instructions for different scenarios:
 _Note: Make sure you're running these commands in the root of telescope project. If any of the commands below are failing, use the command `pwd` to find your current directory and navigate back to project root (e.g., `cd <the path of directory you place telescope project>/telescope`)_
 
-#### Want to run back-end services locally, and to have front-end using the services
+#### Option 1: Run frontend and backend microservices locally
 
 This is the default setting, you do not need to copy or modify any `env` file.
 
@@ -171,7 +206,7 @@ Microservices will start downloading feeds and processing them until stopped. Fo
 
 If this doesn't work for you, it is possible that you have an old `.env` file in the root that you copied from `env.example` from telescope 1.0. Please remove it, and try again.
 
-#### Working strictly on the front-end
+#### Option 2: Run frontend only
 
 ```bash
 cp config/env.staging .env
@@ -181,7 +216,7 @@ npm run dev
 
 This will provide you staging back-end without running it locally.
 
-#### Want to mix and match services between local and staging
+#### Option 3: Mix and match services between local and staging
 
 See [staging-production-deployment](staging-production-deployment) for more information on running Telescope in staging or production mode.
 
@@ -195,11 +230,11 @@ npm run services:start
 npm run dev
 ```
 
-#### Want to run `auth/image/posts` service solely
+#### Option 4: Run microservices individually
 
 `npm run services:start auth` or `npm run services:start image` or `npm run services:start posts`
 
-#### Want to update the Docker image(s) after making some changes
+#### Option 5: Update Docker image(s) after changes
 
 Run the following commands to rebuild the image(s):
 
@@ -208,13 +243,13 @@ npm run services:clean
 npm run services:start
 ```
 
-#### Login/SSO:
+#### Option 6: Run Login SSO
 
 If you need to login to Telescope or your work requires logging in for testing purposes, you don't need to start an extra container for login, it is included in auth service. You can simply use UI to login. For more information on Login please refer to our [Login Document](login.md).
 
 ## Frequently Asked Questions (FAQ)
 
-### How do I start Docker daemon?
+### How do I start Docker Daemon?
 
 Make sure to you have (docker)[https://docs.docker.com/engine/reference/commandline/dockerd/] running on your machine, you can start docker through the following methods:
 
@@ -224,23 +259,23 @@ Make sure to you have (docker)[https://docs.docker.com/engine/reference/commandl
 
 You can check out the docker daemon cli through this link (here)[https://docs.docker.com/engine/reference/commandline/dockerd/)
 
-### I followed all the steps by my browser still can't run telescope locally
+### I followed all the steps but my browser still can't run telescope locally
 
 Try removing the docker images and pulling them again, while you're in the root directory of the project
 
 1.  `docker system prune -af` will delete the containers
 2.  `docker-compose up <services_here>` will pull the containers and start them up
 
-### Cannot find cgroup mount destination
+### 'Cannot find cgroup mount destination' error
 
 This could be an issue with WSL2 in Windows 10. You can resolve it by:
 
 1.  `sudo mkdir /sys/fs/cgroup/systemd`
 2.  `sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd`
 
-### Receive "Malformed input, repository not added" message while installing Docker on Linux Mint
+### 'Malformed input, repository not added' message
 
-The command below might not work on certain Linux distributions.
+If you received this error While installing Docker on Linux Mint. The command below might not work on certain Linux distributions.
 
 ```
 sudo add-apt-repository \
