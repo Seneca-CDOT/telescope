@@ -49,7 +49,7 @@ const filterGitHubUrls = (urls: string[]) => {
     }
     const { type, user, repo } = matches.groups;
 
-    const repoUrl = `/${user}/${repo}`;
+    const repoUrl = `${user}/${repo}`;
     repos.add(repoUrl);
     switch (type?.toLowerCase()) {
       case 'pull':
