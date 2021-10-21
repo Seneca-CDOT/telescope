@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     GitHubInfo: {
-      lineHeight: '2rem',
+      lineHeight: 'normal',
       fontSize: '1.2rem',
     },
     GitHubLinkTitle: {
@@ -25,11 +25,13 @@ const useStyles = makeStyles((theme: Theme) =>
       verticalAlign: 'text-bottom',
     },
     pullRequests: {
+      paddingLeft: 0,
       display: 'flex',
-      margin: 0,
+      flexWrap: 'wrap',
+      gap: '1.5rem',
     },
     pullRequest: {
-      marginRight: '2rem',
+      listStyle: 'none',
     },
   })
 );
@@ -50,9 +52,9 @@ const PullRequests = ({ prUrls }: Props) => {
         <VscGitPullRequest className={classes.icon}></VscGitPullRequest>
         {prUrls.length === 1 ? 'Pull Request' : 'Pull Requests'}
       </h2>
-      <p className={classes.pullRequests}>
+      <ul className={classes.pullRequests}>
         {prUrls.map((pullRequest) => (
-          <p key={pullRequest} className={classes.pullRequest}>
+          <li key={pullRequest} className={classes.pullRequest}>
             <a
               href={`https://github.com${pullRequest}`}
               rel="bookmark"
@@ -62,9 +64,9 @@ const PullRequests = ({ prUrls }: Props) => {
             >
               #{getPullRequestNumber(pullRequest)}
             </a>
-          </p>
+          </li>
         ))}
-      </p>
+      </ul>
     </div>
   );
 };

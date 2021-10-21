@@ -1,4 +1,4 @@
-import { VscIssues } from 'react-icons/vsc';
+import { VscGitCommit } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -24,44 +24,47 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '1rem',
       verticalAlign: 'text-bottom',
     },
-    issues: {
+    commits: {
       paddingLeft: 0,
       display: 'flex',
       flexWrap: 'wrap',
       gap: '1.5rem',
     },
-    issue: {
+    commit: {
       listStyle: 'none',
     },
   })
 );
 
-const getIssueNumber = (issue: string) => issue.replace(/.+\/issues\/([0-9]+).*/, '$1');
+const SHORT_SHA_LENGTH = 7;
+
+const getCommitNumber = (url: string, length?: number) =>
+  url.replace(/.+\/(commit|commits)\/(\w{40}).*/, '$2').substr(0, length);
 
 type Props = {
-  issueUrls: string[];
+  commitUrls: string[];
 };
 
-const Issues = ({ issueUrls }: Props) => {
+const Commits = ({ commitUrls }: Props) => {
   const classes = useStyles();
 
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
-        <VscIssues className={classes.icon}></VscIssues>
-        {issueUrls.length === 1 ? 'Issue' : 'Issues'}
+        <VscGitCommit className={classes.icon}></VscGitCommit>
+        {commitUrls.length === 1 ? 'Commit' : 'Commits'}
       </h2>
-      <ul className={classes.issues}>
-        {issueUrls.map((issue) => (
-          <li key={issue} className={classes.issue}>
+      <ul className={classes.commits}>
+        {commitUrls.map((url) => (
+          <li key={url} className={classes.commit}>
             <a
-              href={`https://github.com${issue}`}
+              href={`https://github.com${url}`}
               rel="bookmark"
               target="_blank"
-              title={'Issue #' + getIssueNumber(issue)}
+              title={'Commit ' + getCommitNumber(url)}
               className={classes.link}
             >
-              #{getIssueNumber(issue)}
+              {getCommitNumber(url, SHORT_SHA_LENGTH)}
             </a>
           </li>
         ))}
@@ -70,4 +73,4 @@ const Issues = ({ issueUrls }: Props) => {
   );
 };
 
-export default Issues;
+export default Commits;
