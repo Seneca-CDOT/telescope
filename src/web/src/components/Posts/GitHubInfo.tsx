@@ -2,6 +2,7 @@ import { createStyles, makeStyles, Theme, ListSubheader } from '@material-ui/cor
 import Repos from './Repos';
 import Issues from './Issues';
 import PullRequests from './PullRequests';
+import Commits from './Commits';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,11 +38,12 @@ const filterGitHubUrls = (urls: string[]) => {
     const { pathname } = url;
 
     // Match urls that start with /<user>/<repo>, and optionally end with /<anything-in-between>/<type>/<id>
+    // <id> can be number, or a mixed of 40 alphanumeric (commit id)
     // Ex: /Seneca-CDOT/telescope/pull/2367 ✅
     // Ex: /Seneca-CDOT/telescope ✅
-    // Ex: /Seneca-CDOT/telescope/pull/2367/commits/d3fag ✅
+    // Ex: /Seneca-CDOT/telescope/pull/2367/commits/d3fagd3fagd3fagd3fagd3fagd3fag4d41265748 ✅
     // Ex: /Seneca-CDOT/telescope/issues ✅
-    const matches = /^\/(?<user>[^\/]+)\/(?<repo>[^\/]+)((\/(.*))?\/(?<type>[^\/]+)\/(?<id>(\d+))\/?$)?/i.exec(
+    const matches = /^\/(?<user>[^\/]+)\/(?<repo>[^\/]+)((\/(.*))?\/(?<type>[^\/]+)\/(?<id>(\d+|\w{40}))\/?$)?/i.exec(
       pathname
     );
     if (matches?.groups === undefined) {
@@ -92,7 +94,7 @@ const parseGitHubUrl = (url: string): URL | null => {
 
 const GitHubInfo = ({ ghUrls }: Props) => {
   const classes = useStyles();
-  const { repos, issues, pullRequests } = filterGitHubUrls(ghUrls);
+  const { repos, issues, pullRequests, commits } = filterGitHubUrls(ghUrls);
 
   return (
     <ListSubheader className={classes.root}>
@@ -100,6 +102,7 @@ const GitHubInfo = ({ ghUrls }: Props) => {
         {!!repos.length && <Repos repoUrls={repos} />}
         {!!issues.length && <Issues issueUrls={issues} />}
         {!!pullRequests.length && <PullRequests prUrls={pullRequests} />}
+        {!!commits.length && <Commits commitUrls={commits} />}
       </div>
     </ListSubheader>
   );

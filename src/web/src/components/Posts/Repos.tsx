@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     GitHubInfo: {
-      lineHeight: '2rem',
       fontSize: '1.2rem',
       wordWrap: 'break-word',
+      lineHeight: 'normal',
     },
     GitHubLinkTitle: {
       fontSize: '1.4rem',
@@ -25,9 +25,14 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '1rem',
       verticalAlign: 'text-bottom',
     },
+    repos: {
+      paddingLeft: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1.5rem',
+    },
     repo: {
-      marginTop: '2rem',
-      lineHeight: '0.5rem',
+      listStyle: 'none',
     },
   })
 );
@@ -47,19 +52,21 @@ const Repos = ({ repoUrls }: Props) => {
         <VscRepoForked className={classes.icon}></VscRepoForked>
         {repoUrls.length === 1 ? 'Repo' : 'Repos'}
       </h2>
-      {repoUrls.map((repo) => (
-        <p key={repo} className={classes.repo}>
-          <a
-            href={`https://github.com/${repo}`}
-            rel="bookmark"
-            target="_blank"
-            title={repo}
-            className={classes.link}
-          >
-            {getRepoName(repo)}
-          </a>
-        </p>
-      ))}
+      <ul className={classes.repos}>
+        {repoUrls.map((repo) => (
+          <li key={repo} className={classes.repo}>
+            <a
+              href={`https://github.com/${repo}`}
+              rel="bookmark"
+              target="_blank"
+              title={repo}
+              className={classes.link}
+            >
+              {getRepoName(repo)}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
