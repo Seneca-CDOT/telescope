@@ -45,10 +45,10 @@ const Issues = ({ issueUrls }: Props) => {
 
   return (
     <div className={classes.GitHubInfo}>
-      <h1 className={classes.GitHubLinkTitle}>
+      <h2 className={classes.GitHubLinkTitle}>
         <VscIssues className={classes.icon}></VscIssues>
         {issueUrls.length === 1 ? 'Issue' : 'Issues'}
-      </h1>
+      </h2>
       <p className={classes.issues}>
         {issueUrls.map((issue) => (
           <p key={issue} className={classes.issue}>

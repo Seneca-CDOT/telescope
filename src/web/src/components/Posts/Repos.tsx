@@ -47,10 +47,10 @@ const Repos = ({ repoUrls }: Props) => {
 
   return (
     <div className={classes.GitHubInfo}>
-      <h1 className={classes.GitHubLinkTitle}>
+      <h2 className={classes.GitHubLinkTitle}>
         <VscRepoForked className={classes.icon}></VscRepoForked>
         {repoUrls.length === 1 ? 'Repo' : 'Repos'}
-      </h1>
+      </h2>
       {repoUrls.map((repo) => (
         <p key={repo} className={classes.repo}>
           <a

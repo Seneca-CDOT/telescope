@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import useSWR from 'swr';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import {
@@ -245,7 +245,10 @@ const PostComponent = ({ postUrl }: Props) => {
   const { data: post, error } = useSWR<Post>(postUrl);
   const [expandHeader, setExpandHeader] = useState(false);
   // Extract all the github urls from the post
-  const extractedGitHubUrls: string[] = post?.html ? extractGitHubUrlsFromPost(post.html) : [];
+  const extractedGitHubUrls: string[] = useMemo(
+    () => (post?.html ? extractGitHubUrlsFromPost(post.html) : []),
+    [post?.html]
+  );
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);

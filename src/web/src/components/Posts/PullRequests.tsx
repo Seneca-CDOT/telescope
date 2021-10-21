@@ -46,10 +46,10 @@ const PullRequests = ({ prUrls }: Props) => {
 
   return (
     <div className={classes.GitHubInfo}>
-      <h1 className={classes.GitHubLinkTitle}>
+      <h2 className={classes.GitHubLinkTitle}>
         <VscGitPullRequest className={classes.icon}></VscGitPullRequest>
         {prUrls.length === 1 ? 'Pull Request' : 'Pull Requests'}
-      </h1>
+      </h2>
       <p className={classes.pullRequests}>
         {prUrls.map((pullRequest) => (
           <p key={pullRequest} className={classes.pullRequest}>
