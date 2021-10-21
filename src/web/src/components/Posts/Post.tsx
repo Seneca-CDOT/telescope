@@ -337,7 +337,7 @@ const PostComponent = ({ postUrl }: Props) => {
             postDate={formatPublishedDate(post.updated)}
             blogUrl={post.feed.link}
           />
-          {extractedGitHubUrls.length ? <GitHubInfo ghUrls={extractedGitHubUrls} /> : null}
+          {!!extractedGitHubUrls.length && <GitHubInfo ghUrls={extractedGitHubUrls} />}
         </ListSubheader>
       )}
       <div className={classes.content}>

@@ -97,9 +97,9 @@ const GitHubInfo = ({ ghUrls }: Props) => {
   return (
     <ListSubheader className={classes.root}>
       <div className={classes.GitHubInfoContainer}>
-        {repos.length > 0 && <Repos repoUrls={repos} />}
-        {issues.length > 0 && <Issues issueUrls={issues} />}
-        {pullRequests.length > 0 && <PullRequests prUrls={pullRequests} />}
+        {!!repos.length && <Repos repoUrls={repos} />}
+        {!!issues.length && <Issues issueUrls={issues} />}
+        {!!pullRequests.length && <PullRequests prUrls={pullRequests} />}
       </div>
     </ListSubheader>
   );
