@@ -30,10 +30,13 @@
     - [Option 6: Run Login/SSO](#option-6-run-login-sso)
 
 - [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
+
   - [How do I start Docker Daemon?](#how-do-i-start-docker-daemon)
   - [I followed all the steps but my browser still can't run Telescope locally](#i-followed-all-the-steps-but-my-browser-still-cant-run-telescope-locally)
   - [`Cannot find cgroup mount destination` error](#cannot-find-cgroup-mount-destination-error)
   - [`Malformed input, repository not added` message while installing Docker on Linux Mint](#malformed-input-repository-not-added-message)
+
+<hr>
 
 ## Prerequisites:
 
@@ -187,7 +190,7 @@ More information about docker: [images vs containers](https://www.baeldung.com/d
 
 There are different ways to run the application. By default, [env.development](../config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
 
-There are also [env.production](../config/env.production) and [env.staging](../config/env.staging) to choose based on developer's need. For example, if you want to use staging, you can do `cp ./config/env.staging ./.env` on Linux/macOS, or `copy config/env.staging .env` on windows.
+There are also [env.production](../config/env.production) and [env.staging](../config/env.staging) to choose based on developer's need. For example, if you want to use staging, you can do `cp ./config/env.staging ./.env` on Linux/macOS, or `copy config/env.staging .env` on Windows.
 
 Here are instructions for different scenarios:
 _Note: Make sure you're running these commands in the root of telescope project. If any of the commands below are failing, use the command `pwd` to find your current directory and navigate back to project root (e.g., `cd <the path of directory you place telescope project>/telescope`)_
@@ -199,8 +202,10 @@ This is the default setting, you do not need to copy or modify any `env` file.
 ```bash
 npm run services:start
 
-npm run dev
+npm start
 ```
+
+Then visit `localhost:8000` in a web browser
 
 Microservices will start downloading feeds and processing them until stopped. For more information about the services, please read [Telescope API Services](../src/api/readme.md).
 
@@ -211,10 +216,14 @@ If this doesn't work for you, it is possible that you have an old `.env` file in
 ```bash
 cp config/env.staging .env
 
-npm run dev
+docker-compose --env-file ./config/env.staging up -d
+
+npm run services:start
 ```
 
-This will provide you staging back-end without running it locally.
+Then visit `localhost:8000` in a web browser
+
+This will let you use the Telescope staging server as the backend so you do not need to run it locally.
 
 #### Option 3: Mix and match services between local and staging
 
@@ -226,13 +235,21 @@ After modify the `.env` file, run these commands,
 
 ```bash
 npm run services:start
-
-npm run dev
 ```
 
 #### Option 4: Run microservices individually
 
-`npm run services:start auth` or `npm run services:start image` or `npm run services:start posts`
+For a full list of avaliable microservices, please read [Telescope API Services](../src/api/readme.md).
+
+```bash
+npm run services:start [name of microservice]
+```
+
+For example
+
+```bash
+npm run services:start posts
+```
 
 #### Option 5: Update Docker image(s) after changes
 
