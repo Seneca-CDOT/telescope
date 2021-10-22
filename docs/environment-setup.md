@@ -35,8 +35,9 @@ There are two methods to install Redis on Windows. We strongly recommend the fir
 ##### Option 1: Using [WSL2 (Windows Subsystem Linux)](https://docs.microsoft.com/en-us/windows/wsl/about)
 
 1. Follow Microsoft WSL2 [installation guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to complete the installation
-2. Depending on the distribution you chose for WSL2, install redis using that distro's package manager. For example, if using Ubuntu, run `sudo apt-get install redis`
+2. Depending on the distribution you chose for WSL2, install redis using that distro's package manager. For example, if using Ubuntu, run `sudo apt-get install redis` . Note: make sure to run `sudo apt update` after WSL2 has been installed.
 3. Suggest to install [Windows Terminal](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-windows-terminal-optional), it facilitates you to switch directories between WSL2 Ubuntu bash and Windows drive
+4. Suggest to install [Node for WSL2](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl), so you can type node cml using WSL2 terminal
 
 ##### Option 2: Using [Chocolatey package manager](https://chocolatey.org/) to install Redis on Windows
 
