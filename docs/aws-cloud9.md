@@ -37,7 +37,7 @@
 
   Name: `Telescope-Dev` (whatever you want)
 
-  Description (optional):
+  Description (optional): `AWS Cloud9 developer environment for Telescope`
 
 - Step 2 - Configure settings:
 
@@ -50,68 +50,6 @@
 - Step 3 - Review and click `Create Environment`
 
 It will take a few minutes for AWS to create your new C9 environment
-
-## Installing Redis as a native application:
-
-Enter the following into the C9 terminal:
-
-```
-wget http://download.redis.io/redis-stable.tar.gz
-tar xvzf redis-stable.tar.gz
-cd redis-stable
-make
-sudo cp src/redis-server /usr/local/bin/
-sudo cp src/redis-cli /usr/local/bin/
-```
-
-[Source](https://redis.io/topics/quickstart)
-
-### Verifying Redis installation:
-
-Start the redis-server in a new terminal:
-
-```
-$ redis-server
-[28550] 01 Aug 19:29:28 # Warning: no config file specified, using the default config. In order to specify a config file use 'redis-server /path/to/redis.conf'
-[28550] 01 Aug 19:29:28 * Server started, Redis version 2.2.12
-[28550] 01 Aug 19:29:28 * The server is now ready to accept connections on port 6379
-... more logs ...
-```
-
-Check if Redis is working, enter `redis-cli ping` in another terminal
-
-```
-$ redis-cli ping
-PONG
-```
-
-Delete the `redis-stable` directory and `redis-stable.tar.gz` with
-
-```
-rm -rf redis-stable && rm redis-stable.tar.gz
-```
-
-## Installing Elasticsearch as a native application:
-
-```
-curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.6.2-amd64.deb
-sudo dpkg -i elasticsearch-7.6.2-amd64.deb
-```
-
-### Verify that Elasticsearch is working:
-
-```
-sudo /etc/init.d/elasticsearch start
-[ ok ] Starting elasticsearch (via systemctl): elasticsearch.service.
-```
-
-[Source](https://www.elastic.co/guide/en/elastic-stack-get-started/7.6/get-started-elastic-stack.html#install-elasticsearch)
-
-Delete `elasticsearch-7.6.2-amd64.deb` with
-
-```
-rm elasticsearch-7.6.2-amd64.deb
-```
 
 ## Opening the ports on our EC2 instance:
 
@@ -187,7 +125,7 @@ while [ \
 sleep 1
 done
 
-#Check if we're on an NVMe filesystem
+# Check if we're on an NVMe filesystem
 if [ $(readlink -f /dev/xvda) = "/dev/xvda" ]
 then
   # Rewrite the partition table so that the partition takes up all the space that it can.
@@ -236,6 +174,22 @@ Filesystem      Size  Used Avail Use% Mounted on
 /dev/xvda1       20G  9.3G   11G  48% /
 ```
 
+## Disabling Apache2 from running at boot time
+
+By default, Apache2 is installed and starts automatically at boot time on AWS EC2's Ubuntu and it listens to Port 80. This conflicts with what we're using for Telescope, we need Port 80 open for Nginx and quite frankly, we don't even use Apache2 so we can just disable it.
+
+To see Apache2 config file
+
+```
+sudo cat /etc/apache2/ports.conf
+```
+
+To disable Apache2 from running at boot time
+
+```
+sudo systemctl disable httpd
+```
+
 ## Setting up the Telescope repository in Cloud9:
 
 1. In the terminal, clone the Telescope repository and name the remote `upstream` by entering
@@ -244,65 +198,80 @@ Filesystem      Size  Used Avail Use% Mounted on
 git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
 ```
 
-2. Change to the telescope directory `cd telescope`
-3. Copy the `env.example` file into the root of your Telescope directory `cp env.example .env`
+2. Change to the telescope directory
 
-4. Set the API_URL in your .env to your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
+```
+cd telescope
+```
+
+3. Set all the necessary environment variables in your env.remote file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
 
 ```
 sh ./tools/aws-ip.sh
 ```
 
-You should see `API_URL=http://35.174.16.133:3000` at the bottom of our `.env` file. Make sure the other `API_URL=` lines are commented out in `.env` file.
+4. Copy env.remote to .env
 
-5. Set `PROXY_FRONTEND=1` in your .env
+```
+cp config/env.remote .env
+```
 
 ### If you did everything correctly, you've completed the environment setup using AWS Cloud9! Yay!
 
 ## Now to get started with development...
 
-Run `npm install` to install all dependencies
-
-You may need up to four terminals, remember to run them in the `telescope directory`
-
-1. `redis-server` for Redis
-2. `sudo /etc/init.d/elasticsearch start` for Elasticsearch
-3. `PORT=3000 npm start` to run the server on port 3000
-4. `cd src/web`
-5. `next dev -H 0.0.0.0 -p 8000`
-6. Find your EC2 instance's public IPv4
+1. Install all depenencies
 
 ```
-curl -s http://169.254.169.254/latest/meta-data/public-ipv4
+npm install
+```
+
+2. Start all Telescope services. This will take some time to complete
+
+```
+npm run services:start
+```
+
+3. Find your EC2 instance's public IPv4
+
+```
+$ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 
 35.174.16.133
 ```
 
-7. Open `<public-ip>:3000/feeds` in your browser will show you the populated list of feeds in JSON format
-8. Open `<public-ip>:8000` in another browser tab will show you the frontend with feeds from port 3000
+4. Open `<public-ip>:8000` browser tab will show you Telescope running on a AWS Cloud9 environment!
 
-## Troubleshooting
+## Frequently Asked Questions (FAQ)
 
-### Servers didn't shutdown properly?
-
-```
-sudo systemctl stop redis
-sudo systemctl stop elasticsearch
-```
-
-### Ahh I'm getting spammed with
+### How do I stop my docker containers?
 
 ```
-warning Error from chokidar (/home/ubuntu/environment/telescope/src/frontend/node_modules/@material-ui/icons): Error: ENOSPC: System limit for number of file watchers reached, watch '/home/ubuntu/environment/telescope/src/frontend/node_modules/@material-ui/icons/index.d.ts'
-warning Error from chokidar (/home/ubuntu/environment/telescope/src/frontend/node_modules/@material-ui/icons): Error: ENOSPC: System limit for number of file watchers reached, watch '/home/ubuntu/environment/telescope/src/frontend/node_modules/@material-ui/icons/index.js'
+npm run services:stop
 ```
 
-It's okay, run
+### How do I delete my docker containers?
 
 ```
-echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+docker system prune -af --volumes
 ```
 
-### But I want to use Docker!!
+### I think I have multiple services using the same port, how I can check?
 
-Please see [environment-setup](environment-setup.md) for Docker instructions and setting up the Docker container for login
+To see a list of all running services and what ports they're binding to
+
+```
+sudo lsof -i -P -n | grep LIST
+```
+
+### Apache2 started on its own, how do I stop it?
+
+To stop Apache2 from running
+
+```
+sudo systemctl stop apache2
+```
+
+### I can't open <EC2-ip>:8000 running, what could I be doing wrong?
+
+If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 3000 and 8000.
