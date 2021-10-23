@@ -232,7 +232,13 @@ npm install
 npm run services:start
 ```
 
-3. Find your EC2 instance's public IPv4
+3. Start the Telescope development server on Port 3000
+
+```
+PORT=3000 npm start
+```
+
+4. Find your EC2 instance's public IPv4
 
 ```
 $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
@@ -240,7 +246,9 @@ $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 35.174.16.133
 ```
 
-4. Open `<public-ip>:8000` browser tab will show you Telescope running on a AWS Cloud9 environment!
+5. Open `<public-ip>:8000` browser tab to see Telescope running on a AWS Cloud9 environment!
+
+6. Open `<public-ip>:3000/feeds` in another browser tab to see all the feeds in the backend
 
 ## Frequently Asked Questions (FAQ)
 
