@@ -47,11 +47,10 @@ async function updateFeed(feedData) {
  * Invalidates a feed
  * @param feedData - Object containing feed data
  */
-async function invalidateFeed(id) {
+async function invalidateFeed(id, error) {
   const feed = await Feed.byId(id);
-  // TODO: we need to bubble up the reason for the failure
-  await feed.setInvalid('unknown reason');
-  logger.info(`Invalidating feed ${feed.url} for the following reason: ${'unknown reason'}`);
+  await feed.setInvalid(error.message);
+  logger.info(`Invalidating feed ${feed.url} for the following reason: ${error.message}`);
 }
 
 /**
@@ -101,8 +100,10 @@ feedQueue.on('drained', loadFeedsIntoQueue);
  * If there is a failure in the queue for a job, set the feed to invalid
  * and save to Redis
  */
-feedQueue.on('failed', (job) =>
-  invalidateFeed(job.data.id).catch((error) => logger.error({ error }, 'Unable to invalidate feed'))
+feedQueue.on('failed', (job, err) =>
+  invalidateFeed(job.data.id, err).catch((error) =>
+    logger.error({ error }, 'Unable to invalidate feed')
+  )
 );
 
 /**
