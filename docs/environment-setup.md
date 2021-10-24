@@ -143,11 +143,20 @@ sudo chmod g+rwx "$HOME/.docker" -R
 12. Run to download the current stable version of Docker-Compose:
 
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-13. Apply executable permissions to the downloaded file: `sudo chmod +x /usr/local/bin/docker-compose`
-14. Check installation using: `docker-compose --version`
+13. Apply executable permissions to the downloaded file:
+
+```
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+14. Check installation using:
+
+```
+docker-compose --version
+```
 
 _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
 
