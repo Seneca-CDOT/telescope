@@ -1,5 +1,7 @@
 # Setting up Telescope in AWS Cloud9 IDE
 
+[AWS Cloud9](https://aws.amazon.com/cloud9/) is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser.
+
 **Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
 
 - Minimum: `t2.medium (4 GiB RAM + 2 vCPU)`
@@ -37,13 +39,13 @@
 
   Name: `Telescope-Dev` (whatever you want)
 
-  Description (optional): `AWS Cloud9 developer environment for Telescope`
+  Description (optional): `AWS Cloud9 development environment for Telescope`
 
 - Step 2 - Configure settings:
 
   Environment type: `Create a new EC2 instance for environment (direct access)`
 
-  Instance type: `Other instance type: t2.large (8 GiB RAM + 2 vCPU)`
+  Instance type: `Other instance type: t2.medium (4 GiB RAM + 2 vCPU)`
 
   Platform: `Ubuntu Server 18.04 LTS`
 
@@ -187,7 +189,29 @@ sudo cat /etc/apache2/ports.conf
 To disable Apache2 from running at boot time
 
 ```
-sudo systemctl disable httpd
+sudo systemctl disable apache2
+```
+
+## Install Docker-Compose
+
+By default, Docker is installed on AWS EC2's Ubuntu but Docker-Compose is not, so we have to install it ourselves.
+
+1. Run to download the current stable version of Docker-Compose:
+
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+2. Apply executable permissions to the downloaded file:
+
+```
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+3. Check installation using:
+
+```
+docker-compose --version
 ```
 
 ## Setting up the Telescope repository in Cloud9:
@@ -282,4 +306,6 @@ sudo systemctl stop apache2
 
 ### I can't open <EC2-ip>:8000 running, what could I be doing wrong?
 
-If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 3000 and 8000.
+1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 3000 and 8000.
+
+2. AWS may change your EC2 instance IP address when you stop or restart your EC2 instance. One solution is to purchase an [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#eip-basics) to reserve the particular public IP address. However, you can just clean out the `env.remote` and `.env` files and run the `./tools/aws-ip.sh` script again to set your new EC2 IP address in the appropriate environment variables. Just remember to use the new EC2 IP address in the browser as well.
