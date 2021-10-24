@@ -23,10 +23,11 @@
   - [Start Telescope](#start-telescope)
 
     - [Option 1: Run frontend and backend microservices locally](#option-1-run-frontend-and-backend-microservices-locally)
-    - [Option 2: Mix and match services between local and staging/production](#option-2-mix-and-match-services-between-local-and-staging-production)
-    - [Option 3: Run microservices individually](#option-3-run-microservices-individually)
-    - [Option 4: Update Docker image(s) after changes](#option-4-update-docker-images-after-changes)
-    - [Option 5: Run Login/SSO](#option-5-run-login-sso)
+    - [Option 2: Run frontend only](#option-2-run-frontend-only)
+    - [Option 3: Mix and match services between local and staging/production](#option-3-mix-and-match-services-between-local-and-staging-production)
+    - [Option 4: Run microservices individually](#option-4-run-microservices-individually)
+    - [Option 5: Update Docker image(s) after changes](#option-5-update-docker-images-after-changes)
+    - [Option 6: Run Login/SSO](#option-6-run-login-sso)
 
 - [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
 
@@ -75,7 +76,7 @@ There are two methods to install Redis on Windows. We strongly recommend the fir
 2. Depending on the distribution you chose for WSL2, install redis using that distro's package manager. For example, if using Ubuntu, run `sudo apt-get install redis`
 3. Suggest to install [Windows Terminal](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-windows-terminal-optional), it facilitates you to switch directories between WSL2 Ubuntu bash and Windows drive
 
-##### Option 2: Using [Chocolatey package manager](https://chocolatey.org/) to install Redis on Windows
+##### Option 2: Using [Chocolatey package manager](https://chocolatey.org/)
 
 To get Chocolatey, simply follow this [guide](https://chocolatey.org/install) and run the following commands:
 
@@ -210,7 +211,17 @@ Microservices will start downloading feeds and processing them until stopped. Fo
 
 If this doesn't work for you, it is possible that you have an old `.env` file in the root that you copied from `env.example` from telescope 1.0. Please remove it, and try again.
 
-#### Option 2: Mix and match services between local and staging/production
+#### Option 2: Run frontend only
+
+```bash
+docker-compose --env-file ./config/env.staging up -d
+```
+
+Then visit `localhost:8000` in a web browser
+
+This will let you use the Telescope staging server as the backend so you do not need to run it locally.
+
+#### Option 3: Mix and match services between local and staging production
 
 See [staging-production-deployment](staging-production-deployment) for more information on running Telescope in staging or production mode.
 
@@ -222,7 +233,7 @@ After modify the `.env` file, run these commands,
 npm run services:start
 ```
 
-#### Option 3: Run microservices individually
+#### Option 4: Run microservices individually
 
 For a full list of avaliable microservices, please read [Telescope API Services](../src/api/readme.md).
 
@@ -236,7 +247,7 @@ For example
 npm run services:start posts
 ```
 
-#### Option 4: Update Docker image(s) after changes
+#### Option 5: Update Docker image(s) after changes
 
 Run the following commands to rebuild the image(s):
 
@@ -245,7 +256,7 @@ npm run services:clean
 npm run services:start
 ```
 
-#### Option 5: Run Login SSO
+#### Option 6: Run Login SSO
 
 If you need to login to Telescope or your work requires logging in for testing purposes, you don't need to start an extra container for login, it is included in auth service. You can simply use UI to login. For more information on Login please refer to our [Login Document](login.md).
 
