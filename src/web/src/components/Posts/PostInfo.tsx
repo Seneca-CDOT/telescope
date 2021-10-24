@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('lg')]: {
         width: '21rem',
       },
+      top: 'unset',
     },
     authorAvatarContainer: {
       shapeOutside: 'circle(50%) border-box',
