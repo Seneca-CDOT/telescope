@@ -38,31 +38,34 @@ The following will show you how to create and connect to a virtual machine (VM) 
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This will bring up a list of AWS Services, search for `EC2`
 3. Click on `Launch instances`
 
-- Step 1 - Choose an Amazon Machine Image (AMI): `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type` // 20.04
+- Step 1 - Choose an Amazon Machine Image (AMI): `Ubuntu Server 20.04 LTS (HVM), SSD Volume Type`
 - Step 2 - Choose an Instance Type: `t2.medium`
 - Step 3 - Configure Instance Details: Accept the defaults and proceed to the next step
 - Step 4 - Add Storage: Change the Size (GiB) from `8` to `20`
 - Step 5 - Add Tags: No tags are needed. Proceed to the next step.
 - Step 6 - Configure Security Group:
 
-  Type: `SSH`
-  Protocol: `TCP`
-  Port Range: `22`
-  Source: `My IP` (When you select this from the dropdown menu, it will automatically put `<your-ip-address>/32` in the field. For example `76.72.29.150/32`)
+  - Assign a security group: `Create a new security group`
+  - Security group name: `telescope-sg`
+  - Type: `SSH`
+  - Protocol: `TCP`
+  - Port Range: `22`
+  - Source: `My IP` (When you select this from the dropdown menu, it will automatically put `<your-ip-address>/32` in the field. For example `76.72.29.150/32`)
 
-4. Click on `Launch`
-5. In the pop-up, choose `Create a new key pair`
+4. Click on `Review and Launch`. You will get a warning: `Your instance configuration is not eligible for the free usage tier`, this is because we're using a `t2.medium` instance type.
+5. Click on `Launch`
+6. In the pop-up, choose `Create a new key pair`
 
 - Key pair type: `RSA`
 - Key pair name: `telescope-dev-key`
 
-6. Click on `Download Key Pair`
-7. If you're using Windows, save the file in the `.ssh` directory in your user profile folder (for example `C:/Users/cindy/.ssh/`)
-8. Click on `Launch Instances`
+7. Click on `Download Key Pair`
+8. If you're using Windows, save the file in the `.ssh` directory in your user profile folder (for example `C:/Users/cindy/.ssh/`)
+9. Click on `Launch Instances`
 
 It will take a few minutes for AWS to launch your new EC2 instance.
 
-9. Once your EC2 instance has been launched, you can find your EC2 instance's public IPv4 address. Make note of this IP address.
+10. Once your EC2 instance has been launched, you should name it something meaningful like `Telescope-Dev` and you can find your EC2 instance's public IPv4 address. Make note of this IP address.
 
 ## Connect using SSH
 
@@ -84,9 +87,10 @@ Host aws-ec2
 
 6. Save the file
 7. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-ec2` listed.
-8. Select `aws-ec2` and a new Visual Studio Code window will open. You should also see that you're connected as well!
+8. Select `aws-ec2` and a new Visual Studio Code window will open.
+9. You will see `"aws-ec2" has fingerprint "SHA256:xxx"` and `Are you sure you want to continue?`. Click on `Continue`. Then You should see that you're connected!
 
-## Setting up your AWS credentials and opening the ports on our EC2 instance:
+## Setting up your AWS credentials
 
 1. Open up a terminal in Visual Studio Code (hotkey on Windows: `Ctrl + backtick`). You should see that you're logged in as something like `ubuntu@ip-172.31.23.4`.
 
@@ -108,6 +112,7 @@ sudo ./aws/install
 
 ```
 $ aws --version
+
 aws-cli/2.3.0 Python/3.8.8 Linux/5.4.0-1045-aws exe/x86_64.ubuntu.20 prompt/off
 ```
 
@@ -132,6 +137,8 @@ AWS Secret Access Key [None]: ****************qBbe
 Default region name [None]: us-east-2
 Default output format [None]:
 ```
+
+## Opening the ports on our EC2 instance:
 
 2. Firstly, we'll need the MAC address of our EC2 instance
 
@@ -218,9 +225,16 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 sudo usermod -aG docker $USER
 ```
 
-9. Now run docker as a service on your machine, on startup:
-   1. Enable docker on startup: `sudo systemctl enable docker`
-   1. Disable docker on startup: `sudo systemctl disable docker`
+9. Activate the changes to groupss
+
+```
+newgrp docker
+```
+
+10. Now run docker as a service on your machine, on startup:
+
+- Enable docker on startup: `sudo systemctl enable docker`
+- Disable docker on startup: `sudo systemctl disable docker`
 
 ### Install Docker-Compose
 
@@ -257,6 +271,7 @@ sudo apt-get install -y nodejs
 ```
 $ node -v
 v16.12.0
+
 $ npm -v
 8.1.0
 ```
@@ -343,6 +358,7 @@ docker system prune -af --volumes
 
 ```
 $ curl http://169.254.169.254/latest/meta-data/instance-id
+
 i-04d741489beb966c4
 ```
 
