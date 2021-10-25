@@ -76,7 +76,7 @@ function run() {
     { silent: true },
     (code) => {
       build.finish(code);
-      builds.current = builds.previous;
+      builds.previous = builds.current;
       builds.current = null;
 
       // See if there's another build ready to go
