@@ -2,12 +2,35 @@
 
 The following will show you how to create and connect to a virtual machine (VM) on AWS using the Visual Studio Code [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension. You'll be able to run Telescope in development on a remote machine with VS Code just like if the source code was local. This documentation is based on [Remote development over SSH](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 
+**Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
+
+- Minimum: `t2.medium (4 GiB RAM + 2 vCPU)`
+- Recommended: `t2.large (8 GiB RAM + 2 vCPU)`
+
+**Summary of Pricing**:
+
+- t2.medium costs \$0.0464 per hour
+- t2.large costs \$0.0928 per hour
+- 30GB Amazon Elastic Block Storage (EBS) costs \$3 per month
+
+**Cost Estimate Per Month**:
+
+|                 | t2.medium | t2.large |
+| --------------- | --------- | -------- |
+| Cost per hour   | \$0.0464  | \$0.0928 |
+| Hours per day   | 8         | 8        |
+| Days per month  | 30        | 30       |
+| Sub-total       | \$11.14   | \$22.27  |
+| 30GB EBS Volume | \$3       | \$3      |
+| Total           | \$14.14   | \$25.27  |
+
 ## Prerequisites:
 
 - Download and install [Visual Studio Code](https://code.visualstudio.com/download)
 - Install the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
 - Create an [AWS Account](https://aws.amazon.com/). You can watch this [part](https://www.youtube.com/watch?v=3hLmDS179YE&t=10552s) of the AWS Certified Cloud Practitioner course on creating an account if you need help.
-- Sign into your AWS Account
+- Create an IAM user with administrative privileges. You will need your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+- Sign into your AWS Account using your IAM user
 
 ## Create your virtual machine (AWS EC2):
 
@@ -15,12 +38,13 @@ The following will show you how to create and connect to a virtual machine (VM) 
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This will bring up a list of AWS Services, search for `EC2`
 3. Click on `Launch instances`
 
-- Step 1 - Choose an Amazon Machine Image (AMI): `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type`
+- Step 1 - Choose an Amazon Machine Image (AMI): `Ubuntu Server 18.04 LTS (HVM), SSD Volume Type` // 20.04
 - Step 2 - Choose an Instance Type: `t2.medium`
 - Step 3 - Configure Instance Details: Accept the defaults and proceed to the next step
 - Step 4 - Add Storage: Change the Size (GiB) from `8` to `20`
 - Step 5 - Add Tags: No tags are needed. Proceed to the next step.
 - Step 6 - Configure Security Group:
+
   Type: `SSH`
   Protocol: `TCP`
   Port Range: `22`
@@ -38,9 +62,7 @@ The following will show you how to create and connect to a virtual machine (VM) 
 
 It will take a few minutes for AWS to launch your new EC2 instance.
 
-## Get your EC2's Public IPv4 address
-
-Once your EC2 instance has been launched, you can find your EC2 instance's public IPv4 address. Make note of this IP address.
+9. Once your EC2 instance has been launched, you can find your EC2 instance's public IPv4 address. Make note of this IP address.
 
 ## Connect using SSH
 
@@ -66,7 +88,7 @@ Host aws-ec2
 
 ## Setting up your AWS credentials and opening the ports on our EC2 instance:
 
-1. Open up a terminal in Visual Studio Code (hotkey on Windows: `Ctrl + backtick`). You should see that you're logged in as something like `ubuntu@ip-123-23-56-87`.
+1. Open up a terminal in Visual Studio Code (hotkey on Windows: `Ctrl + backtick`). You should see that you're logged in as something like `ubuntu@ip-172.31.23.4`.
 
 2. Install `unzip`. We will need this to install the AWS CLI
 
@@ -85,7 +107,8 @@ sudo ./aws/install
 4. Verify the AWS CLI installation
 
 ```
-aws --version
+$ aws --version
+aws-cli/2.3.0 Python/3.8.8 Linux/5.4.0-1045-aws exe/x86_64.ubuntu.20 prompt/off
 ```
 
 5. Remove the `awscliv2.zip` file and `aws` directory
@@ -103,10 +126,12 @@ aws configure
 
 7. Currently, everything is set as None so enter your credentials for your AWS IAM user.
 
-AWS Access Key ID [None]:
-AWS Secret Access Key [None]:
-Default region name [None]:
+```
+AWS Access Key ID [None]: ****************764G
+AWS Secret Access Key [None]: ****************qBbe
+Default region name [None]: us-east-2
 Default output format [None]:
+```
 
 2. Firstly, we'll need the MAC address of our EC2 instance
 
@@ -191,8 +216,6 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ```
 sudo usermod -aG docker $USER
-sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
-sudo chmod g+rwx "$HOME/.docker" -R
 ```
 
 9. Now run docker as a service on your machine, on startup:
@@ -216,7 +239,26 @@ sudo chmod +x /usr/local/bin/docker-compose
 3. Check installation using:
 
 ```
-docker-compose --version
+$ docker-compose --version
+docker-compose version 1.29.2, build 5becea4c
+```
+
+## Install Node.js and npm
+
+1. Install Node.js 16.x and npm 8.1
+
+```
+$ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+2. Verify installation
+
+```
+$ node -v
+v16.12.0
+$ npm -v
+8.1.0
 ```
 
 ## Setting up the Telescope repository in AWS EC2:
@@ -239,4 +281,73 @@ sh ./tools/aws-ip.sh
 
 ```
 cp config/env.remote .env
+```
+
+### If you did everything correctly, you've completed the environment setup!
+
+## Now to get started with development...
+
+1. Install all dependencies
+
+```
+npm install
+```
+
+2. Start all Telescope services. This will take some time to complete
+
+```
+npm run services:start
+```
+
+3. Start the Telescope development server on Port 3000
+
+```
+npm start
+```
+
+4. Find your EC2 instance's public IPv4
+
+```
+$ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
+
+35.174.16.133
+```
+
+5. Open `<public-ip>:8000` browser tab to see Telescope running on a AWS Cloud9 environment!
+
+6. Open `<public-ip>:3000/feeds` in another browser tab to see all the feeds in the backend
+
+## Frequently Asked Questions (FAQ)
+
+### How do I stop my docker containers?
+
+```
+npm run services:stop
+```
+
+### How do I delete my docker containers?
+
+```
+docker system prune -af --volumes
+```
+
+### I can't open <EC2-ip>:8000 running, what could I be doing wrong?
+
+1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 3000 and 8000.
+
+2. AWS may change your EC2 instance IP address when you stop or restart your EC2 instance. One solution is to purchase an [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#eip-basics) to reserve the particular public IP address. However, you can just clean out the `env.remote` and `.env` files and run the `./tools/aws-ip.sh` script again to set your new EC2 IP address in the appropriate environment variables. Just remember to use the new EC2 IP address in the browser as well.
+
+### How do I turn off my EC2 instance if I'm actively not using it?
+
+1. Get your EC2 instance ID
+
+```
+$ curl http://169.254.169.254/latest/meta-data/instance-id
+i-04d741489beb966c4
+```
+
+2. Stop the instance
+
+```
+$ aws ec2 stop-instances --region us-east-1 --instance-id <your-ec2-id>
 ```
