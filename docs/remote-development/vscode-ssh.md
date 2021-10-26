@@ -2,7 +2,7 @@
 
 The following will show you how to create and connect to a virtual machine (VM) on AWS using the Visual Studio Code [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension. You'll be able to run Telescope in development on a remote machine with VS Code just like if the source code was local. This documentation is based on [Remote development over SSH](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 
-**Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
+**Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
 
 - Minimum: `t2.medium (4 GiB RAM + 2 vCPU)`
 - Recommended: `t2.large (8 GiB RAM + 2 vCPU)`
@@ -279,6 +279,8 @@ git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
 ```
 
 2. Open the `telescope` directory and the entire Telescope files and folder structure should be visible to you!
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+16_54_04-Settings.png)
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+16_55_08-Visual+Studio+Code.png)
 
 3. Set all the necessary environment variables in your env.remote file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
 
@@ -326,6 +328,8 @@ $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 
 6. Open `<public-ip>:3000/feeds` in another browser tab to see all the feeds in the backend
 
+![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_10_36-Telescope+%E2%80%94+Mozilla+Firefox.png)
+
 ## Frequently Asked Questions (FAQ)
 
 ### How do I stop my docker containers?
@@ -354,18 +358,23 @@ newgrp docker
 
 2. AWS may change your EC2 instance IP address when you stop or restart your EC2 instance. One solution is to purchase an [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#eip-basics) to reserve the particular public IP address. However, you can just clean out the `env.remote` and `.env` files and run the `./tools/aws-ip.sh` script again to set your new EC2 IP address in the appropriate environment variables. Just remember to use the new EC2 IP address in the browser as well.
 
+### I can't SSH into my EC2 instance
+
+1. Same reason as above, your EC2 instance IP address may change when you stop or restart your EC2 instance. So make sure your `.ssh/config` file has the correct HostName
+2. If your own IP address changes (for example, you changed internet providers or you moved to a new location with a different IP address), you need to update your inbound rules to allow your IP address to access port 22. Don't forget to allow access to port 3000 and 8000 as well.
+
 ### How do I turn off my EC2 instance if I'm actively not using it?
 
-1. Get your EC2 instance ID
+There are a number of different methods to stop an EC2 instance:
 
-```
-$ curl http://169.254.169.254/latest/meta-data/instance-id
+1. Manually turning it off using the AWS Console
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_35_32-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
-i-04d741489beb966c4
-```
-
-2. Stop the instance
-
-```
-$ aws ec2 stop-instances --region us-east-2 --instance-id <your-ec2-id>
-```
+2. Creating a Cloudwatch alarm to stop your EC2 instance for you after some inactivity
+   - Click on the `+` underneath `Alarm status` to start creating an alarm
+     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_49_53-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
+   - Click on `Create an alarm` radio button
+     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_50_43-Manage+CloudWatch+alarms+_+EC2+Management+Console+%E2%80%94+Mozilla+Firefox.png)
+   - Set `Alarm action` to `Stop`
+   - Set alarm to trigger if the CPU utilization of the EC2 instance has been less 25% for an hour
+     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_52_37-Manage+CloudWatch+alarms+_+EC2+Management+Console+%E2%80%94+Mozilla+Firefox.png)
