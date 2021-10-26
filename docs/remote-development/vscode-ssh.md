@@ -35,22 +35,40 @@ The following will show you how to create and connect to a virtual machine (VM) 
 ## Create your virtual machine (AWS EC2):
 
 1. In the upper-right hand corner of your AWS Management Console, select `US East (Ohio) us-east-2` as your `Region`
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_08_11-.png)
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This will bring up a list of AWS Services, search for `EC2`
 3. Click on `Launch instances`
 
 - Step 1 - Choose an Amazon Machine Image (AMI): `Ubuntu Server 20.04 LTS (HVM), SSD Volume Type`
+  ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_47_51-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 - Step 2 - Choose an Instance Type: `t2.medium`
+  ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_49_07-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 - Step 3 - Configure Instance Details: Accept the defaults and proceed to the next step
 - Step 4 - Add Storage: Change the Size (GiB) from `8` to `20`
+  ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_51_25-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 - Step 5 - Add Tags: No tags are needed. Proceed to the next step.
 - Step 6 - Configure Security Group:
 
   - Assign a security group: `Create a new security group`
   - Security group name: `telescope-sg`
-  - Type: `SSH`
-  - Protocol: `TCP`
-  - Port Range: `22`
-  - Source: `My IP` (When you select this from the dropdown menu, it will automatically put `<your-ip-address>/32` in the field. For example `76.72.29.150/32`)
+  - Add the following Rules:
+    1. SSH for your IP address
+    - Type: `SSH`
+    - Protocol: `TCP`
+    - Port Range: `22`
+    - Source: `My IP` (When you select this from the dropdown menu, it will automatically put `<your-ip-address>/32` in the field. For example `76.72.29.150/32`)
+    2. Open port 3000 for your IP address
+    - Type: `Custom TCP`
+    - Protocol: `TCP`
+    - Port Range: `3000`
+    - Source: `My IP`
+    3. Open port 8000 for your IP address
+    - Type: `Custom TCP`
+    - Protocol: `TCP`
+    - Port Range: `8000`
+    - Source: `My IP`
+
+  ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_54_12-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
 4. Click on `Review and Launch`. You will get a warning: `Your instance configuration is not eligible for the free usage tier`, this is because we're using a `t2.medium` instance type.
 5. Click on `Launch`
@@ -62,21 +80,26 @@ The following will show you how to create and connect to a virtual machine (VM) 
 7. Click on `Download Key Pair`
 8. If you're using Windows, save the file in the `.ssh` directory in your user profile folder (for example `C:/Users/cindy/.ssh/`)
 9. Click on `Launch Instances`
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_57_01-Launch+instance+wizard+_+EC2+Management+Console+%E2%80%94+Mozilla+Firefox.png)
 
 It will take a few minutes for AWS to launch your new EC2 instance.
 
 10. Once your EC2 instance has been launched, you should name it something meaningful like `Telescope-Dev` and you can find your EC2 instance's public IPv4 address. Make note of this IP address.
+    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_16_07-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
 ## Connect using SSH
 
 1. Open up Visual Studio Code
 2. Click on the `Open a Remote Window` icon at the bottom left-hand corner of the window
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_11_22-.png)
 3. Select `Connect to Host`
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_12_53-Get+Started+-+Visual+Studio+Code.png)
 4. Select `Configure SSH Hosts...`
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_14_34-Visual+Studio+Code.png)
+5. This will open up a `config` file in Visual Studio Code. If you're using Windows, it'll be something like `C:/Users/cindy/.ssh/config`
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_15_09-Visual+Studio+Code.png)
 
-This will open up a `config` file in Visual Studio Code. If you're using Windows, it'll be something like `C:/Users/cindy/.ssh/config`
-
-5. Edit the `config` to the following:
+6. Edit the `config` file with the following:
 
 ```
 Host aws-ec2
@@ -85,10 +108,12 @@ Host aws-ec2
     IdentityFile ~/.ssh/telescope-dev-key.pem
 ```
 
-6. Save the file
-7. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-ec2` listed.
-8. Select `aws-ec2` and a new Visual Studio Code window will open.
-9. You will see `"aws-ec2" has fingerprint "SHA256:xxx"` and `Are you sure you want to continue?`. Click on `Continue`. Then You should see that you're connected!
+![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_17_16-config+-+Visual+Studio+Code.png)
+
+7. Save the file
+8. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-ec2` listed.
+9. Select `aws-ec2` and a new Visual Studio Code window will open.
+10. You will see `"aws-ec2" has fingerprint "SHA256:xxx"` and `Are you sure you want to continue?`. Click on `Continue`. Then You should see that you're connected!
 
 ## Setting up your AWS credentials
 
@@ -254,6 +279,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 
 ```
 $ docker-compose --version
+
 docker-compose version 1.29.2, build 5becea4c
 ```
 
@@ -346,6 +372,14 @@ npm run services:stop
 docker system prune -af --volumes
 ```
 
+### I get `Permission denied` error when I run `npm run services:start`
+
+Sometimes the Docker permissions aren't set properly when you first install Docker. You may need to reboot your VM or run
+
+```
+newgrp docker
+```
+
 ### I can't open <EC2-ip>:8000 running, what could I be doing wrong?
 
 1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 3000 and 8000.
@@ -365,5 +399,5 @@ i-04d741489beb966c4
 2. Stop the instance
 
 ```
-$ aws ec2 stop-instances --region us-east-1 --instance-id <your-ec2-id>
+$ aws ec2 stop-instances --region us-east-2 --instance-id <your-ec2-id>
 ```
