@@ -195,7 +195,26 @@ http {
     location /legacy {
       expires max;
       add_header Cache-Control "public, max-age=31536000, immutable";
-      proxy_pass http://telescope:3000;
+      proxy_pass http://planet:9876;
+    }
+
+    # Cache content served by /planet forever
+    location /planet {
+      # Defines conditions under which the response will not be taken from a cache
+      # In this case, cache will be ignored when requested from client
+      proxy_cache_bypass  $http_cache_control;
+
+      # Sets caching time for different response codes
+      proxy_cache_valid 200 307 10m;
+      proxy_cache_valid 404 1m;
+
+      # Disables processing of certain response header fields from the proxied server
+      proxy_ignore_headers "Cache-Control" "Expires";
+
+      # Added 'X-Proxy-Cache' header to be able to monitor caching
+      add_header X-Proxy-Cache $upstream_cache_status;
+
+      proxy_pass http://planet:9876;
     }
 
     # Non-cached /portainer route

@@ -134,6 +134,10 @@ services:
   parser:
     restart: unless-stopped
 
+  # planet service
+  planet:
+    restart: unless-stopped
+
   # search service
   search:
     restart: unless-stopped
