@@ -85,7 +85,7 @@ The following will show you how to create and connect to a virtual machine (VM) 
 It will take a few minutes for AWS to launch your new EC2 instance.
 
 10. Once your EC2 instance has been launched, you should name it something meaningful like `Telescope-Dev` and you can find your EC2 instance's public IPv4 address. Make note of this IP address.
-    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_16_07-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
+    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+14_05_35-Preview+vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
 ## Connect using SSH
 
@@ -104,16 +104,19 @@ It will take a few minutes for AWS to launch your new EC2 instance.
 ```
 Host aws-ec2
     HostName <your-ec2-ip-address>
-    Username ubuntu
+    User ubuntu
     IdentityFile ~/.ssh/telescope-dev-key.pem
 ```
 
-![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_17_16-config+-+Visual+Studio+Code.png)
+![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+14_02_31-config+-+telescope+-+Visual+Studio+Code.png)
 
 7. Save the file
 8. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-ec2` listed.
 9. Select `aws-ec2` and a new Visual Studio Code window will open.
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_23_08-config+-+Visual+Studio+Code.png)
 10. You will see `"aws-ec2" has fingerprint "SHA256:xxx"` and `Are you sure you want to continue?`. Click on `Continue`. Then You should see that you're connected!
+    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_56_54-Get+Started+-+Visual+Studio+Code.png)
+    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_58_26-.png)
 
 ## Setting up your AWS credentials
 
@@ -161,41 +164,6 @@ AWS Access Key ID [None]: ****************764G
 AWS Secret Access Key [None]: ****************qBbe
 Default region name [None]: us-east-2
 Default output format [None]:
-```
-
-## Opening the ports on our EC2 instance:
-
-2. Firstly, we'll need the MAC address of our EC2 instance
-
-```
-$ curl -s http://169.254.169.254/latest/meta-data/mac
-
-0e:0a:22:87:46:79
-```
-
-3. Using your EC2 instance's MAC address, we can get a list of Security Groups
-
-```
-$ curl -s http://169.254.169.254/latest/meta-data/network/interfaces/macs/<your_mac>/security-group-ids
-
-sg-0c63c6f026a2b9288
-```
-
-4. Find out what your IP address is using http://checkip.amazonaws.com/
-5. You will need to authorize your IP address access to port 3000 and port 8000
-
-```
-aws ec2 authorize-security-group-ingress --group-id <sg-id> \
---port 3000 \
---protocol tcp \
---cidr <my-ip>/32
-```
-
-```
-aws ec2 authorize-security-group-ingress --group-id <sg-id> \
---port 8000 \
---protocol tcp \
---cidr <my-ip>/32
 ```
 
 ## Installing Docker and Docker-Compose
