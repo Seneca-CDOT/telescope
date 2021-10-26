@@ -32,14 +32,17 @@
 ## Creating your Cloud9 Environment:
 
 1. In the upper-right hand corner of your AWS Management Console, select `US East (Ohio) us-east-2` as your `Region`
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_08_11-.png)
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This is bring up a list of AWS Services, search for `Cloud9`.
 3. Click on `Create Environment`
+   ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_14_54-Welcome+to+AWS+Cloud9+%E2%80%94+Mozilla+Firefox.png)
 
 - Step 1 - Name environment:
 
   Name: `Telescope-Dev` (whatever you want)
 
   Description (optional): `AWS Cloud9 development environment for Telescope`
+  ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_15_58-Create+a+new+environment+%E2%80%94+Mozilla+Firefox.png)
 
 - Step 2 - Configure settings:
 
@@ -48,6 +51,8 @@
   Instance type: `Other instance type: t2.medium (4 GiB RAM + 2 vCPU)`
 
   Platform: `Ubuntu Server 18.04 LTS`
+  ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_17_57-Create+a+new+environment+%E2%80%94+Mozilla+Firefox.png)
+  ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_19_55-Create+a+new+environment+%E2%80%94+Mozilla+Firefox.png)
 
 - Step 3 - Review and click `Create Environment`
 
@@ -60,8 +65,10 @@ It will take a few minutes for AWS to create your new C9 environment
 ```
 $ curl -s http://169.254.169.254/latest/meta-data/mac
 
-0e:0a:22:87:46:79
+06:c5:aa:63:ee:f4
 ```
+
+![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_30_02-.png)
 
 2. Using your EC2 instance's MAC address, we can get a list of Security Groups
 
@@ -87,6 +94,8 @@ aws ec2 authorize-security-group-ingress --group-id <sg-id> \
 --protocol tcp \
 --cidr <my-ip>/32
 ```
+
+![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_34_11-Telescope-Dev+-+AWS+Cloud9+%E2%80%94+Mozilla+Firefox.png)
 
 ## Resize your Amazon EBS volume
 
@@ -211,7 +220,9 @@ sudo chmod +x /usr/local/bin/docker-compose
 3. Check installation using:
 
 ```
-docker-compose --version
+$ docker-compose --version
+
+docker-compose version 1.29.2, build 5becea4c
 ```
 
 ## Setting up the Telescope repository in Cloud9:
@@ -273,6 +284,8 @@ $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 5. Open `<public-ip>:8000` browser tab to see Telescope running on a AWS Cloud9 environment!
 
 6. Open `<public-ip>:3000/feeds` in another browser tab to see all the feeds in the backend
+
+![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_54_59-Mozilla+Firefox.png)
 
 ## Frequently Asked Questions (FAQ)
 
