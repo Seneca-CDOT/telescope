@@ -112,25 +112,19 @@ newgrp docker
 12. Run to download the current stable version of Docker-Compose:
 
 ```
-
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
 ```
 
 13. Apply executable permissions to the downloaded file:
 
 ```
-
 sudo chmod +x /usr/local/bin/docker-compose
-
 ```
 
 14. Check installation using:
 
 ```
-
 docker-compose --version
-
 ```
 
 _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
@@ -198,7 +192,9 @@ If this doesn't work for you, it is possible that you have an old `.env` file in
 #### Option 2: Run frontend only
 
 ```bash
-docker-compose --env-file ./config/env.staging up -d
+cp config/env.staging .env
+
+npm run dev
 ```
 
 Then visit `localhost:8000` in a web browser
