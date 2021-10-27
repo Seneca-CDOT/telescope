@@ -214,6 +214,10 @@ services:
     labels:
       # Disable Elasticsearch routing via Traefik in production (we enable it in development)
       - 'traefik.enable=false'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
 
   portainer:
     image: portainer/portainer-ce:alpine

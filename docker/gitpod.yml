@@ -3,7 +3,7 @@
 #
 # This docker-compose file is meant to be used with docker-compose.yml as a base:
 #
-# $ docker-compose --env-file config/env.development up -d
+# $ docker-compose --env-file config/env.gitpod up -d
 #
 # See https://docs.docker.com/compose/production/
 ################################################################################
@@ -15,7 +15,12 @@ services:
     volumes:
       - ../config/nginx.conf.development.template:/etc/nginx/nginx.conf
     ports:
-      - '8000:8000'
+      - '8000:80'
+    build:
+      args:
+        - GITPOD_WEB_URL=${GITPOD_WEB_URL}
+        - GITPOD_API_URL=${GITPOD_API_URL}
+        - GITPOD_MICROSERVICE_URL=${GITPOD_MICROSERVICE_URL}
 
   traefik:
     command:
@@ -24,8 +29,8 @@ services:
       - '--providers.docker=true'
       - '--providers.docker.exposedbydefault=false'
     ports:
-      # The HTTP port
-      - '80:80'
+      # The HTTP port, port < 1024 is disallowed by Gitpod
+      - '8443:80'
       # The Web UI (enabled by --api.insecure=true)
       - '8080:8080'
 
@@ -76,10 +81,6 @@ services:
   elasticsearch:
     ports:
       - '9200:9200'
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
 
   users:
     environment:
@@ -98,9 +99,3 @@ services:
       # For development and testing, the Parser service needs to contact the users
       # service directly via Docker vs through the http://localhost domain.
       - USERS_URL=http://users:7000
-
-  planet:
-    ports:
-      - '9876:9876'
-    environment:
-      - POSTS_URL=http://posts:5555

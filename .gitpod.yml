@@ -1,0 +1,85 @@
+# Learn more about this file at https://www.gitpod.io/docs/references/gitpod-yml
+tasks:
+  - name: Service Server
+    # Get Web API urls for use in Next build
+    before: |
+      eval $(gp env -e GITPOD_API_URL=$(gp url 3000))
+      eval $(gp env -e GITPOD_WEB_URL=$(gp url 8000))
+      eval $(gp env -e GITPOD_MICROSERVICE_URL=$(gp url 8443))
+    init: |
+      npm install
+      docker-compose --env-file config/env.gitpod build
+    # GitPod workspace urls are not stable, we have to look up urls and build again
+    command: |
+      docker-compose --env-file config/env.gitpod up -d
+      npm run start
+
+  - name: Terminal
+    openMode: tab-after
+
+ports:
+  # NextJS frontend
+  - port: 8000
+    visibility: public
+    onOpen: open-preview
+  # Microservice
+  - port: 8443
+    visibility: public
+    onOpen: ignore
+  # Web API
+  - port: 3000
+    visibility: public
+    onOpen: ignore
+  #  Redis server
+  - port: 6379
+    visibility: public
+    onOpen: ignore
+  # Elasticsearch server
+  - port: 9200
+    visibility: public
+    onOpen: ignore
+  # Firebase emulator
+  - port: 4000
+    visibility: public
+    onOpen: ignore
+  # Firestore emulator
+  - port: 8088
+    visibility: public
+    onOpen: ignore
+  # Traefik UI
+  - port: 8080
+    visibility: public
+    onOpen: ignore
+  # Login Page
+  - port: 8081
+    visibility: public
+    onOpen: ignore
+  # Static Web Content test
+  - port: 8888
+    visibility: public
+    onOpen: ignore
+
+github:
+  prebuilds:
+    # enable for the default branch (defaults to true)
+    master: true
+    # enable for all branches in this repo (defaults to false)
+    branches: true
+    # enable for pull requests coming from this repo (defaults to true)
+    pullRequests: true
+    # enable for pull requests coming from forks (defaults to false)
+    pullRequestsFromForks: true
+    # add a check to pull requests (defaults to true)
+    addCheck: true
+    # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
+    addComment: true
+    # add a "Review in Gitpod" button to the pull request's description (defaults to false)
+    addBadge: false
+
+# Install recommended extension
+vscode:
+  extensions:
+    - editorconfig.editorconfig
+    - dbaeumer.vscode-eslint
+    - esbenp.prettier-vscode
+    - streetsidesoftware.code-spell-checker
