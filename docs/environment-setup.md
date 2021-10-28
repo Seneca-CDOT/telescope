@@ -37,6 +37,21 @@
 - [Node.js (npm)](https://nodejs.org/en/download/)
 - [Docker and Docker-Compose](https://docs.docker.com/install/)
 
+## Install Redis and WSL2
+
+1. Follow Microsoft WSL2 [installation guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to complete the installation. Suggest to run the following once in the WSL2 environment.
+
+```bash
+# fetch updated packages information
+sudo apt update
+
+# upgrade or install outdated packages
+sudo apt upgrade
+```
+
+2. Suggest to install [Windows Terminal](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-windows-terminal-optional), it facilitates you to switch directories between WSL2 Ubuntu bash and Windows drive.
+3. Suggest to install [Node, nvm and npm for WSL2](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl#install-nvm-nodejs-and-npm), so as to be able to use Node and npm in the subsystem.
+
 ## Docker and Docker-Compose Setup
 
 ### Linux-Ubuntu
@@ -134,12 +149,12 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 1. Get [Docker for Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
 1. Docker for Desktop comes with docker-compose installed.
 
-### Windows 10 Pro, Enterprise, or Education (Hyper-V)
+### Windows 10 Pro, Enterprise, Education or Windows 11(Hyper-V)
 
 1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
 1. Docker for Desktop comes with docker-compose installed.
 
-### Windows 10 Home, Pro, Enterprise, or Education (Insiders WSL 2 Docker)
+### Windows 10 Home, Pro, Enterprise, Education (Insiders WSL 2 Docker)
 
 1. If your [Windows build number](https://www.windowscentral.com/how-check-your-windows-10-build) is below [18917](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install/), join the [insiders program](https://insider.windows.com/en-us/). Then, update your machine to a newer build through Automatic Updates.
 2. Once installed successfully, install [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install).
