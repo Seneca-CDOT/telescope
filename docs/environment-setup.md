@@ -183,9 +183,15 @@ npm run services:start
 npm start
 ```
 
-Then visit `localhost:8000` in a web browser to see Telescope running locally. `localhost:3000/posts` will show you the list of posts in JSON.
+Then visit `localhost:8000` in a web browser to see Telescope running locally. `localhost:3000/posts` will show you the list of posts in JSON
 
-Microservices will start downloading feeds and processing them until stopped. For more information about the services, please read [Telescope API Services](../src/api/readme.md).
+Microservices will start downloading feeds and processing them until stopped. You can stop the microservices by running
+
+```
+npm run services:stop
+```
+
+For more information about the services, please read [Telescope API Services](../src/api/readme.md).
 
 If this doesn't work for you, it is possible that you have an old `.env` file in the root that you copied from `env.example` from telescope 1.0. Please remove it, and try again.
 
