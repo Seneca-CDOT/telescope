@@ -66,7 +66,7 @@ const Commits = ({ commitUrls }: Props) => {
               href={`https://github.com${url}`}
               rel="bookmark"
               target="_blank"
-              title={`${getCommitInfo(url)} Commit Hash ${getCommitNumber(url)}`}
+              title={`${getCommitInfo(url)} Commit ${getCommitNumber(url)}`}
               className={classes.link}
             >
               {getCommitNumber(url, SHORT_SHA_LENGTH)}
