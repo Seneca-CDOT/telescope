@@ -48,4 +48,4 @@ docker-compose -f docker-compose.yml up --build login redis telescope
 
 ### Running the Microservices
 
-See the [docs for running the services](src/api/readme.md).
+See the [docs for running the services](environment-setup.md).
