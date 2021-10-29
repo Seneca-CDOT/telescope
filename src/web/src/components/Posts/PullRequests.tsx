@@ -40,9 +40,7 @@ const getPullRequestNumber = (pullRequest: string) =>
   pullRequest.replace(/.+\/pull\/([0-9]+).*/, '$1');
 
 const getPullRequestInfo = (pullRequest: string) => {
-  const removeSlashes = pullRequest.split('/');
-  const user = removeSlashes[1],
-    repo = removeSlashes[2];
+  const [, user, repo] = pullRequest.split('/');
   return `${user}/${repo}`;
 };
 
@@ -66,9 +64,9 @@ const PullRequests = ({ prUrls }: Props) => {
               href={`https://github.com${pullRequest}`}
               rel="bookmark"
               target="_blank"
-              title={`Pull Request from ${getPullRequestInfo(
+              title={`${getPullRequestInfo(pullRequest)} Pull Request #${getPullRequestNumber(
                 pullRequest
-              )}, with a PR number of #${getPullRequestNumber(pullRequest)}`}
+              )}`}
               className={classes.link}
             >
               #{getPullRequestNumber(pullRequest)}
