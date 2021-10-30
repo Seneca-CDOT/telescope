@@ -6,3 +6,6 @@ certs
 .cache
 .next
 out
+
+# We don't maintain these files
+src/api/status/public/assets
