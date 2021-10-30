@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const getPullRequestNumber = (pullRequest: string) =>
   pullRequest.replace(/.+\/pull\/([0-9]+).*/, '$1');
 
+const getPullRequestInfo = (pullRequest: string) => {
+  const [, user, repo] = pullRequest.split('/');
+  return `${user}/${repo}`;
+};
+
 type Props = {
   prUrls: string[];
 };
@@ -59,7 +64,9 @@ const PullRequests = ({ prUrls }: Props) => {
               href={`https://github.com${pullRequest}`}
               rel="bookmark"
               target="_blank"
-              title={'Pull Request #' + getPullRequestNumber(pullRequest)}
+              title={`${getPullRequestInfo(pullRequest)} Pull Request #${getPullRequestNumber(
+                pullRequest
+              )}`}
               className={classes.link}
             >
               #{getPullRequestNumber(pullRequest)}

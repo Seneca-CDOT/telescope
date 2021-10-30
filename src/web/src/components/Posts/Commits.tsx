@@ -41,6 +41,11 @@ const SHORT_SHA_LENGTH = 7;
 const getCommitNumber = (url: string, length?: number) =>
   url.replace(/.+\/(commit|commits)\/(\w{40}).*/, '$2').substr(0, length);
 
+const getCommitInfo = (commit: string) => {
+  const [, user, repo] = commit.split('/');
+  return `${user}/${repo}`;
+};
+
 type Props = {
   commitUrls: string[];
 };
@@ -61,7 +66,7 @@ const Commits = ({ commitUrls }: Props) => {
               href={`https://github.com${url}`}
               rel="bookmark"
               target="_blank"
-              title={'Commit ' + getCommitNumber(url)}
+              title={`${getCommitInfo(url)} Commit ${getCommitNumber(url)}`}
               className={classes.link}
             >
               {getCommitNumber(url, SHORT_SHA_LENGTH)}
