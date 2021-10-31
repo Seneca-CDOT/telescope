@@ -134,8 +134,22 @@ http {
 
   # Front-end and Legacy Back-end node.js app are served here
   server {
-    listen 80 default_server;
-    server_name localhost:8000;
+    listen 8000 default_server;
+    server_name localhost;
+
+    # Cache content served by /legacy forever
+    location /legacy {
+      proxy_cache_bypass 1;
+      proxy_set_header Connection "";
+      proxy_pass http://planet:9876;
+    }
+
+    # Cache content served by /planet forever
+    location /planet {
+      proxy_cache_bypass 1;
+      proxy_set_header Connection "";
+      proxy_pass http://planet:9876;
+    }
 
     # Static next.js front-end
     location / {

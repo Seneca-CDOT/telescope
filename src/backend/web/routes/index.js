@@ -9,7 +9,6 @@ const feeds = require('./feeds');
 // The /feed router allows access to generated feeds (RSS, ATOM, etc)
 const feed = require('./feed');
 const health = require('./health');
-const planet = require('./planet');
 const serviceProvider = require('./service-provider');
 const stats = require('./stats');
 const user = require('./user');
@@ -26,14 +25,10 @@ router.use('/auth', auth);
 router.use('/feeds', feeds);
 router.use('/feed', feed);
 router.use('/health', health);
-router.use('/planet', planet);
 router.use('/sp', serviceProvider);
 router.use('/stats', stats);
 router.use('/user', user);
 router.use('/query', query);
-
-// Legacy CDOT Planet static assets
-router.use('/legacy', express.static(path.join(__dirname, '../planet/static')));
 
 /**
  * In staging and production, our reverse proxy takes care of serving the content in the public folder.

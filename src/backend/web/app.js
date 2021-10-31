@@ -1,6 +1,4 @@
-const path = require('path');
 const express = require('express');
-const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -64,11 +62,6 @@ app.use(
 authentication.init();
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Template rendering for legacy "planet" view of posts
-app.engine('handlebars', expressHandlebars());
-app.set('views', path.join(__dirname, 'planet/views'));
-app.set('view engine', 'handlebars');
 
 // Add our logger to the app
 app.set('logger', logger);

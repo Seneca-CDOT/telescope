@@ -221,6 +221,17 @@ services:
       - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'
 
+  # planet service
+  planet:
+    container_name: 'planet'
+    build:
+      context: ../src/api/planet
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV
+      - PLANET_PORT
+      - POSTS_URL
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
