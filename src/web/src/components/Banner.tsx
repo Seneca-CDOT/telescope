@@ -14,6 +14,7 @@ import { telescopeUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
+import { quotes } from '../student-quotes';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +48,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
       textAlign: 'center',
       zIndex: 1000,
+      '& a': {
+        color: 'inherit',
+        textDecorationLine: 'none',
+      },
     },
     version: {
       position: 'absolute',
@@ -104,6 +109,10 @@ type BannerProps = {
   onVisibilityChange: (visible: boolean) => void;
 };
 
+const getQuote = () => {
+  return quotes[Math.floor(Math.random() * quotes.length)];
+};
+
 export default function Banner({ onVisibilityChange }: BannerProps) {
   const classes = useStyles();
   const [gitInfo, setGitInfo] = useState({
@@ -111,6 +120,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
     sha: '',
     version: '',
   });
+  const studentQuote = getQuote();
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
   const bannerAnchor = useRef<HTMLDivElement>(null);
@@ -192,9 +202,12 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
           Telescope
         </Typography>
         <Typography variant="h4" className={classes.quoteText}>
-          “I think one of my proudest contributions to date was for Node.js.
-          <br /> This is something I never would have imagined contributing to even just a year
-          ago.”
+          <a href={studentQuote.url}>
+            "{studentQuote.quote}"
+            <br />
+            <br />
+            {studentQuote.author}
+          </a>
         </Typography>
       </div>
       <div className={classes.icon}>
