@@ -5,3 +5,6 @@ src/web/.next/**
 **/node_modules/**
 coverage/**
 docs/**
+
+# We do not maintain these files.
+src/api/status/public/assets/**

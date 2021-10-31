@@ -3,7 +3,27 @@ const serveStatic = require('serve-static');
 
 const { check } = require('./services');
 
-const service = new Satellite();
+const satelliteOptions = {
+  helmet: {
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrcElem: ["'self'", 'https://kit.fontawesome.com'],
+        styleSrcElem: [
+          "'self'",
+          "'unsafe-inline'",
+          'https://fonts.googleapis.com',
+          'https://fonts.gstatic.com',
+        ],
+        connectSrc: ["'self'", 'https://ka-f.fontawesome.com'],
+        fontSrc: ["'self'", 'https://*'],
+        imgSrc: ["'self'", 'data:*', 'https://*'],
+      },
+    },
+  },
+};
+
+const service = new Satellite(satelliteOptions);
 
 // Static web assets can be cached for a long time
 service.router.use(serveStatic('public', { immutable: true, maxAge: '1y' }));
