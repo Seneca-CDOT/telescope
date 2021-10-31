@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: 1000,
       '& a': {
         color: 'inherit',
+        textDecorationLine: 'none',
       },
     },
     version: {
@@ -201,10 +202,11 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
           Telescope
         </Typography>
         <Typography variant="h4" className={classes.quoteText}>
-          "{studentQuote.quote}"
-          <br />
           <a href={studentQuote.url}>
-            <i>{studentQuote.author}</i>
+            "{studentQuote.quote}"
+            <br />
+            <br />
+            {studentQuote.author}
           </a>
         </Typography>
       </div>
