@@ -10,7 +10,7 @@ describe('POST /', () => {
   });
 
   describe('Test the API returns feed URLs correctly', () => {
-    it('should return 200 and 1 rss+xml feed url if there is one link of type="application/rss+xml"', async (done) => {
+    it('should return 200 and 1 rss+xml feed url if there is one link of type="application/rss+xml"', async () => {
       const blogUrl = 'https://test321.blogspot.com/';
       const mockBlogUrlResponseBody = `
         <html lang="en">
@@ -36,10 +36,9 @@ describe('POST /', () => {
         .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
-      done();
     });
 
-    it('should return 200 and 1 atom+xml feed url if there is 1 link of type="application/atom+xml"', async (done) => {
+    it('should return 200 and 1 atom+xml feed url if there is 1 link of type="application/atom+xml"', async () => {
       const blogUrl = 'https://test321.blogspot.com/';
       const mockBlogUrlResponseBody = `
         <html lang="en">
@@ -65,10 +64,9 @@ describe('POST /', () => {
         .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
-      done();
     });
 
-    it('should return 200 and 1 json+oembed feed url if there is 1 link of type="application/json+oembed"', async (done) => {
+    it('should return 200 and 1 json+oembed feed url if there is 1 link of type="application/json+oembed"', async () => {
       const blogUrl = 'https://test321.blogspot.com/';
       const mockBlogUrlResponseBody = `
         <html lang="en">
@@ -94,10 +92,9 @@ describe('POST /', () => {
         .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
-      done();
     });
 
-    it('should return 200 and 1 xml+oembed feed url if there is 1 link of type="application/xml+oembed"', async (done) => {
+    it('should return 200 and 1 xml+oembed feed url if there is 1 link of type="application/xml+oembed"', async () => {
       const blogUrl = 'https://test321.blogspot.com/';
       const mockBlogUrlResponseBody = `
         <html lang="en">
@@ -123,10 +120,9 @@ describe('POST /', () => {
         .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
-      done();
     });
 
-    it('should return 200 and all feed urls if there are multiple link elements that could contain a feed url', async (done) => {
+    it('should return 200 and all feed urls if there are multiple link elements that could contain a feed url', async () => {
       const blogUrl = 'https://test321.blogspot.com/';
       const mockBlogUrlResponseBody = `
           <!doctype html>
@@ -163,13 +159,11 @@ describe('POST /', () => {
         .send({ blogUrl });
       expect(res.status).toBe(200);
       expect(res.body).toEqual(result);
-      done();
     });
 
-    it('should return 401 if no authorization token is included in headers', async (done) => {
+    it('should return 401 if no authorization token is included in headers', async () => {
       const res = await request(app).post('/').send({ blogUrl: 'https://test321.blogspot.com/' });
       expect(res.status).toBe(401);
-      done();
     });
   });
 });
