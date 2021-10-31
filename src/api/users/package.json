@@ -13,7 +13,7 @@
     "http-link-header": "^1.0.3"
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "^1.2.9",
+    "@firebase/rules-unit-testing": "^2.0.1",
     "env-cmd": "^10.1.0",
     "firebase-tools": "^9.9.0",
     "nodemon": "^2.0.7",
