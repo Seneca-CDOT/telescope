@@ -41,7 +41,7 @@ describe('POST /', () => {
   });
 
   describe('Test checkValidBlog middleware', () => {
-    it('should return 200 if the blog page responds with 200', async (done) => {
+    it('should return 200 if the blog page responds with 200', async () => {
       const validBlogUrl = 'https://existblogpage.com/';
       const mockBody = '<p>ok</p>';
       nock(validBlogUrl).get('/').reply(200, mockBody, {
@@ -66,10 +66,9 @@ describe('POST /', () => {
       await middleware(mockReq, mockRes, mockNextFunction);
       expect(mockNextFunction).toHaveBeenCalledTimes(1);
       expect(mockRes.locals.document).toEqual(mockBody);
-      done();
     });
 
-    it('should return 400 if the blog page responds with code other than 200', async (done) => {
+    it('should return 400 if the blog page responds with code other than 200', async () => {
       const invalidBlogUrl = 'https://notexistblogpage.com/';
       nock(invalidBlogUrl).get('/').reply(404);
 
@@ -87,10 +86,9 @@ describe('POST /', () => {
       await middleware(mockReq, mockRes, mockNextFunction);
       const expectedError = createError(createError(400, 'Unable to Check Blog'));
       expect(mockNextFunction).toBeCalledWith(expectedError);
-      done();
     });
 
-    it('should return 400 if the blog page responds with content type other than text/html', async (done) => {
+    it('should return 400 if the blog page responds with content type other than text/html', async () => {
       const invalidBlogUrl = 'https://nothtmlresponse.com/';
       nock(invalidBlogUrl).get('/').reply(200, null, {
         'Content-Type': 'text/xml',
@@ -111,7 +109,6 @@ describe('POST /', () => {
       expect(mockNextFunction).toHaveBeenCalledTimes(1);
       const expectedError = createError(createError(400, 'Invalid Blog'));
       expect(mockNextFunction).toBeCalledWith(expectedError);
-      done();
     });
   });
 
