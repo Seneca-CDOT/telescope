@@ -245,12 +245,6 @@ cd telescope
 sh ./tools/aws-ip.sh
 ```
 
-4. Copy env.remote to .env
-
-```
-cp config/env.remote .env
-```
-
 ### If you did everything correctly, you've completed the environment setup using AWS Cloud9! Yay!
 
 ## Now to get started with development...
