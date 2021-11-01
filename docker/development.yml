@@ -104,3 +104,7 @@ services:
       - '9876:9876'
     environment:
       - POSTS_URL=http://posts:5555
+
+  status:
+    ports:
+      - '1111:1111'

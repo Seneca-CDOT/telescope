@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "A service for getting the status of our services",
   "scripts": {
+    "dev": "env-cmd -f env.local nodemon src/server.js",
     "start": "node src/server.js"
   },
   "repository": "Seneca-CDOT/telescope",
@@ -14,10 +15,13 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
-    "node-fetch": "^2.6.1",
-    "serve-static": "^1.14.1"
+    "express": "^4.17.1"
   },
   "engines": {
     "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "env-cmd": "^10.1.0"
   }
 }
