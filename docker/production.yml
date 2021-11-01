@@ -31,6 +31,7 @@ services:
         - POSTS_URL=${POSTS_URL}
         - SEARCH_URL=${SEARCH_URL}
         - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
+        - STATUS_URL=${STATUS_URL}
     container_name: 'telescope'
     restart: unless-stopped
     environment:
@@ -52,6 +53,7 @@ services:
       - WEB_URL
       - SEARCH_URL
       - FEED_DISCOVERY_URL
+      - STATUS_URL
       - LOG_LEVEL
       - FEED_URL
       - FEED_URL_INTERVAL_MS

@@ -27,6 +27,7 @@ const envVarsToForward = [
   'AUTH_URL',
   'SEARCH_URL',
   'FEED_DISCOVERY_URL',
+  'STATUS_URL',
 ];
 
 // Copy an existing ENV Var so it's visible to next: API_URL -> NEXT_PUBLIC_API_URL
