@@ -3,6 +3,7 @@ import Repos from './Repos';
 import Issues from './Issues';
 import PullRequests from './PullRequests';
 import Commits from './Commits';
+import Users from './Users';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,6 +32,7 @@ const filterGitHubUrls = (urls: string[]) => {
   const pullRequests: Set<string> = new Set();
   const repos: Set<string> = new Set();
   const commits: Set<string> = new Set();
+  const users: Set<string> = new Set();
 
   const ghUrls = urls.map((url) => parseGitHubUrl(url)).filter((url) => url !== null) as URL[];
 
@@ -53,6 +55,7 @@ const filterGitHubUrls = (urls: string[]) => {
 
     const repoUrl = `${user}/${repo}`;
     repos.add(repoUrl);
+    users.add(user);
     switch (type?.toLowerCase()) {
       case 'pull':
         pullRequests.add(pathname);
@@ -77,6 +80,7 @@ const filterGitHubUrls = (urls: string[]) => {
     issues: Array.from(issues),
     pullRequests: Array.from(pullRequests),
     commits: Array.from(commits),
+    users: Array.from(users),
   };
 };
 
@@ -94,7 +98,7 @@ const parseGitHubUrl = (url: string): URL | null => {
 
 const GitHubInfo = ({ ghUrls }: Props) => {
   const classes = useStyles();
-  const { repos, issues, pullRequests, commits } = filterGitHubUrls(ghUrls);
+  const { repos, issues, pullRequests, commits, users } = filterGitHubUrls(ghUrls);
 
   return (
     <ListSubheader className={classes.root}>
@@ -103,6 +107,7 @@ const GitHubInfo = ({ ghUrls }: Props) => {
         {!!issues.length && <Issues issueUrls={issues} />}
         {!!pullRequests.length && <PullRequests prUrls={pullRequests} />}
         {!!commits.length && <Commits commitUrls={commits} />}
+        {!!users.length && <Users usernames={users} />}
       </div>
     </ListSubheader>
   );
