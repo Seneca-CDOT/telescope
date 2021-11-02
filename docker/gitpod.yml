@@ -15,12 +15,7 @@ services:
     volumes:
       - ../config/nginx.conf.development.template:/etc/nginx/nginx.conf
     ports:
-      - '8000:80'
-    build:
-      args:
-        - GITPOD_WEB_URL=${GITPOD_WEB_URL}
-        - GITPOD_API_URL=${GITPOD_API_URL}
-        - GITPOD_MICROSERVICE_URL=${GITPOD_MICROSERVICE_URL}
+      - '8000:8000'
 
   traefik:
     command:

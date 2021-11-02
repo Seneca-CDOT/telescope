@@ -1,31 +1,45 @@
 # Learn more about this file at https://www.gitpod.io/docs/references/gitpod-yml
 tasks:
   - name: Service Server
-    # Get Web API urls for use in Next build
-    # Copy env.development and replace localhost wit gitpod urls
+    openMode: split-left
+    # Copying env.development and replacing 'localhost' with Gitpod urls
     before: |
       eval $(gp env -e API_URL=$(gp url 3000))
       eval $(gp env -e WEB_URL=$(gp url 8000))
       eval $(gp env -e API_HOST=$(gp url 8443))
+      eval $(gp env -e SERVICES="status image auth search posts feed-discovery users redis elasticsearch login firebase")
 
       sed -r \
-          -e  "s@(.+=)http://localhost:3000(/.*)*@\1$API_URL\2@g" \
-          -e  "s@(.+=)http://localhost:8000(/.*)*@\1$WEB_URL\2@g" \
-          -e  "s@(.+=)http://localhost(/.*)*@\1$API_HOST\2@g" \
+          -e  "s@(.+=)http://localhost:8000(/[^ ]*)*@\1$WEB_URL\2@g" \
+          -e  "s@(.+=)http://localhost:3000(/[^ ]*)*@\1$API_URL\2@g" \
+          -e  "s@(.+=)http://localhost([^:]*)@\1$API_HOST\2@g" \
           -e  "s@development\.yml@gitpod\.yml@" \
           config/env.development > .env
     init: |
       npm install
-      docker-compose --env-file .env build
-    # GitPod workspace urls are not stable, we have to look up urls and build nginx again
+      docker-compose --env-file .env build $SERVICES
     command: |
-      docker-compose --env-file config/env.gitpod up -d --no-dep nginx
-      docker-compose --env-file .env up -d
-      gp await-port 9200 && npm run start
+      docker-compose --env-file .env up -d $SERVICES
+      npm run start
+
+  - name: Frontend Server
+    openMode: split-right
+    # Update environment variables of the current terminal
+    before: |
+      eval $(gp env -e)
+    # Start the dev server after all services are running
+    # Instead of rebuilding the nginx-base frontend when environment variables change
+    # We build the frontend directly through 'npm run dev' to use the latest urls
+    command: |
+      gp await-port 3000 &&  npm run dev
 
   - name: Terminal
     openMode: tab-after
+    command: |
+      echo -e "\n\n\033[94m ======================================================"  && echo -e "\n\033[33m💪 Services are built and run automatically in the first terminal, the second one is free" && echo -e "\033[33m💡 If you are only developing on the frontend:" && echo -e "\033[33m    1. Switch to the first terminal and terminate the prebuilds: \e[91mCTRL/CMD + c" && echo -e "\033[33m    2. Install dependencies: $ \033[92mnpm run install:next" && echo -e "\033[33m    3. Copy staging env: $ \033[92mcp config/env.staging > .env" && echo -e "\033[33m    4. Start the dev server: $ \033[92mnpm run dev" && echo -e "\033[33m💡 If you need to test the backend:" && echo -e "\033[33m    1. Go grab a coffee and wait, the build is only done once for each commit" && echo -e "\n\033[94m ======================================================\n\n"
 
+# Exposing service ports
+# Overriding the default notification popup when a port is open
 ports:
   # NextJS frontend
   - port: 8000
@@ -34,6 +48,31 @@ ports:
   # Web API
   - port: 3000
     visibility: public
+    onOpen: ignore
+  # Microservice server
+  - port: 8443
+    visibility: public
+    onOpen: ignore
+  #  Redis server
+  - port: 6379
+    onOpen: ignore
+  # Elasticsearch server
+  - port: 9200
+    onOpen: ignore
+  # Firebase emulator
+  - port: 4000
+    onOpen: ignore
+  # Firestore emulator
+  - port: 8088
+    onOpen: ignore
+  # Traefik UI
+  - port: 8080
+    onOpen: ignore
+  # Login Page
+  - port: 8081
+    onOpen: ignore
+  # Static Web Content test
+  - port: 8888
     onOpen: ignore
 
 github:
@@ -51,9 +90,9 @@ github:
     # add a "Review in Gitpod" button as a comment to pull requests (defaults to false)
     addComment: true
     # add a "Review in Gitpod" button to the pull request's description (defaults to false)
-    addBadge: false
+    addBadge: true
 
-# Install recommended extension
+# Install recommended extension, only installed once each user
 vscode:
   extensions:
     - editorconfig.editorconfig
