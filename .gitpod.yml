@@ -2,17 +2,26 @@
 tasks:
   - name: Service Server
     # Get Web API urls for use in Next build
+    # Copy env.development and replace localhost wit gitpod urls
     before: |
-      eval $(gp env -e GITPOD_API_URL=$(gp url 3000))
-      eval $(gp env -e GITPOD_WEB_URL=$(gp url 8000))
-      eval $(gp env -e GITPOD_MICROSERVICE_URL=$(gp url 8443))
+      eval $(gp env -e API_URL=$(gp url 3000))
+      eval $(gp env -e WEB_URL=$(gp url 8000))
+      eval $(gp env -e API_HOST=$(gp url 8443))
+
+      sed -r \
+          -e  "s@(.+=)http://localhost:3000(/.*)*@\1$API_URL\2@g" \
+          -e  "s@(.+=)http://localhost:8000(/.*)*@\1$WEB_URL\2@g" \
+          -e  "s@(.+=)http://localhost(/.*)*@\1$API_HOST\2@g" \
+          -e  "s@development\.yml@gitpod\.yml@" \
+          config/env.development > .env
     init: |
       npm install
-      docker-compose --env-file config/env.gitpod build
-    # GitPod workspace urls are not stable, we have to look up urls and build again
+      docker-compose --env-file .env build
+    # GitPod workspace urls are not stable, we have to look up urls and build nginx again
     command: |
-      docker-compose --env-file config/env.gitpod up -d
-      npm run start
+      docker-compose --env-file config/env.gitpod up -d --no-dep nginx
+      docker-compose --env-file .env up -d
+      gp await-port 9200 && npm run start
 
   - name: Terminal
     openMode: tab-after
@@ -22,40 +31,8 @@ ports:
   - port: 8000
     visibility: public
     onOpen: open-preview
-  # Microservice
-  - port: 8443
-    visibility: public
-    onOpen: ignore
   # Web API
   - port: 3000
-    visibility: public
-    onOpen: ignore
-  #  Redis server
-  - port: 6379
-    visibility: public
-    onOpen: ignore
-  # Elasticsearch server
-  - port: 9200
-    visibility: public
-    onOpen: ignore
-  # Firebase emulator
-  - port: 4000
-    visibility: public
-    onOpen: ignore
-  # Firestore emulator
-  - port: 8088
-    visibility: public
-    onOpen: ignore
-  # Traefik UI
-  - port: 8080
-    visibility: public
-    onOpen: ignore
-  # Login Page
-  - port: 8081
-    visibility: public
-    onOpen: ignore
-  # Static Web Content test
-  - port: 8888
     visibility: public
     onOpen: ignore
 
