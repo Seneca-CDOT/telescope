@@ -15,6 +15,7 @@ import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
 import { quotes } from '../student-quotes';
+import { statusUrl } from '../config';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -211,11 +212,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
         </Typography>
       </div>
       <div className={classes.icon}>
-        <a
-          className={classes.infoIcon}
-          href="https://api.telescope.cdot.systems/v1/status"
-          title="API Status"
-        >
+        <a className={classes.infoIcon} href={statusUrl} title="API Status">
           <BsInfoCircle size="15" />
         </a>
         <a
