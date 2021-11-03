@@ -93,11 +93,12 @@ services:
     depends_on:
       - test-web-content
 
-  parser:
-    environment:
-      # For development and testing, the Parser service needs to contact the users
-      # service directly via Docker vs through the http://localhost domain.
-      - USERS_URL=http://users:7000
+  # TODO: https://github.com/Seneca-CDOT/telescope/issues/2111
+  # parser:
+  #   environment:
+  #     # For development and testing, the Parser service needs to contact the users
+  #     # service directly via Docker vs through the http://localhost domain.
+  #     - USERS_URL=http://users:7000
 
   planet:
     ports:

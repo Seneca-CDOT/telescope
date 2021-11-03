@@ -220,36 +220,36 @@ services:
       - 'traefik.http.middlewares.strip_users_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.users.middlewares=strip_users_prefix'
 
-  # parser service
-  parser:
-    container_name: 'parser'
-    build:
-      context: ../src/api/parser
-      dockerfile: Dockerfile
-    environment:
-      - NODE_ENV
-      - PARSER_PORT
-      - USERS_URL
-      # Satellite authentication/authorization support
-      - JWT_ISSUER
-      - JWT_AUDIENCE
-      - SECRET
-    depends_on:
-      - traefik
-      - redis
-      - users
-      - elasticsearch
-    labels:
-      # Enable Traefik
-      - 'traefik.enable=true'
-      # Traefik routing for the parser service at /v1/parser
-      - 'traefik.http.routers.parser.rule=PathPrefix(`/${API_VERSION}/parser`)'
-      # Specify the parser service port
-      - 'traefik.http.services.parser.loadbalancer.server.port=${PARSER_PORT}'
-      # Add middleware to this route to strip the /v1/parser prefix
-      - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.prefixes=/${API_VERSION}/parser'
-      - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
-      - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'
+  # parser service - disabled, https://github.com/Seneca-CDOT/telescope/issues/2111
+  # parser:
+  #   container_name: 'parser'
+  #   build:
+  #     context: ../src/api/parser
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - NODE_ENV
+  #     - PARSER_PORT
+  #     - USERS_URL
+  #     # Satellite authentication/authorization support
+  #     - JWT_ISSUER
+  #     - JWT_AUDIENCE
+  #     - SECRET
+  #   depends_on:
+  #     - traefik
+  #     - redis
+  #     - users
+  #     - elasticsearch
+  #   labels:
+  #     # Enable Traefik
+  #     - 'traefik.enable=true'
+  #     # Traefik routing for the parser service at /v1/parser
+  #     - 'traefik.http.routers.parser.rule=PathPrefix(`/${API_VERSION}/parser`)'
+  #     # Specify the parser service port
+  #     - 'traefik.http.services.parser.loadbalancer.server.port=${PARSER_PORT}'
+  #     # Add middleware to this route to strip the /v1/parser prefix
+  #     - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.prefixes=/${API_VERSION}/parser'
+  #     - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
+  #     - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'
 
   # planet service
   planet:
