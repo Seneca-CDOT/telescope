@@ -79,7 +79,7 @@ sg-0c63c6f026a2b9288
 ```
 
 3. Find out what your IP address is using http://checkip.amazonaws.com/
-4. You will need to authorize your IP address access to port 3000 and port 8000
+4. You will need to authorize your IP address access to ports 3000, 8000, and 8443
 
 ```
 aws ec2 authorize-security-group-ingress --group-id <sg-id> \
@@ -91,6 +91,13 @@ aws ec2 authorize-security-group-ingress --group-id <sg-id> \
 ```
 aws ec2 authorize-security-group-ingress --group-id <sg-id> \
 --port 8000 \
+--protocol tcp \
+--cidr <my-ip>/32
+```
+
+```
+aws ec2 authorize-security-group-ingress --group-id <sg-id> \
+--port 8443 \
 --protocol tcp \
 --cidr <my-ip>/32
 ```
@@ -185,22 +192,6 @@ Filesystem      Size  Used Avail Use% Mounted on
 /dev/xvda1       20G  9.3G   11G  48% /
 ```
 
-## Disabling Apache2 from running at boot time
-
-By default, Apache2 is installed and starts automatically at boot time on AWS EC2's Ubuntu and it listens to Port 80. This conflicts with what we're using for Telescope, we need Port 80 open for Nginx and quite frankly, we don't even use Apache2 so we can just disable it.
-
-To see Apache2 config file
-
-```
-sudo cat /etc/apache2/ports.conf
-```
-
-To disable Apache2 from running at boot time
-
-```
-sudo systemctl disable apache2
-```
-
 ## Install Docker-Compose
 
 By default, Docker is installed on AWS EC2's Ubuntu but Docker-Compose is not, so we have to install it ourselves.
@@ -258,7 +249,7 @@ npm install
 2. Start all Telescope services. This will take some time to complete
 
 ```
-npm run services:start
+docker-compose --env-file .env up -d
 ```
 
 3. Start the Telescope development server on Port 3000
@@ -278,6 +269,8 @@ $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 5. Open `<public-ip>:8000` browser tab to see Telescope running on a AWS Cloud9 environment!
 
 6. Open `<public-ip>:3000/feeds` in another browser tab to see all the feeds in the backend
+
+7. Open `<public-ip>:8443/v1/<microservice-port>` in another browser tab to see the microservices. For example `35.174.16.133:8443/v1/posts`
 
 ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_54_59-Mozilla+Firefox.png)
 
@@ -301,14 +294,6 @@ To see a list of all running services and what ports they're binding to
 
 ```
 sudo lsof -i -P -n | grep LIST
-```
-
-### Apache2 started on its own, how do I stop it?
-
-To stop Apache2 from running
-
-```
-sudo systemctl stop apache2
 ```
 
 ### I can't open <EC2-ip>:8000 running, what could I be doing wrong?
