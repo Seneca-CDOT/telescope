@@ -57,13 +57,12 @@ const Users = ({ usernames, avatarSize = 25 }: Props) => {
         {usernames?.map((user) => (
           <li key={user} className={classes.user}>
             <div>
-              <a href={`https://github.com/${user}`}>
-                <TelescopeAvatar
-                  img={getUserImage(user, avatarSize)}
-                  size={`${avatarSize}px`}
-                  name={user}
-                />
-              </a>
+              <TelescopeAvatar
+                img={getUserImage(user, avatarSize)}
+                size={`${avatarSize}px`}
+                name={user}
+                url={`https://github.com/${user}`}
+              />
             </div>
           </li>
         ))}
