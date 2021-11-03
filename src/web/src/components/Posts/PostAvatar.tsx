@@ -60,7 +60,7 @@ const PostAvatar = ({ name, img, url }: AvatarProps) => {
     return (
       <div>
         {url?.length ? (
-          <a href={url} className={classes.link}>
+          <a href={url} className={classes.link} title={name}>
             <Avatar className={classes.avatar}>
               <p className={classes.text}>{initials}</p>
             </Avatar>

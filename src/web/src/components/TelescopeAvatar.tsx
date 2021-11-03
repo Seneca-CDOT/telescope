@@ -5,7 +5,7 @@ type TelescopeAvatarProps = {
   name: string;
   size: string;
   img?: string;
-  blog?: string;
+  url?: string;
   backgroundColor?: string;
   fontColor?: string;
   action?: MouseEventHandler;
@@ -29,7 +29,7 @@ const TelescopeAvatar = ({
   name,
   img,
   size,
-  blog,
+  url,
   backgroundColor,
   fontColor,
   action,
@@ -39,7 +39,7 @@ const TelescopeAvatar = ({
   const color = fontColor || '#000';
   return (
     <a
-      href={blog}
+      href={url}
       style={{
         textDecoration: 'none',
       }}
@@ -56,6 +56,7 @@ const TelescopeAvatar = ({
           backgroundColor: `${backColor}`,
           color: `${color}`,
         }}
+        title={name}
       >
         {initials}
       </Avatar>

@@ -61,9 +61,7 @@ const Users = ({ usernames, avatarSize = 25 }: Props) => {
                 img={getUserImage(user, avatarSize)}
                 size={`${avatarSize}px`}
                 name={user}
-                action={() => {
-                  window.open(`https://github.com/${user}`, '_blank');
-                }}
+                url={`https://github.com/${user}`}
               />
             </div>
           </li>
