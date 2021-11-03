@@ -67,6 +67,11 @@ The following will show you how to create and connect to a virtual machine (VM) 
     - Protocol: `TCP`
     - Port Range: `8000`
     - Source: `My IP`
+    4. Open port 8000 for your IP address
+    - Type: `Custom TCP`
+    - Protocol: `TCP`
+    - Port Range: `8443`
+    - Source: `My IP`
 
   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_54_12-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
@@ -301,7 +306,7 @@ npm install
 2. Start all Telescope services. This will take some time to complete
 
 ```
-npm run services:start
+docker-compose --env-file .env up -d
 ```
 
 3. Start the Telescope development server on Port 3000
@@ -322,6 +327,8 @@ $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 
 6. Open `<public-ip>:3000/feeds` in another browser tab to see all the feeds in the backend
 
+7. Open `<public-ip>:8443/v1/<microservice-port>` in another browser tab to see the microservices. For example `35.174.16.133:8443/v1/posts`
+
 ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_10_36-Telescope+%E2%80%94+Mozilla+Firefox.png)
 
 ## Frequently Asked Questions (FAQ)
@@ -338,7 +345,7 @@ npm run services:stop
 docker system prune -af --volumes
 ```
 
-### I get `Permission denied` error when I run `npm run services:start`
+### I get `Permission denied` error when I run `docker-compose --env-file .env up -d`
 
 Sometimes the Docker permissions aren't set properly when you first install Docker. You may need to reboot your VM or run
 
