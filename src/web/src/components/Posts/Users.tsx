@@ -57,14 +57,13 @@ const Users = ({ usernames, avatarSize = 25 }: Props) => {
         {usernames?.map((user) => (
           <li key={user} className={classes.user}>
             <div>
-              <TelescopeAvatar
-                img={getUserImage(user, avatarSize)}
-                size={`${avatarSize}px`}
-                name={user}
-                action={() => {
-                  window.open(`https://github.com/${user}`, '_blank');
-                }}
-              />
+              <a href={`https://github.com/${user}`}>
+                <TelescopeAvatar
+                  img={getUserImage(user, avatarSize)}
+                  size={`${avatarSize}px`}
+                  name={user}
+                />
+              </a>
             </div>
           </li>
         ))}

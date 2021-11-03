@@ -56,6 +56,7 @@ const TelescopeAvatar = ({
           backgroundColor: `${backColor}`,
           color: `${color}`,
         }}
+        title={name}
       >
         {initials}
       </Avatar>
