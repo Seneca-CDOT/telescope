@@ -1,5 +1,14 @@
 import { MouseEventHandler } from 'react';
 import { Avatar } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    image: {
+      boxShadow: `0 0 0 1px ${theme.palette.border.main}`,
+    },
+  })
+);
 
 type TelescopeAvatarProps = {
   name: string;
@@ -34,6 +43,8 @@ const TelescopeAvatar = ({
   fontColor,
   action,
 }: TelescopeAvatarProps) => {
+  const classes = useStyles();
+
   const initials = getInitials(name);
   const backColor = backgroundColor || '#A0D1FB';
   const color = fontColor || '#000';
@@ -48,6 +59,7 @@ const TelescopeAvatar = ({
         onClick={action}
         alt={name}
         src={img}
+        className={classes.image}
         style={{
           cursor: 'pointer',
           width: size,
