@@ -1,7 +1,7 @@
 {
   "name": "@senecacdot/telescope",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "bin": {
     "html-elements": "tools/html-elements.js"
