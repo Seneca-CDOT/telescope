@@ -34,6 +34,9 @@ export const lightTheme: Theme = createTheme({
       active: '#390099',
       selected: '#9E0059',
     },
+    border: {
+      main: 'rgba(27,31,36,0.15)',
+    },
   },
 });
 
@@ -64,6 +67,9 @@ export const darkTheme: Theme = createTheme({
     action: {
       active: '#7BA4DB',
       selected: '#CCA1A6',
+    },
+    border: {
+      main: 'rgba(240,246,252,0.1)',
     },
   },
 });
