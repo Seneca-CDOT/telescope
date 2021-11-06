@@ -19,6 +19,7 @@ const satelliteOptions = {
           "'self'",
           '*.fontawesome.com',
           `${process.env.API_HOST.replace(/(^\w+:|^)\/\//, '')}:4000`,
+          '*.github.com',
         ],
         fontSrc: ["'self'", 'data:', 'https:', '*.fontawesome.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
