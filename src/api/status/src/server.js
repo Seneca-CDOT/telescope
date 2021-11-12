@@ -15,7 +15,7 @@ const satelliteOptions = {
           'fonts.googleapis.com',
           'cdn.jsdelivr.net',
         ],
-        connectSrc: ["'self'", '*.fontawesome.com'],
+        connectSrc: ["'self'", '*.fontawesome.com', process.env.API_URL],
         fontSrc: ["'self'", 'data:', 'https:', '*.fontawesome.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
       },
