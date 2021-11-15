@@ -72,7 +72,7 @@
     "express-validator": "6.10.0",
     "feed": "4.2.2",
     "helmet": "4.4.1",
-    "highlight.js": "10.6.0",
+    "highlight.js": "11.3.1",
     "http-proxy-middleware": "1.0.6",
     "ioredis": "4.26.0",
     "ioredis-mock": "5.5.5",
