@@ -38,7 +38,7 @@ describe('syntax-highlight tests', () => {
     const original = 'const int i = 5; <pre><code>const int i = 5;</code></pre>';
     const result = syntaxHighlighter(original);
     const expected =
-      'const int i = 5; <pre class="hljs csharp"><code><span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> i = <span class="hljs-number">5</span>;</code></pre>';
+      'const int i = 5; <pre><code class="hljs language-csharp"><span class="hljs-keyword">const</span> <span class="hljs-built_in">int</span> i = <span class="hljs-number">5</span>;</code></pre>';
     expect(result).toEqual(expected);
   });
 
@@ -46,7 +46,7 @@ describe('syntax-highlight tests', () => {
     const original = '<pre><code>cd foo</code></pre>';
     const result = syntaxHighlighter(original);
     const expected =
-      '<pre class="hljs powershell"><code><span class="hljs-built_in">cd</span> foo</code></pre>';
+      '<pre><code class="hljs language-powershell"><span class="hljs-built_in">cd</span> foo</code></pre>';
     expect(result).toEqual(expected);
   });
 
@@ -55,7 +55,15 @@ describe('syntax-highlight tests', () => {
       '<pre><code>import React, { Component } from "react"; function main() { console.log("hi"); }</code></pre>';
     const result = syntaxHighlighter(original);
     const expected =
-      '<pre class="hljs typescript"><code><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>; <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"hi"</span>); }</code></pre>';
+      '<pre><code class="hljs language-javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, { <span class="hljs-title class_">Component</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>; <span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>) { <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"hi"</span>); }</code></pre>';
     expect(result).toEqual(expected);
+  });
+
+  test('2 followed escape characters (e.g. &amp;&amp;) with preset syntax-highlight should be converted correctly', () => {
+    const data = syntaxHighlighter(
+      `<pre><code>npx husky-init <span class="o">&amp;&amp;</span> <span class="o">&amp;&lt;</span> npm <span class="nb">install</span> <span class="nt">--save-dev</span> prettier pretty-quick</code></pre>`
+    );
+    const expectedData = `<pre><code class="hljs language-sql">npx husky<span class="hljs-operator">-</span>init <span class="hljs-operator">&amp;&amp;</span> <span class="hljs-operator">&amp;</span><span class="hljs-operator">&lt;</span> npm install <span class="hljs-comment">--save-dev prettier pretty-quick</span></code></pre>`;
+    expect(data).toBe(expectedData);
   });
 });

@@ -12,7 +12,7 @@ describe('Process HTML', () => {
     const data = process(
       `<pre><code>const html = data.replace (/^## (.*$)/gim, '&lt;h2&gt;$1&lt;/h2&gt;')</code></pre>`
     );
-    const expectedData = `<pre class="hljs typescript"><code><span class="hljs-keyword">const</span> html = data.replace (<span class="hljs-regexp">/^## (.*$)/gim</span>, <span class="hljs-string">'&lt;h2&gt;$1&lt;/h2&gt;'</span>)</code></pre>`;
+    const expectedData = `<pre><code class="hljs language-typescript"><span class="hljs-keyword">const</span> html = data.<span class="hljs-property">replace</span> (<span class="hljs-regexp">/^## (.*$)/gim</span>, <span class="hljs-string">'&lt;h2&gt;$1&lt;/h2&gt;'</span>)</code></pre>`;
     expect(data).toBe(expectedData);
   });
 
@@ -20,7 +20,8 @@ describe('Process HTML', () => {
     const data = process(
       `<div><pre><code>&lt;img src={slackLogo} alt="logo"/&gt;</code></pre></div>`
     );
-    const expectedData = `<div><pre class="hljs xml"><code><span class="hljs-symbol">&lt;</span>img src={slackLogo} alt="logo"/<span class="hljs-symbol">&gt;</span></code></pre></div>`;
+    const expectedData =
+      '<div><pre><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{slackLogo}</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"logo"</span>/&gt;</span></code></pre></div>';
     expect(data).toBe(expectedData);
   });
 
