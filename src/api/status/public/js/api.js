@@ -1,1 +1,1 @@
-export const fetchFeeds = () => fetch(`https://${process.env.API_HOST}/v1/posts/feeds`);
+export const fetchFeeds = () => fetch(`https://dev.api.telescope.cdot.systems/v1/posts/feeds`);
