@@ -31,7 +31,7 @@
 
 ## Creating your Cloud9 Environment:
 
-1. In the upper-right hand corner of your AWS Management Console, select `US East (Ohio) us-east-2` as your `Region`
+1. In the upper-right hand corner of your AWS Management Console, select a region. In this tutorial, `US East (Ohio) us-east-2` is selected as your `Region`
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_08_11-.png)
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This is bring up a list of AWS Services, search for `Cloud9`.
 3. Click on `Create Environment`
@@ -230,7 +230,7 @@ git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
 cd telescope
 ```
 
-3. Set all the necessary environment variables in your env.remote file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
+3. Set all the necessary environment variables in your .env file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
 
 ```
 sh ./tools/aws-ip.sh
@@ -300,4 +300,4 @@ sudo lsof -i -P -n | grep LIST
 
 1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 3000 and 8000.
 
-2. AWS may change your EC2 instance IP address when you stop or restart your EC2 instance. One solution is to purchase an [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#eip-basics) to reserve the particular public IP address. However, you can just clean out the `env.remote` and `.env` files and run the `./tools/aws-ip.sh` script again to set your new EC2 IP address in the appropriate environment variables. Just remember to use the new EC2 IP address in the browser as well.
+2. AWS may change your EC2 instance IP address when you stop or restart your EC2 instance. One solution is to purchase an [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#eip-basics) to reserve the particular public IP address. However, you can just clean out your `.env` file and run the `./tools/aws-ip.sh` script again to set your new EC2 IP address in the appropriate environment variables. Just remember to use the new EC2 IP address in the browser as well.
