@@ -34,7 +34,7 @@ The following will show you how to create and connect to a virtual machine (VM) 
 
 ## Create your virtual machine (AWS EC2):
 
-1. In the upper-right hand corner of your AWS Management Console, select `US East (Ohio) us-east-2` as your `Region`
+1. In the upper-right hand corner of your AWS Management Console, select a region. In this tutorial, `US East (Ohio) us-east-2` as your `Region`
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_08_11-.png)
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This will bring up a list of AWS Services, search for `EC2`
 3. Click on `Launch instances`
@@ -287,7 +287,7 @@ git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+16_54_04-Settings.png)
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+16_55_08-Visual+Studio+Code.png)
 
-3. Set all the necessary environment variables in your env.remote file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
+3. Set all the necessary environment variables in your .env file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
 
 ```
 sh ./tools/aws-ip.sh
