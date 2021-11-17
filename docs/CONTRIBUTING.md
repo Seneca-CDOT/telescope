@@ -20,12 +20,12 @@ Telescope has many parts, and setup requires you to install a number of tools
 and dependencies. For instructions on how to setup your Telescope environment, please see
 the [Environment Setup documentation](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md).
 
-## Browser-based Setup
+## Browser-based Setup using Gitpod
 
 If you are just getting started, we recommend setting up Telescope locally first
 to familiarize yourself with the workflows of a typical project.
 
-Besides, you can also start an automated development environment and access it
+However, you can also start an automated development environment and access it
 through your browser, please refer to [Develop on Gitpod](https://github.com/Seneca-CDOT/telescope/blob/master/docs/gitpod.md)
 
 ## Technologies

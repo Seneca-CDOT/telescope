@@ -7,10 +7,28 @@ We have described the environment setup steps to Gitpod in [gitpod.yml](https://
 which takes care of installing dependencies, building, starting micro-services and
 starting the frontend development server for you.
 
-[Learn more about Gitpod](https://www.gitpod.io/docs)
-
 > Gitpod is a container-based development platform that puts developer experience first.
 > Gitpod provisions ready-to-code developer environments in the cloud accessible through your browser
+
+[Learn more about Gitpod](https://www.gitpod.io/docs)
+
+## Gitpod Pricing
+
+Gitpod gives each account 50 hours for free per month. When free hours run out, you can
+still keep working on your open workspaces but new workspaces can't be created.
+
+If you enjoy the experience, you can upgrade to Gitpod student plan without needing a credit card.
+
+|                     | Free              | Student Unleashed |
+| ------------------- | ----------------- | ----------------- |
+| Repository          | Public && Private | Public && Private |
+| Workspaces hours    | 50                | Unlimited         |
+| Workspace timeout   | 30 minutes        | 1 + 3 boost hours |
+| Parallel workspaces | 4                 | 16                |
+| Team collaboration  | No                | Yes               |
+| Monthly cost        | Free              | $9                |
+
+Learn more about [Gitpod pricing](https://www.gitpod.io/pricing)
 
 ## Open a Gitpod workspace
 
@@ -18,25 +36,30 @@ A Gitpod workspace includes everything developers need to be productive: source 
 Linux shell with root/sudo, a file system, the full VS Code editing experience including
 extensions, language support and all other tools and binaries that run on Linux.
 
-1. In a browser, navigate to a Telescope's Github branch, Issue, or PR page.
+1. In a browser, navigate to a Telescope's Github branch, commit, Issue, or PR page.
 
 2. Open in Gitpod:
 
 - Option 1: [Install the Gitpod extension](https://www.gitpod.io/docs/browser-extension) to open the page in Gitpod with a click of a button.
-- Option 2: In the address bar, prefix the entire URL with `gitpod.io/#` and press Enter.
+  ![Open in Gitpod](./images/openInGitpod.png)
+- Option 2: In the address bar, prefix the entire URL with `gitpod.io/#` and press Enter,
+  E.g, [gitpod.io/#https://github.com/Seneca-CDOT/telescope](https://gitpod.io/#https://github.com/Seneca-CDOT/telescope)
 
-3. Sign in with one of the listed providers.
+3. To use GitPod, you need to have a Git hosting account such as Github, GitLab or BitBucket.
 
-4. You should see a browser-based VSCode serving code of that branch or PR. If you open
-   an Issue, Gitpod automatically checks out a new git branch for you to work on.
+4. You will see the familiar VSCode in the browser serving Telescope source code:
 
-5. On the first tab of the VScode terminal, the left half is for building and starting
-   services, the second half waits for services to start and spins up the Next frontend dev server.
-   The second tab is free for writing commands.
+   ![Browser-base vscode](./images/gitpodVSCode.png)
+
+- If you open an Issue, Gitpod automatically checks out a new git branch for you to work on.
+- On the first tab of the VScode terminal, the left half is for building and starting
+  services, the second half waits for services to start and spins up the Next frontend dev server.
+  Switch to the second tab for running terminal commands.
+- Each workspace is assigned a unique URL, however, it's not stable because a workspace is considered to be short-lived.
 
 ## Gitpod pre-builds
 
-Gitpod continuously builds all your Git branches like a CI server. Whenever your code changes
+Gitpod continuously builds all Telescope Git branches like a CI server. Whenever the code changes
 (e.g. when new commits are pushed to your repository), Gitpod can prebuild workspaces,
 i.e. run the init commands in your .gitpod.yml configuration file before you even start a workspace.
 
@@ -52,19 +75,3 @@ Pinned workspaces are kept forever.
 
 Navigate to [Gitpod Dashboard](https://gitpod.io/workspaces) to select a workspace to continue
 working on.
-
-## Gitpod Pricing
-
-Gitpod offers free 50 hours per account per month. When free hours run out, you can still keep
-working on open workspaces.
-
-For a more advanced usage, Seneca students should qualify for Gitpod student plan.
-
-|                     | Free              | Student Unleashed |
-| ------------------- | ----------------- | ----------------- |
-| Repository          | Public && Private | Public && Private |
-| Workspaces hours    | 50                | Unlimited         |
-| Workspace timeout   | 30 minutes        | 1 + 3 boost hours |
-| Parallel workspaces | 4                 | 16                |
-| Team collaboration  | No                | Yes               |
-| Monthly cost        | Free              | $9                |
