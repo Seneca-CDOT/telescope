@@ -15,7 +15,6 @@ import {
   Chip,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
-import { VscGithub } from 'react-icons/vsc';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
@@ -293,7 +292,6 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up(1205));
-  const mobile = useMediaQuery(theme.breakpoints.down(1205));
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef<HTMLElement>(null);
   // Grab the post data from our backend so we can render it
