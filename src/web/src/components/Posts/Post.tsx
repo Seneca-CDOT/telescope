@@ -16,6 +16,7 @@ import Spinner from '../Spinner';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
 import GitHubInfo from './GitHubInfo';
+import GitHubMobile from './GitHubMobile';
 
 type Props = {
   postUrl: string;
@@ -239,6 +240,7 @@ const PostComponent = ({ postUrl }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up(1205));
+  const mobile = useMediaQuery(theme.breakpoints.down(1205));
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef<HTMLElement>(null);
   // Grab the post data from our backend so we can render it
@@ -322,6 +324,8 @@ const PostComponent = ({ postUrl }: Props) => {
                   {`${formatPublishedDate(post.updated)}`}
                 </a>
               </h1>
+
+              {!!extractedGitHubUrls.length && <GitHubMobile ghUrls={extractedGitHubUrls} />}
               <div>
                 <AdminButtons />
               </div>

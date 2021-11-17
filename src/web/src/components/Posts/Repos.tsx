@@ -15,6 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
       wordWrap: 'break-word',
       lineHeight: 'normal',
     },
+    GitHubMobile: {
+      fontSize: '1.2rem',
+      wordWrap: 'break-word',
+      lineHeight: 'normal',
+    },
     GitHubLinkTitle: {
       fontSize: '1.4rem',
       margin: 0,
