@@ -13,6 +13,7 @@ import Issues from './Issues';
 import PullRequests from './PullRequests';
 import Commits from './Commits';
 import Users from './Users';
+import { VscGithub } from 'react-icons/vsc';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,6 +29,22 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     GitHubInfoContainer: {
       margin: '2rem 0 0 1rem',
+    },
+    icon: {
+      fontSize: '2rem',
+      marginRight: '1rem',
+      verticalAlign: 'text-bottom',
+    },
+    accordionSummary: {
+      width: '10 rem',
+    },
+    accordion: {
+      backgroundColor: 'rgba(255, 255, 255, 0)',
+      border: 'none',
+      boxShadow: 'none',
+    },
+    '&:before': {
+      display: 'none',
     },
   })
 );
@@ -111,9 +128,9 @@ const GitHubMobile = ({ ghUrls }: Props) => {
 
   return (
     <div>
-      <Accordion>
-        <AccordionSummary>
-          <Typography>Accordion 1</Typography>
+      <Accordion className={classes.accordion}>
+        <AccordionSummary className={classes.accordionSummary}>
+          <VscGithub className={classes.icon}></VscGithub>
         </AccordionSummary>
         <AccordionDetails>
           <ListSubheader className={classes.root}>
