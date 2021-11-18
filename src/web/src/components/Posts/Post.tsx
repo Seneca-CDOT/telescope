@@ -141,7 +141,7 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'flex',
         flexWrap: 'nowrap',
         justifyContent: 'flex-end',
-        alignItems: 'flex-start',
+        alignItems: 'center',
       },
       [theme.breakpoints.down(300)]: {
         minWidth: '140px',

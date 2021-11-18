@@ -31,17 +31,22 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '2rem 0 0 1rem',
     },
     icon: {
-      fontSize: '2rem',
+      fontSize: '4rem',
       marginRight: '1rem',
       verticalAlign: 'text-bottom',
+      paddingLeft: '6rem',
+      alignItems: 'right',
     },
     accordionSummary: {
       width: '10 rem',
+      paddingRight: '0',
+      justifyContent: 'flex-end',
     },
     accordion: {
       backgroundColor: 'rgba(255, 255, 255, 0)',
       border: 'none',
       boxShadow: 'none',
+      justifyContent: 'flex-end',
     },
     '&:before': {
       display: 'none',
