@@ -1,0 +1,11 @@
+#sidenav-collapse-main > ul > li > a.active {
+  background-color: #121d59;
+}
+#sidenav-collapse-main.collapse.navbar-collapse.w-auto.max-height-vh-100 {
+  height: calc(100vh);
+}
+
+td,
+th {
+  text-align: center;
+}
