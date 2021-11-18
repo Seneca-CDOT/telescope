@@ -1,7 +1,7 @@
 const hljs = require('highlight.js/lib/core');
 
 // Tweak the language list here, see https://highlightjs.org/usage/
-hljs.registerLanguage('cLike', require('highlight.js/lib/languages/c-like'));
+hljs.registerLanguage('c', require('highlight.js/lib/languages/c'));
 hljs.registerLanguage('sql', require('highlight.js/lib/languages/sql'));
 hljs.registerLanguage('powershell', require('highlight.js/lib/languages/powershell'));
 hljs.registerLanguage('csharp', require('highlight.js/lib/languages/csharp'));
@@ -40,22 +40,8 @@ module.exports = function (dom) {
     return;
   }
 
+  // highlight every elements
   dom.window.document.querySelectorAll('pre code').forEach((code) => {
-    const { value, language } = hljs.highlightAuto(code.innerHTML);
-
-    // If the language wasn't detected, return the HTML untouched
-    if (!language) {
-      return;
-    }
-
-    // Otherwise, decorate the <pre> with class names for highlighting this language
-    const pre = code.parentNode;
-    if (pre) {
-      pre.classList.add('hljs', language);
-    }
-    // Value from hljs.highlightAuto turn escape character to e.g &lt; to &amp;lt;
-    // Adding regex to convert &amp; of that escape character back to &
-    // Replace the contents with newly marked up syntax highlighting
-    code.innerHTML = value.replace(/\&amp;([^;|^&]+);/gm, '&$1');
+    hljs.highlightElement(code);
   });
 };

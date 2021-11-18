@@ -32,4 +32,11 @@ describe('Remove no content anchor tags', () => {
     const expectedHtml = '<div></div>';
     expect(htmlData.window.document.body.innerHTML).toEqual(expectedHtml);
   });
+
+  test('should remove <p><br></p> (line break)', () => {
+    const htmlData = toDom('<div><p><br></p></div>');
+    removeEmptyParagraphs(htmlData);
+    const expectedHtml = '<div></div>';
+    expect(htmlData.window.document.body.innerHTML).toEqual(expectedHtml);
+  });
 });
