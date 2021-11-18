@@ -104,9 +104,10 @@ services:
       # This will take care of copying the serviceAccountKey.json file needed by firestore.js
       - ../../firebase/serviceAccountKey.json:/app/serviceAccountKey.json
 
-  # users service
-  parser:
-    restart: unless-stopped
+  # TODO: https://github.com/Seneca-CDOT/telescope/issues/2111
+  # parser service
+  # parser:
+  #   restart: unless-stopped
 
   # planet service
   planet:

@@ -7,9 +7,20 @@ const satelliteOptions = {
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        scriptSrc: ["'self'", '*.fontawesome.com'],
-        styleSrc: ["'self'", "'unsafe-inline'", '*.fontawesome.com', 'fonts.googleapis.com'],
-        connectSrc: ["'self'", '*.fontawesome.com'],
+        scriptSrc: ["'self'", '*.fontawesome.com', 'cdn.jsdelivr.net'],
+        styleSrc: [
+          "'self'",
+          "'unsafe-inline'",
+          '*.fontawesome.com',
+          'fonts.googleapis.com',
+          'cdn.jsdelivr.net',
+        ],
+        connectSrc: [
+          "'self'",
+          '*.fontawesome.com',
+          `${process.env.API_HOST.replace(/(^\w+:|^)\/\//, '')}:4000`,
+          '*.github.com',
+        ],
         fontSrc: ["'self'", 'data:', 'https:', '*.fontawesome.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
       },

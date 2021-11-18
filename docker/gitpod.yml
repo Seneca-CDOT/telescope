@@ -15,12 +15,7 @@ services:
     volumes:
       - ../config/nginx.conf.development.template:/etc/nginx/nginx.conf
     ports:
-      - '8000:80'
-    build:
-      args:
-        - GITPOD_WEB_URL=${GITPOD_WEB_URL}
-        - GITPOD_API_URL=${GITPOD_API_URL}
-        - GITPOD_MICROSERVICE_URL=${GITPOD_MICROSERVICE_URL}
+      - '8000:8000'
 
   traefik:
     command:
@@ -94,8 +89,9 @@ services:
     depends_on:
       - test-web-content
 
-  parser:
-    environment:
-      # For development and testing, the Parser service needs to contact the users
-      # service directly via Docker vs through the http://localhost domain.
-      - USERS_URL=http://users:7000
+  # TODO: https://github.com/Seneca-CDOT/telescope/issues/2111
+  # parser:
+  #   environment:
+  #     # For development and testing, the Parser service needs to contact the users
+  #     # service directly via Docker vs through the http://localhost domain.
+  #     - USERS_URL=http://users:7000

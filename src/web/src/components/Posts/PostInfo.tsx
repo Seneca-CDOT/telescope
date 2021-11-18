@@ -82,13 +82,13 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
       </div>
       <div className={classes.authorNameContainer}>
         <p className={classes.author}>
-          <a className={classes.link} href={blogUrl}>
+          <a className={classes.link} href={blogUrl} target="_blank">
             {authorName}
           </a>
         </p>
       </div>
       <div className={classes.postDate}>
-        <a href={postUrl} rel="bookmark" className={classes.published}>
+        <a href={postUrl} rel="bookmark" className={classes.published} target="_blank">
           <time className={classes.time} dateTime={postDate}>
             {postDate}
           </time>
