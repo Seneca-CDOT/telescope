@@ -84,7 +84,7 @@
     "passport-saml": "3.1.2",
     "pino": "6.11.2",
     "pino-elasticsearch": "5.4.0",
-    "pino-pretty": "4.7.1",
+    "pino-pretty": "7.2.0",
     "rss-parser": "3.12.0",
     "sanitize-html": "2.3.2",
     "set-interval-async": "2.0.3",
