@@ -1,7 +1,7 @@
 {
   "name": "@senecacdot/telescope",
   "private": true,
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A tool for tracking blogs in orbit around Seneca's open source involvement",
   "bin": {
     "html-elements": "tools/html-elements.js"
@@ -72,7 +72,7 @@
     "express-validator": "6.10.0",
     "feed": "4.2.2",
     "helmet": "4.4.1",
-    "highlight.js": "10.6.0",
+    "highlight.js": "11.3.1",
     "http-proxy-middleware": "1.0.6",
     "ioredis": "4.26.0",
     "ioredis-mock": "5.5.5",
@@ -84,7 +84,7 @@
     "passport-saml": "3.1.2",
     "pino": "6.11.2",
     "pino-elasticsearch": "5.4.0",
-    "pino-pretty": "4.7.1",
+    "pino-pretty": "7.2.0",
     "rss-parser": "3.12.0",
     "sanitize-html": "2.3.2",
     "set-interval-async": "2.0.3",
@@ -95,7 +95,7 @@
     "@babel/plugin-transform-runtime": "7.13.15",
     "@babel/preset-env": "7.13.15",
     "@babel/preset-react": "7.13.13",
-    "@babel/preset-typescript": "7.13.0",
+    "@babel/preset-typescript": "7.16.0",
     "@types/jest": "27.0.2",
     "@typescript-eslint/eslint-plugin": "4.17.0",
     "@typescript-eslint/parser": "4.17.0",
@@ -128,6 +128,6 @@
     "ts-jest": "27.0.7"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=14.0.0"
   }
 }

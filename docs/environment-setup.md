@@ -9,8 +9,8 @@
     - [Install Docker Engine (Community Edition)](#install-docker-engine-community-edition)
     - [Install Docker-Compose](#install-docker-compose)
   - [MacOS (Sierra 10.12 or above)](#macos-sierra-10-12-or-above)
-  - [Windows 10 Pro, Enterprise, or Education (Hyper-V)](#windows-10-pro-enterprise-or-education-hyper-v)
-  - [Windows 10 Home, Pro, Enterprise or Education (Insiders / WSL 2 / Docker)](#windows-10-home-pro-enterprise-or-education-insiders-wsl-2-docker)
+  - [Windows 10 Pro, Enterprise, or Education (Hyper-V)](#windows-10-pro-enterprise-education-or-windows-11hyper-v)
+  - [Windows 10 Home, Pro, Enterprise or Education (Insiders / WSL 2 / Docker)](#windows-10-home-pro-enterprise-education-insiders-wsl-2-docker)
 - [After installing the prerequisites:](#after-installing-the-prerequisites)
 
   - [Start Docker](#start-docker)

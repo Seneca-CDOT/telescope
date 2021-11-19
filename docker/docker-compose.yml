@@ -17,6 +17,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - NODE_ENV
+      - API_HOST
       - STATUS_PORT
       # Satellite authentication/authorization support
       - JWT_ISSUER
