@@ -30,6 +30,10 @@ const satelliteOptions = {
 
 const service = new Satellite(satelliteOptions);
 
+// For local dev, allow specifying a different path prefix (i.e., to mimic Traefik routing with our <base> tag)
+const staticPathPrefix = process.env.PATH_PREFIX || '/';
+service.router.use(staticPathPrefix, static(path.join(__dirname, '../public')));
+
 // Static web assets can be cached for a long time
 service.router.use('/', static(path.join(__dirname, '../public')));
 
