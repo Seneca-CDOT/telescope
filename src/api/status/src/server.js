@@ -2,7 +2,6 @@ const { Satellite } = require('@senecacdot/satellite');
 const { static } = require('express');
 const path = require('path');
 const host = process.env.API_HOST || 'localhost';
-
 const satelliteOptions = {
   helmet: {
     contentSecurityPolicy: {

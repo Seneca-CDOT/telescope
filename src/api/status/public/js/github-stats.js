@@ -3,7 +3,7 @@ const fetchGitHubApi = (owner, repo, path) =>
     headers: { Accept: 'application/vnd.github.v3+json' },
   });
 
-const getGitHubData = (owner, repo) => {
+export const getGitHubData = (owner, repo) => {
   let weeklyCommits = 0;
 
   // get weekly commits for last year: https://docs.github.com/en/rest/reference/repos#get-the-weekly-commit-count
@@ -60,8 +60,3 @@ const getGitHubData = (owner, repo) => {
     })
     .catch((error) => console.log(error));
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-  getGitHubData('Seneca-CDOT', 'telescope');
-  getGitHubData('Seneca-CDOT', 'satellite');
-});
