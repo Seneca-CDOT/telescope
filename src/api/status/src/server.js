@@ -31,15 +31,15 @@ const satelliteOptions = {
 
 const service = new Satellite(satelliteOptions);
 
-// For local dev, allow specifying a different path prefix (i.e., to mimic Traefik routing with our <base> tag)
-
-// Static web assets can be cached for a long time
-service.router.use(process.env.PATH_PREFIX || '/', static(path.join(__dirname, '../public')));
-
-if (process.env.PATH_PREFIX !== '/') {
+// If a PATH_PREFIX is defined, serve our static content there, and redirect / -> PATH_PREFIX.
+// We do this in development to extra path routing that Traefik adds in production (e.g., /v1/status/*)
+if (process.env.PATH_PREFIX) {
+  service.router.use(process.env.PATH_PREFIX, static(path.join(__dirname, '../public')));
   service.router.get('/', (req, res) => {
     res.redirect(process.env.PATH_PREFIX);
   });
+} else {
+  service.router.use('/', static(path.join(__dirname, '../public')));
 }
 
 const port = parseInt(process.env.STATUS_PORT || 1111, 10);
