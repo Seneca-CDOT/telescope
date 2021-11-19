@@ -16,7 +16,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <base href="/v1/status/" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="assets/img/favicon.png" />
@@ -473,6 +472,22 @@
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute"
+              >
+                <i class="material-icons opacity-10">person</i>
+              </div>
+              <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize">Total feeds</p>
+                <h4 class="mb-0" id="feeds-count"></h4>
+              </div>
+            </div>
+            <div class="card-footer"></div>
           </div>
         </div>
         <div class="row mt-4">
@@ -1288,13 +1303,8 @@
     <script src="assets/js/demo-sidenav.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/material-dashboard.min.js?v=3.0.0"></script>
-    <<<<<<< HEAD <<<<<<< HEAD
     <!-- Telescope JS Files -->
     <script src="js/github-stats.js"></script>
-    ======= =======
-    <!-- Telescope Dashboard -->
-    >>>>>>> 60664c3 (add feed folder and api file)
-    <script src="./script.js"></script>
-    >>>>>>> 478f347 (made changes to multiple lines)
+    <script src="js/feed/index.js"></script>
   </body>
 </html>
