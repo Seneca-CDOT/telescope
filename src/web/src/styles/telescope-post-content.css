@@ -106,8 +106,8 @@
   overflow-wrap: unset;
   word-wrap: none;
   font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
-  background: #eff0f1;
-  color: #242424;
+  background: rgb(14, 17, 22);
+  color: #eff1fe;
 }
 
 .telescope-post-content pre {
