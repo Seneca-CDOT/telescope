@@ -231,6 +231,13 @@ http {
       proxy_pass http://portainer:9000/;
     }
 
+    # Redirect traffic from /deploy/* to the autodeployment server
+    # extra slash for accepting all request_uri e.g. /deploy/status
+    location /deploy/ {
+      proxy_cache_bypass 1;
+      proxy_pass https://${TELESCOPE_HOST}:4000/;
+    }
+
     # Static next.js front-end
     location / {
       # Directory from which we serve Next's static content

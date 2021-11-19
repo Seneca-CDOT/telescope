@@ -36,6 +36,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+    <!-- Telescope CSS Override -->
+    <link href="css/telescope-dashboard.css" rel="stylesheet" />
   </head>
 
   <body class="g-sidenav-show bg-gray-200">
@@ -327,88 +329,166 @@
       <div class="container-fluid py-4">
         <div class="row">
           <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-              <div class="card-header p-3 pt-2">
+            <div class="card card--telescope">
+              <div class="card-header card-header--telescope p-3 pt-2">
                 <div
                   class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute"
                 >
-                  <i class="material-icons opacity-10">weekend</i>
+                  <i class="material-icons opacity-10">commit</i>
                 </div>
                 <div class="text-end pt-1">
-                  <p class="text-sm mb-0 text-capitalize">Today's Money</p>
-                  <h4 class="mb-0">$53k</h4>
+                  <h6 class="mb-0 text-capitalize">Telescope</h6>
+                  <p class="text-sm mb-0 text-capitalize">Yearly Commits</p>
+                  <h4 class="mb-0" id="yearly-commits-telescope">&nbsp;</h4>
+                  <p class="text-sm mb-0 text-capitalize">Weekly Commits</p>
+                  <h4 class="mb-0" id="weekly-commits-telescope">&nbsp;</h4>
                 </div>
               </div>
               <hr class="dark horizontal my-0" />
-              <div class="card-footer p-3">
+              <div class="card-footer p-3" id="new-lines-telescope">
                 <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+55% </span>than lask week
+                  <span
+                    class="text-success text-sm font-weight-bolder"
+                    id="lines-added-telescope"
+                  ></span>
+                  lines added
+                </p>
+                <p class="mb-0">
+                  <span
+                    class="text-danger text-sm font-weight-bolder"
+                    id="lines-removed-telescope"
+                  ></span>
+                  lines removed
                 </p>
               </div>
             </div>
           </div>
           <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-              <div class="card-header p-3 pt-2">
+            <div class="card card--telescope">
+              <div class="card-header card-header--telescope p-3 pt-2">
                 <div
-                  class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute"
+                  class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute"
                 >
                   <i class="material-icons opacity-10">person</i>
                 </div>
                 <div class="text-end pt-1">
-                  <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                  <h4 class="mb-0">2,300</h4>
+                  <h6 class="mb-0 text-capitalize">Telescope</h6>
+                  <p class="text-sm mb-0 text-capitalize">Contributors</p>
+                  <h4 class="mb-0" id="total-contributors-telescope">&nbsp;</h4>
                 </div>
               </div>
               <hr class="dark horizontal my-0" />
               <div class="card-footer p-3">
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+3% </span>than lask month
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-              <div class="card-header p-3 pt-2">
-                <div
-                  class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute"
-                >
-                  <i class="material-icons opacity-10">person</i>
+                <p class="mb-0">Latest contributor:</p>
+                <div class="d-flex py-1">
+                  <div>
+                    <a href="" title="User" target="_blank" id="latest-author-link-telescope">
+                      <img
+                        class="avatar avatar-xs rounded-circle me-2"
+                        alt=""
+                        src=""
+                        id="latest-author-image-telescope"
+                    /></a>
+                  </div>
+                  <div class="d-flex flex-column justify-content-center">
+                    <p class="mb-0 text-capitalize">
+                      <a href="" title="User" target="_blank" id="latest-author-telescope"
+                        >&nbsp;</a
+                      >
+                    </p>
+                  </div>
                 </div>
-                <div class="text-end pt-1">
-                  <p class="text-sm mb-0 text-capitalize">New Clients</p>
-                  <h4 class="mb-0">3,462</h4>
-                </div>
-              </div>
-              <hr class="dark horizontal my-0" />
-              <div class="card-footer p-3">
-                <p class="mb-0">
-                  <span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday
-                </p>
               </div>
             </div>
           </div>
           <div class="col-xl-3 col-sm-6">
-            <div class="card">
-              <div class="card-header p-3 pt-2">
+            <div class="card card--telescope">
+              <div class="card-header card-header--telescope p-3 pt-2">
+                <div
+                  class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute"
+                >
+                  <i class="material-icons opacity-10">commit</i>
+                </div>
+                <div class="text-end pt-1">
+                  <h6 class="mb-0 text-capitalize">Satellite</h6>
+                  <p class="text-sm mb-0 text-capitalize">Yearly Commits</p>
+                  <h4 class="mb-0" id="yearly-commits-satellite">&nbsp;</h4>
+                  <p class="text-sm mb-0 text-capitalize">Weekly Commits</p>
+                  <h4 class="mb-0" id="weekly-commits-satellite">&nbsp;</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0" />
+              <div class="card-footer p-3" id="new-lines-satellite">
+                <p class="mb-0">
+                  <span
+                    class="text-success text-sm font-weight-bolder"
+                    id="lines-added-satellite"
+                  ></span>
+                  lines added
+                </p>
+                <p class="mb-0">
+                  <span
+                    class="text-danger text-sm font-weight-bolder"
+                    id="lines-removed-satellite"
+                  ></span>
+                  lines removed
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card card--telescope">
+              <div class="card-header card-header--telescope p-3 pt-2">
                 <div
                   class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute"
                 >
-                  <i class="material-icons opacity-10">weekend</i>
+                  <i class="material-icons opacity-10">person</i>
                 </div>
                 <div class="text-end pt-1">
-                  <p class="text-sm mb-0 text-capitalize">Sales</p>
-                  <h4 class="mb-0">$103,430</h4>
+                  <h6 class="mb-0 text-capitalize">Satellite</h6>
+                  <p class="text-sm mb-0 text-capitalize">Contributors</p>
+                  <h4 class="mb-0" id="total-contributors-satellite">&nbsp;</h4>
                 </div>
               </div>
               <hr class="dark horizontal my-0" />
               <div class="card-footer p-3">
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday
-                </p>
+                <p class="mb-0">Latest contributor:</p>
+                <div class="d-flex py-1">
+                  <div>
+                    <a href="" title="User" target="_blank" id="latest-author-link-satellite">
+                      <img
+                        class="avatar avatar-xs rounded-circle me-2"
+                        alt=""
+                        src=""
+                        id="latest-author-image-satellite"
+                    /></a>
+                  </div>
+                  <div class="d-flex flex-column justify-content-center">
+                    <p class="mb-0 text-capitalize">
+                      <a href="" title="User" target="_blank" id="latest-author-satellite"
+                        >&nbsp;</a
+                      >
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
+          <div class="card">
+            <div class="card-header p-3 pt-2">
+              <div
+                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute"
+              >
+                <i class="material-icons opacity-10">person</i>
+              </div>
+              <div class="text-end pt-1">
+                <p class="text-sm mb-0 text-capitalize">Total feeds</p>
+                <h4 class="mb-0" id="feeds-count"></h4>
+              </div>
+            </div>
+            <div class="card-footer"></div>
           </div>
         </div>
         <div class="row mt-4">
@@ -1224,5 +1304,8 @@
     <script src="assets/js/demo-sidenav.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/material-dashboard.min.js?v=3.0.0"></script>
+    <!-- Telescope JS Files -->
+    <script src="js/github-stats.js"></script>
+    <script src="js/feed/index.js"></script>
   </body>
 </html>
