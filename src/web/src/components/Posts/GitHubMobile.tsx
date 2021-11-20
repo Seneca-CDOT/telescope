@@ -33,23 +33,18 @@ const useStyles = makeStyles((theme: Theme) =>
     icon: {
       fontSize: '4rem',
       marginRight: '1rem',
-      verticalAlign: 'text-bottom',
       paddingLeft: '6rem',
-      alignItems: 'right',
+      textAlign: 'right',
     },
     accordionSummary: {
-      width: '10 rem',
+      width: '10rem',
       paddingRight: '0',
       justifyContent: 'flex-end',
     },
     accordion: {
-      backgroundColor: 'rgba(255, 255, 255, 0)',
+      backgroundColor: 'inherit',
       border: 'none',
       boxShadow: 'none',
-      justifyContent: 'flex-end',
-    },
-    '&:before': {
-      display: 'none',
     },
   })
 );
