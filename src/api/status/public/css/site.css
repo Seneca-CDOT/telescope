@@ -1,0 +1,16 @@
+#sidenav-collapse-main > ul > li > a.active {
+  background-color: #121d59;
+}
+#sidenav-collapse-main > ul > li > a {
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  font-size: 1em;
+}
+#sidenav-collapse-main.collapse.navbar-collapse.w-auto.max-height-vh-100 {
+  height: calc(100vh);
+}
+
+td,
+th {
+  text-align: center;
+}
