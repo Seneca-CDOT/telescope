@@ -14,10 +14,6 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: 'normal',
       fontSize: '1.2rem',
     },
-    // GitHubMobile: {
-    //   lineHeight: 'normal',
-    //   fontSize: '1.2rem',
-    // },
     GitHubLinkTitle: {
       fontSize: '1.4rem',
       margin: 0,
