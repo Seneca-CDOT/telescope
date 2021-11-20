@@ -57,9 +57,10 @@ const filterGitHubUrls = (urls: string[]) => {
     // Ex: /Seneca-CDOT/telescope ✅
     // Ex: /Seneca-CDOT/telescope/pull/2367/commits/d3fagd3fagd3fagd3fagd3fagd3fag4d41265748 ✅
     // Ex: /Seneca-CDOT/telescope/issues ✅
-    const matches = /^\/(?<user>[^/]+)\/(?<repo>[^/]+)((\/(.*))?\/(?<type>[^/]+)\/(?<id>(\d+|\w{40}))\/?$)?/i.exec(
-      pathname
-    );
+    const matches =
+      /^\/(?<user>[^/]+)\/(?<repo>[^/]+)((\/(.*))?\/(?<type>[^/]+)\/(?<id>(\d+|\w{40}))\/?$)?/i.exec(
+        pathname
+      );
 
     if (matches?.groups) {
       const { type, user, repo } = matches.groups;
