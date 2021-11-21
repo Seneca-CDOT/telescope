@@ -1,6 +1,6 @@
-import { getPostsCount } from '../post/index';
-import { getFeedCount } from '../feed/index';
-import { getGitHubData } from '../github-stats';
+import { getPostsCount } from '../post/index.js';
+import { getFeedCount } from '../feed/index.js';
+import { getGitHubData } from '../github-stats.js';
 
 window.addEventListener('load', (event) => {
   getGitHubData('Seneca-CDOT', 'telescope');
