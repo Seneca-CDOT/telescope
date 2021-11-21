@@ -353,23 +353,44 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
-          <div class="card">
-            <div class="card-header p-3 pt-2">
-              <div
-                class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute"
-              >
-                <i class="material-icons opacity-10">person</i>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
+            <div class="card card--telescope">
+              <div class="card-header card-header--telescope p-3 pt-2">
+                <div
+                  class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute"
+                >
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <h6 class="mb-0 text-capitalize">Telescope</h6>
+                  <p class="text-sm mb-0 text-capitalize">Total posts</p>
+                  <h4 class="mb-0" id="totalPosts">&nbsp;</h4>
+                </div>
               </div>
-              <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Total feeds</p>
-                <h4 class="mb-0" id="feeds-count"></h4>
-              </div>
+              <hr class="dark horizontal my-0" />
+              <div class="card-footer p-3"></div>
             </div>
-            <div class="card-footer"></div>
+          </div>
+          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4 mt-4">
+            <div class="card card--telescope">
+              <div class="card-header card-header--telescope p-3 pt-2">
+                <div
+                  class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute"
+                >
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <div class="text-end pt-1">
+                  <h6 class="mb-0 text-capitalize">Telescope</h6>
+                  <p class="text-sm mb-0 text-capitalize">Total feeds</p>
+                  <h4 class="mb-0" id="feeds-count">&nbsp;</h4>
+                </div>
+              </div>
+              <hr class="dark horizontal my-0" />
+              <div class="card-footer p-3"></div>
+            </div>
           </div>
         </div>
+
         <div class="row mt-4">
           <div class="col-lg-4 col-md-6 mt-4 mb-4">
             <div class="card z-index-2">
@@ -1133,7 +1154,6 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="assets/js/material-dashboard.min.js?v=3.0.0"></script>
     <!-- Telescope JS Files -->
-    <script src="js/github-stats.js"></script>
-    <script src="js/feed/index.js"></script>
+    <script type="module" src="js/pages/dashboard.js"></script>
   </body>
 </html>
