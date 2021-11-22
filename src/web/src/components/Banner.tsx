@@ -106,12 +106,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const studentQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
 type BannerProps = {
   onVisibilityChange: (visible: boolean) => void;
-};
-
-const getQuote = () => {
-  return quotes[Math.floor(Math.random() * quotes.length)];
 };
 
 export default function Banner({ onVisibilityChange }: BannerProps) {
@@ -121,7 +119,6 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
     sha: '',
     version: '',
   });
-  const studentQuote = getQuote();
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
   const bannerAnchor = useRef<HTMLDivElement>(null);
