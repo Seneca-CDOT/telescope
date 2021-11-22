@@ -48,8 +48,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Setup session and passport for authentication
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     store: new RedisStore({ client: redis }),
