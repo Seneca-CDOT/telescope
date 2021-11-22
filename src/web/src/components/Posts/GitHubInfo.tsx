@@ -27,7 +27,7 @@ type Props = {
   ghUrls: string[];
 };
 
-const filterGitHubUrls = (urls: string[]) => {
+export const filterGitHubUrls = (urls: string[]) => {
   const issues: Set<string> = new Set();
   const pullRequests: Set<string> = new Set();
   const repos: Set<string> = new Set();

@@ -13,7 +13,8 @@ import Issues from './Issues';
 import PullRequests from './PullRequests';
 import Commits from './Commits';
 import Users from './Users';
-import { VscGithub } from 'react-icons/vsc';
+import { filterGitHubUrls } from './GitHubInfo';
+import { VscGithub, VscTriangleDown, VscEllipsis } from 'react-icons/vsc';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,75 +54,6 @@ type Props = {
   ghUrls: string[];
 };
 
-const filterGitHubUrls = (urls: string[]) => {
-  const issues: Set<string> = new Set();
-  const pullRequests: Set<string> = new Set();
-  const repos: Set<string> = new Set();
-  const commits: Set<string> = new Set();
-  const users: Set<string> = new Set();
-
-  const ghUrls = urls.map((url) => parseGitHubUrl(url)).filter((url) => url !== null) as URL[];
-
-  for (const url of ghUrls) {
-    const { pathname } = url;
-
-    // Match urls that start with /<user>/<repo>, and optionally end with /<anything-in-between>/<type>/<id>
-    // <id> can be number, or a mixed of 40 alphanumeric (commit id)
-    // Ex: /Seneca-CDOT/telescope/pull/2367 ✅
-    // Ex: /Seneca-CDOT/telescope ✅
-    // Ex: /Seneca-CDOT/telescope/pull/2367/commits/d3fagd3fagd3fagd3fagd3fagd3fag4d41265748 ✅
-    // Ex: /Seneca-CDOT/telescope/issues ✅
-    const matches = /^\/(?<user>[^\/]+)\/(?<repo>[^\/]+)((\/(.*))?\/(?<type>[^\/]+)\/(?<id>(\d+|\w{40}))\/?$)?/i.exec(
-      pathname
-    );
-    if (matches?.groups === undefined) {
-      continue;
-    }
-    const { type, user, repo } = matches.groups;
-
-    const repoUrl = `${user}/${repo}`;
-    repos.add(repoUrl);
-    users.add(user);
-    switch (type?.toLowerCase()) {
-      case 'pull':
-        pullRequests.add(pathname);
-        break;
-
-      case 'issues':
-        issues.add(pathname);
-        break;
-
-      case 'commit':
-      case 'commits':
-        commits.add(pathname);
-        break;
-
-      default:
-        break;
-    }
-  }
-
-  return {
-    repos: Array.from(repos),
-    issues: Array.from(issues),
-    pullRequests: Array.from(pullRequests),
-    commits: Array.from(commits),
-    users: Array.from(users),
-  };
-};
-
-const parseGitHubUrl = (url: string): URL | null => {
-  try {
-    const ghUrl = new URL(url);
-    if (ghUrl.hostname !== 'github.com') {
-      return null;
-    }
-    return ghUrl;
-  } catch (err) {
-    return null;
-  }
-};
-
 const GitHubMobile = ({ ghUrls }: Props) => {
   const classes = useStyles();
   const { repos, issues, pullRequests, commits, users } = filterGitHubUrls(ghUrls);
@@ -130,7 +62,7 @@ const GitHubMobile = ({ ghUrls }: Props) => {
     <div>
       <Accordion className={classes.accordion}>
         <AccordionSummary className={classes.accordionSummary}>
-          <VscGithub className={classes.icon}></VscGithub>
+          <VscEllipsis className={classes.icon}></VscEllipsis>
         </AccordionSummary>
         <AccordionDetails>
           <ListSubheader className={classes.root}>
