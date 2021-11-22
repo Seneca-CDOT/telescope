@@ -1,6 +1,11 @@
+const nextJest = require('next/jest');
+
 const baseConfig = require('../../jest.config.base');
 
-module.exports = {
+// Providing the path to your Next.js app which will enable loading next.config.js and .env files
+const createJestConfig = nextJest({ dir: '.' });
+
+module.exports = createJestConfig({
   ...baseConfig,
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
@@ -10,11 +15,11 @@ module.exports = {
   collectCoverageFrom: ['src/**/*{ts,tsx}'],
   transform: {
     '^.+\\.(ts)$': 'ts-jest',
-    '^.+\\.(tsx)$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.(tsx)$': ['<rootDir>/node_modules/babel-jest', { presets: ['next/babel'] }],
   },
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/src/web/tsconfig.jest.json',
     },
   },
-};
+});
