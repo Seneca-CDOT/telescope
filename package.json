@@ -56,7 +56,6 @@
     "@elastic/elasticsearch": "7.11.0",
     "@elastic/elasticsearch-mock": "0.3.0",
     "@wordpress/wordcount": "2.15.0",
-    "body-parser": "1.19.0",
     "bull": "3.20.1",
     "clean-whitespace": "0.1.2",
     "connect-redis": "5.1.0",
