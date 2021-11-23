@@ -13,13 +13,13 @@ import {
   AccordionDetails,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import { VscGithub, VscTriangleDown } from 'react-icons/vsc';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
 import GitHubInfo from './GitHubInfo';
-import GitHubMobile from './GitHubMobile';
 
 type Props = {
   postUrl: string;
@@ -144,7 +144,7 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'flex',
         flexWrap: 'nowrap',
         justifyContent: 'flex-end',
-        alignItems: 'center',
+        alignItems: 'flex-start',
       },
       [theme.breakpoints.down(300)]: {
         minWidth: '140px',
@@ -206,6 +206,20 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'inherit',
       border: 'none',
       boxShadow: 'none',
+    },
+    gitHubIcon: {
+      textAlign: 'center',
+      [theme.breakpoints.down(1205)]: {
+        fontSize: '2em',
+        lineHeight: '1.5em',
+        fontWeight: 'bold',
+        margin: '.2em 0 0 .5em',
+        color: theme.palette.text.primary,
+      },
+      [theme.breakpoints.down(1024)]: {
+        fontSize: '1.1em',
+        marginRight: '.3em',
+      },
     },
   })
 );
@@ -336,7 +350,12 @@ const PostComponent = ({ postUrl }: Props) => {
                   <h1 className={classes.author}>
                     <a className={classes.link} href={post.feed.link}>
                       {post.feed.author}
+                      <a> </a>
+                      {!!extractedGitHubUrls.length && (
+                        <VscGithub>className={classes.gitHubIcon}</VscGithub>
+                      )}
                     </a>
+                    {!!extractedGitHubUrls.length && <></>}
                   </h1>
                 </div>
                 <div className={classes.publishedDateContainer}>
@@ -352,7 +371,7 @@ const PostComponent = ({ postUrl }: Props) => {
               </ListSubheader>
             </AccordionSummary>
             <AccordionDetails>
-              <GitHubInfo ghUrls={extractedGitHubUrls} />
+              {!!extractedGitHubUrls.length && <GitHubInfo ghUrls={extractedGitHubUrls} />}
             </AccordionDetails>
           </Accordion>
         </>
