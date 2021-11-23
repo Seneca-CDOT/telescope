@@ -4,6 +4,7 @@ const fixIFrameWidth = require('./fix-iframe-width');
 const lazyLoad = require('./lazy-load');
 const syntaxHighlight = require('./syntax-highlight');
 const fixEmptyPre = require('./modify-pre');
+const removeEmpty = require('./remove-empty-paragraphs');
 const toDOM = require('./dom');
 
 const { JSDOM } = jsdom;
@@ -39,6 +40,8 @@ module.exports = function process(html) {
   fixIFrameWidth(dom);
   // Update <img> and <iframe> elements to use native lazy loading.
   lazyLoad(dom);
+  // Remove <p> elements that contain whitespace, and <br>
+  removeEmpty(dom);
 
   // Return the resulting HTML
   return dom.window.document.body.innerHTML;

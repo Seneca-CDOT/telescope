@@ -5,6 +5,7 @@ const posts = require('./routes/posts');
 const feeds = require('./routes/feeds');
 
 const service = new Satellite({
+  cors: { exposedHeaders: ['X-Total-Count', 'Link'] },
   healthCheck: () => redis.ping(),
 });
 
