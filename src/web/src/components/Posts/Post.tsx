@@ -8,6 +8,9 @@ import {
   ListSubheader,
   createStyles,
   useMediaQuery,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import { Post } from '../../interfaces';
@@ -193,6 +196,17 @@ const useStyles = makeStyles((theme: Theme) =>
         width: 'auto',
       },
     },
+    accordionSummary: {
+      paddingRight: '0',
+      justifyContent: 'flex-end',
+      overflow: 'scroll',
+      textOverflow: 'ellipsis',
+    },
+    accordion: {
+      backgroundColor: 'inherit',
+      border: 'none',
+      boxShadow: 'none',
+    },
   })
 );
 
@@ -292,57 +306,84 @@ const PostComponent = ({ postUrl }: Props) => {
 
   return (
     <Box className={classes.root}>
-      <ListSubheader className={classes.postInfo}>
-        <div className={classes.titleContainer}>
-          <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
-            <span
-              role="button"
-              tabIndex={0}
-              onClick={() => setExpandHeader(!expandHeader)}
-              onKeyDown={() => setExpandHeader(!expandHeader)}
-              className={expandHeader ? classes.expandHeader : classes.collapseHeader}
-            >
-              {post.title}
-            </span>
-          </Typography>
-        </div>
-        {!desktop && (
-          <>
-            <div className={classes.authorAvatarContainer}>
-              <PostAvatar name={post.feed.author} url={post.feed.link} />
-            </div>
-            <div className={classes.authorNameContainer}>
-              <h1 className={classes.author}>
-                <a className={classes.link} href={post.feed.link}>
-                  {post.feed.author}
-                </a>
-              </h1>
-            </div>
-            <div className={classes.publishedDateContainer}>
-              <h1 className={classes.published}>
-                <a href={post.url} rel="bookmark" className={classes.link}>
-                  {`${formatPublishedDate(post.updated)}`}
-                </a>
-              </h1>
-
-              {!!extractedGitHubUrls.length && <GitHubMobile ghUrls={extractedGitHubUrls} />}
-              <div>
-                <AdminButtons />
-              </div>
-            </div>
-          </>
-        )}
-      </ListSubheader>
+      {!desktop && (
+        <>
+          <Accordion className={classes.accordion}>
+            <AccordionSummary className={classes.accordionSummary}>
+              <ListSubheader className={classes.postInfo}>
+                <div className={classes.titleContainer}>
+                  <Typography
+                    variant="h1"
+                    title={post.title}
+                    id={post.id}
+                    className={classes.title}
+                  >
+                    <span
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => setExpandHeader(!expandHeader)}
+                      onKeyDown={() => setExpandHeader(!expandHeader)}
+                      className={expandHeader ? classes.expandHeader : classes.collapseHeader}
+                    >
+                      {post.title}
+                    </span>
+                  </Typography>
+                </div>
+                <div className={classes.authorAvatarContainer}>
+                  <PostAvatar name={post.feed.author} url={post.feed.link} />
+                </div>
+                <div className={classes.authorNameContainer}>
+                  <h1 className={classes.author}>
+                    <a className={classes.link} href={post.feed.link}>
+                      {post.feed.author}
+                    </a>
+                  </h1>
+                </div>
+                <div className={classes.publishedDateContainer}>
+                  <h1 className={classes.published}>
+                    <a href={post.url} rel="bookmark" className={classes.link}>
+                      {`${formatPublishedDate(post.updated)}`}
+                    </a>
+                  </h1>
+                  <div>
+                    <AdminButtons />
+                  </div>
+                </div>
+              </ListSubheader>
+            </AccordionSummary>
+            <AccordionDetails>
+              <GitHubInfo ghUrls={extractedGitHubUrls} />
+            </AccordionDetails>
+          </Accordion>
+        </>
+      )}
       {desktop && (
-        <ListSubheader className={classes.desktopPostInfo}>
-          <PostDesktopInfo
-            postUrl={post.url}
-            authorName={post.feed.author}
-            postDate={formatPublishedDate(post.updated)}
-            blogUrl={post.feed.link}
-          />
-          {!!extractedGitHubUrls.length && <GitHubInfo ghUrls={extractedGitHubUrls} />}
-        </ListSubheader>
+        <>
+          <ListSubheader className={classes.postInfo}>
+            <div className={classes.titleContainer}>
+              <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setExpandHeader(!expandHeader)}
+                  onKeyDown={() => setExpandHeader(!expandHeader)}
+                  className={expandHeader ? classes.expandHeader : classes.collapseHeader}
+                >
+                  {post.title}
+                </span>
+              </Typography>
+            </div>
+          </ListSubheader>
+          <ListSubheader className={classes.desktopPostInfo}>
+            <PostDesktopInfo
+              postUrl={post.url}
+              authorName={post.feed.author}
+              postDate={formatPublishedDate(post.updated)}
+              blogUrl={post.feed.link}
+            />
+            {!!extractedGitHubUrls.length && <GitHubInfo ghUrls={extractedGitHubUrls} />}
+          </ListSubheader>
+        </>
       )}
       <div className={classes.content}>
         <section
