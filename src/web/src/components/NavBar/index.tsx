@@ -118,7 +118,7 @@ export default function NavBar({ disabled }: NavBarProps) {
 
   const slideTransition: { [state: string]: React.CSSProperties } = useMemo(
     () => ({
-      entered: { opacity: 1, transform: 'translateY(0)' },
+      entered: { opacity: 1, transform: 'translateY(0)', zIndex: 999 },
       entering: { opacity: 0, transform: `translateY(${desktop ? '-50%' : '50%'})` },
       exited: { opacity: 0, transform: `translateY(${desktop ? '-100%' : '100%'})` },
       exiting: { opacity: 0, transform: `translateY(${desktop ? '-100%' : '100%'})` },
