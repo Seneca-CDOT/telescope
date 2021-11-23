@@ -4,7 +4,6 @@ import {
   Theme,
   ListSubheader,
   Accordion,
-  Typography,
   AccordionSummary,
   AccordionDetails,
 } from '@material-ui/core';
