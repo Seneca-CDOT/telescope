@@ -40,7 +40,8 @@ export const getGitHubData = (owner, repo) => {
       const avatar = data[0].author.avatar_url;
       const username = data[0].author.login;
       const fullName = data[0].commit.author.name;
-
+      const commitURL = data[0].html_url;
+      const shortSha = data[0].sha.substr(0, 7);
       document.getElementById(`latest-author-image-${repo}`).src = avatar;
       document.getElementById(`latest-author-image-${repo}`).alt = username;
       document.getElementById(`latest-author-${repo}`).innerHTML = fullName;
@@ -48,6 +49,9 @@ export const getGitHubData = (owner, repo) => {
       document.getElementById(`latest-author-${repo}`).href = `https://github.com/${username}`;
       document.getElementById(`latest-author-link-${repo}`).title = username;
       document.getElementById(`latest-author-link-${repo}`).href = `https://github.com/${username}`;
+      document.getElementById(`latest-author-commit-${repo}`).innerHTML = shortSha;
+      document.getElementById(`latest-author-commit-${repo}`).title = shortSha;
+      document.getElementById(`latest-author-commit-${repo}`).href = commitURL;
     })
     .catch((error) => console.log(error));
 
