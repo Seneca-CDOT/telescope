@@ -206,6 +206,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: 'inherit',
       border: 'none',
       boxShadow: 'none',
+      top: '0',
+      zIndex: 1,
+      position: 'sticky',
     },
     gitHubIcon: {
       textAlign: 'center',
