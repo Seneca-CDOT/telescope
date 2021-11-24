@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Tooltip, IconButton, createStyles, Zoom } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/styles';
+import { makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import CopyIcon from '@material-ui/icons/FileCopyOutlined';
 import Check from '@material-ui/icons/Check';
 

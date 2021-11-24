@@ -8,7 +8,7 @@ The report you can generate is test coverage information. To generate this repor
 run the following command:
 
 ```
-npm run coverage
+pnpm coverage
 ```
 
 After the tests complete, a text summary report is printed. However, a much more

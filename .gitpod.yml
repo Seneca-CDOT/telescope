@@ -1,4 +1,6 @@
 # Learn more about this file at https://www.gitpod.io/docs/references/gitpod-yml
+image:
+  file: .gitpod.Dockerfile
 tasks:
   - name: Service Server
     openMode: split-left
@@ -16,11 +18,11 @@ tasks:
           -e  "s@development\.yml@gitpod\.yml@" \
           config/env.development > .env
     init: |
-      npm install
+      pnpm install
       docker-compose --env-file .env build $SERVICES
     command: |
       docker-compose --env-file .env up -d $SERVICES
-      npm run start
+      pnpm start
 
   - name: Frontend Server
     openMode: split-right
@@ -29,14 +31,14 @@ tasks:
       eval $(gp env -e)
     # Start the dev server after all services are running
     # Instead of rebuilding the nginx-base frontend when environment variables change
-    # We build the frontend directly through 'npm run dev' to use the latest urls
+    # We build the frontend directly through 'pnpm dev' to use the latest urls
     command: |
-      gp await-port 3000 &&  npm run dev
+      gp await-port 3000 && pnpm dev
 
   - name: Terminal
     openMode: tab-after
     command: |
-      echo -e "\n\n\033[94m ======================================================"  && echo -e "\n\033[33m💪 Services are built and run automatically in the first terminal, the second one is free" && echo -e "\033[33m💡 If you are only developing on the frontend:" && echo -e "\033[33m    1. Switch to the first terminal and terminate the prebuilds: \e[91mCTRL/CMD + c" && echo -e "\033[33m    2. Install dependencies: $ \033[92mnpm run install:next" && echo -e "\033[33m    3. Copy staging env: $ \033[92mcp config/env.staging > .env" && echo -e "\033[33m    4. Start the dev server: $ \033[92mnpm run dev" && echo -e "\033[33m💡 If you need to test the backend:" && echo -e "\033[33m    1. Go grab a coffee and wait, the build is only done once for each commit" && echo -e "\n\033[94m ======================================================\n\n"
+      echo -e "\n\n\033[94m ======================================================"  && echo -e "\n\033[33m💪 Services are built and run automatically in the first terminal, the second one is free" && echo -e "\033[33m💡 If you are only developing on the frontend:" && echo -e "\033[33m    1. Switch to the first terminal and terminate the prebuilds: \e[91mCTRL/CMD + c" && echo -e "\033[33m    2. Install dependencies: $ \033[92mpnpm install" && echo -e "\033[33m    3. Copy staging env: $ \033[92mcp config/env.staging > .env" && echo -e "\033[33m    4. Start the dev server: $ \033[92mpnpm dev" && echo -e "\033[33m💡 If you need to test the backend:" && echo -e "\033[33m    1. Go grab a coffee and wait, the build is only done once for each commit" && echo -e "\n\033[94m ======================================================\n\n"
 
 # Exposing service ports
 # Overriding the default notification popup when a port is open

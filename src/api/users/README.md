@@ -26,34 +26,28 @@ More info can be found on the [Firebase documentation page](https://firebase.goo
 
 ## Install
 
-from inside /api/src/users:
-
-```
-npm install
-```
-
 from root:
 
 ```
-npm install:users-service
+pnpm install
 ```
 
 ## Usage
 
 ```
 # normal mode
-npm start
+pnpm start
 
 # running firestore emulator and users microservice locally
-npm run services:start firebase users
+pnpm services:start firebase users
 
 # dev mode with automatic restarts
-npm run services:start firebase
+pnpm services:start firebase
 cd src/api/users
-npm run dev
+pnpm dev
 
 # test runner (must be used in conjunction with the firebase service)
-npm run jest:e2e (or npm run jest:e2e src\api\users\test\e2e)
+pnpm jest:e2e (or pnpm run jest:e2e src\api\users\test\e2e)
 ```
 
 By default the server is running on <http://localhost:7000/>.

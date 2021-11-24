@@ -26,4 +26,4 @@ Telescope uses [Elasticsearch](elasticsearch.md) as a search engine for full-tex
 1. If you need to see just the post keys, use `keys t:post:*`. Each post key ends with an `id`, for example: `t:post:a501d01b94` is the key for a post with an `id` of `a501d01b94`.
 1. If you need to see just the feed keys, use `keys t:feed:*`. Each feed key ends with an `id`, for example `t:feed:f73dcb2226`. As with posts, `t:feed:f73dcb2226` is the key for a feed with an `id` of `f73dcb2226`
 1. If you need to see what's stored in a post or feed key, (they are Redis Hashes) use `hgetall t:post:a501d01b94` where `12345` is the `id` of a post, `hgetall t:feed:f73dcb2226` where `12345` is the `id` of a feed.
-1. If you need to delete all data in the database (e.g., when a change affects our data layout or keys), use `flushall`. This is generally safe to run, since `npm start` will regenerate all the data.
+1. If you need to delete all data in the database (e.g., when a change affects our data layout or keys), use `flushall`. This is generally safe to run, since `pnpm start` will regenerate all the data.

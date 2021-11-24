@@ -5,7 +5,8 @@ The steps to launch Telescope in staging or production mode are almost identical
 ## Prerequisites
 
 - [Docker and Docker-compose](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md#docker-and-docker-compose-set-up)
-- [Node.js (npm)](https://nodejs.org/en/download/)
+- [Node.js](https://nodejs.org/en/download/)
+- [pnpm](https://pnpm.io/)
 - [pm2](https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/) (optional)
 
 ## Directory Structure
@@ -63,7 +64,7 @@ Copy `env.example` in the `autodeployment` directory to `.env` and add the appro
   - deployment type (`staging` or `production`)
   - unsplash client id
 
-Install the dependencies using `npm install`, and run the server with `npm start`.
+Install the dependencies using `pnpm install`, and run the server with `pnpm start`.
 
 **Note**: Telescope relies on docker to restart after 5AM unexpected reboots or the like. The autodeployment server runs outside of docker so it needs another tool like [pm2](https://pm2.keymetrics.io/) or a [unit file](https://fedoramagazine.org/systemd-getting-a-grip-on-units/) to be able to restart after an unexpected reboot.
 

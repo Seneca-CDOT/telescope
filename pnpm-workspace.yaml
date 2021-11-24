@@ -1,0 +1,8 @@
+# pnpm workspace definition: https://pnpm.io/pnpm-workspace_yaml
+packages:
+  # web front-end
+  - 'src/web'
+  # microservices
+  - 'src/api/*'
+  # autodeployment
+  - 'tools/autodeployment'

@@ -37,3 +37,5 @@ certs/
 
 # Redis data storage
 redis-data/
+
+.pnpm-debug.log
