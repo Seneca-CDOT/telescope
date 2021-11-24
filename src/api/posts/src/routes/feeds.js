@@ -1,6 +1,6 @@
 const { Router, logger, isAuthenticated, isAuthorized } = require('@senecacdot/satellite');
 const Feed = require('../data/feed');
-const { getFeeds } = require('../storage');
+const { getFeeds, getInvalidFeeds } = require('../storage');
 const { validateNewFeed, validateFeedsIdParam } = require('../validation');
 
 const feeds = Router();
@@ -25,6 +25,23 @@ feeds.get('/', async (req, res, next) => {
         id,
         url: `${feedURL}/${id}`,
       }))
+  );
+});
+
+feeds.get('/invalid', async (req, res, next) => {
+  let invalidFeeds;
+  try {
+    invalidFeeds = await getInvalidFeeds();
+  } catch (error) {
+    logger.error({ error }, 'Unable to get invalid feeds from Redis');
+    return next(error);
+  }
+  res.set('X-Total-Count', invalidFeeds.length);
+  return res.json(
+    invalidFeeds.map((element) => ({
+      ...element,
+      url: `${feedURL}/${element.id}`,
+    }))
   );
 });
 
