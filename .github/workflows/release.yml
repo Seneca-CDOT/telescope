@@ -15,11 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.2
       - uses: actions/setup-node@v2.4.1
+        with:
+          cache: 'pnpm'
       - name: Install dependencies and run prettier-check
         run: |
-          npm install
-          npm run prettier-check
+          pnpm install
+          pnpm prettier-check
 
   # Make sure eslint passes
   eslint:
@@ -27,11 +32,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.2
       - uses: actions/setup-node@v2.4.1
+        with:
+          cache: 'pnpm'
       - name: Install dependencies and run eslint
         run: |
-          npm install
-          npm run eslint
+          pnpm install
+          pnpm eslint
 
   # Run unit tests on all platforms/versions of node
   unit:
@@ -43,25 +53,19 @@ jobs:
         node-version: [14.x, 16.x]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2.1.6
-        env:
-          cache-name: cache-node-modules
+      - uses: pnpm/action-setup@v2.0.1
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          version: 6.23.2
       - uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - name: Get number of CPU cores
         uses: SimenB/github-actions-cpu-cores@v1
       - name: Install dependencies and run tests with default env
         run: |
-          npm install
+          pnpm install
+          # pnpm can't handle passing args through to run scripts: https://github.com/pnpm/pnpm/issues/2764
           npm run jest --max-workers ${{ steps.cpu-cores.outputs.count }}
 
   # Run end-to-end tests along with the microservices in docker-compose on Linux
@@ -72,22 +76,21 @@ jobs:
       matrix:
         node-version: [14.x, 16.x]
     steps:
-      - uses: actions/cache@v2.1.6
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
       - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.2
       - uses: actions/setup-node@v2.4.1
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - uses: microsoft/playwright-github-action@v1
-      - name: Start microservices and run tests
+      - name: Start microservices and run e2e tests
         run: |
-          npm install
-          npm run services:start
-          npm run jest:e2e
+          pnpm install
+          pnpm services:start
+          pnpm jest:e2e
+
   release:
     needs: [prettier, eslint, unit, e2e]
     runs-on: ubuntu-latest

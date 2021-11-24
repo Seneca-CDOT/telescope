@@ -5,14 +5,14 @@ The Search Service provides a direct querying controller which interfaces with o
 ## Install
 
 ```
-You can go to `<rootDir>/src/api/search/` and run `npm install` or run `npm install` from the root.
+Run `pnpm install` from the root.
 ```
 
 ## Usage
 
 ```
 # normal mode
-npm start
+pnpm start
 ```
 
 By default the server is running on http://localhost:4445/.

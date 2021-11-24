@@ -6,12 +6,12 @@ This project use Material Dashboard 2. Check their [docs](https://www.creative-t
 
 ```bash
 # Install dependencies
-npm i
+pnpm install
 ```
 
 ```bash
 # Boot up website and server
-npm run dev
+pnpm dev
 ```
 
 The website is live at `localhost:1111`
@@ -22,12 +22,12 @@ After making changes to `scss` files, run
 
 ```bash
 # Compile scss to css
-npm run compile:scss
+pnpm compile:scss
 ```
 
 Optionally: watch for scss changes
 
 ```bash
 # If your IDE stuck at saving files, go with manually compiling scss
-npm run watch:scss
+pnpm watch:scss
 ```
