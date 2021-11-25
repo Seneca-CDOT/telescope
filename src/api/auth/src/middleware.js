@@ -1,6 +1,5 @@
-const { logger, createError } = require('@senecacdot/satellite');
+const { logger, createError, fetch } = require('@senecacdot/satellite');
 const { celebrate, Segments, Joi } = require('celebrate');
-const fetch = require('node-fetch');
 
 const { matchOrigin, getUserId } = require('./util');
 
