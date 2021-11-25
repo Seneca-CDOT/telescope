@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const { fetch } = require('@senecacdot/satellite');
 
 const stagingHost = 'https://dev.api.telescope.cdot.systems';
 const prodHost = 'https://api.telescope.cdot.systems';
