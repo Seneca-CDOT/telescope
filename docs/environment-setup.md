@@ -224,7 +224,7 @@ This will let you use the Telescope staging server as the backend so you do not 
 
 #### Option 3: Mix and match services between local and staging production
 
-See [staging-production-deployment](staging-production-deployment) for more information on running Telescope in staging or production mode.
+See [staging-production-deployment](staging-production-deployment.md) for more information on running Telescope in staging or production mode.
 
 This one depends on which part you're working with. For example, if you want to work with authorization, you need to specify the URL of AUTH in your `.env` file by going to `.env` and modifying `AUTH_URL=...` and modify it to the one you want to work with. If you're testing auth locally, use `AUTH_URL=http://localhost/v1/auth`; otherwise, use the staging one, `AUTH_URL=http://dev.api.telescope.cdot.systems/v1/auth`.
 
