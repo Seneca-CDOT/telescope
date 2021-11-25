@@ -5,8 +5,7 @@
  */
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
-const { createServiceToken, logger, hash } = require('@senecacdot/satellite');
-const fetch = require('node-fetch');
+const { createServiceToken, logger, hash, fetch } = require('@senecacdot/satellite');
 
 const User = require('./user');
 
