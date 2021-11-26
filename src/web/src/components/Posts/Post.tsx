@@ -20,6 +20,7 @@ import Spinner from '../Spinner';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
 import GitHubInfo from './GitHubInfo';
+import GitHubInfoMobile from './GItHubInfoMobile';
 
 type Props = {
   postUrl: string;
@@ -58,7 +59,8 @@ const useStyles = makeStyles((theme: Theme) =>
         gridTemplateColumns: 'auto auto auto auto',
         justifyContent: 'left',
         width: '100%',
-        padding: '1em 0 1em 0',
+        padding: '1em 0 0 0',
+        marginBottom: '0',
       },
     },
     titleContainer: {
@@ -201,6 +203,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-end',
       overflow: 'scroll',
       textOverflow: 'ellipsis',
+      paddingBottom: '0',
+      '& .MuiAccordionSummary-content': {
+        marginBottom: '0.2em',
+      },
     },
     accordion: {
       backgroundColor: 'inherit',
@@ -209,6 +215,9 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '0',
       zIndex: 1,
       position: 'sticky',
+      '& .MuiAccordionDetails-root': {
+        padding: '0 0 0 1rem',
+      },
     },
     gitHubIcon: {
       textAlign: 'center',
@@ -374,7 +383,7 @@ const PostComponent = ({ postUrl }: Props) => {
               </ListSubheader>
             </AccordionSummary>
             <AccordionDetails>
-              {!!extractedGitHubUrls.length && <GitHubInfo ghUrls={extractedGitHubUrls} />}
+              {!!extractedGitHubUrls.length && <GitHubInfoMobile ghUrls={extractedGitHubUrls} />}
             </AccordionDetails>
           </Accordion>
         </>
