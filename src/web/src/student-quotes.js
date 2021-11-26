@@ -1,4 +1,4 @@
-export const quotes = [
+export default [
   {
     author: 'Shreena',
     url: 'https://shreenasopensource.wordpress.com/2018/12/13/osd-600-reflection/',

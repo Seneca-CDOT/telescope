@@ -54,7 +54,7 @@ const PullRequests = ({ prUrls }: Props) => {
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
-        <VscGitPullRequest className={classes.icon}></VscGitPullRequest>
+        <VscGitPullRequest className={classes.icon} />
         {prUrls.length === 1 ? 'Pull Request' : 'Pull Requests'}
       </h2>
       <ul className={classes.pullRequests}>
@@ -62,8 +62,8 @@ const PullRequests = ({ prUrls }: Props) => {
           <li key={pullRequest} className={classes.pullRequest}>
             <a
               href={`https://github.com${pullRequest}`}
-              rel="bookmark"
               target="_blank"
+              rel="noreferrer"
               title={`${getPullRequestInfo(pullRequest)} Pull Request #${getPullRequestNumber(
                 pullRequest
               )}`}

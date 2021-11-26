@@ -146,6 +146,7 @@ const GitHubAccount = connect<{}, SignUpForm>((props) => {
       setFieldValue('github', {}, true);
     } finally {
       setValidating(false);
+      // eslint-disable-next-line require-atomic-updates
       controllerRef.current = null;
     }
   };

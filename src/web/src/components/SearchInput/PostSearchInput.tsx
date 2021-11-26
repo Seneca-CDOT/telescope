@@ -35,7 +35,6 @@ const PostSearchInput = () => {
   return (
     <>
       <input
-        autoFocus
         className={classes.input}
         placeholder="How to contribute to Open Source"
         value={text}

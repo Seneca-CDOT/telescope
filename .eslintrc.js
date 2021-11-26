@@ -61,7 +61,7 @@ module.exports = {
       },
       settings: {
         react: {
-          version: 'latest',
+          version: '17.0',
         },
       },
     },
@@ -162,5 +162,12 @@ module.exports = {
      */
     'import/no-extraneous-dependencies': ['off'],
     'no-new': 'off',
+
+    /**
+     * False positive of no-shadow rule with ENUMs
+     * https://github.com/typescript-eslint/typescript-eslint/issues/2483
+     */
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
   },
 };
