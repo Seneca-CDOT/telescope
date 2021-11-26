@@ -33,7 +33,6 @@ const AuthorSearchInput = () => {
   return (
     <>
       <input
-        autoFocus
         className={classes.input}
         list="search-suggestions"
         placeholder="How to contribute to Open Source"

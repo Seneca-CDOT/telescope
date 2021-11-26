@@ -22,8 +22,8 @@ class MyDocument extends Document {
           <meta name="theme-color" content={lightTheme.palette.primary.main} />
           <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" sizes="180x180" href="/logoImages/apple-icon-180.png" />
-          <meta name="apple-mobile-web-app-capable" content="yes"></meta>
-          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></meta>
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
           <meta name="description" content={description} />
           <meta name="author" content={author} />

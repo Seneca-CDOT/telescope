@@ -45,15 +45,6 @@ const AuthProvider = ({ children }: Props) => {
     raw: true,
   });
 
-  // Server-side rendering.
-  if (typeof window === 'undefined') {
-    return (
-      <AuthContext.Provider value={{ login: () => null, logout: () => null, register: () => null }}>
-        {children}
-      </AuthContext.Provider>
-    );
-  }
-
   // Mange the user state based on the presence and validity of the token
   useEffect(() => {
     const cleanup = () => {
@@ -74,7 +65,40 @@ const AuthProvider = ({ children }: Props) => {
       console.error('Error parsing token for user', err);
       cleanup();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
+
+  const login = (returnTo?: string) => {
+    // Create and store some random state that we'll send along with this login request
+    const loginState = nanoid();
+    setAuthState(loginState);
+
+    // Set our return URL
+    const url = new URL(returnTo || '', webUrl);
+    window.location.href = `${loginUrl}?redirect_uri=${url.href}&state=${loginState}`;
+  };
+
+  const logout = () => {
+    // Clear our existing token and state
+    removeToken();
+    removeAuthState();
+
+    // Redirect to logout
+    window.location.href = `${logoutUrl}?redirect_uri=${webUrl}`;
+  };
+
+  const register = (receivedToken: string) => {
+    setToken(receivedToken);
+  };
+
+  // Server-side rendering.
+  if (typeof window === 'undefined') {
+    return (
+      <AuthContext.Provider value={{ login: () => null, logout: () => null, register: () => null }}>
+        {children}
+      </AuthContext.Provider>
+    );
+  }
 
   // Browser-side rendering
   try {
@@ -104,29 +128,6 @@ const AuthProvider = ({ children }: Props) => {
     // TODO: should we do more in the error case?  If so, what?
     console.error('Error parsing access_token from URL', err);
   }
-
-  const login = (returnTo?: string) => {
-    // Create and store some random state that we'll send along with this login request
-    const loginState = nanoid();
-    setAuthState(loginState);
-
-    // Set our return URL
-    const url = new URL(returnTo || '', webUrl);
-    window.location.href = `${loginUrl}?redirect_uri=${url.href}&state=${loginState}`;
-  };
-
-  const logout = () => {
-    // Clear our existing token and state
-    removeToken();
-    removeAuthState();
-
-    // Redirect to logout
-    window.location.href = `${logoutUrl}?redirect_uri=${webUrl}`;
-  };
-
-  const register = (token: string) => {
-    setToken(token);
-  };
 
   return (
     <AuthContext.Provider value={{ login, logout, register, user, token }}>

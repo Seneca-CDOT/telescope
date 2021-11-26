@@ -1,6 +1,5 @@
 import { MouseEventHandler } from 'react';
-import { Avatar } from '@material-ui/core';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { Avatar, createStyles, makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

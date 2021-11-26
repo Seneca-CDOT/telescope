@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useMemo, CSSProperties } from 'react';
 import { AppBar, Toolbar, Tooltip, Zoom } from '@material-ui/core';
 import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -116,7 +116,7 @@ export default function NavBar({ disabled }: NavBarProps) {
   const desktop = useMediaQuery(theme.breakpoints.up(1024));
   const { user, logout } = useAuth();
 
-  const slideTransition: { [state: string]: React.CSSProperties } = useMemo(
+  const slideTransition: { [state: string]: CSSProperties } = useMemo(
     () => ({
       entered: { opacity: 1, transform: 'translateY(0)', zIndex: 999 },
       entering: { opacity: 0, transform: `translateY(${desktop ? '-50%' : '50%'})` },
@@ -150,9 +150,9 @@ export default function NavBar({ disabled }: NavBarProps) {
               <DynamicThemeToggleButton />
               {user && (
                 <ButtonTooltip title="Logout" arrow placement="top" TransitionComponent={Zoom}>
-                  <div className={classes.avatar} onClick={() => logout()}>
+                  <button type="button" className={classes.avatar} onClick={() => logout()}>
                     <TelescopeAvatar name={user.name} img={user.avatarUrl} size="27px" />
-                  </div>
+                  </button>
                 </ButtonTooltip>
               )}
             </Toolbar>
