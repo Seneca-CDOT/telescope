@@ -1,6 +1,5 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -9,27 +8,28 @@ module.exports = {
   },
   extends: [
     'airbnb',
-    'plugin:react/recommended',
     'plugin:prettier/recommended',
     'plugin:promise/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:import/typescript',
     'plugin:jest-playwright/recommended',
+    'plugin:import/recommended',
   ],
-  plugins: ['prettier', 'promise', 'react', 'react-hooks', 'jest'],
+  plugins: ['prettier', 'promise', 'jest'],
   settings: {
-    'importer/resolver': {
+    'import/resolver': {
       node: {},
-    },
-    react: {
-      version: 'detect',
     },
   },
   overrides: [
     // TypeScript for Next.js
     {
+      parser: '@typescript-eslint/parser',
       files: ['src/web/**/*.ts', 'src/web/**/*.tsx'],
-      plugins: ['@typescript-eslint'],
+      extends: [
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+        'plugin:import/typescript',
+      ],
+      plugins: ['@typescript-eslint', 'react', 'react-hooks'],
       env: {
         browser: true,
       },
@@ -58,6 +58,11 @@ module.exports = {
         'jest/no-identical-title': 'error',
         'jest/prefer-to-have-length': 'warn',
         'jest/valid-expect': 'error',
+      },
+      settings: {
+        react: {
+          version: 'latest',
+        },
       },
     },
 
