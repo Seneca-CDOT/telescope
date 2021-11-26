@@ -112,9 +112,9 @@ module.exports.buildLogHandler = function handleLog(req, res, next) {
 
   res.writeHead(200, { 'Content-Type': 'text/plain' });
 
-  const onData = (data) => res.write(data);
-  const onError = () => end('Error, end of log.');
-  const onEnd = () => end('Build Complete.');
+  let onData;
+  let onError;
+  let onEnd;
 
   function end(message) {
     if (message) {
@@ -127,6 +127,10 @@ module.exports.buildLogHandler = function handleLog(req, res, next) {
 
     res.end();
   }
+
+  onData = (data) => res.write(data);
+  onError = () => end('Error, end of log.');
+  onEnd = () => end('Build Complete.');
 
   out.on('data', onData);
   out.on('error', onError);

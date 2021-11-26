@@ -161,5 +161,6 @@ module.exports = {
      * difficult to configure properly.  Disabling for now.
      */
     'import/no-extraneous-dependencies': ['off'],
+    'no-new': 'off',
   },
 };
