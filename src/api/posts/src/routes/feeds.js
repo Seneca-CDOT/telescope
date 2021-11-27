@@ -1,10 +1,4 @@
-const {
-  Router,
-  logger,
-  createError,
-  isAuthenticated,
-  isAuthorized,
-} = require('@senecacdot/satellite');
+const { Router, logger, isAuthenticated, isAuthorized } = require('@senecacdot/satellite');
 const Feed = require('../data/feed');
 const { getFeeds } = require('../storage');
 const { validateNewFeed, validateFeedsIdParam } = require('../validation');
@@ -76,7 +70,7 @@ feeds.put(
       });
     } catch (error) {
       logger.error({ error }, 'Unable to flag feed in Redis');
-      next(error);
+      return next(error);
     }
   }
 );
@@ -107,7 +101,7 @@ feeds.post(
         .json({ message: `Feed was successfully added.`, id: feedId, url: `/feeds/${feedId}` });
     } catch (error) {
       logger.error({ error }, 'Unable to add feed to Redis');
-      next(error);
+      return next(error);
     }
   }
 );
@@ -125,7 +119,7 @@ feeds.delete(
       return res.status(204).send();
     } catch (error) {
       logger.error({ error }, 'Unable to reset Feed data in Redis');
-      next(error);
+      return next(error);
     }
   }
 );
@@ -154,7 +148,7 @@ feeds.delete(
       return res.status(204).json({ message: `Feed ${id} was successfully deleted.` });
     } catch (error) {
       logger.error({ error }, 'Unable to delete feed to Redis');
-      next(error);
+      return next(error);
     }
   }
 );
@@ -178,7 +172,7 @@ feeds.delete(
       return res.status(204).json({ message: `Feed ${id} was successfully unflagged.` });
     } catch (error) {
       logger.error({ error }, 'Unable to unflag feed in Redis');
-      next(error);
+      return next(error);
     }
   }
 );

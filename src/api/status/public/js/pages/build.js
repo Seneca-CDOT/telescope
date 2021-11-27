@@ -1,4 +1,4 @@
-import { checkForBuild } from '../build-log/check-for-build.js';
+import { checkForBuild } from '../build-log/check-for-build';
 
 window.addEventListener('load', () => {
   checkForBuild();

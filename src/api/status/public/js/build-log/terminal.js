@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const theme = {
   background: '#252525',
   cursor: '#A0A0A0',

@@ -1,5 +1,5 @@
 // http://localhost:1111/pages/build.html -> http://localhost:4000/:path
-const autodeploymentUrl = (path) => `//${location.hostname}:4000/${path}`;
+const autodeploymentUrl = (path) => `//${window.location.hostname}:4000/${path}`;
 
 export const checkBuildStatus = async () => {
   try {

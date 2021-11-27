@@ -23,7 +23,7 @@ router.get('/feeds', protect(), async (req, res, next) => {
     return res.status(200).send(feeds);
   } catch (error) {
     logger.error('Error with GET feeds');
-    next(error);
+    return next(error);
   }
 });
 

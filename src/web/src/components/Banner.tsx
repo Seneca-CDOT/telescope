@@ -200,7 +200,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
         </Typography>
         <Typography variant="h4" className={classes.quoteText}>
           <a href={studentQuote.url}>
-            &quot{studentQuote.quote}&quot
+            &quot;{studentQuote.quote}&quot;
             <br />
             <br />
             {studentQuote.author}

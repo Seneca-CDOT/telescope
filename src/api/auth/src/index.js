@@ -3,11 +3,12 @@ const passport = require('passport');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 
+const routes = require('./routes');
 // Setup SAML SSO-based Authentication
 require('./authentication');
 
 const service = new Satellite({
-  router: require('./routes'),
+  router: routes,
   beforeRouter(app) {
     // Initialize and use Session and Passport middleware on the app. In production
     // we use Redis for session storage, and in-memory otherwise.
