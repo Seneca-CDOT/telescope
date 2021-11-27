@@ -1,6 +1,6 @@
-const apiHost = new URL(location).origin;
+const apiHost = new URL(window.location).origin;
 
-export async function getFeedCount() {
+export default async function getFeedCount() {
   try {
     const data = await fetch(`${apiHost}/v1/posts/feeds`, {
       method: 'HEAD',

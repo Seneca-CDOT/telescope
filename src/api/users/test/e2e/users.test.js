@@ -73,7 +73,6 @@ describe('GET REQUESTS', () => {
   it('should 400, rejected by negative per_page', async () => {
     // start_after does not matter, middleware should reject regardless
     const response = await getUsersPaginated('?per_page=-5');
-    const users = await response.json();
     expect(response.status).toBe(400);
   });
 });

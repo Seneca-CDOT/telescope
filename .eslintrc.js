@@ -1,5 +1,15 @@
+// React is installed in src/web but Eslint is unable to detect it
+const { react } = require('./src/web/package.json').dependencies;
+
+// Extract react version manually to pass it to Eslint
+// Semver Regex: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+const reactVersion = react.match(
+  /(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
+);
+
 module.exports = {
   root: true,
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -18,11 +28,13 @@ module.exports = {
     'import/resolver': {
       node: {},
     },
+    react: {
+      version: reactVersion ? `${reactVersion[1]}.${reactVersion[2]}` : '17.0',
+    },
   },
   overrides: [
     // TypeScript for Next.js
     {
-      parser: '@typescript-eslint/parser',
       files: ['src/web/**/*.ts', 'src/web/**/*.tsx'],
       extends: [
         'plugin:react/recommended',
@@ -58,11 +70,6 @@ module.exports = {
         'jest/no-identical-title': 'error',
         'jest/prefer-to-have-length': 'warn',
         'jest/valid-expect': 'error',
-      },
-      settings: {
-        react: {
-          version: '17.0',
-        },
       },
     },
 

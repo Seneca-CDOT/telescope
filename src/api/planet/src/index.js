@@ -1,4 +1,4 @@
-const { static } = require('express');
+const { static: serveStatic } = require('express');
 const expressHandlebars = require('express-handlebars');
 const { Satellite } = require('@senecacdot/satellite');
 const path = require('path');
@@ -28,7 +28,7 @@ const service = new Satellite({
 });
 
 // Legacy CDOT Planet static assets
-service.router.use('/legacy', static(path.join(__dirname, '../static')));
+service.router.use('/legacy', serveStatic(path.join(__dirname, '../static')));
 service.router.use('/planet', planet);
 
 module.exports = service;
