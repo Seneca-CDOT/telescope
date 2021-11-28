@@ -11,9 +11,13 @@ export default function getGitHubData(owner, repo) {
     .then((res) => res.json())
     .then((data) => {
       weeklyCommits = data.all[data.all.length - 1];
-      document.getElementById(`weekly-commits-${repo}`).innerHTML = weeklyCommits;
-
-      document.getElementById(`yearly-commits-${repo}`).innerHTML = data.all.reduce(
+      if (weeklyCommits > 0) {
+        document.getElementById(`weekly-commits-${repo}`).style.visibility = 'visible';
+      } else {
+        document.getElementById(`weekly-commits-${repo}`).style.visibility = 'hidden';
+      }
+      document.getElementById(`num-weekly-commits-${repo}`).innerHTML = weeklyCommits;
+      document.getElementById(`num-yearly-commits-${repo}`).innerHTML = data.all.reduce(
         (a, b) => a + b
       );
       return data;
