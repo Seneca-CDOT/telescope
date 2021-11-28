@@ -1,6 +1,7 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import useSWRInfinite from 'swr/infinite';
 import { Container, Box, createStyles } from '@material-ui/core';
+import { useState } from 'react';
 
 import { searchServiceUrl } from '../config';
 import Timeline from './Posts/Timeline';
@@ -55,6 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const SearchResults = () => {
   const classes = useStyles();
   const { textParam, filter, toggleHelp } = useSearchValue();
+  const [totalPosts, setTotalPosts] = useState(0);
 
   const prepareUrl = (index: number) =>
     `${searchServiceUrl}?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
@@ -66,6 +68,8 @@ const SearchResults = () => {
     async (u: string) => {
       const res = await fetch(u);
       const results = await res.json();
+
+      setTotalPosts(results.results);
       return results.values;
     }
   );
@@ -120,7 +124,7 @@ const SearchResults = () => {
     <Container className={classes.searchResults}>
       {!isEmpty ? (
         <>
-          <Timeline pages={data} nextPage={() => setSize(size + 1)} />
+          <Timeline pages={data} totalPosts={totalPosts} nextPage={() => setSize(size + 1)} />
           {loadingMoreData && (
             <h1 className={classes.spinner}>
               <Spinner />
