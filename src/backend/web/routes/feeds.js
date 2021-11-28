@@ -63,7 +63,7 @@ feeds.put('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, res, 
     });
   } catch (error) {
     logger.error({ error }, 'Unable to flag feed in Redis');
-    next(error);
+    return next(error);
   }
 });
 
@@ -84,7 +84,7 @@ feeds.post('/', protect(), validateNewFeed(), async (req, res, next) => {
       .json({ message: `Feed was successfully added.`, id: feedId, url: `/feeds/${feedId}` });
   } catch (error) {
     logger.error({ error }, 'Unable to add feed to Redis');
-    next(error);
+    return next(error);
   }
 });
 
@@ -94,7 +94,7 @@ feeds.delete('/cache', protectAdmin(true), async (req, res, next) => {
     return res.status(204).send();
   } catch (error) {
     logger.error({ error }, 'Unable to reset Feed data in Redis');
-    next(error);
+    return next(error);
   }
 });
 
@@ -113,7 +113,7 @@ feeds.delete('/:id', validateFeedsIdParam(), protect(), async (req, res, next) =
     return res.status(204).json({ message: `Feed ${id} was successfully deleted.` });
   } catch (error) {
     logger.error({ error }, 'Unable to delete feed to Redis');
-    next(error);
+    return next(error);
   }
 });
 
@@ -128,7 +128,7 @@ feeds.delete('/:id/flag', protectAdmin(), validateFeedsIdParam(), async (req, re
     return res.status(204).json({ message: `Feed ${id} was successfully unflagged.` });
   } catch (error) {
     logger.error({ error }, 'Unable to unflag feed in Redis');
-    next(error);
+    return next(error);
   }
 });
 

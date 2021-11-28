@@ -3,7 +3,13 @@ import AboutFooter from './AboutFooter';
 
 afterEach(cleanup);
 
-jest.mock('./GitHubContributorCard', () => () => <div>GitHubContributorCard</div>);
+jest.mock(
+  './GitHubContributorCard',
+  () =>
+    function MockGitHubCard() {
+      return <div>GitHubContributorCard</div>;
+    }
+);
 
 it('renders correctly', () => {
   const { asFragment } = render(<AboutFooter />);

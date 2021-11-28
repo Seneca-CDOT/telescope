@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { imageServiceUrl } from '../config';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   img: {
     visibility: 'inherit',
     position: 'absolute',

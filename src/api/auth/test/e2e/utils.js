@@ -22,6 +22,7 @@ const createTelescopeUsers = (users) =>
           if (!(res.status === 201 || res.status === 400)) {
             throw new Error(`got unexpected status ${res.status}`);
           }
+          return res;
         })
         .catch((err) => {
           console.error('Unable to create user with Users service', { err });
@@ -109,6 +110,7 @@ const ensureUsers = (users, result = 200) =>
         },
       }).then((res) => {
         expect(res.status).toEqual(result);
+        return res;
       })
     )
   );

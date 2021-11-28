@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const getRepoName = (repo: string) => repo.replace(/^([^\/]+\/[^\/]+).*/, '$1');
+const getRepoName = (repo: string) => repo.replace(/^([^/]+\/[^/]+).*/, '$1');
 
 type Props = {
   repoUrls: string[];
@@ -49,7 +49,7 @@ const Repos = ({ repoUrls }: Props) => {
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
-        <VscRepoForked className={classes.icon}></VscRepoForked>
+        <VscRepoForked className={classes.icon} />
         {repoUrls.length === 1 ? 'Repo' : 'Repos'}
       </h2>
       <ul className={classes.repos}>
@@ -57,8 +57,8 @@ const Repos = ({ repoUrls }: Props) => {
           <li key={repo} className={classes.repo}>
             <a
               href={`https://github.com/${repo}`}
-              rel="bookmark"
               target="_blank"
+              rel="noreferrer"
               title={repo}
               className={classes.link}
             >

@@ -50,7 +50,7 @@ const Users = ({ usernames, avatarSize = 25 }: Props) => {
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
-        <VscGithub className={classes.icon}></VscGithub>
+        <VscGithub className={classes.icon} />
         {usernames.length === 1 ? 'User' : 'Users'}
       </h2>
       <ul className={classes.users}>

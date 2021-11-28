@@ -1,4 +1,4 @@
-const { Satellite, isAuthenticated, isAuthorized } = require('@senecacdot/satellite');
+const { Satellite } = require('@senecacdot/satellite');
 // TODO: https://github.com/Seneca-CDOT/telescope/issues/2345
 // const { router } = require('bull-board');
 // const startParserQueue = require('./parser-queue');
