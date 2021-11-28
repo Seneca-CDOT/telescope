@@ -9,6 +9,8 @@ COPY --chown=node:node . .
 
 RUN npm install --only=production --no-package-lock
 
+RUN npm run compile:scss
+
 USER node
 
 CMD ["dumb-init", "node", "src/server.js"]
