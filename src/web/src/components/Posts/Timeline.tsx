@@ -7,6 +7,7 @@ import LoadAutoScroll from './LoadAutoScroll';
 
 type Props = {
   pages: Post[][] | undefined;
+  totalPosts?: number;
   nextPage: Function;
 };
 
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Timeline = ({ pages, nextPage }: Props) => {
+const Timeline = ({ pages, totalPosts, nextPage }: Props) => {
   const classes = useStyles();
 
   if (!pages) {
@@ -46,10 +47,24 @@ const Timeline = ({ pages, nextPage }: Props) => {
   // There no more posts when the last page has no posts
   const isReachingEnd = !pages?.[pages.length - 1]?.length;
 
-  // Iterate over all the pages (an array of arrays) and then convert all post
-  // elements to <Post>
-  const postsTimeline = pages.map((page: Post[]): Array<ReactElement> | ReactElement =>
-    page.map(({ id, url }: Post) => <PostComponent postUrl={url} key={id} />)
+  // the length of first array
+  const firstLength = pages[0].length;
+  const getCurrentPost = (pageIndex: number, postIndex: number): number => {
+    // this function takes 2 indexes from the 2-d posts array and length of the first array
+    return pageIndex * firstLength + postIndex + 1;
+  };
+
+  const postsTimeline = pages.map((page, pageIndex): Array<ReactElement> | ReactElement =>
+    page.map(({ id, url }, postIndex) => {
+      return (
+        <PostComponent
+          postUrl={url}
+          key={id}
+          currentPost={getCurrentPost(pageIndex, postIndex)}
+          totalPosts={totalPosts}
+        />
+      );
+    })
   );
 
   // Add a "Load More" button at the end of the timeline.  Give it a unique
