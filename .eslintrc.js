@@ -1,12 +1,3 @@
-// React is installed in src/web but Eslint is unable to detect it
-const { react } = require('./src/web/package.json').dependencies;
-
-// Extract react version manually to pass it to Eslint
-// Semver Regex: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
-const reactVersion = react.match(
-  /(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
-);
-
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
@@ -29,7 +20,7 @@ module.exports = {
       node: {},
     },
     react: {
-      version: reactVersion ? `${reactVersion[1]}.${reactVersion[2]}` : '17.0',
+      version: '17.0',
     },
   },
   overrides: [
@@ -79,6 +70,12 @@ module.exports = {
       env: {
         node: true,
       },
+    },
+
+    // Static dashboard
+    {
+      files: ['src/api/status/public/**/*.js'],
+      rules: { 'import/extensions': ['error', 'always'] },
     },
 
     // Jest Test files

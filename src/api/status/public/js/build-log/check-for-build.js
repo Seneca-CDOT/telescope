@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
-import { checkBuildStatus, getBuildLog } from './api';
-import terminal from './terminal';
+import { checkBuildStatus, getBuildLog } from './api.js';
+import terminal from './terminal.js';
 
 let build;
 let reader;
