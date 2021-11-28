@@ -3,6 +3,9 @@ const path = require('path');
 
 const { logger } = require('@senecacdot/satellite');
 const feedQueue = require('./queue');
+
+// The parser service isn't ready, disabling for now
+// eslint-disable-next-line import/no-unresolved
 const { waitOnReady } = require('../utils/indexer');
 
 /**
