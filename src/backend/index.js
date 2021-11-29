@@ -1,4 +1,4 @@
-require('./lib/config.js');
+require('./lib/config');
 const { feedQueue } = require('./feed/queue');
 const feedWorker = require('./feed/worker');
 const { logger } = require('./utils/logger');
