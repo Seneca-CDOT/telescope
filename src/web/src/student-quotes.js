@@ -118,4 +118,56 @@ export default [
     quote:
       'What did I learn? 1. Trust your gut feeling; 2. Understand the problem, before looking for the cause!',
   },
+  {
+    author: 'Ahmad Rokay',
+    url: 'https://dev.to/ar/first-hacktoberfest-contribution-486m',
+    quote:
+      "Even though it was small, it felt really good contributing to someone's real world project and seeing my work in their repo.",
+  },
+  {
+    author: 'Francesco Menghi',
+    url: 'https://dev.to/menghif/contributing-to-mozilla-45l2',
+    quote:
+      'Even though this was a one line fix, I am proud of the fact that I was able to contribute to an organization such as Mozilla.',
+  },
+  {
+    author: 'Le Minh Pham',
+    url: 'https://medium.com/@lmpham1/dps909-hacktoberfest-recap-ea3af09c6a7',
+    quote: 'It also feels good to be able to make contributions to actual real-life projects',
+  },
+  {
+    author: 'Oliver Pham',
+    url: 'https://dev.to/oliverpham/mistakes-to-avoid-before-submitting-your-pull-request-3nl8',
+    quote:
+      "Although it was just a small fix, I couldn't help feeling proud while looking at the result of my contribution and my name in the project's change log",
+  },
+  {
+    author: 'Josuha Li',
+    url: 'https://dev.to/jli/my-3rd-hacktoberfest-pr-2p8h',
+    quote:
+      "So after this PR I think I feel a bit more confident in viewing larger projects: it's important to remember that you are not expected to know the ins and outs of the entire project.",
+  },
+  {
+    author: 'Andre Willomitzer',
+    url: 'https://dev.to/andrewillomitzer/publishing-my-first-npm-package-38ad',
+    quote:
+      'Collaborating with classmates has truly opened my eyes about new ways of doing things and best practices of development',
+  },
+  {
+    author: 'Andre Willomitzer',
+    url: 'https://dev.to/andrewillomitzer/publishing-my-first-npm-package-38ad',
+    quote:
+      "I have had the opportunity to contribute to things I never dreamed of having a hand in working on like the jasmine testing framework, and also learned how to persevere when things aren't going right and to keep trying different approaches.",
+  },
+  {
+    author: 'Andrew Nguyen',
+    url: 'https://blog.andrewnt.dev/post/microsoft-vsce-warn-users-about-missing-LICENSE',
+    quote: 'The thought of having my code run on every published VSCode extension excites me.',
+  },
+  {
+    author: 'Duke Manh',
+    url: 'https://medium.com/@manhducdkcb/hacktoberfest-2-contributing-to-grafana-80f196d57402',
+    quote:
+      'What I learned when contributing to open-source is to not be overwhelmed by big projects. The codebase might be large, but at the same time, it’s very organized and well documented.',
+  },
 ];
