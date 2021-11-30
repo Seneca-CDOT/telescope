@@ -154,7 +154,7 @@ const ErrorPage = () => {
         spacing={0}
         direction="column"
         alignItems="center"
-        justify="center"
+        justifyContent="center"
         className={classes.container}
       >
         <Grid item xs={8}>

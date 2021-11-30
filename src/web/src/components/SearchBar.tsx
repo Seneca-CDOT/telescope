@@ -100,7 +100,7 @@ const SearchBar = () => {
   return (
     <Box className={classes.root}>
       <Paper component="form" className={classes.card} elevation={0}>
-        <Grid container direction="row" spacing={2} alignItems="center" justify="flex-start">
+        <Grid container direction="row" spacing={2} alignItems="center" justifyContent="flex-start">
           <Grid item xs={12} sm={2} lg={2}>
             <FormControl fullWidth>
               <TextField
