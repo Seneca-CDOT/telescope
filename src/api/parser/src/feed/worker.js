@@ -4,9 +4,11 @@ const path = require('path');
 const { logger } = require('@senecacdot/satellite');
 const feedQueue = require('./queue');
 
-// The parser service isn't ready, disabling for now
-// eslint-disable-next-line import/no-unresolved
-const { waitOnReady } = require('../utils/indexer');
+/**
+ * The parser microservice needs a full rework
+ * it's the last service in the legacy back-end
+ */
+// const { waitOnReady } = require('../utils/indexer');
 
 /**
  * We determine the number of parallel feed processor functions to run
@@ -29,9 +31,9 @@ function getFeedWorkersCount() {
   return Math.min(count, cpuCount);
 }
 
-exports.start = async function () {
+exports.start = function () {
   try {
-    await waitOnReady();
+    // await waitOnReady();
     logger.info('Connected to elasticsearch!');
     const concurrency = getFeedWorkersCount();
     logger.debug(

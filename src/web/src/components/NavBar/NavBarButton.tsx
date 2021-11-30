@@ -1,8 +1,8 @@
 import { MouseEventHandler } from 'react';
 import Link from 'next/link';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { IconButton, Button, Tooltip, Zoom, SvgIconTypeMap } from '@material-ui/core';
-import { OverridableComponent } from '@material-ui/core/OverridableComponent';
+import { IconButton, Button, Tooltip, Zoom } from '@material-ui/core';
+import { SvgIconComponent } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -25,7 +25,7 @@ const ButtonTooltip = withStyles({
 
 interface NavBarIconBase {
   title: string;
-  Icon: OverridableComponent<SvgIconTypeMap<{}, 'svg'>>;
+  Icon: SvgIconComponent;
 }
 
 interface NavBarIconButton extends NavBarIconBase {

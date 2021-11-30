@@ -1,7 +1,7 @@
 require('../lib/config');
 const stoppable = require('stoppable');
 
-const app = require('./app.js');
+const app = require('./app');
 
 const { logger } = app.get('logger');
 const HTTP_PORT = process.env.PORT || 3000;
