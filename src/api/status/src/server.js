@@ -1,6 +1,7 @@
 const { Satellite } = require('@senecacdot/satellite');
 const { static: serveStatic } = require('express');
 const path = require('path');
+const { check } = require('./services');
 
 const host = process.env.API_HOST || 'localhost';
 
@@ -42,6 +43,16 @@ if (process.env.PATH_PREFIX) {
 } else {
   service.router.use('/', serveStatic(path.join(__dirname, '../public')));
 }
+
+service.router.get('/v1/status/status', (req, res) => {
+  check()
+    .then((status) => {
+      // This status response shouldn't be cached (we need current status info)
+      res.set('Cache-Control', 'no-store, max-age=0');
+      return res.json(status);
+    })
+    .catch((err) => res.status(500).json({ error: err.message }));
+});
 
 const port = parseInt(process.env.STATUS_PORT || 1111, 10);
 service.start(port);
