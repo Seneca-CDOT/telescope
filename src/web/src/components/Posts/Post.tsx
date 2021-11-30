@@ -279,7 +279,7 @@ const PostComponent = ({ postUrl }: Props) => {
           </Typography>
         </ListSubheader>
 
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Grid item className={classes.spinner}>
             <Spinner />
           </Grid>
