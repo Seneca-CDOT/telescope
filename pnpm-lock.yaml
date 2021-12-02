@@ -247,6 +247,7 @@ importers:
   src/api/posts:
     specifiers:
       '@senecacdot/satellite': ^1.x
+      bull: ^3.20.1
       express-validator: ^6.13.0
       ioredis: ^4.28.0
       ioredis-mock: ^5.8.0
@@ -255,6 +256,7 @@ importers:
       supertest: ^6.1.6
     dependencies:
       '@senecacdot/satellite': 1.17.0
+      bull: 3.29.3
       express-validator: 6.13.0
       ioredis: 4.28.2
       ioredis-mock: 5.8.1_ioredis@4.28.2
