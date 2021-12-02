@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
+    "bull": "^3.20.1",
     "express-validator": "^6.13.0",
     "ioredis": "^4.28.0",
     "ioredis-mock": "^5.8.0",
