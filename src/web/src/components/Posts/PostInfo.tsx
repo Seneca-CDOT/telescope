@@ -1,6 +1,7 @@
 import { createStyles, ListSubheader, makeStyles, Theme } from '@material-ui/core';
 import PostAvatar from './PostAvatar';
 import AdminButtons from '../AdminButtons';
+import ShareButton from './ShareButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -93,6 +94,8 @@ const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
             {postDate}
           </time>
         </a>
+
+        <ShareButton url={postUrl} />
       </div>
       <AdminButtons />
     </ListSubheader>

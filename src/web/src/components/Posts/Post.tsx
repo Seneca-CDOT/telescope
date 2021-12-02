@@ -16,6 +16,7 @@ import Spinner from '../Spinner';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
 import GitHubInfo from './GitHubInfo';
+import ShareButton from './ShareButton';
 
 type Props = {
   postUrl: string;
@@ -158,9 +159,6 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '1.1em',
         height: '5px',
         margin: '-1.6em 1em -1em .5px',
-      },
-      '&:hover': {
-        textDecorationLine: 'underline',
       },
     },
     authorAvatarContainer: {
@@ -321,7 +319,10 @@ const PostComponent = ({ postUrl }: Props) => {
                 <a href={post.url} rel="bookmark" className={classes.link}>
                   {`${formatPublishedDate(post.updated)}`}
                 </a>
+
+                <ShareButton url={post.url} />
               </h1>
+
               <div>
                 <AdminButtons />
               </div>
