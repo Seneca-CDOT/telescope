@@ -14,7 +14,7 @@ module.exports = {
     'plugin:jest-playwright/recommended',
     'plugin:import/recommended',
   ],
-  plugins: ['prettier', 'promise', 'jest'],
+  plugins: ['prettier', 'promise', 'jest', 'anti-trojan-source'],
   settings: {
     'import/resolver': {
       node: {},
@@ -173,5 +173,11 @@ module.exports = {
      */
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'error',
+
+    /**
+     * Halt if a trojan source attack is found
+     * https://github.com/lirantal/eslint-plugin-anti-trojan-source
+     */
+    'anti-trojan-source/no-bidi': 'error',
   },
 };

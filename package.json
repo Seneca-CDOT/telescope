@@ -107,6 +107,7 @@
     "eslint": "7.23.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-anti-trojan-source": "1.0.6",
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-jest": "25.3.0",
     "eslint-plugin-jest-playwright": "0.2.1",
