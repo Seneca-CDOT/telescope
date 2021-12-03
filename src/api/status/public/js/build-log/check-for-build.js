@@ -2,6 +2,7 @@
 import { checkBuildStatus, getBuildLog } from './api.js';
 import terminal from './terminal.js';
 import buildHeader from './build-header.js';
+import calculatorBuildInfo from './datetime-calculator.js';
 
 let build;
 let reader;
@@ -30,6 +31,7 @@ function processLog({ done, value }) {
 export default async function checkForBuild() {
   const status = await checkBuildStatus();
   buildHeader(status);
+  calculatorBuildInfo(status);
 
   // If we're already building, skip this check
   if (build) {
