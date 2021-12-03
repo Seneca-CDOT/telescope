@@ -7,10 +7,10 @@ const buildSender = document.getElementById('build-sender');
 const buildSenderName = document.getElementById('build-sender-name');
 const buildSenderImg = document.getElementById('build-sender-img');
 const buildGitSHA = document.getElementById('build-git-sha');
-const buildResult = document.getElementById('build-result');
 const buildStarted = document.getElementById('build-started');
 const buildDuration = document.getElementById('build-duration');
 const buildPrevious = document.getElementById('previous-build');
+const buildLoadingAnimation = document.getElementById('build-animation');
 
 function renderBuildTimeInfo(startedDate, stoppedDate = new Date()) {
   const duration = new Date(stoppedDate).getTime() - new Date(startedDate).getTime();
@@ -29,6 +29,24 @@ function renderSha(compare, after) {
   buildGitSHA.innerText = after.substring(0, 7);
 }
 
+function renderLoadingAnimation(code) {
+  buildLoadingAnimation.className = 'material-icons';
+
+  if (code === 0) {
+    /* build success */
+    buildLoadingAnimation.innerHTML = 'check_circle';
+    buildLoadingAnimation.classList.add('text-success');
+  } else if (!code) {
+    /* no code present (i.e., it's not zero, so it's undefined/null), unknown (i.e., in progress) */
+    buildLoadingAnimation.innerHTML = 'motion_photos_on';
+    buildLoadingAnimation.classList.add('fa-spin', 'fa-5x', 'text-warning', 'fa');
+  } else {
+    /* build will fail in other cases */
+    buildLoadingAnimation.innerHTML = 'cancel';
+    buildLoadingAnimation.classList.add('text-danger');
+  }
+}
+
 function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code }) {
   const { sender, after, compare } = githubData;
 
@@ -41,12 +59,10 @@ function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code
   }
 
   buildHeaderTitle.innerHTML = '';
-
   renderSender(sender);
   renderSha(compare, after);
   renderBuildTimeInfo(startedDate, stoppedDate);
-
-  buildResult.innerText = code === 0 ? 'Success' : 'Error';
+  renderLoadingAnimation(code);
 }
 
 export default function buildHeader(build) {
@@ -59,6 +75,5 @@ export default function buildHeader(build) {
     buildHeaderInfo.innerHTML = '';
     return;
   }
-
   renderBuildInfo(build);
 }
