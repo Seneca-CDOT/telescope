@@ -1,4 +1,6 @@
-/* global describe, test, beforeEach, afterEach, expect */
+/* eslint no-unused-vars: off */
+//ESLint override to prevent errors for callback vars, e.g. (req, user) => {...}
+
 const nock = require('nock');
 const getPort = require('get-port');
 const jwt = require('jsonwebtoken');

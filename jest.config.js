@@ -13,7 +13,6 @@ module.exports = {
   bail: 1,
   verbose: true,
   testPathIgnorePatterns: ['/node_modules/'],
-  testEnvironment: 'node',
   coverageDirectory: '<rootDir>/coverage',
   collectCoverageFrom: ['<rootDir>/src/**/*.js'],
   testTimeout: 8000,

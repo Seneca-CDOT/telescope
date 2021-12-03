@@ -14,25 +14,6 @@ function isAuthenticated() {
   });
 }
 
-// Determine whether the authorization options passed to isAuthorized are valid.
-function validateAuthorizationOptions(options = {}) {
-  let isValid = false;
-
-  // It's possible that `roles` is defined, an array (roles) of strings with 1 or more values
-  const { roles } = options;
-  if (Array.isArray(roles) && roles.length && roles.every((role) => typeof role === 'string')) {
-    isValid = true;
-  }
-
-  // It's possible that an authorizeUser() function is attached
-  const { authorizeUser } = options;
-  if (typeof authorizeUser === 'function') {
-    isValid = true;
-  }
-
-  return isValid;
-}
-
 // Check to see if an already Authenticated user is Authorized to do something,
 // based on the `req` and the `user` payload from the access token. For
 // example, if a user must have the 'admin' role, or a user's `sub` claim

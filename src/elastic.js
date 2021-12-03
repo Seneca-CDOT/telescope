@@ -1,6 +1,7 @@
 const { ELASTIC_URL, ELASTIC_PORT } = process.env;
 const { Client } = require('@elastic/elasticsearch');
 const Mock = require('@elastic/elasticsearch-mock');
+const logger = require('./logger');
 
 function MockClient() {
   const mock = new Mock();
