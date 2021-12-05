@@ -34,13 +34,10 @@ const AuthorSearchInput = () => {
     <>
       <input
         className={classes.input}
-        list="search-suggestions"
         placeholder="How to contribute to Open Source"
         value={text}
         onChange={(event) => onTextChange(event.target.value)}
       />
-
-      <datalist aria-label="search telescope" id="search-suggestions" />
     </>
   );
 };
