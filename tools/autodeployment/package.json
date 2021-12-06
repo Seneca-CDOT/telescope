@@ -6,7 +6,7 @@
   "dependencies": {
     "@octokit/webhooks": "^9.15.0",
     "@senecacdot/satellite": "^1.x",
-    "date-fns": "^2.24.0",
+    "date-fns": "^2.26.0",
     "dotenv": "^10.0.0",
     "merge-stream": "^2.0.0",
     "pm2": "^5.1.1",

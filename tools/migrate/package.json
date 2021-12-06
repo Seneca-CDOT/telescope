@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "jsdom": "^16.5.2",
+    "jsdom": "^18.0.1",
     "node-fetch": "^2.6.1"
   }
 }
