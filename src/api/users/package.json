@@ -17,6 +17,6 @@
     "env-cmd": "^10.1.0",
     "firebase-tools": "^9.9.0",
     "nodemon": "^2.0.15",
-    "supertest": "^6.1.3"
+    "supertest": "^6.1.6"
   }
 }

@@ -3,92 +3,92 @@ lockfileVersion: 5.3
 importers:
   .:
     specifiers:
-      '@babel/core': 7.16.0
-      '@babel/plugin-transform-runtime': 7.16.4
-      '@babel/preset-env': 7.16.4
-      '@babel/preset-react': 7.16.0
-      '@babel/preset-typescript': 7.16.0
-      '@bull-board/api': 3.7.0
-      '@bull-board/express': 3.7.0
-      '@elastic/elasticsearch': 7.11.0
-      '@elastic/elasticsearch-mock': 0.3.0
-      '@types/jest': 27.0.2
-      '@typescript-eslint/eslint-plugin': 4.17.0
-      '@typescript-eslint/parser': 4.17.0
-      '@vercel/node': 1.9.1
-      '@wordpress/wordcount': 2.15.0
-      babel-jest: 27.3.1
-      babel-preset-next: 1.4.0
-      bull: 3.20.1
-      clean-whitespace: 0.1.2
-      connect-redis: ' 6.0.0'
-      cors: 2.8.5
-      cross-env: 7.0.3
-      date-fns: 2.26.0
-      docker-compose: 0.23.13
-      dotenv: 10.0.0
-      entities: 3.0.1
-      eslint: 7.23.0
-      eslint-config-airbnb: 18.2.1
-      eslint-config-prettier: 8.1.0
-      eslint-plugin-anti-trojan-source: 1.0.6
-      eslint-plugin-import: 2.25.3
-      eslint-plugin-jest: 25.3.0
-      eslint-plugin-jest-playwright: 0.2.1
-      eslint-plugin-jsx-a11y: 6.4.1
-      eslint-plugin-prettier: 3.4.0
-      eslint-plugin-promise: 5.1.0
-      eslint-plugin-react: 7.22.0
-      eslint-plugin-react-hooks: 4.2.0
-      express: 4.17.1
-      express-healthcheck: 0.1.0
-      express-pino-logger: 6.0.0
-      express-session: 1.17.2
-      express-validator: 6.13.0
-      fast-xml-parser: 3.19.0
-      feed: 4.2.2
-      helmet: 4.6.0
-      highlight.js: 11.3.1
-      http-proxy-middleware: 2.0.1
-      husky: 7.0.4
-      ioredis: 4.28.0
-      ioredis-mock: 5.8.0
-      jest: 27.3.1
-      jest-fetch-mock: 3.0.3
-      jest-playwright-preset: 1.7.0
-      jsdom: 18.0.0
-      nock: 13.2.1
-      node-fetch: 2.6.1
-      normalize-url: 6.0.1
-      npm-run-all: 4.1.5
-      opml-generator: 1.1.1
-      passport: 0.5.0
-      passport-saml: 3.2.0
-      pino: 7.3.0
-      pino-elasticsearch: 6.2.0
-      pino-pretty: 7.2.0
-      playwright: 1.16.3
+      '@babel/core': ^7.16.0
+      '@babel/plugin-transform-runtime': ^7.16.4
+      '@babel/preset-env': ^7.16.4
+      '@babel/preset-react': ^7.16.0
+      '@babel/preset-typescript': ^7.16.0
+      '@bull-board/api': ^3.7.0
+      '@bull-board/express': ^3.7.0
+      '@elastic/elasticsearch': ^7.12.0
+      '@elastic/elasticsearch-mock': ^0.3.0
+      '@types/jest': ^27.0.2
+      '@typescript-eslint/eslint-plugin': ^4.17.0
+      '@typescript-eslint/parser': ^4.17.0
+      '@vercel/node': ^1.9.1
+      '@wordpress/wordcount': ^2.15.0
+      babel-jest: ^27.3.1
+      babel-preset-next: ^1.4.0
+      bull: ^3.22.0
+      clean-whitespace: ^0.1.2
+      connect-redis: ^6.0.0
+      cors: ^2.8.5
+      cross-env: ^7.0.3
+      date-fns: ^2.26.0
+      docker-compose: ^0.23.13
+      dotenv: ^10.0.0
+      entities: ^3.0.1
+      eslint: ^7.23.0
+      eslint-config-airbnb: ^18.2.1
+      eslint-config-prettier: ^8.1.0
+      eslint-plugin-anti-trojan-source: ^1.0.6
+      eslint-plugin-import: ^2.25.3
+      eslint-plugin-jest: ^25.3.0
+      eslint-plugin-jest-playwright: ^0.2.1
+      eslint-plugin-jsx-a11y: ^6.4.1
+      eslint-plugin-prettier: ^3.4.0
+      eslint-plugin-promise: ^5.1.0
+      eslint-plugin-react: ^7.22.0
+      eslint-plugin-react-hooks: ^4.2.0
+      express: ^4.17.1
+      express-healthcheck: ^0.1.0
+      express-pino-logger: ^6.0.0
+      express-session: ^1.17.2
+      express-validator: ^6.13.0
+      fast-xml-parser: ^3.19.0
+      feed: ^4.2.2
+      helmet: ^4.6.0
+      highlight.js: ^11.3.1
+      http-proxy-middleware: ^2.0.1
+      husky: ^7.0.4
+      ioredis: ^4.28.0
+      ioredis-mock: ^5.8.0
+      jest: ^27.3.1
+      jest-fetch-mock: ^3.0.3
+      jest-playwright-preset: ^1.7.0
+      jsdom: ^18.0.1
+      nock: ^13.2.1
+      node-fetch: ^2.6.1
+      normalize-url: ^6.0.1
+      npm-run-all: ^4.1.5
+      opml-generator: ^1.1.1
+      passport: ^0.5.0
+      passport-saml: ^3.2.0
+      pino: ^7.3.0
+      pino-elasticsearch: ^6.2.0
+      pino-pretty: ^7.2.0
+      playwright: ^1.16.3
       prettier: 2.4.1
-      pretty-quick: 3.1.2
-      rss-parser: 3.12.0
-      run.env: 1.1.0
-      sanitize-html: 2.5.3
-      set-interval-async: 2.0.3
-      stoppable: 1.1.0
-      supertest: 6.1.6
-      ts-jest: 27.0.7
+      pretty-quick: ^3.1.2
+      rss-parser: ^3.12.0
+      run.env: ^1.1.0
+      sanitize-html: ^2.5.3
+      set-interval-async: ^2.0.3
+      stoppable: ^1.1.0
+      supertest: ^6.1.6
+      ts-jest: ^27.0.7
     dependencies:
       '@bull-board/api': 3.7.0
       '@bull-board/express': 3.7.0
-      '@elastic/elasticsearch': 7.11.0
-      '@elastic/elasticsearch-mock': 0.3.0
+      '@elastic/elasticsearch': 7.15.0
+      '@elastic/elasticsearch-mock': 0.3.1
       '@wordpress/wordcount': 2.15.0
-      babel-jest: 27.3.1_@babel+core@7.16.0
-      bull: 3.20.1
+      babel-jest: 27.4.2_@babel+core@7.16.0
+      bull: 3.29.3
       clean-whitespace: 0.1.2
       connect-redis: 6.0.0
       cors: 2.8.5
-      date-fns: 2.26.0
+      date-fns: 2.27.0
       docker-compose: 0.23.13
       dotenv: 10.0.0
       entities: 3.0.1
@@ -101,11 +101,11 @@ importers:
       helmet: 4.6.0
       highlight.js: 11.3.1
       http-proxy-middleware: 2.0.1
-      ioredis: 4.28.0
-      ioredis-mock: 5.8.0_ioredis@4.28.0
-      jsdom: 18.0.0
-      node-fetch: 2.6.1
-      normalize-url: 6.0.1
+      ioredis: 4.28.2
+      ioredis-mock: 5.8.1_ioredis@4.28.2
+      jsdom: 18.1.1
+      node-fetch: 2.6.6
+      normalize-url: 6.1.0
       opml-generator: 1.1.1
       passport: 0.5.0
       passport-saml: 3.2.0
@@ -152,7 +152,7 @@ importers:
       pretty-quick: 3.1.2_prettier@2.4.1
       run.env: 1.1.0
       supertest: 6.1.6
-      ts-jest: 27.0.7_2bdb7b02773964319b245930d0d42bc9
+      ts-jest: 27.0.7_029ea951ec3e335bca8c27fdda729a87
 
   src/api/auth:
     specifiers:
@@ -160,12 +160,12 @@ importers:
       celebrate: ^15.0.0
       connect-redis: ^6.0.0
       env-cmd: ^10.1.0
-      express-session: ^1.17.1
+      express-session: ^1.17.2
       jsonwebtoken: ^8.5.1
       minimatch: ^3.0.4
       nodemon: ^2.0.15
       passport: ^0.5.0
-      passport-saml: ^3.1.2
+      passport-saml: ^3.2.0
     dependencies:
       '@senecacdot/satellite': 1.17.0
       celebrate: 15.0.0
@@ -247,12 +247,12 @@ importers:
   src/api/posts:
     specifiers:
       '@senecacdot/satellite': ^1.x
-      express-validator: ^6.10.0
-      ioredis: ^4.25.0
-      ioredis-mock: ^5.4.1
-      jsdom: ^18.0.0
+      express-validator: ^6.13.0
+      ioredis: ^4.28.0
+      ioredis-mock: ^5.8.0
+      jsdom: ^18.0.1
       normalize-url: ^6.0.1
-      supertest: ^6.1.3
+      supertest: ^6.1.6
     dependencies:
       '@senecacdot/satellite': 1.17.0
       express-validator: 6.13.0
@@ -265,10 +265,10 @@ importers:
 
   src/api/search:
     specifiers:
-      '@elastic/elasticsearch': ^7.11.0
+      '@elastic/elasticsearch': ^7.12.0
       '@elastic/elasticsearch-mock': ^0.3.0
       '@senecacdot/satellite': ^1.x
-      express-validator: ^6.9.2
+      express-validator: ^6.13.0
       nodemon: ^2.0.15
     dependencies:
       '@elastic/elasticsearch': 7.15.0
@@ -303,7 +303,7 @@ importers:
       firebase-tools: ^9.9.0
       http-link-header: ^1.0.3
       nodemon: ^2.0.15
-      supertest: ^6.1.3
+      supertest: ^6.1.6
     dependencies:
       '@senecacdot/satellite': 1.17.0
       celebrate: 15.0.0
@@ -333,7 +333,7 @@ importers:
       babel-loader: ^8.2.2
       dotenv: ^10.0.0
       formik: ^2.2.6
-      highlight.js: 11.3.1
+      highlight.js: ^11.3.1
       jwt-decode: ^3.1.2
       nanoid: ^3.1.22
       next: ^12.0.4
@@ -387,7 +387,7 @@ importers:
     specifiers:
       '@octokit/webhooks': ^9.15.0
       '@senecacdot/satellite': ^1.x
-      date-fns: ^2.24.0
+      date-fns: ^2.26.0
       dotenv: ^10.0.0
       merge-stream: ^2.0.0
       pm2: ^5.1.1
@@ -2162,17 +2162,6 @@ packages:
       '@elastic/ecs-helpers': 1.1.0
     dev: false
 
-  /@elastic/elasticsearch-mock/0.3.0:
-    resolution:
-      {
-        integrity: sha512-hZYRjPgRE1M0wCqdsgaDtwxrgQEXDZya1gQ3gnpc8pB8mHUfPoO+9ye7GbDPUkWbuGGGZ4/p6OKmAbt/ME+CDQ==,
-      }
-    dependencies:
-      fast-deep-equal: 3.1.3
-      find-my-way: 2.2.5
-      into-stream: 5.1.1
-    dev: false
-
   /@elastic/elasticsearch-mock/0.3.1:
     resolution:
       {
@@ -2182,22 +2171,6 @@ packages:
       fast-deep-equal: 3.1.3
       find-my-way: 4.4.0
       into-stream: 6.0.0
-    dev: false
-
-  /@elastic/elasticsearch/7.11.0:
-    resolution:
-      {
-        integrity: sha512-AFVVuANIdbV1qYjuOi4hnsX/DehWYG+bbhQO4amq9K4/NnzU7mpGWOPgVlRQTiX+vBfBkx7SL6h4QEjIlM3ztA==,
-      }
-    engines: { node: '>=8' }
-    dependencies:
-      debug: 4.3.3
-      hpagent: 0.1.2
-      ms: 2.1.3
-      pump: 3.0.0
-      secure-json-parse: 2.4.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@elastic/elasticsearch/7.15.0:
@@ -5185,28 +5158,6 @@ packages:
       }
     dev: true
 
-  /babel-jest/27.3.1_@babel+core@7.16.0:
-    resolution:
-      {
-        integrity: sha512-SjIF8hh/ir0peae2D6S6ZKRhUy7q/DnpH7k/V6fT4Bgs/LXXUztOpX4G2tCgq8mLo5HA9mN6NmlFMeYtKmIsTQ==,
-      }
-    engines: { node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0 }
-    peerDependencies:
-      '@babel/core': ^7.8.0
-    dependencies:
-      '@babel/core': 7.16.0
-      '@jest/transform': 27.4.2
-      '@jest/types': 27.4.2
-      '@types/babel__core': 7.1.16
-      babel-plugin-istanbul: 6.1.1
-      babel-preset-jest: 27.4.0_@babel+core@7.16.0
-      chalk: 4.1.2
-      graceful-fs: 4.2.8
-      slash: 3.0.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /babel-jest/27.4.2_@babel+core@7.16.0:
     resolution:
       {
@@ -5227,7 +5178,6 @@ packages:
       slash: 3.0.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /babel-loader/8.2.3_@babel+core@7.16.0:
     resolution:
@@ -5813,27 +5763,6 @@ packages:
       ejs: 3.1.6
       express: 4.17.1
       redis-info: 3.1.0
-    dev: false
-
-  /bull/3.20.1:
-    resolution:
-      {
-        integrity: sha512-wDwpVu47WKaGhiguEPa/US5UMrtGLPKNPiGFPo4OgVs3EEGzJEWwv3LRPfjJVIf1COdMAN/yowGhZwYmoOonjQ==,
-      }
-    engines: { node: '>=10' }
-    dependencies:
-      cron-parser: 2.18.0
-      debuglog: 1.0.1
-      get-port: 5.1.1
-      ioredis: 4.28.2
-      lodash: 4.17.21
-      p-timeout: 3.2.0
-      promise.prototype.finally: 3.1.3
-      semver: 7.3.5
-      util.promisify: 1.1.1
-      uuid: 8.3.2
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /bull/3.29.3:
@@ -7210,14 +7139,6 @@ packages:
       }
     dev: false
     optional: true
-
-  /date-fns/2.26.0:
-    resolution:
-      {
-        integrity: sha512-VQI812dRi3cusdY/fhoBKvc6l2W8BPWU1FNVnFH9Nttjx4AFBRzfSVb/Eyc7jBT6e9sg1XtAGsYpBQ6c/jygbg==,
-      }
-    engines: { node: '>=0.11' }
-    dev: false
 
   /date-fns/2.27.0:
     resolution:
@@ -9226,18 +9147,6 @@ packages:
       resolve-dir: 0.1.1
     dev: true
 
-  /find-my-way/2.2.5:
-    resolution:
-      {
-        integrity: sha512-GjRZZlGcGmTh9t+6Xrj5K0YprpoAFCAiCPgmAH9Kb09O4oX6hYuckDfnDipYj+Q7B1GtYWSzDI5HEecNYscLQg==,
-      }
-    engines: { node: '>=6' }
-    dependencies:
-      fast-decode-uri-component: 1.0.1
-      safe-regex2: 2.0.0
-      semver-store: 0.3.0
-    dev: false
-
   /find-my-way/4.4.0:
     resolution:
       {
@@ -10955,17 +10864,6 @@ packages:
     engines: { node: '>= 0.10' }
     dev: false
 
-  /into-stream/5.1.1:
-    resolution:
-      {
-        integrity: sha512-krrAJ7McQxGGmvaYbB7Q1mcA+cRwg9Ij2RfWIeVesNBgVDZmzY/Fa4IpZUT3bmdRzMzdf/mzltCG2Dq99IZGBA==,
-      }
-    engines: { node: '>=8' }
-    dependencies:
-      from2: 2.3.0
-      p-is-promise: 3.0.0
-    dev: false
-
   /into-stream/6.0.0:
     resolution:
       {
@@ -10975,23 +10873,6 @@ packages:
     dependencies:
       from2: 2.3.0
       p-is-promise: 3.0.0
-    dev: false
-
-  /ioredis-mock/5.8.0_ioredis@4.28.0:
-    resolution:
-      {
-        integrity: sha512-PokVyNC/d3qaAyHAdf+Ex4HHBe7GdaSGrcn8pP7ran+pVmSrJ6Aofwm7Od5bQ5JtjDSiylEtIoZzEPYIjUKMHA==,
-      }
-    engines: { node: '>=10' }
-    peerDependencies:
-      ioredis: 4.x
-      redis-commands: 1.x
-    dependencies:
-      fengari: 0.1.4
-      fengari-interop: 0.1.3_fengari@0.1.4
-      ioredis: 4.28.0
-      lodash: 4.17.21
-      standard-as-callback: 2.1.0
     dev: false
 
   /ioredis-mock/5.8.1_ioredis@4.28.2:
@@ -11009,28 +10890,6 @@ packages:
       ioredis: 4.28.2
       lodash: 4.17.21
       standard-as-callback: 2.1.0
-    dev: false
-
-  /ioredis/4.28.0:
-    resolution:
-      {
-        integrity: sha512-I+zkeeWp3XFgPT2CtJKxvaF5FjGBGt4yGYljRjQecdQKteThuAsKqffeF1lgHVlYnuNeozRbPOCDNZ7tDWPeig==,
-      }
-    engines: { node: '>=6' }
-    dependencies:
-      cluster-key-slot: 1.1.0
-      debug: 4.3.3
-      denque: 1.5.1
-      lodash.defaults: 4.2.0
-      lodash.flatten: 4.4.0
-      lodash.isarguments: 3.1.0
-      p-map: 2.1.0
-      redis-commands: 1.7.0
-      redis-errors: 1.2.0
-      redis-parser: 3.0.0
-      standard-as-callback: 2.1.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /ioredis/4.28.2:
@@ -12481,51 +12340,6 @@ packages:
       - supports-color
       - utf-8-validate
     dev: true
-
-  /jsdom/18.0.0:
-    resolution:
-      {
-        integrity: sha512-HVLuBcFmwdWulStv5U+J59b1AyzXhM92KXlM8HQ3ecYtRM2OQEUCPMa4oNuDeCBmtRcC7tJvb0Xz5OeFXMOKTA==,
-      }
-    engines: { node: '>=12' }
-    peerDependencies:
-      canvas: ^2.5.0
-    peerDependenciesMeta:
-      canvas:
-        optional: true
-    dependencies:
-      abab: 2.0.5
-      acorn: 8.6.0
-      acorn-globals: 6.0.0
-      cssom: 0.5.0
-      cssstyle: 2.3.0
-      data-urls: 3.0.1
-      decimal.js: 10.3.1
-      domexception: 4.0.0
-      escodegen: 2.0.0
-      form-data: 4.0.0
-      html-encoding-sniffer: 3.0.0
-      http-proxy-agent: 5.0.0
-      https-proxy-agent: 5.0.0
-      is-potential-custom-element-name: 1.0.1
-      nwsapi: 2.2.0
-      parse5: 6.0.1
-      saxes: 5.0.1
-      symbol-tree: 3.2.4
-      tough-cookie: 4.0.0
-      w3c-hr-time: 1.0.2
-      w3c-xmlserializer: 3.0.0
-      webidl-conversions: 7.0.0
-      whatwg-encoding: 2.0.0
-      whatwg-mimetype: 3.0.0
-      whatwg-url: 10.0.0
-      ws: 8.3.0
-      xml-name-validator: 4.0.0
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: false
 
   /jsdom/18.1.1:
     resolution:
@@ -14435,14 +14249,6 @@ packages:
     engines: { node: '>=8' }
     dev: true
 
-  /normalize-url/6.0.1:
-    resolution:
-      {
-        integrity: sha512-VU4pzAuh7Kip71XEmO9aNREYAdMHFGTVj/i+CaTImS8x0i1d3jUZkXhqluy/PRgjPLMgsLQulYY3PJ/aSbSjpQ==,
-      }
-    engines: { node: '>=10' }
-    dev: false
-
   /normalize-url/6.1.0:
     resolution:
       {
@@ -15387,7 +15193,7 @@ packages:
     engines: { node: '>=10' }
     hasBin: true
     dependencies:
-      '@elastic/elasticsearch': 7.11.0
+      '@elastic/elasticsearch': 7.15.0
       minimist: 1.2.5
       pump: 3.0.0
       readable-stream: 3.6.0
@@ -18927,7 +18733,7 @@ packages:
       }
     dev: false
 
-  /ts-jest/27.0.7_2bdb7b02773964319b245930d0d42bc9:
+  /ts-jest/27.0.7_029ea951ec3e335bca8c27fdda729a87:
     resolution:
       {
         integrity: sha512-O41shibMqzdafpuP+CkrOL7ykbmLh+FqQrXEmV9CydQ5JBk0Sj0uAEF5TNNe94fZWKm3yYvWa/IbyV4Yg1zK2Q==,
@@ -18950,7 +18756,7 @@ packages:
     dependencies:
       '@babel/core': 7.16.0
       '@types/jest': 27.0.2
-      babel-jest: 27.3.1_@babel+core@7.16.0
+      babel-jest: 27.4.2_@babel+core@7.16.0
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
       jest: 27.3.1
