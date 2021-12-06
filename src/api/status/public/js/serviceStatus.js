@@ -1,6 +1,7 @@
 const reportTbody = () => document.querySelector('#report');
 const requestMessageReport = () => document.querySelector('#request-message');
-
+const reportTableEnvironment = () =>
+  document.querySelector('#report-table').getAttribute('data-environment');
 // Create td for service name
 const createTdText = (content) => {
   const td = document.createElement('td');
@@ -40,10 +41,9 @@ const serviceRowFormat = (result) => {
     status: { staging, production },
   } = result;
   const tr = document.createElement('tr');
-
   tr.appendChild(createTdText(name));
-  tr.appendChild(createTdIcon(staging));
-  tr.appendChild(createTdIcon(production));
+  if (reportTableEnvironment() === 'staging') tr.appendChild(createTdIcon(staging));
+  else tr.appendChild(createTdIcon(production));
   reportTbody().appendChild(tr);
 };
 

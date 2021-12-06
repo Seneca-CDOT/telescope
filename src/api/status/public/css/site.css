@@ -3,6 +3,7 @@
   padding-bottom: 0.4em;
   font-size: 1em;
 }
+
 #sidenav-collapse-main.collapse.navbar-collapse.w-auto.max-height-vh-100 {
   height: calc(100vh);
 }
@@ -10,4 +11,10 @@
 td,
 th {
   text-align: center;
+}
+
+@media (min-width: 1200px) {
+  #navbar {
+    display: none !important;
+  }
 }
