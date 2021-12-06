@@ -1,0 +1,34 @@
+<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+  <div class="card card--telescope">
+    <div class="card-header card-header--telescope p-3 pt-2">
+      <div
+        class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+        <i class="material-icons opacity-10">person</i>
+      </div>
+      <div class="text-end pt-1">
+        <h6 class="mb-0 text-capitalize">{{githubInfo.title}}</h6>
+        <p class="text-sm mb-0 text-capitalize">Contributors</p>
+        <h4 class="mb-0">{{githubInfo.totalContributors}}</h4>
+      </div>
+    </div>
+    <hr class="dark horizontal my-0" />
+    <div class="card-footer p-3">
+      <p class="mb-0">Latest contributor:</p>
+      <div class="d-flex py-1">
+        <div>
+          <a href="{{githubInfo.usernameURL}}" title="{{githubInfo.username}}" target="_blank">
+            <img class="avatar avatar-xs rounded-circle me-2" alt="{{githubInfo.username}}"
+              src="{{githubInfo.avatar}}" /></a>
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+          <p class="mb-0">
+            <a href="{{githubInfo.usernameURL}}" title="{{githubInfo.username}}" target="_blank"
+              class="text-capitalize">{{githubInfo.fullName}}</a>
+            <a href="{{githubInfo.commitURL}}" title="{{githubInfo.shortSha}}" target="_blank"
+              class="font-monospace btn-link text-xs">{{githubInfo.shortSha}}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

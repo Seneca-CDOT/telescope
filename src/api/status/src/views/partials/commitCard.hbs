@@ -1,0 +1,39 @@
+<div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+  <div class="card card--telescope">
+    <div class="card-header card-header--telescope p-3 pt-2">
+      <div
+        class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+        <i class="material-icons opacity-10">commit</i>
+      </div>
+      <div class="text-end pt-1">
+        <h6 class="mb-0 text-capitalize">{{githubInfo.title}}</h6>
+        <div>
+          <p class="text-sm mb-0 text-capitalize">Yearly Commits</p>
+          <h4 class="mb-0">{{githubInfo.yearlyCommits.commits}}</h4>
+        </div>
+        {{#if githubInfo.weeklyCommits.commits}}
+        <div>
+          <p class="text-sm mb-0 text-capitalize">Weekly Commits</p>
+          <h4 class="mb-0">{{githubInfo.weeklyCommits.commits}}</h4>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+    <hr class="dark horizontal my-0" />
+    <div class="card-footer p-3">
+      {{#if githubInfo.weeklyCommits.commits}}
+      <p class="mb-0">
+        <span class="text-success text-sm font-weight-bolder">{{githubInfo.weeklyCommits.linesAdded}}</span>
+        lines added
+      </p>
+      <p class="mb-0">
+        <span class="text-danger text-sm font-weight-bolder">{{githubInfo.weeklyCommits.linesRemoved}}</span>
+        lines removed
+      </p>
+      {{else}}
+      <p class="mb-0">No commits this week
+        <p />
+        {{/if}}
+    </div>
+  </div>
+</div>
