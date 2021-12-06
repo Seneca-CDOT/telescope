@@ -9,3 +9,5 @@ out
 
 # We don't maintain these files
 src/api/status/public/assets
+src/web/public/sw*
+src/web/public/workbox*

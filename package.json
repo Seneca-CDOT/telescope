@@ -38,7 +38,7 @@
     "start": "node src/backend",
     "server": "node src/backend/web/server",
     "test-ci": "run-s prettier-check test",
-    "pre-commit": "pretty-quick --staged && npm run lint",
+    "pre-commit": "pretty-quick --staged",
     "postversion": "git push upstream master --tags",
     "services:start": "node bin/services-start.js --",
     "services:stop": "node bin/services-stop.js",
