@@ -9,6 +9,21 @@ on:
       - master
 
 jobs:
+  # Verify that ESLint passes
+  eslint:
+    name: ESLint Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.4.1
+        with:
+          node-version: '14'
+          cache: 'npm'
+      - name: Install dependencies and run eslint
+        run: |
+          npm install
+          npm run eslint
+
   build:
     runs-on: ${{matrix.os}}
 
