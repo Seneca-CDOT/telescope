@@ -44,7 +44,7 @@ if (process.env.PATH_PREFIX) {
   service.router.use('/', serveStatic(path.join(__dirname, '../public')));
 }
 
-service.router.get('/v1/status/status', (req, res) => {
+service.router.get(`${process.env.PATH_PREFIX || ''}/status`, (req, res) => {
   check()
     .then((status) => {
       // This status response shouldn't be cached (we need current status info)
