@@ -19,8 +19,11 @@ function processLog({ done, value }) {
   }
 
   if (terminal) {
-    return terminal.write(value);
+    terminal.write(value);
   }
+
+  // Recursively invoke processLog until `done === true`
+  return reader.read().then(processLog).catch(finish);
 }
 
 export default async function checkForBuild() {
