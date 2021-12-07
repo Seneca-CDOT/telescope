@@ -93,7 +93,7 @@ module.exports = {
 
   isInvalid: (id) => redis.exists(createInvalidFeedKey(id)),
 
-  setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 1),
+  setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 'EX', seconds),
 
   isDelayed: (id) => redis.exists(createDelayedFeedKey(id)),
 
