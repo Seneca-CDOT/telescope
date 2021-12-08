@@ -1,39 +1,64 @@
 import { createContext, ReactNode, useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 
-type FilterProp = {
-  filter: 'post' | 'author' | string;
-};
-
 export interface SearchContextInterface {
-  text: string;
-  textParam: string;
-  filter: FilterProp['filter'];
+  post: string;
+  author: string;
+  from: string;
+  to: string;
+  title: string;
   showHelp: boolean;
   toggleHelp: (value: boolean) => void;
-  onTextChange: (value: string) => void;
-  onFilterChange: (value: FilterProp['filter']) => void;
+  onPostChange: (value: string) => void;
+  onAuthorChange: (value: string) => void;
+  onStartDateChange: (value: string) => void;
+  onEndDateChange: (value: string) => void;
   onSubmitHandler: (value: FormEvent) => void;
+  onTitleChange: (value: string) => void;
 }
 
 const SearchContext = createContext<SearchContextInterface>({
-  text: '',
-  textParam: '',
-  filter: 'post',
+  post: '',
+  author: '',
+  from: '',
+  to: '',
+  title: '',
   showHelp: true,
   toggleHelp() {
     throw new Error('This context must be wrapped inside SearchProvider');
   },
-  onTextChange() {
+  onPostChange() {
     throw new Error('This context must be wrapped inside SearchProvider');
   },
-  onFilterChange() {
+  onAuthorChange() {
+    throw new Error('This context must be wrapped inside SearchProvider');
+  },
+  onStartDateChange() {
+    throw new Error('This context must be wrapped inside SearchProvider');
+  },
+  onEndDateChange() {
+    throw new Error('This context must be wrapped inside SearchProvider');
+  },
+  onTitleChange() {
     throw new Error('This context must be wrapped inside SearchProvider');
   },
   onSubmitHandler() {
     throw new Error('This context must be wrapped inside SearchProvider');
   },
 });
+
+// Returns the string in the filter accordingly after loading results.
+function getFilter(filter: any) {
+  switch (filter) {
+    case 'author':
+      return 'author';
+    case 'date':
+      return 'date';
+    case 'post':
+    default:
+      return 'post';
+  }
+}
 
 type Props = {
   children: ReactNode;
@@ -47,47 +72,86 @@ const SearchProvider = ({ children }: Props) => {
   const textParam = Array.isArray(router.query.text)
     ? router.query.text[0]
     : router.query.text || '';
-  const filterParam = router.query.filter === 'post' || !router.query.filter ? 'post' : 'author';
+  const filterParam = getFilter(router.query.filter);
 
   // We manage the state of `text` and `filter` internally, and update URL on
   // form submit only.  These are used in the <SearchBar>, and the user can change them.
-  const [text, setText] = useState('');
-  const [filter, setFilter] = useState<FilterProp['filter']>('post');
+  const [post, setPost] = useState<string>('');
+  const [author, setAuthor] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+  const [from, setFrom] = useState<string>('');
+  const [to, setTo] = useState<string>('');
+
   const [showHelp, setShowHelp] = useState(true);
+
+  // const buildDateQuery = () => {
+  //   let query = '/search/?';
+  //   if (to) {
+  //     query += `post`;
+  //   }
+  // };
 
   const onSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
-    router.push(`/search?text=${text}&filter=${filter}`);
+    // if (to || from) {
+    //   const query = buildDateQuery();
+    // }
+    router.push(`/search?/post=${post}&author=${author}&title=${title}`);
   };
 
   const toggleHelp = (value: boolean) => {
     setShowHelp(value);
   };
 
-  const onTextChange = (value: string) => {
-    setText(value);
+  const onPostChange = (value: string) => {
+    setPost(value);
   };
 
-  const onFilterChange = (value: FilterProp['filter']) => {
-    setFilter(value);
+  const onTitleChange = (value: string) => {
+    setTitle(value);
+  };
+
+  const onAuthorChange = (value: string) => {
+    setAuthor(value);
+  };
+
+  const onStartDateChange = (value: string) => {
+    setFrom(value);
+  };
+
+  const onEndDateChange = (value: string) => {
+    console.log('end date', value);
+    if (value) {
+      setTo(value);
+    } else {
+      setTo(new Date().toISOString().split('T')[0]);
+    }
   };
 
   useEffect(() => {
-    setText(textParam);
-    setFilter(filterParam);
+    setPost(textParam);
+    setAuthor(textParam);
+    setFrom(textParam);
+    setTo(textParam);
+    setTitle(textParam);
   }, [textParam, filterParam]);
 
   return (
     <SearchContext.Provider
       value={{
-        text,
-        textParam,
+        post,
+        author,
+        from,
+        to,
+        title,
         showHelp,
-        filter,
-        onTextChange,
-        onFilterChange,
-        onSubmitHandler,
         toggleHelp,
+        onPostChange,
+        onAuthorChange,
+        onTitleChange,
+        onStartDateChange,
+        onEndDateChange,
+        onSubmitHandler,
       }}
     >
       {children}

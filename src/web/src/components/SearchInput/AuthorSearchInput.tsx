@@ -15,28 +15,30 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '1.6rem !important',
         color: theme.palette.text.primary,
       },
-      height: '55px',
-      backgroundColor: 'transparent',
+      width: '100%',
+
+      height: '40px',
+      backgroundColor: '#DBDBDB',
       paddingLeft: '10px',
       paddingRight: '60px',
       border: 'none',
-      outline: 'none',
+      borderRadius: '7px',
+      outline: 'solid black 1px',
       color: theme.palette.text.primary,
     },
   })
 );
-
 const AuthorSearchInput = () => {
   const classes = useStyles();
-  const { text, onTextChange } = useSearchValue();
+  const { author, onAuthorChange } = useSearchValue();
 
   return (
     <>
       <input
         className={classes.input}
-        placeholder="How to contribute to Open Source"
-        value={text}
-        onChange={(event) => onTextChange(event.target.value)}
+        placeholder="David Smith"
+        value={author}
+        onChange={(event) => onAuthorChange(event.target.value)}
       />
     </>
   );

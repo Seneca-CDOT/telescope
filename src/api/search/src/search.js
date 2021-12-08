@@ -97,25 +97,24 @@ const advancedSearch = async (options) => {
       },
     },
   };
-
   const { must } = results.query.bool;
-
-  if (options.author) {
-    must.push({
-      match: {
-        author: {
-          query: options.author,
-          zero_terms_query: 'all',
-        },
-      },
-    });
-  }
 
   if (options.post) {
     must.push({
       match: {
         text: {
           query: options.post,
+          zero_terms_query: 'all',
+        },
+      },
+    });
+  }
+
+  if (options.author) {
+    must.push({
+      match: {
+        author: {
+          query: options.author,
           zero_terms_query: 'all',
         },
       },
@@ -152,20 +151,25 @@ const advancedSearch = async (options) => {
     options.page = 0;
   }
 
-  const {
-    body: { hits },
-  } = await client.search({
-    from: calculateFrom(options.page, options.perPage),
-    size: options.perPage,
-    _source: ['id'],
-    index,
-    type,
-    body: results,
-  });
+  try {
+    const {
+      body: { hits },
+    } = await client.search({
+      from: calculateFrom(options.page, options.perPage),
+      size: options.perPage,
+      _source: ['id'],
+      index,
+      type,
+      body: results,
+    });
 
-  return {
-    results: hits.total.value,
-    values: hits.hits.map(({ _id }) => ({ id: _id, url: `${POSTS_URL}/${_id}` })),
-  };
+    return {
+      results: hits.total.value,
+      values: hits.hits.map(({ _id }) => ({ id: _id, url: `${POSTS_URL}/${_id}` })),
+    };
+  } catch (e) {
+    // TODO fix to proper error
+    console.log('error in try catch', e);
+  }
 };
 module.exports = { search, advancedSearch };

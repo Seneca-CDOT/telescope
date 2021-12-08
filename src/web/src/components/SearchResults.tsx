@@ -55,14 +55,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchResults = () => {
   const classes = useStyles();
-  const { textParam, filter, toggleHelp } = useSearchValue();
+  const { author, post, title, from, to, toggleHelp } = useSearchValue();
   const [totalPosts, setTotalPosts] = useState(0);
 
   const prepareUrl = (index: number) =>
-    `${searchServiceUrl}?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
+    `${searchServiceUrl}/?author=${encodeURIComponent(author)}&post=${encodeURIComponent(
+      post
+    )}&title=${encodeURIComponent(title)}${from ? `&from=${from}` : ''}${to ? `&to=${to}` : ''}`;
 
   // We only bother doing the request if we have something to search for.
-  const shouldFetch = () => textParam.length > 0;
+  const shouldFetch = () => post.length > 0 || author.length > 1;
   const { data, size, setSize, error } = useSWRInfinite(
     (index: number) => (shouldFetch() ? prepareUrl(index) : null),
     async (u: string) => {
@@ -83,7 +85,7 @@ const SearchResults = () => {
     !isReachingEnd && data && size > 0 && typeof data[size - 1] === 'undefined';
 
   // If there is no posts or if the search bar is empty, then show the search help, otherwise hide it
-  if (!error && (isEmpty || textParam.length === 0)) {
+  if (!error && (isEmpty || shouldFetch())) {
     toggleHelp(true);
   } else {
     toggleHelp(false);
@@ -106,7 +108,7 @@ const SearchResults = () => {
     );
   }
 
-  if (textParam.length && loading) {
+  if (shouldFetch() && loading) {
     return (
       <Container className={classes.searchResults}>
         <h1 className={classes.spinner}>

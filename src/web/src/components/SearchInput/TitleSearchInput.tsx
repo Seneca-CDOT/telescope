@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
         color: theme.palette.text.primary,
       },
       width: '100%',
+
       height: '40px',
       backgroundColor: '#DBDBDB',
       paddingLeft: '10px',
@@ -29,26 +30,26 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PostSearchInput = () => {
+const TitleSearchInput = () => {
   const classes = useStyles();
 
-  const { post, onPostChange } = useSearchValue();
+  const { title, onTitleChange } = useSearchValue();
 
   return (
     <>
       <Grid item xs={12} sm={2}>
-        <p>Post: </p>
+        <p>Title: </p>
       </Grid>
       <Grid item xs={12} sm={8}>
         <input
           className={classes.input}
-          placeholder="Today in my blog I will "
-          value={post}
-          onChange={(event) => onPostChange(event.target.value)}
+          placeholder="How to implement Supabase"
+          value={title}
+          onChange={(event) => onTitleChange(event.target.value)}
         />
       </Grid>
     </>
   );
 };
 
-export default PostSearchInput;
+export default TitleSearchInput;

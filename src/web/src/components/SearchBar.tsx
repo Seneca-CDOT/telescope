@@ -1,9 +1,10 @@
+import { useState, useRef } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { Grid, MenuItem, TextField, FormControl, Paper, IconButton, Box } from '@material-ui/core';
-
-import SearchInput from './SearchInput/SearchInput';
+import { Grid, FormControl, IconButton, Box, Button } from '@material-ui/core';
+import ClearIcon from '@material-ui/icons/Clear';
 import useSearchValue from '../hooks/use-search-value';
+import AdvancedSearch from './AdvancedSearch';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -13,128 +14,138 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: 'auto',
       marginRight: 'auto',
       padding: theme.spacing(2, 2, 0, 2),
-      marginBottom: theme.spacing(6),
+      marginBottom: theme.spacing(10),
     },
-    card: {
-      padding: theme.spacing(0, 0, 0, 2),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderRadius: '50px',
-      background: theme.palette.background.paper,
+    input: {
+      fontSize: '1.8rem',
+      width: '100%',
+      boxSizing: 'border-box',
+      height: '56px',
+      outline: 'none',
       border: 'solid 1px transparent',
-      transition: 'background-color .5s',
-      '&:hover': {
-        backgroundColor: theme.palette.background.default,
-        border: 'solid 1px #999999',
-      },
-      [theme.breakpoints.down('xs')]: {
-        borderRadius: '15px',
-        padding: theme.spacing(0, 0, 0, 2),
-      },
-    },
-    header: {
-      padding: 0,
-      marginBottom: theme.spacing(2),
-      backgroundColor: theme.palette.background.default,
-    },
-    h1: {
-      display: 'block',
-      transition: 'all linear 350ms',
-      fontWeight: 600,
-      color: theme.palette.text.secondary,
-      [theme.breakpoints.between('xs', 'sm')]: {
-        fontSize: '3rem',
-      },
-      [theme.breakpoints.between('md', 'lg')]: {
-        fontSize: '4rem',
-      },
-      [theme.breakpoints.up('xl')]: {
-        fontSize: '5rem',
+      borderRadius: '50px',
+      paddingLeft: '55px',
+      background: '#EEEEEE',
+      position: 'absolute',
+      transition: 'box-shadow .3s, background .3s',
+      '&:focus': {
+        boxShadow: '0 0 5px 2px #CCCCCC',
+        background: '#FFFFFF',
       },
     },
     iconButton: {
-      backgroundColor: '#999999',
+      backgroundColor: 'transparent',
+      color: '#999999',
       '&:hover': {
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: '#EEEEEE',
       },
       '& * > .MuiSvgIcon-root': {
         fontSize: '2rem',
-        color: theme.palette.primary.contrastText,
       },
       margin: 0,
       position: 'absolute',
-      right: '10px',
+      left: '10px',
       top: '6px',
     },
-    selectControl: {
-      '& > *': {
-        width: 'auto',
-        transform: 'translateY(2px)',
-        fontSize: '1.5rem',
-        textTransform: 'capitalize',
-        color: theme.palette.primary.main,
-        paddingLeft: '2rem',
-        [theme.breakpoints.down('xs')]: {
-          paddingLeft: '1rem',
-          width: '10rem',
-          transform: 'translateY(15px)',
-        },
+    clearIcon: {
+      color: '#999999',
+      '&:hover': {
+        backgroundColor: 'transparent',
       },
+      '& * > .MuiSvgIcon-root': {
+        fontSize: '3rem',
+      },
+      margin: 0,
+      position: 'absolute',
+      right: '5px',
+      top: '1px',
     },
-    selectItem: {
-      fontSize: '1.4rem',
-      textTransform: 'capitalize',
-      color: theme.palette.primary.main,
+    advancedSearchBtn: {
+      position: 'absolute',
+      top: '60px',
+      right: '15px',
+      width: 'auto',
+      padding: '5px 10px',
+      outline: 'none',
+      border: 'none',
+      background: 'transparent',
+      color: '#999999',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
     },
   })
 );
 
 const SearchBar = () => {
   const classes = useStyles();
+  const searchInput = useRef(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dataToDialog, setDataToDialog] = useState('');
 
-  const { filter, onFilterChange, onSubmitHandler } = useSearchValue();
+  const { post, onPostChange, onSubmitHandler } = useSearchValue();
 
-  const searchOptions = ['post', 'author'];
+  function handleFocus() {
+    if (searchInput && searchInput.current) {
+      // @ts-ignore: Object is possibly 'null'.
+      searchInput.current.focus();
+    }
+  }
 
   return (
-    <Box className={classes.root}>
-      <Paper component="form" className={classes.card} elevation={0}>
-        <Grid container direction="row" spacing={2} alignItems="center" justifyContent="flex-start">
-          <Grid item xs={12} sm={2} lg={2}>
-            <FormControl fullWidth>
-              <TextField
-                id="standard-select-search-type"
-                select
-                value={filter}
-                InputProps={{ disableUnderline: true }}
-                className={classes.selectControl}
-                onChange={(event) => onFilterChange(event.target.value)}
-              >
-                {searchOptions.map((option) => (
-                  <MenuItem key={option} value={option} className={classes.selectItem}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormControl>
-          </Grid>
+    <div>
+      <Box className={classes.root}>
+        <FormControl fullWidth>
           <Grid item xs={12} sm={10} lg={10}>
-            <FormControl fullWidth>
-              <SearchInput />
+            <form>
+              <input
+                autoFocus
+                ref={searchInput}
+                className={classes.input}
+                value={post}
+                placeholder="Search..."
+                onChange={(e) => onPostChange(e.target.value)}
+              />
+
               <IconButton
+                onClick={(e) => {
+                  // if (post) onSubmitHandler(e);
+                }}
                 className={classes.iconButton}
-                type="submit"
-                onClick={onSubmitHandler}
                 aria-label="search"
               >
                 <SearchIcon />
               </IconButton>
-            </FormControl>
+
+              {post && (
+                <IconButton
+                  className={classes.clearIcon}
+                  onClick={() => {
+                    onPostChange('');
+                    handleFocus();
+                  }}
+                  aria-label="clear"
+                >
+                  <ClearIcon />
+                </IconButton>
+              )}
+            </form>
           </Grid>
-        </Grid>
-      </Paper>
-    </Box>
+          <button
+            color="primary"
+            className={classes.advancedSearchBtn}
+            onClick={() => {
+              setOpenDialog(true);
+            }}
+          >
+            Advanced Search
+          </button>
+        </FormControl>
+      </Box>
+
+      <AdvancedSearch openDialog={openDialog} setOpenDialog={setOpenDialog} />
+    </div>
   );
 };
 
