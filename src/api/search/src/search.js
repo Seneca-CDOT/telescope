@@ -13,6 +13,8 @@ const createFieldsFromFilter = (filter) => {
   switch (filter) {
     case 'author':
       return ['author'];
+    case 'date':
+      return ['published'];
     case 'post':
     default:
       return ['text', 'title'];

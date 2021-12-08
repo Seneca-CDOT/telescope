@@ -14,7 +14,7 @@ const queryValidationRules = [
     .exists({ checkFalsy: true })
     .withMessage('filter should exist')
     .bail()
-    .isIn(['post', 'author'])
+    .isIn(['post', 'author', 'date'])
     .withMessage('invalid filter value')
     .bail(),
 

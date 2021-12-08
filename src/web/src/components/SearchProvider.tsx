@@ -2,7 +2,7 @@ import { createContext, ReactNode, useState, useEffect, FormEvent } from 'react'
 import { useRouter } from 'next/router';
 
 type FilterProp = {
-  filter: 'post' | 'author' | string;
+  filter: 'post' | 'author' | 'date' | string;
 };
 
 export interface SearchContextInterface {
@@ -35,6 +35,19 @@ const SearchContext = createContext<SearchContextInterface>({
   },
 });
 
+// Returns the string in the filter accordingly after loading results.
+function getFilter(filter: any) {
+  switch (filter) {
+    case 'author':
+      return 'author';
+    case 'date':
+      return 'date';
+    case 'post':
+    default:
+      return 'post';
+  }
+}
+
 type Props = {
   children: ReactNode;
 };
@@ -47,7 +60,7 @@ const SearchProvider = ({ children }: Props) => {
   const textParam = Array.isArray(router.query.text)
     ? router.query.text[0]
     : router.query.text || '';
-  const filterParam = router.query.filter === 'post' || !router.query.filter ? 'post' : 'author';
+  const filterParam = getFilter(router.query.filter);
 
   // We manage the state of `text` and `filter` internally, and update URL on
   // form submit only.  These are used in the <SearchBar>, and the user can change them.

@@ -95,7 +95,7 @@ const SearchBar = () => {
 
   const { filter, onFilterChange, onSubmitHandler } = useSearchValue();
 
-  const searchOptions = ['post', 'author'];
+  const searchOptions = ['post', 'author', 'date'];
 
   return (
     <Box className={classes.root}>
