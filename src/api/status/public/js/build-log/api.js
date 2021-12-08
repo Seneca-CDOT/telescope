@@ -15,7 +15,10 @@ export const checkBuildStatus = async () => {
     return {
       building: true,
       title: data.type,
+      githubData: data.current.githubData,
       startedAt: new Date(data.current.startedDate),
+      stoppedAt: new Date(),
+      result: data.code,
     };
   } catch (err) {
     console.error(err);
