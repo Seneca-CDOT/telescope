@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 import { checkBuildStatus, getBuildLog } from './api.js';
 import terminal from './terminal.js';
+import buildHeader from './build-header.js';
 
 let build;
 let reader;
@@ -27,12 +28,14 @@ function processLog({ done, value }) {
 }
 
 export default async function checkForBuild() {
+  const status = await checkBuildStatus();
+  buildHeader(status);
+
   // If we're already building, skip this check
   if (build) {
     return;
   }
 
-  const status = await checkBuildStatus();
   if (status.building) {
     terminal.clear();
     reader = await getBuildLog();

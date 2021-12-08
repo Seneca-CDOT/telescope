@@ -32,6 +32,45 @@
     </div>
   </nav>
   <div class="container-fluid py-2">
+    <div id="build-header" class="card mb-3 bg-white">
+     <div class="card-body">
+        <h6 id="build-header-title" class="mb-0 text-lg text-center">
+          <i class="fa-spin fas fa-hourglass-half px-2"></i>Loading...
+        </h6>
+        <div id="build-header-info" hidden>
+          <div class="row mb-2">
+            <div class="col text-xs">Triggered on <span id="build-started"></span></div>
+            <div class="col col-md-2 text-xs">Result</div>
+            <div class="col col-md-2 text-xs">Total duration</div>
+          </div>
+          <div class="row">
+            <div class="col text-sm">
+              <div class="align-center">
+                <a id="build-sender" class="card-link" href="#">
+                  <img
+                    class="avatar avatar-xs rounded-circle"
+                    alt=""
+                    src=""
+                    id="build-sender-img"
+                  />
+                  <span id="build-sender-name"></span>
+                </a>
+                synchronized
+                <span><a id="build-git-sha" href="#" class="card-link text-decoration-underline"></a></span>
+              </div>
+            </div>
+            <div
+              id="build-result"
+              class="col col-md-2 text-dark text-sm font-weight-bolder"
+            ></div>
+            <div
+              id="build-duration"
+              class="col col-md-2 text-dark text-sm font-weight-bolder"
+            ></div>
+          </div>
+        </div>
+     </div>
+    </div>
     <div id="terminal"></div>
   </div>
 </main>
