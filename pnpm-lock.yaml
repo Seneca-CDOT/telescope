@@ -335,6 +335,7 @@ importers:
       '@types/smoothscroll-polyfill': ^0.3.1
       '@types/yup': ^0.29.11
       babel-loader: ^8.2.2
+      clsx: ^1.1.1
       dotenv: ^10.0.0
       formik: ^2.2.6
       highlight.js: ^11.3.1
@@ -361,6 +362,7 @@ importers:
       '@next/mdx': 12.0.4_@mdx-js+loader@1.6.22
       '@types/smoothscroll-polyfill': 0.3.1
       '@types/yup': 0.29.13
+      clsx: 1.1.1
       dotenv: 10.0.0
       formik: 2.2.9_react@17.0.2
       highlight.js: 11.3.1

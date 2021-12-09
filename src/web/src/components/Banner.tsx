@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: '25px',
     },
     quoteText: {
-      width: '70%',
+      width: '80%',
       color: '#FFFFFF',
       fontSize: 'clamp(1.6rem, 1.2vw, 2.5rem)',
       display: 'block',
