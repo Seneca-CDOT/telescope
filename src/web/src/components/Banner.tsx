@@ -198,7 +198,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
         <Typography variant="h1" className={classes.title}>
           Telescope
         </Typography>
-        <Typography variant="h4" className={classes.quoteText}>
+        <Typography variant="h2" className={classes.quoteText}>
           <a href={studentQuote.url}>
             &quot;{studentQuote.quote}&quot;
             <br />

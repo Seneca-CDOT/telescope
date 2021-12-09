@@ -77,7 +77,7 @@ type Props = {
 const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
   const classes = useStyles();
   return (
-    <ListSubheader className={classes.root}>
+    <ListSubheader component="div" className={classes.root}>
       <div className={classes.authorAvatarContainer}>
         <PostAvatar name={authorName} url={blogUrl} />
       </div>

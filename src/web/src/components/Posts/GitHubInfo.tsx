@@ -102,7 +102,7 @@ const GitHubInfo = ({ ghUrls }: Props) => {
   const { repos, issues, pullRequests, commits, users } = filterGitHubUrls(ghUrls);
 
   return (
-    <ListSubheader className={classes.root}>
+    <ListSubheader component="div" className={classes.root}>
       <div className={classes.GitHubInfoContainer}>
         {!!repos.length && <Repos repoUrls={repos} />}
         {!!issues.length && <Issues issueUrls={issues} />}
