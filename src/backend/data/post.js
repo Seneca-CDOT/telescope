@@ -39,6 +39,25 @@ function ensureFeed(feed) {
   return feed instanceof Feed ? Promise.resolve(feed) : Feed.byId(feed);
 }
 
+/**
+ * @param {string} url
+ * @returns {"video" | "blogpost"} the post's type
+ */
+function determinePostType(url) {
+  try {
+    const associatedLink = new URL(url);
+
+    if (associatedLink.hostname.includes('youtube.com')) {
+      return 'video';
+    }
+    // Assume that we are dealing with a blogpost if we
+    // are not dealing with videos
+    return 'blogpost';
+  } catch {
+    return 'blogpost';
+  }
+}
+
 class Post {
   constructor(title, html, datePublished, dateUpdated, postUrl, guid, feed) {
     // Use the post's guid as our unique identifier
@@ -50,6 +69,7 @@ class Post {
     // create an absolute url if postURL is relative
     this.url = new URL(postUrl, feed.url).href;
     this.guid = guid;
+    this.type = determinePostType(this.url);
 
     // We expect to get a real Feed vs. a feed id
     if (!(feed instanceof Feed)) {
@@ -95,6 +115,8 @@ class Post {
     }
 
     if (article.contentEncoded) article.content = article.contentEncoded;
+
+    if (article.mediaGroup) article.content = article.mediaGroup['media:description'];
 
     // A valid RSS/Atom feed can have missing fields that we care about.
     // Keep track of any that are missing, and throw if necessary.

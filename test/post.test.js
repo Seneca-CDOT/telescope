@@ -6,12 +6,18 @@ const parse = new Parser({
       ['pubDate', 'pubdate'],
       ['creator', 'author'],
       ['content:encoded', 'contentEncoded'],
+      ['updated', 'date'],
+      ['id', 'guid'],
+      ['media:group', 'mediaGroup'],
+      ['published', 'pubdate'],
     ],
   },
 });
 
 const {
   nockRealWorldRssResponse,
+  nockRealWorldYouTubeFeedResponse,
+  getRealWorldYouTubeFeedUri,
   getRealWorldRssUri,
   getInvalidDescription,
 } = require('./fixtures');
@@ -32,6 +38,7 @@ describe('Post data class tests', () => {
     url: 'https://user.post.com/?post-id=123',
     guid: 'https://user.post.com/?post-id=123&guid',
     id: hash('https://user.post.com/?post-id=123&guid'),
+    type: 'blogpost',
   };
 
   beforeAll(async () => {
@@ -175,7 +182,7 @@ describe('Post data class tests', () => {
     expect(result).toBe(null);
   });
 
-  describe('Post.createFromArticle() tests', () => {
+  describe('Post.createFromArticle() with blog feeds tests', () => {
     let articles;
     beforeEach(async () => {
       nockRealWorldRssResponse();
@@ -280,6 +287,26 @@ describe('Post data class tests', () => {
       article.contentEncoded = invalidDescription;
       article.contentSnippet = invalidDescription;
       await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
+    });
+  });
+
+  describe('Post.createFromArticle() with youtube feeds tests', () => {
+    let articles;
+    beforeEach(async () => {
+      nockRealWorldYouTubeFeedResponse();
+      articles = await parse.parseURL(getRealWorldYouTubeFeedUri());
+      expect(Array.isArray(articles.items)).toBe(true);
+      expect(articles.items.length).toBe(15);
+    });
+
+    test('Post.createFromArticle() should create Post with YouTube video article', async () => {
+      const article = articles.items[0];
+      const id = await Post.createFromArticle(article, feed);
+      const videoPost = await Post.byId(id);
+
+      expect(videoPost.title).toBe('DPS909 OSD600 Week 03 - Fixing a Bug in the Azure JS SDK');
+      expect(videoPost.url).toBe('https://www.youtube.com/watch?v=mNuHA7vH6Wc');
+      expect(videoPost.type).toBe('video');
     });
   });
 });
