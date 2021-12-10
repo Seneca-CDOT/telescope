@@ -77,17 +77,17 @@ service.router.get(process.env.PATH_PREFIX || '/', async (req, res) => {
   let totalFeeds;
 
   try {
-    [telescope, satellite, totalPost, totalFeeds] = await Promise.all([
-      getGitHubData('Seneca-CDOT', 'telescope'),
-      getGitHubData('Seneca-CDOT', 'satellite'),
+    [totalPost, totalFeeds, telescope, satellite] = await Promise.all([
       getPostsCount(),
       getFeedCount(),
+      getGitHubData('Seneca-CDOT', 'telescope'),
+      getGitHubData('Seneca-CDOT', 'satellite'),
     ]);
   } catch (e) {
     console.error(e);
   }
   let environment = {};
-  if (process.env.API_URL === 'https://api.telescope.cdot.systems')
+  if (process.env.STATUS_URL === 'https://api.telescope.cdot.systems/v1/status')
     environment = { name: 'production', staging: false };
   else environment = { name: 'staging', staging: true };
 

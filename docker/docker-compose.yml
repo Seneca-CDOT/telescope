@@ -19,6 +19,7 @@ services:
       - NODE_ENV
       - API_HOST
       - STATUS_PORT
+      - STATUS_URL
       # Satellite authentication/authorization support
       - JWT_ISSUER
       - JWT_AUDIENCE
