@@ -165,4 +165,10 @@ export default [
     quote:
       'What I learned when contributing to open-source is to not be overwhelmed by big projects. The codebase might be large, but at the same time, it’s very organized and well documented.',
   },
+  {
+    author: 'Eugene Chung',
+    url: 'https://ycechung-opensource.blogspot.com/2021/12/thoughts-on-osd600-course-from-my.html',
+    quote:
+      'Throughout my three month plus journey, I have fought, I have struggled and I have conquered Git and Github workflow in projects related our individual SSG project, large open source projects like Microsoft Quantum and Manim, internal projects like Telescope and IPC144 and smaller projects like Cchess.',
+  },
 ];
