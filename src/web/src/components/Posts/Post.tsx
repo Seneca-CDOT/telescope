@@ -12,6 +12,7 @@ import {
   Chip,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
@@ -19,6 +20,8 @@ import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
 import GitHubInfo from './GitHubInfo';
 import ShareButton from './ShareButton';
+
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
 type Props = {
   postUrl: string;
@@ -60,6 +63,15 @@ const useStyles = makeStyles((theme: Theme) =>
         justifyContent: 'left',
         width: '100%',
         padding: '1em 0 1em 0',
+      },
+    },
+    video: {
+      display: 'block',
+      margin: 'auto',
+      width: '85%',
+      marginBottom: '1.5em',
+      [theme.breakpoints.down(1024)]: {
+        width: '100%',
       },
     },
     titleContainer: {
@@ -251,6 +263,9 @@ const extractGitHubUrlsFromPost = (htmlString: string): string[] => {
   );
 };
 
+// a 'guid' from a YouTube video is usually written as 'yt:video:id'
+const extractVideoId = (post: Post): string => post.guid.split(':')[2];
+
 const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -259,6 +274,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   const sectionEl = useRef<HTMLElement>(null);
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR<Post>(postUrl);
+  const isMedia = post?.type === 'video';
   const [expandHeader, setExpandHeader] = useState(false);
   // Extract all the github urls from the post
   const extractedGitHubUrls: string[] = useMemo(
@@ -374,6 +390,14 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
         </ListSubheader>
       )}
       <div className={classes.content}>
+        {isMedia && (
+          <LiteYouTubeEmbed
+            id={extractVideoId(post)}
+            title={post.title}
+            wrapperClass={`yt-lite ${classes.video}`}
+          />
+        )}
+
         <section
           ref={sectionEl}
           className={`telescope-post-content ${extractBlogClassName(post.url)}`}

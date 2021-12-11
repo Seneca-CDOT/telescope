@@ -8,11 +8,13 @@ export type Feed = {
 export type Post = {
   feed: Feed;
   id: string;
+  guid: string;
   post: string;
   title: string;
   updated: string;
   url: string;
   html: string;
+  type: 'blogpost' | 'video';
 };
 
 export type SignUpForm = {
