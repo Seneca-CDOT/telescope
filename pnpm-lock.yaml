@@ -347,6 +347,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2
       react-icons: 4.3.1
+      react-lite-youtube-embed: 2.1.3
       react-transition-group: 4.4.2
       react-use: 17.3.2
       smoothscroll-polyfill: 0.4.4
@@ -374,6 +375,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-icons: 4.3.1_react@17.0.2
+      react-lite-youtube-embed: 2.1.3_react-dom@17.0.2+react@17.0.2
       react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
       react-use: 17.3.2_react-dom@17.0.2+react@17.0.2
       smoothscroll-polyfill: 0.4.4
@@ -2858,6 +2860,7 @@ packages:
         integrity: sha512-sdpgI/PL56QVsEJldwEe4FFaFTLUqN+rd7sSZiRCdx2E/C7z5yK0y/khAWVBH24tXwto7I1hCzNWfJGZIYJKnw==,
       }
     engines: { node: '>=8.0.0' }
+    deprecated: 'You can now upgrade to @mui/material. See the guide: https://mui.com/guides/migration-v4/'
     peerDependencies:
       '@types/react': ^16.8.6 || ^17.0.0
       react: ^16.8.0 || ^17.0.0
@@ -3738,7 +3741,7 @@ packages:
       chalk: 4.1.2
       dom-accessibility-api: 0.5.10
       lz-string: 1.4.4
-      pretty-format: 27.4.2
+      pretty-format: 27.4.6
     dev: true
 
   /@testing-library/react/12.1.2_react-dom@17.0.2+react@17.0.2:
@@ -12325,17 +12328,6 @@ packages:
       supports-color: 8.1.1
     dev: false
 
-  /jest-worker/27.4.2:
-    resolution:
-      {
-        integrity: sha512-0QMy/zPovLfUPyHuOuuU4E+kGACXXE84nRnq6lBVI9GJg5DCBiA97SATi+ZP8CpiJwEQy1oCPjRBf8AnLjN+Ag==,
-      }
-    engines: { node: '>= 10.13.0' }
-    dependencies:
-      '@types/node': 16.11.18
-      merge-stream: 2.0.0
-      supports-color: 8.1.1
-
   /jest-worker/27.4.6:
     resolution:
       {
@@ -16320,6 +16312,19 @@ packages:
         integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==,
       }
 
+  /react-lite-youtube-embed/2.1.3_react-dom@17.0.2+react@17.0.2:
+    resolution:
+      {
+        integrity: sha512-pTWl7bcRnnxj1Tz0zHEn1SG0sW9+ucumF9m8zrm2qx6lYDuSPsLN+GCTuAFHn0KuKV9N3nUIvVwCfC0Zx9tNWA==,
+      }
+    peerDependencies:
+      react: '>=16.0.8'
+      react-dom: '>=16.0.8'
+    dependencies:
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    dev: false
+
   /react-refresh/0.8.3:
     resolution:
       {
@@ -17730,6 +17735,7 @@ packages:
       {
         integrity: sha512-cPiFOTLUKvJFIg4SKVScy4ilPPW6rFgMgfuZJPNoDuMs3nC1HbMUycBoJw77xFIp6z1UJQJOfx6C9GMH80DiTw==,
       }
+    deprecated: See https://github.com/lydell/source-map-url#deprecated
     dev: false
 
   /source-map/0.5.6:
@@ -18650,7 +18656,7 @@ packages:
       uglify-js:
         optional: true
     dependencies:
-      jest-worker: 27.4.2
+      jest-worker: 27.4.6
       schema-utils: 3.1.1
       serialize-javascript: 6.0.0
       source-map: 0.6.1
