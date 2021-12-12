@@ -4,30 +4,30 @@
  */
 
 /**
- * @returns {HTMLElement} the sample toast to clone from
+ * @returns {HTMLElement} the sample toast element to clone from
  */
-const querySampleToastEl = () => document.getElementById('sample-toast');
+const querySampleToastElement = () => document.getElementById('sample-toast');
 /**
  * @returns {HTMLElement} the container for all stacking toast elements
  */
-const queryToastContainer = () => document.getElementById('toast-container');
+const queryToastContainerElement = () => document.getElementById('toast-container');
 
 /**
- * Make a new empty toast node from the sample toast node
+ * Make a new empty toast element from the sample toast element
  *
  * @returns {HTMLElement} an empty toast element
  */
-const cloneDummyToastNode = () => {
+const cloneDummyToastElement = () => {
   // get the sample toast
-  const sampleToastEl = querySampleToastEl();
+  const sampleToastElement = querySampleToastElement();
 
   // clone from the sample
-  const clonnedToastEl = sampleToastEl.cloneNode(true);
-  clonnedToastEl.removeAttribute('id');
-  clonnedToastEl.removeAttribute('aria-hidden');
+  const clonnedToastElement = sampleToastElement.cloneNode(true);
+  clonnedToastElement.removeAttribute('id');
+  clonnedToastElement.removeAttribute('aria-hidden');
 
   // return the new toast element
-  return clonnedToastEl;
+  return clonnedToastElement;
 };
 
 /**
@@ -37,42 +37,42 @@ const cloneDummyToastNode = () => {
  * @param {ToastVariant} variant for toast UI theme
  * @returns {HTMLElement} styled toast element with custom message
  */
-const createToastNode = (message, variant) => {
+const createToastElement = (message, variant) => {
   // Craete an empty toast
-  const toastNode = cloneDummyToastNode();
+  const toastElement = cloneDummyToastElement();
 
   // populate the new empty toaste
-  const toastBodyEl = toastNode.querySelector('.toast-body');
-  toastBodyEl.innerHTML = message;
-  toastNode.classList.add(`bg-${variant}`, 'text-white');
+  const toastBodyElement = toastElement.querySelector('.toast-body');
+  toastBodyElement.innerHTML = message;
+  toastElement.classList.add(`bg-${variant}`, 'text-white');
 
-  return toastNode;
+  return toastElement;
 };
 
 /**
  * Show a toast with custom message to users
  *
  * @param {string} message to display
- * @param {ToastVariant} variant for toast UI theme
+ * @param {ToastVariant} [variant] for toast UI theme. Default is `info`
  * @param {any} [options] bootstrap toast options. See {@link https://getbootstrap.com/docs/5.0/components/toasts/#options}
  * @returns {any} an instance of BootStrap Toast. See {@link https://getbootstrap.com/docs/5.0/components/toasts/#methods}
  */
-const enqueueToast = (message, variant, options) => {
+const showToast = (message, variant = 'info', options) => {
   // Create a new toast element
-  const toastNode = createToastNode(message, variant);
-  const toastContainer = queryToastContainer();
-  toastContainer.appendChild(toastNode);
+  const toastElement = createToastElement(message, variant);
+  const toastContainerElement = queryToastContainerElement();
+  toastContainerElement.appendChild(toastElement);
 
   // Remove the toast from DOM after displaying
-  toastNode.addEventListener('hidden.bs.toast', (ev) =>
-    toastContainer.removeChild(ev.currentTarget)
+  toastElement.addEventListener('hidden.bs.toast', (ev) =>
+    toastContainerElement.removeChild(ev.currentTarget)
   );
 
   // Display the toast
   // eslint-disable-next-line no-undef
-  const bsToast = new bootstrap.Toast(toastNode, options);
+  const bsToast = new bootstrap.Toast(toastElement, options);
   bsToast.show();
   return bsToast;
 };
 
-export default enqueueToast;
+export default showToast;
