@@ -273,8 +273,8 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
     return (
-      <Box component={Box} className={classes.root}>
-        <ListSubheader className={classes.titleContainer}>
+      <Box component="div" className={classes.root}>
+        <ListSubheader component="div" className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
             <Grid container className={classes.error}>
@@ -292,7 +292,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   if (!post) {
     return (
       <Box className={classes.root}>
-        <ListSubheader className={classes.titleContainer}>
+        <ListSubheader component="div" className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
             Loading Blog...
@@ -320,7 +320,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
         </div>
       )}
 
-      <ListSubheader className={classes.postInfo}>
+      <ListSubheader component="div" className={classes.postInfo}>
         <div className={classes.titleContainer}>
           <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
             <span
@@ -349,7 +349,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
             <div className={classes.publishedDateContainer}>
               <h1 className={classes.published}>
                 <a href={post.url} rel="bookmark" className={classes.link}>
-                  {`${formatPublishedDate(post.updated)}`}
+                  <time dateTime={post.updated}>{`${formatPublishedDate(post.updated)}`}</time>
                 </a>
 
                 <ShareButton url={post.url} />
@@ -363,7 +363,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
         )}
       </ListSubheader>
       {desktop && (
-        <ListSubheader className={classes.desktopPostInfo}>
+        <ListSubheader component="div" className={classes.desktopPostInfo}>
           <PostDesktopInfo
             postUrl={post.url}
             authorName={post.feed.author}
