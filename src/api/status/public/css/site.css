@@ -1,3 +1,11 @@
+main {
+  /*
+    Prevent elements z-index inside .main affect outside elements (e.g. toasts)
+    See https://developer.mozilla.org/en-US/docs/Web/CSS/isolation
+  */
+  isolation: isolate;
+}
+
 #sidenav-collapse-main > ul > li > a {
   padding-top: 0.4em;
   padding-bottom: 0.4em;

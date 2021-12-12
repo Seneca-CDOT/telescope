@@ -23,6 +23,7 @@
   width: max-content;
   max-width: 100%;
   pointer-events: none;
+  z-index: $zindex-modal;
 
   > :not(:last-child) {
     margin-bottom: $toast-spacing;
