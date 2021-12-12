@@ -108,6 +108,7 @@
   font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
   background: #eff0f1;
   color: #242424;
+  border-radius: 3px;
 }
 
 .telescope-post-content pre {
@@ -117,8 +118,18 @@
   line-height: 1.5;
   max-width: 100%;
   overflow: auto;
-  padding: 0.5em 1.5em;
+  padding: 0.5em 1em;
   word-wrap: break-word;
+}
+
+.telescope-post-content code {
+  font-size: 85%;
+}
+
+@media only screen and (max-width: 600px) {
+  .telescope-post-content pre {
+    padding: 0;
+  }
 }
 
 /**

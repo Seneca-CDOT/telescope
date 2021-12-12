@@ -1,5 +1,6 @@
 import { useRef, useState, useMemo } from 'react';
 import useSWR from 'swr';
+import clsx from 'clsx';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import {
   Box,
@@ -81,26 +82,26 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     title: {
-      fontSize: '3em',
       fontWeight: 'bold',
       overflow: 'hidden',
-      textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      '-webkit-line-clamp': '2',
+      '-webkit-box-orient': 'vertical',
       textAlign: 'center',
       letterSpacing: '-1.5px',
+      fontSize: 'clamp(2.5em, 4vw, 3em)',
       [theme.breakpoints.down(1205)]: {
-        fontSize: '2em',
-        fontWeight: 'bold',
         textAlign: 'start',
-        letterSpacing: '-1.5px',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        lineHeight: '1.3',
         marginLeft: '.3em',
       },
       [theme.breakpoints.down(1024)]: {
-        fontSize: '2.5em',
         marginLeft: '.1em',
       },
+      cursor: 'pointer',
+      outline: 'none',
+    },
+    expandedTitle: {
+      display: 'block',
     },
     postCount: {
       marginRight: '16px',
@@ -120,16 +121,6 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1024)]: {
         fontSize: '.65em',
       },
-    },
-    expandHeader: {
-      whiteSpace: 'normal',
-      cursor: 'pointer',
-      outline: 'none',
-    },
-    collapseHeader: {
-      whiteSpace: 'nowrap',
-      cursor: 'pointer',
-      outline: 'none',
     },
     authorNameContainer: {
       [theme.breakpoints.down(1205)]: {
@@ -322,13 +313,17 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
 
       <ListSubheader component="div" className={classes.postInfo}>
         <div className={classes.titleContainer}>
-          <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+          <Typography
+            variant="h3"
+            title={post.title}
+            id={post.id}
+            className={clsx(classes.title, expandHeader && classes.expandedTitle)}
+          >
             <span
               role="button"
               tabIndex={0}
               onClick={() => setExpandHeader(!expandHeader)}
               onKeyDown={() => setExpandHeader(!expandHeader)}
-              className={expandHeader ? classes.expandHeader : classes.collapseHeader}
             >
               {post.title}
             </span>
