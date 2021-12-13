@@ -13,7 +13,7 @@ import {
   AccordionDetails,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
-import { VscGithub, VscTriangleDown } from 'react-icons/vsc';
+import { VscGithub } from 'react-icons/vsc';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: '.3em',
       },
       [theme.breakpoints.down(1024)]: {
-        fontSize: '2.5em',
+        fontSize: '2em',
         marginLeft: '.1em',
       },
     },
@@ -199,9 +199,10 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     accordionSummary: {
+      marginTop: '0',
       paddingRight: '0',
       justifyContent: 'flex-end',
-      overflow: 'scroll',
+      overflow: 'hidden',
       textOverflow: 'ellipsis',
       paddingBottom: '0',
       '& .MuiAccordionSummary-content': {
