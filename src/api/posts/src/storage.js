@@ -84,7 +84,7 @@ module.exports = {
         const id = key.replace(feedNamespace, '').replace(invalidSuffix, '');
         return {
           id,
-          reason,
+          reason: reason.replace(/\n/g, ' '),
         };
       })
     );
@@ -108,7 +108,8 @@ module.exports = {
 
   setInvalidFeed: (id, reason) => {
     const key = createInvalidFeedKey(id);
-    return redis.set(key, reason);
+    const sevenDaysInSeconds = 60 * 60 * 24 * 7; // Expire after 7 days
+    return redis.set(key, reason, 'EX', sevenDaysInSeconds);
   },
 
   /**
