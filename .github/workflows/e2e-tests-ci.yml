@@ -1,0 +1,30 @@
+name: e2e Tests Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  e2e:
+    name: End-To-End Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.5
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - uses: actions/setup-node@v2.5.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - uses: microsoft/playwright-github-action@v1
+      - name: Start microservices and run e2e tests
+        run: |
+          pnpm install
+          pnpm services:start
+          pnpm jest:e2e

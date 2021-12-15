@@ -1,0 +1,29 @@
+name: Unit Tests Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  unit:
+    name: Unit Tests
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [14.x, 16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.5
+      - uses: actions/setup-node@v2.5.0
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Get number of CPU cores
+        uses: SimenB/github-actions-cpu-cores@v1
+      - name: Install dependencies and run tests with default env
+        run: |
+          pnpm install
+          # pnpm can't handle passing args through to run scripts: https://github.com/pnpm/pnpm/issues/2764
+          npm run jest --max-workers ${{ steps.cpu-cores.outputs.count }}
