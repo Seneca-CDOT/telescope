@@ -1,0 +1,22 @@
+name: ESLint Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  # Make sure eslint passes
+  eslint:
+    name: ESLint Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.5
+      - uses: actions/setup-node@v2.5.0
+        with:
+          cache: 'pnpm'
+      - name: Install dependencies and run eslint
+        run: |
+          pnpm install
+          pnpm eslint

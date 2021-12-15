@@ -11,85 +11,16 @@ on:
 jobs:
   # Confirm that prettier was run on the changes
   prettier:
-    name: Prettier Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.23.5
-      - uses: actions/setup-node@v2.5.0
-        with:
-          cache: 'pnpm'
-      - name: Install dependencies and run prettier-check
-        run: |
-          pnpm install
-          pnpm prettier-check
+    uses: Seneca-CDOT/telescope/.github/workflows/prettier-ci.yml@master
 
   # Make sure eslint passes
   eslint:
-    name: ESLint Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.23.5
-      - uses: actions/setup-node@v2.5.0
-        with:
-          cache: 'pnpm'
-      - name: Install dependencies and run eslint
-        run: |
-          pnpm install
-          pnpm eslint
+    uses: Seneca-CDOT/telescope/.github/workflows/eslint-ci.yml@master
 
   # Run unit tests on all platforms/versions of node
   unit:
-    name: Unit Tests
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: [14.x, 16.x]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.23.5
-      - uses: actions/setup-node@v2.5.0
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-      - name: Get number of CPU cores
-        uses: SimenB/github-actions-cpu-cores@v1
-      - name: Install dependencies and run tests with default env
-        run: |
-          pnpm install
-          # pnpm can't handle passing args through to run scripts: https://github.com/pnpm/pnpm/issues/2764
-          npm run jest --max-workers ${{ steps.cpu-cores.outputs.count }}
+    uses: Seneca-CDOT/telescope/.github/workflows/unit-tests-ci.yml@master
 
   # Run end-to-end tests along with the microservices in docker-compose on Linux
   e2e:
-    name: End-To-End Tests
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.23.5
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-      - uses: actions/setup-node@v2.5.0
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-      - uses: microsoft/playwright-github-action@v1
-      - name: Start microservices and run e2e tests
-        run: |
-          pnpm install
-          pnpm services:start
-          pnpm jest:e2e
+    uses: Seneca-CDOT/telescope/.github/workflows/e2e-tests-ci.yml@master

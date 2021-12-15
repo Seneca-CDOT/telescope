@@ -1,0 +1,22 @@
+name: Prettier Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  # Confirm that prettier was run on the changes
+  prettier:
+    name: Prettier Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.5
+      - uses: actions/setup-node@v2.5.0
+        with:
+          cache: 'pnpm'
+      - name: Install dependencies and run prettier-check
+        run: |
+          pnpm install
+          pnpm prettier-check
