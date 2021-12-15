@@ -1,3 +1,4 @@
+import showToast from '../utils/toast.js';
 /* eslint-disable no-undef */
 const theme = {
   background: '#252525',
@@ -33,5 +34,36 @@ terminal.open(document.getElementById('terminal'));
 terminal.loadAddon(new WebLinksAddon.WebLinksAddon());
 terminal.loadAddon(new WebglAddon.WebglAddon());
 fitAddon.fit();
+
+/**
+ * @type {HTMLElement} reference to the button triggering copy terminal content
+ */
+const copyToClipboardButton = document.getElementById('copy-to-clipboard-button');
+
+/**
+ * Write all content from terminal to user' clipboard
+ */
+const copyToClipboard = async () => {
+  // Check for terminal
+  if (!terminal) {
+    showToast('Terminal is not initialized', 'danger');
+    return;
+  }
+
+  // extract content from terminal
+  terminal.selectAll();
+  const text = terminal.getSelection().trim();
+  terminal.clearSelection();
+
+  try {
+    // write to clipboard
+    await window.navigator.clipboard.writeText(text);
+    showToast('Copy successfully', 'success');
+  } catch (error) {
+    console.error(error);
+    showToast('Fail to copy', 'danger');
+  }
+};
+copyToClipboardButton.addEventListener('click', () => copyToClipboard());
 
 export default terminal;
