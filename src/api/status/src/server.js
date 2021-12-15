@@ -6,6 +6,7 @@ const { check } = require('./services');
 const getGitHubData = require('./js/github-stats');
 const getFeedCount = require('./js/feed-stats');
 const getPostsCount = require('./js/posts-stats');
+const getJobCount = require('./js/queue-stats');
 
 const host = process.env.API_HOST || 'localhost';
 
@@ -75,13 +76,14 @@ service.router.get(process.env.PATH_PREFIX || '/', async (req, res) => {
   let satellite;
   let totalPost;
   let totalFeeds;
-
+  let jobCount;
   try {
-    [totalPost, totalFeeds, telescope, satellite] = await Promise.all([
-      getPostsCount(),
-      getFeedCount(),
+    [telescope, satellite, totalPost, totalFeeds, jobCount] = await Promise.all([
       getGitHubData('Seneca-CDOT', 'telescope'),
       getGitHubData('Seneca-CDOT', 'satellite'),
+      getPostsCount(),
+      getFeedCount(),
+      getJobCount(),
     ]);
   } catch (e) {
     console.error(e);
@@ -98,6 +100,7 @@ service.router.get(process.env.PATH_PREFIX || '/', async (req, res) => {
     satellite: { ...satellite, title: 'Satellite' },
     totalPost,
     totalFeeds,
+    jobCount,
     environment,
   });
 });

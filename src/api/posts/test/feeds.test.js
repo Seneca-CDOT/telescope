@@ -75,18 +75,12 @@ describe('Test GET /feeds/delayed endpoint', () => {
 describe('GET /feeds/info', () => {
   test('Should return 200 and valid response object', async () => {
     function checkKeys(resBody) {
-      let bool = true;
       const allKeys = ['waiting', 'active', 'completed', 'failed', 'delayed', 'paused', 'jobCnt'];
-      const resKeys = Object.keys(resBody.queueInfo);
-      for (let i = 0; i < resKeys.length; i += 1) {
-        if (allKeys.indexOf(resKeys[i]) < 0 || typeof resBody.queueInfo[resKeys[i]] !== 'number') {
-          bool = false;
-          break;
-        }
-      }
-      return bool;
+      // return true if the response object has all correct properties/keys and correct value types
+      return Object.keys(resBody.queueInfo).every(
+        (key) => allKeys.includes(key) && typeof resBody.queueInfo[key] === 'number'
+      );
     }
-
     const res = await request(app).get('/feeds/info');
 
     expect(res.status).toEqual(200);
