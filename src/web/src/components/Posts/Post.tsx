@@ -69,6 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '2em 0 1.5em',
       lineHeight: '1.3',
       top: '-1.1em',
+      overflowY: 'hidden',
       [theme.breakpoints.down(1205)]: {
         top: '-1.1em',
         width: '725px',
