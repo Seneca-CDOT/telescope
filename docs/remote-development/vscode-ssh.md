@@ -256,13 +256,19 @@ $ docker-compose --version
 docker-compose version 1.29.2, build 5becea4c
 ```
 
-## Install Node.js and npm
+## Install Node.js
 
-1. Install Node.js 16.x and npm 8.1
+1. Install Node.js 16.x
 
 ```
 $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt-get install -y nodejs
+```
+
+1. Install pnpm
+
+```bash
+npm install -g pnpm
 ```
 
 2. Verify installation
@@ -271,8 +277,8 @@ sudo apt-get install -y nodejs
 $ node -v
 v16.12.0
 
-$ npm -v
-8.1.0
+$ pnpm -v
+6.23.2
 ```
 
 ## Setting up the Telescope repository in AWS EC2:
@@ -300,7 +306,7 @@ sh ./tools/aws-ip.sh
 1. Install all dependencies
 
 ```
-npm install
+pnpm install
 ```
 
 2. Start all Telescope services. This will take some time to complete
@@ -312,7 +318,7 @@ docker-compose --env-file .env up -d
 3. Start the Telescope development server on Port 3000
 
 ```
-npm start
+pnpm start
 ```
 
 4. Find your EC2 instance's public IPv4
@@ -336,7 +342,7 @@ $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 ### How do I stop my docker containers?
 
 ```
-npm run services:stop
+pnpm services:stop
 ```
 
 ### How do I delete my docker containers?

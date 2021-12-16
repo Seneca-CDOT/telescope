@@ -1,9 +1,10 @@
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Box, createStyles, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import { FaSlack } from 'react-icons/fa';
+
 import GitHubContributorCard from './GitHubContributorCard';
 import Logo from './Logo';
-import { FaSlack } from 'react-icons/fa';
 
 const useStyles = makeStyles((theme) =>
   createStyles({

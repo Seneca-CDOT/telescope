@@ -64,7 +64,8 @@ module.exports = {
 
   setInvalidFeed: (id, reason) => {
     const key = createInvalidFeedKey(id);
-    return redis.set(key, reason);
+    const sevenDaysInSeconds = 60 * 60 * 24 * 7; // Expire after 7 days
+    return redis.set(key, reason, 'EX', sevenDaysInSeconds);
   },
 
   /**
@@ -93,7 +94,7 @@ module.exports = {
 
   isInvalid: (id) => redis.exists(createInvalidFeedKey(id)),
 
-  setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 1),
+  setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 'EX', seconds),
 
   isDelayed: (id) => redis.exists(createDelayedFeedKey(id)),
 

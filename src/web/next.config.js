@@ -68,6 +68,7 @@ const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
   trailingSlash: true,
+  swcMinify: true,
 };
 
 // Compose all plugins

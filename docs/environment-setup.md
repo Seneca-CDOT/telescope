@@ -4,6 +4,7 @@
 
 [Prerequisites](#prerequisites)
 
+- [Install pnpm](#install-pnpm)
 - [Docker and Docker-Compose Setup](#docker-and-docker-compose-setup)
   - [Linux-Ubuntu](#linux-ubuntu)
     - [Install Docker Engine (Community Edition)](#install-docker-engine-community-edition)
@@ -13,6 +14,7 @@
   - [Windows 10 Home, Pro, Enterprise or Education (Insiders / WSL 2 / Docker)](#windows-10-home-pro-enterprise-education-insiders-wsl-2-docker)
 - [After installing the prerequisites:](#after-installing-the-prerequisites)
 
+  - [Install Dependencies with pnpm](#install-dependencies-with-pnpm)
   - [Start Docker](#start-docker)
   - [Start Telescope](#start-telescope)
 
@@ -25,6 +27,7 @@
 
 - [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
 
+  - [How do I start using `pnpm` if I have telescope installed with `npm`?](#how-do-i-start-using-pnpm-if-i-have-telescope-installed-with-npm)
   - [How do I start Docker Daemon?](#how-do-i-start-docker-daemon)
   - [I followed all the steps but my browser still can't run Telescope locally](#i-followed-all-the-steps-but-my-browser-still-cant-run-telescope-locally)
   - [`Cannot find cgroup mount destination` error](#cannot-find-cgroup-mount-destination-error)
@@ -34,8 +37,19 @@
 
 ## Prerequisites:
 
-- [Node.js (npm)](https://nodejs.org/en/download/)
+- [Node.js](https://nodejs.org/en/download/)
+- [pnpm](https://pnpm.io/)
 - [Docker and Docker-Compose](https://docs.docker.com/install/)
+
+## Install pnpm
+
+We use `pnpm` instead of `npm` to install packages. `pnpm` is faster and uses less disk space when installing `node_modules` ([More on the benefits of pnpm](https://pnpm.io/motivation)).
+
+After installing Node.js, install `pnpm` globally:
+
+```bash
+npm install -g pnpm
+```
 
 ## Install Redis and WSL2
 
@@ -168,6 +182,28 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 
 ## After installing the prerequisites:
 
+### Install Dependencies with pnpm
+
+`pnpm` functions similarly to `npm` but there are some differences in how [packages are installed](https://pnpm.io/cli/install), [added to package.json](https://pnpm.io/cli/add), etc. You can read the [docs](https://pnpm.io/pnpm-cli) for full details.
+
+To install all of Telescope's dependencies, use the following command:
+
+```bash
+pnpm install
+```
+
+Similarly, to run tests:
+
+```bash
+pnpm test
+```
+
+And to run scripts:
+
+```bash
+pnpm <script-name>
+```
+
 ### Start Docker
 
 ```bash
@@ -193,9 +229,9 @@ _Note: Make sure you're running these commands in the root of telescope project.
 This is the default setting, you do not need to copy or modify any `env` file.
 
 ```bash
-npm run services:start
+pnpm services:start
 
-npm start
+pnpm start
 ```
 
 Then visit `localhost:8000` in a web browser to see Telescope running locally. `localhost:3000/posts` will show you the list of posts in JSON
@@ -203,7 +239,7 @@ Then visit `localhost:8000` in a web browser to see Telescope running locally. `
 Microservices will start downloading feeds and processing them until stopped. You can stop the microservices by running
 
 ```
-npm run services:stop
+pnpm services:stop
 ```
 
 For more information about the services, please read [Telescope API Services](../src/api/readme.md).
@@ -215,7 +251,7 @@ If this doesn't work for you, it is possible that you have an old `.env` file in
 ```bash
 cp config/env.staging .env
 
-npm run dev
+pnpm dev
 ```
 
 Then visit `localhost:8000` in a web browser
@@ -224,14 +260,14 @@ This will let you use the Telescope staging server as the backend so you do not 
 
 #### Option 3: Mix and match services between local and staging production
 
-See [staging-production-deployment](staging-production-deployment) for more information on running Telescope in staging or production mode.
+See [staging-production-deployment](staging-production-deployment.md) for more information on running Telescope in staging or production mode.
 
 This one depends on which part you're working with. For example, if you want to work with authorization, you need to specify the URL of AUTH in your `.env` file by going to `.env` and modifying `AUTH_URL=...` and modify it to the one you want to work with. If you're testing auth locally, use `AUTH_URL=http://localhost/v1/auth`; otherwise, use the staging one, `AUTH_URL=http://dev.api.telescope.cdot.systems/v1/auth`.
 
 After modify the `.env` file, run these commands,
 
 ```bash
-npm run services:start
+pnpm services:start
 ```
 
 #### Option 4: Run microservices individually
@@ -239,13 +275,13 @@ npm run services:start
 For a full list of avaliable microservices, please read [Telescope API Services](../src/api/readme.md).
 
 ```bash
-npm run services:start [name of microservice]
+pnpm services:start [name of microservice]
 ```
 
 For example
 
 ```bash
-npm run services:start posts
+pnpm services:start posts
 ```
 
 #### Option 5: Update Docker image(s) after changes
@@ -253,8 +289,8 @@ npm run services:start posts
 Run the following commands to rebuild the image(s):
 
 ```bash
-npm run services:clean
-npm run services:start
+pnpm services:clean
+pnpm services:start
 ```
 
 #### Option 6: Run Login SSO
@@ -262,6 +298,16 @@ npm run services:start
 If you need to login to Telescope or your work requires logging in for testing purposes, you don't need to start an extra container for login, it is included in auth service. You can simply use UI to login. For more information on Login please refer to our [Login Document](login.md).
 
 ## Frequently Asked Questions (FAQ)
+
+### How do I start using `pnpm` if I have telescope installed with `npm`?
+
+Since `pnpm` uses a completely different `node_modules` structure, if you have previously installed dependencies with `npm`, you should delete them. To do so, from the root of the telescope folder, run the following command:
+
+```bash
+npx npkill
+```
+
+Using [npkill](https://npkill.js.org), select `node_modules` with the cursor arrows and press `SPACE` to delete them one by one. You can then exit by pressing `Q`.
 
 ### How do I start Docker Daemon?
 

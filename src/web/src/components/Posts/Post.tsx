@@ -1,5 +1,6 @@
 import { useRef, useState, useMemo } from 'react';
 import useSWR from 'swr';
+import clsx from 'clsx';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import {
   Box,
@@ -11,6 +12,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Chip,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import { VscGithub } from 'react-icons/vsc';
@@ -21,9 +23,12 @@ import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
 import GitHubInfo from './GitHubInfo';
 import GitHubInfoMobile from './GItHubInfoMobile';
+import ShareButton from './ShareButton';
 
 type Props = {
   postUrl: string;
+  currentPost?: number;
+  totalPosts?: number;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -83,36 +88,46 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     title: {
-      fontSize: '3em',
       fontWeight: 'bold',
       overflow: 'hidden',
-      textOverflow: 'ellipsis',
+      display: '-webkit-box',
+      '-webkit-line-clamp': '2',
+      '-webkit-box-orient': 'vertical',
       textAlign: 'center',
       letterSpacing: '-1.5px',
+      fontSize: 'clamp(2.5em, 4vw, 3em)',
       [theme.breakpoints.down(1205)]: {
-        fontSize: '2em',
-        fontWeight: 'bold',
         textAlign: 'start',
-        letterSpacing: '-1.5px',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        lineHeight: '1.3',
         marginLeft: '.3em',
       },
       [theme.breakpoints.down(1024)]: {
         fontSize: '2em',
         marginLeft: '.1em',
       },
-    },
-    expandHeader: {
-      whiteSpace: 'normal',
       cursor: 'pointer',
       outline: 'none',
     },
-    collapseHeader: {
-      whiteSpace: 'nowrap',
-      cursor: 'pointer',
-      outline: 'none',
+    expandedTitle: {
+      display: 'block',
+    },
+    postCount: {
+      marginRight: '16px',
+      display: 'flex',
+      justifyContent: 'flex-end',
+      [theme.breakpoints.down(1024)]: {
+        margin: '0 2em 0.05em 0',
+      },
+      [theme.breakpoints.down(600)]: {
+        margin: '0 0 0.05em 0',
+      },
+    },
+    chipComponent: {
+      border: `1px solid ${theme.palette.primary.main}`,
+      color: `${theme.palette.text.primary}`,
+      fontSize: '0.75em',
+      [theme.breakpoints.down(1024)]: {
+        fontSize: '.65em',
+      },
     },
     authorNameContainer: {
       [theme.breakpoints.down(1205)]: {
@@ -164,9 +179,6 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: '1.1em',
         height: '5px',
         margin: '-1.6em 1em -1em .5px',
-      },
-      '&:hover': {
-        textDecorationLine: 'underline',
       },
     },
     authorAvatarContainer: {
@@ -277,7 +289,7 @@ const extractGitHubUrlsFromPost = (htmlString: string): string[] => {
   );
 };
 
-const PostComponent = ({ postUrl }: Props) => {
+const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
   const desktop = useMediaQuery(theme.breakpoints.up(1205));
@@ -296,8 +308,8 @@ const PostComponent = ({ postUrl }: Props) => {
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
     return (
-      <Box component={Box} className={classes.root}>
-        <ListSubheader className={classes.titleContainer}>
+      <Box component="div" className={classes.root}>
+        <ListSubheader component="div" className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
             <Grid container className={classes.error}>
@@ -315,14 +327,14 @@ const PostComponent = ({ postUrl }: Props) => {
   if (!post) {
     return (
       <Box className={classes.root}>
-        <ListSubheader className={classes.titleContainer}>
+        <ListSubheader component="div" className={classes.titleContainer}>
           <AdminButtons />
           <Typography variant="h1" className={classes.title}>
             Loading Blog...
           </Typography>
         </ListSubheader>
 
-        <Grid container justify="center">
+        <Grid container justifyContent="center">
           <Grid item className={classes.spinner}>
             <Spinner />
           </Grid>
@@ -333,24 +345,33 @@ const PostComponent = ({ postUrl }: Props) => {
 
   return (
     <Box className={classes.root}>
+      {currentPost && totalPosts && (
+        <div className={classes.postCount}>
+          <Chip
+            label={`${currentPost.toLocaleString()} of ${totalPosts.toLocaleString()}`}
+            variant="outlined"
+            className={classes.chipComponent}
+          />
+        </div>
+      )}
+
       {!desktop && (
         <>
           <Accordion className={classes.accordion}>
             <AccordionSummary className={classes.accordionSummary}>
-              <ListSubheader className={classes.postInfo}>
+              <ListSubheader component="div" className={classes.postInfo}>
                 <div className={classes.titleContainer}>
                   <Typography
-                    variant="h1"
+                    variant="h3"
                     title={post.title}
                     id={post.id}
-                    className={classes.title}
+                    className={clsx(classes.title, expandHeader && classes.expandedTitle)}
                   >
                     <span
                       role="button"
                       tabIndex={0}
                       onClick={() => setExpandHeader(!expandHeader)}
                       onKeyDown={() => setExpandHeader(!expandHeader)}
-                      className={expandHeader ? classes.expandHeader : classes.collapseHeader}
                     >
                       {post.title}
                     </span>
@@ -363,20 +384,18 @@ const PostComponent = ({ postUrl }: Props) => {
                   <h1 className={classes.author}>
                     <a className={classes.link} href={post.feed.link}>
                       {post.feed.author}
-                      <a> </a>
-                      {!!extractedGitHubUrls.length && (
-                        <VscGithub>className={classes.gitHubIcon}</VscGithub>
-                      )}
                     </a>
-                    {!!extractedGitHubUrls.length && <></>}
                   </h1>
                 </div>
                 <div className={classes.publishedDateContainer}>
                   <h1 className={classes.published}>
                     <a href={post.url} rel="bookmark" className={classes.link}>
-                      {`${formatPublishedDate(post.updated)}`}
+                      <time dateTime={post.updated}>{`${formatPublishedDate(post.updated)}`}</time>
                     </a>
+
+                    <ShareButton url={post.url} />
                   </h1>
+
                   <div>
                     <AdminButtons />
                   </div>
@@ -391,22 +410,26 @@ const PostComponent = ({ postUrl }: Props) => {
       )}
       {desktop && (
         <>
-          <ListSubheader className={classes.postInfo}>
+          <ListSubheader component="div" className={classes.postInfo}>
             <div className={classes.titleContainer}>
-              <Typography variant="h1" title={post.title} id={post.id} className={classes.title}>
+              <Typography
+                variant="h3"
+                title={post.title}
+                id={post.id}
+                className={clsx(classes.title, expandHeader && classes.expandedTitle)}
+              >
                 <span
                   role="button"
                   tabIndex={0}
                   onClick={() => setExpandHeader(!expandHeader)}
                   onKeyDown={() => setExpandHeader(!expandHeader)}
-                  className={expandHeader ? classes.expandHeader : classes.collapseHeader}
                 >
                   {post.title}
                 </span>
               </Typography>
             </div>
           </ListSubheader>
-          <ListSubheader className={classes.desktopPostInfo}>
+          <ListSubheader component="div" className={classes.desktopPostInfo}>
             <PostDesktopInfo
               postUrl={post.url}
               authorName={post.feed.author}

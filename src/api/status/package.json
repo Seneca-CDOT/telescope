@@ -4,8 +4,10 @@
   "version": "1.0.0",
   "description": "A service for getting the status of our services",
   "scripts": {
-    "dev": "env-cmd -f env.local nodemon src/server.js",
-    "start": "node src/server.js"
+    "dev": "npm run compile:scss && env-cmd -f env.local nodemon src/server.js",
+    "start": "node src/server.js",
+    "compile:scss": "sass ./scss/material-dashboard.scss:./public/assets/css/material-dashboard.css",
+    "watch:scss": "sass --watch ./scss/material-dashboard.scss:./public/assets/css/material-dashboard.css"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -15,7 +17,9 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.2",
+    "sass": "^1.43.5"
   },
   "engines": {
     "node": ">=12.0.0"

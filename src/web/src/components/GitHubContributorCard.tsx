@@ -36,7 +36,7 @@ const GitHubContributorCard = () => {
           <Grid item xs={2}>
             <Avatar alt="Profile Picture" src={contributor.avatar_url} />
           </Grid>
-          <Grid item xs={10} justify="flex-end">
+          <Grid item xs={10} justifyContent="flex-end">
             <Typography className={classes.typography}>
               Thank you&nbsp;
               <a href={contributor.html_url} className={classes.link}>

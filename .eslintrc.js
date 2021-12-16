@@ -9,27 +9,30 @@ module.exports = {
   },
   extends: [
     'airbnb',
-    'plugin:react/recommended',
     'plugin:prettier/recommended',
     'plugin:promise/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:import/typescript',
     'plugin:jest-playwright/recommended',
+    'plugin:import/recommended',
   ],
-  plugins: ['prettier', 'promise', 'react', 'react-hooks', 'jest'],
+  plugins: ['prettier', 'promise', 'jest', 'anti-trojan-source'],
   settings: {
-    'importer/resolver': {
+    'import/resolver': {
       node: {},
     },
     react: {
-      version: 'detect',
+      version: '17.0',
     },
   },
   overrides: [
     // TypeScript for Next.js
     {
       files: ['src/web/**/*.ts', 'src/web/**/*.tsx'],
-      plugins: ['@typescript-eslint'],
+      extends: [
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+        'plugin:import/typescript',
+      ],
+      plugins: ['@typescript-eslint', 'react', 'react-hooks'],
       env: {
         browser: true,
       },
@@ -67,6 +70,12 @@ module.exports = {
       env: {
         node: true,
       },
+    },
+
+    // Static dashboard
+    {
+      files: ['src/api/status/public/**/*.js'],
+      rules: { 'import/extensions': ['error', 'always'] },
     },
 
     // Jest Test files
@@ -156,5 +165,19 @@ module.exports = {
      * difficult to configure properly.  Disabling for now.
      */
     'import/no-extraneous-dependencies': ['off'],
+    'no-new': 'off',
+
+    /**
+     * False positive of no-shadow rule with ENUMs
+     * https://github.com/typescript-eslint/typescript-eslint/issues/2483
+     */
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'error',
+
+    /**
+     * Halt if a trojan source attack is found
+     * https://github.com/lirantal/eslint-plugin-anti-trojan-source
+     */
+    'anti-trojan-source/no-bidi': 'error',
   },
 };

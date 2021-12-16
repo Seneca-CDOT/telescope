@@ -240,10 +240,14 @@ sh ./tools/aws-ip.sh
 
 ## Now to get started with development...
 
-1. Install all depenencies
+1. Install all dependencies
 
 ```
-npm install
+npm install -g pnpm
+```
+
+```
+pnpm install
 ```
 
 2. Start all Telescope services. This will take some time to complete
@@ -255,7 +259,7 @@ docker-compose --env-file .env up -d
 3. Start the Telescope development server on Port 3000
 
 ```
-PORT=3000 npm start
+PORT=3000 pnpm start
 ```
 
 4. Find your EC2 instance's public IPv4
@@ -279,7 +283,7 @@ $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 ### How do I stop my docker containers?
 
 ```
-npm run services:stop
+pnpm services:stop
 ```
 
 ### How do I delete my docker containers?

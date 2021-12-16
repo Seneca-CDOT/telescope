@@ -1,5 +1,5 @@
+import { useState, useEffect, useCallback } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { useState, useEffect } from 'react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { useRouter } from 'next/router';
 import Button from '@material-ui/core/Button';
@@ -18,6 +18,14 @@ import formSchema from '../components/SignUp/Schema/FormSchema';
 import { authServiceUrl } from '../config';
 import PopUp from '../components/PopUp';
 import Spinner from '../components/Spinner';
+
+enum SIGN_UP_STEPS {
+  OVERVIEW,
+  BASIC_INFO,
+  GITHUB_ACCOUNT,
+  RSS_FEEDS,
+  REVIEW,
+}
 
 type TelescopeAccountStatus = {
   error?: boolean;
@@ -153,14 +161,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-enum SIGN_UP_STEPS {
-  OVERVIEW,
-  BASIC_INFO,
-  GITHUB_ACCOUNT,
-  RSS_FEEDS,
-  REVIEW,
-}
-
 const SignUpPage = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(SIGN_UP_STEPS.OVERVIEW);
@@ -172,20 +172,20 @@ const SignUpPage = () => {
 
   const router = useRouter();
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActiveStep(activeStep + 1);
-  };
+  }, [activeStep]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (activeStep > 1) setActiveStep(activeStep - 1);
-  };
+  }, [activeStep]);
 
   useEffect(() => {
     if (user) {
       setLoggedIn(true);
       handleNext();
     }
-  }, [user]);
+  }, [handleNext, user]);
 
   const handleSubmit = async (values: SignUpForm, actions: FormikHelpers<SignUpForm>) => {
     if (activeStep < 4) {
@@ -195,14 +195,13 @@ const SignUpPage = () => {
       return;
     }
     try {
-      const { firstName, lastName, email, displayName, github, feeds } = values;
       const telescopeUser = {
-        firstName,
-        lastName,
-        email,
-        displayName,
-        github,
-        feeds,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        displayName: values.displayName,
+        github: values.github,
+        feeds: values.feeds,
       };
 
       setLoading(true);

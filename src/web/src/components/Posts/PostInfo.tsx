@@ -1,6 +1,7 @@
 import { createStyles, ListSubheader, makeStyles, Theme } from '@material-ui/core';
 import PostAvatar from './PostAvatar';
 import AdminButtons from '../AdminButtons';
+import ShareButton from './ShareButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,23 +77,25 @@ type Props = {
 const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
   const classes = useStyles();
   return (
-    <ListSubheader className={classes.root}>
+    <ListSubheader component="div" className={classes.root}>
       <div className={classes.authorAvatarContainer}>
         <PostAvatar name={authorName} url={blogUrl} />
       </div>
       <div className={classes.authorNameContainer}>
         <p className={classes.author}>
-          <a className={classes.link} href={blogUrl} target="_blank">
+          <a className={classes.link} href={blogUrl} target="_blank" rel="noreferrer">
             {authorName}
           </a>
         </p>
       </div>
       <div className={classes.postDate}>
-        <a href={postUrl} rel="bookmark" className={classes.published} target="_blank">
+        <a href={postUrl} className={classes.published} target="_blank" rel="noreferrer">
           <time className={classes.time} dateTime={postDate}>
             {postDate}
           </time>
         </a>
+
+        <ShareButton url={postUrl} />
       </div>
       <AdminButtons />
     </ListSubheader>

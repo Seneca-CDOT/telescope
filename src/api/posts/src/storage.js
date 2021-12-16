@@ -22,6 +22,25 @@ const createInvalidFeedKey = (id) => createFeedKey(id).concat(invalidSuffix);
 // "NirlSYranl" to "t:feed:NirlSYranl:delayed"
 const createDelayedFeedKey = (id) => createFeedKey(id).concat(delayedSuffix);
 
+const getFeedKeysUsingScanStream = (matchPattern) => {
+  const keys = new Set();
+  const stream = redis.scanStream({
+    match: matchPattern,
+  });
+  return new Promise((resolve, reject) => {
+    stream.on('data', (data = []) => {
+      data.forEach((k) => keys.add(k));
+    });
+    stream.on('error', (err) => {
+      logger.error({ err }, 'Error while scanning redis keys');
+      reject(new Error('Error while scanning redis keys'));
+    });
+    stream.on('end', () => {
+      resolve([...keys]);
+    });
+  });
+};
+
 module.exports = {
   /**
    * Feeds
@@ -57,6 +76,30 @@ module.exports = {
 
   getFeeds: () => redis.smembers(feedsKey),
 
+  getInvalidFeeds: async () => {
+    const invalidKeys = await getFeedKeysUsingScanStream(`${feedNamespace}*${invalidSuffix}`);
+    return Promise.all(
+      invalidKeys.map(async (key) => {
+        const reason = await redis.get(key);
+        const id = key.replace(feedNamespace, '').replace(invalidSuffix, '');
+        return {
+          id,
+          reason: reason.replace(/\n/g, ' '),
+        };
+      })
+    );
+  },
+
+  getDelayedFeeds: async () => {
+    const delayedKeys = await getFeedKeysUsingScanStream(`${feedNamespace}*${delayedSuffix}`);
+    return delayedKeys.map((key) => {
+      const id = key.replace(feedNamespace, '').replace(delayedSuffix, '');
+      return {
+        id,
+      };
+    });
+  },
+
   getFlaggedFeeds: () => redis.smembers(flaggedFeedsKey),
 
   getFeed: (id) => redis.hgetall(feedNamespace.concat(id)),
@@ -65,7 +108,8 @@ module.exports = {
 
   setInvalidFeed: (id, reason) => {
     const key = createInvalidFeedKey(id);
-    return redis.set(key, reason);
+    const sevenDaysInSeconds = 60 * 60 * 24 * 7; // Expire after 7 days
+    return redis.set(key, reason, 'EX', sevenDaysInSeconds);
   },
 
   /**
@@ -94,7 +138,7 @@ module.exports = {
 
   isInvalid: (id) => redis.exists(createInvalidFeedKey(id)),
 
-  setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 1),
+  setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 'EX', seconds),
 
   isDelayed: (id) => redis.exists(createDelayedFeedKey(id)),
 

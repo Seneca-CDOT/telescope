@@ -5,17 +5,17 @@ The Post Service parses posts from user's feeds to display them on Telescope.
 ## Install
 
 ```
-npm install
+pnpm install
 ```
 
 ## Usage
 
 ```
 # normal mode
-npm start
+pnpm start
 
 # dev mode with automatic restarts
-npm run dev
+pnpm dev
 ```
 
 By default the server is running on <http://localhost:5555/>.

@@ -5,14 +5,14 @@ The Parser service parses posts from user's feeds.
 ## Install
 
 ```
-npm install
+pnpm install
 ```
 
 ## Usage
 
 # dev mode with automatic restarts
 
-npm run start
+pnpm start
 
 ```
 

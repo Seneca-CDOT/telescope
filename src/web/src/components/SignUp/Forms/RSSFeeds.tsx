@@ -156,9 +156,7 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
     }
     try {
       setValidating(true);
-      if (controllerRef.current) {
-        controllerRef.current.abort();
-      }
+      controllerRef?.current?.abort();
       controllerRef.current = new AbortController();
       const response = await fetch(`${feedDiscoveryServiceUrl}`, {
         signal: controllerRef.current?.signal,
@@ -184,6 +182,7 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
       setBlogUrlError('Unable to discover feeds');
       setFieldValue('allFeeds', []);
     } finally {
+      // eslint-disable-next-line require-atomic-updates
       controllerRef.current = null;
       setValidating(false);
     }
@@ -203,7 +202,7 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
     }
 
     return () => {
-      controllerRef.current?.abort();
+      controllerRef?.current?.abort();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

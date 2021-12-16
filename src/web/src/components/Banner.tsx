@@ -10,12 +10,11 @@ import {
 } from '@material-ui/core';
 import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { telescopeUrl } from '../config';
+import { telescopeUrl, statusUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
-import { quotes } from '../student-quotes';
-import { statusUrl } from '../config';
+import quotes from '../student-quotes';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: '25px',
     },
     quoteText: {
-      width: '70%',
+      width: '80%',
       color: '#FFFFFF',
       fontSize: 'clamp(1.6rem, 1.2vw, 2.5rem)',
       display: 'block',
@@ -199,9 +198,9 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
         <Typography variant="h1" className={classes.title}>
           Telescope
         </Typography>
-        <Typography variant="h4" className={classes.quoteText}>
+        <Typography variant="h2" className={classes.quoteText}>
           <a href={studentQuote.url}>
-            "{studentQuote.quote}"
+            &quot;{studentQuote.quote}&quot;
             <br />
             <br />
             {studentQuote.author}

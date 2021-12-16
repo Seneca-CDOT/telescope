@@ -1,0 +1,27 @@
+<head>
+  <meta charset="utf-8" />
+  <base href="/v1/status/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
+  <link rel="icon" type="image/svg+xml" href="./logo.svg" />
+  {{#if active_build_log}}
+  <!--     xterm theme     -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.15.0/css/xterm.css" />
+  <link rel="stylesheet" type="text/css" href="css/terminal.css" />
+  {{/if}}
+  <title>{{headers.title}}</title>
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="./css/site.css" />
+  {{#if active_dashboard}}
+  <!-- Telescope CSS Override -->
+  <link href="css/telescope-dashboard.css" rel="stylesheet" />
+  {{/if}}
+</head>

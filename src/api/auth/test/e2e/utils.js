@@ -1,7 +1,6 @@
 // Common utility functions and data for the auth tests
 const { decode } = require('jsonwebtoken');
-const { createServiceToken, hash } = require('@senecacdot/satellite');
-const fetch = require('node-fetch');
+const { createServiceToken, hash, fetch } = require('@senecacdot/satellite');
 
 // In tests, we need to hit this via a public URL like the front-end would
 // vs. the internal Docker URL, which the services use from the regular env value.
@@ -23,6 +22,7 @@ const createTelescopeUsers = (users) =>
           if (!(res.status === 201 || res.status === 400)) {
             throw new Error(`got unexpected status ${res.status}`);
           }
+          return res;
         })
         .catch((err) => {
           console.error('Unable to create user with Users service', { err });
@@ -110,6 +110,7 @@ const ensureUsers = (users, result = 200) =>
         },
       }).then((res) => {
         expect(res.status).toEqual(result);
+        return res;
       })
     )
   );

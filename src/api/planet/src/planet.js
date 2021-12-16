@@ -1,4 +1,5 @@
 const { Router, logger, fetch } = require('@senecacdot/satellite');
+
 const router = Router();
 
 const { POSTS_URL } = process.env;
@@ -59,9 +60,8 @@ const fetchData = async (dataUrl) => {
     const data = await response.json();
     return Promise.all(data.map((item) => fetch(`${dataUrl}/${item.id}`).then((r) => r.json())));
   } catch (e) {
-    logger.error(e);
+    return logger.error(e);
   }
-  return;
 };
 
 router.get('/', async (req, res, next) => {

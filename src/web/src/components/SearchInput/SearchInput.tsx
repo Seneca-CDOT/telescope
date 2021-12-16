@@ -5,7 +5,7 @@ import useSearchValue from '../../hooks/use-search-value';
 const SearchInput = () => {
   const { filter } = useSearchValue();
 
-  return filter === 'author' ? <AuthorSearchInput /> : <PostSearchInput />;
+  return <>{filter === 'author' ? <AuthorSearchInput /> : <PostSearchInput />}</>;
 };
 
 export default SearchInput;

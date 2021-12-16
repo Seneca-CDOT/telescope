@@ -56,7 +56,7 @@ const Commits = ({ commitUrls }: Props) => {
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
-        <VscGitCommit className={classes.icon}></VscGitCommit>
+        <VscGitCommit className={classes.icon} />
         {commitUrls.length === 1 ? 'Commit' : 'Commits'}
       </h2>
       <ul className={classes.commits}>
@@ -64,8 +64,8 @@ const Commits = ({ commitUrls }: Props) => {
           <li key={url} className={classes.commit}>
             <a
               href={`https://github.com${url}`}
-              rel="bookmark"
               target="_blank"
+              rel="noreferrer"
               title={`${getCommitInfo(url)} Commit ${getCommitNumber(url)}`}
               className={classes.link}
             >

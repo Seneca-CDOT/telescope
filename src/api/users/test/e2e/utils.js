@@ -1,5 +1,4 @@
-const fetch = require('node-fetch');
-const { hash, createServiceToken } = require('@senecacdot/satellite');
+const { hash, createServiceToken, fetch } = require('@senecacdot/satellite');
 
 const USERS_URL = 'http://localhost/v1/users';
 
@@ -26,7 +25,7 @@ const getUsersPaginated = (query = '') =>
 const getUsers = (users) => Promise.all(users.map((user) => getUser(user)));
 
 const createUsers = (numberOfUsers, sorted = false) => {
-  let users = [...Array(numberOfUsers).keys()].map((index) => {
+  const users = [...Array(numberOfUsers).keys()].map((index) => {
     return {
       firstName: `TelescopeUser${index}`,
       lastName: `TelescopeUser${index}`,
@@ -77,6 +76,7 @@ const postUsers = (users) =>
           if (!(res.status === 201 || res.status === 409)) {
             throw new Error(`got unexpected status ${res.status}`);
           }
+          return res;
         })
         .catch((err) => {
           console.error('Unable to create user with Users service', { err });

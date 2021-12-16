@@ -1,13 +1,8 @@
-const {
-  Router,
-  logger,
-  createError,
-  isAuthenticated,
-  isAuthorized,
-} = require('@senecacdot/satellite');
+const { Router, logger, isAuthenticated, isAuthorized } = require('@senecacdot/satellite');
 const Feed = require('../data/feed');
-const { getFeeds } = require('../storage');
+const { getFeeds, getInvalidFeeds, getDelayedFeeds } = require('../storage');
 const { validateNewFeed, validateFeedsIdParam } = require('../validation');
+const queue = require('../queue');
 
 const feeds = Router();
 
@@ -32,6 +27,51 @@ feeds.get('/', async (req, res, next) => {
         url: `${feedURL}/${id}`,
       }))
   );
+});
+
+feeds.get('/invalid', async (req, res, next) => {
+  let invalidFeeds;
+  try {
+    invalidFeeds = await getInvalidFeeds();
+  } catch (error) {
+    logger.error({ error }, 'Unable to get invalid feeds from Redis');
+    return next(error);
+  }
+  res.set('X-Total-Count', invalidFeeds.length);
+  return res.json(
+    invalidFeeds.map((element) => ({
+      ...element,
+      url: `${feedURL}/${element.id}`,
+    }))
+  );
+});
+
+feeds.get('/delayed', async (req, res, next) => {
+  let delayedFeeds;
+  try {
+    delayedFeeds = await getDelayedFeeds();
+  } catch (error) {
+    logger.error({ error }, 'Unable to get delayed feeds from Redis');
+    return next(error);
+  }
+  res.set('X-Total-Count', delayedFeeds.length);
+  return res.json(
+    delayedFeeds.map((element) => ({
+      ...element,
+      url: `${feedURL}/${element.id}`,
+    }))
+  );
+});
+
+feeds.get('/info', async (req, res, next) => {
+  try {
+    const [jobCnt, queueInfo] = await Promise.all([queue.count(), queue.getJobCounts()]);
+    queueInfo.jobCnt = jobCnt;
+    res.json({ queueInfo });
+  } catch (error) {
+    logger.error({ error }, 'Unable to get information from feed-queue');
+    next(error);
+  }
 });
 
 feeds.get('/:id', validateFeedsIdParam(), async (req, res, next) => {
@@ -76,7 +116,7 @@ feeds.put(
       });
     } catch (error) {
       logger.error({ error }, 'Unable to flag feed in Redis');
-      next(error);
+      return next(error);
     }
   }
 );
@@ -107,7 +147,7 @@ feeds.post(
         .json({ message: `Feed was successfully added.`, id: feedId, url: `/feeds/${feedId}` });
     } catch (error) {
       logger.error({ error }, 'Unable to add feed to Redis');
-      next(error);
+      return next(error);
     }
   }
 );
@@ -125,7 +165,7 @@ feeds.delete(
       return res.status(204).send();
     } catch (error) {
       logger.error({ error }, 'Unable to reset Feed data in Redis');
-      next(error);
+      return next(error);
     }
   }
 );
@@ -154,7 +194,7 @@ feeds.delete(
       return res.status(204).json({ message: `Feed ${id} was successfully deleted.` });
     } catch (error) {
       logger.error({ error }, 'Unable to delete feed to Redis');
-      next(error);
+      return next(error);
     }
   }
 );
@@ -178,7 +218,7 @@ feeds.delete(
       return res.status(204).json({ message: `Feed ${id} was successfully unflagged.` });
     } catch (error) {
       logger.error({ error }, 'Unable to unflag feed in Redis');
-      next(error);
+      return next(error);
     }
   }
 );

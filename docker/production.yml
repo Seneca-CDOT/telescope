@@ -84,6 +84,8 @@ services:
   # status service
   status:
     restart: unless-stopped
+    environment:
+      - POSTS_URL
 
   # image service
   image:

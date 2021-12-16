@@ -1,4 +1,5 @@
 const Parser = require('rss-parser');
+
 const parse = new Parser({
   customFields: {
     item: [
@@ -274,7 +275,10 @@ describe('Post data class tests', () => {
 
     test('Post.createFromArticle() with whitespace only in description should throw', async () => {
       const article = articles.items[0];
-      article.content = article.contentEncoded = article.contentSnippet = getInvalidDescription();
+      const invalidDescription = getInvalidDescription();
+      article.content = invalidDescription;
+      article.contentEncoded = invalidDescription;
+      article.contentSnippet = invalidDescription;
       await expect(Post.createFromArticle(article, feed)).rejects.toThrow();
     });
   });

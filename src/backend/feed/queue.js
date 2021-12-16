@@ -10,7 +10,7 @@ const queue = createQueue('feed-queue');
 
 // For visualizing queues using bull board
 const serverAdapter = new ExpressAdapter();
-createBullBoard({ queues: [new BullAdapter(queue)], serverAdapter: serverAdapter });
+createBullBoard({ queues: [new BullAdapter(queue)], serverAdapter });
 
 /**
  * Provide a helper for adding a feed with our desired default options.

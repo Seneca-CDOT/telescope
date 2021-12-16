@@ -53,7 +53,7 @@ const Issues = ({ issueUrls }: Props) => {
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
-        <VscIssues className={classes.icon}></VscIssues>
+        <VscIssues className={classes.icon} />
         {issueUrls.length === 1 ? 'Issue' : 'Issues'}
       </h2>
       <ul className={classes.issues}>
@@ -61,8 +61,8 @@ const Issues = ({ issueUrls }: Props) => {
           <li key={issue} className={classes.issue}>
             <a
               href={`https://github.com${issue}`}
-              rel="bookmark"
               target="_blank"
+              rel="noreferrer"
               title={`${getIssueInfo(issue)} Issue #${getIssueNumber(issue)}`}
               className={classes.link}
             >
