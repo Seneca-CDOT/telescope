@@ -216,17 +216,21 @@ const formatPublishedDate = (dateString: string) => {
 };
 
 const extractBlogClassName = (url: string) => {
-  const blogClassName = new URL(url).hostname;
-  if (blogClassName.endsWith('medium.com')) {
-    return 'is-medium';
+  try {
+    const blogClassName = new URL(url).hostname;
+    if (blogClassName.endsWith('medium.com')) {
+      return 'is-medium';
+    }
+    if (blogClassName.endsWith('dev.to')) {
+      return 'is-devto';
+    }
+    if (blogClassName.endsWith('blogspot.com')) {
+      return 'is-blogspot';
+    }
+    return 'is-generic';
+  } catch {
+    return 'is-generic';
   }
-  if (blogClassName.endsWith('dev.to')) {
-    return 'is-devto';
-  }
-  if (blogClassName.endsWith('blogspot.com')) {
-    return 'is-blogspot';
-  }
-  return 'is-generic';
 };
 
 const extractGitHubUrlsFromPost = (htmlString: string): string[] => {
