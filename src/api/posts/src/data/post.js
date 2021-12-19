@@ -43,7 +43,8 @@ class Post {
     this.html = html;
     this.published = ensureDate(datePublished);
     this.updated = ensureDate(dateUpdated, datePublished);
-    this.url = postUrl;
+    // create an absolute url if postURL is relative
+    this.url = new URL(postUrl, feed.url).href;
     this.guid = guid;
 
     if (!(feed instanceof Feed)) {
