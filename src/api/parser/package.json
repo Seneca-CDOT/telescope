@@ -19,7 +19,7 @@
     "@elastic/elasticsearch": "^7.12.0",
     "@elastic/elasticsearch-mock": "^0.3.0",
     "@senecacdot/satellite": "^1.x",
-    "bull": "^3.22.0",
+    "bull": "^4.2.0",
     "bull-board": "^2.1.3",
     "jsdom": "^18.0.1",
     "normalize-url": "^6.0.1",
