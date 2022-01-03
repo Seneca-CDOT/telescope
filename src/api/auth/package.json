@@ -14,20 +14,20 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@senecacdot/satellite": "^1.x",
-    "celebrate": "^15.0.0",
-    "connect-redis": "^6.0.0",
-    "express-session": "^1.17.2",
-    "jsonwebtoken": "^8.5.1",
-    "minimatch": "^3.0.4",
-    "passport": "^0.5.0",
-    "passport-saml": "^3.2.0"
+    "@senecacdot/satellite": "1.17.0",
+    "celebrate": "15.0.0",
+    "connect-redis": "6.0.0",
+    "express-session": "1.17.2",
+    "jsonwebtoken": "8.5.1",
+    "minimatch": "3.0.4",
+    "passport": "0.5.2",
+    "passport-saml": "3.2.0"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "env-cmd": "^10.1.0",
-    "nodemon": "^2.0.15"
+    "env-cmd": "10.1.0",
+    "nodemon": "2.0.15"
   }
 }
