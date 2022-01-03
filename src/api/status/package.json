@@ -16,16 +16,16 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@senecacdot/satellite": "^1.x",
-    "express": "^4.17.1",
-    "express-handlebars": "^6.0.2",
-    "sass": "^1.43.5"
+    "@senecacdot/satellite": "1.17.0",
+    "express": "4.17.2",
+    "express-handlebars": "6.0.2",
+    "sass": "1.45.2"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "devDependencies": {
-    "env-cmd": "^10.1.0",
-    "nodemon": "^2.0.15"
+    "env-cmd": "10.1.0",
+    "nodemon": "2.0.15"
   }
 }
