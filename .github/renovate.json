@@ -1,5 +1,11 @@
 {
   "extends": ["config:base"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["@senecacdot/satellite"],
+      "rangeStrategy": "replace"
+    }
+  ],
   "dependencyDashboard": true,
   "major": {
     "dependencyDashboardApproval": true
