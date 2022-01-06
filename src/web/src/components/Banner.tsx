@@ -105,8 +105,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const studentQuote = quotes[Math.floor(Math.random() * quotes.length)];
-
 type BannerProps = {
   onVisibilityChange: (visible: boolean) => void;
 };
@@ -118,6 +116,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
     sha: '',
     version: '',
   });
+  const [studentQuote, setStudentQuote] = useState(quotes[0]);
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
   const bannerAnchor = useRef<HTMLDivElement>(null);
@@ -135,6 +134,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
       // Apply smooth scroll polyfill on mobile
       smoothscroll.polyfill();
     }
+    setStudentQuote(quotes[Math.floor(Math.random() * quotes.length)]);
   }, []);
 
   useEffect(() => {
