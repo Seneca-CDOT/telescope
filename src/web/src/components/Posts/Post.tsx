@@ -29,6 +29,7 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: 'flow-root',
       padding: '0',
       paddingBottom: '2em',
       marginBottom: '3em',
@@ -36,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5rem',
       width: '100%',
       backgroundColor: theme.palette.background.default,
-      minHeight: '300px',
     },
     spinner: {
       padding: '20px',
