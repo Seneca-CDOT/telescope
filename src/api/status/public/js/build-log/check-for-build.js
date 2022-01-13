@@ -1,48 +1,49 @@
-/* eslint-disable consistent-return */
-import { checkBuildStatus, getBuildLog } from './api.js';
+import checkBuildStatus from './check-build-status.js';
 import terminal from './terminal.js';
 import buildHeader from './build-header.js';
 
-let build;
-let reader;
-
-async function finish() {
-  try {
-    await reader.cancel();
-  } finally {
-    build = null;
-  }
-}
-
-function processLog({ done, value }) {
-  if (done) {
-    return finish();
-  }
-
-  if (terminal) {
-    terminal.write(value);
-  }
-
-  // Recursively invoke processLog until `done === true`
-  return reader.read().then(processLog).catch(finish);
-}
-
 export default async function checkForBuild() {
   const status = await checkBuildStatus();
-  buildHeader(status);
 
-  // If we're already building, skip this check
-  if (build) {
+  // Prefer the current build, but fallback to the previous one
+  const build = status.current ?? status.previous;
+
+  // Render the build header info
+  buildHeader(build);
+
+  if (!build) {
     return;
   }
 
-  if (status.building) {
-    terminal.clear();
-    reader = await getBuildLog();
-    if (reader) {
-      // eslint-disable-next-line require-atomic-updates
-      build = { reader, title: status.title, startedAt: status.startedAt };
-      reader.read().then(processLog).catch(finish);
-    }
+  const reader = await build.getReader();
+  if (!reader) {
+    return;
   }
+
+  const finish = async () => {
+    try {
+      await reader.cancel();
+    } catch (err) {
+      console.warn('Unable to clean up build log reader');
+    }
+  };
+
+  const processLog = () => {
+    reader
+      .read()
+      .then(({ done, value }) => {
+        if (done) {
+          return finish();
+        }
+        // Write the data to the terminal
+        terminal.write(value);
+        // Recursively invoke processLog until `done === true`
+        return processLog();
+      })
+      .catch(finish);
+  };
+
+  // Start processing the log output messages
+  terminal.clear();
+  processLog();
 }
