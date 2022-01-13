@@ -1,6 +1,7 @@
 const { logger, createError } = require('@senecacdot/satellite');
 const shell = require('shelljs');
 const mergeStream = require('merge-stream');
+const streamBuffers = require('stream-buffers');
 
 class Build {
   constructor(type, githubData) {
@@ -11,11 +12,12 @@ class Build {
 
   finish(code) {
     logger.debug({ code }, 'build finished');
-    this.stopDate = new Date();
+    this.stoppedDate = new Date();
     this.code = code;
 
     // Drop the output stream
     if (this.out) {
+      this.out.removeAllListeners();
       this.out = null;
     }
     // Drop the deploy process
@@ -31,9 +33,10 @@ class Build {
       startedDate: this.startedDate,
     };
 
-    if (this.stopDate) {
-      build.stopDate = this.stopDate;
+    if (this.stoppedDate) {
+      build.stoppedDate = this.stoppedDate;
     }
+
     if (this.code) {
       build.code = this.code;
     }
@@ -86,6 +89,12 @@ function run() {
 
   // Combine stderr and stdout, like 2>&1
   build.out = mergeStream(build.proc.stdout, build.proc.stderr);
+
+  // Set up a build log cache
+  build.cache = new streamBuffers.WritableStreamBuffer();
+
+  // As data gets added to the build log, cache it
+  build.out.on('data', (data) => build.cache.write(data));
 }
 
 module.exports.addBuild = function (type, githubData) {
@@ -101,38 +110,57 @@ module.exports.buildStatusHandler = function handleStatus(req, res) {
   res.json(builds);
 };
 
-module.exports.buildLogHandler = function handleLog(req, res, next) {
-  const build = builds.current;
-  if (!(build && build.out)) {
-    next(createError(404, 'no build log found'));
-    return;
+module.exports.buildLogHandler = function (buildName) {
+  if (!(buildName === 'current' || buildName === 'previous')) {
+    throw new Error(`invalid build name: ${buildName}`);
   }
 
-  const { out } = build;
+  return function handleLog(req, res, next) {
+    const build = builds[buildName];
 
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-
-  let onData;
-  let onError;
-  let onEnd;
-
-  function end(message) {
-    if (message) {
-      res.write(message);
+    if (!build) {
+      next(createError(404, 'no build log found'));
+      return;
     }
 
-    out.removeListener('data', onData);
-    out.removeListener('error', onError);
-    out.removeListener('end', onEnd);
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
 
-    res.end();
-  }
+    // Send the cached build log, which is either everything, or everything so far
+    const buildLog = build.cache.getContents();
+    if (buildLog) {
+      res.write(buildLog);
+    }
 
-  onData = (data) => res.write(data);
-  onError = () => end('Error, end of log.');
-  onEnd = () => end('Build Complete.');
+    // If we don't have a build happening, we're done
+    const { out } = build;
+    if (!out) {
+      res.end();
+      return;
+    }
 
-  out.on('data', onData);
-  out.on('error', onError);
-  out.on('end', onEnd);
+    // Otherwise stream the build output as it comes in
+    let onData;
+    let onError;
+    let onEnd;
+
+    function end(message) {
+      if (message) {
+        res.write(message);
+      }
+
+      out.removeListener('data', onData);
+      out.removeListener('error', onError);
+      out.removeListener('end', onEnd);
+
+      res.end();
+    }
+
+    onData = (data) => res.write(data);
+    onError = () => end('Error, end of log.');
+    onEnd = () => end('Build Complete.');
+
+    out.on('data', onData);
+    out.on('error', onError);
+    out.on('end', onEnd);
+  };
 };

@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-unresolved
+import ms from 'https://cdn.jsdelivr.net/npm/@esm/ms@2.1.0/index.js';
+
 const buildHeaderTitle = document.getElementById('build-header-title');
 const buildHeaderInfo = document.getElementById('build-header-info');
 const buildSender = document.getElementById('build-sender');
@@ -9,31 +12,45 @@ const buildStarted = document.getElementById('build-started');
 const buildDuration = document.getElementById('build-duration');
 const buildPrevious = document.getElementById('previous-build');
 
-function renderBuildInfo({ githubData, startedAt, stoppedAt, result, previous }) {
+function renderBuildTimeInfo(startedDate, stoppedDate = new Date()) {
+  const duration = new Date(stoppedDate).getTime() - new Date(startedDate).getTime();
+  buildDuration.innerText = ms(duration);
+  buildStarted.innerText = new Date(startedDate).toUTCString();
+}
+
+function renderSender(sender) {
+  buildSender.href = sender.html_url;
+  buildSenderName.innerText = sender.login;
+  buildSenderImg.src = sender.avatar_url;
+}
+
+function renderSha(compare, after) {
+  buildGitSHA.href = compare;
+  buildGitSHA.innerText = after.substring(0, 7);
+}
+
+function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code }) {
+  const { sender, after, compare } = githubData;
+
   if (buildHeaderInfo.hidden) {
-    buildHeaderInfo.removeAttribute('hidden');
+    buildHeaderInfo.hidden = false;
   }
-  if (previous) {
+
+  if (!isCurrent) {
     buildPrevious.innerText = 'Previous Build';
   }
 
   buildHeaderTitle.innerHTML = '';
-  buildSender.href = githubData.sender.html_url;
-  buildSenderName.innerText = githubData.sender.login;
-  buildSenderImg.src = githubData.sender.avatar_url;
-  buildGitSHA.href = githubData.compare;
-  buildGitSHA.innerText = githubData.after.substring(0, 7);
-  buildResult.innerText = result === 0 ? 'Good' : 'Error';
-  buildStarted.innerText = new Date(startedAt).toUTCString();
 
-  const duration = new Date(stoppedAt).getTime() - new Date(startedAt).getTime();
-  const minutes = Math.floor(duration / 60000);
-  const seconds = ((duration % 60000) / 1000).toFixed(0);
-  buildDuration.innerText = `${minutes}m ${seconds}s`;
+  renderSender(sender);
+  renderSha(compare, after);
+  renderBuildTimeInfo(startedDate, stoppedDate);
+
+  buildResult.innerText = code === 0 ? 'Success' : 'Error';
 }
 
-export default function buildHeader(data) {
-  if (!data.building) {
+export default function buildHeader(build) {
+  if (build && !build.stoppedDate) {
     const icon = document.createElement('i');
     icon.className = 'fas fa-server px-2';
     buildHeaderTitle.innerHTML = '';
@@ -42,5 +59,6 @@ export default function buildHeader(data) {
     buildHeaderInfo.innerHTML = '';
     return;
   }
-  renderBuildInfo(data);
+
+  renderBuildInfo(build);
 }

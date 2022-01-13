@@ -13,7 +13,10 @@ const { router } = service;
 
 router.use('/', webhookHandler);
 router.get('/status', buildStatusHandler);
-router.get('/log', buildLogHandler);
+router.get('/log/current', buildLogHandler('current'));
+router.get('/log/previous', buildLogHandler('previous'));
+// Backwards compat for API, prefer /log/*
+router.get('/log', buildLogHandler('current'));
 
 const port = parseInt(process.env.DEPLOY_PORT, 10) || 4000;
 service.start(port, () => {
