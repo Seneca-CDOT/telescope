@@ -26,7 +26,7 @@ const satelliteOptions = {
         connectSrc: [
           "'self'",
           '*.fontawesome.com',
-          `${host.replace(/(^\w+:|^)\/\//, '')}:4000`,
+          `${host.replace(/(^\w+:|^)\/\//, '')}/deploy`,
           '*.github.com',
         ],
         fontSrc: ["'self'", 'data:', 'https:', '*.fontawesome.com'],

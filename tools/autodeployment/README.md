@@ -14,8 +14,8 @@ is created on GitHub).
 There are also a few other routes you can use to get information about the
 auto deployment server:
 
-- `GET :4000/status`: returns JSON data about the current status of the build.
-- `GET :4000/log`: returns a real-time stream of current build log output, if any.
+- `GET /deploy/status`: returns JSON data about the current status of the build.
+- `GET /deploy/log`: returns a real-time stream of current build log output, if any.
 
 On staging you can go to http://dev.telescope.cdot.systems/status and
 http://dev.telescope.cdot.systems/log, and on production you can use
