@@ -9,5 +9,5 @@ module.exports = {
   coverageDirectory: '<rootDir>/coverage',
   moduleDirectories: ['node_modules'],
   automock: false,
-  testTimeout: 10000,
+  testTimeout: 20000,
 };
