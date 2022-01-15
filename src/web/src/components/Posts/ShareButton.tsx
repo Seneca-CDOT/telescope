@@ -24,6 +24,10 @@ const useStyles = makeStyles((theme: Theme) =>
     check: {
       fill: '#3fb950',
     },
+
+    iconBtn: {
+      padding: '5px',
+    },
   })
 );
 
@@ -44,6 +48,7 @@ const ShareButton = ({ url }: Props) => {
   return !isCopiedToClipboard ? (
     <ButtonTooltip title="Copy URL" arrow placement="top" TransitionComponent={Zoom}>
       <IconButton
+        className={classes.iconBtn}
         onClick={() => {
           copyToClipboardEvent();
         }}
@@ -53,7 +58,7 @@ const ShareButton = ({ url }: Props) => {
     </ButtonTooltip>
   ) : (
     <ButtonTooltip title="Copied" arrow placement="top" TransitionComponent={Zoom}>
-      <IconButton>
+      <IconButton className={classes.iconBtn}>
         <Check className={classes.check} />
       </IconButton>
     </ButtonTooltip>

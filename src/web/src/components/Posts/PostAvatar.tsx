@@ -18,13 +18,12 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '2.5em',
       [theme.breakpoints.down(1200)]: {
         fontSize: '2.5em',
-        width: '2.5em',
-        height: '2.5em',
       },
       [theme.breakpoints.down(1024)]: {
         fontSize: '2em',
-        width: '2.5em',
-        height: '2.5em',
+      },
+      [theme.breakpoints.down(375)]: {
+        fontSize: '1.7em',
       },
     },
     text: {

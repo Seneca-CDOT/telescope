@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo } from 'react';
+import { useRef, useState, useMemo, useEffect } from 'react';
 import useSWR from 'swr';
 import clsx from 'clsx';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
@@ -9,6 +9,9 @@ import {
   ListSubheader,
   createStyles,
   useMediaQuery,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
   Chip,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
@@ -19,7 +22,9 @@ import Spinner from '../Spinner';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
 import GitHubInfo from './GitHubInfo';
+import GitHubInfoMobile from './GitHubInfoMobile';
 import ShareButton from './ShareButton';
+import ExpandIcon from './ExpandIcon';
 
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
@@ -61,7 +66,8 @@ const useStyles = makeStyles((theme: Theme) =>
         gridTemplateColumns: 'auto auto auto auto',
         justifyContent: 'left',
         width: '100%',
-        padding: '1em 0 1em 0',
+        padding: '1em 0 0 0',
+        marginBottom: '0',
       },
     },
     video: {
@@ -104,6 +110,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 'clamp(2.5em, 4vw, 3em)',
       [theme.breakpoints.down(1205)]: {
         textAlign: 'start',
+        fontSize: '2em',
         marginLeft: '.3em',
       },
       [theme.breakpoints.down(1024)]: {
@@ -183,7 +190,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.down(1024)]: {
         fontSize: '1.1em',
         height: '5px',
-        margin: '-1.6em 1em -1em .5px',
+        margin: '-1.6em -.5em .5px',
       },
     },
     authorAvatarContainer: {
@@ -214,6 +221,30 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: '.5em',
         width: 'auto',
       },
+    },
+    accordionSummary: {
+      marginTop: '0',
+      paddingRight: '0',
+      justifyContent: 'flex-end',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      paddingBottom: '0',
+      '& .MuiAccordionSummary-content': {
+        marginBottom: '0.2em',
+      },
+    },
+    accordion: {
+      backgroundColor: 'inherit',
+      borderBottom: '1.5px solid #cccccc',
+      boxShadow: 'none',
+      top: '0',
+      zIndex: 1,
+      position: 'sticky',
+    },
+    expandIcon: {
+      alignSelf: 'center',
+      borderLeft: '1px solid #cccccc',
+      paddingLeft: '5px',
     },
   })
 );
@@ -271,6 +302,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   const desktop = useMediaQuery(theme.breakpoints.up(1205));
   // We need a ref to our post content, which we inject into a <section> below.
   const sectionEl = useRef<HTMLElement>(null);
+
   // Grab the post data from our backend so we can render it
   const { data: post, error } = useSWR<Post>(postUrl);
   const isMedia = post?.type === 'video';
@@ -280,6 +312,23 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
     () => (post?.html ? extractGitHubUrlsFromPost(post.html) : []),
     [post?.html]
   );
+
+  useEffect(() => {
+    const onScroll = () => {
+      // get the distance between the bottom of the blog post and
+      // the top of the web page
+      const bottom = sectionEl?.current?.getBoundingClientRect().bottom;
+      if (bottom && bottom < 1) {
+        // if bottom reaches top => close header and remove event listener
+        setExpandHeader(false);
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    // only if header is open, we attach the onScroll function to scroll event
+    if (expandHeader) {
+      window.addEventListener('scroll', onScroll);
+    }
+  }, [expandHeader]);
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
@@ -331,63 +380,89 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
         </div>
       )}
 
-      <ListSubheader component="div" className={classes.postInfo}>
-        <div className={classes.titleContainer}>
-          <Typography
-            variant="h3"
-            title={post.title}
-            id={post.id}
-            className={clsx(classes.title, expandHeader && classes.expandedTitle)}
-          >
-            <span
-              role="button"
-              tabIndex={0}
-              onClick={() => setExpandHeader(!expandHeader)}
-              onKeyDown={() => setExpandHeader(!expandHeader)}
-            >
-              {post.title}
-            </span>
-          </Typography>
-        </div>
-        {!desktop && (
-          <>
-            <div className={classes.authorAvatarContainer}>
-              <PostAvatar name={post.feed.author} url={post.feed.link} />
+      {desktop ? (
+        <>
+          <ListSubheader component="div" className={classes.postInfo}>
+            <div className={classes.titleContainer}>
+              <Typography
+                variant="h3"
+                title={post.title}
+                id={post.id}
+                className={clsx(classes.title, expandHeader && classes.expandedTitle)}
+              >
+                <span
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setExpandHeader(!expandHeader)}
+                  onKeyDown={() => setExpandHeader(!expandHeader)}
+                >
+                  {post.title}
+                </span>
+              </Typography>
             </div>
-            <div className={classes.authorNameContainer}>
-              <h1 className={classes.author}>
-                <a className={classes.link} href={post.feed.link}>
-                  {post.feed.author}
-                </a>
-              </h1>
-            </div>
-            <div className={classes.publishedDateContainer}>
-              <h1 className={classes.published}>
-                <a href={post.url} rel="bookmark" className={classes.link}>
-                  <time dateTime={post.updated}>{`${formatPublishedDate(post.updated)}`}</time>
-                </a>
-
-                <ShareButton url={post.url} />
-              </h1>
-
-              <div>
-                <AdminButtons />
+          </ListSubheader>
+          <ListSubheader component="div" className={classes.desktopPostInfo}>
+            <PostDesktopInfo
+              postUrl={post.url}
+              authorName={post.feed.author}
+              postDate={formatPublishedDate(post.updated)}
+              blogUrl={post.feed.link}
+            />
+            {!!extractedGitHubUrls.length && <GitHubInfo ghUrls={extractedGitHubUrls} />}
+          </ListSubheader>
+        </>
+      ) : (
+        <Accordion
+          onKeyDown={() => setExpandHeader(!expandHeader)}
+          expanded={expandHeader}
+          className={classes.accordion}
+        >
+          <AccordionSummary className={classes.accordionSummary}>
+            <ListSubheader component="div" className={classes.postInfo}>
+              <div className={classes.titleContainer}>
+                <Typography
+                  variant="h3"
+                  title={post.title}
+                  id={post.id}
+                  className={clsx(classes.title, expandHeader && classes.expandedTitle)}
+                >
+                  <span role="button" tabIndex={0}>
+                    {post.title}
+                  </span>
+                </Typography>
               </div>
-            </div>
-          </>
-        )}
-      </ListSubheader>
-      {desktop && (
-        <ListSubheader component="div" className={classes.desktopPostInfo}>
-          <PostDesktopInfo
-            postUrl={post.url}
-            authorName={post.feed.author}
-            postDate={formatPublishedDate(post.updated)}
-            blogUrl={post.feed.link}
-          />
-          {!!extractedGitHubUrls.length && <GitHubInfo ghUrls={extractedGitHubUrls} />}
-        </ListSubheader>
+              <div className={classes.authorAvatarContainer}>
+                <PostAvatar name={post.feed.author} url={post.feed.link} />
+              </div>
+              <div className={classes.authorNameContainer}>
+                <h1 className={classes.author}>
+                  <a className={classes.link} href={post.feed.link}>
+                    {post.feed.author}
+                  </a>
+                </h1>
+              </div>
+              <div className={classes.publishedDateContainer}>
+                <h1 className={classes.published}>
+                  <a href={post.url} rel="bookmark" className={classes.link}>
+                    <time dateTime={post.updated}>{`${formatPublishedDate(post.updated)}`}</time>
+                  </a>
+                  <ShareButton url={post.url} />
+                  <ExpandIcon small expandHeader={expandHeader} setExpandHeader={setExpandHeader} />
+                </h1>
+
+                <div>
+                  <AdminButtons />
+                </div>
+              </div>
+            </ListSubheader>
+          </AccordionSummary>
+          <AccordionDetails>
+            {!!extractedGitHubUrls.length && <GitHubInfoMobile ghUrls={extractedGitHubUrls} />}
+          </AccordionDetails>
+          <ExpandIcon small={false} expandHeader={expandHeader} setExpandHeader={setExpandHeader} />
+        </Accordion>
       )}
+
       <div className={classes.content}>
         {isMedia && (
           <LiteYouTubeEmbed
