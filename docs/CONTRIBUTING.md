@@ -1,6 +1,6 @@
 # Contributing to Telescope
 
-## Welcome!
+## Welcome
 
 We are all eager to work on telescope, and this document will help you to get started!
 
@@ -18,7 +18,7 @@ Before creating an issue:
 
 Telescope has many parts, and setup requires you to install a number of tools
 and dependencies. For instructions on how to setup your Telescope environment, please see
-the [Environment Setup documentation](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md).
+the [Environment Setup documentation](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md). For a discussion of Telescope's design, see our [Architecture](architecture.md) documentation.
 
 ## Browser-based Setup using Gitpod
 
@@ -27,19 +27,6 @@ to familiarize yourself with the workflows of a typical project.
 
 However, you can also start an automated development environment and access it
 through your browser, please refer to [Develop on Gitpod](https://github.com/Seneca-CDOT/telescope/blob/master/docs/gitpod.md)
-
-## Technologies
-
-Telescope uses quite a few different technologies, and we have some project specific
-docs available for each, including our:
-
-- database [Redis](redis.md)
-- frontend framework [Next.js](front-end.md)
-- single-sign-on (SSO) [login](login.md) using SAML2
-- backend logging framework [Pino](logging.md)
-- search engine indexing [Elasticsearch](elasticsearch.md)
-
-If you're unsure about how something works, talk to one of us on [#telescope Slack channel](https://seneca-open-source.slack.com/archives/CS5DGCAE5).
 
 ## Workflow in Git and GitHub
 

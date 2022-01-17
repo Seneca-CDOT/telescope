@@ -56,74 +56,61 @@ would be the most desireable path forward.
 
 We have learned a number of things over the past decade running our own planet.
 We've also watched as social media and modern technologies have reshaped our
-expectations for what a system like this can and should be.
+expectations for what a system like this can and should be. This has gone into our design and implementation of our new Telescope project.
 
-It's not 100% clear what we need to build, which is part of the fun. It is our
-hope that _you_ will leave a mark on this project, and bring your own ideas,
-experience, and code to the task of defining our planet.
+See [Architecture](architecture.md) for a more complete picture of our current design.
 
-## An Initial Set of Goals
+## Project History
 
-Below is a wishlist of possible features. It is divided into three sections:
+- [Telescope 1.0](https://blog.humphd.org/telescope-1-0-0-or-dave-is-once-again-asking-for-a-blog/) (April 2020)
+- [Telescope 2.0](https://blog.humphd.org/telescope-2-0/) (April 2021)
+- [Telescope 3.0](https://blog.humphd.org/toward-telescope-3-0/) (in progress, April 2022)
 
-- MVP Features: things we need to sprint on immediately in order to have a working alternative for our existing Planet.
-- 1.0 Features: things we only really need to worry about once we have an MVP, and the completion of which would define a major milestone.
-- 2.0 Features: stretch goals for things we'd like to explore down the road. These are things we don't want to distract ourselves with at first, but which help to provide some direction as we plan our work.
+### 1.0
 
-None of these sections is written in stone. They are included in this document as
-a starting point for our discussions and early work. Eventually, this list will
-become replaced by the Issues we file together.
+[Telescope 1.0](https://github.com/Seneca-CDOT/telescope/releases/tag/1.0.0) realized many of our initial goals, including:
 
-### MVP Features
+- A monolithic node.js backend web server providing REST APIs and GraphQL
+- A node.js queue service for parallel feed processing
+- Complete UI overhaul and design
+- A GatsbyJS frontend web app using Material UI React components
+- Initial SAML2 based Single Sign On Authentication
+- Docker/Docker Compose based container management
+- CI/CD pipelines using CircleCI and Travis CI
+- Pull Request previews using Zeit Now
+- A Redis database for caching feeds and posts
+- An Elasticsearch database for full-text search of posts
+- An Nginx reverse proxy and HTTP cache server
+- Certbot for managing SSL certificates with Let’s Encrypt
+- A node.js based GitHub Webhook Service to automatically manage deployments based on
+- GitHub push events and webhooks to automate staging and production builds, as well as green/blue deployment
+- Staging (<https://dev.telescope.cdot.systems/>) and production (<https://telescope.cdot.systems/>) deployments
 
-1. Written in one of node.js or Python, or a mix of the two if that makes sense
-1. Able to parse and use the existing [Planet Feed List format](https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List), especially RSS and Atom feeds
-1. Static HTML generated from current feed posts, shown in chronological order
-1. Logging, especially of errors or other issues when downloading and parsing feeds
-1. Process should be automatic, running continually, restart itself if it crashes
-1. Ability to send emails to admins, users when things go wrong or need attention
-1. Everything is configurable. It should be easy for the admin(s) to turn features on and off via "feature flags." It should be easy to merge new features and flag them off until they are ready to be used.
-1. Test harness and an initial set of tests
-1. Use of CI/CD, running tests and doing automatic deploys
-1. Running on Seneca's [Kubernetes](https://kubernetes.io/) container cloud
-1. Developer and User docs
+### 2.0
 
-### Initial Project Diagram
+[Telescope 2.0](https://github.com/Seneca-CDOT/telescope/releases/tag/2.0.0) improved and extended this design:
 
-![](https://github.com/Seneca-CDOT/telescope/blob/master/docs/images/initialProjectDiagram.jpeg)
+- Improved testing infrastructure, including snapshot, end-to-end, and unit testing
+- Reworking CI/CD to GitHub Actions
+- Improved SEO
+- Adding Firebase as a back-end data store for User info
+- Improvements to the SAML based Authentication, JWT Authorization, and user Sign-up Flows
+  Security
+- New UI Design, Logo, CSS, and Theming
+- Improved Accessibility and User Experience
+- Migration of Monolithic back-end to Microservices (90% complete) and API Gateway using Traefik
+- Improvements to Elasticsearch and Redis
+- Full port of front-end from GatsbyJS to next.js
+- TypeScript rewrite of front-end
+- Dependency Updates and Maintenance, both manual and automated (Dependabot)
+- Bug fixes and Paying-off Technical Debt
+- Progressive Web App (PWA) and Mobile UI Support
+- Docker improvements
+- Automation and Tooling fixes, updates, and improvements
+- Improvements to nginx, caching, and certificate management
+- Updates to Documentation
+- Improved Developer Experience, including fixes for cross-platform differences
 
-### 1.0 Features
+### 3.0
 
-1. Database for User and Feed list replacing the text file format
-1. Web-based form for adding a User and Feed to the system
-1. Single Sign-On (SSO) using Seneca's [SAML2](https://developers.onelogin.com/saml) Azure Active Directory system, keeping no personal info locally in the system
-1. Multiple parallel downloads of blog feeds. Downloading one feed should not affect/block downloading another, nor should it affect the overall system.
-1. HTML for the final feed is templated using an existing templating system.
-1. Exponential back-off of feeds when errors occur. If a feed fails, try again in N minutes, if this fails, try again in a few hours, if this fails, try tomorrow, then eventually send the user an email telling them there's a problem with their blog, before eventually marking the feed as inactive and stop using it in future updates.
-1. Caching layer
-1. Automatic feed curation such that repeated errors, inactive blogs, etc. remove a feed from the "active" list of feeds.
-1. Use a queue to allow parallel
-1. Move toward a Microservices, Serverless architecture following a [Twelve-Factor](https://12factor.net/) approach
-1. Basic Automatic Analysis of Blog Posts:
-   1. "Zero Content" posts are ignored. This could mean totally empty posts, but also "Hello World" single-line posts?
-   1. Deal with huge posts, checking download size. Posts above a certain threshold should be ignored, and the user emailed to tell them why their post was rejected
-   1. Simple text analysis: Word Length, Reading Time, Writing level, etc.
-1. Incorporate data analysis results into database and HTML template for site (i.e., show this info in addition to the post itself)
-1. Automatic archival of posts to the [Wayback Machine](https://archive.org/web/)
-1. Add support for other "feed" formats we should support beyond the obvious ones in our MVP
-1. Make sure we play well with search engine crawlers, social media metadata parsers, etc. Sharing things from the planet should be easy, and should work in Facebook, Twitter, etc.
-
-### 2.0 Features
-
-1. Modern front-end written in a framework that allows a more App-like experience
-1. Admin Analytics Dashboard, showing things like error rates, statistics, etc.
-1. Find a way to deal with posts that contain massive images, massive numbers of images and not allow a single post to overtake the entire planet.
-1. Automatic Feed discovery. A user can specify their blog URL, and our system can figure out what their feed(s) are for them, supporting as many common blogging platforms as possible (WordPress, Blogger, Medium, etc). Can we somehow query each platform for a user's tags/keywords/categories/labels? Our goal is to limit the posts to "open source" work vs. everything a user has on their blog.
-1. Is there some way to integrate a user's GitHub activity in our planet?
-1. Figure out how to support alumni, external partners, etc. who don't have myseneca.ca/senecacollege.ca accounts.
-1. More Advanced Automatic Analysis of Blog Posts:
-   1. Spam Detection and elimination. Use an existing, open source spam detector to weed out problematic posts.
-   1. Full Text Search: index all posts that we've ever seen, and remember the URLs so people can find things later
-   1. Machine Learning analysis: Automatic Summary, Keyword Extraction, Sentiment Analysis, and any other interesting textual analysis we might want
-1. Can we add "fun" to the process of writing in our community? What about things like high scores?
-1. Explore alternate formats for the HTML feed page, other than simply showing chronological order
+In progress.

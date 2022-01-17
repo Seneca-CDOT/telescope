@@ -19,7 +19,7 @@ and presenting a timeline of Seneca's open source blogs. Telescope makes it easy
 to see what's happening with open source at Seneca right now.
 
 You can read a more detailed discussion of the project's original goals in
-the [Overview](docs/overview.md) document.
+the [Overview](docs/overview.md) document, and learn about its [Architecture](docs/architecture.md).
 
 ## Why the name 'Telescope'?
 
@@ -32,7 +32,7 @@ Seneca.
 ## Who built it?
 
 Telescope was created in the fall of 2019 by 60 students in Seneca's open source courses
-OSD600 and DPS909.
+OSD600 and DPS909, and has been updated and maintained by 100 other students since then.
 
 ## How can I get involved?
 
@@ -42,3 +42,5 @@ we'd be glad to have you join us.
 For contribution information, please see our [contributors documentation](docs/CONTRIBUTING.md).
 
 For community discussions, join our [#telescope Slack channel](https://seneca-open-source.slack.com/archives/CS5DGCAE5).
+
+The [wiki](https://github.com/Seneca-CDOT/telescope/wiki) has more up-to-date information about the project and who is working on it.
