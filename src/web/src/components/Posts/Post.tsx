@@ -33,6 +33,7 @@ type Props = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      display: 'flow-root',
       padding: '0',
       paddingBottom: '2em',
       marginBottom: '3em',
@@ -40,7 +41,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '1.5rem',
       width: '100%',
       backgroundColor: theme.palette.background.default,
-      minHeight: '300px',
     },
     spinner: {
       padding: '20px',
@@ -258,17 +258,21 @@ const formatPublishedDate = (dateString: string) => {
 };
 
 const extractBlogClassName = (url: string) => {
-  const blogClassName = new URL(url).hostname;
-  if (blogClassName.endsWith('medium.com')) {
-    return 'is-medium';
+  try {
+    const blogClassName = new URL(url).hostname;
+    if (blogClassName.endsWith('medium.com')) {
+      return 'is-medium';
+    }
+    if (blogClassName.endsWith('dev.to')) {
+      return 'is-devto';
+    }
+    if (blogClassName.endsWith('blogspot.com')) {
+      return 'is-blogspot';
+    }
+    return 'is-generic';
+  } catch {
+    return 'is-generic';
   }
-  if (blogClassName.endsWith('dev.to')) {
-    return 'is-devto';
-  }
-  if (blogClassName.endsWith('blogspot.com')) {
-    return 'is-blogspot';
-  }
-  return 'is-generic';
 };
 
 const extractGitHubUrlsFromPost = (htmlString: string): string[] => {

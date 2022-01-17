@@ -1,0 +1,21 @@
+{
+  "extends": ["config:base"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["@senecacdot/satellite"],
+      "rangeStrategy": "replace"
+    }
+  ],
+  "dependencyDashboard": true,
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+  "labels": ["dependencies"],
+  "timezone": "America/Toronto",
+  "reviewers": ["Seneca-CDOT/telescope-maintainers"],
+  "includeForks": false,
+  "rebaseWhen": "never",
+  "schedule": ["before 3am on Monday"],
+  "prConcurrentLimit": 1,
+  "prHourlyLimit": 1
+}

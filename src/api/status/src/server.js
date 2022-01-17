@@ -44,6 +44,18 @@ service.app.engine(
     defaultLayout: 'main',
     layoutsDir: path.join(__dirname, '/views/layouts/'),
     partialsDir: path.join(__dirname, '/views/partials/'),
+    helpers: {
+      formatNumber(numberLike) {
+        // Coerce to Number if it is a String.
+        // If numberLike is a Number, then the operation is idempotent.
+        // If it cannot be coerced to a Number, then it is NaN.
+        const number = +numberLike;
+        if (Number.isNaN(number)) {
+          return numberLike;
+        }
+        return new Intl.NumberFormat().format(number);
+      },
+    },
   })
 );
 service.app.set('view engine', 'hbs');

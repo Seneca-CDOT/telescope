@@ -152,7 +152,7 @@ exports[`renders correctly 1`] = `
       <h6
         class="MuiTypography-root makeStyles-footer-6 MuiTypography-h6"
       >
-        Copyright © 2021 Seneca’s Centre for Development of Open Technology
+        Copyright © 2022 Seneca’s Centre for Development of Open Technology
       </h6>
     </div>
   </div>

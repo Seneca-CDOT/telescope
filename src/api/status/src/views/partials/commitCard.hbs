@@ -9,7 +9,7 @@
         <h6 class="mb-0 text-capitalize">{{githubInfo.title}}</h6>
         <div>
           <p class="text-sm mb-0 text-capitalize">Yearly Commits</p>
-          <h4 class="mb-0">{{githubInfo.yearlyCommits.commits}}</h4>
+          <h4 class="mb-0">{{formatNumber githubInfo.yearlyCommits.commits}}</h4>
         </div>
         {{#if githubInfo.weeklyCommits.commits}}
         <div>
@@ -23,11 +23,11 @@
     <div class="card-footer p-3">
       {{#if githubInfo.weeklyCommits.commits}}
       <p class="mb-0">
-        <span class="text-success text-sm font-weight-bolder">{{githubInfo.weeklyCommits.linesAdded}}</span>
+        <span class="text-success text-sm font-weight-bolder">{{formatNumber githubInfo.weeklyCommits.linesAdded}}</span>
         lines added
       </p>
       <p class="mb-0">
-        <span class="text-danger text-sm font-weight-bolder">{{githubInfo.weeklyCommits.linesRemoved}}</span>
+        <span class="text-danger text-sm font-weight-bolder">{{formatNumber githubInfo.weeklyCommits.linesRemoved}}</span>
         lines removed
       </p>
       {{else}}
