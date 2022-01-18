@@ -7,11 +7,16 @@ const buildGitSHA = document.getElementById('build-git-sha');
 const buildResult = document.getElementById('build-result');
 const buildStarted = document.getElementById('build-started');
 const buildDuration = document.getElementById('build-duration');
+const buildPrevious = document.getElementById('previous-build');
 
-function renderBuildInfo({ githubData, startedAt, stoppedAt, result }) {
+function renderBuildInfo({ githubData, startedAt, stoppedAt, result, previous }) {
   if (buildHeaderInfo.hidden) {
     buildHeaderInfo.removeAttribute('hidden');
   }
+  if (previous) {
+    buildPrevious.innerText = 'Previous Build';
+  }
+
   buildHeaderTitle.innerHTML = '';
   buildSender.href = githubData.sender.html_url;
   buildSenderName.innerText = githubData.sender.login;
@@ -33,7 +38,7 @@ export default function buildHeader(data) {
     icon.className = 'fas fa-server px-2';
     buildHeaderTitle.innerHTML = '';
     buildHeaderTitle.append(icon);
-    buildHeaderTitle.innerHTML += 'Unable to get build info.';
+    buildHeaderTitle.innerHTML += 'There is no current or previous build at the moment.';
     buildHeaderInfo.innerHTML = '';
     return;
   }
