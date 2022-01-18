@@ -1,43 +1,27 @@
-const { promisify } = require('util');
-
 const { logger } = require('@senecacdot/satellite');
-const feedQueue = require('../feed/queue');
-const server = require('../server');
+const { feedQueue } = require('../feed/queue');
 
 let isShuttingDown = false;
 
-async function stopQueue() {
+const stopQueue = async () => {
   try {
     await feedQueue.close();
     logger.info('Feed queue shut down.');
   } catch (error) {
     logger.debug({ error }, 'Unable to close feed queue gracefully');
   }
-}
+};
 
-async function stopWebServer() {
-  // Use stopppable's server.stop() instead of httpServer.close()
-  // to force connections to close as well.  See:
-  // https://github.com/hunterloftis/stoppable
-  const serverClose = promisify(server.stop.bind(server));
+const cleanShutdown = async () => {
   try {
-    await serverClose();
-    logger.info('Web server shut down.');
-  } catch (error) {
-    logger.debug({ error }, 'Unable to close web server gracefully');
-  }
-}
-
-async function cleanShutdown() {
-  try {
-    await Promise.all([stopQueue(), stopWebServer()]);
+    await stopQueue();
     logger.info('Completing shut down.');
   } catch (error) {
     logger.debug({ error }, 'Failed to perform clean shutdown');
   }
-}
+};
 
-function shutdown(signal) {
+const shutdown = (signal) => {
   return async (error) => {
     if (isShuttingDown) {
       return;
@@ -61,6 +45,6 @@ function shutdown(signal) {
     await cleanShutdown();
     process.exit(error ? 1 : 0);
   };
-}
+};
 
 module.exports = shutdown;

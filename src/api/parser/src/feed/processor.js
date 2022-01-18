@@ -5,22 +5,19 @@
  */
 
 const Parser = require('rss-parser');
-const { logger, fetch } = require('@senecacdot/satellite');
-
+const { fetch, logger } = require('@senecacdot/satellite');
 const Post = require('../data/post');
 const Feed = require('../data/feed');
 const ArticleError = require('../data/article-error');
 
 // Check for cached ETag and Last-Modified info on the feed.
-function hasHeaders(feed) {
-  return feed.etag || feed.lastModified;
-}
+const hasHeaders = (feed) => feed.etag || feed.lastModified;
 
 /**
  * If we have extra cache/modification info about this feed, add it to the headers.
  * @param {Feed} feed - the feed Object, possibly with etag and lastModified info
  */
-function addHeaders(options, feed) {
+const addHeaders = (options, feed) => {
   // If there aren't any cached headers for this feed, return options unmodified
   if (!hasHeaders(feed)) {
     return options;
@@ -38,7 +35,7 @@ function addHeaders(options, feed) {
   }
 
   return options;
-}
+};
 
 /**
  * Get information about the resource at the other end of this feed's url.
@@ -46,7 +43,7 @@ function addHeaders(options, feed) {
  * and whether or not we should try to download it.
  * See https://developer.mozilla.org/en-US/docs/Web/HTTP/Conditional_requests
  */
-async function getFeedInfo(feed) {
+const getFeedInfo = async (feed) => {
   const info = {
     status: null,
     etag: null,
@@ -94,14 +91,14 @@ async function getFeedInfo(feed) {
   }
 
   return info;
-}
+};
 
 /**
  * Convert an array of Articles from the feed parser into Post objects
  * and stores them in Redis.
  * @param {Array<article>} articles to process into posts
  */
-function articlesToPosts(articles, feed) {
+const articlesToPosts = (articles, feed) => {
   return Promise.all(
     articles.map(async (article) => {
       try {
@@ -115,14 +112,14 @@ function articlesToPosts(articles, feed) {
       }
     })
   );
-}
+};
 
 /**
  * The processor for the feed queue receives feed jobs, where
  * the job to process is an Object with the `id` of the feed.
  * We expect the Feed to already exist in the system at this point.
  */
-module.exports = async function processor(job) {
+module.exports = async (job) => {
   const feed = await Feed.byId(job.data.id);
   if (!feed) {
     throw new Error(`unable to get Feed for id=${job.data.id}`);
@@ -169,7 +166,6 @@ module.exports = async function processor(job) {
       // No posts were processed.
       return;
     }
-
     // Download the updated feed contents
     logger.info(`${info.status} Feed has new content: ${feed.url}`);
     const parser = new Parser(
@@ -183,6 +179,10 @@ module.exports = async function processor(job) {
               ['pubDate', 'pubdate'],
               ['creator', 'author'],
               ['content:encoded', 'contentEncoded'],
+              ['updated', 'date'],
+              ['id', 'guid'],
+              ['media:group', 'mediaGroup'],
+              ['published', 'pubdate'],
             ],
           },
         },
