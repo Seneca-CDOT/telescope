@@ -18,6 +18,12 @@ const getRealWorldRssUri = () => 'https://blog.humphd.org/tag/seneca/rss/';
 const getRealWorldRssBody = () =>
   fs.readFileSync(path.join(__dirname, './test_files/blog.humphd.org.rss'));
 
+// Use David Humphrey's channel for a realistic test case of YouTube channel
+const getRealWorldYouTubeFeedUri = () =>
+  'https://www.youtube.com/feeds/videos.xml?channel_id=UCqaMbMDf01BLttof1lHAo2A';
+const getRealWorldYouTubeFeedBody = () =>
+  fs.readFileSync(path.join(__dirname, './test_files/humphd-yt-channel.xml'));
+
 // Portion of https://www.feedforall.com/sample.xml
 const getValidFeedBody = () =>
   `
@@ -131,6 +137,7 @@ exports.getAtomUri = getAtomUri;
 exports.getRssUri = getRssUri;
 exports.getHtmlUri = getHtmlUri;
 exports.getRealWorldRssUri = getRealWorldRssUri;
+exports.getRealWorldYouTubeFeedUri = getRealWorldYouTubeFeedUri;
 exports.stripProtocol = stripProtocol;
 exports.getInvalidDescription = getInvalidDescription;
 
@@ -160,6 +167,16 @@ exports.nock404Response = function (headers = {}) {
 
 exports.nockRealWorldRssResponse = function (headers = {}) {
   nockResponse(getRealWorldRssUri(), getRealWorldRssBody(), 200, 'application/rss+xml', headers);
+};
+
+exports.nockRealWorldYouTubeFeedResponse = function (headers = {}) {
+  nockResponse(
+    getRealWorldYouTubeFeedUri(),
+    getRealWorldYouTubeFeedBody(),
+    200,
+    'application/rss+xml',
+    headers
+  );
 };
 
 exports.createMockJobObjectFromFeedId = (id) => ({ data: { id } });

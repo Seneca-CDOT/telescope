@@ -184,13 +184,19 @@ module.exports = async function processor(job) {
               ['pubDate', 'pubdate'],
               ['creator', 'author'],
               ['content:encoded', 'contentEncoded'],
+              ['updated', 'date'],
+              ['id', 'guid'],
+              ['media:group', 'mediaGroup'],
+              ['published', 'pubdate'],
             ],
           },
         },
         feed
       )
     );
+
     const articles = await parser.parseURL(feed.url);
+
     // Transform the list of articles to a list of Post objects
     await articlesToPosts(articles.items, feed);
 

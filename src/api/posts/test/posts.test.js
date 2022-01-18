@@ -82,6 +82,7 @@ describe('/posts', () => {
 
 describe('test /posts/:id responses', () => {
   const missingGuid = 'http://missing-guid';
+  const youtubeGuid = 'http://youtube.com';
   const randomGuid = 'http://random-guid';
 
   const feed1 = new Feed(
@@ -93,7 +94,16 @@ describe('test /posts/:id responses', () => {
     null
   );
 
-  beforeAll(() => Promise.resolve(addFeed(feed1)));
+  const youtubeFeed = new Feed(
+    'YouTube Author',
+    'http://youtube.com/feed/videos.xml',
+    'user',
+    'https://youtube.com/',
+    null,
+    null
+  );
+
+  beforeAll(() => Promise.all([addFeed(feed1), addFeed(youtubeFeed)]));
 
   const addedPost1 = new Post(
     'Post Title',
@@ -105,11 +115,23 @@ describe('test /posts/:id responses', () => {
     feed1
   );
 
-  beforeAll(() => Promise.resolve(addPost(addedPost1)));
+  const addedVideo1 = new Post(
+    'YouTube Video Title',
+    'YouTube Video Description',
+    new Date('2009-09-07T22:20:00.000Z'),
+    new Date('2009-09-07T22:23:00.000Z'),
+    'https://youtube.com/watch',
+    youtubeGuid,
+    youtubeFeed
+  );
+
+  beforeAll(() => Promise.all([addPost(addedPost1), addPost(addedVideo1)]));
 
   beforeAll(() => {
     feed1.save();
+    youtubeFeed.save();
     addedPost1.save();
+    addedVideo1.save();
   });
 
   test('A post with an id should be returned and match the id of a post from redis', async () => {
@@ -159,5 +181,23 @@ describe('test /posts/:id responses', () => {
     const res = await request(app).get(`/1234567890`).set('Accept', 'text/html');
     expect(res.status).toEqual(404);
     expect(res.get('Content-length')).toEqual('46');
+  });
+
+  test('request a post with type equal to "blogpost"', async () => {
+    const res = await request(app).get(`/${addedPost1.id}`).set('Accept', 'application/json');
+    const post = await getPost(`${addedPost1.id}`);
+    expect(res.status).toEqual(200);
+    expect(res.get('Content-type')).toContain('application/json');
+    expect(res.body.id).toEqual(post.id);
+    expect(res.body.type).toEqual('blogpost');
+  });
+
+  test('request a post with type equal to "video"', async () => {
+    const res = await request(app).get(`/${addedVideo1.id}`).set('Accept', 'application/json');
+    const post = await getPost(`${addedVideo1.id}`);
+    expect(res.status).toEqual(200);
+    expect(res.get('Content-type')).toContain('application/json');
+    expect(res.body.id).toEqual(post.id);
+    expect(res.body.type).toEqual('video');
   });
 });
