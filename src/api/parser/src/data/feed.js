@@ -16,7 +16,8 @@ const {
   getFlaggedFeeds,
   setFlaggedFeed,
   unsetFlaggedFeed,
-} = require('../storage');
+} = require('../utils/storage');
+const { deletePost } = require('../utils/indexer');
 
 const urlToId = (url) => hash(normalizeUrl(url));
 
@@ -61,7 +62,12 @@ class Feed {
     posts = posts.filter((post) => post.feed === this.id);
 
     // Remove the post from Redis + ElasticSearch
-    await Promise.all([].concat(posts.map((post) => removePost(post.id))));
+    await Promise.all(
+      [].concat(
+        posts.map((post) => removePost(post.id)),
+        posts.map((post) => deletePost(post.id))
+      )
+    );
   }
 
   /**
@@ -103,7 +109,7 @@ class Feed {
    * Returns a Promise<Boolean>
    */
   async isDelayed() {
-    return (await isDelayed(this.id)) === '1';
+    return (await isDelayed(this.id)) === 1;
   }
 
   /**

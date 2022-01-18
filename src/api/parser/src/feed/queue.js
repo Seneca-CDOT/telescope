@@ -1,5 +1,6 @@
-const { setQueues, BullAdapter } = require('bull-board');
-
+const { createBullBoard } = require('@bull-board/api');
+const { BullAdapter } = require('@bull-board/api/bullAdapter');
+const { ExpressAdapter } = require('@bull-board/express');
 const { logger } = require('@senecacdot/satellite');
 const { createQueue } = require('../lib/queue');
 
@@ -7,13 +8,14 @@ const { createQueue } = require('../lib/queue');
 const queue = createQueue('feed-queue');
 
 // For visualizing queues using bull board
-setQueues([new BullAdapter(queue)]);
+const serverAdapter = new ExpressAdapter();
+createBullBoard({ queues: [new BullAdapter(queue)], serverAdapter });
 
 /**
  * Provide a helper for adding a feed with our desired default options.
  * The `job` contains an `id`, which refers to a Feed Object `id` already in Redis.
  */
-queue.addFeed = async function (job) {
+queue.addFeed = async (job) => {
   const options = {
     // Override the Job ID to use the feed id, so we don't duplicate jobs.
     // Bull will not add a job if there already exists a job with the same id.
@@ -34,4 +36,4 @@ queue.addFeed = async function (job) {
   }
 };
 
-module.exports = queue;
+module.exports = { feedQueue: queue, serverAdapter };

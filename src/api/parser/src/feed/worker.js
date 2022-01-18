@@ -1,14 +1,8 @@
 const { cpus } = require('os');
 const path = require('path');
-
 const { logger } = require('@senecacdot/satellite');
-const feedQueue = require('./queue');
-
-/**
- * The parser microservice needs a full rework
- * it's the last service in the legacy back-end
- */
-// const { waitOnReady } = require('../utils/indexer');
+const { feedQueue } = require('./queue');
+const { waitOnReady } = require('../utils/indexer');
 
 /**
  * We determine the number of parallel feed processor functions to run
@@ -19,7 +13,7 @@ const feedQueue = require('./queue');
  *  <a Number>: use the given number, up to the number of available CPUs
  *  <not set>: use 1 by default
  */
-function getFeedWorkersCount() {
+const getFeedWorkersCount = () => {
   const { FEED_QUEUE_PARALLEL_WORKERS } = process.env;
   const cpuCount = cpus().length;
 
@@ -29,11 +23,11 @@ function getFeedWorkersCount() {
 
   const count = Number(FEED_QUEUE_PARALLEL_WORKERS) || 1;
   return Math.min(count, cpuCount);
-}
+};
 
-exports.start = function () {
+exports.start = async () => {
   try {
-    // await waitOnReady();
+    await waitOnReady();
     logger.info('Connected to elasticsearch!');
     const concurrency = getFeedWorkersCount();
     logger.debug(

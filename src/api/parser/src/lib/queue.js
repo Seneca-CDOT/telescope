@@ -20,7 +20,7 @@ let redisConnectionRefusalLogged = false;
  * redis, and manage the creation of the redis connections.
  * We also setup logging for this queue name.
  */
-function createQueue(name) {
+const createQueue = (name) => {
   const queue = new Bull(name, {
     createClient: (type) => {
       switch (type) {
@@ -95,7 +95,7 @@ function createQueue(name) {
     });
 
   return queue;
-}
+};
 
 module.exports = {
   createQueue,
