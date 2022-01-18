@@ -44,6 +44,11 @@ const services = [
     staging: 'https://dev.telescope.cdot.systems',
     production: 'https://telescope.cdot.systems',
   },
+  {
+    name: 'autodeployment',
+    staging: 'https://dev.telescope.cdot.systems/deploy/healthcheck',
+    production: 'https://telescope.cdot.systems/deploy/healthcheck',
+  },
 ];
 
 async function checkService(service) {
