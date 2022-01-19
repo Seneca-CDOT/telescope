@@ -8,6 +8,18 @@ export const checkBuildStatus = async () => {
       throw new Error('unable to get build info');
     }
     const data = await res.json();
+    if (!data.current && data.previous) {
+      return {
+        building: true,
+        previous: true,
+        title: data.type,
+        githubData: data.previous.githubData,
+        startedAt: new Date(data.previous.startedDate),
+        stoppedAt: new Date(),
+        result: data.code,
+      };
+    }
+
     if (!data.current) {
       return { building: false };
     }
