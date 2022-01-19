@@ -87,6 +87,22 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'grid',
       },
     },
+    planet: {
+      position: 'absolute',
+      bottom: theme.spacing(3),
+      right: theme.spacing(3),
+      color: 'white',
+    },
+    planetAnchor: {
+      opacity: 0.85,
+      fontFamily: 'Spartan',
+      fontSize: '1.3em',
+      color: 'white',
+      textDecorationLine: 'none',
+      '&:hover': {
+        textDecorationLine: 'underline',
+      },
+    },
     space: {
       position: 'relative',
       height: '0.5rem',
@@ -223,6 +239,15 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
             <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
           </Fab>
         </ScrollAction>
+        <div className={classes.planet}>
+          <a
+            href={`${telescopeUrl}/planet`}
+            title="telescope planet"
+            className={classes.planetAnchor}
+          >
+            Planet
+          </a>
+        </div>
       </div>
       <div className={classes.space} />
       <div className={classes.anchor} id="posts-anchor" ref={timelineAnchor} />
