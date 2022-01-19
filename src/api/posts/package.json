@@ -19,6 +19,8 @@
     "@senecacdot/satellite": "^1.x",
     "bull": "3.29.3",
     "express-validator": "6.14.0",
+    "ioredis": "4.28.2",
+    "ioredis-mock": "5.8.1",
     "jsdom": "18.1.1",
     "normalize-url": "6.1.0"
   },
