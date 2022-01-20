@@ -82,8 +82,7 @@ const advancedQueryValidationRules = [
  */
 const validateQuery = () => {
   return async (req, res, next) => {
-    const rules = req.baseUrl === '/' ? queryValidationRules : advancedQueryValidationRules;
-
+    const rules = req.route.path === '/' ? queryValidationRules : advancedQueryValidationRules;
     await Promise.all(rules.map((rule) => rule.run(req)));
 
     const result = validationResult(req);
