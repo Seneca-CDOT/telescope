@@ -24,6 +24,14 @@ const getBuildLog = async (buildName) => {
   }
 };
 
+const decorateBuild = (build, readerFn, isCurrent = false) => {
+  if (!build) {
+    return;
+  }
+  build.isCurrent = isCurrent;
+  build.getReader = readerFn;
+};
+
 export default async () => {
   try {
     const res = await fetch(autodeploymentUrl('/status'));
@@ -32,15 +40,9 @@ export default async () => {
     }
     const data = await res.json();
 
-    // Decorate builds with a getReader() function
-    if (data.previous) {
-      data.current.isCurrent = false;
-      data.previous.getReader = () => getBuildLog('previous');
-    }
-    if (data.current) {
-      data.current.isCurrent = true;
-      data.current.getReader = () => getBuildLog('current');
-    }
+    // Decorate builds with extra properties
+    decorateBuild(data.previous, () => getBuildLog('previous'));
+    decorateBuild(data.current, () => getBuildLog('current'), true);
 
     return data;
   } catch (err) {
