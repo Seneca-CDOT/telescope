@@ -1,13 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { BsInfoCircle } from 'react-icons/bs';
-import {
-  makeStyles,
-  Theme,
-  createStyles,
-  Typography,
-  useScrollTrigger,
-  Fab,
-} from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Typography, Fab } from '@material-ui/core';
 import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { telescopeUrl, statusUrl } from '../config';
@@ -136,14 +129,6 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
 
   const timelineAnchor = useRef<HTMLDivElement>(null);
   const bannerAnchor = useRef<HTMLDivElement>(null);
-  const toTimelineTrigger = useScrollTrigger({
-    threshold: 50,
-    disableHysteresis: true,
-  });
-  const toBannerTrigger = !useScrollTrigger({
-    threshold: (timelineAnchor.current?.offsetTop || 0) - 50,
-    disableHysteresis: true,
-  });
 
   useEffect(() => {
     if (window) {
@@ -152,18 +137,6 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
     }
     setStudentQuote(quotes[Math.floor(Math.random() * quotes.length)]);
   }, []);
-
-  useEffect(() => {
-    if (toTimelineTrigger && timelineAnchor?.current) {
-      timelineAnchor.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [toTimelineTrigger]);
-
-  useEffect(() => {
-    if (toBannerTrigger && bannerAnchor?.current) {
-      bannerAnchor.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [toBannerTrigger]);
 
   useEffect(() => {
     async function getGitData() {
