@@ -34,8 +34,9 @@ router.post('/', createNodeMiddleware(webhooks, { path: '/' }));
  * @param {string} action - Action for a specific release event: created, published or released.
  * @param {string} ref - .Git reference resource.
  * @param {string} mainBranch - Brach used in the repo as main branch.
+ * @param {string} headCommit - Commits happen during a `push` event.
  */
-function requestFilter(repo, buildType, action, ref, mainBranch) {
+function requestFilter(repo, buildType, action, ref, mainBranch, headCommit) {
   const currentBranch = ref?.split('/').pop();
 
   return (
@@ -44,7 +45,8 @@ function requestFilter(repo, buildType, action, ref, mainBranch) {
     // Check if the reference is the branch used as main or if it is a tag
     (currentBranch === mainBranch || ref.includes('tags/')) &&
     // Check the build type and the action
-    (buildType === 'staging' || (buildType === 'production' && action === 'published'))
+    (buildType === 'staging' || (buildType === 'production' && action === 'published')) &&
+    headCommit === 'master'
   );
 }
 
@@ -71,7 +73,8 @@ function handleEventType(buildType, gitHubEvent) {
         buildType,
         githubData.action,
         githubData.ref,
-        githubData.repository.master_branch
+        githubData.repository.master_branch,
+        githubData.head_commit
       )
     ) {
       addBuild(buildType, githubData);
