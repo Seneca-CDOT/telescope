@@ -341,7 +341,7 @@ importers:
       formik: 2.2.9
       highlight.js: 11.3.1
       jwt-decode: 3.1.2
-      nanoid: 3.1.30
+      nanoid: 3.2.0
       next: 12.0.7
       next-compose-plugins: 2.2.1
       next-pwa: 5.4.4
@@ -369,7 +369,7 @@ importers:
       formik: 2.2.9_react@17.0.2
       highlight.js: 11.3.1
       jwt-decode: 3.1.2
-      nanoid: 3.1.30
+      nanoid: 3.2.0
       next: 12.0.7_dfc0b93d99fba272c9564d3139a2581a
       next-compose-plugins: 2.2.1
       next-pwa: 5.4.4_@babel+core@7.16.7+next@12.0.7
@@ -10652,6 +10652,12 @@ packages:
     hasBin: true
     dev: false
 
+  /nanoid/3.2.0:
+    resolution: {integrity: sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+    dev: false
+
   /napi-build-utils/1.0.2:
     resolution: {integrity: sha512-ONmRUqK7zj7DWX0D9ADe03wbwOBZxNAfF20PlGfCWQcD3+/MakShIHrMqx9YwPTfxDdF1zLeL+RGZiR9kGMLdg==}
     dev: false
@@ -11936,7 +11942,7 @@ packages:
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       colorette: 1.4.0
-      nanoid: 3.1.30
+      nanoid: 3.2.0
       source-map: 0.6.1
     dev: false
 
