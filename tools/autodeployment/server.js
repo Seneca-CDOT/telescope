@@ -12,10 +12,14 @@ const service = new Satellite({
 const { router } = service;
 
 router.use('/', webhookHandler);
+
 router.get('/status', buildStatusHandler);
+
+// Get the current build log (as it happens)
 router.get('/log/current', buildLogHandler('current'));
+// Get the most recent build log
 router.get('/log/previous', buildLogHandler('previous'));
-// Backwards compat for API, prefer /log/*
+// Backwards compat for API, prefer newer /log/*
 router.get('/log', buildLogHandler('current'));
 
 const port = parseInt(process.env.DEPLOY_PORT, 10) || 4000;
