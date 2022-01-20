@@ -123,16 +123,17 @@ module.exports.buildLogHandler = function (buildName) {
       return;
     }
 
+    const { out, cache } = build;
+
     res.writeHead(200, { 'Content-Type': 'text/plain' });
 
     // Send the cached build log, which is either everything, or everything so far
-    const buildLog = build.cache.getContents();
-    if (buildLog) {
-      res.write(buildLog);
+    const cached = cache.getContents();
+    if (cached) {
+      res.write(cached);
     }
 
     // If we don't have a build happening, we're done
-    const { out } = build;
     if (!out) {
       res.end();
       return;

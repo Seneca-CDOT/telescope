@@ -8,7 +8,8 @@ const getFeedCount = require('./js/feed-stats');
 const getPostsCount = require('./js/posts-stats');
 const getJobCount = require('./js/queue-stats');
 
-const host = process.env.API_HOST || 'localhost';
+// We need to be able to talk to the autodeployment server
+const autodeploymentHost = process.env.WEB_URL || 'localhost';
 
 const satelliteOptions = {
   helmet: {
@@ -23,12 +24,7 @@ const satelliteOptions = {
           'fonts.googleapis.com',
           'cdn.jsdelivr.net',
         ],
-        connectSrc: [
-          "'self'",
-          '*.fontawesome.com',
-          `${host.replace(/(^\w+:|^)\/\//, '')}/deploy`,
-          '*.github.com',
-        ],
+        connectSrc: ["'self'", '*.fontawesome.com', autodeploymentHost, '*.github.com'],
         fontSrc: ["'self'", 'data:', 'https:', '*.fontawesome.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
       },

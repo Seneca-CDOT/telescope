@@ -50,12 +50,12 @@ function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code
 }
 
 export default function buildHeader(build) {
-  if (build && !build.stoppedDate) {
+  if (!build) {
     const icon = document.createElement('i');
     icon.className = 'fas fa-server px-2';
     buildHeaderTitle.innerHTML = '';
     buildHeaderTitle.append(icon);
-    buildHeaderTitle.innerHTML += 'There is no current or previous build at the moment.';
+    buildHeaderTitle.innerHTML += 'Unable to get build info at the moment. Please try again later.';
     buildHeaderInfo.innerHTML = '';
     return;
   }
