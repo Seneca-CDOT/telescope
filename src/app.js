@@ -5,7 +5,6 @@ const createError = require('http-errors');
 const expressPino = require('express-pino-logger');
 
 const logger = require('./logger');
-const apm = require('./apm');
 const { errorHandler } = require('./middleware');
 
 function createApp(router, options = {}) {
@@ -56,12 +55,6 @@ function createApp(router, options = {}) {
   app.use(function (req, res, next) {
     next(createError(404, `${req.originalUrl} not found`));
   });
-
-  // If we're using APM, add APM error collection
-  // middleware before default error handler
-  if (apm) {
-    app.use(apm.middleware.connect());
-  }
 
   // Add our default error handler
   app.use(errorHandler);

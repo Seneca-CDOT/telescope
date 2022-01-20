@@ -1,5 +1,3 @@
-require('./apm');
-
 const { isAuthenticated, isAuthorized } = require('./middleware');
 const { createRouter } = require('./app');
 
