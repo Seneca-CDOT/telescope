@@ -161,6 +161,36 @@ describe('POST /', () => {
       expect(res.body).toEqual(result);
     });
 
+    it('should return 200 and 1 rss+xml feed url if the link is from a YouTube channel', async () => {
+      const youTubeDomain = 'https://www.youtube.com';
+      const channelUri = '/channel/UCqaMbMDf01BLttof1lHAo2A';
+      const youTubeChannelUrl = `${youTubeDomain}${channelUri}`;
+      const mockYouTubeChannelUrlResponseBody = `
+        <html lang="en">
+          <head>
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.youtube.com/feeds/videos.xml?channel_id=UCqaMbMDf01BLttof1lHAo2A"/>
+          </head>
+          <body></body>
+        </html>
+      `;
+
+      const result = {
+        feedUrls: ['https://www.youtube.com/feeds/videos.xml?channel_id=UCqaMbMDf01BLttof1lHAo2A'],
+      };
+
+      // Mocking the response body html when call GET request to blog url
+      nock(youTubeDomain).get(channelUri).reply(200, mockYouTubeChannelUrlResponseBody, {
+        'Content-Type': 'text/html',
+      });
+
+      const res = await request(app)
+        .post('/')
+        .set('Authorization', `bearer ${createServiceToken()}`)
+        .send({ blogUrl: youTubeChannelUrl });
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual(result);
+    });
+
     it('should return 401 if no authorization token is included in headers', async () => {
       const res = await request(app).post('/').send({ blogUrl: 'https://test321.blogspot.com/' });
       expect(res.status).toBe(401);
