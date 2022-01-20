@@ -1,13 +1,16 @@
 const { logger, createError } = require('@senecacdot/satellite');
 const shell = require('shelljs');
 const mergeStream = require('merge-stream');
-const streamBuffers = require('stream-buffers');
+const { ReReadable } = require('rereadable-stream');
 
 class Build {
   constructor(type, githubData) {
     this.type = type;
     this.githubData = githubData;
     this.startedDate = new Date();
+
+    // Start a build log cache that we can re-play as many times as necessary
+    this.cache = new ReReadable();
   }
 
   finish(code) {
@@ -70,6 +73,8 @@ function run() {
 
   // Promote the next build to current and start it
   const build = builds.pending;
+  const { cache } = build;
+
   builds.current = build;
   builds.pending = null;
 
@@ -89,12 +94,8 @@ function run() {
 
   // Combine stderr and stdout, like 2>&1
   build.out = mergeStream(build.proc.stdout, build.proc.stderr);
-
-  // Set up a build log cache
-  build.cache = new streamBuffers.WritableStreamBuffer();
-
-  // As data gets added to the build log, cache it
-  build.out.on('data', (data) => build.cache.write(data));
+  // Pipe the output of the build process into our build's cache log stream
+  build.out.pipe(cache);
 }
 
 module.exports.addBuild = function (type, githubData) {
@@ -110,12 +111,11 @@ module.exports.buildStatusHandler = function handleStatus(req, res) {
   res.json(builds);
 };
 
-module.exports.buildLogHandler = function (buildName) {
-  if (!(buildName === 'current' || buildName === 'previous')) {
-    throw new Error(`invalid build name: ${buildName}`);
-  }
-
-  return function handleLog(req, res, next) {
+/**
+ * @param {'current' | 'previous'} buildName
+ */
+function handleBuildByName(buildName) {
+  return (req, res, next) => {
     const build = builds[buildName];
 
     if (!build) {
@@ -125,43 +125,22 @@ module.exports.buildLogHandler = function (buildName) {
 
     const { out, cache } = build;
 
+    // If we have a build process, pipe that, otherwise we're done
+    const pipeLog = () => (out ? out.pipe(res) : res.end());
+
     res.writeHead(200, { 'Content-Type': 'text/plain' });
 
-    // Send the cached build log, which is either everything, or everything so far
-    const cached = cache.getContents();
-    if (cached) {
-      res.write(cached);
+    // Send the cached build log, which is either everything, or everything so far.
+    // After we're done, pipe the rest of the log as it happens.
+    if (cache) {
+      cache.rewind().pipe(res).on('end', pipeLog);
+    } else {
+      pipeLog();
     }
-
-    // If we don't have a build happening, we're done
-    if (!out) {
-      res.end();
-      return;
-    }
-
-    // Otherwise stream the build output as it comes in
-    let onData;
-    let onError;
-    let onEnd;
-
-    function end(message) {
-      if (message) {
-        res.write(message);
-      }
-
-      out.removeListener('data', onData);
-      out.removeListener('error', onError);
-      out.removeListener('end', onEnd);
-
-      res.end();
-    }
-
-    onData = (data) => res.write(data);
-    onError = () => end('Error, end of log.');
-    onEnd = () => end('Build Complete.');
-
-    out.on('data', onData);
-    out.on('error', onError);
-    out.on('end', onEnd);
   };
-};
+}
+
+/**
+ * @param {'current' | 'previous'} buildName type of build
+ */
+module.exports.buildLogHandler = (buildName = 'current') => handleBuildByName(buildName);
