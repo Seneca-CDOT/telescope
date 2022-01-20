@@ -16,16 +16,7 @@ npm install --save @senecacdot/satellite
 
 ## Configure
 
-You need to set the following environment variables if you want Elastic APM
-monitoring for your service:
-
-- `ELASTIC_APM_SERVER_URL`: the URL to the APM server (e.g., <http://localhost:8200>)
-- `ELASTIC_APM_SERVICE_NAME`: the name of the service as it will appear in APM
-
-If you don't provide these values in your environment, APM monitoring will be
-disabled.
-
-In addition, the following JWT verification values are required:
+The following JWT verification values are required:
 
 - `SECRET`: the secret used for JWT token verification
 - `JWT_AUDIENCE`: the audience (aud) claim expected in JWT token verification
