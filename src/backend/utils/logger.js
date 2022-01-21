@@ -11,7 +11,7 @@ const {
 } = process.env;
 const pino = require('pino');
 const pinoElastic = require('pino-elasticsearch');
-const expressPino = require('express-pino-logger');
+const pinoHttp = require('pino-http');
 const os = require('os');
 const path = require('path');
 const parseUrl = require('./url-parser');
@@ -25,23 +25,32 @@ if (!pino.levels.values[logLevel]) {
   logLevel = NODE_ENV === 'development' ? 'debug' : 'info';
 }
 
+// Pino Option
 const options = {
-  prettyPrint: {
-    // Translate time from epoch time to local time
-    translateTime: 'SYS: yyyy-mm-dd HH:MM:ss.l ',
-  },
   level: logLevel,
 };
+
+// Pino-pretty for debug
+if (logLevel === 'debug') {
+  options.transport = {
+    target: 'pino-pretty',
+    options: {
+      // Translate time from epoch time to local time
+      translateTime: `SYS: yyyy-mm-dd HH:MM:ss.l `,
+    },
+  };
+}
 
 // Log to stdout, or a file if LOG_FILE is specified
 let destination;
 if (process.env.LOG_FILE) {
   destination = pino.destination(path.resolve(process.cwd(), process.env.LOG_FILE));
-  options.prettyPrint = false;
-  //  options.prettyPrint.colorize = false;
+  options.transport = false;
 } else {
   // Try to use colour when not logging to a file, but skip on Windows
-  options.prettyPrint.colorize = !(os.type() === 'Windows_NT');
+  if (logLevel === 'debug') {
+    options.transport.options.colorize = !(os.type() === 'Windows_NT');
+  }
   destination = pino.destination(process.stdout.fd);
 }
 
@@ -64,6 +73,6 @@ const logger = pino(
   LOG_ELASTIC ? streamToElastic : destination
 );
 
-const expressLogger = expressPino({ logger });
+const pinoHttpLogger = pinoHttp({ logger });
 
-module.exports = expressLogger;
+module.exports = pinoHttpLogger;
