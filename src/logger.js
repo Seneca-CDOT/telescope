@@ -1,9 +1,15 @@
 const pino = require('pino');
 
-// Pretty debug logging
-let logger = pino({
-  prettyPrint: {},
-  prettifier: require('pino-colada'),
-});
+const pinoOptions = { level: process.env.LOG_LEVEL || 'info' };
 
-module.exports = logger;
+// Pretty debug logging
+if (pinoOptions.level === 'debug') {
+  pinoOptions.transport = {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+    },
+  };
+}
+
+module.exports = pino(pinoOptions);

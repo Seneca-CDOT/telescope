@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const createError = require('http-errors');
-const expressPino = require('express-pino-logger');
+const pinoHttp = require('pino-http');
 
 const logger = require('./logger');
 const { errorHandler } = require('./middleware');
@@ -10,7 +10,7 @@ const { errorHandler } = require('./middleware');
 function createApp(router, options = {}) {
   const app = express();
 
-  app.use(expressPino({ logger }));
+  app.use(pinoHttp({ logger }));
 
   // Allow disabling or passing options to helmet
   if (options.helmet !== false) {
