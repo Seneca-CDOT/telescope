@@ -9,24 +9,7 @@ on:
         # and https://docs.npmjs.com/about-semantic-versioning
 
 jobs:
-  # Confirm that prettier was run on the changes
-  prettier:
-    uses: Seneca-CDOT/telescope/.github/workflows/prettier-ci.yml@master
-
-  # Make sure eslint passes
-  eslint:
-    uses: Seneca-CDOT/telescope/.github/workflows/eslint-ci.yml@master
-
-  # Run unit tests on all platforms/versions of node
-  unit:
-    uses: Seneca-CDOT/telescope/.github/workflows/unit-tests-ci.yml@master
-
-  # Run end-to-end tests along with the microservices in docker-compose on Linux
-  e2e:
-    uses: Seneca-CDOT/telescope/.github/workflows/e2e-tests-ci.yml@master
-
   release:
-    needs: [prettier, eslint, unit, e2e]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
