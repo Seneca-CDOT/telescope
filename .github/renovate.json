@@ -13,7 +13,7 @@
   "reviewers": ["Seneca-CDOT/telescope-maintainers"],
   "includeForks": false,
   "rebaseWhen": "never",
-  "schedule": ["before 3am on Monday"],
+  "schedule": ["every weekend"],
   "prConcurrentLimit": 1,
   "prHourlyLimit": 1
 }
