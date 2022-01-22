@@ -1,0 +1,16 @@
+{
+  "extends": ["config:base"],
+  "dependencyDashboard": true,
+  "packageRules": [{ "matchPackagePatterns": ["node-fetch"], "allowedVersions": "<3.0" }],
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+  "labels": ["dependencies"],
+  "timezone": "America/Toronto",
+  "reviewers": ["Seneca-CDOT/telescope-maintainers"],
+  "includeForks": false,
+  "rebaseWhen": "never",
+  "schedule": ["every weekend"],
+  "prConcurrentLimit": 1,
+  "prHourlyLimit": 1
+}
