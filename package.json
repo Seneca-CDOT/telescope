@@ -33,7 +33,7 @@
     "ioredis": "4.27.1",
     "ioredis-mock": "5.5.5",
     "jsonwebtoken": "8.5.1",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.7",
     "pino": "7.6.4",
     "pino-http": "6.6.0",
     "pino-pretty": "7.5.0"
