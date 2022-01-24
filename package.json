@@ -46,7 +46,7 @@
     "eslint-plugin-anti-trojan-source": "1.1.0",
     "eslint-plugin-jest": "25.7.0",
     "get-port": "5.1.1",
-    "husky": "5.1.3",
+    "husky": "5.2.0",
     "jest": "27.4.7",
     "nock": "13.0.11",
     "prettier": "2.2.1",
