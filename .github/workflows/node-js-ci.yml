@@ -9,22 +9,41 @@ on:
       - master
 
 jobs:
+  # Verify that prettier passes
+  prettier:
+    name: Prettier Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.28.0
+      - uses: actions/setup-node@v2
+        with:
+          cache: 'pnpm'
+      - name: Install dependencies and run eslint
+        run: |
+          pnpm install
+          pnpm prettier-check
+
   # Verify that ESLint passes
   eslint:
     name: ESLint Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.4.1
+      - uses: pnpm/action-setup@v2
         with:
-          node-version: '14'
-          cache: 'npm'
+          version: 6.28.0
+      - uses: actions/setup-node@v2
+        with:
+          cache: 'pnpm'
       - name: Install dependencies and run eslint
         run: |
-          npm install
-          npm run eslint
+          pnpm install
+          pnpm eslint
 
-  build:
+  test:
     runs-on: ${{matrix.os}}
 
     strategy:
@@ -34,21 +53,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
+      - uses: pnpm/action-setup@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          version: 6.28.0
       - name: Test
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run prettier-check
-      - run: npm test
+          cache: 'pnpm'
+      - run: |
+          pnpm install
+          pnpm test

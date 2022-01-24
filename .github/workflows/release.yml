@@ -9,44 +9,16 @@ on:
         # and https://docs.npmjs.com/about-semantic-versioning
 
 jobs:
-  build:
-    runs-on: ${{matrix.os}}
-
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: [14.x, 16.x]
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Test
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm run prettier-check
-      - run: npm run eslint
-      - run: npm test
-
   release:
-    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.28.0
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
         id: Changelog
@@ -68,9 +40,10 @@ jobs:
         # Setup .npmrc file to publish to npm
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install
-      - run: npm publish --access=public
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm publish --access=public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
