@@ -24,9 +24,6 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - SECRET
-      # TODO - add APM monitoring support for Satellite
-      # - ELASTIC_APM_SERVER_URL
-      # - ELASTIC_APM_SERVICE_NAME
     depends_on:
       - traefik
     labels:
