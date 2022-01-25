@@ -1,7 +1,7 @@
 ---
 name: Documentation Problem
 about: Create a report regarding documentation (misspelled word, outdated info, broken link, missing documentation...)
-labels: 'type: documentation' 'developer experience'
+labels: ['type: documentation', 'developer experience']
 ---
 
 **Where is the problem?**
