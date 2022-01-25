@@ -64,5 +64,4 @@ pnpm services:stop
 ## References
 
 - [Digital Ocean: Using traefik v2 as a reverse proxy for Docker](https://www.digitalocean.com/community/tutorials/how-to-use-traefik-v2-as-a-reverse-proxy-for-docker-containers-on-ubuntu-20-04)
-- [Logz: ELK stack on Docker](https://logz.io/blog/elk-stack-on-docker/)
 - [Elastic: Running Elastic Search on Docker](https://www.elastic.co/guide/en/elastic-stack-get-started/master/get-started-docker.html)

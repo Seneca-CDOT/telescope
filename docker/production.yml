@@ -208,7 +208,5 @@ services:
     depends_on:
       - nginx
 
-  # TODO: Kibana + APM, see https://github.com/Seneca-CDOT/telescope/blob/372a6076540351cd54d85478521bcfbe8edefc87/src/api/production.yml
-
 volumes:
   rotate:
