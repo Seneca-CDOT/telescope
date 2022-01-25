@@ -25,8 +25,7 @@ export default [
   },
   {
     author: 'Abdulbasid Guled',
-    url:
-      'https://dev.to/hyperthd/4-months-of-open-source-what-i-ve-learned-from-taking-dps909-and-what-i-plan-to-do-about-dps911-next-month-1g62',
+    url: 'https://dev.to/hyperthd/4-months-of-open-source-what-i-ve-learned-from-taking-dps909-and-what-i-plan-to-do-about-dps911-next-month-1g62',
     quote:
       'Overall, my experiences with [open source development] were very positive. Even when I was down, I tried to work my way back up.',
   },
@@ -50,8 +49,7 @@ export default [
   },
   {
     author: 'Abdulbasid Guled',
-    url:
-      'https://dev.to/hyperthd/4-months-of-open-source-what-i-ve-learned-from-taking-dps909-and-what-i-plan-to-do-about-dps911-next-month-1g62',
+    url: 'https://dev.to/hyperthd/4-months-of-open-source-what-i-ve-learned-from-taking-dps909-and-what-i-plan-to-do-about-dps911-next-month-1g62',
     quote:
       "I also need to keep reminding myself, that failure does not ever define who I am. It's how I come back from failure that shows what I'm really capable of.",
   },
@@ -75,8 +73,7 @@ export default [
   },
   {
     author: 'Oleg Mytryniuk',
-    url:
-      'https://osd600mytryniuk.wordpress.com/2017/03/16/open-source-experience-that-is-a-big-plus-in-my-mind/',
+    url: 'https://osd600mytryniuk.wordpress.com/2017/03/16/open-source-experience-that-is-a-big-plus-in-my-mind/',
     quote:
       'I felt like people see me as a person who can make their project better, not as a person who does something wrong.',
   },
@@ -94,8 +91,7 @@ export default [
   },
   {
     author: 'William To',
-    url:
-      'https://williamto10.wordpress.com/2019/12/09/project-stage-3-final-attempt-and-conclusion/',
+    url: 'https://williamto10.wordpress.com/2019/12/09/project-stage-3-final-attempt-and-conclusion/',
     quote:
       'Even though we can fail, we always learn something during the process and come out better on the other side.',
   },
@@ -107,8 +103,7 @@ export default [
   },
   {
     author: 'Ray Gervais',
-    url:
-      'https://raygervais.dev/articles/2017/04/a-conclusion-to-my-first-semester-dedicated-to-open-source-technologies/',
+    url: 'https://raygervais.dev/articles/2017/04/a-conclusion-to-my-first-semester-dedicated-to-open-source-technologies/',
     quote:
       'Open Source is an idea, a culture; a vast culture full of subcultures, projects, and innovations which do change the world within the blink of a passing day.',
   },
