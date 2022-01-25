@@ -85,13 +85,17 @@ module.exports = async function getGitHubData(owner, repo) {
       return JSON.parse(cached);
     }
 
-    const [statsParticipation, statsCodeFrequency, commitsInfo, contributorsInfo] =
-      await Promise.all([
-        getStatsParticipation(owner, repo),
-        getStatsCodeFrequency(owner, repo),
-        getCommitsInfo(owner, repo),
-        getContributorsInfo(owner, repo),
-      ]);
+    const [
+      statsParticipation,
+      statsCodeFrequency,
+      commitsInfo,
+      contributorsInfo,
+    ] = await Promise.all([
+      getStatsParticipation(owner, repo),
+      getStatsCodeFrequency(owner, repo),
+      getCommitsInfo(owner, repo),
+      getContributorsInfo(owner, repo),
+    ]);
 
     githubData = {
       weeklyCommits: { ...statsParticipation.weeklyCommits, ...statsCodeFrequency.weeklyCommits },
