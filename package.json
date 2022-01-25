@@ -7,7 +7,7 @@
     "html-elements": "tools/html-elements.js"
   },
   "scripts": {
-    "build": "pnpm build --prefix src/web --",
+    "build": "pnpm turbo run build",
     "dev": "pnpm dev --prefix src/web --",
     "develop": "pnpm dev",
     "eslint": "eslint --config .eslintrc.js \"**/*.{jsx,tsx,ts,js}\"",
@@ -116,10 +116,20 @@
     "pretty-quick": "3.1.3",
     "run.env": "1.1.0",
     "supertest": "6.1.6",
-    "ts-jest": "27.1.2"
+    "ts-jest": "27.1.2",
+    "turbo": "1.0.28"
   },
   "engines": {
     "node": ">=14.0.0",
     "pnpm": ">=6"
+  },
+  "turbo": {
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      }
+    }
   }
 }

@@ -39,3 +39,6 @@ certs/
 redis-data/
 
 .pnpm-debug.log
+
+# Turborepo
+.turbo
