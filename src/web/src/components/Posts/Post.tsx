@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme: Theme) =>
       float: 'right',
       marginRight: '-22em',
       top: '8em',
-      bottom: '100%',
     },
     postInfo: {
       [theme.breakpoints.down(1205)]: {
