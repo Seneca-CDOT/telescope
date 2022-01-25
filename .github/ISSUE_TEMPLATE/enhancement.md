@@ -1,6 +1,6 @@
 ---
 name: Enhancement
-about: Suggest an idea for Telescope
+about: Suggest an improvement for Telescope
 labels: 'type: enhancement'
 ---
 
