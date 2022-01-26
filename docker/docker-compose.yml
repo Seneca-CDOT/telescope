@@ -261,6 +261,17 @@ services:
       - PLANET_PORT
       - POSTS_URL
 
+  # docs service
+  docs:
+    container_name: 'docs'
+    build:
+      context: ../src/api/docs
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV
+      - DOCS_PORT
+      - DOCS_URL
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
