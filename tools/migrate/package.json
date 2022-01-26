@@ -1,15 +1,15 @@
 {
-  "name": "migrate",
-  "version": "1.0.0",
+  "author": "",
+  "dependencies": {
+    "jsdom": "^18.0.1",
+    "node-fetch": "2.6.7"
+  },
   "description": "Migrates users from the planet feed wiki list to a JSON file.",
+  "license": "ISC",
   "main": "migrate.js",
+  "name": "migrate",
   "scripts": {
     "start": "node migrate.js"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "jsdom": "^18.0.1",
-    "node-fetch": "^2.6.1"
-  }
+  "version": "1.0.0"
 }
