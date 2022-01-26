@@ -1,5 +1,7 @@
 const { ELASTIC_MAX_RESULTS_PER_PAGE = 5, POSTS_URL } = process.env;
-const { client } = require('./elastic');
+const { Elastic } = require('@senecacdot/satellite');
+
+const client = Elastic();
 
 const index = 'posts';
 const type = 'post';
