@@ -83,6 +83,14 @@ module.exports = {
       files: ['test/**/*.js', '*.test.js', '*.test.ts', '*.test.tsx', '**/__mocks__/**/*.js'],
       env: { jest: true, node: true },
     },
+
+    // Expo React Native app
+    {
+      files: ['src/mobile/**/*.js', 'src/mobile/**/*.jsx'],
+      extends: ['plugin:react/recommended', 'plugin:react-hooks/recommended'],
+      plugins: ['react-native'],
+      rules: { 'no-use-before-define': 'off' },
+    },
   ],
 
   // Default rules for any file we lint

@@ -32,7 +32,8 @@
     "services:logs": "node bin/services-logs.js --",
     "services:clean": "node bin/services-clean.js",
     "prepare": "husky install",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "postinstall": "cd src/mobile && npm install"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -104,6 +105,7 @@
     "eslint-plugin-promise": "5.2.0",
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-plugin-react-native": "4.0.0",
     "fast-xml-parser": "3.21.1",
     "husky": "7.0.4",
     "jest": "27.4.7",
