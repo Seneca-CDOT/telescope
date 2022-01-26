@@ -1,0 +1,26 @@
+{
+  "name": "mobile",
+  "version": "1.0.0",
+  "main": "expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "expo": "44.0.0",
+    "expo-status-bar": "1.2.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "0.64.3",
+    "react-native-web": "0.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "7.12.9",
+    "@rnx-kit/metro-config": "1.2.27",
+    "@rnx-kit/metro-resolver-symlinks": "0.1.16"
+  },
+  "private": true
+}
