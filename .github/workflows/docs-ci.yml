@@ -1,15 +1,15 @@
-name: node-js-ci
+name: docs-ci
 
 on:
   pull_request:
     branches:
       - master
-    paths-ignore:
+    paths:
       - 'docs/**'
   push:
     branches:
       - master
-    paths-ignore:
+    paths:
       - 'docs/**'
 
 jobs:
@@ -20,11 +20,3 @@ jobs:
   # Make sure eslint passes
   eslint:
     uses: Seneca-CDOT/telescope/.github/workflows/eslint-ci.yml@master
-
-  # Run unit tests on all platforms/versions of node
-  unit:
-    uses: Seneca-CDOT/telescope/.github/workflows/unit-tests-ci.yml@master
-
-  # Run end-to-end tests along with the microservices in docker-compose on Linux
-  e2e:
-    uses: Seneca-CDOT/telescope/.github/workflows/e2e-tests-ci.yml@master
