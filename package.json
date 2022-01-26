@@ -1,6 +1,6 @@
 {
   "name": "@senecacdot/satellite",
-  "version": "1.18.0",
+  "version": "1.20.0",
   "description": "A Microservice Framework for Telescope",
   "main": "src/index.js",
   "scripts": {
