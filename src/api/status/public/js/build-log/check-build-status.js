@@ -2,7 +2,7 @@
 // being loaded. On staging and production, remove the `api.` subdomain.
 // On localhost:1111, use localhost (drop the port).
 const autodeploymentUrl = (path) =>
-  `//${window.location.hostname.replace('.api', '')}/deploy${path}`;
+  `//${window.location.hostname.replace(/(api\.|\.api)/, '')}/deploy${path}`;
 
 const getBuildLog = async (buildName) => {
   if (!(buildName === 'current' || buildName === 'previous')) {
