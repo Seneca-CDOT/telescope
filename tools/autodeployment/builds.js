@@ -4,9 +4,10 @@ const mergeStream = require('merge-stream');
 const { ReReadable } = require('rereadable-stream');
 
 class Build {
-  constructor(type, githubData) {
+  constructor(type, githubData, sha) {
     this.type = type;
     this.githubData = githubData;
+    this.sha = sha;
     this.startedDate = new Date();
 
     // Start a build log cache that we can re-play as many times as necessary
@@ -33,6 +34,7 @@ class Build {
     const build = {
       type: this.type,
       githubData: this.githubData,
+      sha: this.sha,
       startedDate: this.startedDate,
       code: this.code,
     };
@@ -76,18 +78,14 @@ function run() {
   builds.pending = null;
 
   logger.debug('run() called, starting pending build');
-  build.proc = shell.exec(
-    `./deploy.sh ${build.type} ${build.githubData.after}`,
-    { silent: true },
-    (code) => {
-      build.finish(code);
-      builds.previous = builds.current;
-      builds.current = null;
+  build.proc = shell.exec(`./deploy.sh ${build.type} ${build.sha}`, { silent: true }, (code) => {
+    build.finish(code);
+    builds.previous = builds.current;
+    builds.current = null;
 
-      // See if there's another build ready to go
-      run();
-    }
-  );
+    // See if there's another build ready to go
+    run();
+  });
 
   // Combine stderr and stdout, like 2>&1
   build.out = mergeStream(build.proc.stdout, build.proc.stderr);
@@ -95,11 +93,11 @@ function run() {
   build.out.pipe(cache);
 }
 
-module.exports.addBuild = function (type, githubData) {
+module.exports.addBuild = function (type, githubData, sha) {
   // If we're in the middle of a build, queue this build until we're done.
   // If there's already a queued build waiting, replace it with this one,
   // since the most recent one is the one we really care about.
-  builds.pending = new Build(type, githubData);
+  builds.pending = new Build(type, githubData, sha);
   logger.debug({ type }, 'addBuild() called');
   run();
 };

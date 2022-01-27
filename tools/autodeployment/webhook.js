@@ -49,6 +49,24 @@ function requestFilter(repo, buildType, action, ref, mainBranch) {
 }
 
 /**
+ * Extract the commit for this GitHub payload, depending on the event type
+ * @param {'push' | 'release'} eventType one of 'push' or 'release'
+ * @param {Object} githubData webhook payload from GitHub, see https://github.com/Seneca-CDOT/telescope/settings/hooks
+ */
+function getSha(eventType, githubData) {
+  if (eventType === 'push') {
+    // "after": "adf299da6e6e9c3f20208ee6ab61d205a9f70eab",
+    return githubData.after;
+  }
+  if (eventType === 'release') {
+    // "target_commitish": "1a4594cfc443d307679576d9fdfa402f530a570c",
+    return githubData.release.target_commitish;
+  }
+  logger.warn(`Unknown GitHub event type ${eventType}. Unable to parse git SHA`);
+  return 'unknown';
+}
+
+/**
  * Create a handler for the particular GitHub push event and build type
  * @param {string} buildType - one of `production` or `staging`
  * @param {string} gitHubEvent - the GitHub Push Event name
@@ -74,7 +92,8 @@ function handleEventType(buildType, gitHubEvent) {
         githubData.repository.master_branch
       )
     ) {
-      addBuild(buildType, githubData);
+      const sha = getSha(gitHubEvent, githubData);
+      addBuild(buildType, githubData, sha);
     }
   });
 }
