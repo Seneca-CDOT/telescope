@@ -1,12 +1,12 @@
-// NOTE: you need to run the auth and login services in docker for these to work
+// NOTE: you need to run the sso and login services in docker for these to work
 const { hash, fetch } = require('@senecacdot/satellite');
 const { decode } = require('jsonwebtoken');
 
-// We need to get the URL to the auth service running in docker, and the list
+// We need to get the URL to the sso service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
 const { login, logout, USERS_URL, cleanupTelescopeUsers, ensureUsers } = require('./utils');
 
-const { AUTH_URL, FEED_DISCOVERY_URL } = process.env;
+const { SSO_URL, FEED_DISCOVERY_URL } = process.env;
 
 // The user info we'll use to register. We have the following user in our login
 // SSO already:
@@ -97,7 +97,7 @@ describe('Signup Flow', () => {
     // register a new Telescope user..
     async function partThree(feedUrls, accessToken) {
       const user = { ...galileoGalilei, feeds: [...feedUrls] };
-      const res = await fetch(`${AUTH_URL}/register`, {
+      const res = await fetch(`${SSO_URL}/register`, {
         method: 'POST',
         headers: {
           Authorization: `bearer ${accessToken}`,
@@ -150,7 +150,7 @@ describe('Signup Flow', () => {
 
   it('signup flow fails if user is not authenticated', async () => {
     const invalidUser = { ...galileoGalilei, email: 'wrong@email.com' };
-    const res = await fetch(`${AUTH_URL}/register`, {
+    const res = await fetch(`${SSO_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ describe('Signup Flow', () => {
     const invalidUser = { ...galileoGalilei };
     // Delete the firstName, which is required
     delete invalidUser.firstName;
-    const res = await fetch(`${AUTH_URL}/register`, {
+    const res = await fetch(`${SSO_URL}/register`, {
       method: 'POST',
       headers: {
         Authorization: `bearer ${accessToken}`,
@@ -178,7 +178,7 @@ describe('Signup Flow', () => {
 
   it('signup flow fails if user is already a Telescope user', async () => {
     const { accessToken } = await login(page, 'user2', 'user2pass');
-    const res = await fetch(`${AUTH_URL}/register`, {
+    const res = await fetch(`${SSO_URL}/register`, {
       method: 'POST',
       headers: {
         Authorization: `bearer ${accessToken}`,
@@ -189,7 +189,7 @@ describe('Signup Flow', () => {
     expect(res.status).toBe(201);
     const { token } = await res.json();
 
-    const res2 = await fetch(`${AUTH_URL}/register`, {
+    const res2 = await fetch(`${SSO_URL}/register`, {
       method: 'POST',
       headers: {
         Authorization: `bearer ${token}`,

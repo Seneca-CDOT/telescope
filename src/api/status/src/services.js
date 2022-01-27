@@ -10,7 +10,7 @@ const prodUrl = (pathname) => `${prodHost}/${apiVersion}${pathname}`;
 // Our current list of microservices
 const services = [
   {
-    name: 'auth',
+    name: 'sso',
     staging: stagingUrl('/auth/healthcheck'),
     production: prodUrl('/auth/healthcheck'),
   },

@@ -164,7 +164,7 @@ importers:
       ts-jest: 27.1.2_ac3f9d4a26c88540c3f2823ef15b8533
       turbo: 1.0.28
 
-  src/api/auth:
+  src/api/sso:
     specifiers:
       '@senecacdot/satellite': ^1.x
       celebrate: 15.0.0

@@ -1,8 +1,8 @@
 {
-  "name": "@senecacdot/auth-service",
+  "name": "@senecacdot/sso-service",
   "private": true,
   "version": "1.0.0",
-  "description": "An Authorization Service",
+  "description": "An SSO Authentication and Authorization Service",
   "scripts": {
     "dev": "env-cmd -f env.local nodemon src/server.js",
     "start": "node src/server.js"

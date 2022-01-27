@@ -68,15 +68,15 @@ services:
       - 'traefik.http.middlewares.strip_image_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.image.middlewares=strip_image_prefix'
 
-  # auth service
-  auth:
-    container_name: 'auth'
+  # sso auth service (connects with Seneca's auth)
+  sso:
+    container_name: 'sso'
     build:
-      context: ../src/api/auth
+      context: ../src/api/sso
       dockerfile: Dockerfile
     environment:
       - NODE_ENV
-      - AUTH_PORT
+      - SSO_PORT
       - SSO_LOGIN_URL
       - SSO_LOGIN_CALLBACK_URL
       - SLO_LOGOUT_URL
@@ -100,7 +100,7 @@ services:
       # Traefik routing for the auth service at /v1/auth
       - 'traefik.http.routers.auth.rule=PathPrefix(`/${API_VERSION}/auth`)'
       # Specify the auth service port
-      - 'traefik.http.services.auth.loadbalancer.server.port=${AUTH_PORT}'
+      - 'traefik.http.services.auth.loadbalancer.server.port=${SSO_PORT}'
       # Add middleware to this route to strip the /v1/auth prefix
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.prefixes=/${API_VERSION}/auth'
       - 'traefik.http.middlewares.strip_auth_prefix.stripprefix.forceSlash=true'
@@ -281,7 +281,7 @@ services:
         - API_URL=${API_URL}
         # Telescope 2.0 Microservice URLs
         - IMAGE_URL=${IMAGE_URL}
-        - AUTH_URL=${AUTH_URL}
+        - SSO_URL=${SSO_URL}
         - POSTS_URL=${POSTS_URL}
         - SEARCH_URL=${SEARCH_URL}
         - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}

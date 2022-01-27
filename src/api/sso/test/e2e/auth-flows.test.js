@@ -1,9 +1,9 @@
-// NOTE: you need to run the auth and login services in docker for these to work
+// NOTE: you need to run the sso and login services in docker for these to work
 const { hash } = require('@senecacdot/satellite');
 
-// We need to get the URL to the auth service running in docker, and the list
+// We need to get the URL to the sso service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
-const { AUTH_URL, ALLOWED_APP_ORIGINS } = process.env;
+const { SSO_URL, ALLOWED_APP_ORIGINS } = process.env;
 const {
   login,
   logout,
@@ -82,8 +82,8 @@ describe('Authentication Flows', () => {
     expect(origins).toContain('http://localhost:8888');
   });
 
-  it('should use the same AUTH_URL as we have hard-coded in the test HTML', () => {
-    expect(AUTH_URL).toEqual('http://localhost/v1/auth');
+  it('should use the same SSO_URL as we have hard-coded in the test HTML', () => {
+    expect(SSO_URL).toEqual('http://localhost/v1/auth');
   });
 
   it('should have all expected Telescope users in Users service for test data accounts', () =>

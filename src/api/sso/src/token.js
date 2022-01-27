@@ -29,7 +29,7 @@ function createToken(email, firstName, lastName, name, roles, picture) {
     family_name: lastName,
     // name claim: the user's full display name
     name,
-    // roles claim: an Arry of one or more authorization roles. There are various
+    // roles claim: an Array of one or more authorization roles. There are various
     // combinations possible. For authenticated users, we currently have the
     // following, and/ a user will have one or more, depending on their account type:
     //   1. seneca (user was authenticated with Seneca's SSO)

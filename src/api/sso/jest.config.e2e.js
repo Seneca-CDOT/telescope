@@ -3,8 +3,8 @@ const baseConfig = require('../../../jest.config.base');
 module.exports = {
   ...baseConfig,
   rootDir: '../../..',
-  testMatch: ['<rootDir>/src/api/auth/test/e2e/**/*.test.js'],
-  collectCoverageFrom: ['<rootDir>/src/api/auth/src/**/*.js'],
+  testMatch: ['<rootDir>/src/api/sso/test/e2e/**/*.test.js'],
+  collectCoverageFrom: ['<rootDir>/src/api/sso/src/**/*.js'],
   // We use jest-playwright to do browser tests, https://github.com/playwright-community/jest-playwright
   // See the jest-playwright config in the Telescope root ./jest-playwright.config.js
   preset: 'jest-playwright-preset',

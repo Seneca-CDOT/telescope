@@ -15,7 +15,7 @@ import DynamicImage from '../components/DynamicImage';
 import { SignUpForm } from '../interfaces';
 import formModels from '../components/SignUp/Schema/FormModel';
 import formSchema from '../components/SignUp/Schema/FormSchema';
-import { authServiceUrl } from '../config';
+import { ssoServiceUrl } from '../config';
 import PopUp from '../components/PopUp';
 import Spinner from '../components/Spinner';
 
@@ -206,7 +206,7 @@ const SignUpPage = () => {
 
       setLoading(true);
 
-      const response = await fetch(`${authServiceUrl}/register`, {
+      const response = await fetch(`${ssoServiceUrl}/register`, {
         method: 'POST',
         headers: {
           Authorization: `bearer ${token}`,
