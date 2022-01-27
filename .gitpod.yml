@@ -9,11 +9,13 @@ tasks:
       eval $(gp env -e API_URL=$(gp url 3000))
       eval $(gp env -e WEB_URL=$(gp url 8000))
       eval $(gp env -e API_HOST=$(gp url 8443))
+      eval $(gp env -e SSO_LOGIN_URL=$(gp url 8081))
       eval $(gp env -e SERVICES="status image sso search posts feed-discovery users redis elasticsearch login firebase")
 
       sed -r \
           -e  "s@(.+=)http://localhost:8000(/[^ ]*)*@\1$WEB_URL\2@g" \
           -e  "s@(.+=)http://localhost:3000(/[^ ]*)*@\1$API_URL\2@g" \
+          -e  "s@(.+=)http://localhost:8081(/[^ ]*)*@\1$SSO_LOGIN_URL\2@g" \
           -e  "s@(.+=)http://localhost([^:]*)@\1$API_HOST\2@g" \
           -e  "s@development\.yml@gitpod\.yml@" \
           config/env.development > .env
