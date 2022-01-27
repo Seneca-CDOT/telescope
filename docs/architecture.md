@@ -41,7 +41,7 @@ In production, the legacy back-end is deployed as a container named `telescope` 
 
 The legacy back-end has been split into a series of microservices. Each microservice follows a similar architectural pattern and has a single focuses. The current microservices include:
 
-- Auth Service (`src/api/auth`) - authentication and authorization
+- SSO Auth Service (`src/api/sso`) - authentication and authorization with Seneca's SSO service
 - Feed-Discovery Service (`src/api/feed-discovery`) - blog feed discovery and validation
 - Image Service (`src/api/image`) - dynamic image generation for the front-end hero banner
 - Planet Service (`src/api/planet`) - recreation of the original CDOT Planet using Telescope's back-end
@@ -75,7 +75,7 @@ The front-end is run via its own container, and hosted statically by nginx. The 
 
 ### SAML2-based authentication and authorization
 
-Telescope uses SAML2-based authentication via Seneca's Single Sign-On in combination with token-based authorization via the Auth and Users service. A good discussion of the main ideas and implementation is available in [this blog post](https://blog.humphd.org/not-so-simple-saml/) and [this Pull Request](https://github.com/Seneca-CDOT/telescope/pull/1796#issue-812477759).
+Telescope uses SAML2-based authentication via Seneca's Single Sign-On in combination with token-based authorization via the SSO Auth and Users service. A good discussion of the main ideas and implementation is available in [this blog post](https://blog.humphd.org/not-so-simple-saml/) and [this Pull Request](https://github.com/Seneca-CDOT/telescope/pull/1796#issue-812477759).
 
 In development, we use a test PHP-based SAML Identity Provider to test against. See [Login](login.md).
 

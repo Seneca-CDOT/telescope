@@ -1,4 +1,4 @@
-// NOTE: you need to run the auth and login services in docker for these to work
+// NOTE: you need to run the sso and login services in docker for these to work
 const request = require('supertest');
 const { app } = require('../../src');
 

@@ -24,7 +24,7 @@ const envVarsToForward = [
   'API_URL',
   'IMAGE_URL',
   'POSTS_URL',
-  'AUTH_URL',
+  'SSO_URL',
   'SEARCH_URL',
   'FEED_DISCOVERY_URL',
   'STATUS_URL',

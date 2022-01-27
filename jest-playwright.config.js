@@ -1,4 +1,4 @@
-// NOTE: this should really live in src/api/auth but jest-playwright doesn't
+// NOTE: this should really live in src/api/sso but jest-playwright doesn't
 // seen to know how to find it if I put it there.  It has to be at the root.
 module.exports = {
   launchOptions: {

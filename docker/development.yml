@@ -85,7 +85,7 @@ services:
     environment:
       - FIRESTORE_EMULATOR_HOST
 
-  auth:
+  sso:
     environment:
       # We development and testing, the Auth service needs to contact the users
       # service directly via Docker vs through the http://localhost domain.

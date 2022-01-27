@@ -1,4 +1,4 @@
-// Common utility functions and data for the auth tests
+// Common utility functions and data for the sso tests
 const { decode } = require('jsonwebtoken');
 const { createServiceToken, hash, fetch } = require('@senecacdot/satellite');
 

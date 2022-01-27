@@ -35,7 +35,7 @@
 
 <hr>
 
-## Prerequisites:
+## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/)
 - [pnpm](https://pnpm.io/)
@@ -180,7 +180,7 @@ _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach
 8. Follow the instructions on the [Docker Desktop WSL Preview](https://docs.docker.com/docker-for-windows/wsl-tech-preview/) to configure the WSL based engine. Docker-compose is installed with the Docker desktop application.
 9. Follow the Docker commands `docker-compose up --build` listed below in greater detail to start hacking.
 
-## After installing the prerequisites:
+## After installing the prerequisites
 
 ### Install Dependencies with pnpm
 
@@ -262,7 +262,7 @@ This will let you use the Telescope staging server as the backend so you do not 
 
 See [staging-production-deployment](staging-production-deployment.md) for more information on running Telescope in staging or production mode.
 
-This one depends on which part you're working with. For example, if you want to work with authorization, you need to specify the URL of AUTH in your `.env` file by going to `.env` and modifying `AUTH_URL=...` and modify it to the one you want to work with. If you're testing auth locally, use `AUTH_URL=http://localhost/v1/auth`; otherwise, use the staging one, `AUTH_URL=http://dev.api.telescope.cdot.systems/v1/auth`.
+This one depends on which part you're working with. For example, if you want to work with authorization, you need to specify the URL of AUTH in your `.env` file by going to `.env` and modifying `SSO_URL=...` and modify it to the one you want to work with. If you're testing auth locally, use `SSO_URL=http://localhost/v1/auth`; otherwise, use the staging one, `SSO_URL=http://dev.api.telescope.cdot.systems/v1/auth`.
 
 After modify the `.env` file, run these commands,
 
@@ -295,7 +295,7 @@ pnpm services:start
 
 #### Option 6: Run Login SSO
 
-If you need to login to Telescope or your work requires logging in for testing purposes, you don't need to start an extra container for login, it is included in auth service. You can simply use UI to login. For more information on Login please refer to our [Login Document](login.md).
+If you need to login to Telescope or your work requires logging in for testing purposes, you don't need to start an extra container for login, it is included in sso auth service. You can simply use UI to login. For more information on Login please refer to our [Login Document](login.md).
 
 ## Frequently Asked Questions (FAQ)
 
@@ -311,27 +311,27 @@ Using [npkill](https://npkill.js.org), select `node_modules` with the cursor arr
 
 ### How do I start Docker Daemon?
 
-Make sure to you have (docker)[https://docs.docker.com/engine/reference/commandline/dockerd/] running on your machine, you can start docker through the following methods:
+Make sure to you have [docker](https://docs.docker.com/engine/reference/commandline/dockerd/) running on your machine, you can start docker through the following methods:
 
-1.  Running the command `sudo dockerd`
-2.  Starting the docker application manually
-3.  Restarting your machine.
+1. Running the command `sudo dockerd`
+2. Starting the docker application manually
+3. Restarting your machine.
 
-You can check out the docker daemon cli through this link (here)[https://docs.docker.com/engine/reference/commandline/dockerd/)
+You can check out the docker daemon cli through this link (here)[<https://docs.docker.com/engine/reference/commandline/dockerd/>)
 
 ### I followed all the steps but my browser still can't run telescope locally
 
 Try removing the docker images and pulling them again, while you're in the root directory of the project
 
-1.  `docker system prune -af` will delete the containers
-2.  `docker-compose up <services_here>` will pull the containers and start them up
+1. `docker system prune -af` will delete the containers
+2. `docker-compose up <services_here>` will pull the containers and start them up
 
 ### 'Cannot find cgroup mount destination' error
 
 This could be an issue with WSL2 in Windows 10. You can resolve it by:
 
-1.  `sudo mkdir /sys/fs/cgroup/systemd`
-2.  `sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd`
+1. `sudo mkdir /sys/fs/cgroup/systemd`
+2. `sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd`
 
 ### 'Malformed input, repository not added' message
 

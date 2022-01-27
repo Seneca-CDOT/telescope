@@ -9,7 +9,7 @@ const webUrl = process.env.NEXT_PUBLIC_WEB_URL;
 
 // The various Telescope 2.0 microservice endpoints we use
 const imageServiceUrl = process.env.NEXT_PUBLIC_IMAGE_URL;
-const authServiceUrl = process.env.NEXT_PUBLIC_AUTH_URL;
+const ssoServiceUrl = process.env.NEXT_PUBLIC_SSO_URL;
 const postsServiceUrl = process.env.NEXT_PUBLIC_POSTS_URL;
 const searchServiceUrl = process.env.NEXT_PUBLIC_SEARCH_URL;
 const feedDiscoveryServiceUrl = process.env.NEXT_PUBLIC_FEED_DISCOVERY_URL;
@@ -22,8 +22,8 @@ const keywords = `Telescope, Seneca College, Open Source, Programming, Software 
 const image = `${telescopeUrl}/logoImages/apple-splash-1334-750.jpg`;
 const imageAlt = `Telescope Logo`;
 
-const loginUrl = `${authServiceUrl}/login`;
-const logoutUrl = `${authServiceUrl}/logout`;
+const loginUrl = `${ssoServiceUrl}/login`;
+const logoutUrl = `${ssoServiceUrl}/logout`;
 const userFeedsUrl = `${telescopeUrl}/user/feeds`;
 const feedsUrl = `${telescopeUrl}/feeds`;
 
@@ -33,7 +33,7 @@ export {
   author,
   telescopeUrl,
   webUrl,
-  authServiceUrl,
+  ssoServiceUrl,
   imageServiceUrl,
   loginUrl,
   logoutUrl,
