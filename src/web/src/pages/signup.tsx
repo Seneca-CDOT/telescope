@@ -182,10 +182,10 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if (user) {
+      setActiveStep(SIGN_UP_STEPS.BASIC_INFO);
       setLoggedIn(true);
-      handleNext();
     }
-  }, [handleNext, user]);
+  }, [user]);
 
   const handleSubmit = async (values: SignUpForm, actions: FormikHelpers<SignUpForm>) => {
     if (activeStep < 4) {

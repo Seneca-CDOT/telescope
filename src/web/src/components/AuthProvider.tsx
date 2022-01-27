@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState, useEffect } from 'react';
+import { createContext, ReactNode, useState, useEffect, useCallback } from 'react';
 import { useLocalStorage } from 'react-use';
 import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
@@ -65,31 +65,67 @@ const AuthProvider = ({ children }: Props) => {
       console.error('Error parsing token for user', err);
       cleanup();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [removeAuthState, removeToken, token]);
 
-  const login = (returnTo?: string) => {
-    // Create and store some random state that we'll send along with this login request
-    const loginState = nanoid();
-    setAuthState(loginState);
+  const login = useCallback(
+    (returnTo?: string) => {
+      // Create and store some random state that we'll send along with this login request
+      const loginState = nanoid();
+      setAuthState(loginState);
 
-    // Set our return URL
-    const url = new URL(returnTo || '', webUrl);
-    window.location.href = `${loginUrl}?redirect_uri=${url.href}&state=${loginState}`;
-  };
+      // Set our return URL
+      const url = new URL(returnTo || '', webUrl);
+      window.location.href = `${loginUrl}?redirect_uri=${url.href}&state=${loginState}`;
+    },
+    [setAuthState]
+  );
 
-  const logout = () => {
+  const logout = useCallback(() => {
     // Clear our existing token and state
     removeToken();
     removeAuthState();
 
     // Redirect to logout
     window.location.href = `${logoutUrl}?redirect_uri=${webUrl}`;
-  };
+  }, [removeAuthState, removeToken]);
 
-  const register = (receivedToken: string) => {
-    setToken(receivedToken);
-  };
+  const register = useCallback(
+    (receivedToken: string) => {
+      setToken(receivedToken);
+    },
+    [setToken]
+  );
+
+  useEffect(() => {
+    // Browser-side rendering
+    try {
+      // Try to extract access_token and state query params from the URL, which may not be there
+      const params = new URL(asPath, document.location.href).searchParams;
+      const accessToken = params.get('access_token');
+      const state = params.get('state');
+
+      if (!token && accessToken) {
+        // Remove the ?access_token=...&state=... from URL
+        router.replace(pathname, undefined, { shallow: true });
+
+        // Make sure we initiated the login flow.  When we start the login
+        // we store some random state in localStorage.  When we get redirected
+        // back with an access token, we should also get our original random state.
+        // If we do, all is well.  If not, don't use this token, since it wasn't
+        // us who initiated the login.
+        if (authState !== state) {
+          throw new Error(`login state '${state}' doesn't match expected state '${authState}'`);
+        }
+
+        // Store this token in localStorage and clear login state
+        setToken(accessToken);
+        removeAuthState();
+      }
+    } catch (err) {
+      // TODO: should we do more in the error case?  If so, what?
+      console.error('Error parsing access_token from URL', err);
+    }
+  }, [asPath, authState, pathname, removeAuthState, router, setToken, token]);
 
   // Server-side rendering.
   if (typeof window === 'undefined') {
@@ -98,35 +134,6 @@ const AuthProvider = ({ children }: Props) => {
         {children}
       </AuthContext.Provider>
     );
-  }
-
-  // Browser-side rendering
-  try {
-    // Try to extract access_token and state query params from the URL, which may not be there
-    const params = new URL(asPath, document.location.href).searchParams;
-    const accessToken = params.get('access_token');
-    const state = params.get('state');
-
-    if (!token && accessToken) {
-      // Remove the ?access_token=...&state=... from URL
-      router.replace(pathname, undefined, { shallow: true });
-
-      // Make sure we initiated the login flow.  When we start the login
-      // we store some random state in localStorage.  When we get redirected
-      // back with an access token, we should also get our original random state.
-      // If we do, all is well.  If not, don't use this token, since it wasn't
-      // us who initiated the login.
-      if (authState !== state) {
-        throw new Error(`login state '${state}' doesn't match expected state '${authState}'`);
-      }
-
-      // Store this token in localStorage and clear login state
-      setToken(accessToken);
-      removeAuthState();
-    }
-  } catch (err) {
-    // TODO: should we do more in the error case?  If so, what?
-    console.error('Error parsing access_token from URL', err);
   }
 
   return (
