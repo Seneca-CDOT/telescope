@@ -1,18 +1,27 @@
-# Creates a layer from node:lts-alpine as the base image
-FROM node:lts-alpine as base
+## Base ########################################################################
+# Use a larger node image to do the build for native deps (e.g., gcc, python)
+FROM node:lts as base
 
-# https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/
-RUN apk add dumb-init
+# Reduce npm log spam and colour during install within Docker
+ENV NPM_CONFIG_LOGLEVEL=warn
+ENV NPM_CONFIG_COLOR=false
 
-# Sets the working directory for any COPY, RUN, CMD commands
-WORKDIR /app
+# We'll run the app as the `node` user, so put it in their home directory
+WORKDIR /home/node/app
+# Copy the package.json and lock file over
+COPY package*.json /home/node/app/
 
-# Copy new files or directory into the file system of the container
-COPY --chown=node:node . .
-
-# Execute 'npm install...' command only in production. Don't generate package-lock
-RUN npm install --only=production --no-package-lock
-
-RUN npm run build
-
+## Development #################################################################
+# Define a development target that installs devDeps and runs in dev mode
+FROM base as development
+WORKDIR /home/node/app
+# Install (not ci) with dependencies, and for Linux vs. Linux Musl (which we use for -alpine)
+RUN npm install
+# Copy the source code over
+COPY --chown=node:node . /home/node/app/
+# Switch to the node user vs. root
+USER node
+# Expose port 4631
+EXPOSE 4631
+# Start the app in debug mode so we can attach the debugger
 CMD ["npm", "run", "dev"]

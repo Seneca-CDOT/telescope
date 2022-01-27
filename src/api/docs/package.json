@@ -1,10 +1,12 @@
 {
-  "name": "docs",
+  "name": "@senecacdot/docs-service",
   "private": true,
+  "version": "1.0.0",
+  "description": "A service for Telescope's documentation",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 4631",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 4631",
     "lint": "next lint"
   },
   "dependencies": {

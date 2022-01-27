@@ -115,3 +115,5 @@ services:
   docs:
     ports:
       - '4631:4631'
+    environment:
+      - POSTS_URL=http://posts:5555

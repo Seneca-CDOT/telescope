@@ -271,6 +271,23 @@ services:
       - NODE_ENV
       - DOCS_PORT
       - DOCS_URL
+      # Satellite authentication/authorization support
+      - JWT_ISSUER
+      - JWT_AUDIENCE
+      - SECRET
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the docs service at /v1/docs
+      - 'traefik.http.routers.docs.rule=PathPrefix(`/${API_VERSION}/docs`)'
+      # Specify the docs service port
+      - 'traefik.http.services.docs.loadbalancer.server.port=${DOCS_PORT}'
+      # Add middleware to this route to strip the /v1/docs prefix
+      - 'traefik.http.middlewares.strip_docs_prefix.stripprefix.prefixes=/${API_VERSION}/docs'
+      - 'traefik.http.middlewares.strip_docs_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.docs.middlewares=strip_docs_prefix'
 
   ##############################################################################
   # Third-Party Dependencies and Support Services
@@ -294,6 +311,7 @@ services:
         - SEARCH_URL=${SEARCH_URL}
         - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
         - STATUS_URL=${STATUS_URL}
+        - DOCS_URL=${DOCS_URL}
     container_name: 'nginx'
     environment:
       - TELESCOPE_HOST
