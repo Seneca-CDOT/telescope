@@ -4,6 +4,7 @@ import Issues from './Issues';
 import PullRequests from './PullRequests';
 import Commits from './Commits';
 import Users from './Users';
+import githubReservedNames from '../../githubReservedName';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,27 +47,34 @@ export const filterGitHubUrls = (urls: string[]) => {
   const commits: Set<string> = new Set();
   const users: Set<string> = new Set();
 
-  const ghUrls = urls.map((url) => parseGitHubUrl(url)).filter((url) => url !== null) as URL[];
+  // parse string to URL, and filter non reserved name
+  const ghUrls = (
+    urls.map((url) => parseGitHubUrl(url)).filter((url) => url !== null) as URL[]
+  ).filter((url) => !githubReservedNames.includes(url.pathname.split('/').slice(1, 2)[0]));
 
   ghUrls.forEach((url) => {
     const { pathname } = url;
 
-    // Match urls that start with /<user>/<repo>, and optionally end with /<anything-in-between>/<type>/<id>
+    // Match urls that start with /<user> and optionally end with /<repo> or /<repo>/<anything-in-between>/<type>/<id>
     // <id> can be number, or a mixed of 40 alphanumeric (commit id)
     // Ex: /Seneca-CDOT/telescope/pull/2367 ✅
     // Ex: /Seneca-CDOT/telescope ✅
     // Ex: /Seneca-CDOT/telescope/pull/2367/commits/d3fagd3fagd3fagd3fagd3fagd3fag4d41265748 ✅
     // Ex: /Seneca-CDOT/telescope/issues ✅
+    // Ex: /Seneca-CDOT ✅
     const matches =
-      /^\/(?<user>[^/]+)\/(?<repo>[^/]+)((\/(.*))?\/(?<type>[^/]+)\/(?<id>(\d+|\w{40}))\/?$)?/i.exec(
+      /^\/(?<user>[^/]+)(\/(?<repo>[^/]+)((\/(.*))?(\/(?<type>[^/]+)?\/(?<id>(\d+|\w{40}))\/?$))?)?/gi.exec(
         pathname
       );
 
     if (matches?.groups) {
       const { type, user, repo } = matches.groups;
 
-      const repoUrl = `${user}/${repo}`;
-      repos.add(repoUrl);
+      // if repo defined add to repos
+      if (repo) {
+        const repoUrl = `${user}/${repo}`;
+        repos.add(repoUrl);
+      }
       users.add(user);
       switch (type?.toLowerCase()) {
         case 'pull':
