@@ -1,7 +1,8 @@
-const { Satellite } = require('@senecacdot/satellite');
+const { Satellite, logger } = require('@senecacdot/satellite');
 const { static: serveStatic } = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
+const fs = require('fs/promises');
 const { check } = require('./services');
 const getGitHubData = require('./js/github-stats');
 const getFeedCount = require('./js/feed-stats');
@@ -10,6 +11,23 @@ const getJobCount = require('./js/queue-stats');
 
 // We need to be able to talk to the autodeployment server
 const autodeploymentHost = process.env.WEB_URL || 'localhost';
+
+/**
+ * @returns {Object} Vite manifest https://vitejs.dev/guide/backend-integration.html
+ */
+const readViteManifest = async () => {
+  const manifestBuffer = await fs.readFile(path.join(__dirname, '../public/dist/manifest.json'));
+  return JSON.parse(manifestBuffer);
+};
+
+/**
+ * @param {string} filePath a key in manifest.json of Vite
+ * @returns {Promise<string>} the path to the bundled js file
+ */
+const getDistJsPath = async (filePath) => {
+  const manifest = await readViteManifest();
+  return `dist/${manifest[filePath].file}`;
+};
 
 const satelliteOptions = {
   helmet: {
@@ -80,42 +98,53 @@ service.router.get(`${process.env.PATH_PREFIX || ''}/status`, (req, res) => {
 
 // Get Home page
 service.router.get(process.env.PATH_PREFIX || '/', async (req, res) => {
-  let telescope;
-  let satellite;
-  let totalPost;
-  let totalFeeds;
-  let jobCount;
   try {
-    [telescope, satellite, totalPost, totalFeeds, jobCount] = await Promise.all([
+    const [telescope, satellite, totalPost, totalFeeds, jobCount, distJsPath] = await Promise.all([
       getGitHubData('Seneca-CDOT', 'telescope'),
       getGitHubData('Seneca-CDOT', 'satellite'),
       getPostsCount(),
       getFeedCount(),
       getJobCount(),
+      getDistJsPath('public/js/pages/dashboard.js'),
     ]);
-  } catch (e) {
-    console.error(e);
-  }
-  let environment = {};
-  if (process.env.STATUS_URL === 'https://api.telescope.cdot.systems/v1/status')
-    environment = { name: 'production', staging: false };
-  else environment = { name: 'staging', staging: true };
+    let environment = {};
+    if (process.env.STATUS_URL === 'https://api.telescope.cdot.systems/v1/status')
+      environment = { name: 'production', staging: false };
+    else environment = { name: 'staging', staging: true };
 
-  res.render('status', {
-    active_dashboard: true,
-    headers: { title: 'Telescope Dashboard' },
-    telescope: { ...telescope, title: 'Telescope' },
-    satellite: { ...satellite, title: 'Satellite' },
-    totalPost,
-    totalFeeds,
-    jobCount,
-    environment,
-  });
+    return res.render('status', {
+      dist_js_path: distJsPath,
+      active_dashboard: true,
+      headers: { title: 'Telescope Dashboard' },
+      telescope: { ...telescope, title: 'Telescope' },
+      satellite: { ...satellite, title: 'Satellite' },
+      totalPost,
+      totalFeeds,
+      jobCount,
+      environment,
+    });
+  } catch (error) {
+    logger({ error }, 'Fail to fetch data');
+  }
+
+  return res.status(500).send('Fail to render /');
 });
 
 // Get Build page
-service.router.get(`${process.env.PATH_PREFIX || ''}/build`, (req, res) => {
-  res.render('builds', { active_build_log: true, headers: { title: 'Telescope Build log' } });
+service.router.get(`${process.env.PATH_PREFIX || ''}/build`, async (req, res) => {
+  try {
+    const distJsPath = await getDistJsPath('public/js/pages/build.js');
+
+    return res.render('builds', {
+      dist_js_path: distJsPath,
+      active_build_log: true,
+      headers: { title: 'Telescope Build log' },
+    });
+  } catch (error) {
+    logger({ error }, 'Fail to get dist/js path');
+  }
+
+  return res.status(500).send('Fail to render /build');
 });
 
 const port = parseInt(process.env.STATUS_PORT || 1111, 10);

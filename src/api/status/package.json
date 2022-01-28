@@ -4,8 +4,12 @@
   "version": "1.0.0",
   "description": "A service for getting the status of our services",
   "scripts": {
-    "dev": "npm run compile:scss && env-cmd -f env.local nodemon src/server.js",
+    "dev": "run-p watch:*",
+    "build": "run-s compile:*",
     "start": "node src/server.js",
+    "watch:server": "env-cmd -f env.local nodemon src/server.js",
+    "compile:js": "vite build",
+    "watch:js": "vite build --watch",
     "compile:scss": "sass ./scss/material-dashboard.scss:./public/assets/css/material-dashboard.css",
     "watch:scss": "sass --watch ./scss/material-dashboard.scss:./public/assets/css/material-dashboard.css"
   },
@@ -19,7 +23,10 @@
     "@senecacdot/satellite": "^1.x",
     "express": "4.17.2",
     "express-handlebars": "6.0.2",
-    "sass": "1.45.2"
+    "sass": "1.45.2",
+    "vite": "2.7.13",
+    "npm-run-all": "4.1.5"
+
   },
   "engines": {
     "node": ">=12.0.0"

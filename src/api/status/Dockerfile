@@ -9,7 +9,7 @@ COPY --chown=node:node . .
 
 RUN npm install --only=production --no-package-lock
 
-RUN npm run compile:scss
+RUN npm run build
 
 USER node
 
