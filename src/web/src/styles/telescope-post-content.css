@@ -106,13 +106,10 @@
   overflow-wrap: unset;
   word-wrap: none;
   font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
-  background: #eff0f1;
-  color: #242424;
   border-radius: 3px;
 }
 
 .telescope-post-content pre {
-  border: 1px solid #242424;
   page-break-inside: avoid;
   font-size: 1.5rem;
   line-height: 1.5;

@@ -217,6 +217,12 @@ const useStyles = makeStyles((theme: Theme) =>
       '& a:visited': {
         color: theme.palette.action.selected,
       },
+      '& pre code': {
+        backgroundColor: theme.palette.background.default,
+      },
+      '& code': {
+        backgroundColor: theme.palette.background.default,
+      },
       [theme.breakpoints.down(600)]: {
         padding: '.5em',
         width: 'auto',

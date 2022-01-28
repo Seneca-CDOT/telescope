@@ -41,6 +41,9 @@ class MyDocument extends Document {
           <meta name="twitter:description" content={description} />
           <meta name="twitter:image" content={image} />
           <meta name="twitter:image:alt" content={imageAlt} />
+
+          <link rel="stylesheet" href="/styles/github.min.css" id="light-stylesheet" />
+          <link rel="stylesheet" href="/styles/github-dark.min.css" id="dark-stylesheet" />
         </Head>
         <body>
           <Main />

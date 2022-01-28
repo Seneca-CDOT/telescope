@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useLocalStorage, useMedia } from 'react-use';
 
 /**
@@ -10,6 +11,19 @@ export default function usePreferredTheme() {
     'preference:theme',
     isDarkThemePreferred ? 'dark' : 'light'
   );
+  useEffect(() => {
+    const lightStyleSheet = (document.querySelector('#light-stylesheet') as HTMLStyleElement).sheet;
+
+    if (lightStyleSheet !== null) {
+      lightStyleSheet.disabled = preferredTheme === 'dark';
+    }
+
+    const darkStyleSheet = (document.querySelector('#dark-stylesheet') as HTMLStyleElement).sheet;
+
+    if (darkStyleSheet !== null) {
+      darkStyleSheet.disabled = preferredTheme === 'light';
+    }
+  }, [preferredTheme]);
 
   return [preferredTheme, setPreferredTheme] as const;
 }
