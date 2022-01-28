@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     repos: {
       paddingLeft: 0,
       display: 'flex',
-      flexDirection: 'column',
+      flexWrap: 'wrap',
       gap: '1.5rem',
     },
     repo: {
