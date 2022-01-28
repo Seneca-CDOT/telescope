@@ -10,12 +10,14 @@ tasks:
       eval $(gp env -e WEB_URL=$(gp url 8000))
       eval $(gp env -e API_HOST=$(gp url 8443))
       eval $(gp env -e SSO_LOGIN_URL=$(gp url 8081))
+      eval $(gp env -e SUPABASE_API=$(gp url 8911))
       eval $(gp env -e SERVICES="status image sso search posts feed-discovery users redis elasticsearch login firebase")
 
       sed -r \
           -e  "s@(.+=)http://localhost:8000(/[^ ]*)*@\1$WEB_URL\2@g" \
           -e  "s@(.+=)http://localhost:3000(/[^ ]*)*@\1$API_URL\2@g" \
           -e  "s@(.+=)http://localhost:8081(/[^ ]*)*@\1$SSO_LOGIN_URL\2@g" \
+          -e  "s@(.+=)http://kong:8000(/[^ ]*)*@\1$SUPABASE_API\2@g" \
           -e  "s@(.+=)http://localhost([^:]*)@\1$API_HOST\2@g" \
           -e  "s@development\.yml@gitpod\.yml@" \
           config/env.development > .env
@@ -45,38 +47,54 @@ tasks:
 # Exposing service ports
 # Overriding the default notification popup when a port is open
 ports:
-  # NextJS frontend
   - port: 8000
+    name: frontend
     visibility: public
     onOpen: open-preview
-  # Web API
   - port: 3000
+    name: web-api
     visibility: public
     onOpen: ignore
-  # Microservice server
   - port: 8443
+    name: micro-services
     visibility: public
     onOpen: ignore
-  #  Redis server
   - port: 6379
+    name: redis
     onOpen: ignore
-  # Elasticsearch server
   - port: 9200
+    name: elasticsearch
     onOpen: ignore
-  # Firebase emulator
   - port: 4000
+    name: firebase
     onOpen: ignore
-  # Firestore emulator
   - port: 8088
+    name: firestore
     onOpen: ignore
-  # Traefik UI
   - port: 8080
+    name: traefik
     onOpen: ignore
-  # Login Page
   - port: 8081
+    name: login
     onOpen: ignore
-  # Static Web Content test
   - port: 8888
+    name: test-web-content
+    onOpen: ignore
+  - port: 7777
+    name: auth
+    onOpen: ignore
+  # Supabase Services
+  - port: 8910
+    name: supabase-studio
+    onOpen: notify
+  - port: 8911
+    name: kong-http
+    onOpen: ignore
+  - port: 8912
+    name: kong-https
+    onOpen: ignore
+  - port: 8913
+    name: postgresql
     onOpen: ignore
 
 github:
