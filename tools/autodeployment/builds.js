@@ -34,14 +34,11 @@ class Build {
       type: this.type,
       githubData: this.githubData,
       startedDate: this.startedDate,
+      code: this.code,
     };
 
     if (this.stoppedDate) {
       build.stoppedDate = this.stoppedDate;
-    }
-
-    if (this.code) {
-      build.code = this.code;
     }
 
     return build;
