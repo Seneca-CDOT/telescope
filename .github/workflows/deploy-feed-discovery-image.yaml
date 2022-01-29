@@ -1,0 +1,26 @@
+name: build-and-push-feed-discovery
+
+on:
+  push:
+    branches:
+      - 'issue#1743'
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: src\api\feed-discovery
+          dockerfile: Dockerfile
+          push: true
+          tags: user/app:latest
