@@ -6,6 +6,7 @@ certs
 .cache
 .next
 out
+pnpm-lock.yaml
 
 # We don't maintain these files
 src/api/status/public/assets
