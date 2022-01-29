@@ -18,7 +18,7 @@ specifiers:
   ioredis-mock: 5.5.5
   jest: 27.4.7
   jsonwebtoken: 8.5.1
-  nock: 13.0.11
+  nock: 13.2.2
   node-fetch: 2.6.7
   pino: 7.6.5
   pino-http: 6.6.0
@@ -50,7 +50,7 @@ devDependencies:
   get-port: 5.1.1
   husky: 5.2.0
   jest: 27.4.7
-  nock: 13.0.11
+  nock: 13.2.2
   prettier: 2.2.1
   pretty-quick: 3.1.3_prettier@2.2.1
 
@@ -3230,8 +3230,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /nock/13.0.11:
-    resolution: {integrity: sha512-sKZltNkkWblkqqPAsjYW0bm3s9DcHRPiMOyKO/PkfJ+ANHZ2+LA2PLe22r4lLrKgXaiSaDQwW3qGsJFtIpQIeQ==}
+  /nock/13.2.2:
+    resolution: {integrity: sha512-PcBHuvl9i6zfaJ50A7LS55oU+nFLv8htXIhffJO+FxyfibdZ4jEvd9kTuvkrJireBFIGMZ+oUIRpMK5gU9h//g==}
     engines: {node: '>= 10.13'}
     dependencies:
       debug: 4.3.3
