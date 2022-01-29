@@ -47,6 +47,8 @@ const PostAvatar = ({ name, img, url }: AvatarProps) => {
 
   if (name.length > 0) {
     const initials = name
+      .replace(/[^a-zA-Z ]*/g, '')
+      .trim()
       .split(' ')
       // splitName represents the current value, i represents its index, and arr represent the whole splitted name-word array
       // if the index is 0, means it's the first word in the name
