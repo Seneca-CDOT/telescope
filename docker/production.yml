@@ -31,6 +31,7 @@ services:
         - POSTS_URL=${POSTS_URL}
         - SEARCH_URL=${SEARCH_URL}
         - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
+        - DOCS_URL=${DOCS_URL}
     container_name: 'telescope'
     restart: unless-stopped
     environment:
@@ -121,6 +122,10 @@ services:
     environment:
       - ELASTIC_URL=http://elasticsearch
       - ELASTIC_PORT=9200
+
+  # docs service
+  docs:
+    restart: unless-stopped
 
   ##############################################################################
   # Third-Party Dependencies and Support Services

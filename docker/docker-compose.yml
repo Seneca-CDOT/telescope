@@ -269,6 +269,7 @@ services:
       dockerfile: Dockerfile
     environment:
       - NODE_ENV
+      - WEB_URL
       - DOCS_PORT
       - DOCS_URL
       # Satellite authentication/authorization support
