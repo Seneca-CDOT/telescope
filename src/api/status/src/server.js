@@ -124,7 +124,7 @@ service.router.get(process.env.PATH_PREFIX || '/', async (req, res) => {
       environment,
     });
   } catch (error) {
-    logger({ error }, 'Fail to fetch data');
+    logger.warn({ error }, 'Fail to fetch data');
   }
 
   return res.status(500).send('Fail to render /');
@@ -141,7 +141,7 @@ service.router.get(`${process.env.PATH_PREFIX || ''}/build`, async (req, res) =>
       headers: { title: 'Telescope Build log' },
     });
   } catch (error) {
-    logger({ error }, 'Fail to get dist/js path');
+    logger.warn({ error }, 'Fail to get dist/js path');
   }
 
   return res.status(500).send('Fail to render /build');
