@@ -422,6 +422,14 @@ importers:
       rereadable-stream: 1.4.13
       shelljs: 0.8.5
 
+  tools/migrate:
+    specifiers:
+      jsdom: ^18.0.1
+      node-fetch: 2.6.7
+    dependencies:
+      jsdom: 18.1.1
+      node-fetch: 2.6.7
+
 packages:
 
   /@apideck/better-ajv-errors/0.3.2_ajv@8.9.0:
