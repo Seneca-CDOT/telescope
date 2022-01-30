@@ -103,6 +103,7 @@ module.exports.addBuild = function (type, githubData, sha) {
 };
 
 module.exports.buildStatusHandler = function handleStatus(req, res) {
+  res.setHeader('Cache-Control', 'no-cache');
   res.json(builds);
 };
 
@@ -123,7 +124,7 @@ function handleBuildByName(buildName) {
     // If we have a build process, pipe that, otherwise we're done
     const pipeLog = () => (out ? out.pipe(res) : res.end());
 
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.writeHead(200, { 'Content-Type': 'text/plain', 'Cache-Control': 'no-cache' });
 
     // Send the cached build log, which is either everything, or everything so far.
     // After we're done, pipe the rest of the log as it happens.
