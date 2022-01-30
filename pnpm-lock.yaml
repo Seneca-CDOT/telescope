@@ -14,7 +14,7 @@ specifiers:
   helmet: 4.6.0
   http-errors: 1.8.1
   husky: 5.2.0
-  ioredis: 4.27.1
+  ioredis: 4.28.3
   ioredis-mock: 5.5.5
   jest: 27.4.7
   jsonwebtoken: 8.5.1
@@ -35,8 +35,8 @@ dependencies:
   express-jwt: 6.1.0
   helmet: 4.6.0
   http-errors: 1.8.1
-  ioredis: 4.27.1
-  ioredis-mock: 5.5.5_ioredis@4.27.1
+  ioredis: 4.28.3
+  ioredis-mock: 5.5.5_ioredis@4.28.3
   jsonwebtoken: 8.5.1
   node-fetch: 2.6.7
   pino: 7.6.5
@@ -2226,7 +2226,7 @@ packages:
       p-is-promise: 3.0.0
     dev: false
 
-  /ioredis-mock/5.5.5_ioredis@4.27.1:
+  /ioredis-mock/5.5.5_ioredis@4.28.3:
     resolution: {integrity: sha512-7SxCAwNtDLC8IFDptqIhOC7ajp3fciVtCrXOEOkpyjPboAGRQkJbnpNPy1NYORoWi+0/iOtUPUQckSKtSQj4DA==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -2235,14 +2235,14 @@ packages:
     dependencies:
       fengari: 0.1.4
       fengari-interop: 0.1.3_fengari@0.1.4
-      ioredis: 4.27.1
+      ioredis: 4.28.3
       lodash: 4.17.21
       minimatch: 3.0.4
       standard-as-callback: 2.1.0
     dev: false
 
-  /ioredis/4.27.1:
-    resolution: {integrity: sha512-PaFNFeBbOcEYHXAdrJuy7uesJcyvzStTM1aYMchTuky+VgKqDbXhnTJHaDsjAwcTwPx8Asatx+l2DW8zZ2xlsQ==}
+  /ioredis/4.28.3:
+    resolution: {integrity: sha512-9JOWVgBnuSxpIgfpjc1OeY1OLmA4t2KOWWURTDRXky+eWO0LZhI33pQNT9gYxANUXfh5p/zYephYni6GPRsksQ==}
     engines: {node: '>=6'}
     dependencies:
       cluster-key-slot: 1.1.0
@@ -2250,6 +2250,7 @@ packages:
       denque: 1.5.1
       lodash.defaults: 4.2.0
       lodash.flatten: 4.4.0
+      lodash.isarguments: 3.1.0
       p-map: 2.1.0
       redis-commands: 1.7.0
       redis-errors: 1.2.0
@@ -3029,6 +3030,10 @@ packages:
 
   /lodash.includes/4.3.0:
     resolution: {integrity: sha1-YLuYqHy5I8aMoeUTJUgzFISfVT8=}
+    dev: false
+
+  /lodash.isarguments/3.1.0:
+    resolution: {integrity: sha1-L1c9hcaiQon/AGY7SRwdM4/zRYo=}
     dev: false
 
   /lodash.isboolean/3.0.3:
