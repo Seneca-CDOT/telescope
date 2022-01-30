@@ -975,8 +975,7 @@ describe('fetch()', () => {
     const data = {
       userId: 11,
       title: 'Test post',
-      body:
-        'A simple post where we can talk about activities that we enjoy in life without any fears',
+      body: 'A simple post where we can talk about activities that we enjoy in life without any fears',
     };
     const options = {
       body: JSON.stringify(data),
