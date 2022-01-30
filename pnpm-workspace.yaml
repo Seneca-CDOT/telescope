@@ -5,4 +5,4 @@ packages:
   # microservices
   - 'src/api/*'
   # autodeployment
-  - 'tools/autodeployment'
+  - 'tools/*'
