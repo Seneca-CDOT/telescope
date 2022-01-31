@@ -165,15 +165,6 @@ services:
     # This will check if your certificate is up for renewal every 12 hours as recommended by Let’s Encrypt
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
-  logrotate:
-    build:
-      context: ../tools/logrotate
-      dockerfile: Dockerfile
-    container_name: 'logrotate'
-    restart: unless-stopped
-    volumes:
-      - rotate:/var/log
-
   redis:
     restart: unless-stopped
     volumes:

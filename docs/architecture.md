@@ -110,5 +110,4 @@ We also have a number of tools running in containers at runtime (most only in st
 
 - nginx, which we use to host static web sites and also as a reverse proxy for node APIs. Our nginx configs are built from a template that lives in `./config/nginx.conf.template`
 - certbot, which manages our Let's Encrypt SSL Certificates (i.e., automatically renewing them)
-- logrotate, to keep our log files from filling the staging and production server disks
 - portainer, to provide a user-friendly front-end to our main containers at run-time
