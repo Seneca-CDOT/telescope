@@ -299,7 +299,7 @@ describe('Post data class tests', () => {
       expect(articles.items.length).toBe(15);
     });
 
-    test('Post.createFromArticle() should create Post with YouTube video article', async () => {
+    test('Post.createFromArticle() should create Post with YouTube video article, with linkified content', async () => {
       const article = articles.items[0];
       const id = await Post.createFromArticle(article, feed);
       const videoPost = await Post.byId(id);
@@ -307,6 +307,9 @@ describe('Post data class tests', () => {
       expect(videoPost.title).toBe('DPS909 OSD600 Week 03 - Fixing a Bug in the Azure JS SDK');
       expect(videoPost.url).toBe('https://www.youtube.com/watch?v=mNuHA7vH6Wc');
       expect(videoPost.type).toBe('video');
+      expect(videoPost.html).toBe(
+        'Walkthrough and discussion of fixing a bug in <a href="https://github.com/Azure/azure-sdk-for-js">https://github.com/Azure/azure-sdk-for-js</a>. Issue at <a href="https://github.com/Azure/azure-sdk-for-js/issues/15772">https://github.com/Azure/azure-sdk-for-js/issues/15772</a>. PR at <a href="https://github.com/Azure/azure-sdk-for-js/pull/17820">https://github.com/Azure/azure-sdk-for-js/pull/17820</a>.'
+      );
     });
   });
 });
