@@ -1,21 +1,14 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// 1. import `NativeBaseProvider` component
+import { NativeBaseProvider, Text, Box } from 'native-base';
 
 export default function App() {
+  // 2. Use at the root of your app
   return (
-    <View style={styles.container}>
-      <Text>Telescope mobile app!</Text>
-      <StatusBar />
-    </View>
+    <NativeBaseProvider>
+      <Box flex={1} bg="#fff" alignItems="center" justifyContent="center">
+        <Text>Telescope mobile app!</Text>
+      </Box>
+    </NativeBaseProvider>
   );
 }
