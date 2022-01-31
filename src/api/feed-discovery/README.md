@@ -5,17 +5,17 @@ The Feed Discovery Service provides an autodiscovery for feed url.
 ## Install
 
 ```
-npm install
+pnpm install
 ```
 
 ## Usage
 
 ```
 # normal mode
-npm start
+pnpm start
 
 # dev mode with automatic restarts
-npm run dev
+pnpm dev
 ```
 
 By default the server is running on http://localhost:9999/.
