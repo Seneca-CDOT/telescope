@@ -1,3 +1,4 @@
+const linkifyHtml = require('linkify-html');
 const { getPost, addPost } = require('../utils/storage');
 const { logger } = require('../utils/logger');
 const processHTML = require('../utils/html');
@@ -148,7 +149,16 @@ class Post {
       article.date = article.pubdate;
     }
 
+    // All the Youtube feed return an array off html so we will need to convert it to a string so as to process and sanitize it
+    if (Array.isArray(article.content)) {
+      article.content = article.content.join(' ');
+    }
+
+    // Wrap an <a> tag on any link inside our content
+    article.content = linkifyHtml(article.content);
+
     let html;
+
     try {
       // The article.content is frequently the full HTML article content.
       // Sanitize it of any scripts or other dangerous attributes/elements,

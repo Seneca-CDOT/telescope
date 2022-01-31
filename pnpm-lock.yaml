@@ -65,6 +65,8 @@ importers:
       jest-fetch-mock: 3.0.3
       jest-playwright-preset: 1.7.0
       jsdom: 18.1.1
+      linkify-html: 3.0.5
+      linkifyjs: 3.0.5
       nock: 13.2.1
       node-fetch: 2.6.7
       normalize-url: 6.1.0
@@ -113,6 +115,8 @@ importers:
       ioredis: 4.28.2
       ioredis-mock: 5.8.1_ioredis@4.28.2
       jsdom: 18.1.1
+      linkify-html: 3.0.5_linkifyjs@3.0.5
+      linkifyjs: 3.0.5
       node-fetch: 2.6.7
       normalize-url: 6.1.0
       opml-generator: 1.1.1
@@ -10731,6 +10735,18 @@ packages:
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
+  /linkify-html/3.0.5_linkifyjs@3.0.5:
+    resolution: {integrity: sha512-3O7HEYjkugX+C/G2C2wyBmIt8Mt0pmeaHNIxRHodCFeQQeSxSoZHR+5hC1pi0WrmoEvfnSemyZyYTM8w3lo9cA==}
+    peerDependencies:
+      linkifyjs: ^3.0.0
+    dependencies:
+      linkifyjs: 3.0.5
+    dev: false
+
+  /linkifyjs/3.0.5:
+    resolution: {integrity: sha512-1Y9XQH65eQKA9p2xtk+zxvnTeQBG7rdAXSkUG97DmuI/Xhji9uaUzaWxRj6rf9YC0v8KKHkxav7tnLX82Sz5Fg==}
+    dev: false
+
   /listenercount/1.0.1:
     resolution: {integrity: sha1-hMinKrWcRyUyFIDJdeZQg0LnCTc=}
     dev: true
@@ -14095,6 +14111,7 @@ packages:
   /source-map/0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
+    requiresBuild: true
 
   /source-map/0.7.3:
     resolution: {integrity: sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==}
