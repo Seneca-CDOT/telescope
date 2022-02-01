@@ -322,3 +322,29 @@ services:
     # See the following:
     # - https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-docker.html,
     # - https://github.com/deviantony/docker-elk/issues/243
+
+  rss-bridge:
+    image: rssbridge/rss-bridge:2022-01-20
+    container_name: 'rss-bridge'
+    # See RSS-Bridge docs for config files:
+    # Whitelist - https://github.com/RSS-Bridge/rss-bridge/wiki/Whitelisting
+    # Configuration - https://github.com/RSS-Bridge/rss-bridge/wiki/Custom-Configuration#timezone
+    volumes:
+      - ../config/rss-bridge:/config
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the rss-bridge service at /v1/rss-bridge
+      - 'traefik.http.routers.rss_bridge.rule=PathPrefix(`/${API_VERSION}/rss-bridge`)'
+      # Specify the RSS-Bridge service port used internally
+      - 'traefik.http.services.rss_bridge.loadbalancer.server.port=80'
+      # Define redirect middleware for any requests to /v1/rss-bridge -> /v1/rss-bridge/ (trailing slash)
+      - 'traefik.http.middlewares.rss_bridge_redirect.redirectregex.regex=(^.*\/rss-bridge$$)'
+      - 'traefik.http.middlewares.rss_bridge_redirect.redirectregex.replacement=$$1/'
+      - 'traefik.http.middlewares.rss_bridge_redirect.redirectregex.permanent=true'
+      # Define prefix stripping middleware for any requests to /v1/rss-bridge/*
+      - 'traefik.http.middlewares.rss_bridge_prefix.stripprefix.prefixes=/${API_VERSION}/rss-bridge'
+      # Add our middleware to the router
+      - 'traefik.http.routers.rss_bridge.middlewares=rss_bridge_redirect,rss_bridge_prefix'
