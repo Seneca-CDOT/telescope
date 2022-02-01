@@ -25,6 +25,19 @@ Thanks for sending a pull request!
 
 <!-- Please add a detailed description of what this PR does and why it is needed -->
 
+## Steps to test the PR
+
+<!-- Please add steps to build the changes in your PR locally so that peers can test your PR
+    Example:
+    - `npm install`
+    - Go to '...'
+    - Click on '....'
+    - Scroll down to '....'
+    - See error
+
+    Please remember, the more clear you are, the faster your PR will be reviewed and merged.
+ -->
+
 ## Checklist
 
 <!-- Before submitting a PR, address each item -->
