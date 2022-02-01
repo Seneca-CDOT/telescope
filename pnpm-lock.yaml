@@ -169,6 +169,17 @@ importers:
       ts-jest: 27.1.2_ac3f9d4a26c88540c3f2823ef15b8533
       turbo: 1.0.28
 
+  src/api/dependency-discovery:
+    specifiers:
+      '@senecacdot/satellite': ^1.x
+      env-cmd: 10.1.0
+      nodemon: 2.0.15
+    dependencies:
+      '@senecacdot/satellite': 1.17.0
+    devDependencies:
+      env-cmd: 10.1.0
+      nodemon: 2.0.15
+
   src/api/feed-discovery:
     specifiers:
       '@senecacdot/satellite': ^1.x
@@ -13466,7 +13477,7 @@ packages:
     dependencies:
       debug: 4.3.3
       module-details-from-path: 1.0.3
-      resolve: 1.21.0
+      resolve: 1.22.0
     transitivePeerDependencies:
       - supports-color
     dev: false
