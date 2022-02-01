@@ -1,0 +1,28 @@
+{
+  "name": "dependency-discovery",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A dependency graph compilation service for Telescope",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "env-cmd -f env.local nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seneca-CDOT/telescope.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
+  "dependencies": {
+    "@senecacdot/satellite": "^1.x"
+  },
+  "devDependencies": {
+    "env-cmd": "10.1.0",
+    "nodemon": "2.0.15"
+  }
+}
