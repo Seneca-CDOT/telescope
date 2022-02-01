@@ -187,6 +187,9 @@ services:
         soft: -1
         hard: -1
 
+    rss-bridge:
+      restart: unless-stopped
+
   portainer:
     image: portainer/portainer-ce:alpine
     container_name: 'portainer'
