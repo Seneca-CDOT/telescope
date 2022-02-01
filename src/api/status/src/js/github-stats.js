@@ -1,55 +1,50 @@
-const { fetch } = require('@senecacdot/satellite');
-
+const { logger } = require('@senecacdot/satellite');
+const octokit = require('./octokit');
 const redis = require('../redis');
 
 const cacheTime = 60 * 10; // 10 mins of cache time
 
-const fetchGitHubApi = (owner, repo, path) =>
-  fetch(`https://api.github.com/repos/${owner}/${repo}/${path}`, {
-    headers: { Accept: 'application/vnd.github.v3+json' },
-  });
-
 const getStatsParticipation = async (owner, repo) => {
   // get weekly commits for last year: https://docs.github.com/en/rest/reference/repos#get-the-weekly-commit-count
-  const res = await fetchGitHubApi(owner, repo, 'stats/participation');
-  const participationResponse = await res.json();
-  if (!res.ok) {
-    throw new Error(`[Code ${res.status}] - ${participationResponse.message}`);
-  }
+  const participationResponse = await octokit.request(
+    'GET /repos/{owner}/{repo}/stats/participation',
+    {
+      owner,
+      repo,
+    }
+  );
 
   return {
     weeklyCommits: {
-      commits: participationResponse.all[participationResponse.all.length - 1],
+      commits: participationResponse.data.all[participationResponse.data.all.length - 1],
     },
     yearlyCommits: {
-      commits: participationResponse.all.reduce((a, b) => a + b),
+      commits: participationResponse.data.all.reduce((a, b) => a + b),
     },
   };
 };
 
 const getStatsCodeFrequency = async (owner, repo) => {
   // get weekly commits activity: https://docs.github.com/en/rest/reference/repos#get-the-weekly-commit-activity
-  const res = await fetchGitHubApi(owner, repo, 'stats/code_frequency');
-  const codeFrequencyResponse = await res.json();
-
-  if (!res.ok) {
-    throw new Error(`[Code ${res.status}] - ${codeFrequencyResponse.message}`);
-  }
-
-  const [, linesAdded, linesRemoved] = codeFrequencyResponse[codeFrequencyResponse.length - 1];
+  const codeFrequencyResponse = await octokit.request(
+    'GET /repos/{owner}/{repo}/stats/code_frequency',
+    {
+      owner,
+      repo,
+    }
+  );
+  const [, linesAdded, linesRemoved] =
+    codeFrequencyResponse.data[codeFrequencyResponse.data.length - 1];
   return { weeklyCommits: { linesAdded, linesRemoved } };
 };
 
 const getCommitsInfo = async (owner, repo) => {
   // get latest author from commits list: https://docs.github.com/en/rest/reference/repos#list-commits
-  const res = await fetchGitHubApi(owner, repo, 'commits');
-  const commitResponse = await res.json();
-
-  if (!res.ok) {
-    throw new Error(`[Code ${res.status}] - ${commitResponse.message}`);
-  }
-
-  const lastCommitResponse = commitResponse[0];
+  const commitResponse = await octokit.request('GET /repos/{owner}/{repo}/commits', {
+    owner,
+    repo,
+  });
+  const lastCommitResponse = commitResponse.data[0];
 
   return {
     avatar: lastCommitResponse.author.avatar_url || '',
@@ -63,13 +58,12 @@ const getCommitsInfo = async (owner, repo) => {
 
 const getContributorsInfo = async (owner, repo) => {
   // get total contributors: https://docs.github.com/en/rest/reference/repos#list-repository-contributors
-  const res = await fetchGitHubApi(owner, repo, 'contributors?per_page=1');
-
-  if (res.status >= 400) {
-    throw new Error(`[Code ${res.status}] - ${(await res.json()).message}`);
-  }
-
-  const contributorsResponse = await res.headers.get('link');
+  const { headers } = await octokit.request('GET /repos/{owner}/{repo}/contributors', {
+    owner,
+    repo,
+    per_page: 1,
+  });
+  const contributorsResponse = headers.link;
   const [, totalContributors] = contributorsResponse.match(/.*"next".*&page=([0-9]*).*"last".*/);
 
   return {
@@ -78,7 +72,6 @@ const getContributorsInfo = async (owner, repo) => {
 };
 
 module.exports = async function getGitHubData(owner, repo) {
-  let githubData = {};
   try {
     const cached = await redis.get(`github:info-${repo}`);
     if (cached) {
@@ -93,7 +86,7 @@ module.exports = async function getGitHubData(owner, repo) {
         getContributorsInfo(owner, repo),
       ]);
 
-    githubData = {
+    const githubData = {
       weeklyCommits: { ...statsParticipation.weeklyCommits, ...statsCodeFrequency.weeklyCommits },
       yearlyCommits: { ...statsParticipation.yearlyCommits },
       ...commitsInfo,
@@ -101,8 +94,10 @@ module.exports = async function getGitHubData(owner, repo) {
     };
 
     await redis.set(`github:info-${repo}`, JSON.stringify(githubData), 'EX', cacheTime);
-  } catch (err) {
-    console.error(err);
+    return githubData;
+  } catch (error) {
+    logger.warn({ error }, 'Fail to fetch github data');
   }
-  return githubData;
+
+  return {};
 };
