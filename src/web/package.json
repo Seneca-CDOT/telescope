@@ -1,12 +1,4 @@
 {
-  "name": "@senecacdot/telescope-frontend",
-  "version": "3.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev -p 8000",
-    "build": "next build && next export",
-    "start": "next start -p 8000"
-  },
   "dependencies": {
     "@fontsource/pt-serif": "4.5.0",
     "@fontsource/spartan": "4.5.1",
@@ -37,11 +29,20 @@
   "devDependencies": {
     "@mdx-js/loader": "1.6.22",
     "@mdx-js/mdx": "1.6.22",
+    "@mdx-js/react": "1.6.22",
     "@testing-library/react": "12.1.2",
     "@types/node": "16.11.18",
     "@types/react": "17.0.38",
     "babel-loader": "8.2.3",
     "terser-webpack-plugin": "5.3.0",
     "typescript": "4.5.4"
-  }
+  },
+  "name": "@senecacdot/telescope-frontend",
+  "private": true,
+  "scripts": {
+    "build": "next build && next export",
+    "dev": "next dev -p 8000",
+    "start": "next start -p 8000"
+  },
+  "version": "3.0.0"
 }
