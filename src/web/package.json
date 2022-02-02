@@ -34,6 +34,19 @@
     "@types/node": "16.11.18",
     "@types/react": "17.0.38",
     "babel-loader": "8.2.3",
+    "eslint": "7.32.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-anti-trojan-source": "1.1.0",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-jest": "25.3.4",
+    "eslint-plugin-jest-playwright": "0.2.1",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-prettier": "3.4.1",
+    "eslint-plugin-promise": "5.2.0",
+    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "eslint-plugin-react-native": "4.0.0",
     "terser-webpack-plugin": "5.3.0",
     "typescript": "4.5.4"
   },
@@ -42,7 +55,8 @@
   "scripts": {
     "build": "next build && next export",
     "dev": "next dev -p 8000",
-    "start": "next start -p 8000"
+    "start": "next start -p 8000",
+    "lint": "pnpm eslint"
   },
   "version": "3.0.0"
 }

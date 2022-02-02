@@ -130,7 +130,8 @@
         "dependsOn": [
           "^build"
         ]
-      }
+      },
+      "lint": {}
     }
   },
   "pnpm": {
