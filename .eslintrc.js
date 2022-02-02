@@ -104,16 +104,11 @@ module.exports = {
       ],
       plugins: ['react', 'react-hooks'],
       rules: {
-        'import/extensions': 'off',
-        'import/no-named-export': 'off',
-        'import/no-import-module-exports': 'off',
-        'import/no-unresolved': [
-          {
-            ignore: ['^@theme', '@docusaurus', '^@generated', '^@site'],
-          },
-        ],
+        'import/no-unresolved': 'off',
+        'global-require': 'off',
         'no-use-before-define': 'off',
-        'node/prefer-global/url': 'off',
+        'node/no-missing-import': 'off',
+        'node/no-unsupported-features/es-syntax': 'off',
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
         'react/no-array-index-key': 'off',
         'react/prop-types': 'off',
