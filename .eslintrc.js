@@ -94,7 +94,7 @@ module.exports = {
 
     // Docusaurus app
     {
-      files: ['src/api/docs/src/**/*.js'],
+      files: ['src/docs/src/**/*.js'],
       extends: [
         'plugin:node/recommended',
         'plugin:react/recommended',

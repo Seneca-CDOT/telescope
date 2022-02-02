@@ -16,8 +16,8 @@ src/web/public/workbox*
 src/api/status/src/views
 
 # Ignore these directories for the docusaurus docs website
-src/api/docs/.docusaurus
-src/api/docs/build
-src/api/docs/node_modules/
-src/api/docs/package.json
-src/api/docs/package-lock.json
+src/docs/.docusaurus
+src/docs/build
+src/docs/node_modules/
+src/docs/package.json
+src/docs/package-lock.json
