@@ -75,18 +75,11 @@ service.app.engine(
 service.app.set('view engine', 'hbs');
 service.app.set('views', path.join(__dirname, '/views'));
 
-// If a PATH_PREFIX is defined, serve our static content there, and redirect / -> PATH_PREFIX.
-// We do this in development to extra path routing that Traefik adds in production (e.g., /v1/status/*)
-if (process.env.PATH_PREFIX) {
-  service.router.use(process.env.PATH_PREFIX, serveStatic(path.join(__dirname, '../public')));
-  service.router.get('/', (req, res) => {
-    res.redirect(process.env.PATH_PREFIX);
-  });
-} else {
-  service.router.use('/', serveStatic(path.join(__dirname, '../public')));
-}
+// Static assets
+service.router.use('/', serveStatic(path.join(__dirname, '../public')));
 
-service.router.get(`${process.env.PATH_PREFIX || ''}/status`, (req, res) => {
+// Microservices status check
+service.router.get('/status', (req, res) => {
   check()
     .then((status) => {
       // This status response shouldn't be cached (we need current status info)
@@ -96,8 +89,8 @@ service.router.get(`${process.env.PATH_PREFIX || ''}/status`, (req, res) => {
     .catch((err) => res.status(500).json({ error: err.message }));
 });
 
-// Get Home page
-service.router.get(process.env.PATH_PREFIX || '/', async (req, res) => {
+// Home page
+service.router.get('/', async (req, res) => {
   try {
     const [telescope, satellite, totalPost, totalFeeds, jobCount, distJsPath] = await Promise.all([
       getGitHubData('Seneca-CDOT', 'telescope'),
@@ -131,7 +124,7 @@ service.router.get(process.env.PATH_PREFIX || '/', async (req, res) => {
 });
 
 // Get Build page
-service.router.get(`${process.env.PATH_PREFIX || ''}/build`, async (req, res) => {
+service.router.get('/build', async (req, res) => {
   try {
     const distJsPath = await getDistJsPath('public/js/pages/build.js');
 
@@ -148,4 +141,6 @@ service.router.get(`${process.env.PATH_PREFIX || ''}/build`, async (req, res) =>
 });
 
 const port = parseInt(process.env.STATUS_PORT || 1111, 10);
-service.start(port);
+service.start(port, () => {
+  logger.info(`Server started on port ${port}`);
+});
