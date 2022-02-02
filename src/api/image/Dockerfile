@@ -7,7 +7,9 @@ WORKDIR /app
 
 COPY --chown=node:node . .
 
-RUN npm install --only=production --no-package-lock
+RUN npm i -g pnpm
+
+RUN pnpm install --prod
 
 USER node
 
