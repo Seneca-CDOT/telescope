@@ -1,8 +1,28 @@
 .xterm {
-  padding: 0.5rem;
-  height: 89vh;
+  width: 100%;
 }
 
+.position-relative,
+.terminal {
+  width: auto;
+}
+
+.xterm-viewport,
+.xterm-screen,
+.xterm-link-layer,
+.xterm-cursor-layer,
+canvas {
+  width: 100% !important;
+  max-height: 100%;
+}
+
+.build-log-title-container {
+  display: flex;
+  flex-direction: row;
+}
+.sidenav-toggler-inner {
+  margin-right: 2rem;
+}
 #copy-to-clipboard-button {
   position: absolute;
   top: 0.5rem;
@@ -15,6 +35,23 @@
   gap: 0.25rem;
 }
 
+.main-content {
+  margin-right: 0.5rem;
+}
+
+.card {
+  border-bottom-right-radius: 0rem !important;
+  border-bottom-left-radius: 0rem !important;
+  border-top-left-radius: 0.75rem !important;
+  border-top-right-radius: 0.75rem !important;
+}
+.card-body {
+  padding: 1rem !important;
+}
+
+.xterm-helper-textarea {
+  overflow: hidden;
+}
 #copy-to-clipboard-button:hover,
 #copy-to-clipboard-button:focus {
   opacity: 1;
