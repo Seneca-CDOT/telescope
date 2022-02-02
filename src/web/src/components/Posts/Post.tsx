@@ -1,4 +1,4 @@
-import { useRef, useState, useMemo, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import useSWR from 'swr';
 import clsx from 'clsx';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import GithubInfoProvider from '../GithubInfoProvider';
 import { Post } from '../../interfaces';
 import AdminButtons from '../AdminButtons';
 import Spinner from '../Spinner';
@@ -282,23 +283,6 @@ const extractBlogClassName = (url: string) => {
   }
 };
 
-const extractGitHubUrlsFromPost = (htmlString: string): string[] => {
-  const parser = new DOMParser();
-  const postDoc = parser.parseFromString(htmlString, 'text/html');
-
-  const allGithubLinks = Array.from(
-    // all links that have href starts with 'https://github.com'
-    postDoc.querySelectorAll("a[href^='https://github.com']"),
-    (element) => (element as HTMLAnchorElement).href
-  );
-
-  // unique links only
-  return allGithubLinks.reduce(
-    (acc: string[], element) => (acc.includes(element) ? acc : [...acc, element]),
-    []
-  );
-};
-
 // a 'guid' from a YouTube video is usually written as 'yt:video:id'
 const extractVideoId = (post: Post): string => post.guid.split(':')[2];
 
@@ -314,11 +298,6 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   const isMedia = post?.type === 'video';
   const [expandHeader, setExpandHeader] = useState(false);
   // Extract all the github urls from the post
-  const extractedGitHubUrls: string[] = useMemo(
-    () => (post?.html ? extractGitHubUrlsFromPost(post.html) : []),
-    [post?.html]
-  );
-
   useEffect(() => {
     const onScroll = () => {
       // get the distance between the bottom of the blog post and
@@ -375,55 +354,20 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   }
 
   return (
-    <Box className={classes.root}>
-      {currentPost && totalPosts && (
-        <div className={classes.postCount}>
-          <Chip
-            label={`${currentPost.toLocaleString()} of ${totalPosts.toLocaleString()}`}
-            variant="outlined"
-            className={classes.chipComponent}
-          />
-        </div>
-      )}
-
-      {desktop ? (
-        <>
-          <ListSubheader component="div" className={classes.postInfo}>
-            <div className={classes.titleContainer}>
-              <Typography
-                variant="h3"
-                title={post.title}
-                id={post.id}
-                className={clsx(classes.title, expandHeader && classes.expandedTitle)}
-              >
-                <span
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setExpandHeader(!expandHeader)}
-                  onKeyDown={() => setExpandHeader(!expandHeader)}
-                >
-                  {post.title}
-                </span>
-              </Typography>
-            </div>
-          </ListSubheader>
-          <ListSubheader component="div" className={classes.desktopPostInfo}>
-            <PostDesktopInfo
-              postUrl={post.url}
-              authorName={post.feed.author}
-              postDate={formatPublishedDate(post.updated)}
-              blogUrl={post.feed.link}
+    <GithubInfoProvider htmlString={post?.html}>
+      <Box className={classes.root}>
+        {currentPost && totalPosts && (
+          <div className={classes.postCount}>
+            <Chip
+              label={`${currentPost.toLocaleString()} of ${totalPosts.toLocaleString()}`}
+              variant="outlined"
+              className={classes.chipComponent}
             />
-            {!!extractedGitHubUrls.length && <GitHubInfo ghUrls={extractedGitHubUrls} />}
-          </ListSubheader>
-        </>
-      ) : (
-        <Accordion
-          onKeyDown={() => setExpandHeader(!expandHeader)}
-          expanded={expandHeader}
-          className={classes.accordion}
-        >
-          <AccordionSummary className={classes.accordionSummary}>
+          </div>
+        )}
+
+        {desktop ? (
+          <>
             <ListSubheader component="div" className={classes.postInfo}>
               <div className={classes.titleContainer}>
                 <Typography
@@ -432,59 +376,113 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
                   id={post.id}
                   className={clsx(classes.title, expandHeader && classes.expandedTitle)}
                 >
-                  <span role="button" tabIndex={0}>
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setExpandHeader(!expandHeader)}
+                    onKeyDown={() => setExpandHeader(!expandHeader)}
+                  >
                     {post.title}
                   </span>
                 </Typography>
               </div>
-              <div className={classes.authorAvatarContainer}>
-                <PostAvatar name={post.feed.author} url={post.feed.link} />
-              </div>
-              <div className={classes.authorNameContainer}>
-                <h1 className={classes.author}>
-                  <a className={classes.link} href={post.feed.link}>
-                    {post.feed.author}
-                  </a>
-                </h1>
-              </div>
-              <div className={classes.publishedDateContainer}>
-                <h1 className={classes.published}>
-                  <a href={post.url} rel="bookmark" className={classes.link}>
-                    <time dateTime={post.updated}>{`${formatPublishedDate(post.updated)}`}</time>
-                  </a>
-                  <ShareButton url={post.url} />
-                  <ExpandIcon small expandHeader={expandHeader} setExpandHeader={setExpandHeader} />
-                </h1>
-
-                <div>
-                  <AdminButtons />
-                </div>
-              </div>
             </ListSubheader>
-          </AccordionSummary>
-          <AccordionDetails>
-            {!!extractedGitHubUrls.length && <GitHubInfoMobile ghUrls={extractedGitHubUrls} />}
-          </AccordionDetails>
-          <ExpandIcon small={false} expandHeader={expandHeader} setExpandHeader={setExpandHeader} />
-        </Accordion>
-      )}
+            <ListSubheader component="div" className={classes.desktopPostInfo}>
+              <PostDesktopInfo
+                postUrl={post.url}
+                authorName={post.feed.author}
+                postDate={formatPublishedDate(post.updated)}
+                blogUrl={post.feed.link}
+              />
+              <GitHubInfo />
+            </ListSubheader>
+          </>
+        ) : (
+          <Accordion
+            onKeyDown={() => setExpandHeader(!expandHeader)}
+            expanded={expandHeader}
+            className={classes.accordion}
+          >
+            <AccordionSummary className={classes.accordionSummary}>
+              <ListSubheader component="div" className={classes.postInfo}>
+                <div className={classes.titleContainer}>
+                  <Typography
+                    variant="h3"
+                    title={post.title}
+                    id={post.id}
+                    className={clsx(classes.title, expandHeader && classes.expandedTitle)}
+                  >
+                    <span role="button" tabIndex={0}>
+                      {post.title}
+                    </span>
+                  </Typography>
+                </div>
+                <div className={classes.authorAvatarContainer}>
+                  <PostAvatar name={post.feed.author} url={post.feed.link} />
+                </div>
+                <div className={classes.authorNameContainer}>
+                  <h1 className={classes.author}>
+                    <a className={classes.link} href={post.feed.link}>
+                      {post.feed.author}
+                    </a>
+                  </h1>
+                </div>
+                <div className={classes.publishedDateContainer}>
+                  <h1 className={classes.published}>
+                    <a href={post.url} rel="bookmark" className={classes.link}>
+                      <time dateTime={post.updated}>{`${formatPublishedDate(post.updated)}`}</time>
+                    </a>
+                    <ShareButton url={post.url} />
+                    <ExpandIcon
+                      small
+                      expandHeader={expandHeader}
+                      setExpandHeader={setExpandHeader}
+                    />
+                  </h1>
 
-      <div className={classes.content}>
-        {isMedia && (
-          <LiteYouTubeEmbed
-            id={extractVideoId(post)}
-            title={post.title}
-            wrapperClass={`yt-lite ${classes.video}`}
-          />
+                  <div>
+                    <AdminButtons />
+                  </div>
+                </div>
+              </ListSubheader>
+            </AccordionSummary>
+            <AccordionDetails>
+              <GitHubInfoMobile />
+            </AccordionDetails>
+            <ExpandIcon
+              small={false}
+              expandHeader={expandHeader}
+              setExpandHeader={setExpandHeader}
+            />
+          </Accordion>
         )}
 
-        <section
-          ref={sectionEl}
-          className={`telescope-post-content ${extractBlogClassName(post.url)}`}
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
-      </div>
-    </Box>
+        <div className={classes.content}>
+          {isMedia && (
+            <LiteYouTubeEmbed
+              id={extractVideoId(post)}
+              title={post.title}
+              wrapperClass={`yt-lite ${classes.video}`}
+            />
+          )}
+        </div>
+        <div className={classes.content}>
+          {isMedia && (
+            <LiteYouTubeEmbed
+              id={extractVideoId(post)}
+              title={post.title}
+              wrapperClass={`yt-lite ${classes.video}`}
+            />
+          )}
+
+          <section
+            ref={sectionEl}
+            className={`telescope-post-content ${extractBlogClassName(post.url)}`}
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </div>
+      </Box>
+    </GithubInfoProvider>
   );
 };
 

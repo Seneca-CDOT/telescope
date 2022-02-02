@@ -1,5 +1,6 @@
 import { VscGitPullRequest } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import useGithubInfo from '../../hooks/use-githubInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,21 +45,19 @@ const getPullRequestInfo = (pullRequest: string) => {
   return `${user}/${repo}`;
 };
 
-type Props = {
-  prUrls: string[];
-};
-
-const PullRequests = ({ prUrls }: Props) => {
+const PullRequests = () => {
   const classes = useStyles();
+
+  const { pullRequests } = useGithubInfo();
 
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
         <VscGitPullRequest className={classes.icon} />
-        {prUrls.length === 1 ? 'Pull Request' : 'Pull Requests'}
+        {pullRequests.length === 1 ? 'Pull Request' : 'Pull Requests'}
       </h2>
       <ul className={classes.pullRequests}>
-        {prUrls.map((pullRequest) => (
+        {pullRequests.map((pullRequest) => (
           <li key={pullRequest} className={classes.pullRequest}>
             <a
               href={`https://github.com${pullRequest}`}

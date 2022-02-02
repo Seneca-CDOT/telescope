@@ -1,5 +1,6 @@
 import { VscRepoForked } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import useGithubInfo from '../../hooks/use-githubInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,21 +40,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const getRepoName = (repo: string) => repo.replace(/^([^/]+\/[^/]+).*/, '$1');
 
-type Props = {
-  repoUrls: string[];
-};
-
-const Repos = ({ repoUrls }: Props) => {
+const Repos = () => {
   const classes = useStyles();
+  const { repos } = useGithubInfo();
 
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
         <VscRepoForked className={classes.icon} />
-        {repoUrls.length === 1 ? 'Repo' : 'Repos'}
+        {repos.length === 1 ? 'Repo' : 'Repos'}
       </h2>
       <ul className={classes.repos}>
-        {repoUrls.map((repo) => (
+        {repos.map((repo) => (
           <li key={repo} className={classes.repo}>
             <a
               href={`https://github.com/${repo}`}

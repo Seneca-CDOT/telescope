@@ -1,6 +1,7 @@
 import { VscGithub } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import TelescopeAvatar from '../TelescopeAvatar';
+import useGithubInfo from '../../hooks/use-githubInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,21 +41,21 @@ const useStyles = makeStyles((theme: Theme) =>
 const getUserImage = (user: string, size: number) => `https://github.com/${user}.png?size=${size}`;
 
 type Props = {
-  usernames: string[];
   avatarSize?: number;
 };
 
-const Users = ({ usernames, avatarSize = 25 }: Props) => {
+const Users = ({ avatarSize = 25 }: Props) => {
   const classes = useStyles();
+  const { users } = useGithubInfo();
 
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
         <VscGithub className={classes.icon} />
-        {usernames.length === 1 ? 'User/Org' : 'Users/Orgs'}
+        {users.length === 1 ? 'User/Org' : 'Users/Orgs'}
       </h2>
       <ul className={classes.users}>
-        {usernames?.map((user) => (
+        {users?.map((user) => (
           <li key={user} className={classes.user}>
             <div>
               <TelescopeAvatar

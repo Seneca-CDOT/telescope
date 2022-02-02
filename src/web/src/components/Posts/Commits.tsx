@@ -1,5 +1,6 @@
 import { VscGitCommit } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import useGithubInfo from '../../hooks/use-githubInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,21 +47,18 @@ const getCommitInfo = (commit: string) => {
   return `${user}/${repo}`;
 };
 
-type Props = {
-  commitUrls: string[];
-};
-
-const Commits = ({ commitUrls }: Props) => {
+const Commits = () => {
   const classes = useStyles();
+  const { commits } = useGithubInfo();
 
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
         <VscGitCommit className={classes.icon} />
-        {commitUrls.length === 1 ? 'Commit' : 'Commits'}
+        {commits.length === 1 ? 'Commit' : 'Commits'}
       </h2>
       <ul className={classes.commits}>
-        {commitUrls.map((url) => (
+        {commits.map((url) => (
           <li key={url} className={classes.commit}>
             <a
               href={`https://github.com${url}`}
