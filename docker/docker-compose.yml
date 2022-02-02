@@ -26,6 +26,7 @@ services:
       - SECRET
     depends_on:
       - traefik
+      - redis
     labels:
       # Enable Traefik
       - 'traefik.enable=true'
@@ -33,10 +34,14 @@ services:
       - 'traefik.http.routers.status.rule=PathPrefix(`/${API_VERSION}/status`)'
       # Specify the status service port
       - 'traefik.http.services.status.loadbalancer.server.port=${STATUS_PORT}'
+      # Define redirect middleware for any requests to /v1/status -> /v1/status/ (trailing slash)
+      - 'traefik.http.middlewares.status_redirect.redirectregex.regex=(^.*\/status$$)'
+      - 'traefik.http.middlewares.status_redirect.redirectregex.replacement=$$1/'
+      - 'traefik.http.middlewares.status_redirect.redirectregex.permanent=true'
       # Add middleware to this route to strip the /v1/status prefix
       - 'traefik.http.middlewares.strip_status_prefix.stripprefix.prefixes=/${API_VERSION}/status'
       - 'traefik.http.middlewares.strip_status_prefix.stripprefix.forceSlash=true'
-      - 'traefik.http.routers.status.middlewares=strip_status_prefix'
+      - 'traefik.http.routers.status.middlewares=status_redirect,strip_status_prefix'
 
   # image service
   image:
