@@ -4,11 +4,7 @@ import Issues from './Issues';
 import PullRequests from './PullRequests';
 import Commits from './Commits';
 import Users from './Users';
-import { filterGitHubUrls } from './GitHubInfo';
-
-type Props = {
-  ghUrls: string[];
-};
+import useGithubInfo from '../../hooks/use-githubInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,19 +25,19 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const GitHubInfoMobile = ({ ghUrls }: Props) => {
+const GitHubInfoMobile = () => {
   const classes = useStyles();
-  const { repos, issues, pullRequests, commits, users } = filterGitHubUrls(ghUrls);
+  const { repos, issues, pullRequests, commits, users } = useGithubInfo();
 
   return (
     <div>
       <ListSubheader className={classes.root}>
         <div className={classes.GitHubInfoContainer}>
-          {!!repos.length && <Repos repoUrls={repos} />}
-          {!!issues.length && <Issues issueUrls={issues} />}
-          {!!pullRequests.length && <PullRequests prUrls={pullRequests} />}
-          {!!commits.length && <Commits commitUrls={commits} />}
-          {!!users.length && <Users usernames={users} />}
+          {!!repos.length && <Repos />}
+          {!!issues.length && <Issues />}
+          {!!pullRequests.length && <PullRequests />}
+          {!!commits.length && <Commits />}
+          {!!users.length && <Users />}
         </div>
       </ListSubheader>
     </div>

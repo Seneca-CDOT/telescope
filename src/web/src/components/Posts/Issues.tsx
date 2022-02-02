@@ -1,5 +1,6 @@
 import { VscIssues } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import useGithubInfo from '../../hooks/use-githubInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,21 +44,18 @@ const getIssueInfo = (issue: string) => {
   return `${user}/${repo}`;
 };
 
-type Props = {
-  issueUrls: string[];
-};
-
-const Issues = ({ issueUrls }: Props) => {
+const Issues = () => {
   const classes = useStyles();
+  const { issues } = useGithubInfo();
 
   return (
     <div className={classes.GitHubInfo}>
       <h2 className={classes.GitHubLinkTitle}>
         <VscIssues className={classes.icon} />
-        {issueUrls.length === 1 ? 'Issue' : 'Issues'}
+        {issues.length === 1 ? 'Issue' : 'Issues'}
       </h2>
       <ul className={classes.issues}>
-        {issueUrls.map((issue) => (
+        {issues.map((issue) => (
           <li key={issue} className={classes.issue}>
             <a
               href={`https://github.com${issue}`}
