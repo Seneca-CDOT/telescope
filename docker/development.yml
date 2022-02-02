@@ -111,3 +111,7 @@ services:
       - '1111:1111'
     environment:
       - POSTS_URL=http://posts:5555
+
+  docs:
+    ports:
+      - '4631:4631'

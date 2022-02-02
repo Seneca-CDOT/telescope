@@ -70,6 +70,7 @@ services:
       - FEED_QUEUE_PARALLEL_WORKERS
       - MAX_POSTS_PER_PAGE
       - GIT_COMMIT
+      - DOCS_URL
     depends_on:
       - redis
       - elasticsearch
@@ -121,6 +122,10 @@ services:
     environment:
       - ELASTIC_URL=http://elasticsearch
       - ELASTIC_PORT=9200
+
+  # docs service
+  docs:
+    restart: unless-stopped
 
   ##############################################################################
   # Third-Party Dependencies and Support Services

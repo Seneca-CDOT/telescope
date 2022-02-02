@@ -91,6 +91,24 @@ module.exports = {
       plugins: ['react-native'],
       rules: { 'no-use-before-define': 'off' },
     },
+
+    // Docusaurus app
+    {
+      files: ['src/api/docs/src/**/*.js'],
+      extends: [
+        'plugin:node/recommended',
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+      ],
+      plugins: ['react', 'react-hooks'],
+      rules: {
+        'no-use-before-define': 'off',
+        'node/prefer-global/url': 'off',
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+        'react/no-array-index-key': 'off',
+        'react/prop-types': 'off',
+      },
+    },
   ],
 
   // Default rules for any file we lint

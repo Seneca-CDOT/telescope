@@ -95,3 +95,6 @@ services:
   #     # For development and testing, the Parser service needs to contact the users
   #     # service directly via Docker vs through the http://localhost domain.
   #     - USERS_URL=http://users:7000
+
+  docs:
+    ports: '4631:4631'

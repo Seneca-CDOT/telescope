@@ -14,3 +14,10 @@ src/api/status/public/assets
 src/web/public/sw*
 src/web/public/workbox*
 src/api/status/src/views
+
+# Ignore these directories for the docusaurus docs website
+src/api/docs/.docusaurus
+src/api/docs/build
+src/api/docs/node_modules/
+src/api/docs/package.json
+src/api/docs/package-lock.json
