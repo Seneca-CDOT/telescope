@@ -28,17 +28,14 @@ CMD ["npm", "run", "dev"]
 # Also define a production target which doesn't use devDeps
 FROM base as production
 WORKDIR /home/node/app
-# We'll install production only deps, and target the Linux Musl x64 for alpine.
-RUN npm install --platform=linuxmusl --arch=x64 --production
+# We'll install production only deps
+RUN npm install --production
 
 ## Deploy ######################################################################
 # Use a smaller node image (-alpine) at runtime
 FROM node:lts-alpine as deploy
-# Install dumb-init, see:
-# https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/
-# Install specific version, and don't cache https://github.com/hadolint/hadolint/wiki/DL3018
-# https://pkgs.alpinelinux.org/package/edge/community/x86/dumb-init
-RUN apk --no-cache add dumb-init=1.2.5-r1
+# https://github.com/krallin/tini
+RUN apk --no-cache add tini=0.19.0-r0
 WORKDIR /home/node/app
 # Copy what we've installed/built from production
 COPY --chown=node:node --from=production /home/node/app/node_modules /home/node/app/node_modules/
@@ -47,4 +44,4 @@ COPY --chown=node:node . /home/node/app/
 # Switch to the node user vs. root
 USER node
 # Start the app
-CMD ["dumb-init", "node", "src/server.js"]
+CMD ["tini", "node", "src/server.js"]
