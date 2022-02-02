@@ -17,7 +17,9 @@ module.exports = {
   plugins: ['prettier', 'promise', 'jest', 'anti-trojan-source'],
   settings: {
     'import/resolver': {
-      node: {},
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
     },
     react: {
       version: '17.0',
@@ -102,6 +104,14 @@ module.exports = {
       ],
       plugins: ['react', 'react-hooks'],
       rules: {
+        'import/extensions': 'off',
+        'import/no-named-export': 'off',
+        'import/no-import-module-exports': 'off',
+        'import/no-unresolved': [
+          {
+            ignore: ['^@theme', '@docusaurus', '^@generated', '^@site'],
+          },
+        ],
         'no-use-before-define': 'off',
         'node/prefer-global/url': 'off',
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
