@@ -341,6 +341,7 @@ importers:
       '@material-ui/icons': 4.11.2
       '@mdx-js/loader': 1.6.22
       '@mdx-js/mdx': 1.6.22
+      '@mdx-js/react': 1.6.22
       '@next/mdx': 12.0.7
       '@testing-library/react': 12.1.2
       '@types/node': 16.11.18
@@ -373,7 +374,7 @@ importers:
       '@fontsource/spartan': 4.5.1
       '@material-ui/core': 4.12.3_b3482aaf5744fc7c2aeb7941b0e0a78f
       '@material-ui/icons': 4.11.2_d7c58ad036f460dedca755aa3bc1bb8f
-      '@next/mdx': 12.0.7_@mdx-js+loader@1.6.22
+      '@next/mdx': 12.0.7_f56c41adb6190c4680be4a1c0222355d
       '@types/smoothscroll-polyfill': 0.3.1
       '@types/yup': 0.29.13
       clsx: 1.1.1
@@ -397,6 +398,7 @@ importers:
     devDependencies:
       '@mdx-js/loader': 1.6.22_react@17.0.2
       '@mdx-js/mdx': 1.6.22
+      '@mdx-js/react': 1.6.22_react@17.0.2
       '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
       '@types/node': 16.11.18
       '@types/react': 17.0.38
@@ -3412,13 +3414,14 @@ packages:
     resolution: {integrity: sha512-oBlkyDop0Stf7MPIzETGv5r0YT/G/weBrknoPOUTaa5qwOeGjuy6gsOVc/SBtrBkOoBmRpD+fFhQJPvmo1mS+g==}
     dev: false
 
-  /@next/mdx/12.0.7_@mdx-js+loader@1.6.22:
+  /@next/mdx/12.0.7_f56c41adb6190c4680be4a1c0222355d:
     resolution: {integrity: sha512-yudu/ZxkFznvcQtVKKWkLYVja4kCah/yz09x5tpphr5g+xmaJNA6RylheaORIY8qdgdKRqVXt3hMnpfdH9bBtw==}
     peerDependencies:
       '@mdx-js/loader': '>=0.15.0'
       '@mdx-js/react': '*'
     dependencies:
       '@mdx-js/loader': 1.6.22_react@17.0.2
+      '@mdx-js/react': 1.6.22_react@17.0.2
     dev: false
 
   /@next/swc-android-arm64/12.0.9:
@@ -6711,6 +6714,7 @@ packages:
 
   /encoding/0.1.13:
     resolution: {integrity: sha512-ETBauow1T35Y/WZMkio9jiM0Z5xjHHmJ4XmjZOq1l/dXz3lr2sRn87nJy20RupqSh1F2m3HHPSp8ShIPQJrJ3A==}
+    requiresBuild: true
     dependencies:
       iconv-lite: 0.6.3
     dev: true
