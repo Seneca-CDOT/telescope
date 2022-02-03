@@ -1,5 +1,5 @@
 ## Base ########################################################################
-# Use a larger node image to do the build for native deps (e.g., gcc, pytyhon)
+# Use a larger node image to do the build for native deps (e.g., gcc, python)
 FROM node:lts as base
 
 # Reduce npm log spam and colour during install within Docker
@@ -34,8 +34,8 @@ WORKDIR /home/node/app
 RUN npm install --production
 
 ## Deploy ######################################################################
-# Use a smaller node image (-alpine) at runtime
-FROM node:lts-alpine as deploy
+# Use a stable nginx image
+FROM nginx:stable as deploy
 # https://github.com/krallin/tini
 RUN apk --no-cache add tini
 WORKDIR /home/node/app
@@ -45,5 +45,7 @@ COPY --chown=node:node --from=production /home/node/app/node_modules /home/node/
 COPY --chown=node:node . /home/node/app/
 # Switch to the node user vs. root
 USER node
-# Start the app
-CMD ["tini", "npm", "run", "build"]
+# Build the Docusaurus app
+RUN npm run build
+# Copy build output to /var/www/data to be served
+COPY --from=deploy /home/node/app/build /var/www/data

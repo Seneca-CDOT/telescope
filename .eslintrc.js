@@ -96,6 +96,7 @@ module.exports = {
     {
       files: ['src/docs/src/**/*.js'],
       extends: [
+        'plugin:import/typescript',
         'plugin:node/recommended',
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
@@ -105,7 +106,7 @@ module.exports = {
         // https://github.com/facebook/docusaurus/blob/main/.eslintrc.js#L122
         // Ignore certain webpack aliases because they can't be resolved
         'import/no-unresolved': [
-          'error',
+          'off',
           {
             ignore: ['^@theme', '^@docusaurus', '^@generated', '^@site'],
           },
@@ -114,7 +115,7 @@ module.exports = {
         'no-use-before-define': 'off',
         'node/no-missing-import': 'off',
         'node/no-unsupported-features/es-syntax': 'off',
-        'react/jsx-filename-extension': ['off', { extensions: ['.js', '.jsx'] }],
+        'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
         // https://github.com/facebook/docusaurus/blob/main/.eslintrc.js#L154
         // We build a static site, and nearly all components don't change.
         'react/no-array-index-key': 'off',
@@ -124,7 +125,6 @@ module.exports = {
         'import/resolver': {
           node: {
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
-            moduleDirectory: ['src/docs/node_modules', 'src/docs/src'],
           },
         },
       },
