@@ -89,7 +89,7 @@ module.exports = {
       files: ['src/mobile/**/*.js', 'src/mobile/**/*.jsx'],
       extends: ['plugin:react/recommended', 'plugin:react-hooks/recommended'],
       plugins: ['react-native'],
-      rules: { 'no-use-before-define': 'off' },
+      rules: { 'no-use-before-define': 'off', 'react/react-in-jsx-scope': 'off' },
     },
 
     // Docusaurus app
