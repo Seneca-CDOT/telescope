@@ -21,6 +21,7 @@ const {
   Elastic,
   fetch,
 } = require('./src');
+const { errors } = require('@elastic/elasticsearch');
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
 
 const createSatelliteInstance = (options) => {
@@ -936,12 +937,68 @@ describe('Redis()', () => {
 });
 
 describe('Elastic()', () => {
-  test('Testing the name property which should be a string', async () => {
-    let client = Elastic();
+  describe('Tests for regular Elastic()', () => {
+    test('Testing the name property which should be a string', async () => {
+      let client = Elastic();
 
-    const clientInfo = await client.info();
+      const clientInfo = await client.info();
 
-    expect(clientInfo.statusCode).toBe(200);
+      expect(clientInfo.statusCode).toBe(200);
+    });
+  });
+
+  describe('Tests for mock Elastic()', () => {
+    const client = Elastic();
+    const mock = client.mock;
+
+    beforeEach(() => mock.clearAll());
+
+    afterAll(() => {
+      mock.clearAll();
+    });
+
+    test('Should mock an API', async () => {
+      mock.add(
+        {
+          method: 'GET',
+          path: '/_cat/indices',
+        },
+        () => {
+          return { status: 'ok' };
+        }
+      );
+
+      const response = await client.cat.indices();
+      expect(response.body).toStrictEqual({ status: 'ok' });
+      expect(response.statusCode).toBe(200);
+    });
+
+    test('If an API is not mocked correctly, it should return a 404', async () => {
+      let response;
+
+      mock.add(
+        {
+          method: 'GET',
+          path: '/_cat/health',
+          querystring: { pretty: 'true' },
+        },
+        () => {
+          return { status: 'ok' };
+        }
+      );
+
+      try {
+        response = await client.cat.health();
+      } catch (err) {
+        expect(err instanceof errors.ResponseError).toBe(true);
+        expect(err.body).toStrictEqual({ error: 'Mock not found' });
+        expect(err.statusCode).toBe(404);
+      }
+
+      response = await client.cat.health({ pretty: true });
+      expect(response.body).toStrictEqual({ status: 'ok' });
+      expect(response.statusCode).toBe(200);
+    });
   });
 });
 

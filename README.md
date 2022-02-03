@@ -292,6 +292,35 @@ const indexPost = async ({ text, id, title, published, author }) => {
 };
 ```
 
+If `MOCK_ELASTIC=1` is set in the environment variables, the `Elastic()` function creates an instance of [ElasticSearch-mock](https://www.npmjs.com/package/@elastic/elasticsearch-mock) with a `mock` object for testing.
+
+```js
+const client = Elastic();
+const mock = client.mock;
+
+beforeEach(() => mock.clearAll());
+
+afterAll(() => {
+  mock.clearAll();
+});
+
+test('Should mock an API', async () => {
+  mock.add(
+    {
+      method: 'GET',
+      path: '/_cat/indices',
+    },
+    () => {
+      return { status: 'ok' };
+    }
+  );
+
+  const response = await client.cat.indices();
+  expect(response.body).toStrictEqual({ status: 'ok' });
+  expect(response.statusCode).toBe(200);
+});
+```
+
 ### fetch
 
 The `fetch(url, options)` function will initiate an http request to an endpoint url specified by `url` with any options also specified by the `options` parameter.
