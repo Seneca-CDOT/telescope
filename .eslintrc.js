@@ -102,8 +102,10 @@ module.exports = {
       ],
       plugins: ['react', 'react-hooks'],
       rules: {
+        // https://github.com/facebook/docusaurus/blob/main/.eslintrc.js#L122
+        // Ignore certain webpack aliases because they can't be resolved
         'import/no-unresolved': [
-          'off',
+          'error',
           {
             ignore: ['^@theme', '^@docusaurus', '^@generated', '^@site'],
           },
@@ -112,7 +114,9 @@ module.exports = {
         'no-use-before-define': 'off',
         'node/no-missing-import': 'off',
         'node/no-unsupported-features/es-syntax': 'off',
-        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+        'react/jsx-filename-extension': ['off', { extensions: ['.js', '.jsx'] }],
+        // https://github.com/facebook/docusaurus/blob/main/.eslintrc.js#L154
+        // We build a static site, and nearly all components don't change.
         'react/no-array-index-key': 'off',
         'react/prop-types': 'off',
       },
@@ -120,11 +124,8 @@ module.exports = {
         'import/resolver': {
           node: {
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
-            moduleDirectory: ['src/docs/node_modules', 'src/docs/'],
+            moduleDirectory: ['src/docs/node_modules', 'src/docs/src'],
           },
-        },
-        react: {
-          version: '17.0',
         },
       },
     },
