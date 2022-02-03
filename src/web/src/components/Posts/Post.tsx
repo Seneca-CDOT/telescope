@@ -16,16 +16,16 @@ import {
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import GitHubInfo from './GitHubInfo';
+import GitHubInfoMobile from './GitHubInfo/GitHubInfoMobile';
 import GithubInfoProvider from '../GithubInfoProvider';
-import { Post } from '../../interfaces';
-import AdminButtons from '../AdminButtons';
-import Spinner from '../Spinner';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
-import GitHubInfo from './GitHubInfo';
-import GitHubInfoMobile from './GitHubInfoMobile';
+import AdminButtons from '../AdminButtons';
+import Spinner from '../Spinner';
 import ShareButton from './ShareButton';
 import ExpandIcon from './ExpandIcon';
+import { Post } from '../../interfaces';
 
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
