@@ -40,10 +40,7 @@ canvas {
 }
 
 .card {
-  border-bottom-right-radius: 0rem !important;
-  border-bottom-left-radius: 0rem !important;
-  border-top-left-radius: 0.75rem !important;
-  border-top-right-radius: 0.75rem !important;
+  border-radius: 0.75rem 0.75rem 0 0 !important;
 }
 .card-body {
   padding: 1rem !important;
