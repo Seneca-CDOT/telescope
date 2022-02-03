@@ -1,10 +1,14 @@
 ---
-name: Project
+name: New Project
 about: Create a new project in Telescope
 labels: 'type: enhancement'
 ---
 
 <!-- Please only use this template for submitting new projects. -->
+
+### Stage: Idea
+
+<!-- Possible stages: Idea, Development, Complete -->
 
 **What is the idea?**
 
