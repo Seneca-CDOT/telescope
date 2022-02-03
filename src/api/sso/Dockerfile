@@ -35,7 +35,7 @@ RUN npm install --production
 # Use a smaller node image (-alpine) at runtime
 FROM node:lts-alpine as deploy
 # https://github.com/krallin/tini
-RUN apk --no-cache add tini=0.19.0-r0
+RUN apk --no-cache add tini
 WORKDIR /home/node/app
 # Copy what we've installed/built from production
 COPY --chown=node:node --from=production /home/node/app/node_modules /home/node/app/node_modules/
