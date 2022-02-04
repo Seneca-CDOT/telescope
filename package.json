@@ -26,6 +26,7 @@
     "server": "node src/backend/web/server",
     "test-ci": "run-s prettier-check test",
     "pre-commit": "pretty-quick --staged",
+    "preversion": "node tools/collect-dependencies.js -- -o src/api/dependency-discovery/deps.txt && git add src/api/dependency-discovery/deps.txt",
     "postversion": "git push upstream master --tags",
     "services:start": "node bin/services-start.js --",
     "services:stop": "node bin/services-stop.js",
