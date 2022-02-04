@@ -28,12 +28,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     repos: {
       paddingLeft: 0,
-      display: 'flex',
-      flexWrap: 'wrap',
+      [theme.breakpoints.down(1205)]: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
       gap: '1.5rem',
     },
     repo: {
       listStyle: 'none',
+      [theme.breakpoints.up(1205)]: {
+        marginBottom: '1.5rem',
+      },
     },
   })
 );
