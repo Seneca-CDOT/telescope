@@ -7,7 +7,7 @@
   },
   "labels": ["dependencies"],
   "timezone": "America/Toronto",
-  "reviewers": ["Seneca-CDOT/telescope-maintainers"],
+  "reviewers": ["team:telescope-maintainers"],
   "includeForks": false,
   "rebaseWhen": "never",
   "schedule": ["every weekend"],
