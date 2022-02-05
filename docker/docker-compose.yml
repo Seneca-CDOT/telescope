@@ -88,7 +88,6 @@ services:
       - ADMINISTRATORS
       - ALLOWED_APP_ORIGINS
       - JWT_EXPIRES_IN
-      - USERS_URL
       # Supabase config
       - SERVICE_ROLE_KEY
       - SUPABASE_URL

@@ -1,6 +1,17 @@
 // Common utility functions and data for the sso tests
 const { decode } = require('jsonwebtoken');
-const { createServiceToken, hash, fetch } = require('@senecacdot/satellite');
+const { hash } = require('@senecacdot/satellite');
+
+const { createClient } = require('@supabase/supabase-js');
+
+const { SERVICE_ROLE_KEY } = process.env;
+
+// From the browser, we need to access Supabase outside the docker container, so
+// we can't use the normal SUPABASE_URL.  We also use the SERVICE_ROLL_KEY for
+// admin access, which isn't acceptable outside of testing.
+const SUPABASE_URL = 'http://localhost:8911';
+
+const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
 // In tests, we need to hit this via a public URL like the front-end would
 // vs. the internal Docker URL, which the services use from the regular env value.
@@ -9,23 +20,25 @@ const USERS_URL = `http://localhost/v1/users`;
 const createTelescopeUsers = (users) =>
   Promise.all(
     users.map((user) =>
-      fetch(`${USERS_URL}/${hash(user.email)}`, {
-        method: 'post',
-        headers: {
-          Authorization: `bearer ${createServiceToken()}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      })
-        .then((res) => {
-          // We should get a 201 (created), but if the user exists, a 400 (which is fine here)
-          if (!(res.status === 201 || res.status === 400)) {
-            throw new Error(`got unexpected status ${res.status}`);
+      supabase
+        .from('telescope_profiles')
+        .insert(
+          {
+            id: hash(user.email),
+            email: user.email,
+            first_name: user.firstName,
+            last_name: user.lastName,
+            display_name: user.displayName,
+            github_username: user.githubUsername,
+            github_avatar_url: user.githubAvatarUrl,
+          },
+          { returning: 'minimal' }
+        )
+        .then((result) => {
+          if (result.error) {
+            throw new Error(`unable to insert user into Supabase: ${result.error.message}`);
           }
-          return res;
-        })
-        .catch((err) => {
-          console.error('Unable to create user with Users service', { err });
+          return result;
         })
     )
   );
@@ -34,12 +47,16 @@ const createTelescopeUsers = (users) =>
 const cleanupTelescopeUsers = (users) =>
   Promise.all(
     users.map((user) =>
-      fetch(`${USERS_URL}/${hash(user.email)}`, {
-        method: 'delete',
-        headers: {
-          Authorization: `bearer ${createServiceToken()}`,
-        },
-      })
+      supabase
+        .from('telescope_profiles')
+        .delete()
+        .match({ id: hash(user.email) })
+        .then((result) => {
+          if (result.error) {
+            throw new Error(`unable to delete user from Supabase: ${result.error.message}`);
+          }
+          return result;
+        })
     )
   );
 
@@ -100,19 +117,23 @@ const logout = async (page) => {
 
 // Given an array of users, make sure they all respond with the expected HTTP
 // result via the Users Service.
-const ensureUsers = (users, result = 200) =>
+const ensureUsers = (users, shouldExist = true) =>
   Promise.all(
-    users.map((user) =>
-      fetch(`${USERS_URL}/${hash(user.email)}`, {
-        headers: {
-          Authorization: `bearer ${createServiceToken()}`,
-          'Content-Type': 'application/json',
-        },
-      }).then((res) => {
-        expect(res.status).toEqual(result);
-        return res;
-      })
-    )
+    users.map(async (user) => {
+      const { data: profiles, error } = await supabase
+        .from('telescope_profiles')
+        .select('*')
+        .eq('id', user.id || hash(user.email))
+        .limit(1);
+
+      expect(error).toBe(null);
+
+      if (shouldExist) {
+        expect(profiles.length).toBe(1);
+      } else {
+        expect(profiles.length).toBe(0);
+      }
+    })
   );
 
 module.exports.USERS_URL = USERS_URL;

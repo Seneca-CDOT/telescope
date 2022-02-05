@@ -8,8 +8,8 @@ const router = Router();
 
 /**
  * /register allows an authenticated Seneca user to create a new Telescope
- * user account with the Users service. We do no validation on the user data,
- * which is up to the Users service. If successful, we return an upgraded
+ * user account with Supabase. We do no validation on the user data,
+ * which is up to the database schema. If successful, we return an upgraded
  * JWT token, which includes more user info and upgrade roles.
  */
 router.post(
@@ -30,7 +30,7 @@ router.post(
       user.lastName,
       user.displayName,
       user.isAdmin === true ? roles.admin() : roles.telescope(),
-      user.github?.avatarUrl
+      user.githubAvatarUrl
     );
     res.status(201).json({ token });
   }

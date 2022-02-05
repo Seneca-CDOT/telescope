@@ -4,7 +4,7 @@ const { decode } = require('jsonwebtoken');
 
 // We need to get the URL to the sso service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
-const { login, logout, USERS_URL, cleanupTelescopeUsers, ensureUsers } = require('./utils');
+const { login, cleanupTelescopeUsers, ensureUsers } = require('./utils');
 
 const { SSO_URL, FEED_DISCOVERY_URL } = process.env;
 
@@ -22,11 +22,9 @@ const galileoGalilei = {
   isAdmin: false,
   isFlagged: false,
   feeds: ['http://localhost:8888/feed.xml'],
-  github: {
-    username: 'hlippershey',
-    avatarUrl:
-      'https://avatars.githubusercontent.com/u/33902374?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-  },
+  githubUsername: 'hlippershey',
+  githubAvatarUrl:
+    'https://avatars.githubusercontent.com/u/33902374?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
 };
 
 const users = [galileoGalilei];
@@ -49,7 +47,7 @@ describe('Signup Flow', () => {
   });
 
   it('should have none of the users in the Users service for test data accounts', () =>
-    ensureUsers(users, 404));
+    ensureUsers(users, false));
 
   it('signup flow works to login and register a new Telescope user', async () => {
     // Part 1: login using SSO, as a user who does not have a Telescope account.
@@ -93,7 +91,7 @@ describe('Signup Flow', () => {
       return result.feedUrls;
     }
 
-    // Part 3: use the access token to POST to the Users service in order to
+    // Part 3: use the access token to POST to the SSO service in order to
     // register a new Telescope user..
     async function partThree(feedUrls, accessToken) {
       const user = { ...galileoGalilei, feeds: [...feedUrls] };
@@ -117,35 +115,14 @@ describe('Signup Flow', () => {
       expect(jwt.family_name).toEqual(galileoGalilei.lastName);
       expect(jwt.name).toEqual(galileoGalilei.displayName);
       expect(jwt.roles).toEqual(['seneca', 'telescope']);
-      expect(jwt.picture).toEqual(galileoGalilei.github.avatarUrl);
+      expect(jwt.picture).toEqual(galileoGalilei.githubAvatarUrl);
 
       return { id: jwt.sub, token };
     }
 
-    // Part 4: logout so we can try logging in again as a registered user.
-    // Confirm that the token payload matches our upgraded user status.
-    // Confirm that the data in the Users service for this user
-    // matches what we expect, and that our token allows us to access it.
-    async function partFour(id, token) {
-      // Logout
-      await logout(page);
-
-      // Use this upgraded token to get our user profile info and confirm.
-      const res = await fetch(`${USERS_URL}/${id}`, {
-        headers: {
-          Authorization: `bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      expect(res.ok).toBe(true);
-      const data = await res.json();
-      expect(data).toEqual(galileoGalilei);
-    }
-
     const { accessToken } = await partOne();
     const feedUrls = await partTwo(accessToken);
-    const { id, token } = await partThree(feedUrls, accessToken);
-    await partFour(id, token);
+    await partThree(feedUrls, accessToken);
   });
 
   it('signup flow fails if user is not authenticated', async () => {

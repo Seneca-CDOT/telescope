@@ -75,6 +75,11 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     padding: '12px',
+    background: 'none',
+    color: 'inherit',
+    border: 'none',
+    cursor: 'pointer',
+    outline: 'none',
   },
 }));
 

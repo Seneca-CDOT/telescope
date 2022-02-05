@@ -33,7 +33,7 @@ function createToken(email, firstName, lastName, name, roles, picture) {
     // combinations possible. For authenticated users, we currently have the
     // following, and/ a user will have one or more, depending on their account type:
     //   1. seneca (user was authenticated with Seneca's SSO)
-    //   2. telescope (user has a Telescope account with the Users service)
+    //   2. telescope (user has a Telescope account in the database)
     //   3. admin (user's Telescope account includes isAdmin=true)
     //
     // We also have a service token role, for cases where microservices need to

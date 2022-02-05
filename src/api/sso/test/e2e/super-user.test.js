@@ -46,11 +46,9 @@ describe('Super User Authentication', () => {
       isAdmin: true,
       isFlagged: false,
       feeds: ['https://imaginary.blog.com/feed/johannes'],
-      github: {
-        username: 'jkepler',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
+      githubUsername: 'jkepler',
+      githubAvatarUrl:
+        'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
     };
     const users = [johannesKepler];
 
@@ -93,11 +91,9 @@ describe('Super User Authentication', () => {
       isAdmin: false,
       isFlagged: false,
       feeds: ['https://imaginary.blog.com/feed/johannes'],
-      github: {
-        username: 'jkepler',
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-      },
+      githubUsername: 'jkepler',
+      githubAvatarUrl:
+        'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
     };
     const users = [johannesKepler];
 
