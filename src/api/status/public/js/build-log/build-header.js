@@ -24,9 +24,9 @@ function renderSender(sender) {
   buildSenderImg.src = sender.avatar_url;
 }
 
-function renderSha(compare, after) {
+function renderSha(compare, sha) {
   buildGitSHA.href = compare;
-  buildGitSHA.innerText = after.substring(0, 7);
+  buildGitSHA.innerText = sha.substring(0, 7);
 }
 
 function renderLoadingAnimation(code) {
@@ -47,8 +47,8 @@ function renderLoadingAnimation(code) {
   }
 }
 
-function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code }) {
-  const { sender, after, compare } = githubData;
+function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code, sha }) {
+  const { sender, compare } = githubData;
 
   if (buildHeaderInfo.hidden) {
     buildHeaderInfo.hidden = false;
@@ -60,7 +60,7 @@ function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code
 
   buildHeaderTitle.innerHTML = '';
   renderSender(sender);
-  renderSha(compare, after);
+  renderSha(compare, sha);
   renderBuildTimeInfo(startedDate, stoppedDate);
   renderLoadingAnimation(code);
 }
