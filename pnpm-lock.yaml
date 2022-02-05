@@ -14,7 +14,7 @@ specifiers:
   helmet: 4.6.0
   http-errors: 1.8.1
   husky: 5.2.0
-  ioredis: 4.28.3
+  ioredis: 4.28.4
   ioredis-mock: 5.9.1
   jest: 27.4.7
   jsonwebtoken: 8.5.1
@@ -35,8 +35,8 @@ dependencies:
   express-jwt: 6.1.0
   helmet: 4.6.0
   http-errors: 1.8.1
-  ioredis: 4.28.3
-  ioredis-mock: 5.9.1_ioredis@4.28.3
+  ioredis: 4.28.4
+  ioredis-mock: 5.9.1_ioredis@4.28.4
   jsonwebtoken: 8.5.1
   node-fetch: 2.6.7
   pino: 7.6.5
@@ -2229,7 +2229,7 @@ packages:
       p-is-promise: 3.0.0
     dev: false
 
-  /ioredis-mock/5.9.1_ioredis@4.28.3:
+  /ioredis-mock/5.9.1_ioredis@4.28.4:
     resolution: {integrity: sha512-ZirdGJFOqH5nP8FYXuHUJmexvtZ6r2Ybc5alaGMzt38QA0kse5/rYnBQcb4ofxkyqzhXHuaCsXiwLlfG6NyhhQ==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -2238,13 +2238,13 @@ packages:
     dependencies:
       fengari: 0.1.4
       fengari-interop: 0.1.3_fengari@0.1.4
-      ioredis: 4.28.3
+      ioredis: 4.28.4
       lodash: 4.17.21
       standard-as-callback: 2.1.0
     dev: false
 
-  /ioredis/4.28.3:
-    resolution: {integrity: sha512-9JOWVgBnuSxpIgfpjc1OeY1OLmA4t2KOWWURTDRXky+eWO0LZhI33pQNT9gYxANUXfh5p/zYephYni6GPRsksQ==}
+  /ioredis/4.28.4:
+    resolution: {integrity: sha512-KmG3FDd1pKZcWQ7/fIbwzvpkZ50NwRJ3RBK9dpetJrNfC+sxhK6TzaVkExvh9AiF+rAVSUmvqfHyQp5U418aDw==}
     engines: {node: '>=6'}
     dependencies:
       cluster-key-slot: 1.1.0
