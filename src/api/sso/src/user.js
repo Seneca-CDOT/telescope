@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const { hash } = require('@senecacdot/satellite');
 
 const roles = require('./roles');
@@ -91,9 +92,12 @@ class User {
     return this.telescope?.github;
   }
 
-  // Convenience method for getting the GitHub Avatar URL (if present)
-  get avatarUrl() {
-    return this.github?.avatarUrl;
+  get githubUsername() {
+    return this.telescope?.githubUsername;
+  }
+
+  get githubAvatarUrl() {
+    return this.telescope?.githubAvatarUrl;
   }
 
   get isTelescopeUser() {
@@ -130,6 +134,29 @@ class User {
   // Parse a serialized user back into one with segmented Seneca/Telescope parts
   static parse(data) {
     return new User(data.seneca, data.telescope);
+  }
+
+  static parseTelescopeUser(user) {
+    const {
+      id,
+      last_name,
+      first_name,
+      feeds,
+      display_name,
+      github_username,
+      github_avatar_url,
+      email,
+    } = user;
+    return {
+      id,
+      email,
+      firstName: first_name,
+      lastName: last_name,
+      displayName: display_name,
+      githubUsername: github_username,
+      githubAvatarUrl: github_avatar_url,
+      feeds,
+    };
   }
 }
 

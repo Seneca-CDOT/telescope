@@ -5,8 +5,9 @@
  */
 const passport = require('passport');
 const SamlStrategy = require('passport-saml').Strategy;
-const { createServiceToken, logger, hash, fetch } = require('@senecacdot/satellite');
+const { logger, hash } = require('@senecacdot/satellite');
 
+const supabase = require('./supabase');
 const User = require('./user');
 
 const {
@@ -16,7 +17,6 @@ const {
   SSO_LOGIN_CALLBACK_URL,
   SLO_LOGOUT_URL,
   SLO_LOGOUT_CALLBACK_URL,
-  USERS_URL,
 } = process.env;
 
 /**
@@ -29,8 +29,7 @@ if (
     SSO_LOGIN_URL &&
     SSO_LOGIN_CALLBACK_URL &&
     SLO_LOGOUT_URL &&
-    SLO_LOGOUT_CALLBACK_URL &&
-    USERS_URL
+    SLO_LOGOUT_CALLBACK_URL
   )
 ) {
   logger.error(
@@ -116,27 +115,29 @@ const strategy = new SamlStrategy(
 
     async function lookupTelescopeUser(id) {
       // We have the user's id (i.e. their hashed email address). Now
-      // make a service-to-service request to the Users service in order to
+      // make a request to the Supabase service in order to
       // get this user's full profile information using the user's id.  They
       // may or may not have a Telescope profile (yet).
       try {
-        const res = await fetch(`${USERS_URL}/${id}`, {
-          headers: {
-            Authorization: `bearer ${createServiceToken()}`,
-          },
-        });
-        if (!res.ok) {
-          if (res.status === 404) {
-            // No Telescope user profile found, so create a regular Seneca user
-            logger.debug({ senecaProfile }, `No Telescope account for ${id} with Users service`);
-            done(null, new User(senecaProfile));
-            return;
-          }
-          // We can't get a response from the Users service, so we don't know what we have.
-          throw new Error(`unable to get user info from Users service: ${res.status}`);
+        const { data: profiles, error } = await supabase
+          .from('telescope_profiles')
+          .select('*')
+          .eq('id', id)
+          .limit(1);
+
+        if (error) {
+          // We can't get a response from the Supabase, so we don't know what we have.
+          throw new Error(`unable to get user info from Supabase: ${error.message}`);
         }
-        // If we get back profile data from the Users service, parse and use
-        const telescopeProfile = await res.json();
+        if (!profiles.length) {
+          // No Telescope user profile found, so create a regular Seneca user
+          logger.debug({ senecaProfile }, `No Telescope account with id : ${id}`);
+          done(null, new User(senecaProfile));
+          return;
+        }
+
+        // If we get back profile data from Supabase, parse and use
+        const telescopeProfile = User.parseTelescopeUser(profiles[0]);
         logger.debug({ senecaProfile, telescopeProfile }, 'Telescope user authenticated');
         done(null, new User(senecaProfile, telescopeProfile));
       } catch (err) {

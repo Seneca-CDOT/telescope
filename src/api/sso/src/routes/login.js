@@ -48,7 +48,7 @@ router.post('/callback', passport.authenticate('saml'), (req, res, next) => {
     user.lastName,
     user.displayName,
     user.roles,
-    user.avatarUrl
+    user.githubAvatarUrl
   );
 
   let url = `${redirectUri}?access_token=${token}`;

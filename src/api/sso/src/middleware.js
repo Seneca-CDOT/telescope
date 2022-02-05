@@ -1,9 +1,9 @@
-const { logger, createError, fetch } = require('@senecacdot/satellite');
+const { logger, createError } = require('@senecacdot/satellite');
 const { celebrate, Segments, Joi } = require('celebrate');
 
+const supabase = require('./supabase');
+const User = require('./user');
 const { matchOrigin, getUserId } = require('./util');
-
-const { USERS_URL } = process.env;
 
 // Space-separated list of App origins that we know about and will allow
 // to be used as part of login redirects. You only need to specify
@@ -85,62 +85,82 @@ module.exports.captureAuthDetailsOnSession = function captureAuthDetailsOnSessio
   };
 };
 
-// Forward a request to create a new user to the Users service.
 module.exports.createTelescopeUser = function createTelescopeUser() {
   return async (req, res, next) => {
-    try {
-      const id = getUserId(req);
-      const response = await fetch(`${USERS_URL}/${id}`, {
-        method: 'POST',
-        headers: {
-          // re-use the user's authorization header and token
-          Authorization: req.get('Authorization'),
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(req.body),
-      });
+    const id = getUserId(req);
+    const { firstName, lastName, email, displayName, feeds, githubUsername, githubAvatarUrl } =
+      req.body;
 
-      if (response.status !== 201) {
-        logger.warn(
-          { status: response.status, id, data: req.body },
-          'unable to create user with Users service'
-        );
-        next(createError(response.status, 'unable to create user'));
-        return;
-      }
+    const { error: userError } = await supabase.from('telescope_profiles').insert(
+      {
+        id,
+        email,
+        first_name: firstName,
+        last_name: lastName,
+        display_name: displayName,
+        github_username: githubUsername,
+        github_avatar_url: githubAvatarUrl,
+      },
+      { returning: 'minimal' }
+    );
 
-      next();
-    } catch (err) {
-      logger.error({ err }, 'error creating Telescope user');
-      next(createError(500, 'unable to create Telescope user'));
+    if (userError) {
+      logger.warn(
+        { code: userError.code, details: userError.details, id, data: req.body },
+        userError.message
+      );
+      next(createError(400, 'unable to create user'));
+      return;
     }
+
+    const { error: feedError } = await supabase.from('feeds').insert(
+      feeds.map((feedUrl) => ({
+        user_id: id,
+        feed_url: feedUrl,
+        // TODO: Allow adding Youtube/Twitch feed
+        type: 'blog',
+      })),
+      { returning: 'minimal' }
+    );
+
+    if (feedError) {
+      logger.warn(
+        { code: feedError.code, details: feedError.details, id, data: req.body },
+        feedError.message
+      );
+      // Delete the newly created user if their feeds are invalid
+      await supabase.from('telescope_profiles').delete({ returning: 'minimal' }).match({ id });
+      next(createError(400, 'User feed is invalid or already exists'));
+      return;
+    }
+
+    next();
   };
 };
 
-// Get user's Telescope profile info from the Users service
+// Get user's Telescope profile info from Supabase
 module.exports.getTelescopeProfile = function getTelescopeProfile() {
   return async (req, res, next) => {
-    try {
-      const id = getUserId(req);
-      const response = await fetch(`${USERS_URL}/${id}`, {
-        headers: {
-          // re-use the user's authorization header and token
-          Authorization: req.get('Authorization'),
-        },
-      });
+    const id = getUserId(req);
+    const { data: profiles, error } = await supabase
+      .from('telescope_profiles')
+      .select('*')
+      .eq('id', id)
+      .limit(1);
 
-      if (!response.ok) {
-        logger.warn({ status: response.status, id }, 'unable to get user info from Users service');
-        next(createError(response.status, 'unable to get updated user info'));
-        return;
-      }
-
-      // Otherwise, it worked. Pass along the user's details
-      res.locals.telescopeProfile = await response.json();
-      next();
-    } catch (err) {
-      logger.error({ err }, 'error getting Telescope profile for user');
-      next(createError(500, 'unable to get Telescope user profile'));
+    if (error) {
+      logger.warn({ code: error.code, details: error.details, id }, error.message);
+      next(createError(500, 'unable to get updated user info'));
+      return;
     }
+
+    if (!profiles.length) {
+      logger.warn({ id }, 'no users found');
+      next(createError(404, 'unable to get updated user info'));
+      return;
+    }
+
+    res.locals.telescopeProfile = User.parseTelescopeUser(profiles[0]);
+    next();
   };
 };

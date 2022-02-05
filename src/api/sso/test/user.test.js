@@ -30,11 +30,9 @@ const createTelescopeProfile = (overrides = {}) => ({
   isAdmin: true,
   isFlagged: true,
   feeds: ['https://dev.to/feed/first-last'],
-  github: {
-    username: 'firstlast',
-    avatarUrl:
-      'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-  },
+  githubUsername: 'firstlast',
+  githubAvatarUrl:
+    'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
   ...overrides,
 });
 
@@ -229,15 +227,15 @@ describe('User()', () => {
       expect(user.github).toEqual({ username: 'username', avatarUrl: 'avatarUrl' });
     });
 
-    it('should have an avatarUrl property if GitHub info is defined', () => {
+    it('should have a githubAvatarUrl property if GitHub info is defined', () => {
       const userWithGitHub = new User(
         createSenecaProfile(),
-        createTelescopeProfile({ github: { username: 'username', avatarUrl: 'avatarUrl' } })
+        createTelescopeProfile({ githubUsername: 'username', githubAvatarUrl: 'avatarUrl' })
       );
-      expect(userWithGitHub.avatarUrl).toEqual('avatarUrl');
+      expect(userWithGitHub.githubAvatarUrl).toEqual('avatarUrl');
 
       const userWithoutGitHub = new User(createSenecaProfile());
-      expect(userWithoutGitHub.avatarUrl).toBe(undefined);
+      expect(userWithoutGitHub.githubAvatarUrl).toBe(undefined);
     });
 
     it('should have the "seneca" and "telescope" roles', () => {
@@ -287,11 +285,10 @@ describe('User()', () => {
       expect(user2.isAdmin).toBe(true);
       expect(user2.isFlagged).toBe(true);
       expect(user2.feeds).toEqual(['https://dev.to/feed/first-last']);
-      expect(user2.github).toEqual({
-        avatarUrl:
-          'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
-        username: 'firstlast',
-      });
+      expect(user2.githubUsername).toEqual('firstlast');
+      expect(user2.githubAvatarUrl).toEqual(
+        'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4'
+      );
       expect(user2.isTelescopeUser).toBe(true);
       expect(user2.roles).toEqual(['seneca', 'telescope', 'admin']);
     });
