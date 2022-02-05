@@ -8,44 +8,40 @@ ENV NPM_CONFIG_COLOR=false
 
 # We'll run the app as the `node` user, so put it in their home directory
 WORKDIR /home/node/app
-# Copy the package.json and lock file over
-COPY package*.json /home/node/app/
+# Install pnpm
+RUN npm install -g pnpm
+# Copy the source code over
+COPY --chown=node:node . /home/node/app/
 
 ## Development #################################################################
 # Define a development target that installs devDeps and runs in dev mode
 FROM base as development
 WORKDIR /home/node/app
 # Install (not ci) with dependencies, and for Linux vs. Linux Musl (which we use for -alpine)
-RUN npm install
-# Copy the source code over
-COPY --chown=node:node . /home/node/app/
+RUN pnpm install
 # Switch to the node user vs. root
 USER node
 # Expose port 4631
 EXPOSE 4631
 # Start the app in debug mode so we can attach the debugger
-CMD ["npm", "run", "start"]
+CMD ["pnpm", "run", "start"]
 
 ## Production ##################################################################
 # Also define a production target which doesn't use devDeps
 FROM base as production
 WORKDIR /home/node/app
 # We'll install production only deps
-RUN npm install --production
+RUN pnpm install --production
 
 ## Deploy ######################################################################
 # Use a stable nginx image
-FROM nginx:stable as deploy
-# https://github.com/krallin/tini
-RUN apk --no-cache add tini
+FROM nginx:stable-alpine as deploy
 WORKDIR /home/node/app
 # Copy what we've installed/built from production
 COPY --chown=node:node --from=production /home/node/app/node_modules /home/node/app/node_modules/
-# Copy the source code
-COPY --chown=node:node . /home/node/app/
 # Switch to the node user vs. root
 USER node
 # Build the Docusaurus app
-RUN npm run build
+RUN pnpm run build
 # Copy build output to /var/www/data to be served
-COPY --from=deploy /home/node/app/build /var/www/data
+COPY /home/node/app/build /var/www/data
