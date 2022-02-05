@@ -269,34 +269,6 @@ services:
       - PLANET_PORT
       - POSTS_URL
 
-  # docusaurus app
-  docs:
-    container_name: 'docs'
-    build:
-      context: ../src/docs
-      dockerfile: Dockerfile
-    environment:
-      - NODE_ENV
-      - DOCS_PORT
-      - DOCS_URL
-    depends_on:
-      - traefik
-    labels:
-      # Enable Traefik
-      - 'traefik.enable=true'
-      # Traefik routing for the docs app at /docs
-      - 'traefik.http.routers.docs.rule=PathPrefix(`/docs`)'
-      # Specify the docs server port
-      - 'traefik.http.services.docs.loadbalancer.server.port=${DOCS_PORT}'
-      # Define redirect middleware for any requests to /docs -> /docs/ (trailing slash)
-      - 'traefik.http.middleware.docs_redirect.redirectregex.regex=(^.*\/docs$$)'
-      - 'traefik.http.middleware.docs_redirect.redirectregex.replace=$$1/'
-      - 'traefik.http.middleware.docs_redirect.redirectregex.permanent=true'
-      # Define prefix stripping middleware for any requests to /doc/*
-      - 'traefik.http.middlewares.strip_docs_prefix.stripprefix.prefixes=/docs'
-      # Add our middleware to the router
-      - 'traefik.http.routers.docs.middlewares=docs_redirect,strip_docs_prefix'
-
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
