@@ -66,4 +66,8 @@ const copyToClipboard = async () => {
 };
 copyToClipboardButton.addEventListener('click', () => copyToClipboard());
 
+window.addEventListener('resize', () => {
+  fitAddon.fit();
+});
+
 export default terminal;
