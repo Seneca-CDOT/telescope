@@ -35,7 +35,7 @@ services:
       # Specify the status service port
       - 'traefik.http.services.status.loadbalancer.server.port=${STATUS_PORT}'
       # Define redirect middleware for any requests to /v1/status -> /v1/status/ (trailing slash)
-      - 'traefik.http.middlewares.status_redirect.redirectregex.regex=(^.*\/status$$)'
+      - 'traefik.http.middlewares.status_redirect.redirectregex.regex=(^.*\/[^status]+\/status$$)'
       - 'traefik.http.middlewares.status_redirect.redirectregex.replacement=$$1/'
       - 'traefik.http.middlewares.status_redirect.redirectregex.permanent=true'
       # Add middleware to this route to strip the /v1/status prefix
