@@ -37,6 +37,7 @@ export default async function checkForBuild() {
         }
         // Write the data to the terminal
         terminal.write(value);
+        terminal.scrollToBottom();
         // Recursively invoke processLog until `done === true`
         return processLog();
       })
