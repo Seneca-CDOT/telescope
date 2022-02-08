@@ -24,46 +24,6 @@ module.exports = {
     },
   },
   overrides: [
-    // TypeScript for Next.js
-    {
-      files: ['src/web/**/*.ts', 'src/web/**/*.tsx'],
-      extends: [
-        'plugin:react/recommended',
-        'plugin:react-hooks/recommended',
-        'plugin:import/typescript',
-      ],
-      plugins: ['@typescript-eslint', 'react', 'react-hooks'],
-      env: {
-        browser: true,
-      },
-      rules: {
-        'react/prop-types': 'off',
-        'react/require-default-props': 'off',
-        'react/react-in-jsx-scope': 'off',
-        '@typescript-eslint/no-unused-vars': 'error',
-        'react/jsx-filename-extension': ['error', { extensions: ['.ts', '.tsx'] }],
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-        'jsx-a11y/anchor-is-valid': [
-          'error',
-          {
-            components: ['Link'],
-            specialLink: ['hrefLeft', 'hrefRight'],
-            aspects: ['invalidHref', 'preferButton'],
-          },
-        ],
-        'import/extensions': 'off',
-        // Allow using TypeScript constructor shorthand: `Foo(public bar: string){}`
-        'no-useless-constructor': 'off',
-        'no-empty-function': 'off',
-        'jest/no-disabled-tests': 'warn',
-        'jest/no-focused-tests': 'error',
-        'jest/no-identical-title': 'error',
-        'jest/prefer-to-have-length': 'warn',
-        'jest/valid-expect': 'error',
-      },
-    },
-
     // JavaScript for Node.js
     {
       files: ['src/backend/**/*.js', 'tools/**/*.js', 'src/api/**/*.js'],
@@ -89,45 +49,7 @@ module.exports = {
       files: ['src/mobile/**/*.js', 'src/mobile/**/*.jsx'],
       extends: ['plugin:react/recommended', 'plugin:react-hooks/recommended'],
       plugins: ['react-native'],
-      rules: { 'no-use-before-define': 'off', 'react/react-in-jsx-scope': 'off' },
-    },
-
-    // Docusaurus app
-    {
-      files: ['src/docs/src/**/*.js'],
-      extends: [
-        'plugin:import/typescript',
-        'plugin:node/recommended',
-        'plugin:react/recommended',
-        'plugin:react-hooks/recommended',
-      ],
-      plugins: ['react', 'react-hooks'],
-      rules: {
-        // https://github.com/facebook/docusaurus/blob/main/.eslintrc.js#L122
-        // Ignore certain webpack aliases because they can't be resolved
-        'import/no-unresolved': [
-          'off',
-          {
-            ignore: ['^@theme', '^@docusaurus', '^@generated', '^@site'],
-          },
-        ],
-        'global-require': 'off',
-        'no-use-before-define': 'off',
-        'node/no-missing-import': 'off',
-        'node/no-unsupported-features/es-syntax': 'off',
-        'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
-        // https://github.com/facebook/docusaurus/blob/main/.eslintrc.js#L154
-        // We build a static site, and nearly all components don't change.
-        'react/no-array-index-key': 'off',
-        'react/prop-types': 'off',
-      },
-      settings: {
-        'import/resolver': {
-          node: {
-            extensions: ['.js', '.jsx', '.ts', '.tsx'],
-          },
-        },
-      },
+      rules: { 'no-use-before-define': 'off' },
     },
   ],
 

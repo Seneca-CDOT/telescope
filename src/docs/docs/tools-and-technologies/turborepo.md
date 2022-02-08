@@ -8,7 +8,7 @@ Telescope is configured as a monorepo: a single repository that holds many proje
 
 You will probably not have to interact with Turborepo directly but it is worth understanding how it works. The [Turborepo docs](https://turborepo.org/docs) do a good job at explaining its benefits and features.
 
-We have a `package.json` file at the root of Telescope that defines the rules in what is called a `"pipeline"`.
+We have a `turbo.json` file at the root of Telescope that defines the rules in what is called a `"pipeline"`.
 
 The pipeline includes all the Turborepo commands that are available to use.
 

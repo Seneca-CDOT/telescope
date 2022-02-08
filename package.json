@@ -10,9 +10,7 @@
     "build": "pnpm turbo run build",
     "dev": "pnpm dev --prefix src/web --",
     "develop": "pnpm dev",
-    "eslint": "eslint --config .eslintrc.js \"**/*.{jsx,tsx,ts,js}\"",
-    "eslint-fix": "eslint --config .eslintrc.js \"**/*.{jsx,tsx,ts,js}\" --fix",
-    "lint": "pnpm eslint",
+    "lint": "pnpm turbo run lint",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "test": "pnpm jest",
@@ -95,20 +93,6 @@
     "@typescript-eslint/parser": "4.33.0",
     "@vercel/node": "1.12.1",
     "babel-preset-next": "1.4.0",
-    "eslint": "7.32.0",
-    "eslint-config-airbnb": "18.2.1",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-anti-trojan-source": "1.1.0",
-    "eslint-plugin-import": "2.25.4",
-    "eslint-plugin-jest": "25.3.4",
-    "eslint-plugin-jest-playwright": "0.2.1",
-    "eslint-plugin-jsx-a11y": "6.5.1",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-prettier": "3.4.1",
-    "eslint-plugin-promise": "5.2.0",
-    "eslint-plugin-react": "7.28.0",
-    "eslint-plugin-react-hooks": "4.3.0",
-    "eslint-plugin-react-native": "4.0.0",
     "fast-xml-parser": "3.21.1",
     "husky": "7.0.4",
     "jest": "27.4.7",
@@ -122,21 +106,13 @@
     "run.env": "1.1.0",
     "supertest": "6.1.6",
     "ts-jest": "27.1.3",
-    "turbo": "1.0.28"
+    "turbo": "1.1.2"
   },
   "engines": {
     "node": ">=14.0.0",
     "pnpm": ">=6"
   },
-  "turbo": {
-    "pipeline": {
-      "build": {
-        "dependsOn": [
-          "^build"
-        ]
-      }
-    }
-  },
+  "packageManager": "pnpm@6.29.0",
   "pnpm": {
     "overrides": {
       "json-ptr@<3.0.0": ">=3.0.0",
