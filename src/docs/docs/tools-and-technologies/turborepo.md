@@ -1,3 +1,7 @@
+---
+sidebar_position: 8
+---
+
 # Turborepo and Telescope
 
 Telescope is configured as a monorepo: a single repository that holds many projects. [Turborepo](https://turborepo.org/) is the tool we use to manage every project within Telescope.

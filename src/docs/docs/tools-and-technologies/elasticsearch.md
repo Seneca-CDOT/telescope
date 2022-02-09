@@ -1,4 +1,8 @@
-## Elasticsearch
+---
+sidebar_position: 2
+---
+
+# Elasticsearch
 
 Telescope uses the [Elasticsearch](https://www.elastic.co/what-is/elasticsearch) search engine for full-text indexing.
 We use the [@elastic/elasticsearch](https://www.npmjs.com/package/@elastic/elasticsearch)

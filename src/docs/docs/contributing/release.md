@@ -1,3 +1,7 @@
+---
+sidebar_position: 4
+---
+
 # Release
 
 As Telescope matures, we are trying to improve our build, release, and deployment

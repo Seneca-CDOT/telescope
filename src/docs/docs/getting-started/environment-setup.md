@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Environment Setup
 
 #### Table of Contents
@@ -32,8 +36,6 @@
   - [I followed all the steps but my browser still can't run Telescope locally](#i-followed-all-the-steps-but-my-browser-still-cant-run-telescope-locally)
   - [`Cannot find cgroup mount destination` error](#cannot-find-cgroup-mount-destination-error)
   - [`Malformed input, repository not added` message while installing Docker on Linux Mint](#malformed-input-repository-not-added-message)
-
-<hr>
 
 ## Prerequisites
 

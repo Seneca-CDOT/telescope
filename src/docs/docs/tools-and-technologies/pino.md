@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 # Logging Support Using Pino
 
 This project uses [Pino](http://getpino.io/#/) to provide support for logging in Production as well as development environments. The [logger.js](../src/backend/utils/logger.js) module exports a logger instance that can be used in other modules to implement logging for important events.
@@ -44,10 +48,10 @@ cat logFile | pino-pretty --translateTime 'SYS: yyyy-mm-dd HH:MM:ss.l '
 ```
 
 **Generated log file:**
-![generatedLogFile](./images/generatedLogFile.png)
+![generatedLogFile](../../static/img/generatedLogFile.png)
 
 **Log file formatted using pino-pretty:**
-![prettyPrintLogFileToConsole](./images/prettyPrintLogFileToConsole.png)
+![prettyPrintLogFileToConsole](../../static/img/prettyPrintLogFileToConsole.png)
 
 ### Development Environment:
 
@@ -59,4 +63,4 @@ If **NODE_ENV = Development**, then the code:
 
 In development mode, logs are formatted using pino-pretty module and are printed to the console (see image below).
 
-![logToConsole](./images/logToConsole.png)
+![logToConsole](../../static/img/logToConsole.png)

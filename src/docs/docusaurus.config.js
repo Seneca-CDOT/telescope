@@ -6,15 +6,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  url: 'https://your-docusaurus-test-site.com',
+  title: 'Telescope',
+  tagline: "A tool for tracking blogs in orbit around Seneca's open source involvement",
+  url: 'https://telescope.cdot.systems',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'seneca-cdot', // Usually your GitHub org/user name.
+  projectName: 'telescope', // Usually your repo name.
 
   presets: [
     [
@@ -44,9 +44,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'Telescope',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Telescope Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -54,11 +54,10 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/Seneca-CDOT/telescope',
             label: 'GitHub',
             position: 'right',
           },
@@ -71,7 +70,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Developer Docs',
                 to: '/docs/intro',
               },
             ],
@@ -97,12 +96,8 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/Seneca-CDOT/telescope',
               },
             ],
           },

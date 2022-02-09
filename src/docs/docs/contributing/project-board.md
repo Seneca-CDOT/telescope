@@ -1,4 +1,8 @@
-## Project Board Instructions
+---
+sidebar_position: 3
+---
+
+# Project Board Instructions
 
 We are using [Project Boards](https://github.com/Seneca-CDOT/telescope/projects) to help organize and prioritize our work.
 
@@ -9,8 +13,6 @@ We are using [Project Boards](https://github.com/Seneca-CDOT/telescope/projects)
 | Review in progress | Pull requests will automatically be moved here when a reviewer requests changes, or when it doesn't meet the minimum of 2 approving reviews. |
 | Reviewer approved  | Pull requests will automatically be moved here when they have a minimum of 2 approving reviews.                                              |
 | Done               | A pull request that has been reviewed and merged into the `master` branch or a pull request/issue that has been closed.                      |
-
-<br>
 
 | Label Name           | Label Definition                                                                                         |
 | -------------------- | -------------------------------------------------------------------------------------------------------- |

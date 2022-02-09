@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # Staging / Production Deployment
 
 The steps to launch Telescope in staging or production mode are almost identical. The only difference between the 2 deployment types is that some of the variables in the `.env` files need to be manually set with the values `staging` or `production`
@@ -37,9 +41,11 @@ More info about the ownership issue [here](https://discuss.elastic.co/t/elastic-
 
 ### 2.- SSL and Let's Encrypt
 
-Telescope and its autodeployment server use SSL certificates in order to have encrypted and secure communication with web browsers and GitHub.<br>
-There are many organizations and companies that offer SSL certificates. One of those organizations is the [Interet Security Research Group (ISRG)](https://www.abetterinternet.org/about/), which provides a service called [Let's Encrypt](https://letsencrypt.org/about/), a free, automated, and open certificate authority (CA) that issues digital certificates.<br><br>
-The process of obtaining, installing and using digital certificates is often complex and requires installing tools and getting familiar with them.<br>
+Telescope and its autodeployment server use SSL certificates in order to have encrypted and secure communication with web browsers and GitHub.
+
+There are many organizations and companies that offer SSL certificates. One of those organizations is the [Interet Security Research Group (ISRG)](https://www.abetterinternet.org/about/), which provides a service called [Let's Encrypt](https://letsencrypt.org/about/), a free, automated, and open certificate authority (CA) that issues digital certificates.
+
+The process of obtaining, installing and using digital certificates is often complex and requires installing tools and getting familiar with them.
 To make this process simpler, here is a [guide](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71) and a [GitHub repository](https://github.com/wmnnd/nginx-certbot) to automate all the necessary steps using docker-compose, and get SSL certificates issued by Let's Encrypt.
 
 After following the steps in the guide, make sure the generated directory (probably called `certbot`) is owned by the user that is going to deploy Telescope and the autodeployment server. To set the correct user as owner of the generated directory:
@@ -53,7 +59,8 @@ sudo chown -R <user_name>: certbot
 Telescope uses [GitHub webhooks](https://docs.github.com/en/developers/webhooks-and-events/about-webhooks) to automate deployments whenever a pull requests is merged or a new version is released.
 When a GitHub event is triggered, it sends a POST request payload to the webhook's configured URL. Telescope's autodeployment server receives that POST request and updates Telescope with the latest merged changes or with a new release.
 
-After [creating a GitHub webhook](https://docs.github.com/en/developers/webhooks-and-events/creating-webhooks), copy the `autodeployment` directory in `tools` in the repository to the chosen directory where the project lives, as indicated above.<br>
+After [creating a GitHub webhook](https://docs.github.com/en/developers/webhooks-and-events/creating-webhooks), copy the `autodeployment` directory in `tools` in the repository to the chosen directory where the project lives, as indicated above.
+
 Copy `env.example` in the `autodeployment` directory to `.env` and add the appropriate values for the variables in it:
 
 - env variables

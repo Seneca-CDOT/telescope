@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Workflow in Git and GitHub
 
 ## Getting Started

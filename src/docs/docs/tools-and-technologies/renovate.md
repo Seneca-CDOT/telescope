@@ -1,3 +1,7 @@
+---
+sidebar_position: 7
+---
+
 # Renovate and Telescope
 
 Telescope uses [Renovate](https://docs.renovatebot.com/) to check outdated dependencies and generate PRs to update dependencies. By default, Renovate checks all `package.json`, `dockerfile`, `docker-compose` and `github-actions` files for outdated dependencies. For more information such as PR schedule or limitation, please check [renovate.yml](../.github/renovate.yml)
