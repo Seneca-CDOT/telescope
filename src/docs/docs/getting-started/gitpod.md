@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Development on Gitpod
 
 You can start an automated development environment in the cloud and access it
@@ -41,7 +45,7 @@ extensions, language support and all other tools and binaries that run on Linux.
 2. Open in Gitpod:
 
 - Option 1: [Install the Gitpod extension](https://www.gitpod.io/docs/browser-extension) to open the page in Gitpod with a click of a button.
-  ![Open in Gitpod](./images/openInGitpod.png)
+  ![Open in Gitpod](../../static/img/openInGitpod.png)
 - Option 2: In the address bar, prefix the entire URL with `gitpod.io/#` and press Enter,
   E.g, [gitpod.io/#https://github.com/Seneca-CDOT/telescope](https://gitpod.io/#https://github.com/Seneca-CDOT/telescope)
 
@@ -49,7 +53,7 @@ extensions, language support and all other tools and binaries that run on Linux.
 
 4. You will see the familiar VSCode in the browser serving Telescope source code:
 
-   ![Browser-base vscode](./images/gitpodVSCode.png)
+   ![Browser-base vscode](../../static/img/gitpodVSCode.png)
 
 - If you open an Issue, Gitpod automatically checks out a new git branch for you to work on.
 - On the first tab of the VScode terminal, the left half is for building and starting

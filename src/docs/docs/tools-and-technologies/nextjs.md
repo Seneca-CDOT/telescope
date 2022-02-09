@@ -1,4 +1,8 @@
-# Frontend Development with Next
+---
+sidebar_position: 4
+---
+
+# Frontend Development with Next.js
 
 The Telescope frontend is currently being developed using Typescript and NextJS. We encourage all new developers to read the [NextJS docs](https://nextjs.org/docs) in order to familiarize themselves with how Next works as well as the [Typescript docs](https://www.typescriptlang.org/docs/) in order to understand how the language operates.
 

@@ -1,4 +1,8 @@
-## Redis
+---
+sidebar_position: 6
+---
+
+# Redis
 
 Telescope uses the [Redis](https://redis.io/) database and cache server to store
 all project data. We use the [ioredis](https://www.npmjs.com/package/ioredis)

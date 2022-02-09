@@ -1,3 +1,7 @@
+---
+sidebar_position: 2
+---
+
 # Architecture
 
 Telescope is both a product and a project. It is designed to meet a number of practical requirements (e.g., blog aggregation), but also to give students the opportunity to work on a real-world open source project using a wide range of technologies. We could build something simpler; but our design is also about creating a safe space for technical exploration. As a result, Telescope is architected like many modern distributed services.
@@ -6,7 +10,7 @@ Telescope is both a product and a project. It is designed to meet a number of pr
 
 Our initial design was captured in this rough diagram:
 
-![Original Telescope architecture](images/initialProjectDiagram.jpeg)
+![Original Telescope architecture](../static/img/initialProjectDiagram.jpeg)
 
 It shows RSS/Atom blog feeds (on the left) being downloaded (1) and then queued (2) in order to be downloaded and parsed into a database. Parsing each feed also included the idea of analysis, to look at word count, reading time, etc. This database of parsed feeds is then exposed to various clients via a REST API. We imagined being able to provide multiple clients, written for the web or mobile, but also connecting to Slack and other systems.
 
