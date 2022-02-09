@@ -1,3 +1,7 @@
+import { Terminal } from 'xterm';
+import { FitAddon } from 'xterm-addon-fit';
+import { WebLinksAddon } from 'xterm-addon-web-links';
+import { WebglAddon } from 'xterm-addon-webgl';
 import showToast from '../utils/toast.js';
 /* eslint-disable no-undef */
 const theme = {
@@ -28,11 +32,11 @@ const terminal = new Terminal({
   theme,
 });
 
-const fitAddon = new FitAddon.FitAddon();
+const fitAddon = new FitAddon();
 terminal.loadAddon(fitAddon);
 terminal.open(document.getElementById('terminal'));
-terminal.loadAddon(new WebLinksAddon.WebLinksAddon());
-terminal.loadAddon(new WebglAddon.WebglAddon());
+terminal.loadAddon(new WebLinksAddon());
+terminal.loadAddon(new WebglAddon());
 fitAddon.fit();
 
 /**
