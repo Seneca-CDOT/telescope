@@ -1,4 +1,12 @@
 {
+  "name": "@senecacdot/telescope-frontend",
+  "private": true,
+  "scripts": {
+    "build": "next build && next export",
+    "dev": "next dev -p 8000",
+    "start": "next start -p 8000"
+  },
+  "version": "3.0.0",
   "dependencies": {
     "@fontsource/pt-serif": "4.5.0",
     "@fontsource/spartan": "4.5.1",
@@ -36,13 +44,5 @@
     "babel-loader": "8.2.3",
     "terser-webpack-plugin": "5.3.1",
     "typescript": "4.5.4"
-  },
-  "name": "@senecacdot/telescope-frontend",
-  "private": true,
-  "scripts": {
-    "build": "next build && next export",
-    "dev": "next dev -p 8000",
-    "start": "next start -p 8000"
-  },
-  "version": "3.0.0"
+  }
 }
