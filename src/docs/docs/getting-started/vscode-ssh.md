@@ -359,7 +359,7 @@ Sometimes the Docker permissions aren't set properly when you first install Dock
 newgrp docker
 ```
 
-### I can't open <EC2-ip>:8000 running, what could I be doing wrong?
+### I can't open `<EC2-ip>:8000` running, what could I be doing wrong?
 
 1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 3000 and 8000.
 

@@ -24,14 +24,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/Seneca-CDOT/telescope/tree/master/src/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -52,7 +45,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'overview',
             position: 'left',
             label: 'Docs',
           },
@@ -71,7 +64,7 @@ const config = {
             items: [
               {
                 label: 'Developer Docs',
-                to: '/docs/intro',
+                to: '/docs/overview',
               },
             ],
           },

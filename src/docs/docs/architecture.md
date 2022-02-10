@@ -67,13 +67,13 @@ The microservices can be controlled either using the `docker-compose` command di
 - `pnpm run services:stop` stops all services, or those specified
 - `pnpm run logs image` shows logs for the image service (specify whichever service you want to view)
 
-On Windows and macOS, Docker Desktop must be running before you can call these scripts, see the [Docker documentation](docker.md).
+On Windows and macOS, Docker Desktop must be running before you can call these scripts, see the [Docker documentation](../docs/tools-and-technologies/docker.md).
 
 ### Front-end Web App
 
 The front-end web app is written in TypeScript and uses next.js and Material UI for routing, component system, etc. The code lives in `src/web`.
 
-The web app accesses many of the microservices at runtime, and we depend on a build step to export and include the necessary runtime variables. In the front-end app, they are available at runtime via `src/web/src/config.ts`. These are populated via the `src/web/next.config.js` during build time. See [Environment Setup](environment-setup.md) for details on how to populate these with different values for local, CI, staging, or production environments. See also [Front End](front-end.md) for more details about the front-end.
+The web app accesses many of the microservices at runtime, and we depend on a build step to export and include the necessary runtime variables. In the front-end app, they are available at runtime via `src/web/src/config.ts`. These are populated via the `src/web/next.config.js` during build time. See [Environment Setup](../docs/getting-started/environment-setup.md) for details on how to populate these with different values for local, CI, staging, or production environments. See also [Front End](../docs/tools-and-technologies/nextjs.md) for more details about the front-end.
 
 The front-end is run via its own container, and hosted statically by nginx. The container is defined in `src/web/Dockerfile`. Locally, it is available at <http://localhost:8000>, on staging at <https://dev.telescope.cdot.systems/>, and on production at <https://telescope.cdot.systems/>.
 
@@ -81,11 +81,11 @@ The front-end is run via its own container, and hosted statically by nginx. The 
 
 Telescope uses SAML2-based authentication via Seneca's Single Sign-On in combination with token-based authorization via the SSO Auth and Users service. A good discussion of the main ideas and implementation is available in [this blog post](https://blog.humphd.org/not-so-simple-saml/) and [this Pull Request](https://github.com/Seneca-CDOT/telescope/pull/1796#issue-812477759).
 
-In development, we use a test PHP-based SAML Identity Provider to test against. See [Login](login.md).
+In development, we use a test PHP-based SAML Identity Provider to test against. See [Login](../docs/tools-and-technologies/login.md).
 
 ### Autodeployment Server
 
-Our release infrastructure is built primarily on GitHub Actions, see `.github/workflows/release.yml`. However, we also host our own build service at `tools/autodeployment`. When a [Release is created](release.md), the autodeployment server receives a webhook event from GitHub. We use this to trigger a new build and deploy it when complete. The build script that gets run is at `tools/autodeployment/deploy.sh`, which does a green/blue style of deployment (i.e., keep one version running while you build a new one, swap them when ready).
+Our release infrastructure is built primarily on GitHub Actions, see `.github/workflows/release.yml`. However, we also host our own build service at `tools/autodeployment`. When a [Release is created](../docs/contributing/release.md), the autodeployment server receives a webhook event from GitHub. We use this to trigger a new build and deploy it when complete. The build script that gets run is at `tools/autodeployment/deploy.sh`, which does a green/blue style of deployment (i.e., keep one version running while you build a new one, swap them when ready).
 
 The autodeployment server is run outside of Docker, since it manages our docker containers. It has an API available at <https://telescope.cdot.systems/deploy/status> (production) and <https://dev.telescope.cdot.systems/deploy/status> (staging), and build logs are available at `/deploy/status/log`.
 
@@ -107,8 +107,8 @@ We use the following tools:
 - prettier to format our code, with Husky managing a precommit hook to automatically apply it on every commit, see `.prettierrc`, `.prettierignore`, and `.husky/`
 - various VSCode settings and extensions, defined in `.vscode/`
 - GitHub Actions Workflows for testing, see `.github/`
-- Renovatebot to manage dependency updates, see [Renovate](renovate.md)
-- GitPod for cloud development, see [Gitpod](git-workflow.md), `.gitpod.yml` and `gitpod.Dockerfile`
+- Renovatebot to manage dependency updates, see [Renovate](../docs/tools-and-technologies/renovate.md)
+- GitPod for cloud development, see [Gitpod](../docs/contributing/git-workflow.md), `.gitpod.yml` and `gitpod.Dockerfile`
 
 We also have a number of tools running in containers at runtime (most only in staging/production) (see `docker/production.yml`):
 
