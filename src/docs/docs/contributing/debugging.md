@@ -7,7 +7,7 @@ sidebar_position: 2
 ### For debugging purposes the following must be installed
 
 [Visual Studio Code](https://code.visualstudio.com/)
-[Node.js](https://www.npmjs.com/) - to setup node.js you may follow the instructions in [Environment Setup](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md)
+[Node.js](https://www.npmjs.com/) - to setup node.js you may follow the instructions in [Environment Setup](../getting-started/environment-setup.md)
 
 ### Setting up VS Code and Launching Telescope
 
@@ -23,6 +23,7 @@ To start the server you must now click on the "Launch Icon" this will run the se
 ![VS Launch Telescope Screenshot](../../static/img/VS-Run-View-Screenshot.png)
 
 At the bottom left you will see your Call Stack and if successfully ran, index.js and master.js should be up and running.
+
 ![VS Call Stack Screenshot](../../static/img/VS-Call-Stack-Screenshot.png)
 
 ### Debugging
