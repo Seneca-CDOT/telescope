@@ -10,7 +10,7 @@ JavaScript module to interact with Elasticsearch in our code. In our tests, we u
 [Jest Manual Mocks](https://jestjs.io/docs/en/manual-mocks) to provide mocks
 for Elasticsearch.
 
-For information about installing Elastic, see [our environment setup guide](environment-setup.md).
+For information about installing Elastic, see [our environment setup guide](../getting-started/environment-setup.md).
 
 **NOTE:** You can mock the Elastic server using `MOCK_ELASTIC=1` in your env, which
 will let you run the backend without a real Elastic server.

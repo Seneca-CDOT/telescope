@@ -1,5 +1,5 @@
 ---
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 # Redis
@@ -13,11 +13,11 @@ for Redis.
 > NOTE: if you need to use an in-memory, mock version of Redis vs. a real
 > database, use the environment variable `MOCK_REDIS=1`. Our tests use this.
 
-For information about installing Redis, see [our environment setup guide](environment-setup.md).
+For information about installing Redis, see [our environment setup guide](../getting-started/environment-setup.md).
 
 ### Elasticsearch
 
-Telescope uses [Elasticsearch](elasticsearch.md) as a search engine for full-text indexing. It is used to search posts indexed by Telescope by author or post keyword.
+Telescope uses [Elasticsearch](../tools-and-technologies/elasticsearch.md) as a search engine for full-text indexing. It is used to search posts indexed by Telescope by author or post keyword.
 
 ## Redis Tips
 

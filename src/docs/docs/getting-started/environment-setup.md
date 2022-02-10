@@ -244,7 +244,7 @@ Microservices will start downloading feeds and processing them until stopped. Yo
 pnpm services:stop
 ```
 
-For more information about the services, please read [Telescope API Services](../src/api/readme.md).
+For more information about the services, please read [Telescope API Services](../api-services/api.md).
 
 If this doesn't work for you, it is possible that you have an old `.env` file in the root that you copied from `env.example` from telescope 1.0. Please remove it, and try again.
 
@@ -262,7 +262,7 @@ This will let you use the Telescope staging server as the backend so you do not 
 
 #### Option 3: Mix and match services between local and staging production
 
-See [staging-production-deployment](staging-production-deployment.md) for more information on running Telescope in staging or production mode.
+See [staging-production-deployment](../contributing/staging-production-deployment.md) for more information on running Telescope in staging or production mode.
 
 This one depends on which part you're working with. For example, if you want to work with authorization, you need to specify the URL of AUTH in your `.env` file by going to `.env` and modifying `SSO_URL=...` and modify it to the one you want to work with. If you're testing auth locally, use `SSO_URL=http://localhost/v1/auth`; otherwise, use the staging one, `SSO_URL=http://dev.api.telescope.cdot.systems/v1/auth`.
 
@@ -274,7 +274,7 @@ pnpm services:start
 
 #### Option 4: Run microservices individually
 
-For a full list of avaliable microservices, please read [Telescope API Services](../src/api/readme.md).
+For a full list of avaliable microservices, please read [Telescope API Services](../api-services/api.md).
 
 ```bash
 pnpm services:start [name of microservice]
@@ -297,7 +297,7 @@ pnpm services:start
 
 #### Option 6: Run Login SSO
 
-If you need to login to Telescope or your work requires logging in for testing purposes, you don't need to start an extra container for login, it is included in sso auth service. You can simply use UI to login. For more information on Login please refer to our [Login Document](login.md).
+If you need to login to Telescope or your work requires logging in for testing purposes, you don't need to start an extra container for login, it is included in sso auth service. You can simply use UI to login. For more information on Login please refer to our [Login Document](../tools-and-technologies/login.md).
 
 ## Frequently Asked Questions (FAQ)
 
@@ -352,4 +352,4 @@ If you receive the error message "Malformed input, repository not added" after r
 2. paste `deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable` to the file, save it, and exit.
 3. run `sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable`
 
-### **Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](/docs/aws-cloud9.md) for more information.**
+### **Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](../getting-started/aws-cloud9.md) for more information.**

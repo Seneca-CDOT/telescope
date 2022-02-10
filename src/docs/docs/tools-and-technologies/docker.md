@@ -13,7 +13,7 @@ You'll see Docker used in a few places
 
 ## Setup
 
-See the [environment setup doc](environment-setup.md) for info specific to your platform.
+See the [environment setup doc](../getting-started/environment-setup.md) for info specific to your platform.
 
 Once installed, Docker uses the following commands:
 
@@ -52,4 +52,4 @@ docker-compose -f docker-compose.yml up --build login redis telescope
 
 ### Running the Microservices
 
-See the [docs for running the services](environment-setup.md).
+See the [docs for running the services](../getting-started/environment-setup.md).

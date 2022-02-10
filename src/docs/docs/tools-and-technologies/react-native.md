@@ -1,3 +1,7 @@
+---
+sidebar_position: 6
+---
+
 # React Native
 
 ## Installing React Native Expo
