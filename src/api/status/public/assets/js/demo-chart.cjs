@@ -1,3 +1,4 @@
+const {Chart} = require('./plugins/chartjs.min.cjs');
 var ctx = document.getElementById('chart-bars').getContext('2d');
 
 new Chart(ctx, {

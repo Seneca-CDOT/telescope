@@ -1,4 +1,7 @@
 'use strict';
+const bootstrap = require('bootstrap');
+const PerfectScrollbar = require('perfect-scrollbar').default;
+
 (function () {
   var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 

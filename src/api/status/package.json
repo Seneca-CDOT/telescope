@@ -9,9 +9,7 @@
     "start": "node src/server.js",
     "watch:server": "env-cmd -f env.local nodemon src/server.js",
     "compile:js": "vite build",
-    "watch:js": "vite build --watch",
-    "compile:scss": "sass ./scss/material-dashboard.scss:./public/assets/css/material-dashboard.css",
-    "watch:scss": "sass --watch ./scss/material-dashboard.scss:./public/assets/css/material-dashboard.css"
+    "watch:js": "vite build --watch"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -23,18 +21,25 @@
     "@octokit/core": "3.5.1",
     "@octokit/plugin-retry": "3.0.9",
     "@octokit/plugin-throttling": "3.5.2",
+    "@popperjs/core": "2.10.2",
     "@senecacdot/satellite": "^1.x",
+    "bootstrap": "5.1.3",
     "express": "4.17.2",
     "express-handlebars": "6.0.2",
-    "npm-run-all": "4.1.5",
-    "sass": "1.45.2",
-    "vite": "2.7.13"
+    "perfect-scrollbar": "1.5.1",
+    "xterm": "4.15.0",
+    "xterm-addon-fit": "0.5.0",
+    "xterm-addon-web-links": "0.4.0",
+    "xterm-addon-webgl": "0.11.3"
   },
   "engines": {
     "node": ">=12.0.0"
   },
   "devDependencies": {
     "env-cmd": "10.1.0",
-    "nodemon": "2.0.15"
+    "nodemon": "2.0.15",
+    "sass": "1.45.2",
+    "vite": "2.7.13",
+    "npm-run-all": "4.1.5"
   }
 }
