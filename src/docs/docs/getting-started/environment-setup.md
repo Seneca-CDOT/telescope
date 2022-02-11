@@ -2,40 +2,10 @@
 sidebar_position: 1
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Environment Setup
-
-#### Table of Contents
-
-[Prerequisites](#prerequisites)
-
-- [Install pnpm](#install-pnpm)
-- [Docker and Docker-Compose Setup](#docker-and-docker-compose-setup)
-  - [Linux-Ubuntu](#linux-ubuntu)
-    - [Install Docker Engine (Community Edition)](#install-docker-engine-community-edition)
-    - [Install Docker-Compose](#install-docker-compose)
-  - [MacOS (Sierra 10.12 or above)](#macos-sierra-10-12-or-above)
-  - [Windows 10 Pro, Enterprise, or Education (Hyper-V)](#windows-10-pro-enterprise-education-or-windows-11hyper-v)
-  - [Windows 10 Home, Pro, Enterprise or Education (Insiders / WSL 2 / Docker)](#windows-10-home-pro-enterprise-education-insiders-wsl-2-docker)
-- [After installing the prerequisites:](#after-installing-the-prerequisites)
-
-  - [Install Dependencies with pnpm](#install-dependencies-with-pnpm)
-  - [Start Docker](#start-docker)
-  - [Start Telescope](#start-telescope)
-
-    - [Option 1: Run frontend and backend microservices locally](#option-1-run-frontend-and-backend-microservices-locally)
-    - [Option 2: Run frontend only](#option-2-run-frontend-only)
-    - [Option 3: Mix and match services between local and staging/production](#option-3-mix-and-match-services-between-local-and-staging-production)
-    - [Option 4: Run microservices individually](#option-4-run-microservices-individually)
-    - [Option 5: Update Docker image(s) after changes](#option-5-update-docker-images-after-changes)
-    - [Option 6: Run Login/SSO](#option-6-run-login-sso)
-
-- [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
-
-  - [How do I start using `pnpm` if I have telescope installed with `npm`?](#how-do-i-start-using-pnpm-if-i-have-telescope-installed-with-npm)
-  - [How do I start Docker Daemon?](#how-do-i-start-docker-daemon)
-  - [I followed all the steps but my browser still can't run Telescope locally](#i-followed-all-the-steps-but-my-browser-still-cant-run-telescope-locally)
-  - [`Cannot find cgroup mount destination` error](#cannot-find-cgroup-mount-destination-error)
-  - [`Malformed input, repository not added` message while installing Docker on Linux Mint](#malformed-input-repository-not-added-message)
 
 ## Prerequisites
 
@@ -53,7 +23,14 @@ After installing Node.js, install `pnpm` globally:
 npm install -g pnpm
 ```
 
-## Install Redis and WSL2
+## Docker and Docker-Compose Setup
+
+<Tabs className="unique-tabs">
+  <TabItem value="windows" label="Windows">
+
+### Windows
+
+#### Install WSL2 (Recommended)
 
 1. Follow Microsoft WSL2 [installation guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10) to complete the installation. Suggest to run the following once in the WSL2 environment.
 
@@ -68,7 +45,38 @@ sudo apt upgrade
 2. Suggest to install [Windows Terminal](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-windows-terminal-optional), it facilitates you to switch directories between WSL2 Ubuntu bash and Windows drive.
 3. Suggest to install [Node, nvm and npm for WSL2](https://docs.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl#install-nvm-nodejs-and-npm), so as to be able to use Node and npm in the subsystem.
 
-## Docker and Docker-Compose Setup
+#### Windows 10 Pro, Enterprise, Education or Windows 11 (Hyper-V)
+
+1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
+1. Docker for Desktop comes with docker-compose installed.
+
+#### Windows 10 Home, Pro, Enterprise, Education (Insiders WSL 2 Docker)
+
+1. If your [Windows build number](https://www.windowscentral.com/how-check-your-windows-10-build) is below [18917](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install/), join the [insiders program](https://insider.windows.com/en-us/). Then, update your machine to a newer build through Automatic Updates.
+2. Once installed successfully, install [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install).
+3. Open a Windows PowerShell window for the next few commands.
+4. Leverage the command `wsl --set-default-version 2`, and install Ubuntu from the Windows Store.
+5. Use `wsl -l -v` to see your Ubuntu instance version, if it's still using WSL version 1, convert it to WSL 2 using `wsl --set-version Ubuntu 2`.
+6. Install any other prerequisites listed on [Docker Desktop WSL Preview](https://docs.docker.com/docker-for-windows/wsl-tech-preview/).
+7. Download and install [Docker Desktop Edge Latest](https://download.docker.com/win/edge/Docker%20Desktop%20Installer.exe)
+8. Follow the instructions on the [Docker Desktop WSL Preview](https://docs.docker.com/docker-for-windows/wsl-tech-preview/) to configure the WSL based engine. Docker-compose is installed with the Docker desktop application.
+9. Follow the Docker commands `docker-compose up --build` listed below in greater detail to start hacking.
+
+---
+
+  </TabItem>
+  <TabItem value="macOS" label="macOS">
+
+### MacOS
+
+1. Get [Docker for Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac) (macOS 10.15 or above)
+
+1. Docker for Desktop comes with docker-compose installed.
+
+---
+
+  </TabItem>
+  <TabItem value="linux" label="Linux">
 
 ### Linux-Ubuntu
 
@@ -160,27 +168,26 @@ docker-compose --version
 
 _NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
 
-### MacOS (Sierra 10 12 or above)
+#### Start Docker
 
-1. Get [Docker for Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac)
-1. Docker for Desktop comes with docker-compose installed.
+```bash
+sudo systemctl start docker
+```
 
-### Windows 10 Pro, Enterprise, Education or Windows 11(Hyper-V)
+_Note: You may need to add your user to the docker group in Linux to use `docker-compose` without `sudo`. To do this, try `groups $USER` in a terminal and check if docker is in the list of groups. If not, add it with `usermod -aG docker $USER` and reboot._
 
-1. Get [Docker for Desktop For Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows)
-1. Docker for Desktop comes with docker-compose installed.
+**Important:** Docker builds Telescope's dependencies at launch and keeps them on disk. In some cases, Docker might try to reuse already-built dependencies or cached data, causing misleading results when testing Telescope. To avoid this, it is recommended to use the command `docker system prune -af --volumes` to remove all already-built Telescope dependencies and ensure fresh deployments.
+More information about docker: [images vs containers](https://www.baeldung.com/docker-images-vs-containers) and [volumes](https://docs.docker.com/storage/volumes/).
 
-### Windows 10 Home, Pro, Enterprise, Education (Insiders WSL 2 Docker)
+---
 
-1. If your [Windows build number](https://www.windowscentral.com/how-check-your-windows-10-build) is below [18917](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install/), join the [insiders program](https://insider.windows.com/en-us/). Then, update your machine to a newer build through Automatic Updates.
-2. Once installed successfully, install [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install).
-3. Open a Windows PowerShell window for the next few commands.
-4. Leverage the command `wsl --set-default-version 2`, and install Ubuntu from the Windows Store.
-5. Use `wsl -l -v` to see your Ubuntu instance version, if it's still using WSL version 1, convert it to WSL 2 using `wsl --set-version Ubuntu 2`.
-6. Install any other prerequisites listed on [Docker Desktop WSL Preview](https://docs.docker.com/docker-for-windows/wsl-tech-preview/).
-7. Download and install [Docker Desktop Edge Latest](https://download.docker.com/win/edge/Docker%20Desktop%20Installer.exe)
-8. Follow the instructions on the [Docker Desktop WSL Preview](https://docs.docker.com/docker-for-windows/wsl-tech-preview/) to configure the WSL based engine. Docker-compose is installed with the Docker desktop application.
-9. Follow the Docker commands `docker-compose up --build` listed below in greater detail to start hacking.
+  </TabItem>
+</Tabs>
+
+<!-- ### MacOS (Sierra 10 12 or above) -->
+
+<!-- 1. Get [Docker for Desktop For Mac](https://hub.docker.com/editions/community/docker-ce-desktop-mac) -->
+<!-- 1. Docker for Desktop comes with docker-compose installed. -->
 
 ## After installing the prerequisites
 
@@ -205,17 +212,6 @@ And to run scripts:
 ```bash
 pnpm <script-name>
 ```
-
-### Start Docker
-
-```bash
-sudo systemctl start docker
-```
-
-_Note: You may need to add your user to the docker group in Linux to use `docker-compose` without `sudo`. To do this, try `groups $USER` in a terminal and check if docker is in the list of groups. If not, add it with `usermod -aG docker $USER` and reboot._
-
-**Important:** Docker builds Telescope's dependencies at launch and keeps them on disk. In some cases, Docker might try to reuse already-built dependencies or cached data, causing misleading results when testing Telescope. To avoid this, it is recommended to use the command `docker system prune -af --volumes` to remove all already-built Telescope dependencies and ensure fresh deployments.
-More information about docker: [images vs containers](https://www.baeldung.com/docker-images-vs-containers) and [volumes](https://docs.docker.com/storage/volumes/).
 
 ### Start Telescope
 
@@ -352,4 +348,6 @@ If you receive the error message "Malformed input, repository not added" after r
 2. paste `deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable` to the file, save it, and exit.
 3. run `sudo add-apt-repository deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable`
 
-### **Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](../getting-started/aws-cloud9.md) for more information.**
+:::info
+
+**Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](../getting-started/aws-cloud9.md) for more information.**
