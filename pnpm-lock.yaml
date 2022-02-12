@@ -68,7 +68,7 @@ importers:
       jsdom: 18.1.1
       linkify-html: 3.0.5
       linkifyjs: 3.0.5
-      nock: 13.2.1
+      nock: 13.2.4
       node-fetch: 2.6.7
       normalize-url: 6.1.0
       npm-run-all: 4.1.5
@@ -161,7 +161,7 @@ importers:
       jest: 27.4.7
       jest-fetch-mock: 3.0.3
       jest-playwright-preset: 1.7.0_jest@27.4.7
-      nock: 13.2.1
+      nock: 13.2.4
       npm-run-all: 4.1.5
       playwright: 1.17.1
       prettier: 2.4.1
@@ -3509,7 +3509,7 @@ packages:
     peerDependencies:
       react: '*'
     dependencies:
-      '@types/react': 17.0.38
+      '@types/react': 17.0.39
       prop-types: 15.8.1
       react: 17.0.1
     dev: false
@@ -5597,14 +5597,6 @@ packages:
       '@types/react': 17.0.39
     dev: false
 
-  /@types/react/17.0.38:
-    resolution: {integrity: sha512-SI92X1IA+FMnP3qM5m4QReluXzhcmovhZnLNm3pyeQlooi02qI7sLiepEYqT678uNiyc25XfCqxREFpy3W7YhQ==}
-    dependencies:
-      '@types/prop-types': 15.7.4
-      '@types/scheduler': 0.16.2
-      csstype: 3.0.10
-    dev: false
-
   /@types/react/17.0.39:
     resolution: {integrity: sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==}
     dependencies:
@@ -6610,7 +6602,7 @@ packages:
   /axios/0.21.4_debug@4.3.3:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10349,6 +10341,18 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+
+  /follow-redirects/1.14.7_debug@4.3.3:
+    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.3
+    dev: false
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -14161,8 +14165,8 @@ packages:
       tslib: 2.3.1
     dev: false
 
-  /nock/13.2.1:
-    resolution: {integrity: sha512-CoHAabbqq/xZEknubuyQMjq6Lfi5b7RtK6SoNK6m40lebGp3yiMagWtIoYaw2s9sISD7wPuCfwFpivVHX/35RA==}
+  /nock/13.2.4:
+    resolution: {integrity: sha512-8GPznwxcPNCH/h8B+XZcKjYPXnUV5clOKCjAqyjsiqA++MpNx9E9+t8YPp0MbThO+KauRo7aZJ1WuIZmOrT2Ug==}
     engines: {node: '>= 10.13'}
     dependencies:
       debug: 4.3.3
