@@ -2,7 +2,11 @@
 
 [AWS Cloud9](https://aws.amazon.com/cloud9/) is a cloud-based integrated development environment (IDE) that lets you write, run, and debug your code with just a browser.
 
-**Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
+:::info
+
+The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Cloud9 has a cost-saving setting to help reduce costs by automatically hibernating after 30 minutes of inactivity. Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
+
+:::
 
 - Minimum: `t2.medium (4 GiB RAM + 2 vCPU)`
 - Recommended: `t2.large (8 GiB RAM + 2 vCPU)`
@@ -177,7 +181,11 @@ else
 fi
 ```
 
-**Disclaimer**: AWS Free-Tier includes 30GB of Storage, 2 million I/Os, and 1GB of snapshot storage with [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/pricing/) free for 12 months.
+:::info
+
+AWS Free-Tier includes 30GB of Storage, 2 million I/Os, and 1GB of snapshot storage with [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/pricing/) free for 12 months.
+
+:::
 
 In the terminal, execute the script by running
 

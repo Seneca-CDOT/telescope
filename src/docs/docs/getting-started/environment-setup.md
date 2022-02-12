@@ -144,7 +144,12 @@ newgrp docker
 - Disable docker on startup: `sudo systemctl disable docker`
 
 11. Verify your installation by running `docker run hello-world`. This should print a hello world paragraph that includes a confirmation that Docker is working on your system.
-    _NOTE: This may cause errors if you have already tried to run docker before. If you get errors then run the following commands to reset it:_
+
+:::note
+
+This may cause errors if you have already tried to run docker before. If you get errors then run the following commands to reset it
+
+:::
 
 #### Install Docker-Compose
 
@@ -166,7 +171,11 @@ sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 ```
 
-_NOTE: This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL._
+:::note
+
+This will not work on WSL (Windows Subsystem for Linux). Use the approach listed above under WSL.
+
+:::
 
 #### Start Docker
 
@@ -213,6 +222,24 @@ And to run scripts:
 pnpm <script-name>
 ```
 
+### Start Docker
+
+```bash
+sudo systemctl start docker
+```
+
+:::note
+
+You may need to add your user to the docker group in Linux to use `docker-compose` without `sudo`. To do this, try `groups $USER` in a terminal and check if docker is in the list of groups. If not, add it with `usermod -aG docker $USER` and reboot.
+
+:::
+
+:::caution Important
+
+Docker builds Telescope's dependencies at launch and keeps them on disk. In some cases, Docker might try to reuse already-built dependencies or cached data, causing misleading results when testing Telescope. To avoid this, it is recommended to use the command `docker system prune -af --volumes` to remove all already-built Telescope dependencies and ensure fresh deployments. More information about docker: [images vs containers](https://www.baeldung.com/docker-images-vs-containers) and [volumes](https://docs.docker.com/storage/volumes/).
+
+:::
+
 ### Start Telescope
 
 There are different ways to run the application. By default, [env.development](../config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
@@ -220,7 +247,12 @@ There are different ways to run the application. By default, [env.development](.
 There are also [env.production](../config/env.production) and [env.staging](../config/env.staging) to choose based on developer's need. For example, if you want to use staging, you can do `cp ./config/env.staging ./.env` on Linux/macOS, or `copy config/env.staging .env` on Windows.
 
 Here are instructions for different scenarios:
-_Note: Make sure you're running these commands in the root of telescope project. If any of the commands below are failing, use the command `pwd` to find your current directory and navigate back to project root (e.g., `cd <the path of directory you place telescope project>/telescope`)_
+
+:::tip
+
+Make sure you're running these commands in the root of telescope project. If any of the commands below are failing, use the command `pwd` to find your current directory and navigate back to project root (e.g., `cd <the path of directory you place telescope project>/telescope`)
+
+:::
 
 #### Option 1: Run frontend and backend microservices locally
 
@@ -315,7 +347,7 @@ Make sure to you have [docker](https://docs.docker.com/engine/reference/commandl
 2. Starting the docker application manually
 3. Restarting your machine.
 
-You can check out the docker daemon cli through this link (here)[<https://docs.docker.com/engine/reference/commandline/dockerd/>)
+You can check out the docker daemon cli through this link [here](https://docs.docker.com/engine/reference/commandline/dockerd/)
 
 ### I followed all the steps but my browser still can't run telescope locally
 
@@ -350,4 +382,6 @@ If you receive the error message "Malformed input, repository not added" after r
 
 :::info
 
-**Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](../getting-started/aws-cloud9.md) for more information.**
+Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](../getting-started/aws-cloud9.md) for more information.
+
+:::

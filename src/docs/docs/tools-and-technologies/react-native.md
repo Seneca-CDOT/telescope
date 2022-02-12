@@ -32,7 +32,11 @@ In `Metro Bundler`, you can choose to generate a `QR` code with the `tunnel` con
 
 ![Tunnel deploy options](../../static/img/tunnel_deploy_option.png)
 
-Note: For `macOS` more [configuration](https://docs.expo.dev/workflow/android-studio-emulator/) is needed if you want to use `Android Studio` to test the application
+:::note
+
+For `macOS` more [configuration](https://docs.expo.dev/workflow/android-studio-emulator/) is needed if you want to use `Android Studio` to test the application
+
+:::
 
 ## Debugging
 
@@ -46,4 +50,8 @@ To bring up the developer menu:
 
 Click on `debug remote JS` and then you can work on debugging the application using `Chrome developer tool`
 
-Note: Remember to turn off `Remote JS debugging` mode or it will slow down the application
+:::note
+
+Remember to turn off `Remote JS debugging` mode or it will slow down the application
+
+:::
