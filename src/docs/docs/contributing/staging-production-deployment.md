@@ -73,7 +73,11 @@ Copy `env.example` in the `autodeployment` directory to `.env` and add the appro
 
 Install the dependencies using `pnpm install`, and run the server with `pnpm start`.
 
-**Note**: Telescope relies on docker to restart after 5AM unexpected reboots or the like. The autodeployment server runs outside of docker so it needs another tool like [pm2](https://pm2.keymetrics.io/) or a [unit file](https://fedoramagazine.org/systemd-getting-a-grip-on-units/) to be able to restart after an unexpected reboot.
+:::note
+
+Telescope relies on docker to restart after 5AM unexpected reboots or the like. The autodeployment server runs outside of docker so it needs another tool like [pm2](https://pm2.keymetrics.io/) or a [unit file](https://fedoramagazine.org/systemd-getting-a-grip-on-units/) to be able to restart after an unexpected reboot.
+
+:::
 
 More info about the deployment server [here](https://github.com/Seneca-CDOT/telescope/tree/master/tools/autodeployment).
 

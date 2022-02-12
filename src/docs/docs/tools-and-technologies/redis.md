@@ -10,8 +10,12 @@ JavaScript module to interact with Redis in our code. In our tests, we use
 [ioredis-mock](https://www.npmjs.com/package/ioredis-mock) to provide mocks
 for Redis.
 
-> NOTE: if you need to use an in-memory, mock version of Redis vs. a real
-> database, use the environment variable `MOCK_REDIS=1`. Our tests use this.
+:::note
+
+If you need to use an in-memory, mock version of Redis vs. a real
+database, use the environment variable `MOCK_REDIS=1`. Our tests use this.
+
+:::
 
 For information about installing Redis, see [our environment setup guide](../getting-started/environment-setup.md).
 

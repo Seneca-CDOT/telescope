@@ -70,25 +70,25 @@ Before creating your pull request you may want to squash all your commits down t
 Before you begin make sure you are in your own branch and any and all changes you wish to make are committed.
 
 1. The first step is to find the base commit where your branch began. To find this you can run `git log` and look through the history for the commit before your first commit. Copy the hash from this commit.
-1. Run `git rebase -i` followed by the base commit's hash.
+2. Run `git rebase -i` followed by the base commit's hash.
    Example: `git rebase -i 1bab04f`
-1. A `git-rebase-todo` file will then open up in your default editor. If you have no set one then you will be prompted to edit it in terminal using VIM.
+3. A `git-rebase-todo` file will then open up in your default editor. If you have no set one then you will be prompted to edit it in terminal using VIM.
    Example:
 
-```
-pick 52a4ced Build
-pick b85d7a9 Final Build
-```
+   ```
+   pick 52a4ced Build
+   pick b85d7a9 Final Build
+   ```
 
-1. On this screen you will need to decide what you want to do with each commit. Most commonly you will be choosing to squash, fixup or reword your commits. The example below will create one commit instead of 2 with the commit message being "Build".
+4. On this screen you will need to decide what you want to do with each commit. Most commonly you will be choosing to squash, fixup or reword your commits. The example below will create one commit instead of 2 with the commit message being "Build".
    Example:
 
-```
-pick 52a4ced Build
-fixup b85d7a9 Final Build
-```
+   ```
+   pick 52a4ced Build
+   fixup b85d7a9 Final Build
+   ```
 
-1. Once this is done you can save and close the file. (Or if using VIM press esc then : followed by wq to save and quit).
+5. Once this is done you can save and close the file. (Or if using VIM press esc then : followed by wq to save and quit).
 
 ## Submitting Your Code
 
