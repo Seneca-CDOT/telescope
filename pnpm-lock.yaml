@@ -373,6 +373,7 @@ importers:
   src/docs:
     specifiers:
       '@docusaurus/core': 2.0.0-beta.15
+      '@docusaurus/plugin-content-docs': 2.0.0-beta.15
       '@docusaurus/preset-classic': 2.0.0-beta.15
       '@docusaurus/types': 2.0.0-beta.15
       '@mdx-js/react': 1.6.21
@@ -382,6 +383,7 @@ importers:
       react-dom: 17.0.1
     dependencies:
       '@docusaurus/core': 2.0.0-beta.15_182b7aa9b17480f4d87870e9c5f139c0
+      '@docusaurus/plugin-content-docs': 2.0.0-beta.15_574035e1d8f3a7ba943c0e14182d5d49
       '@docusaurus/preset-classic': 2.0.0-beta.15_e2cf567c60ce9b24d426407094ca2d9d
       '@mdx-js/react': 1.6.21_react@17.0.1
       clsx: 1.1.1
@@ -653,7 +655,7 @@ packages:
       '@babel/generator': 7.16.8
       '@babel/helper-module-transforms': 7.16.7
       '@babel/helpers': 7.16.7
-      '@babel/parser': 7.16.10
+      '@babel/parser': 7.16.12
       '@babel/template': 7.16.7
       '@babel/traverse': 7.16.10
       '@babel/types': 7.16.8
@@ -662,7 +664,7 @@ packages:
       gensync: 1.0.0-beta.2
       json5: 2.2.0
       lodash: 4.17.21
-      resolve: 1.21.0
+      resolve: 1.22.0
       semver: 5.7.1
       source-map: 0.5.7
     transitivePeerDependencies:
@@ -1002,11 +1004,6 @@ packages:
       chalk: 2.4.2
       js-tokens: 4.0.0
 
-  /@babel/parser/7.16.10:
-    resolution: {integrity: sha512-Sm/S9Or6nN8uiFsQU1yodyDW3MWXQhFeqzMPM+t8MJjM+pLsnFVxFZzkpXKvUXh+Gz9cbMoYYs484+Jw/NTEFQ==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
   /@babel/parser/7.16.12:
     resolution: {integrity: sha512-VfaV15po8RiZssrkPweyvbGVSe4x2y+aciFCgn0n0/SJMR22cwofRV1mtnJQYcSB1wUTaA/X1LnA3es66MCO5A==}
     engines: {node: '>=6.0.0'}
@@ -1290,7 +1287,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.12.9
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.16.7
       '@babel/plugin-syntax-object-rest-spread': 7.8.3_@babel+core@7.12.9
       '@babel/plugin-transform-parameters': 7.16.7_@babel+core@7.12.9
 
@@ -16882,6 +16879,7 @@ packages:
       is-core-module: 2.8.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
+    dev: false
 
   /resolve/1.22.0:
     resolution: {integrity: sha512-Hhtrw0nLeSrFQ7phPp4OOcVjLPIeMnRlr5mcnVuMe7M/7eBn98A3hmFRLoFo3DLZkivSYwhRUJTyPyWAk56WLw==}
