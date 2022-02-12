@@ -85,35 +85,32 @@ module.exports.captureAuthDetailsOnSession = function captureAuthDetailsOnSessio
   };
 };
 
-module.exports.createTelescopeUser = function createTelescopeUser() {
-  return async (req, res, next) => {
-    const id = getUserId(req);
-    const { firstName, lastName, email, displayName, feeds, githubUsername, githubAvatarUrl } =
-      req.body;
+const checkFeedExists = async (feeds) => {
+  const { data: existingFeeds } = await supabase
+    .from('feeds')
+    .select('id')
+    .in('feed_url', feeds)
+    .limit(1);
 
-    const { error: userError } = await supabase.from('telescope_profiles').insert(
-      {
-        id,
-        email,
-        first_name: firstName,
-        last_name: lastName,
-        display_name: displayName,
-        github_username: githubUsername,
-        github_avatar_url: githubAvatarUrl,
-      },
-      { returning: 'minimal' }
-    );
+  return existingFeeds?.length;
+};
 
-    if (userError) {
-      logger.warn(
-        { code: userError.code, details: userError.details, id, data: req.body },
-        userError.message
-      );
-      next(createError(400, 'unable to create user'));
-      return;
-    }
-
-    const { error: feedError } = await supabase.from('feeds').insert(
+const createNewProfile = async (id, body) => {
+  const { firstName, lastName, email, displayName, feeds, githubUsername, githubAvatarUrl } = body;
+  const result = await supabase.from('telescope_profiles').insert(
+    {
+      id,
+      email,
+      first_name: firstName,
+      last_name: lastName,
+      display_name: displayName,
+      github_username: githubUsername,
+      github_avatar_url: githubAvatarUrl,
+    },
+    { returning: 'minimal' }
+  );
+  if (!result.error) {
+    return supabase.from('feeds').insert(
       feeds.map((feedUrl) => ({
         user_id: id,
         feed_url: feedUrl,
@@ -122,18 +119,34 @@ module.exports.createTelescopeUser = function createTelescopeUser() {
       })),
       { returning: 'minimal' }
     );
+  }
+  return result;
+};
 
-    if (feedError) {
-      logger.warn(
-        { code: feedError.code, details: feedError.details, id, data: req.body },
-        feedError.message
-      );
-      // Delete the newly created user if their feeds are invalid
-      await supabase.from('telescope_profiles').delete({ returning: 'minimal' }).match({ id });
-      next(createError(400, 'User feed is invalid or already exists'));
+module.exports.createTelescopeUser = function createTelescopeUser() {
+  return async (req, res, next) => {
+    const id = getUserId(req);
+
+    if (await checkFeedExists(req.body.feeds)) {
+      next(createError(409, 'A Feed URL has already been registered'));
       return;
     }
 
+    const response = await createNewProfile(id, req.body);
+
+    if (response.error) {
+      const {
+        status,
+        error: { details, message },
+      } = response;
+      logger.warn({ status, details, id, data: req.body }, message);
+      if (status === 409) {
+        next(createError(status, 'Display name or GitHub account has already been registered'));
+        return;
+      }
+      next(createError(status, 'Unable to create a Telescope profile'));
+      return;
+    }
     next();
   };
 };
@@ -142,21 +155,21 @@ module.exports.createTelescopeUser = function createTelescopeUser() {
 module.exports.getTelescopeProfile = function getTelescopeProfile() {
   return async (req, res, next) => {
     const id = getUserId(req);
-    const { data: profiles, error } = await supabase
-      .from('telescope_profiles')
-      .select('*')
-      .eq('id', id)
-      .limit(1);
+    const {
+      data: profiles,
+      error,
+      status,
+    } = await supabase.from('telescope_profiles').select('*').eq('id', id).limit(1);
 
     if (error) {
-      logger.warn({ code: error.code, details: error.details, id }, error.message);
-      next(createError(500, 'unable to get updated user info'));
+      logger.warn({ status, details: error.details, id }, error.message);
+      next(createError(status, 'unable to get updated user info'));
       return;
     }
 
     if (!profiles.length) {
       logger.warn({ id }, 'no users found');
-      next(createError(404, 'unable to get updated user info'));
+      next(createError(404, 'unable to get user info'));
       return;
     }
 

@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { createStyles, makeStyles, Theme, FormHelperText } from '@material-ui/core';
 import { connect } from 'formik';
 
 import { SignUpForm } from '../../../interfaces';
@@ -94,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Review = connect<{}, SignUpForm>((props) => {
+const Review = connect<{ accountError: string | undefined }, SignUpForm>((props) => {
   const classes = useStyles();
 
   const { feeds, displayName, firstName, lastName, email, github, blogUrl } = props.formik.values;
@@ -132,6 +132,7 @@ const Review = connect<{}, SignUpForm>((props) => {
             </div>
           </div>
         </div>
+        <FormHelperText error>{props.accountError}</FormHelperText>
       </div>
     </div>
   );

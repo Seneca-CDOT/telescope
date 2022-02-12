@@ -21,14 +21,14 @@ export default [
   Yup.object().shape({}),
 
   Yup.object().shape({
-    [firstName.name]: Yup.string().required(`${firstName.requiredErrorMsg}`),
-    [lastName.name]: Yup.string().required(`${lastName.requiredErrorMsg}`),
-    [displayName.name]: Yup.string().required(`${displayName.requiredErrorMsg}`),
+    [firstName.name]: Yup.string().required(firstName.requiredErrorMsg),
+    [lastName.name]: Yup.string().required(lastName.requiredErrorMsg),
+    [displayName.name]: Yup.string().required(displayName.requiredErrorMsg),
   }),
 
   // Second step we fetch data from GitHub.
   Yup.object().shape({
-    [githubUsername.name]: Yup.string().required(`${githubUsername.requiredErrorMsg}`),
+    [githubUsername.name]: Yup.string().required(githubUsername.requiredErrorMsg),
     [github.name]: Yup.object()
       .shape({
         username: Yup.string().required(),
@@ -44,7 +44,7 @@ export default [
 
   // Third step we collect the user blog and the RSSfeeds from it.
   Yup.object().shape({
-    [blogUrl.name]: Yup.string().url().required(`${blogUrl.requiredErrorMsg}`),
+    [blogUrl.name]: Yup.string().url().required(blogUrl.requiredErrorMsg),
     [feeds.name]: Yup.array().of(Yup.string()).min(1, feeds.requiredErrorMsg),
     [allFeeds.name]: Yup.array().of(Yup.string()),
     [blogOwnership.name]: Yup.boolean().test(
