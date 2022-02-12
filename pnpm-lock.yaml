@@ -349,7 +349,7 @@ importers:
 
   src/api/users:
     specifiers:
-      '@firebase/rules-unit-testing': 2.0.1
+      '@firebase/rules-unit-testing': 2.0.2
       '@senecacdot/satellite': ^1.x
       celebrate: 15.0.0
       env-cmd: 10.1.0
@@ -364,7 +364,7 @@ importers:
       firebase-admin: 10.0.1
       http-link-header: 1.0.3
     devDependencies:
-      '@firebase/rules-unit-testing': 2.0.1
+      '@firebase/rules-unit-testing': 2.0.2
       env-cmd: 10.1.0
       firebase-tools: 9.23.3
       nodemon: 2.0.15
@@ -3954,8 +3954,8 @@ packages:
       tslib: 2.3.1
     dev: false
 
-  /@firebase/rules-unit-testing/2.0.1:
-    resolution: {integrity: sha512-AhG0BZHHUZD4BVHUQOGXe4WkfuS9pNsXtHYmi8jxo7pR+oH967hkZere9Qn4GMbikwfv/KRkKBtKisf24F/SDA==}
+  /@firebase/rules-unit-testing/2.0.2:
+    resolution: {integrity: sha512-odW2Znq5BjWC0QdNLfUbQEI2IxwFX6mgVwFB/vpfs8MUd44ohCHLif8veASKjhrIf0uVIs9vjfOsHb5ONlC76g==}
     engines: {node: '>=10.10.0'}
     peerDependencies:
       firebase: ^9.0.0
