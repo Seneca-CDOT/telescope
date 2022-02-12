@@ -19,7 +19,7 @@ and presenting a timeline of Seneca's open source blogs. Telescope makes it easy
 to see what's happening with open source at Seneca right now.
 
 You can read a more detailed discussion of the project's original goals in
-the [Overview](docs/overview.md) document, and learn about its [Architecture](docs/architecture.md).
+the [Overview](src/docs/docs/overview.md) document, and learn about its [Architecture](src/docs/docs/architecture.md).
 
 ## Why the name 'Telescope'?
 
@@ -39,7 +39,7 @@ OSD600 and DPS909, and has been updated and maintained by 100 other students sin
 We're still actively developing and maintaining Telescope, and if you'd like to help,
 we'd be glad to have you join us.
 
-For contribution information, please see our [contributors documentation](docs/CONTRIBUTING.md).
+For contribution information, please see our [contributors documentation](src/docs/docs/contributing/CONTRIBUTING.md).
 
 For community discussions, join our [#telescope Slack channel](https://seneca-open-source.slack.com/archives/CS5DGCAE5).
 
