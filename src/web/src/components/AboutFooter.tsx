@@ -15,9 +15,15 @@ const useStyles = makeStyles((theme) =>
     },
     heading: {
       color: theme.palette.primary.contrastText,
+      fontSize: '1.6rem',
       [theme.breakpoints.down('md')]: {
         marginTop: '2rem',
       },
+    },
+    subHeading: {
+      fontSize: '1.3rem',
+      paddingTop: '0.8rem',
+      paddingBottom: '0.6rem',
     },
     leftDivider: {
       backgroundColor: theme.palette.primary.contrastText,
@@ -43,7 +49,16 @@ const useStyles = makeStyles((theme) =>
       },
       alignItems: 'flex-start',
     },
+    icons: {
+      paddingTop: '0.5rem',
+      paddingLeft: '0.8rem',
+      [theme.breakpoints.down('sm')]: {
+        paddingLeft: '0',
+        paddingRight: '0.8rem',
+      },
+    },
     footer: {
+      fontSize: '1.2rem',
       color: theme.palette.primary.contrastText,
       [theme.breakpoints.down('sm')]: {
         paddingBottom: '6.5rem',
@@ -67,11 +82,11 @@ const AboutFooter = () => {
           <Grid container direction="row" justifyContent="space-between" alignItems="flex-start">
             <Grid container item xs={12} sm={3}>
               <Grid container direction="column" item xs={6}>
-                <Typography variant="h5" className={classes.heading}>
+                <Typography variant="h1" className={classes.heading}>
                   DOCS
                 </Typography>
                 <Divider className={classes.leftDivider} />
-                <Typography variant="h6">
+                <Typography variant="h2" className={classes.subHeading}>
                   <a
                     href="https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md"
                     className={classes.links}
@@ -79,7 +94,7 @@ const AboutFooter = () => {
                     Get Started
                   </a>
                 </Typography>
-                <Typography variant="h6">
+                <Typography variant="h2" className={classes.subHeading}>
                   <a
                     href="https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md"
                     className={classes.links}
@@ -89,11 +104,11 @@ const AboutFooter = () => {
                 </Typography>
               </Grid>
               <Grid container direction="column" item xs={6}>
-                <Typography variant="h5" className={classes.heading}>
+                <Typography variant="h1" className={classes.heading}>
                   MORE
                 </Typography>
                 <Divider className={classes.leftDivider} />
-                <Typography variant="h6">
+                <Typography variant="h2" className={classes.subHeading}>
                   <a
                     href="https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List"
                     className={classes.links}
@@ -107,15 +122,14 @@ const AboutFooter = () => {
               <Logo height={60} width={60} />
             </Grid>
             <Grid container direction="column" item xs={12} sm={3} alignItems="flex-end">
-              <Typography variant="h5" className={classes.heading}>
+              <Typography variant="h1" className={classes.heading}>
                 COMMUNITY
               </Typography>
               <Divider className={classes.rightDivider} />
               <Grid container direction="row" justifyContent="flex-end" spacing={1}>
                 <Grid item>
                   <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
-                    {' '}
-                    <GitHubIcon fontSize="large" />
+                    <GitHubIcon fontSize="large" titleAccess="GitHub" className={classes.icons} />
                   </a>
                 </Grid>
                 <Grid item>
@@ -123,7 +137,7 @@ const AboutFooter = () => {
                     href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
                     className={classes.links}
                   >
-                    <FaSlack size="22" />
+                    <FaSlack size="22" title="Slack" className={classes.icons} />
                   </a>
                 </Grid>
               </Grid>
@@ -136,11 +150,11 @@ const AboutFooter = () => {
             </Grid>
             <Grid container item xs={12}>
               <Grid container direction="column" item xs={6}>
-                <Typography variant="h5" className={classes.heading}>
+                <Typography variant="h1" className={classes.heading}>
                   DOCS
                 </Typography>
                 <Divider className={classes.leftDivider} />
-                <Typography variant="h6">
+                <Typography variant="h2" className={classes.subHeading}>
                   <a
                     href="https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md"
                     className={classes.links}
@@ -148,7 +162,7 @@ const AboutFooter = () => {
                     Get Started
                   </a>
                 </Typography>
-                <Typography variant="h6">
+                <Typography variant="h2" className={classes.subHeading}>
                   <a
                     href="https://github.com/Seneca-CDOT/telescope/blob/master/docs/CONTRIBUTING.md"
                     className={classes.links}
@@ -158,11 +172,11 @@ const AboutFooter = () => {
                 </Typography>
               </Grid>
               <Grid container direction="column" item xs={6} alignItems="flex-end">
-                <Typography variant="h5" className={classes.heading}>
+                <Typography variant="h1" className={classes.heading}>
                   MORE
                 </Typography>
                 <Divider className={classes.rightDivider} />
-                <Typography variant="h6">
+                <Typography variant="h2" className={classes.subHeading}>
                   <a
                     href="https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List"
                     className={classes.links}
@@ -173,15 +187,14 @@ const AboutFooter = () => {
               </Grid>
             </Grid>
             <Grid container direction="column" item xs={6}>
-              <Typography variant="h5" className={classes.heading}>
+              <Typography variant="h1" className={classes.heading}>
                 COMMUNITY
               </Typography>
               <Divider className={classes.leftDivider} />
               <Grid container direction="row" spacing={1}>
                 <Grid item>
                   <a href="https://github.com/Seneca-CDOT/telescope" className={classes.links}>
-                    {' '}
-                    <GitHubIcon fontSize="large" />
+                    <GitHubIcon fontSize="large" titleAccess="GitHub" className={classes.icons} />
                   </a>
                 </Grid>
                 <Grid item>
@@ -189,7 +202,7 @@ const AboutFooter = () => {
                     href="https://seneca-open-source.slack.com/archives/CS5DGCAE5"
                     className={classes.links}
                   >
-                    <FaSlack size="22" />
+                    <FaSlack size="22" title="Slack" className={classes.icons} />
                   </a>
                 </Grid>
               </Grid>
@@ -201,7 +214,7 @@ const AboutFooter = () => {
         </Grid>
       </Box>
       <Grid item xs={12}>
-        <Typography variant="h6" className={classes.footer}>
+        <Typography variant="h2" className={classes.footer}>
           Copyright © {new Date().getFullYear()} Seneca’s Centre for Development of Open Technology
         </Typography>
       </Grid>
