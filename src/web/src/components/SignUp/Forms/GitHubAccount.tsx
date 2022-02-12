@@ -59,13 +59,6 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       display: 'grid',
       gridTemplateColumns: '80% 20%',
-      '& .MuiFormHelperText-root': {
-        fontSize: '0.9em',
-        color: 'black',
-      },
-      '& .MuiFormLabel-root': {
-        color: 'black',
-      },
     },
     button: {
       height: '35px',

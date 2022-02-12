@@ -28,7 +28,7 @@ enum SIGN_UP_STEPS {
 }
 
 type TelescopeAccountStatus = {
-  error?: boolean;
+  error?: string;
   created?: boolean;
 };
 
@@ -59,6 +59,10 @@ const useStyles = makeStyles((theme: Theme) =>
       boxSizing: 'border-box',
       position: 'relative',
       fontSize: '1.1rem',
+      '& .MuiFormHelperText-root': {
+        fontSize: '0.9em',
+        minHeight: '2em',
+      },
     },
     imageContainer: {
       minHeight: '100vh',
@@ -111,7 +115,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '30px auto',
       width: '50%',
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'stretch',
       justifyContent: 'center',
     },
     button: {
@@ -168,7 +172,6 @@ const SignUpPage = () => {
   const { user, token, login, register } = useAuth();
   const [loggedIn, setLoggedIn] = useState(!!user);
   const [telescopeAccount, setTelescopeAccount] = useState<TelescopeAccountStatus>({});
-  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -200,11 +203,10 @@ const SignUpPage = () => {
         lastName: values.lastName,
         email: values.email,
         displayName: values.displayName,
-        github: values.github,
+        githubUsername: values.github.username,
+        githubAvatarUrl: values.github.avatarUrl,
         feeds: values.feeds,
       };
-
-      setLoading(true);
 
       const response = await fetch(`${ssoServiceUrl}/register`, {
         method: 'POST',
@@ -216,7 +218,9 @@ const SignUpPage = () => {
       });
 
       if (!response.ok) {
-        setTelescopeAccount({ error: true });
+        setTelescopeAccount({
+          error: 'There was a problem registering your Telescope account',
+        });
         throw new Error(response.statusText);
       }
 
@@ -230,7 +234,7 @@ const SignUpPage = () => {
 
       return;
     } catch (err) {
-      console.error(err, 'Unable to Post');
+      console.error(err, 'unable to post user info');
     }
   };
 
@@ -249,43 +253,12 @@ const SignUpPage = () => {
         return <RSSFeeds />;
 
       case SIGN_UP_STEPS.REVIEW:
-        return <Review />;
+        return <Review accountError={telescopeAccount.error} />;
 
       default:
         return null;
     }
   };
-
-  // In this case, 'loading' is being used not to let an already telescope user start a signup flow again.
-  if (user?.isRegistered && !loading)
-    return (
-      <>
-        <div className={classes.imageContainer}>
-          <DynamicImage />
-        </div>
-        <PopUp
-          messageTitle="Telescope"
-          message={`Hi ${user?.name} you already have a Telescope account.`}
-          agreeAction={() => router.push('/')}
-          agreeButtonText="Ok"
-        />
-      </>
-    );
-
-  if (telescopeAccount.error)
-    return (
-      <>
-        <div className={classes.imageContainer}>
-          <DynamicImage />
-        </div>
-        <PopUp
-          messageTitle="Telescope"
-          message={`Hi ${user?.name} there was a problem creating your account. Please try again later or contact us on our Slack channel.`}
-          agreeAction={() => router.push('/')}
-          agreeButtonText="Ok"
-        />
-      </>
-    );
 
   if (telescopeAccount.created)
     return (
@@ -302,6 +275,20 @@ const SignUpPage = () => {
       </>
     );
 
+  if (user?.isRegistered)
+    return (
+      <>
+        <div className={classes.imageContainer}>
+          <DynamicImage />
+        </div>
+        <PopUp
+          messageTitle="Telescope"
+          message={`Hi ${user?.name} you already have a Telescope account.`}
+          agreeAction={() => router.push('/')}
+          agreeButtonText="Ok"
+        />
+      </>
+    );
   return (
     <>
       <Button
@@ -317,13 +304,13 @@ const SignUpPage = () => {
         <div className={classes.imageContainer}>
           <DynamicImage />
         </div>
-        {!loading && !user?.isRegistered ? (
+        {!user?.isRegistered ? (
           <div className={classes.signUpContainer}>
             <h1 className={classes.title}>Telescope Account</h1>
 
             <Formik
-              enableReinitialize
               onSubmit={handleSubmit}
+              enableReinitialize
               validationSchema={currentSchema}
               initialValues={
                 {
