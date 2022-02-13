@@ -376,7 +376,7 @@ importers:
       '@docusaurus/plugin-content-docs': 2.0.0-beta.15
       '@docusaurus/preset-classic': 2.0.0-beta.15
       '@docusaurus/types': 2.0.0-beta.15
-      '@mdx-js/react': 1.6.21
+      '@mdx-js/react': 1.6.22
       clsx: 1.1.1
       prism-react-renderer: 1.2.1
       react: 17.0.1
@@ -385,7 +385,7 @@ importers:
       '@docusaurus/core': 2.0.0-beta.15_182b7aa9b17480f4d87870e9c5f139c0
       '@docusaurus/plugin-content-docs': 2.0.0-beta.15_574035e1d8f3a7ba943c0e14182d5d49
       '@docusaurus/preset-classic': 2.0.0-beta.15_e2cf567c60ce9b24d426407094ca2d9d
-      '@mdx-js/react': 1.6.21_react@17.0.1
+      '@mdx-js/react': 1.6.22_react@17.0.1
       clsx: 1.1.1
       prism-react-renderer: 1.2.1_react@17.0.1
       react: 17.0.1
@@ -4516,14 +4516,6 @@ packages:
       unist-util-visit: 2.0.3
     transitivePeerDependencies:
       - supports-color
-
-  /@mdx-js/react/1.6.21_react@17.0.1:
-    resolution: {integrity: sha512-CgSNT9sq2LAlhEbVlPg7DwUQkypz+CWaWGcJbkgmp9WCAy6vW33CQ44UbKPiH3wet9o+UbXeQOqzZd041va83g==}
-    peerDependencies:
-      react: ^16.13.1 || ^17.0.0
-    dependencies:
-      react: 17.0.1
-    dev: false
 
   /@mdx-js/react/1.6.22_react@17.0.1:
     resolution: {integrity: sha512-TDoPum4SHdfPiGSAaRBw7ECyI8VaHpK8GJugbJIJuqyh6kzw9ZLJZW3HGL3NNrJGxcAixUvqROm+YuQOo5eXtg==}
