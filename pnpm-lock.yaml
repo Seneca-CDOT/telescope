@@ -426,7 +426,7 @@ importers:
       react-use: 17.3.2
       smoothscroll-polyfill: 0.4.4
       swr: 1.1.2
-      terser-webpack-plugin: 5.3.0
+      terser-webpack-plugin: 5.3.1
       typescript: 4.5.4
       yup: 0.32.11
     dependencies:
@@ -463,7 +463,7 @@ importers:
       '@types/node': 16.11.24
       '@types/react': 17.0.39
       babel-loader: 8.2.3_@babel+core@7.16.7
-      terser-webpack-plugin: 5.3.0
+      terser-webpack-plugin: 5.3.1
       typescript: 4.5.4
 
   tools/autodeployment:
@@ -6599,7 +6599,7 @@ packages:
   /axios/0.21.4_debug@4.3.3:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.7_debug@4.3.3
+      follow-redirects: 1.14.7
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10339,18 +10339,6 @@ packages:
       debug:
         optional: true
 
-  /follow-redirects/1.14.7_debug@4.3.3:
-    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.3
-    dev: false
-
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
     dependencies:
@@ -14088,7 +14076,7 @@ packages:
       clean-webpack-plugin: 4.0.0
       globby: 11.1.0
       next: 12.0.9_dfc0b93d99fba272c9564d3139a2581a
-      terser-webpack-plugin: 5.3.0
+      terser-webpack-plugin: 5.3.1
       workbox-webpack-plugin: 6.4.2
       workbox-window: 6.4.2
     transitivePeerDependencies:
@@ -18273,30 +18261,6 @@ packages:
       supports-hyperlinks: 2.2.0
     dev: true
 
-  /terser-webpack-plugin/5.3.0:
-    resolution: {integrity: sha512-LPIisi3Ol4chwAaPP8toUJ3L4qCM1G0wao7L3qNv57Drezxj6+VEyySpPw4B1HSO2Eg/hDY/MNF5XihCAoqnsQ==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      '@swc/core': '*'
-      esbuild: '*'
-      uglify-js: '*'
-      webpack: ^5.1.0
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      esbuild:
-        optional: true
-      uglify-js:
-        optional: true
-    dependencies:
-      jest-worker: 27.4.6
-      schema-utils: 3.1.1
-      serialize-javascript: 6.0.0
-      source-map: 0.6.1
-      terser: 5.10.0
-    transitivePeerDependencies:
-      - acorn
-
   /terser-webpack-plugin/5.3.0_acorn@8.7.0+webpack@5.68.0:
     resolution: {integrity: sha512-LPIisi3Ol4chwAaPP8toUJ3L4qCM1G0wao7L3qNv57Drezxj6+VEyySpPw4B1HSO2Eg/hDY/MNF5XihCAoqnsQ==}
     engines: {node: '>= 10.13.0'}
@@ -18347,6 +18311,30 @@ packages:
     transitivePeerDependencies:
       - acorn
     dev: false
+
+  /terser-webpack-plugin/5.3.1:
+    resolution: {integrity: sha512-GvlZdT6wPQKbDNW/GDQzZFg/j4vKU96yl2q6mcUkzKOgW4gwf1Z8cZToUCrz31XHlPWH8MVb1r2tFtdDtTGJ7g==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      '@swc/core': '*'
+      esbuild: '*'
+      uglify-js: '*'
+      webpack: ^5.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      esbuild:
+        optional: true
+      uglify-js:
+        optional: true
+    dependencies:
+      jest-worker: 27.4.6
+      schema-utils: 3.1.1
+      serialize-javascript: 6.0.0
+      source-map: 0.6.1
+      terser: 5.10.0
+    transitivePeerDependencies:
+      - acorn
 
   /terser/5.10.0:
     resolution: {integrity: sha512-AMmF99DMfEDiRJfxfY5jj5wNH/bYO09cniSqhfoyxc8sFoYIgkJy86G04UoZU5VjlpnplVu0K6Tx6E9b5+DlHA==}
