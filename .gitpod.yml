@@ -22,8 +22,9 @@ tasks:
           -e  "s@development\.yml@gitpod\.yml@" \
           config/env.development > .env
     init: |
-      pnpm install
-      docker-compose --env-file .env build $SERVICES
+      pnpm install & \
+      docker-compose --env-file .env build $SERVICES & \
+      docker-compose --env-file .env pull
     command: |
       docker-compose --env-file .env up -d $SERVICES
       pnpm start
