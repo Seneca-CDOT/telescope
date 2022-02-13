@@ -62,42 +62,60 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Product',
             items: [
               {
-                label: 'Developer Docs',
-                to: '/docs/overview',
+                label: 'Telescope Website',
+                to: 'https://telescope.cdot.systems/',
+              },
+              {
+                label: 'Telescope Mobile Apps',
+                to: 'https://telescope.cdot.systems/',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Resources',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'System Status',
+                href: 'https://api.telescope.cdot.systems/v1/status/',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'License',
+                href: 'https://github.com/Seneca-CDOT/telescope/blob/master/LICENSE',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'Planet CDOT Feeds',
+                href: 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'Developers',
             items: [
               {
-                label: 'GitHub',
+                label: 'Documentation',
+                href: 'https://docusaurus.io/docs/',
+              },
+              {
+                label: 'Slack',
+                href: 'https://seneca-open-source.slack.com/archives/CS5DGCAE5',
+              },
+              {
+                label: 'Github',
                 href: 'https://github.com/Seneca-CDOT/telescope',
+              },
+              {
+                label: 'Staging Server',
+                href: 'https://dev.telescope.cdot.systems/',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} <br>
+        Telescope, Seneca's Centre for Development of Open Technology.<br>
+        Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
