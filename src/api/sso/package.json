@@ -16,7 +16,7 @@
   "dependencies": {
     "@senecacdot/satellite": "^1.x",
     "@supabase/supabase-js": "1.29.4",
-    "celebrate": "15.0.0",
+    "celebrate": "15.0.1",
     "connect-redis": "6.0.0",
     "express-session": "1.17.2",
     "jsonwebtoken": "8.5.1",
