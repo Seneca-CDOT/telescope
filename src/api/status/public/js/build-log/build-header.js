@@ -11,6 +11,7 @@ const buildStarted = document.getElementById('build-started');
 const buildDuration = document.getElementById('build-duration');
 const buildPrevious = document.getElementById('previous-build');
 const buildLoadingAnimation = document.getElementById('build-animation');
+const buildCommitMessage = document.getElementById('build-commit-message');
 
 function renderBuildTimeInfo(startedDate, stoppedDate = new Date()) {
   const duration = new Date(stoppedDate).getTime() - new Date(startedDate).getTime();
@@ -18,10 +19,11 @@ function renderBuildTimeInfo(startedDate, stoppedDate = new Date()) {
   buildStarted.innerText = new Date(startedDate).toUTCString();
 }
 
-function renderSender(sender) {
+function renderSender(sender, message) {
   buildSender.href = sender.html_url;
   buildSenderName.innerText = sender.login;
   buildSenderImg.src = sender.avatar_url;
+  buildCommitMessage.innerText = message.charAt(0).toUpperCase() + message.slice(1);
 }
 
 function renderSha(compare, sha) {
@@ -48,7 +50,11 @@ function renderLoadingAnimation(code) {
 }
 
 function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code, sha }) {
-  const { sender, compare } = githubData;
+  const {
+    sender,
+    compare,
+    head_commit: { message },
+  } = githubData;
 
   if (buildHeaderInfo.hidden) {
     buildHeaderInfo.hidden = false;
@@ -59,7 +65,7 @@ function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code
   }
 
   buildHeaderTitle.innerHTML = '';
-  renderSender(sender);
+  renderSender(sender, message);
   renderSha(compare, sha);
   renderBuildTimeInfo(startedDate, stoppedDate);
   renderLoadingAnimation(code);
