@@ -198,14 +198,14 @@ importers:
   src/api/image:
     specifiers:
       '@senecacdot/satellite': ^1.x
-      celebrate: 15.0.0
+      celebrate: 15.0.1
       del-cli: 4.0.1
       got: 11.8.3
       nodemon: 2.0.15
       sharp: 0.29.3
     dependencies:
       '@senecacdot/satellite': 1.17.0
-      celebrate: 15.0.0
+      celebrate: 15.0.1
       got: 11.8.3
       sharp: 0.29.3
     devDependencies:
@@ -283,7 +283,7 @@ importers:
     specifiers:
       '@senecacdot/satellite': ^1.x
       '@supabase/supabase-js': 1.29.4
-      celebrate: 15.0.0
+      celebrate: 15.0.1
       connect-redis: 6.0.0
       env-cmd: 10.1.0
       express-session: 1.17.2
@@ -295,7 +295,7 @@ importers:
     dependencies:
       '@senecacdot/satellite': 1.17.0
       '@supabase/supabase-js': 1.29.4
-      celebrate: 15.0.0
+      celebrate: 15.0.1
       connect-redis: 6.0.0
       express-session: 1.17.2
       jsonwebtoken: 8.5.1
@@ -351,7 +351,7 @@ importers:
     specifiers:
       '@firebase/rules-unit-testing': 2.0.2
       '@senecacdot/satellite': ^1.x
-      celebrate: 15.0.0
+      celebrate: 15.0.1
       env-cmd: 10.1.0
       firebase-admin: 10.0.1
       firebase-tools: 9.23.3
@@ -360,7 +360,7 @@ importers:
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.17.0
-      celebrate: 15.0.0
+      celebrate: 15.0.1
       firebase-admin: 10.0.1
       http-link-header: 1.0.3
     devDependencies:
@@ -7282,8 +7282,8 @@ packages:
   /ccount/1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
 
-  /celebrate/15.0.0:
-    resolution: {integrity: sha512-eGA5CHv5GYbV6ZaBEYKIST+7OUsHZKcyiNdagdVDu6uO1QK2i2qLrS9XWdJ1pWPuw9M0D7B1rUFQqIld1nNcMA==}
+  /celebrate/15.0.1:
+    resolution: {integrity: sha512-K2y221k10u+K2t9w25802qXh8h1mVWZf+6pl7zHdlhhwzrOSQFnnw+GsR8k17oyn4Y3fVErBGsO/+CeW8N7aRQ==}
     dependencies:
       escape-html: 1.0.3
       joi: 17.5.0
