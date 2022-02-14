@@ -22,7 +22,7 @@ Before creating an issue:
 
 Telescope has many parts, and setup requires you to install a number of tools
 and dependencies. For instructions on how to setup your Telescope environment, please see
-the [Environment Setup documentation](https://github.com/Seneca-CDOT/telescope/blob/master/docs/environment-setup.md). For a discussion of Telescope's design, see our [Architecture](architecture.md) documentation.
+the [Environment Setup documentation](../getting-started/environment-setup.md). For a discussion of Telescope's design, see our [Architecture](architecture.md) documentation.
 
 ## Browser-based Setup using Gitpod
 
