@@ -468,23 +468,23 @@ importers:
 
   tools/autodeployment:
     specifiers:
-      '@octokit/webhooks': ^9.15.0
+      '@octokit/webhooks': 9.15.0
       '@senecacdot/satellite': ^1.x
-      date-fns: ^2.26.0
-      dotenv: ^10.0.0
-      merge-stream: ^2.0.0
-      pm2: ^5.1.1
-      rereadable-stream: ^1.4.13
-      shelljs: ^0.8.4
-    dependencies:
-      '@octokit/webhooks': 9.22.0
-      '@senecacdot/satellite': 1.17.0
-      date-fns: 2.28.0
+      date-fns: 2.26.0
       dotenv: 10.0.0
       merge-stream: 2.0.0
-      pm2: 5.1.2
+      pm2: 5.1.1
       rereadable-stream: 1.4.13
-      shelljs: 0.8.5
+      shelljs: 0.8.4
+    dependencies:
+      '@octokit/webhooks': 9.15.0
+      '@senecacdot/satellite': 1.17.0
+      date-fns: 2.26.0
+      dotenv: 10.0.0
+      merge-stream: 2.0.0
+      pm2: 5.1.1
+      rereadable-stream: 1.4.13
+      shelljs: 0.8.4
 
   tools/migrate:
     specifiers:
@@ -4789,16 +4789,16 @@ packages:
     resolution: {integrity: sha512-35cfQ4YWlnZnmZKmIxlGPUPLtbkF8lr/A/1Sk1eC0ddLMwQN06dOuLc+dI3YLQS+T+MoNt3DIQ0NynwgKPilig==}
     dev: false
 
-  /@octokit/webhooks-types/5.2.0:
-    resolution: {integrity: sha512-OZhKy1w8/GF4GWtdiJc+o8sloWAHRueGB78FWFLZnueK7EHV9MzDVr4weJZMflJwMK4uuYLzcnJVnAoy3yB35g==}
+  /@octokit/webhooks-types/4.7.0:
+    resolution: {integrity: sha512-LWTPedtJtcdA1+k+iERtCr7UnO/d+Cr00/vRPhjASTHz2G/ZtSAnDNjDv5c7X2R7OJsPE6eFUMT7frwjjuAbZA==}
     dev: false
 
-  /@octokit/webhooks/9.22.0:
-    resolution: {integrity: sha512-wUd7nGfDRHG6xkz311djmq6lIB2tQ+r94SNkyv9o0bQhOsrkwH8fQCM7uVsbpkGUU2lqCYsVoa8z/UC9HJgRaw==}
+  /@octokit/webhooks/9.15.0:
+    resolution: {integrity: sha512-IFHXmTT4rVz8TbH5oH8qmJkM9UJLo75mmaMydKdn0j/ffLuTQ/+j6+Jl5dyboUo6AtUwaklFacszViVCKHME6A==}
     dependencies:
       '@octokit/request-error': 2.1.0
       '@octokit/webhooks-methods': 2.0.0
-      '@octokit/webhooks-types': 5.2.0
+      '@octokit/webhooks-types': 4.7.0
       aggregate-error: 3.1.0
     dev: false
 
@@ -8254,6 +8254,11 @@ packages:
     resolution: {integrity: sha512-X/b2gM7e8zQ7siiE0DhRLeNMpuCkIqec5Jnx4GMk/HWB71a6e5Lz48mH9/GIS/hpLsBRFZfMF1gjXBkY0vq5oA==}
     dev: false
     optional: true
+
+  /date-fns/2.26.0:
+    resolution: {integrity: sha512-VQI812dRi3cusdY/fhoBKvc6l2W8BPWU1FNVnFH9Nttjx4AFBRzfSVb/Eyc7jBT6e9sg1XtAGsYpBQ6c/jygbg==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /date-fns/2.28.0:
     resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==}
@@ -15254,8 +15259,8 @@ packages:
     dev: false
     optional: true
 
-  /pm2/5.1.2:
-    resolution: {integrity: sha512-2nJQeCWjkN0WnTkWctaoZpqrJTiUN/Icw76IMVHHzPhr/p7yQYlEQgHzlL5IFWxO2N1HdBNXNdZft2p4HUmUcA==}
+  /pm2/5.1.1:
+    resolution: {integrity: sha512-2Agpn2IVXOKu8kP+qaxKOvMLNtbZ6lY4bzKcEW2d2tw7O0lpNO7QvDayY4af+8U1+WCn90UjPK4q2wPFVHt/sA==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     dependencies:
@@ -17386,6 +17391,16 @@ packages:
 
   /shell-quote/1.7.3:
     resolution: {integrity: sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==}
+
+  /shelljs/0.8.4:
+    resolution: {integrity: sha512-7gk3UZ9kOfPLIAbslLzyWeGiEqx9e3rxwZM0KE6EL8GlGwjym9Mrlx5/p33bWTu9YG6vcS4MBxYZDHYr5lr8BQ==}
+    engines: {node: '>=4'}
+    hasBin: true
+    dependencies:
+      glob: 7.2.0
+      interpret: 1.4.0
+      rechoir: 0.6.2
+    dev: false
 
   /shelljs/0.8.5:
     resolution: {integrity: sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==}
