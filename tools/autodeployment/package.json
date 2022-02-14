@@ -11,7 +11,7 @@
     "merge-stream": "2.0.0",
     "pm2": "5.1.1",
     "rereadable-stream": "1.4.13",
-    "shelljs": "0.8.4"
+    "shelljs": "0.8.5"
   },
   "scripts": {
     "start": "node server.js"

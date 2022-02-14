@@ -475,7 +475,7 @@ importers:
       merge-stream: 2.0.0
       pm2: 5.1.1
       rereadable-stream: 1.4.13
-      shelljs: 0.8.4
+      shelljs: 0.8.5
     dependencies:
       '@octokit/webhooks': 9.15.0
       '@senecacdot/satellite': 1.17.0
@@ -484,7 +484,7 @@ importers:
       merge-stream: 2.0.0
       pm2: 5.1.1
       rereadable-stream: 1.4.13
-      shelljs: 0.8.4
+      shelljs: 0.8.5
 
   tools/migrate:
     specifiers:
@@ -6591,7 +6591,7 @@ packages:
   /axios/0.21.4_debug@4.3.3:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.7_debug@4.3.3
+      follow-redirects: 1.14.7
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10335,18 +10335,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-
-  /follow-redirects/1.14.7_debug@4.3.3:
-    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.3
-    dev: false
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -17391,16 +17379,6 @@ packages:
 
   /shell-quote/1.7.3:
     resolution: {integrity: sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==}
-
-  /shelljs/0.8.4:
-    resolution: {integrity: sha512-7gk3UZ9kOfPLIAbslLzyWeGiEqx9e3rxwZM0KE6EL8GlGwjym9Mrlx5/p33bWTu9YG6vcS4MBxYZDHYr5lr8BQ==}
-    engines: {node: '>=4'}
-    hasBin: true
-    dependencies:
-      glob: 7.2.0
-      interpret: 1.4.0
-      rechoir: 0.6.2
-    dev: false
 
   /shelljs/0.8.5:
     resolution: {integrity: sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==}
