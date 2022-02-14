@@ -33,7 +33,7 @@ importers:
       connect-redis: 6.0.0
       cors: 2.8.5
       date-fns: 2.28.0
-      docker-compose: 0.23.14
+      docker-compose: 0.23.17
       dotenv: 10.0.0
       entities: 3.0.1
       eslint: 7.32.0
@@ -102,7 +102,7 @@ importers:
       connect-redis: 6.0.0
       cors: 2.8.5
       date-fns: 2.28.0
-      docker-compose: 0.23.14
+      docker-compose: 0.23.17
       dotenv: 10.0.0
       entities: 3.0.1
       express: 4.17.2
@@ -6591,7 +6591,7 @@ packages:
   /axios/0.21.4_debug@4.3.3:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -8562,8 +8562,8 @@ packages:
       buffer-indexof: 1.1.1
     dev: false
 
-  /docker-compose/0.23.14:
-    resolution: {integrity: sha512-n4y10yvZEGtwW4EvpDpiWal2elr6D14Bt8oP3nvlLAxryblEVub689lYhpu8lr54OlTiW9X64BH9SLd9AqljNw==}
+  /docker-compose/0.23.17:
+    resolution: {integrity: sha512-YJV18YoYIcxOdJKeFcCFihE6F4M2NExWM/d4S1ITcS9samHKnNUihz9kjggr0dNtsrbpFNc7/Yzd19DWs+m1xg==}
     engines: {node: '>= 6.0.0'}
     dependencies:
       yaml: 1.10.2
@@ -10330,6 +10330,18 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+
+  /follow-redirects/1.14.7_debug@4.3.3:
+    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.3
+    dev: false
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
