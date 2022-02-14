@@ -135,7 +135,7 @@ services:
 
   meta:
     container_name: supabase-meta
-    image: supabase/postgres-meta:v0.29.0
+    image: supabase/postgres-meta:v0.33.2
     depends_on:
       - db
     restart: unless-stopped
