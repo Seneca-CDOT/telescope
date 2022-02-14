@@ -1,3 +1,5 @@
+import { Toast } from 'bootstrap';
+
 /**
  * UI theme for toast
  * @typedef {("danger" | "success" | "info" | "warning" | "primary")} ToastVariant
@@ -70,7 +72,7 @@ const showToast = (message, variant = 'info', options) => {
 
   // Display the toast
   // eslint-disable-next-line no-undef
-  const bsToast = new bootstrap.Toast(toastElement, options);
+  const bsToast = new Toast(toastElement, options);
   bsToast.show();
   return bsToast;
 };
