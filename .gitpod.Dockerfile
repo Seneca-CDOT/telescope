@@ -6,8 +6,7 @@ USER gitpod
 RUN curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash \
     && bash -c ". .nvm/nvm.sh \
         && nvm install --lts \
-        && nvm alias default lts/* \
-        && npm install -g pnpm"
+        && nvm alias default lts/*"
 
 # Installing docker
 # https://docs.docker.com/engine/install/ubuntu/
