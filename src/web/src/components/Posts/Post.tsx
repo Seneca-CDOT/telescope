@@ -317,8 +317,8 @@ function handleZoom(e: MouseEvent) {
   // zoom out of all the currently zoomed images, if zoomed out, don't do anything.
   if (zoomOutAllImages()) return;
 
-  // if the user clicks on an image, zoom in
-  if (e.target instanceof HTMLImageElement) {
+  // if the user clicks on an image, and is inside the .post-content div, zoom in.
+  if (e.target instanceof HTMLImageElement && e.target.closest('.telescope-post-content')) {
     e.preventDefault();
     zoomInImage(e.target);
   }
