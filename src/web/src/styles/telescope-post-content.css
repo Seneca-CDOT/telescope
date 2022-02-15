@@ -1,6 +1,8 @@
 :root {
-  /* Used by the Post component to calculate the max-width of the image to fit the post-content section */
-  --imageZoomFactor: 1.5;
+  --zoomWidthFactor: 90%;
+  /* Used in the breakpoint(media-query) below */
+  --mobileZoomWidthFactor: 100%;
+  --zoomedImageOverlayColor: rgba(255, 255, 255, 0.8);
 }
 
 .telescope-post-content {
@@ -27,15 +29,30 @@
   padding-bottom: 1rem;
   display: block;
   height: auto;
-  transition: transform 0.2s ease-in-out;
 }
 
-.telescope-post-content img.zoomed-image {
-  transform: scale(var(--imageZoomFactor));
-  z-index: 9999;
-  box-shadow: 0 0 6px 5px rgb(0 0 0 / 20%);
-  padding-top: 0;
-  padding-bottom: 0;
+.zoomed-image-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1200;
+  overflow: hidden;
+  background-color: var(--zoomedImageOverlayColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.zoomed-image-container img.zoomed-image {
+  padding: 0;
+  width: var(--zoomWidthFactor);
+  max-height: var(--zoomWidthFactor);
+  object-fit: contain;
+  border-radius: 5px;
 }
 
 .telescope-post-content div > a > img {
@@ -140,6 +157,12 @@
 @media only screen and (max-width: 600px) {
   .telescope-post-content pre {
     padding: 0;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .zoomed-image-container img.zoomed-image {
+    width: var(--mobileZoomWidthFactor);
+    max-height: var(--mobileZoomWidthFactor);
   }
 }
 
