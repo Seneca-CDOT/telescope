@@ -111,3 +111,14 @@ services:
       - '1111:1111'
     environment:
       - POSTS_URL=http://posts:5555
+
+  docs:
+    build:
+      context: ../src/docs
+      dockerfile: Dockerfile
+    ports:
+      - 4631:4631
+    environment:
+      - DOCS_URL=http://docs:4136 #Not sure what the url is supposed to be?
+    depends_on:
+      - nginx

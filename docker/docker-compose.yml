@@ -290,6 +290,7 @@ services:
         - SEARCH_URL=${SEARCH_URL}
         - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
         - STATUS_URL=${STATUS_URL}
+        - DOCS_URL=${DOCS_URL}
     container_name: 'nginx'
     environment:
       - TELESCOPE_HOST
@@ -352,3 +353,23 @@ services:
       - 'traefik.http.middlewares.rss_bridge_prefix.stripprefix.prefixes=/${API_VERSION}/rss-bridge'
       # Add our middleware to the router
       - 'traefik.http.routers.rss_bridge.middlewares=rss_bridge_redirect,rss_bridge_prefix'
+
+  # This block was added from https://v1.docusaurus.io/docs/en/docker
+  # Not sure if it's needed here or located in the development/production .yaml files
+  # docusaurus:
+  #   build:
+  #     context: ../src/docs
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 4631:4631
+  #   volumes:
+  #     - ./docs:/app/docs
+  #     - ./website/blog:/app/website/blog
+  #     - ./website/core:/app/website/core
+  #     - ./website/i18n:/app/website/i18n
+  #     - ./website/pages:/app/website/pages
+  #     - ./website/static:/app/website/static
+  #     - ./website/sidebars.json:/app/website/sidebars.json
+  #     - ./website/siteConfig.js:/app/website/siteConfig.js
+  #   depends_on:
+  #     - nginx
