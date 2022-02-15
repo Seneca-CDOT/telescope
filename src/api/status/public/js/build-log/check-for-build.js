@@ -1,6 +1,7 @@
 import checkBuildStatus from './check-build-status.js';
 import terminal from './terminal.js';
 import buildHeader from './build-header.js';
+import showToast from '../utils/toast.js';
 
 export default async function checkForBuild() {
   const status = await checkBuildStatus();
@@ -12,11 +13,13 @@ export default async function checkForBuild() {
   buildHeader(build);
 
   if (!build) {
+    showToast('Build information is missing.', 'warning');
     return;
   }
 
   const reader = await build.getReader();
   if (!reader) {
+    showToast('Reader object from build cannot be retrieved.', 'danger');
     return;
   }
 
