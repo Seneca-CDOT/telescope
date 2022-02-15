@@ -4,18 +4,9 @@ const { hash } = require('@senecacdot/satellite');
 
 const { createClient } = require('@supabase/supabase-js');
 
-const { SERVICE_ROLE_KEY } = process.env;
-
-// From the browser, we need to access Supabase outside the docker container, so
-// we can't use the normal SUPABASE_URL.  We also use the SERVICE_ROLL_KEY for
-// admin access, which isn't acceptable outside of testing.
-const SUPABASE_URL = 'http://localhost:8911';
+const { SUPABASE_URL, SERVICE_ROLE_KEY } = process.env;
 
 const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
-
-// In tests, we need to hit this via a public URL like the front-end would
-// vs. the internal Docker URL, which the services use from the regular env value.
-const USERS_URL = `http://localhost/v1/users`;
 
 const createTelescopeUsers = (users) =>
   Promise.all(
@@ -136,7 +127,6 @@ const ensureUsers = (users, shouldExist = true) =>
     })
   );
 
-module.exports.USERS_URL = USERS_URL;
 module.exports.createTelescopeUsers = createTelescopeUsers;
 module.exports.cleanupTelescopeUsers = cleanupTelescopeUsers;
 module.exports.getTokenAndState = getTokenAndState;
