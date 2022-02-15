@@ -1,3 +1,8 @@
+:root {
+  /* Used by the Post component to calculate the max-width of the image to fit the post-content section */
+  --imageZoomFactor: 1.5;
+}
+
 .telescope-post-content {
   font-size: 1.8rem;
   line-height: 1.6;
@@ -5,7 +10,7 @@
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
-  font-family: PT Serif, Serif;
+  font-family: PT Serif, serif;
   letter-spacing: 0.5px;
 }
 
@@ -22,6 +27,15 @@
   padding-bottom: 1rem;
   display: block;
   height: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.telescope-post-content img.zoomed-image {
+  transform: scale(var(--imageZoomFactor));
+  z-index: 9999;
+  box-shadow: 0 0 6px 5px rgb(0 0 0 / 20%);
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .telescope-post-content div > a > img {
@@ -104,7 +118,7 @@
 .telescope-post-content code,
 .telescope-post-content pre {
   overflow-wrap: unset;
-  word-wrap: none;
+  word-wrap: unset;
   font-family: Menlo, Consolas, Monaco, 'Liberation Mono', 'Lucida Console', monospace;
   border-radius: 3px;
 }

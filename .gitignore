@@ -42,3 +42,6 @@ redis-data/
 
 # Turborepo
 .turbo
+
+# JetBrains IDE cache
+.idea
