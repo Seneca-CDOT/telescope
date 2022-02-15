@@ -49,6 +49,16 @@ const services = [
     staging: 'https://dev.telescope.cdot.systems/deploy/healthcheck',
     production: 'https://telescope.cdot.systems/deploy/healthcheck',
   },
+  {
+    name: 'dependency-discovery',
+    staging: stagingUrl('/dependency-discovery/healthcheck'),
+    production: prodUrl('/dependency-discovery/healthcheck'),
+  },
+  {
+    name: 'rss-bridge',
+    staging: stagingUrl('/rss-bridge'),
+    production: prodUrl('/rss-bridge'),
+  },
 ];
 
 async function checkService(service) {
