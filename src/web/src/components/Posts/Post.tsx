@@ -311,7 +311,6 @@ const zoomInImage = (img: HTMLImageElement) => {
   zoomedImgContainer.appendChild(zoomedImg);
   // add the new div to the DOM
   document.body.appendChild(zoomedImgContainer);
-  zoomedImg.classList.add('zoomed-image');
 };
 
 function handleZoom(e: MouseEvent) {

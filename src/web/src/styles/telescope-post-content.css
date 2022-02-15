@@ -49,7 +49,7 @@
   cursor: zoom-out;
 }
 
-.zoomed-image-container img.zoomed-image {
+.zoomed-image-container img {
   padding: 0;
   width: var(--zoomWidthFactor);
   max-height: var(--zoomWidthFactor);
