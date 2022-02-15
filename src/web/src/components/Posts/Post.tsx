@@ -298,7 +298,11 @@ const zoomOutAllImages = () => {
   return zoomedImgContainers.length;
 };
 
-function ZoomInImage(img: HTMLImageElement) {
+/**
+ * Creates a zoomed-image-container overlay div with the image inside it and appends it to the DOM
+ * @param {HTMLImageElement} img
+ */
+const zoomInImage = (img: HTMLImageElement) => {
   // create a new div to hold the zoomed image
   const zoomedImgContainer = document.createElement('div');
   zoomedImgContainer.classList.add('zoomed-image-container');
@@ -308,7 +312,7 @@ function ZoomInImage(img: HTMLImageElement) {
   // add the new div to the DOM
   document.body.appendChild(zoomedImgContainer);
   zoomedImg.classList.add('zoomed-image');
-}
+};
 
 function handleZoom(e: MouseEvent) {
   // zoom out of all the currently zoomed images, if zoomed out, don't do anything.
@@ -317,7 +321,7 @@ function handleZoom(e: MouseEvent) {
   // if the user clicks on an image, zoom in
   if (e.target instanceof HTMLImageElement) {
     e.preventDefault();
-    ZoomInImage(e.target);
+    zoomInImage(e.target);
   }
   // if the user clicks an anchor with an image inside, do not open the image link in a new tab.
   else if (
