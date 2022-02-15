@@ -286,6 +286,56 @@ const extractBlogClassName = (url: string) => {
 // a 'guid' from a YouTube video is usually written as 'yt:video:id'
 const extractVideoId = (post: Post): string => post.guid.split(':')[2];
 
+/**
+ * Destroys all the .zoomed-image-container elements in the DOM
+ * @return {number} Number of elements destroyed
+ */
+const zoomOutAllImages = () => {
+  const zoomedImgContainers = document.querySelectorAll<HTMLDivElement>('.zoomed-image-container');
+  zoomedImgContainers.forEach((zoomedImgDiv) => {
+    // call an animation to fade out the zoomed image
+    zoomedImgDiv.classList.add('zoom-out');
+    // remove the zoomed image container after the animation is complete
+    setTimeout(() => {
+      zoomedImgDiv.remove();
+    }, 130); // timeout should be less than the animation duration to avoid flicker
+  });
+  return zoomedImgContainers.length;
+};
+
+/**
+ * Creates a zoomed-image-container overlay div with the image inside it and appends it to the DOM
+ * @param {HTMLImageElement} img
+ */
+const zoomInImage = (img: HTMLImageElement) => {
+  // create a new div to hold the zoomed image
+  const zoomedImgContainer = document.createElement('div');
+  zoomedImgContainer.classList.add('zoomed-image-container');
+  // clone the image and add it to the new div
+  const zoomedImg = img.cloneNode(true) as HTMLImageElement;
+  zoomedImgContainer.appendChild(zoomedImg);
+  // add the new div to the DOM
+  document.body.appendChild(zoomedImgContainer);
+};
+
+function handleZoom(e: MouseEvent) {
+  // zoom out of all the currently zoomed images, if zoomed out, don't do anything.
+  if (zoomOutAllImages()) return;
+
+  // if the user clicks on an image, and is inside the .post-content div, zoom in.
+  if (e.target instanceof HTMLImageElement && e.target.closest('.telescope-post-content')) {
+    e.preventDefault();
+    zoomInImage(e.target);
+  }
+  // if the user clicks an anchor with an image inside, do not open the image link in a new tab.
+  else if (
+    e.target instanceof HTMLAnchorElement &&
+    e.target.firstChild instanceof HTMLImageElement
+  ) {
+    e.preventDefault();
+  }
+}
+
 const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -314,6 +364,14 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
       window.addEventListener('scroll', onScroll);
     }
   }, [expandHeader]);
+
+  // Listen for click events
+  useEffect(() => {
+    window.document.addEventListener('click', handleZoom);
+    return () => {
+      window.document.removeEventListener('click', handleZoom);
+    };
+  }, []);
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
