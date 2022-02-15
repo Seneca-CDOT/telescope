@@ -361,6 +361,12 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   useEffect(() => {
     window.document.addEventListener('click', handleZoom);
   }, []);
+  // Remove the event listener when the component unmounts
+  useEffect(() => {
+    return () => {
+      window.document.removeEventListener('click', handleZoom);
+    };
+  }, []);
 
   if (error) {
     console.error(`Error loading post at ${postUrl}`, error);
