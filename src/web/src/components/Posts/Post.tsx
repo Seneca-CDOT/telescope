@@ -286,36 +286,45 @@ const extractBlogClassName = (url: string) => {
 // a 'guid' from a YouTube video is usually written as 'yt:video:id'
 const extractVideoId = (post: Post): string => post.guid.split(':')[2];
 
-function handleZoom(e: MouseEvent) {
-  let canZoom = 1;
-  // Zoom out of all the currently zoomed images on click
-  document.querySelectorAll<HTMLElement>('.zoomed-image').forEach((zoomedImg) => {
-    zoomedImg.classList.remove('zoomed-image');
-    // if the clicked element is a zoomed image, do not allow further zooming
-    if (zoomedImg === e.target) canZoom = 0;
+/**
+ * Destroys all the .zoomed-image-container elements in the DOM
+ * @return {number} Number of elements destroyed
+ */
+const zoomOutAllImages = () => {
+  const zoomedImgContainers = document.querySelectorAll<HTMLDivElement>('.zoomed-image-container');
+  zoomedImgContainers.forEach((zoomedImgDiv) => {
+    zoomedImgDiv.remove();
   });
-  // Check if the clicked element is an image or an anchor that contains an image
-  let image = null;
+  return zoomedImgContainers.length;
+};
+
+function ZoomInImage(img: HTMLImageElement) {
+  // create a new div to hold the zoomed image
+  const zoomedImgContainer = document.createElement('div');
+  zoomedImgContainer.classList.add('zoomed-image-container');
+  // clone the image and add it to the new div
+  const zoomedImg = img.cloneNode(true) as HTMLImageElement;
+  zoomedImgContainer.appendChild(zoomedImg);
+  // add the new div to the DOM
+  document.body.appendChild(zoomedImgContainer);
+  zoomedImg.classList.add('zoomed-image');
+}
+
+function handleZoom(e: MouseEvent) {
+  // zoom out of all the currently zoomed images, if zoomed out, don't do anything.
+  if (zoomOutAllImages()) return;
+
+  // if the user clicks on an image, zoom in
   if (e.target instanceof HTMLImageElement) {
-    image = e.target;
-  } else if (
+    e.preventDefault();
+    ZoomInImage(e.target);
+  }
+  // if the user clicks an anchor with an image inside, do not open the image link in a new tab.
+  else if (
     e.target instanceof HTMLAnchorElement &&
     e.target.firstChild instanceof HTMLImageElement
   ) {
-    image = e.target.firstChild;
-  }
-  // Zoom in on the image if it is not already zoomed
-  if (image) {
     e.preventDefault();
-    // and it can be zoomed
-    if (canZoom) {
-      // calculate the scale factor so that the image fits the telescope-post-content section's width
-      const contentContainer = image.closest('.telescope-post-content');
-      const maxScale = (contentContainer?.clientWidth || window.innerWidth) / image.clientWidth;
-      // set the css variable imageZoomFactor(in telescope-post-content.css) to the calculated scale factor
-      document.documentElement.style.setProperty('--imageZoomFactor', `${maxScale}`);
-      image.classList.add('zoomed-image');
-    }
   }
 }
 
