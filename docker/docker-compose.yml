@@ -268,6 +268,28 @@ services:
       - PLANET_PORT
       - POSTS_URL
 
+  dependency-discovery:
+    container_name: 'dependency-discovery'
+    build:
+      context: ../src/api/dependency-discovery
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV
+      - DEPENDENCY_DISCOVERY_PORT
+    depends_on:
+      - traefik
+    labels:
+      # Enable Traefik
+      - 'traefik.enable=true'
+      # Traefik routing for the dependency-discovery service at /v1/dependency-discovery
+      - 'traefik.http.routers.dependency-discovery.rule=PathPrefix(`/${API_VERSION}/dependency-discovery`)'
+      # Specify the dependency-discovery service port
+      - 'traefik.http.services.dependency-discovery.loadbalancer.server.port=${DEPENDENCY_DISCOVERY_PORT}'
+      # Add middleware to this route to strip the /v1/dependency-discovery prefix
+      - 'traefik.http.middlewares.strip_dependency_prefix.stripprefix.prefixes=/${API_VERSION}/dependency-discovery'
+      - 'traefik.http.middlewares.strip_dependency_prefix.stripprefix.forceSlash=true'
+      - 'traefik.http.routers.dependency-discovery.middlewares=strip_dependency_prefix'
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
