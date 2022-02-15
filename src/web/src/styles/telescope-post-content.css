@@ -29,6 +29,7 @@
   padding-bottom: 1rem;
   display: block;
   height: auto;
+  cursor: zoom-in;
 }
 
 .zoomed-image-container {
@@ -45,6 +46,7 @@
   align-items: center;
   align-content: center;
   backdrop-filter: blur(5px);
+  cursor: zoom-out;
 }
 
 .zoomed-image-container img.zoomed-image {
