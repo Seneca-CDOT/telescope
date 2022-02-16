@@ -293,7 +293,12 @@ const extractVideoId = (post: Post): string => post.guid.split(':')[2];
 const zoomOutAllImages = () => {
   const zoomedImgContainers = document.querySelectorAll<HTMLDivElement>('.zoomed-image-container');
   zoomedImgContainers.forEach((zoomedImgDiv) => {
-    zoomedImgDiv.remove();
+    // call an animation to fade out the zoomed image
+    zoomedImgDiv.classList.add('zoom-out');
+    // remove the zoomed image container after the animation is complete
+    setTimeout(() => {
+      zoomedImgDiv.remove();
+    }, 130); // timeout should be less than the animation duration to avoid flicker
   });
   return zoomedImgContainers.length;
 };
@@ -363,9 +368,6 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   // Listen for click events
   useEffect(() => {
     window.document.addEventListener('click', handleZoom);
-  }, []);
-  // Remove the event listener when the component unmounts
-  useEffect(() => {
     return () => {
       window.document.removeEventListener('click', handleZoom);
     };
