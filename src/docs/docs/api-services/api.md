@@ -30,7 +30,7 @@ docker-compose --env-file config/env.development up -d
 You can access logs for one or more services:
 
 ```
-pnpm services:logs image firebase
+pnpm services:logs image status
 ```
 
 To stop the services:
@@ -46,20 +46,17 @@ pnpm services:stop
 | posts    | telescope_posts_svc  | <http://localhost/v1/posts>  | Provides access to cached user posts              |
 | image    | telescope_img_svc    | <http://localhost/v1/image>  | Provides a dynamic image processing service       |
 | sso auth | telescope_sso_svc    | <http://localhost/v1/auth>   | Provides authentication and authorization service |
-| users    | telescope_users_svc  | <http://localhost/v1/users>  | Provides telescope's user services                |
 | parser   | telescope_parser_svc | <http://localhost/v1/parser> | Provides telescope's parser services              |
 | search   | telescope_search_svc | <http://localhost/v1/search> | Provides an ELK query controller service          |
 
 ## Support Services Lookup Table (development only)
 
-| API                | URL                                | Description                                                               |
-| ------------------ | ---------------------------------- | ------------------------------------------------------------------------- |
-| Traefik Dashboard  | <http://localhost:8080>            | [Traefik Dashboard](https://doc.traefik.io/traefik/operations/dashboard/) |
-| Redis              | redis://localhost:6379             | Redis server                                                              |
-| Elasticsearch      | <http://localhost:9200>            | Elasticserach                                                             |
-| Firebase UI        | <http://localhost:4000>            | UI Dashboard to Firebase Emulator                                         |
-| Firebase Firestore | <http://localhost:8088>            | Firestore Emulator Service                                                |
-| Login              | <http://localhost:8081/simplesaml> | SAML SSO Identity Provider                                                |
+| API               | URL                                | Description                                                               |
+| ----------------- | ---------------------------------- | ------------------------------------------------------------------------- |
+| Traefik Dashboard | <http://localhost:8080>            | [Traefik Dashboard](https://doc.traefik.io/traefik/operations/dashboard/) |
+| Redis             | redis://localhost:6379             | Redis server                                                              |
+| Elasticsearch     | <http://localhost:9200>            | Elasticserach                                                             |
+| Login             | <http://localhost:8081/simplesaml> | SAML SSO Identity Provider                                                |
 
 ## References
 

@@ -98,7 +98,6 @@ services:
       - SECRET
     depends_on:
       - traefik
-      - users
     labels:
       # Enable Traefik
       - 'traefik.enable=true'
@@ -199,34 +198,6 @@ services:
       - 'traefik.http.middlewares.strip_feed_discovery_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.feed-discovery.middlewares=strip_feed_discovery_prefix'
 
-  # users service
-  users:
-    container_name: 'users'
-    build:
-      context: ../src/api/users
-      dockerfile: Dockerfile
-    environment:
-      - NODE_ENV
-      - USERS_PORT
-      - USERS_URL
-      # Satellite authentication/authorization support
-      - JWT_ISSUER
-      - JWT_AUDIENCE
-      - SECRET
-    depends_on:
-      - traefik
-    labels:
-      # Enable Traefik
-      - 'traefik.enable=true'
-      # Traefik routing for the users service at /v1/users
-      - 'traefik.http.routers.users.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/users`)'
-      # Specify the users service port
-      - 'traefik.http.services.users.loadbalancer.server.port=${USERS_PORT}'
-      # Add middleware to this route to strip the /v1/users prefix
-      - 'traefik.http.middlewares.strip_users_prefix.stripprefix.prefixes=/${API_VERSION}/users'
-      - 'traefik.http.middlewares.strip_users_prefix.stripprefix.forceSlash=true'
-      - 'traefik.http.routers.users.middlewares=strip_users_prefix'
-
   # parser service - disabled, https://github.com/Seneca-CDOT/telescope/issues/2111
   # parser:
   #   container_name: 'parser'
@@ -236,7 +207,6 @@ services:
   #   environment:
   #     - NODE_ENV
   #     - PARSER_PORT
-  #     - USERS_URL
   #     # Satellite authentication/authorization support
   #     - JWT_ISSUER
   #     - JWT_AUDIENCE
@@ -244,7 +214,6 @@ services:
   #   depends_on:
   #     - traefik
   #     - redis
-  #     - users
   #     - elasticsearch
   #   labels:
   #     # Enable Traefik

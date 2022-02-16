@@ -118,15 +118,6 @@
 @elastic/elasticsearch-mock
 @emotion/hash
 @eslint/eslintrc
-@firebase/app-types
-@firebase/auth-interop-types
-@firebase/component
-@firebase/database
-@firebase/database-compat
-@firebase/database-types
-@firebase/logger
-@firebase/rules-unit-testing
-@firebase/util
 @fontsource/pt-serif
 @fontsource/spartan
 @godaddy/terminus
@@ -587,8 +578,6 @@ find-cache-dir
 find-my-way
 find-process
 find-up
-firebase-admin
-firebase-tools
 flat-cache
 follow-redirects
 for-each
