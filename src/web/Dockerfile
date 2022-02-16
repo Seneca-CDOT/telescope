@@ -53,6 +53,6 @@ RUN npm install --no-package-lock
 
 RUN npm run build
 
-FROM nginx:stable as build
+FROM nginx:stable-alpine as build
 
 COPY --from=dependencies /frontend/out /var/www/data

@@ -19,7 +19,7 @@
 # Default: nobody nobody
 # https://nginx.org/en/docs/ngx_core_module.html#user
 # https://en.wikipedia.org/wiki/Principle_of_least_privilege
-user www-data;
+user nginx;
 
 # Let nginx pick how many worker processes to run (based on CPU cores)
 worker_processes auto;
