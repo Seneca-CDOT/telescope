@@ -44,20 +44,6 @@ services:
       - ../config/simplesamlphp-users.php:/var/www/simplesamlphp/config/authsources.php
       - ../config/saml20-idp-hosted.php:/var/www/simplesamlphp/metadata/saml20-idp-hosted.php
 
-  # Firebase Emulator for offline testing
-  firebase:
-    container_name: 'firebase'
-    image: andreysenov/firebase-tools
-    volumes:
-      # Copy firebase.config into the container so we get proper ip/port binding
-      - ../config/firebase.json:/home/node/firebase.json
-    command: firebase emulators:start --project telescope --only firestore
-    ports:
-      # Emulator Suite UI
-      - '4000:4000'
-      # Cloud Firestore
-      - '8088:8088'
-
   # Static Web Content for tests, hosting the contents of test/test-web-content.
   # The host can use http://localhost:8888 to access these files, and Docker
   # containers can use http://test-web-content instead.
@@ -81,10 +67,6 @@ services:
         soft: -1
         hard: -1
 
-  users:
-    environment:
-      - FIRESTORE_EMULATOR_HOST
-
   sso:
     environment:
       # In development and testing, the SSO service needs to contact the Supabase
@@ -98,7 +80,6 @@ services:
   #   environment:
   #     # For development and testing, the Parser service needs to contact the users
   #     # service directly via Docker vs through the http://localhost domain.
-  #     - USERS_URL=http://users:7000
 
   planet:
     ports:

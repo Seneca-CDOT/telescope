@@ -30,11 +30,6 @@ const services = [
     production: prodUrl('/feed-discovery/healthcheck'),
   },
   {
-    name: 'user',
-    staging: stagingUrl('/users/healthcheck'),
-    production: prodUrl('/users/healthcheck'),
-  },
-  {
     name: 'search',
     staging: stagingUrl('/search/healthcheck'),
     production: prodUrl('/search/healthcheck'),
