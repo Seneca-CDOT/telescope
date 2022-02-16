@@ -18,7 +18,7 @@ import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import GitHubInfo from './GitHubInfo';
 import GitHubInfoMobile from './GitHubInfo/GitHubInfoMobile';
-import GithubInfoProvider from '../GithubInfoProvider';
+import GenericInfoProvider from '../GenericInfoProvider';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
 import AdminButtons from '../AdminButtons';
@@ -354,7 +354,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
   }
 
   return (
-    <GithubInfoProvider htmlString={post?.html}>
+    <GenericInfoProvider post={post}>
       <Box className={classes.root}>
         {currentPost && totalPosts && (
           <div className={classes.postCount}>
@@ -482,7 +482,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
           />
         </div>
       </Box>
-    </GithubInfoProvider>
+    </GenericInfoProvider>
   );
 };
 

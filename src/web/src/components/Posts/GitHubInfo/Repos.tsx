@@ -1,6 +1,6 @@
 import { VscRepoForked } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import useGithubInfo from '../../../hooks/use-githubInfo';
+import useGithubInfo from '../../../hooks/use-genericInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
