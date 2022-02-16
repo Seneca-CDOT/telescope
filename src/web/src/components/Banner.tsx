@@ -3,7 +3,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { makeStyles, Theme, createStyles, Typography, Fab } from '@material-ui/core';
 import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { telescopeUrl, statusUrl } from '../config';
+import { telescopeUrl, webUrl, statusUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
@@ -213,11 +213,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
           </Fab>
         </ScrollAction>
         <div className={classes.planet}>
-          <a
-            href={`${telescopeUrl}/planet`}
-            title="telescope planet"
-            className={classes.planetAnchor}
-          >
+          <a href={`${webUrl}/planet`} title="telescope planet" className={classes.planetAnchor}>
             Planet
           </a>
         </div>
