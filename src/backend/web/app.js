@@ -53,7 +53,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     store: new RedisStore({ client: redis }),
-    secret: process.env.SECRET || `telescope-has-many-secrets-${Date.now()}!`,
+    secret: process.env.JWT_SECRET || `telescope-has-many-secrets-${Date.now()}!`,
     resave: false,
     saveUninitialized: false,
   })
