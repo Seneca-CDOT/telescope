@@ -32,7 +32,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the status service at /v1/status
-      - 'traefik.http.routers.status.rule=PathPrefix(`/${API_VERSION}/status`)'
+      - 'traefik.http.routers.status.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/status`)'
       # Specify the status service port
       - 'traefik.http.services.status.loadbalancer.server.port=${STATUS_PORT}'
       # Define redirect middleware for any requests to /v1/status -> /v1/status/ (trailing slash)
@@ -63,7 +63,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the image service at /v1/image
-      - 'traefik.http.routers.image.rule=PathPrefix(`/${API_VERSION}/image`)'
+      - 'traefik.http.routers.image.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/image`)'
       # Specify the image service port
       - 'traefik.http.services.image.loadbalancer.server.port=${IMAGE_PORT}'
       # Add middleware to this route to strip the /v1/image prefix
@@ -103,7 +103,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the auth service at /v1/auth
-      - 'traefik.http.routers.auth.rule=PathPrefix(`/${API_VERSION}/auth`)'
+      - 'traefik.http.routers.auth.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/auth`)'
       # Specify the auth service port
       - 'traefik.http.services.auth.loadbalancer.server.port=${SSO_PORT}'
       # Add middleware to this route to strip the /v1/auth prefix
@@ -135,7 +135,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the search service at /v1/search
-      - 'traefik.http.routers.search.rule=PathPrefix(`/${API_VERSION}/search`)'
+      - 'traefik.http.routers.search.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/search`)'
       # Specify the search service port
       - 'traefik.http.services.search.loadbalancer.server.port=${SEARCH_PORT}'
       # Add middleware to this route to strip the /v1/search prefix
@@ -164,7 +164,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the image service at /v1/image
-      - 'traefik.http.routers.posts.rule=PathPrefix(`/${API_VERSION}/posts`)'
+      - 'traefik.http.routers.posts.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/posts`)'
       # Specify the posts service port
       - 'traefik.http.services.posts.loadbalancer.server.port=${POSTS_PORT}'
       # Add middleware to this route to strip the /v1/posts prefix
@@ -191,7 +191,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the feed discovery service at /v1/image
-      - 'traefik.http.routers.feed-discovery.rule=PathPrefix(`/${API_VERSION}/feed-discovery`)'
+      - 'traefik.http.routers.feed-discovery.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/feed-discovery`)'
       # Specify the feed discovery service port
       - 'traefik.http.services.feed-discovery.loadbalancer.server.port=${FEED_DISCOVERY_PORT}'
       # Add middleware to this route to strip the /v1/feed-discovery prefix
@@ -219,7 +219,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the users service at /v1/users
-      - 'traefik.http.routers.users.rule=PathPrefix(`/${API_VERSION}/users`)'
+      - 'traefik.http.routers.users.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/users`)'
       # Specify the users service port
       - 'traefik.http.services.users.loadbalancer.server.port=${USERS_PORT}'
       # Add middleware to this route to strip the /v1/users prefix
@@ -250,7 +250,7 @@ services:
   #     # Enable Traefik
   #     - 'traefik.enable=true'
   #     # Traefik routing for the parser service at /v1/parser
-  #     - 'traefik.http.routers.parser.rule=PathPrefix(`/${API_VERSION}/parser`)'
+  #     - 'traefik.http.routers.parser.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/parser`)'
   #     # Specify the parser service port
   #     - 'traefik.http.services.parser.loadbalancer.server.port=${PARSER_PORT}'
   #     # Add middleware to this route to strip the /v1/parser prefix
@@ -317,6 +317,7 @@ services:
     environment:
       - TELESCOPE_HOST
       - API_HOST
+      - PORTAINER_HOST
     restart: unless-stopped
     depends_on:
       - traefik
@@ -364,7 +365,7 @@ services:
       # Enable Traefik
       - 'traefik.enable=true'
       # Traefik routing for the rss-bridge service at /v1/rss-bridge
-      - 'traefik.http.routers.rss_bridge.rule=PathPrefix(`/${API_VERSION}/rss-bridge`)'
+      - 'traefik.http.routers.rss_bridge.rule=HOST(`${API_HOST}`) && PathPrefix(`/${API_VERSION}/rss-bridge`)'
       # Specify the RSS-Bridge service port used internally
       - 'traefik.http.services.rss_bridge.loadbalancer.server.port=80'
       # Define redirect middleware for any requests to /v1/rss-bridge -> /v1/rss-bridge/ (trailing slash)

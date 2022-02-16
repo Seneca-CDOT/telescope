@@ -4,7 +4,7 @@
 # back-end services.
 #
 # NOTE: this is a template vs. final conf file, and meant to be used with Docker
-# in order to replace the TELESCOPE_HOST and API_HOST variables
+# in order to replace the TELESCOPE_HOST, API_HOST, and PORTAINER_HOST variables
 # with values from the env.  See the section "Using environment variables in
 # nginx configuration (new in 1.19)" in:
 #
@@ -149,10 +149,10 @@ http {
   # Verify chain of trust of OCSP response using Root CA and Intermediate certs
   ssl_trusted_certificate /etc/letsencrypt/live/${TELESCOPE_HOST}/chain.pem;
 
-  # Requests to the api.* domain should be proxied to Traefik
+  # Requests to the (api|portainer).* domain should be proxied to Traefik
   server {
     listen 443 ssl http2;
-    server_name ${API_HOST};
+    server_name ${API_HOST} ${PORTAINER_HOST};
 
     location / {
       proxy_set_header  Host            $host;
@@ -215,20 +215,6 @@ http {
       add_header X-Proxy-Cache $upstream_cache_status;
 
       proxy_pass http://planet:9876;
-    }
-
-    # Non-cached /portainer route
-    location /portainer/api/websocket/  {
-      proxy_cache_bypass 1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
-      proxy_pass  http://portainer:9000/api/websocket;
-    }
-
-    location /portainer/ {
-      proxy_cache_bypass 1;
-      proxy_set_header Connection "";
-      proxy_pass http://portainer:9000/;
     }
 
     # Redirect traffic from /deploy/* to the autodeployment server
