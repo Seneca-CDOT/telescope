@@ -319,7 +319,7 @@ const zoomInImage = (img: HTMLImageElement) => {
 };
 
 function handleZoom(e: MouseEvent) {
-  // zoom out of all the currently zoomed images, if zoomed out, don't do anything.
+  // zoom out of all the currently zoomed images, if at least 1 img is zoomed out, return, don't do anything.
   if (zoomOutAllImages()) return;
 
   // if the user clicks on an image, and is inside the .post-content div, zoom in.
