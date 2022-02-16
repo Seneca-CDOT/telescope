@@ -46,7 +46,7 @@ users) or `protectAdmin` (admin users) middleware from `src/backend/web/authenti
 
 ## Running an SSO Identity Provider
 
-We use a test SAML SSO provider via a [docker image](kristophjunge/test-saml-idp).
+We use a test SAML SSO provider via a [docker image](https://hub.docker.com/r/kristophjunge/test-saml-idp/).
 You can [read more about how it works here](https://medium.com/disney-streaming/setup-a-single-sign-on-saml-test-environment-with-docker-and-nodejs-c53fc1a984c9).
 
 To get this to run locally, you need to update your `.env`. Copy `env.example` if you don't have one, and the default values should work.
@@ -59,7 +59,7 @@ If running Elasticsearch or Redis natively, please avoid using `docker-compose u
 
 :::
 
-5. The test SSO server uses the following fake user accounts defined in [simplesamlphp-users.php](../simplesamlphp-users.php):
+5. The test SSO server uses the following fake user accounts defined in [simplesamlphp-users.php](../../../../config/simplesamlphp-users.php):
 
 | Username    | Password  | Name            | Email                      |
 | ----------- | --------- | --------------- | -------------------------- |
