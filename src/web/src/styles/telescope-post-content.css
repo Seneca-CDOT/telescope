@@ -160,9 +160,7 @@
   .telescope-post-content pre {
     padding: 0;
   }
-}
-@media only screen and (max-width: 1024px) {
-  .zoomed-image-container img.zoomed-image {
+  .zoomed-image-container img {
     width: var(--mobileZoomWidthFactor);
     max-height: var(--mobileZoomWidthFactor);
   }
