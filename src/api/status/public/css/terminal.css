@@ -14,6 +14,7 @@
 canvas {
   width: 100% !important;
   max-height: 100%;
+  padding: 1rem;
 }
 
 .build-log-title-container {
