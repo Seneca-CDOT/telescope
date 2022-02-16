@@ -24,6 +24,7 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - SECRET
+      - GITHUB_TOKEN
     depends_on:
       - traefik
       - redis

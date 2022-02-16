@@ -73,19 +73,24 @@ function run() {
   // Promote the next build to current and start it
   const build = builds.pending;
   const { cache } = build;
+  const { GITHUB_TOKEN } = process.env;
 
   builds.current = build;
   builds.pending = null;
 
   logger.debug('run() called, starting pending build');
-  build.proc = shell.exec(`./deploy.sh ${build.type} ${build.sha}`, { silent: true }, (code) => {
-    build.finish(code);
-    builds.previous = builds.current;
-    builds.current = null;
+  build.proc = shell.exec(
+    `./deploy.sh ${build.type} ${build.sha} ${GITHUB_TOKEN}`,
+    { silent: true },
+    (code) => {
+      build.finish(code);
+      builds.previous = builds.current;
+      builds.current = null;
 
-    // See if there's another build ready to go
-    run();
-  });
+      // See if there's another build ready to go
+      run();
+    }
+  );
 
   // Combine stderr and stdout, like 2>&1
   build.out = mergeStream(build.proc.stdout, build.proc.stderr);
