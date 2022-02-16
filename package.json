@@ -6,6 +6,9 @@
   "bin": {
     "html-elements": "tools/html-elements.js"
   },
+  "publishConfig": {
+    "directory": "tools/eslint"
+  },
   "scripts": {
     "build": "pnpm turbo run build",
     "dev": "pnpm dev --prefix src/web --",

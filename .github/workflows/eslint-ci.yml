@@ -19,4 +19,4 @@ jobs:
       - name: Install dependencies and run eslint
         run: |
           pnpm install
-          pnpm turbo run lint
+          pnpm lint

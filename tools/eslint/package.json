@@ -1,6 +1,10 @@
 {
   "name": "@senecacdot/eslint-config-telescope",
+  "version": "1.0.0",
+  "description": "ESLint config for Telescope",
   "main": "index.js",
+  "repository": "Seneca-CDOT/telescope",
+  "license": "BSD-2-Clause",
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-config-airbnb": "18.2.1",
