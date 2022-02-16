@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { hash } = require('@senecacdot/satellite');
 
-const { JWT_ISSUER, JWT_AUDIENCE, SECRET, JWT_EXPIRES_IN } = process.env;
+const { JWT_ISSUER, JWT_AUDIENCE, JWT_SECRET, JWT_EXPIRES_IN } = process.env;
 
 /**
  * Create a JWT token for the user, and add the 'admin' role if requested.
@@ -48,7 +48,7 @@ function createToken(email, firstName, lastName, name, roles, picture) {
   }
 
   const options = { expiresIn: JWT_EXPIRES_IN || '7 days' };
-  return jwt.sign(payload, SECRET, options);
+  return jwt.sign(payload, JWT_SECRET, options);
 }
 
 module.exports.createToken = createToken;

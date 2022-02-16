@@ -15,7 +15,7 @@ const service = new Satellite({
     app.use(
       session({
         store: process.env.NODE_ENV === 'production' && new RedisStore({ client: Redis() }),
-        secret: process.env.SECRET || `telescope-has-many-secrets-${Date.now()}!`,
+        secret: process.env.JWT_SECRET || `telescope-has-many-secrets-${Date.now()}!`,
         resave: false,
         saveUninitialized: false,
       })
