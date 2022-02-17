@@ -6,7 +6,7 @@ const logger = require('./logger');
 // We expect to get JWT config details via the env.
 function isAuthenticated() {
   return jwt({
-    secret: process.env.SECRET,
+    secret: process.env.JWT_SECRET,
     audience: process.env.JWT_AUDIENCE,
     issuer: process.env.JWT_ISSUER,
     // TODO: proper public/private key token signing

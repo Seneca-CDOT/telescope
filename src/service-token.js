@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const { JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
+const { JWT_ISSUER, JWT_AUDIENCE, JWT_SECRET } = process.env;
 
 /**
  * Create a short-lived service-to-service JWT, useful for authorizing
@@ -16,7 +16,7 @@ function createServiceToken() {
     roles: ['service'],
   };
 
-  return jwt.sign(payload, SECRET, { expiresIn: '5m' });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '5m' });
 }
 
 module.exports = createServiceToken;

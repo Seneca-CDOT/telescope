@@ -1,6 +1,6 @@
 // Define the env variables our code expects
 process.env = Object.assign(process.env, {
-  SECRET: 'test-secret',
+  JWT_SECRET: 'your-super-secret-jwt-token-with-at-least-32-characters-long',
   JWT_AUDIENCE: 'http://localhost',
   JWT_ISSUER: 'http://localhost',
   JWT_EXPIRES_IN: '1h',

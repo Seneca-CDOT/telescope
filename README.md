@@ -18,7 +18,7 @@ npm install --save @senecacdot/satellite
 
 The following JWT verification values are required:
 
-- `SECRET`: the secret used for JWT token verification
+- `JWT_SECRET`: the secret used for JWT token verification
 - `JWT_AUDIENCE`: the audience (aud) claim expected in JWT token verification
 - `JWT_ISSUER`: the issuer (iss) claim expected in JWT token verification
 

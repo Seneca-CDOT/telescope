@@ -22,7 +22,7 @@ const {
   fetch,
 } = require('./src');
 const { errors } = require('@elastic/elasticsearch');
-const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, SECRET } = process.env;
+const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, JWT_SECRET } = process.env;
 
 const createSatelliteInstance = (options) => {
   const service = new Satellite(options || { name: 'test' });
@@ -50,7 +50,7 @@ const createToken = ({ sub, roles }) => {
     payload = { ...payload, roles };
   }
 
-  return jwt.sign(payload, SECRET, { expiresIn: JWT_EXPIRES_IN });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 };
 
 describe('Satellite()', () => {
@@ -450,7 +450,7 @@ describe('Satellite()', () => {
       name: 'test',
     });
     const token = createToken({ sub: 'admin@email.com' });
-    const decoded = jwt.verify(token, SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
 
     const router = service.router;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
@@ -905,7 +905,7 @@ describe('Create Error tests for Satellite', () => {
 describe('createServiceToken()', () => {
   test('should create a service token', () => {
     const token = createServiceToken();
-    const decoded = jwt.verify(token, SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
 
     expect(decoded.sub).toEqual('telescope-service');
     expect(Array.isArray(decoded.roles)).toBe(true);
