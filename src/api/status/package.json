@@ -22,19 +22,19 @@
     "@octokit/plugin-retry": "3.0.9",
     "@octokit/plugin-throttling": "3.5.2",
     "@popperjs/core": "2.10.2",
-    "@senecacdot/satellite": "latest",
+    "@senecacdot/satellite": "1.25.0",
     "bootstrap": "5.1.3",
     "express": "4.17.2",
     "express-handlebars": "6.0.2",
+    "get-repo-package-json": "2.0.0",
+    "npm-run-all": "4.1.5",
     "perfect-scrollbar": "1.5.1",
+    "sass": "1.45.2",
+    "vite": "2.7.13",
     "xterm": "4.15.0",
     "xterm-addon-fit": "0.5.0",
     "xterm-addon-web-links": "0.4.0",
-    "xterm-addon-webgl": "0.11.3",
-    "get-repo-package-json": "2.0.0",
-    "npm-run-all": "4.1.5",
-    "sass": "1.45.2",
-    "vite": "2.7.13"
+    "xterm-addon-webgl": "0.11.3"
   },
   "engines": {
     "node": ">=12.0.0"
@@ -42,8 +42,8 @@
   "devDependencies": {
     "env-cmd": "10.1.0",
     "nodemon": "2.0.15",
+    "npm-run-all": "4.1.5",
     "sass": "1.45.2",
-    "vite": "2.7.13",
-    "npm-run-all": "4.1.5"
+    "vite": "2.7.13"
   }
 }
