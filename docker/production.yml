@@ -122,6 +122,9 @@ services:
       - ELASTIC_URL=http://elasticsearch
       - ELASTIC_PORT=9200
 
+  dependency-discovery:
+    restart: unless-stopped
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################

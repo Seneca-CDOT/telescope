@@ -28,7 +28,17 @@ By default, the server is listening on port 10500 (http://localhost:10500).
 
 ### Docker
 
-TODO
+To run the service with only the container, you may use the following command:
+
+```bash
+docker run -p 10500:10500 telescope_dependency_discovery_svc:latest
+```
+
+You would have to build the container prior:
+
+```bash
+docker build . -t telescope_dependency_discovery_svc:latest
+```
 
 ### `docker-compose`
 
