@@ -88,15 +88,25 @@ module.exports.captureAuthDetailsOnSession = function captureAuthDetailsOnSessio
 const checkFeedExists = async (feeds) => {
   const { data: existingFeeds } = await supabase
     .from('feeds')
-    .select('id')
+    .select('url, user_id')
     .in('feed_url', feeds)
+    .not('user_id', 'is', null)
     .limit(1);
 
   return existingFeeds?.length;
 };
 
 const createNewProfile = async (id, body) => {
-  const { firstName, lastName, email, displayName, feeds, githubUsername, githubAvatarUrl } = body;
+  const {
+    firstName,
+    lastName,
+    email,
+    displayName,
+    feeds,
+    githubUsername,
+    githubAvatarUrl,
+    blogUrl,
+  } = body;
   const result = await supabase.from('telescope_profiles').insert(
     {
       id,
@@ -110,10 +120,13 @@ const createNewProfile = async (id, body) => {
     { returning: 'minimal' }
   );
   if (!result.error) {
-    return supabase.from('feeds').insert(
+    // A feed might already exist in the planet feed list and can be claimed later when users register
+    return supabase.from('feeds').upsert(
       feeds.map((feedUrl) => ({
         user_id: id,
-        feed_url: feedUrl,
+        url: feedUrl,
+        html_url: blogUrl,
+        author_name: displayName,
         // TODO: Allow adding Youtube/Twitch feed
         type: 'blog',
       })),
