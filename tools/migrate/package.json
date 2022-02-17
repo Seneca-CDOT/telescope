@@ -1,5 +1,6 @@
 {
   "author": "",
+  "private": true,
   "dependencies": {
     "jsdom": "^18.0.1",
     "node-fetch": "2.6.7"
