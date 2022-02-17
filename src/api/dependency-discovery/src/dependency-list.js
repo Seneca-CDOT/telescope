@@ -11,4 +11,4 @@ async function getDependencies() {
   return dependencies.split(/\r\n|\n|\r/).filter((line) => line !== '');
 }
 
-module.exports = getDependencies();
+module.exports = getDependencies;
