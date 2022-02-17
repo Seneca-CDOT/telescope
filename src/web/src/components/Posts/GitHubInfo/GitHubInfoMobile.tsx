@@ -4,7 +4,7 @@ import Issues from './Issues';
 import PullRequests from './PullRequests';
 import Commits from './Commits';
 import Users from './Users';
-import useGithubInfo from '../../../hooks/use-githubInfo';
+import useGithubInfo from '../../../hooks/use-genericInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
