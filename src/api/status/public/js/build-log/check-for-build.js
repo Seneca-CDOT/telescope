@@ -3,11 +3,19 @@ import terminal from './terminal.js';
 import buildHeader from './build-header.js';
 import showToast from '../utils/toast.js';
 
+let build;
+
 export default async function checkForBuild() {
   const status = await checkBuildStatus();
 
   // Prefer the current build, but fallback to the previous one
-  const build = status.current ?? status.previous;
+  const buildData = status.current ?? status.previous;
+
+  if (build && build.sha === buildData.sha) {
+    return;
+  }
+
+  build = buildData;
 
   // Render the build header info
   buildHeader(build);

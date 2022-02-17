@@ -3,5 +3,5 @@ import './main.js';
 
 window.addEventListener('load', () => {
   checkForBuild();
-  setInterval(checkForBuild, 5000);
+  setInterval(checkForBuild, 10000);
 });
