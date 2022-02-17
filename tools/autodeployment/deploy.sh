@@ -31,7 +31,19 @@ else
     OLD="green"
 fi
 
+
+# Include the current commit sha that we're building
 echo "GIT_COMMIT=$2" >> $ENV_FILE
+
+# Include the GitHub Token we get from the script invocation in the env file
+echo "GITHUB_TOKEN=$3" >> $ENV_FILE
+
+# HACK: define a JWT_SECRET (e.g., 5AFA34C5-8E29-4F0B-9779-286E2A9C8D6F) that can be shared
+# across all containers for this deployment. This isn't ideal, since it will
+# invalidate sessions whenever we deploy, but that's better than hard-coding it. We should
+# find a way to secure this for longer.
+echo "JWT_TOKEN=$(uuidgen)" >> $ENV_FILE
+
 
 echo "Building $ENV Container"
 docker-compose --env-file $ENV_FILE --project-name=$ENV build
@@ -44,11 +56,10 @@ echo "Deleting $OLD Volumes"
 docker volume prune -f
 
 echo "Starting $ENV Environment"
-GITHUB_TOKEN=$3 docker-compose --env-file $ENV_FILE --project-name=$ENV up -d
+docker-compose --env-file $ENV_FILE --project-name=$ENV up -d
 
 echo "Removing dangling images"
 docker rmi $(docker images -f "dangling=true" -q)
-
 
 echo "Removing $OLD Environment"
 docker rmi $(docker images $OLD\_* -aq ) -f 2> /dev/null
