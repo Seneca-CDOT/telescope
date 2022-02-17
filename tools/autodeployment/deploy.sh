@@ -44,7 +44,7 @@ echo "Deleting $OLD Volumes"
 docker volume prune -f
 
 echo "Starting $ENV Environment"
-docker-compose --env-file $ENV_FILE --project-name=$ENV up -d
+GITHUB_TOKEN=$3 docker-compose --env-file $ENV_FILE --project-name=$ENV up -d
 
 echo "Removing dangling images"
 docker rmi $(docker images -f "dangling=true" -q)
