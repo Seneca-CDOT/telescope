@@ -1,1 +1,1 @@
-process.env = { ...process.env, MOCK_ELASTIC: '1' };
+process.env = { ...process.env, MOCK_ELASTIC: '1', LOG_LEVEL: 'silent' };

@@ -4,10 +4,177 @@ const { app } = require('../src');
 
 const { POSTS_URL } = process.env;
 
+console.log(
+  '****************************************\n' +
+    'The logs are in slient mode.\nTo change it, go to ../jest-setup.js\n' +
+    '**************************************'
+);
 describe('/query routers', () => {
+  // Create the mock client.
+  const { mock } = new Elastic();
+
+  afterEach(() => {
+    mock.clearAll();
+  });
+
   it('return error 400 if no params given', async () => {
     const res = await request(app).get('/');
-    expect(res.status).toBe(400);
+    expect(res.statusCode).toBe(400);
+  });
+
+  it('return error 400 if no filter is given', async () => {
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/post/_search',
+      },
+      () => {
+        return {};
+      }
+    );
+    const res = await request(app).get('/').query({ text: 'Telescope', filter: '' });
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toStrictEqual([
+      { location: 'query', msg: 'filter should exist', param: 'filter', value: '' },
+    ]);
+  });
+
+  it('return error 400 if given wrong filter', async () => {
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/post/_search',
+      },
+      () => {
+        return {};
+      }
+    );
+    const res = await request(app).get('/').query({ text: 'Telescope', filter: 'pos' });
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toStrictEqual([
+      { location: 'query', msg: 'invalid filter value', param: 'filter', value: 'pos' },
+    ]);
+  });
+
+  it('return error 400 if no text is given', async () => {
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/post/_search',
+      },
+      () => {
+        return {};
+      }
+    );
+    const res = await request(app).get('/').query({ text: '', filter: 'post' });
+    expect(res.statusCode).toBe(400);
+    expect(res.body).toStrictEqual([
+      { location: 'query', msg: 'text should not be empty', param: 'text', value: '' },
+    ]);
+  });
+
+  it('return 200 with empty results if text is given ""', async () => {
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/post/_search',
+      },
+      () => {
+        return {
+          results: 0,
+          hits: {
+            total: { value: 0 },
+            hits: [],
+          },
+        };
+      }
+    );
+    const res = await request(app).get('/').query({ text: '""', filter: 'post' });
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toStrictEqual({ results: 0, values: [] });
+  });
+
+  it('return 200 if filter by post and given text', async () => {
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/post/_search',
+      },
+      () => {
+        return {
+          results: 2,
+          hits: {
+            total: { value: 2 },
+            hits: [
+              {
+                _id: '1234',
+                url: `${POSTS_URL}/`,
+              },
+              {
+                _id: '5678',
+                url: `${POSTS_URL}/`,
+              },
+            ],
+          },
+        };
+      }
+    );
+    const res = await request(app).get('/').query({ text: 'Telescope', filter: 'post' });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.results).toBe(2);
+    expect(res.body.values).toStrictEqual([
+      { id: '1234', url: `${POSTS_URL}/1234` },
+      { id: '5678', url: `${POSTS_URL}/5678` },
+    ]);
+  });
+
+  it('return 200 if filter by author and given text', async () => {
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/post/_search',
+      },
+      () => {
+        return {
+          results: 2,
+          hits: {
+            total: { value: 2 },
+            hits: [
+              {
+                _id: '9966',
+                url: `${POSTS_URL}/`,
+              },
+              {
+                _id: '1122',
+                url: `${POSTS_URL}/`,
+              },
+            ],
+          },
+        };
+      }
+    );
+    const res = await request(app).get('/').query({ text: 'Bob', filter: 'author' });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.results).toBe(2);
+    expect(res.body.values).toStrictEqual([
+      { id: '9966', url: `${POSTS_URL}/9966` },
+      { id: '1122', url: `${POSTS_URL}/1122` },
+    ]);
+  });
+
+  it('return 503 if return from Elasticsearch does not have proper format', async () => {
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/post/_search',
+      },
+      () => {
+        return { Hitt: 'Junk' };
+      }
+    );
+
+    const res = await request(app).get('/').query({ text: 'a', filter: 'post' });
+    expect(res.statusCode).toBe(503);
   });
 });
 
