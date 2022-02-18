@@ -2,7 +2,6 @@
 
 set -e
 set -u
-set -x
 
 # Delete and Clone Latest
 cd ..
