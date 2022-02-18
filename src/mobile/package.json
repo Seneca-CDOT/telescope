@@ -15,18 +15,17 @@
     "@react-navigation/native-stack": "6.3.0",
     "expo": "44.0.6",
     "expo-status-bar": "1.2.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-native": "0.67.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "0.64.3",
     "react-native-elements": "3.4.2",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
-    "react-native-web": "0.17.5"
+    "react-native-web": "0.17.1",
+    "expo-updates": "0.11.6"
   },
   "devDependencies": {
-    "@babel/core": "7.16.12",
-    "@rnx-kit/metro-config": "1.2.27",
-    "@rnx-kit/metro-resolver-symlinks": "0.1.16"
+    "@babel/core": "7.12.9"
   },
   "private": true
 }
