@@ -4,7 +4,8 @@ const { decode } = require('jsonwebtoken');
 
 // We need to get the URL to the sso service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
-const { login, cleanupTelescopeUsers, ensureUsers } = require('./utils');
+const { login } = require('./browser-util');
+const { cleanupTelescopeUsers, ensureUsers } = require('./supabase-util');
 
 const { SSO_URL, FEED_DISCOVERY_URL } = process.env;
 
