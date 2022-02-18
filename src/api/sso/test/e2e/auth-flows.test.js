@@ -4,14 +4,8 @@ const { hash } = require('@senecacdot/satellite');
 // We need to get the URL to the sso service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
 const { SSO_URL, ALLOWED_APP_ORIGINS } = process.env;
-const {
-  login,
-  logout,
-  getTokenAndState,
-  createTelescopeUsers,
-  cleanupTelescopeUsers,
-  ensureUsers,
-} = require('./utils');
+const { login, logout, getTokenAndState } = require('./browser-util');
+const { createTelescopeUsers, cleanupTelescopeUsers, ensureUsers } = require('./supabase-util');
 
 // We have 3 SSO user accounts in the login service (see config/simplesamlphp-users.php):
 //

@@ -1,7 +1,8 @@
 // NOTE: you need to run the sso and login services in docker for these to work
 const { hash } = require('@senecacdot/satellite');
 
-const { login, createTelescopeUsers, cleanupTelescopeUsers, ensureUsers } = require('./utils');
+const { login } = require('./browser-util');
+const { createTelescopeUsers, cleanupTelescopeUsers, ensureUsers } = require('./supabase-util');
 
 // We have 3 SSO user accounts in the login service (see config/simplesamlphp-users.php):
 //
