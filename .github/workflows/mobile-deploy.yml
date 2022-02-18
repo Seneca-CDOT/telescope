@@ -32,6 +32,7 @@ jobs:
       - uses: expo/expo-github-action@v7
         with:
           expo-version: latest
+          expo-cache: true
           token: ${{ secrets.EXPO_TOKEN }}
       - name: 📦 Install dependencies
         run: pnpm install
