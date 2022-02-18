@@ -50,11 +50,10 @@ function renderLoadingAnimation(code) {
 }
 
 function renderBuildInfo({ isCurrent, githubData, startedDate, stoppedDate, code, sha }) {
-  const {
-    sender,
-    compare,
-    head_commit: { message },
-  } = githubData;
+  const { sender, compare } = githubData;
+
+  /* Depending on the event type (merge vs release), we extract the message that will be displayed in the header from the appropriate prop */
+  const message = githubData.ref ? githubData.head_commit.message : githubData.release.name;
 
   if (buildHeaderInfo.hidden) {
     buildHeaderInfo.hidden = false;
