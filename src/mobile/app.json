@@ -2,6 +2,7 @@
   "expo": {
     "name": "Telescope",
     "slug": "Telescope",
+    "description": "Telescope mobile app",
     "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
