@@ -202,3 +202,8 @@ services:
       - 'traefik.http.routers.portainer.rule=HOST(`${PORTAINER_HOST}`)'
       # Specify the portainer service port used internally
       - 'traefik.http.services.portainer.loadbalancer.server.port=80'
+      # Specify the portainer service port used internally, which is 9000
+      # NOTE: portainer also uses port 8000 for remote SSH connections, but
+      # I don't think we need this.  See:
+      # https://github.com/portainer/portainer-docs/issues/91
+      - 'traefik.http.services.portainer.loadbalancer.server.port=9000'
