@@ -41,7 +41,7 @@ echo "GITHUB_TOKEN=$3" >> $ENV_FILE
 # across all containers for this deployment. This isn't ideal, since it will
 # invalidate sessions whenever we deploy, but that's better than hard-coding it. We should
 # find a way to secure this for longer.
-echo "JWT_TOKEN=$(uuidgen)" >> $ENV_FILE
+echo "JWT_SECRET=$(uuidgen)" >> $ENV_FILE
 
 
 echo "Building $ENV Container"
