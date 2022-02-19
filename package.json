@@ -58,7 +58,7 @@
     "docker-compose": "0.23.17",
     "dotenv": "10.0.0",
     "entities": "3.0.1",
-    "express": "4.17.2",
+    "express": "4.17.3",
     "express-healthcheck": "0.1.0",
     "express-session": "1.17.2",
     "express-validator": "6.14.0",
