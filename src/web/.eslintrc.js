@@ -1,5 +1,5 @@
 module.exports = {
-  extends: 'eslint-config-telescope',
+  extends: '@senecacdot/eslint-config-telescope',
 
   overrides: [
     // TypeScript for Next.js
