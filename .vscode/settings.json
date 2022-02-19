@@ -8,5 +8,7 @@
     "source.fixAll": true
   },
   "files.eol": "\n",
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "eslint.packageManager": "pnpm",
+  "eslint.workingDirectories": [{ "mode": "auto" }]
 }
