@@ -73,9 +73,6 @@ services:
     depends_on:
       - redis
       - elasticsearch
-    volumes:
-      # Volume to be shared for log rotation
-      - rotate:/telescope/log
 
   ##############################################################################
   # Telescope 2.0 Microservices
@@ -205,6 +202,3 @@ services:
       - 'traefik.http.routers.portainer.rule=HOST(`${PORTAINER_HOST}`)'
       # Specify the portainer service port used internally
       - 'traefik.http.services.portainer.loadbalancer.server.port=80'
-
-volumes:
-  rotate:
