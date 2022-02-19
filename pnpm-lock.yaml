@@ -46,7 +46,7 @@ importers:
       highlight.js: 11.3.1
       http-proxy-middleware: 2.0.3
       husky: 7.0.4
-      ioredis: 4.28.2
+      ioredis: 4.28.5
       ioredis-mock: 5.8.1
       jest: 27.4.7
       jest-fetch-mock: 3.0.3
@@ -99,8 +99,8 @@ importers:
       helmet: 4.6.0
       highlight.js: 11.3.1
       http-proxy-middleware: 2.0.3
-      ioredis: 4.28.2
-      ioredis-mock: 5.8.1_ioredis@4.28.2
+      ioredis: 4.28.5
+      ioredis-mock: 5.8.1_ioredis@4.28.5
       jsdom: 18.1.1
       linkify-html: 3.0.5_linkifyjs@3.0.5
       linkifyjs: 3.0.5
@@ -224,7 +224,7 @@ importers:
       '@senecacdot/satellite': 1.25.0
       bull: 3.29.3
       express-validator: 6.14.0
-      ioredis: 4.28.2
+      ioredis: 4.28.5
       ioredis-mock: 5.8.1
       jsdom: 18.1.1
       normalize-url: 6.1.0
@@ -233,8 +233,8 @@ importers:
       '@senecacdot/satellite': 1.25.0
       bull: 3.29.3
       express-validator: 6.14.0
-      ioredis: 4.28.2
-      ioredis-mock: 5.8.1_ioredis@4.28.2
+      ioredis: 4.28.5
+      ioredis-mock: 5.8.1_ioredis@4.28.5
       jsdom: 18.1.1
       normalize-url: 6.1.0
     devDependencies:
@@ -6102,7 +6102,7 @@ packages:
   /axios/0.21.4_debug@4.3.3:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.7_debug@4.3.3
+      follow-redirects: 1.14.7
     transitivePeerDependencies:
       - debug
     dev: false
@@ -9281,18 +9281,6 @@ packages:
       debug:
         optional: true
 
-  /follow-redirects/1.14.7_debug@4.3.3:
-    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.3
-    dev: false
-
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
     dependencies:
@@ -10342,7 +10330,7 @@ packages:
       p-is-promise: 3.0.0
     dev: false
 
-  /ioredis-mock/5.8.1_ioredis@4.28.2:
+  /ioredis-mock/5.8.1_ioredis@4.28.5:
     resolution: {integrity: sha512-YWUoE7ZZLzo2fJMWLjeh3F/TkgHqeazdOeExZskit+/2ZSA0bsFPkXiKMOUHZxjOk2JskOP9iuYvf/iO3mhMZg==}
     engines: {node: '>=10'}
     peerDependencies:
@@ -10351,7 +10339,7 @@ packages:
     dependencies:
       fengari: 0.1.4
       fengari-interop: 0.1.3_fengari@0.1.4
-      ioredis: 4.28.2
+      ioredis: 4.28.5
       lodash: 4.17.21
       standard-as-callback: 2.1.0
     dev: false
