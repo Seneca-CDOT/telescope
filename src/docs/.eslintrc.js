@@ -1,5 +1,5 @@
 module.exports = {
-  extends: 'eslint-config-telescope',
+  extends: '@senecacdot/eslint-config-telescope',
 
   overrides: [
     {
