@@ -2,7 +2,7 @@
   "author": "",
   "private": true,
   "dependencies": {
-    "jsdom": "^18.0.1",
+    "jsdom": "18.1.1",
     "node-fetch": "2.6.7"
   },
   "description": "Migrates users from the planet feed wiki list to a JSON file.",
