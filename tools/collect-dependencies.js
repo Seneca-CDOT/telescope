@@ -13,7 +13,13 @@ if (option !== '-o' || !filename) {
 console.log('Starting to collect dependencies');
 
 console.log('Invoking pnpm list...');
-const output = execSync('pnpm list -w -r --parseable --depth=2').toString('utf8');
+
+// Warning: the maxBuffer has been increased to 10 MB as a quick solution.
+// In the case we hit the limit of the buffer again, we shall rewrite the
+// script for a better way to handle it.
+const output = execSync('pnpm list -w -r --parseable --depth=2', {
+  maxBuffer: 1024 * 1024 * 10, // approx. 10 Megabyte = 1024 bytes per Kilobyte * 1024 Kilobytes per Megabyte * 10 Megabytes
+}).toString('utf8');
 
 const regex = /.*\.pnpm\/(@?[^@]+).*/g;
 
