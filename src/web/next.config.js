@@ -9,9 +9,6 @@
 const path = require('path');
 const dotenv = require('dotenv');
 const withPlugins = require('next-compose-plugins');
-const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
-});
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
@@ -64,7 +61,7 @@ envVarsToForward.forEach((envVar) =>
 
 // Configs for Next
 const nextConfig = {
-  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
+  pageExtensions: ['ts', 'tsx'],
   poweredByHeader: false,
   reactStrictMode: true,
   trailingSlash: true,
@@ -73,7 +70,6 @@ const nextConfig = {
 
 // Compose all plugins
 module.exports = withPlugins([
-  [withMDX],
   [
     withPWA,
     {
