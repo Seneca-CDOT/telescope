@@ -75,7 +75,7 @@
     "normalize-url": "6.1.0",
     "opml-generator": "1.1.1",
     "passport": "0.5.2",
-    "passport-saml": "3.2.0",
+    "passport-saml": "3.2.1",
     "pino": "7.6.4",
     "pino-elasticsearch": "6.2.0",
     "pino-http": "6.6.0",
