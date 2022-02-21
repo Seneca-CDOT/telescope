@@ -24,7 +24,7 @@ importers:
       '@types/jest': 27.4.0
       '@typescript-eslint/eslint-plugin': 4.33.0
       '@typescript-eslint/parser': 4.33.0
-      '@vercel/node': 1.12.1
+      '@vercel/node': 1.13.0
       '@wordpress/wordcount': 2.15.2
       babel-jest: 27.4.6
       babel-preset-next: 1.4.0
@@ -126,7 +126,7 @@ importers:
       '@types/jest': 27.4.0
       '@typescript-eslint/eslint-plugin': 4.33.0_@typescript-eslint+parser@4.33.0
       '@typescript-eslint/parser': 4.33.0
-      '@vercel/node': 1.12.1
+      '@vercel/node': 1.13.0
       babel-preset-next: 1.4.0_@babel+core@7.17.5
       fast-xml-parser: 3.21.1
       husky: 7.0.4
@@ -5561,8 +5561,8 @@ packages:
       eslint-visitor-keys: 3.2.0
     dev: true
 
-  /@vercel/node/1.12.1:
-    resolution: {integrity: sha512-NcawIY05BvVkWlsowaxF2hl/hJg475U8JvT2FnGykFPMx31q1/FtqyTw/awSrKfOSRXR0InrbEIDIelmS9NzPA==}
+  /@vercel/node/1.13.0:
+    resolution: {integrity: sha512-AqdUuJC0+r3q1lcL+Knjb+dHsSDSCRfwFPJ7odRkHO7sfoAkhJI4RussIDFTF7Yvt0e+GmWuYGFAgwSiv4FWEg==}
     dependencies:
       '@types/node': 17.0.12
       ts-node: 8.9.1_typescript@4.3.4
@@ -6159,7 +6159,7 @@ packages:
   /axios/0.21.4_debug@4.3.3:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -9337,6 +9337,18 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+
+  /follow-redirects/1.14.7_debug@4.3.3:
+    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.3
+    dev: false
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}

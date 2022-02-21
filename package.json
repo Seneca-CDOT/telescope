@@ -94,7 +94,7 @@
     "@types/jest": "27.4.0",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
-    "@vercel/node": "1.12.1",
+    "@vercel/node": "1.13.0",
     "babel-preset-next": "1.4.0",
     "fast-xml-parser": "3.21.1",
     "husky": "7.0.4",
