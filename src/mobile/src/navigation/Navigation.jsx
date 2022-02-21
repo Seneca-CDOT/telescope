@@ -20,6 +20,7 @@ const Navigation = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: [
           {
@@ -30,23 +31,23 @@ const Navigation = () => {
       }}
     >
       <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <EvilIcons name="search" size={24} color="#121D59" />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarIcon: () => (
             <View style={styles.navBarIcon}>
               <Entypo name="home" size={24} color="#121D59" />
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: () => (
+            <View style={styles.navBarIcon}>
+              <EvilIcons name="search" size={24} color="#121D59" />
             </View>
           ),
         }}

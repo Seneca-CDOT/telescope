@@ -1,10 +1,11 @@
 import { View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const ContactScreen = () => {
   return (
-    <View>
+    <SafeAreaView>
       <Text>This is contact screen</Text>
-    </View>
+    </SafeAreaView>
   );
 };
 
