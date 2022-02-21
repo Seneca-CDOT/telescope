@@ -13,7 +13,6 @@
     "@fontsource/spartan": "4.5.4",
     "@material-ui/core": "4.12.3",
     "@material-ui/icons": "4.11.2",
-    "@next/mdx": "12.0.7",
     "@types/smoothscroll-polyfill": "0.3.1",
     "@types/yup": "0.29.13",
     "clsx": "1.1.1",
