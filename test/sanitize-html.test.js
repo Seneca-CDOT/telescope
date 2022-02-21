@@ -143,4 +143,9 @@ describe('Sanitize HTML', () => {
       '<table><tbody><tr><td><a href="www.senecacollege.ca"><img src="https://1.bp.blogspot.com/11.JPG" /></a></td></tr><tr><td>The Final Product</td></tr></tbody></table>'
     );
   });
+
+  test('twitch.tv embedded content should not be removed', () => {
+    const data = sanitizeHTML('<iframe src="https://www.twitch.tv/0pensrc"></iframe>');
+    expect(data).toBe('<iframe src="https://www.twitch.tv/0pensrc"></iframe>');
+  });
 });

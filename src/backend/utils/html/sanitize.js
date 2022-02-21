@@ -49,6 +49,7 @@ module.exports = function (dirty) {
     },
     allowedIframeHostnames: [
       'www.youtube.com',
+      'www.twitch.tv',
       'player.vimeo.com',
       'giphy.com',
       'cdn.embedly.com',

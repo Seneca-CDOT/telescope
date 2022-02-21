@@ -23,7 +23,7 @@ app.use(
             directives: {
               defaultSrc: ["'self'"],
               fontSrc: ["'self'", 'https:', 'data:'],
-              frameSrc: ["'self'", '*.youtube.com', '*.vimeo.com'],
+              frameSrc: ["'self'", '*.youtube.com', '*.vimeo.com', '*.twitch.tv'],
               frameAncestors: ["'self'"],
               imgSrc: ["'self'", 'data:', 'https:'],
               scriptSrc: [
