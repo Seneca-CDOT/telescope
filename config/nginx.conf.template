@@ -149,10 +149,29 @@ http {
   # Verify chain of trust of OCSP response using Root CA and Intermediate certs
   ssl_trusted_certificate /etc/letsencrypt/live/${TELESCOPE_HOST}/chain.pem;
 
-  # Requests to the (api|portainer).* domain should be proxied to Traefik
+  # Requests to the Portainer app
   server {
     listen 443 ssl http2;
-    server_name ${API_HOST} ${PORTAINER_HOST};
+    server_name ${PORTAINER_HOST};
+
+    location /api/websocket/  {
+      proxy_cache_bypass 1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+      proxy_pass  http://portainer:9000/api/websocket;
+    }
+
+    location / {
+      proxy_cache_bypass 1;
+      proxy_set_header Connection "";
+      proxy_pass http://portainer:9000/;
+    }
+  }
+
+  # Requests to the api.* domain should be proxied to Traefik
+  server {
+    listen 443 ssl http2;
+    server_name ${API_HOST};
 
     location / {
       proxy_set_header  Host            $host;
@@ -160,11 +179,6 @@ http {
       proxy_set_header  X-Forwarded-for $remote_addr;
       # We run Traefik via Docker on port 8888
       proxy_pass        http://traefik:8888;
-    }
-
-    # Let's Encrypt route
-    location /.well-known/acme-challenge/ {
-      root /var/www/certbot;
     }
   }
 
