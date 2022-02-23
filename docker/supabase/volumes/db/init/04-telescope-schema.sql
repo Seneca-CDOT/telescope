@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS telescope_profiles (
 CREATE TABLE IF NOT EXISTS feeds (
   url text PRIMARY KEY,
   user_id text references telescope_profiles ON DELETE CASCADE, -- optional, a user can claim an existing feed when they register
-  author_name text, -- owner of a feed, maybe unused when the feed is linked with an actual user
-  htm_url text, -- actual URL the feed refers to, could be a blog URL, a Youtube or Twitch channel
+  wiki_author_name text, -- wiki owner of a feed, maybe unused when the feed is linked with an actual user
+  html_url text, -- actual URL the feed refers to, could be a blog URL, a Youtube or Twitch channel
   type text DEFAULT 'blog' check ( type IN ('blog', 'youtube', 'twitch') ),
   invalid boolean DEFAULT false,
   flagged boolean DEFAULT false

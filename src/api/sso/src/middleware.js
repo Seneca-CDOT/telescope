@@ -126,7 +126,6 @@ const createNewProfile = async (id, body) => {
         user_id: id,
         url: feedUrl,
         html_url: blogUrl,
-        author_name: displayName,
         // TODO: Allow adding Youtube/Twitch feed
         type: 'blog',
       })),
