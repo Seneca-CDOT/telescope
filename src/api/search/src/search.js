@@ -68,7 +68,6 @@ const search = async (
     size: perPage,
     _source: ['id'],
     index,
-    type,
     body: query,
   });
 
@@ -159,7 +158,6 @@ const advancedSearch = async (options) => {
     size: options.perPage,
     _source: ['id'],
     index,
-    type,
     body: results,
   });
 

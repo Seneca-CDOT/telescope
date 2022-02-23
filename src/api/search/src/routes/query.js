@@ -9,7 +9,7 @@ router.get('/', validateQuery, async (req, res, next) => {
     const { text, filter, page, perPage } = req.query;
     res.send(await search(text, filter, page, perPage));
   } catch (error) {
-    next(createError(503, error));
+    next(createError(503, error.name, error.meta));
   }
 });
 
@@ -18,7 +18,7 @@ router.get('/advanced', validateQuery, async (req, res, next) => {
   try {
     res.send(await advancedSearch(req.query));
   } catch (error) {
-    next(createError(503, error));
+    next(createError(503, error.name, error.meta));
   }
 });
 

@@ -18,7 +18,6 @@ const indexPost = async ({ text, id, title, published, author }) => {
   try {
     await client.index({
       index,
-      type,
       id,
       body: {
         text,
@@ -40,7 +39,6 @@ const deletePost = async (postId) => {
   try {
     await client.delete({
       index,
-      type,
       id: postId,
     });
   } catch (error) {
@@ -110,7 +108,6 @@ const search = async (
     size: perPage,
     _source: ['id'],
     index,
-    type,
     body: query,
   });
 

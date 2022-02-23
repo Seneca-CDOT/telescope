@@ -46,7 +46,7 @@
   "dependencies": {
     "@bull-board/api": "3.8.1",
     "@bull-board/express": "3.8.1",
-    "@elastic/elasticsearch": "7.16.0",
+    "@elastic/elasticsearch": "8.0.0",
     "@elastic/elasticsearch-mock": "0.3.1",
     "@wordpress/wordcount": "2.15.2",
     "babel-jest": "27.4.6",
