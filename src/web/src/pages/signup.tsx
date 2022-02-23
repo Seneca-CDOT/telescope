@@ -206,6 +206,7 @@ const SignUpPage = () => {
         githubUsername: values.github.username,
         githubAvatarUrl: values.github.avatarUrl,
         feeds: values.feeds,
+        blogUrl: values.blogUrl,
       };
 
       const response = await fetch(`${ssoServiceUrl}/register`, {
