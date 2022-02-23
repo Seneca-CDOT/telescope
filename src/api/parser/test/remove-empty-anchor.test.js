@@ -1,5 +1,5 @@
-const toDom = require('../src/backend/utils/html/dom');
-const removeEmptyAnchor = require('../src/backend/utils/html/remove-empty-anchor');
+const toDom = require('../src/utils/html/dom');
+const removeEmptyAnchor = require('../src/utils/html/remove-empty-anchor');
 
 function removeNoContentAnchor(html) {
   const dom = toDom(html);
@@ -13,7 +13,7 @@ function removeNoContentAnchor(html) {
  */
 describe('Remove no content anchor tags', () => {
   // Test to see if <a></a> get removed
-  test('Should remove <a></a> when parent is empty eg.<div><a><a/></div>', () => {
+  test('Should remove <a></a> when outer div is empty', () => {
     const HTMLBefore = '<div><a></a></div>';
     const HTMLAfter = removeNoContentAnchor(HTMLBefore);
     const HTMLExpected = '<div></div>';
@@ -21,16 +21,15 @@ describe('Remove no content anchor tags', () => {
     expect(HTMLAfter).toEqual(HTMLExpected);
   });
 
-  test('Should remove <a></a> when parent is not empty eg.<div><a><a/> This is the content of the outer div</div>', () => {
+  test('Should remove <a></a> when outer is not empty', () => {
     const HTMLBefore = '<div><a></a> This is the content of the outer div</div>';
     const HTMLAfter = removeNoContentAnchor(HTMLBefore);
     const HTMLExpected = '<div> This is the content of the outer div</div>';
 
     expect(HTMLAfter).toEqual(HTMLExpected);
   });
-
   // Anchor tags with text content should not be removed
-  test('Should not remove <a>foo</a>', () => {
+  test('Should not remove <a>foo</a> ', () => {
     const htmlData = '<div><a>foo</a></div>';
     const htmlDataAfter = removeNoContentAnchor(htmlData);
 
@@ -59,36 +58,19 @@ describe('Remove no content anchor tags', () => {
 
   describe('Should keep anchors contain media tags only', () => {
     // Should not remove anchor if it contain a single media tag. Media tags include 'img', 'audio', 'video', 'picture', 'svg', 'object', 'map', 'iframe', 'embed'
-    test('Should not remove anchors containing single media tag eg: <a><img src="Image.com"></a>', () => {
-      const withImg = '<div><a><img src="Image.com"></a></div>';
-      const withAudio = '<div><a><audio></audio></a></div>';
-      const withVideo = '<div><a><video></video></a></div>';
-      const withPicture = '<div><picture></picture></div>';
-      const withSvg = '<div><svg></svg></div>';
-      const withObject = '<div><object></object></div>';
-      const withMap = '<div><map></map></div>';
-      const withIframe = '<div><iframe></iframe></div>';
-      const withEmbed = '<div><embed></div>';
-
-      const withImgAfter = removeNoContentAnchor(withImg);
-      const withAudioAfter = removeNoContentAnchor(withAudio);
-      const withVideoAfter = removeNoContentAnchor(withVideo);
-      const withPictureAfter = removeNoContentAnchor(withPicture);
-      const withSvgAfter = removeNoContentAnchor(withSvg);
-      const withObjectAfter = removeNoContentAnchor(withObject);
-      const withMapAfter = removeNoContentAnchor(withMap);
-      const withIframeAfter = removeNoContentAnchor(withIframe);
-      const withEmbedAfter = removeNoContentAnchor(withEmbed);
-
-      expect(withImgAfter).toEqual(withImg);
-      expect(withAudioAfter).toEqual(withAudio);
-      expect(withVideoAfter).toEqual(withVideo);
-      expect(withPictureAfter).toEqual(withPicture);
-      expect(withSvgAfter).toEqual(withSvg);
-      expect(withObjectAfter).toEqual(withObject);
-      expect(withMapAfter).toEqual(withMap);
-      expect(withIframeAfter).toEqual(withIframe);
-      expect(withEmbedAfter).toEqual(withEmbed);
+    test.each`
+      name                                                       | anchorElement
+      ${'Should not remove anchors containing single <img>'}     | ${'<div><a><img src="Image.com"></a></div>'}
+      ${'Should not remove anchors containing single <audio>'}   | ${'<div><a><audio></audio></a></div>'}
+      ${'Should not remove anchors containing single <video>'}   | ${'<div><a><video></video></a></div>'}
+      ${'Should not remove anchors containing single <picture>'} | ${'<div><picture></picture></div>'}
+      ${'Should not remove anchors containing single <svg>'}     | ${'<div><svg></svg></div>'}
+      ${'Should not remove anchors containing single <object>'}  | ${'<div><object></object></div>'}
+      ${'Should not remove anchors containing single <map>'}     | ${'<div><map></map></div>'}
+      ${'Should not remove anchors containing single <iframe>'}  | ${'<div><iframe></iframe></div>'}
+      ${'Should not remove anchors containing single <embed>'}   | ${'<div><embed></div>'}
+    `('$name', ({ anchorElement }) => {
+      expect(removeNoContentAnchor(anchorElement)).toBe(anchorElement);
     });
 
     // Should not remove anchor if it contain multiple media tags

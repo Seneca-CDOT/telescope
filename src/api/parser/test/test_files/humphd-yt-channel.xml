@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns:media="http://search.yahoo.com/mrss/" xmlns="http://www.w3.org/2005/Atom">
+ <link rel="self" href="http://www.youtube.com/feeds/videos.xml?channel_id=UCqaMbMDf01BLttof1lHAo2A"/>
+ <id>yt:channel:UCqaMbMDf01BLttof1lHAo2A</id>
+ <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+ <title>David Humphrey</title>
+ <link rel="alternate" href="https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A"/>
+ <author>
+  <name>David Humphrey</name>
+  <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+ </author>
+ <published>2015-07-11T20:00:29+00:00</published>
+ <entry>
+  <id>yt:video:mNuHA7vH6Wc</id>
+  <yt:videoId>mNuHA7vH6Wc</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>DPS909 OSD600 Week 03 - Fixing a Bug in the Azure JS SDK</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=mNuHA7vH6Wc"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-09-24T19:04:25+00:00</published>
+  <updated>2021-10-27T10:46:10+00:00</updated>
+  <media:group>
+   <media:title>DPS909 OSD600 Week 03 - Fixing a Bug in the Azure JS SDK</media:title>
+   <media:content url="https://www.youtube.com/v/mNuHA7vH6Wc?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/mNuHA7vH6Wc/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Walkthrough and discussion of fixing a bug in https://github.com/Azure/azure-sdk-for-js. Issue at https://github.com/Azure/azure-sdk-for-js/issues/15772. PR at https://github.com/Azure/azure-sdk-for-js/pull/17820.</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="347"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:GUXjyPp433M</id>
+  <yt:videoId>GUXjyPp433M</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>DPS909/OSD600 Fall 2021 Week 01 Part 2 - Week 1 Overview</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=GUXjyPp433M"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-09-06T12:00:06+00:00</published>
+  <updated>2021-09-16T13:20:23+00:00</updated>
+  <media:group>
+   <media:title>DPS909/OSD600 Fall 2021 Week 01 Part 2 - Week 1 Overview</media:title>
+   <media:content url="https://www.youtube.com/v/GUXjyPp433M?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/GUXjyPp433M/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Overview of https://github.com/Seneca-CDOT/topics-in-open-source-2021</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="270"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:rOBX6vRch7U</id>
+  <yt:videoId>rOBX6vRch7U</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 12 WebSockets Part 1 - Intro and Writing the Server</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=rOBX6vRch7U"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-04-04T13:00:30+00:00</published>
+  <updated>2021-11-06T04:28:19+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 12 WebSockets Part 1 - Intro and Writing the Server</media:title>
+   <media:content url="https://www.youtube.com/v/rOBX6vRch7U?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/rOBX6vRch7U/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Introduction to Web Sockets and writing a Web Socket Server for an Emoji Chat App.  Code at https://github.com/humphd/web422-week12</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="316"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:lU9db7Dd95I</id>
+  <yt:videoId>lU9db7Dd95I</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 12 WebSockets Part 2 - Writing the React Front-End</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=lU9db7Dd95I"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-04-04T13:00:30+00:00</published>
+  <updated>2021-04-05T23:01:11+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 12 WebSockets Part 2 - Writing the React Front-End</media:title>
+   <media:content url="https://www.youtube.com/v/lU9db7Dd95I?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/lU9db7Dd95I/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Creating the React Front-End for our Emoji Chat App. Code at https://github.com/humphd/web422-week12</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="377"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:motlCbDr6c4</id>
+  <yt:videoId>motlCbDr6c4</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 05 Part 4 - Deploying React Apps</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=motlCbDr6c4"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-02-07T14:00:13+00:00</published>
+  <updated>2021-03-11T03:07:39+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 05 Part 4 - Deploying React Apps</media:title>
+   <media:content url="https://www.youtube.com/v/motlCbDr6c4?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/motlCbDr6c4/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Deploying a Create-React-App (https://create-react-app.dev/docs/deployment) to various services: GitHub Pages (https://pages.github.com/), Vercel (https://vercel.com/), Netlify (https://www.netlify.com/), Begin (https://begin.com/).
+
+Example deploy of (https://github.com/humphd/web422-week-05-artsy) to Vercel https://web422-week-05-artsy.vercel.app/ and GitHub Pages https://humphd.github.io/web422-week-05-artsy/build/</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="323"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:TaSAzbTltUo</id>
+  <yt:videoId>TaSAzbTltUo</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 05 Part 3 - Using Formik, Joi, and Yup with React</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=TaSAzbTltUo"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-02-07T14:00:07+00:00</published>
+  <updated>2021-08-19T07:07:52+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 05 Part 3 - Using Formik, Joi, and Yup with React</media:title>
+   <media:content url="https://www.youtube.com/v/TaSAzbTltUo?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/TaSAzbTltUo/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Example of working with Form data in the browser with Formik, and server using Express, and how to validate the data using Joi and Yup on both ends. Code available at https://github.com/humphd/web422-week05-formik.</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="449"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:NPf-Y2Ek6a4</id>
+  <yt:videoId>NPf-Y2Ek6a4</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 05 Part 1 - Intro to React Forms</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=NPf-Y2Ek6a4"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-02-07T14:00:06+00:00</published>
+  <updated>2021-05-08T09:50:22+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 05 Part 1 - Intro to React Forms</media:title>
+   <media:content url="https://www.youtube.com/v/NPf-Y2Ek6a4?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/NPf-Y2Ek6a4/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Introduction to React Forms, discussion of code in notes https://web422.ca/notes/react-forms.  See also the official React docs on forms https://reactjs.org/docs/forms.html</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="315"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:5i10iPnrfmw</id>
+  <yt:videoId>5i10iPnrfmw</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 05 Part 2 - Using a Form to Load API Data</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=5i10iPnrfmw"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-02-07T14:00:01+00:00</published>
+  <updated>2021-11-03T23:24:37+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 05 Part 2 - Using a Form to Load API Data</media:title>
+   <media:content url="https://www.youtube.com/v/5i10iPnrfmw?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i2.ytimg.com/vi/5i10iPnrfmw/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Building an interactive Form in React that uses the Art Institute of Chicago REST API (http://api.artic.edu/docs/).  Code available at https://github.com/humphd/web422-week-05-artsy</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="334"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:zcJA5YBzJG8</id>
+  <yt:videoId>zcJA5YBzJG8</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 04 Part 3 - Using Third Party React Components for Routing and UI</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=zcJA5YBzJG8"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-01-31T14:00:30+00:00</published>
+  <updated>2021-03-11T03:10:12+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 04 Part 3 - Using Third Party React Components for Routing and UI</media:title>
+   <media:content url="https://www.youtube.com/v/zcJA5YBzJG8?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/zcJA5YBzJG8/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Discussion of React Routing using React Router (https://reactrouter.com/web) and how we can use 3rd Party React Components like https://react-bootstrap.github.io/</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="243"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:hgew3p5RriY</id>
+  <yt:videoId>hgew3p5RriY</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 04 Part 1 - React Events</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=hgew3p5RriY"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-01-31T14:00:12+00:00</published>
+  <updated>2021-03-11T04:53:59+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 04 Part 1 - React Events</media:title>
+   <media:content url="https://www.youtube.com/v/hgew3p5RriY?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/hgew3p5RriY/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Discussion of React Events and how they related to DOM Events (notes: https://web422.ca/notes/react-events-and-data).  Code from video available at https://gist.github.com/humphd/e353ab107e561c496bf9eec78fa8cac4</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="318"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:dDMgZ7TfPaI</id>
+  <yt:videoId>dDMgZ7TfPaI</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 04 Part 4 - GitHub API Example</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=dDMgZ7TfPaI"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-01-31T14:00:09+00:00</published>
+  <updated>2021-03-11T04:50:40+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 04 Part 4 - GitHub API Example</media:title>
+   <media:content url="https://www.youtube.com/v/dDMgZ7TfPaI?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i1.ytimg.com/vi/dDMgZ7TfPaI/hqdefault.jpg" width="480" height="360"/>
+   <media:description>GitHub API Example with React Router, Bootstrap React, and useSWR 3rd party Components.  Code available at https://github.com/humphd/web422-week04-github-example.</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="326"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:WdT_coWe4ms</id>
+  <yt:videoId>WdT_coWe4ms</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 04 Part 2 - React Events and Data Loading</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=WdT_coWe4ms"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-01-31T14:00:06+00:00</published>
+  <updated>2021-10-23T12:22:30+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 04 Part 2 - React Events and Data Loading</media:title>
+   <media:content url="https://www.youtube.com/v/WdT_coWe4ms?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/WdT_coWe4ms/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Working with Events, Data Loading, and Conditional Rendering in React.  Code available at https://github.com/humphd/web422-week04-events-data-loading</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="289"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:rx4KuxqD3CA</id>
+  <yt:videoId>rx4KuxqD3CA</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 03 Part 2 - Modern JavaScript in React</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=rx4KuxqD3CA"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-01-24T14:00:31+00:00</published>
+  <updated>2021-09-12T04:43:29+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 03 Part 2 - Modern JavaScript in React</media:title>
+   <media:content url="https://www.youtube.com/v/rx4KuxqD3CA?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/rx4KuxqD3CA/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Discussion of some of the newer syntax in JavaScript that will be used extensively in React.  See https://reactjs.org/docs/getting-started.html#javascript-resources and https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript and</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="362"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:wC0TOPzrLTI</id>
+  <yt:videoId>wC0TOPzrLTI</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 03 Part 1 - React Intro</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=wC0TOPzrLTI"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-01-24T14:00:13+00:00</published>
+  <updated>2021-01-24T14:00:13+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 03 Part 1 - React Intro</media:title>
+   <media:content url="https://www.youtube.com/v/wC0TOPzrLTI?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i4.ytimg.com/vi/wC0TOPzrLTI/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Intro to React. Discussion of some of the main ideas and philosophies of building web applications with React.</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="348"/>
+   </media:community>
+  </media:group>
+ </entry>
+ <entry>
+  <id>yt:video:n1A52kPfPtI</id>
+  <yt:videoId>n1A52kPfPtI</yt:videoId>
+  <yt:channelId>UCqaMbMDf01BLttof1lHAo2A</yt:channelId>
+  <title>WEB422 Week 03 Part 4 - Writing an App with React</title>
+  <link rel="alternate" href="https://www.youtube.com/watch?v=n1A52kPfPtI"/>
+  <author>
+   <name>David Humphrey</name>
+   <uri>https://www.youtube.com/channel/UCqaMbMDf01BLttof1lHAo2A</uri>
+  </author>
+  <published>2021-01-24T14:00:12+00:00</published>
+  <updated>2021-01-28T21:28:06+00:00</updated>
+  <media:group>
+   <media:title>WEB422 Week 03 Part 4 - Writing an App with React</media:title>
+   <media:content url="https://www.youtube.com/v/n1A52kPfPtI?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
+   <media:thumbnail url="https://i3.ytimg.com/vi/n1A52kPfPtI/hqdefault.jpg" width="480" height="360"/>
+   <media:description>Rewrite of the Week 1 reqres.in API front-end (https://github.com/humphd/web422-week01) in React. Code available at https://github.com/humphd/web422-week03-react. Live version at https://humphd.github.io/web422-week03-react/dist/</media:description>
+   <media:community>
+    <media:starRating count="0" average="0.00" min="1" max="5"/>
+    <media:statistics views="538"/>
+   </media:community>
+  </media:group>
+ </entry>
+</feed>

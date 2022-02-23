@@ -21,7 +21,7 @@
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
     "test": "pnpm jest",
     "jest": "jest -c jest.config.js --",
-    "jest:e2e": "jest -c jest.config.e2e.js --",
+    "jest:e2e": "jest -c jest.config.e2e.js --forceExit --",
     "coverage": "jest -c jest.config.js --collectCoverage --",
     "jest-watch": "jest -c jest.config.js --watch --",
     "jest-update": "jest -c jest.config.js --updateSnapshot --",

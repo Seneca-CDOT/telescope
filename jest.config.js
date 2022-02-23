@@ -16,5 +16,6 @@ module.exports = {
     '<rootDir>/src/api/posts/jest.config.js',
     '<rootDir>/src/api/search/jest.config.js',
     '<rootDir>/src/api/sso/jest.config.js',
+    '<rootDir>/src/api/parser/jest.config.js',
   ],
 };
