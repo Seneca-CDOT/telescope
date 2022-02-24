@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { SWRConfig } from 'swr';
+import { appWithTranslation } from 'next-i18next';
 
 import AuthProvider from '../components/AuthProvider';
 
@@ -49,4 +50,4 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default App;
+export default appWithTranslation(App);

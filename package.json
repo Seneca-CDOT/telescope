@@ -71,6 +71,7 @@
     "jsdom": "18.1.1",
     "linkify-html": "3.0.5",
     "linkifyjs": "3.0.5",
+    "next-i18next": "10.4.0",
     "node-fetch": "2.6.7",
     "normalize-url": "6.1.0",
     "opml-generator": "1.1.1",
