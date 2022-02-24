@@ -11,6 +11,7 @@ const dotenv = require('dotenv');
 const withPlugins = require('next-compose-plugins');
 const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
+const { i18n } = require('./next-i18next.config');
 
 // Load an env file
 const loadApiUrlFromEnv = (envFile) => dotenv.config({ path: envFile });
@@ -81,5 +82,6 @@ module.exports = withPlugins([
       },
     },
   ],
+  { i18n },
   nextConfig,
 ]);

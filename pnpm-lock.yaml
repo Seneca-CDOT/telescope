@@ -382,6 +382,7 @@ importers:
       nanoid: 3.2.0
       next: 12.0.9
       next-compose-plugins: 2.2.1
+      next-i18next: 10.4.0
       next-pwa: 5.4.4
       react: 17.0.2
       react-dom: 17.0.2
@@ -409,6 +410,7 @@ importers:
       nanoid: 3.2.0
       next: 12.0.9_33bdac975a6e334c49640fab91e2abb4
       next-compose-plugins: 2.2.1
+      next-i18next: 10.4.0_b543ccecfd29856b35e58d884b6ddddd
       next-pwa: 5.4.4_@babel+core@7.17.5+next@12.0.9
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -5139,6 +5141,13 @@ packages:
     resolution: {integrity: sha512-wLEm0QvaoawEDoTRwzTXp4b4jpwiJDvR5KMnFnVodm3scufTlBOWRD6N1OBf9TZMhjlNsSfcO5V+7AF4+Vy+9g==}
     dependencies:
       '@types/unist': 2.0.6
+    dev: false
+
+  /@types/hoist-non-react-statics/3.3.1:
+    resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
+    dependencies:
+      '@types/react': 17.0.39
+      hoist-non-react-statics: 3.3.2
     dev: false
 
   /@types/html-minifier-terser/6.1.0:
@@ -10124,7 +10133,6 @@ packages:
 
   /html-escaper/2.0.2:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
-    dev: true
 
   /html-minifier-terser/6.1.0:
     resolution: {integrity: sha512-YXxSlJBZTP7RS3tWnQw74ooKa6L9b9i9QYXY21eUEvhZ3u9XLfv6OnFsQq6RxkhHygsaUMvYsZRV5rU/OVNZxw==}
@@ -10140,6 +10148,12 @@ packages:
       terser: 5.10.0
     transitivePeerDependencies:
       - acorn
+    dev: false
+
+  /html-parse-stringify/3.0.1:
+    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
+    dependencies:
+      void-elements: 3.1.0
     dev: false
 
   /html-tags/3.1.0:
@@ -10344,6 +10358,16 @@ packages:
 
   /hyphenate-style-name/1.0.4:
     resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==}
+    dev: false
+
+  /i18next-fs-backend/1.1.4:
+    resolution: {integrity: sha512-/MfAGMP0jHonV966uFf9PkWWuDjPYLIcsipnSO3NxpNtAgRUKLTwvm85fEmsF6hGeu0zbZiCQ3W74jwO6K9uXA==}
+    dev: false
+
+  /i18next/21.6.12:
+    resolution: {integrity: sha512-xlGTPdu2g5PZEUIE6TA1mQ9EIAAv9nMFONzgwAIrKL/KTmYYWufQNGgOmp5Og1PvgUji+6i1whz0rMdsz1qaKw==}
+    dependencies:
+      '@babel/runtime': 7.17.2
     dev: false
 
   /iconv-lite/0.4.24:
@@ -12566,6 +12590,27 @@ packages:
     resolution: {integrity: sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==}
     dev: false
 
+  /next-i18next/10.4.0_b543ccecfd29856b35e58d884b6ddddd:
+    resolution: {integrity: sha512-3ShASQiQjEmfpCrghOXnUpq6f3tvp/DWyvL/TOoMiH30ERfpbdv7279m4f08tqwGaWlOukanutvs1s1vrQI3Pw==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      next: '>= 10.0.0'
+      react: '>= 16.8.0'
+    dependencies:
+      '@babel/runtime': 7.17.2
+      '@types/hoist-non-react-statics': 3.3.1
+      core-js: 3.21.1
+      hoist-non-react-statics: 3.3.2
+      i18next: 21.6.12
+      i18next-fs-backend: 1.1.4
+      next: 12.0.9_33bdac975a6e334c49640fab91e2abb4
+      react: 17.0.2
+      react-i18next: 11.15.5_2c37a602a29bb6bd53f3de707a8cfcc5
+    transitivePeerDependencies:
+      - react-dom
+      - react-native
+    dev: false
+
   /next-pwa/5.4.4_@babel+core@7.17.5+next@12.0.9:
     resolution: {integrity: sha512-Wo7DctXO9ZZzMCuRK/q2U3x5k49LBRv7p31woJIUfiR6tJChSMoojHUvvgeCY72gSo4mtovS5KRm6iHIs/kxeg==}
     peerDependencies:
@@ -14571,6 +14616,27 @@ packages:
       react: 17.0.2
       react-fast-compare: 3.2.0
       react-side-effect: 2.1.1_react@17.0.2
+    dev: false
+
+  /react-i18next/11.15.5_2c37a602a29bb6bd53f3de707a8cfcc5:
+    resolution: {integrity: sha512-vBWuVEQgrhZrGKpyv8FmJ7Zs5jRQWl794Tte7yzJ0okZqqi3jd6j2pLYNg441WcREsbIOvWdiDXbY7W6E93p1A==}
+    peerDependencies:
+      i18next: '>= 19.0.0'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.17.2
+      html-escaper: 2.0.2
+      html-parse-stringify: 3.0.1
+      i18next: 21.6.12
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /react-icons/4.3.1_react@17.0.2:
@@ -17314,6 +17380,11 @@ packages:
     dependencies:
       acorn: 8.7.0
       acorn-walk: 8.2.0
+    dev: false
+
+  /void-elements/3.1.0:
+    resolution: {integrity: sha1-YU9/v42AHwu18GYfWy9XhXUOTwk=}
+    engines: {node: '>=0.10.0'}
     dev: false
 
   /w3c-hr-time/1.0.2:

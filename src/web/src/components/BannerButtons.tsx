@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { makeStyles, Tooltip, withStyles, Zoom } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { useTranslation } from 'next-i18next';
 import useAuth from '../hooks/use-auth';
 import TelescopeAvatar from './TelescopeAvatar';
 import PopUp from './PopUp';
@@ -53,6 +54,8 @@ const BannerButtons = () => {
 
   const router = useRouter();
 
+  const { t } = useTranslation(`common`);
+
   return (
     <div
       className={`${classes.buttonsContainer} ${
@@ -78,7 +81,7 @@ const BannerButtons = () => {
           }}
           variant="outlined"
         >
-          About us
+          {t(aboutUs)}
         </Button>
       </Link>
       {user?.isRegistered ? (
