@@ -70,6 +70,7 @@ Copy `env.example` in the `autodeployment` directory to `.env` and add the appro
   - repo name (Telescope)
   - deployment type (`staging` or `production`)
   - unsplash client id
+  - GITHUB_TOKEN ([How to](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) generate token)
 
 Install the dependencies using `pnpm install`, and run the server with `pnpm start`.
 
