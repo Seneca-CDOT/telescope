@@ -34,6 +34,18 @@ const config = {
       }),
     ],
   ],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr', 'vi', 'ru', 'uk', 'es', 'zh-cn'],
+    localeConfigs: {
+      en: {
+        htmlLang: 'en-CA',
+      },
+      fr: {
+        htmlLang: 'fr-fr',
+      },
+    },
+  },
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -54,6 +66,10 @@ const config = {
           {
             href: 'https://github.com/Seneca-CDOT/telescope',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'localeDropdown',
             position: 'right',
           },
         ],
