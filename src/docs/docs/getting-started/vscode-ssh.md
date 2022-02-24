@@ -34,17 +34,18 @@ The following will show you how to create and connect to a virtual machine (VM) 
 
 ## Create your virtual machine (AWS EC2):
 
-1. In the upper-right hand corner of your AWS Management Console, select a region. In this tutorial, `US East (Ohio) us-east-2` as your `Region`
+1. In the upper-right hand corner of your AWS Management Console, select a region. In this tutorial, `US East (N. Virginia) us-east-1` as your `Region`
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_08_11-.png)
 2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This will bring up a list of AWS Services, search for `EC2`
 3. Click on `Launch instances`
 
-- Step 1 - Choose an Amazon Machine Image (AMI): `Ubuntu Server 20.04 LTS (HVM), SSD Volume Type`
+- Step 1 - Choose an Amazon Machine Image (AMI): `Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type`
   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_47_51-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
-- Step 2 - Choose an Instance Type: `t2.medium`
+- Step 2 - Choose an Instance Type: `r5.large`
   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_49_07-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
-- Step 3 - Configure Instance Details: Accept the defaults and proceed to the next step
-- Step 4 - Add Storage: Change the Size (GiB) from `8` to `20`
+- Step 3 - Configure Instance Details:
+  - IAM role: LabInstanceProfile
+- Step 4 - Add Storage: Change the Size (GiB) from `8` to `40`
   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_51_25-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 - Step 5 - Add Tags: No tags are needed. Proceed to the next step.
 - Step 6 - Configure Security Group:
@@ -75,15 +76,12 @@ The following will show you how to create and connect to a virtual machine (VM) 
 
   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_54_12-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
-4. Click on `Review and Launch`. You will get a warning: `Your instance configuration is not eligible for the free usage tier`, this is because we're using a `t2.medium` instance type.
+4. Click on `Review and Launch`. You will get a warning: `Your instance configuration is not eligible for the free usage tier`, this is because we're using a `r5.large` instance type.
 5. Click on `Launch`
-6. In the pop-up, choose `Create a new key pair`
+6. In the pop-up, choose `Choose an existing key pair`
 
-- Key pair type: `RSA`
-- Key pair name: `telescope-dev-key`
+- Select a key pair: `vockey`
 
-7. Click on `Download Key Pair`
-8. If you're using Windows, save the file in the `.ssh` directory in your user profile folder (for example `C:/Users/cindy/.ssh/`)
 9. Click on `Launch Instances`
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_57_01-Launch+instance+wizard+_+EC2+Management+Console+%E2%80%94+Mozilla+Firefox.png)
 
@@ -107,53 +105,32 @@ It will take a few minutes for AWS to launch your new EC2 instance.
 6. Edit the `config` file with the following:
 
 ```
-Host aws-ec2
+Host aws-telescope-dev
     HostName <your-ec2-ip-address>
-    User ubuntu
-    IdentityFile ~/.ssh/telescope-dev-key.pem
+    User ec2-user
+    IdentityFile ~/.ssh/labsuser.pem
 ```
 
 ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+14_02_31-config+-+telescope+-+Visual+Studio+Code.png)
 
 7. Save the file
-8. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-ec2` listed.
+8. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-telescope-dev` listed.
 9. Select `aws-ec2` and a new Visual Studio Code window will open.
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_23_08-config+-+Visual+Studio+Code.png)
-10. You will see `"aws-ec2" has fingerprint "SHA256:xxx"` and `Are you sure you want to continue?`. Click on `Continue`. Then You should see that you're connected!
+10. You will see `"aws-telescope-dev" has fingerprint "SHA256:xxx"` and `Are you sure you want to continue?`. Click on `Continue`. Then You should see that you're connected!
     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_56_54-Get+Started+-+Visual+Studio+Code.png)
     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_58_26-.png)
 
 ## Setting up your AWS credentials
 
-1. Open up a terminal in Visual Studio Code (hotkey on Windows: `Ctrl + backtick`). You should see that you're logged in as something like `ubuntu@ip-172.31.23.4`.
+1. Open up a terminal in Visual Studio Code (hotkey on Windows: `Ctrl + backtick`). You should see that you're logged in as something like `[ec2-user@ip-172-31-4-0 ~]$`.
 
-2. Install `unzip`. We will need this to install the AWS CLI
-
-```
-$ sudo apt install unzip
-```
-
-3. Install the latest version of the AWS CLI
-
-```
-$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-```
-
-4. Verify the AWS CLI installation
+2. Verify the AWS CLI installation
 
 ```
 $ aws --version
 
 aws-cli/2.3.0 Python/3.8.8 Linux/5.4.0-1045-aws exe/x86_64.ubuntu.20 prompt/off
-```
-
-5. Remove the `awscliv2.zip` file and `aws` directory
-
-```
-rm awscliv2.zip
-rm -rf aws
 ```
 
 6. Configure your AWS credentials
@@ -167,7 +144,7 @@ aws configure
 ```
 AWS Access Key ID [None]: ****************764G
 AWS Secret Access Key [None]: ****************qBbe
-Default region name [None]: us-east-2
+Default region name [None]: us-east-1
 Default output format [None]:
 ```
 
@@ -175,58 +152,44 @@ Default output format [None]:
 
 ### Install Docker Engine - Community Edition
 
-1. Update the apt package index:
+Note https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
+
+1. Update the yum package index:
 
 ```
-sudo apt-get update
+sudo yum update -y
 ```
 
-2. Install packages to allow apt to use a repository over HTTPS:
+2. Install the most recent Docker Engine package for Amazon Linux 2
 
 ```
-sudo apt-get install \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
+sudo amazon-linux-extras install docker
 ```
 
-3. Add Docker’s official GPG key:
+3. Start the Docker service
 
 ```
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+sudo service docker start
 ```
 
-5. Use the following command to set up the stable repository:
+(Optional) On Amazon Linux 2, to ensure that the Docker daemon starts after each system reboot, run the following command:
 
 ```
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo systemctl enable docker
 ```
 
-6. Update the apt package index again:
+4. Add the `ec2-user` to the `docker` group so you can execute Docker commands without using `sudo`
 
 ```
-sudo apt-get update
+sudo usermod -a -G docker ec2-user
 ```
 
-7. Install the latest version of Docker Engine community:
+5. Log out and log back in again to pick up the new `docker` group permissions. You can accomplish this by closing your current SSH terminal window and reconnecting to your instance in a new one. Your new SSH session will have the appropriate `docker` group permissions.
+
+6. Verify that the `ec2-user` can run Docker commands without `sudo`
 
 ```
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-```
-
-8. Add your user to the Docker group ([source](https://docs.docker.com/install/linux/linux-postinstall/)):
-
-```
-sudo usermod -aG docker $USER
-```
-
-9. Activate the changes to groupss
-
-```
-newgrp docker
+docker info
 ```
 
 10. Now run docker as a service on your machine, on startup:
@@ -239,13 +202,14 @@ newgrp docker
 1. Run to download the current stable version of Docker-Compose:
 
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+wget https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)
 ```
 
 2. Apply executable permissions to the downloaded file:
 
 ```
-sudo chmod +x /usr/local/bin/docker-compose
+sudo mv docker-compose-$(uname -s)-$(uname -m) /usr/local/bin/docker-compose
+sudo chmod -v +x /usr/local/bin/docker-compose
 ```
 
 3. Check installation using:
