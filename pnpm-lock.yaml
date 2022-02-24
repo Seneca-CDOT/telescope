@@ -390,7 +390,7 @@ importers:
       react-transition-group: 4.4.2
       react-use: 17.3.2
       smoothscroll-polyfill: 0.4.4
-      swr: 1.1.2
+      swr: 1.2.2
       terser-webpack-plugin: 5.3.1
       typescript: 4.5.5
       yup: 0.32.11
@@ -417,7 +417,7 @@ importers:
       react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
       react-use: 17.3.2_react-dom@17.0.2+react@17.0.2
       smoothscroll-polyfill: 0.4.4
-      swr: 1.1.2_react@17.0.2
+      swr: 1.2.2_react@17.0.2
       yup: 0.32.11
     devDependencies:
       '@senecacdot/eslint-config-telescope': link:../../tools/eslint
@@ -12383,7 +12383,6 @@ packages:
     resolution: {integrity: sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==}
     dependencies:
       brace-expansion: 1.1.11
-    dev: false
 
   /minimatch/3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -16231,8 +16230,8 @@ packages:
       stable: 0.1.8
     dev: false
 
-  /swr/1.1.2_react@17.0.2:
-    resolution: {integrity: sha512-UsM0eo5T+kRPyWFZtWRx2XR5qzohs/LS4lDC0GCyLpCYFmsfTk28UCVDbOE9+KtoXY4FnwHYiF+ZYEU3hnJ1lQ==}
+  /swr/1.2.2_react@17.0.2:
+    resolution: {integrity: sha512-ky0BskS/V47GpW8d6RU7CPsr6J8cr7mQD6+do5eky3bM0IyJaoi3vO8UhvrzJaObuTlGhPl2szodeB2dUd76Xw==}
     peerDependencies:
       react: ^16.11.0 || ^17.0.0 || ^18.0.0
     dependencies:
