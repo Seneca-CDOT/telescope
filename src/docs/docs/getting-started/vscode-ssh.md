@@ -222,11 +222,22 @@ docker-compose version 1.29.2, build 5becea4c
 
 ## Install Node.js
 
-1. Install Node.js 16.x
+1. Install node version manager (nvm)
 
 ```
-$ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-sudo apt-get install -y nodejs
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+```
+
+2. Activate nvm
+
+```
+. ~/.nvm/nvm.sh
+```
+
+3. Use nvm to install the latest version of Node.js
+
+```
+nvm install node
 ```
 
 1. Install pnpm
@@ -243,6 +254,20 @@ v16.12.0
 
 $ pnpm -v
 6.23.2
+```
+
+## Install git
+
+1. Install git
+
+```
+sudo yum install git
+```
+
+2. Verify git version
+
+```
+git version
 ```
 
 ## Setting up the Telescope repository in AWS EC2:
@@ -273,7 +298,9 @@ sh ./tools/aws-ip.sh
 pnpm install
 ```
 
-2. Start all Telescope services. This will take some time to complete
+2. Start all Telescope services using the environment variables set in `.env`. This will take some time to complete
+
+Note: Do not use `pnpm services:start`. This will use the environment variables in `config/env.development` and we don't want that here.
 
 ```
 docker-compose --env-file .env up -d
