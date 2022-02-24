@@ -19,7 +19,7 @@
     "@senecacdot/satellite": "latest",
     "bull": "3.22.0",
     "clean-whitespace": "0.1.2",
-    "highlight.js": "11.3.1",
+    "highlight.js": "11.4.0",
     "jsdom": "18.0.1",
     "linkify-html": "3.0.5",
     "linkifyjs": "3.0.5",
