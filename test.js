@@ -899,69 +899,44 @@ describe('Create Error tests for Satellite', () => {
     expect(nestedError instanceof Error).toBe(true);
   });
 
+  test('errors created without a status code should return a status of 500', () => {
+    expect(createError('testing').status).toBe(500);
+  });
+
   test("should have it's value, and message accessible through it's members", () => {
     const testError = createError(404, 'Satellite Test for Errors');
     expect(testError.status).toBe(404);
     expect(testError.message).toBe('Satellite Test for Errors');
 
-    const nestedError = createError(503, testError);
+    const prop = { key1: 'testing object', key2: 'for createError' };
+    const nestedError = createError(503, testError, prop);
     // error status of an Error instance will not be overwritten
     expect(nestedError.status).toBe(404);
     expect(nestedError.message).toBe('Satellite Test for Errors');
+    expect(testError.key1).toBe('testing object');
+    expect(testError.key2).toBe('for createError');
   });
 
-  test('should create an Error from an object', () => {
+  test('should create an Error from a non Error object', () => {
     const testObj = { key1: 'testing object', key2: 'for createError' };
     const testError = createError(404, testObj);
+
     expect(testError instanceof Error).toBe(true);
     expect(testError.key1).toBe('testing object');
     expect(testError.key2).toBe('for createError');
   });
 
-  test('should fail when directly creating Error from ElasticSearch error object', () => {
+  test('should create Error from ElasticSearch error object', () => {
     // { errors } is imported from ElasticSearch
     const elasticError = new errors.ResponseError({
       body: { error: 'testing ElasticSearch Error' },
       statusCode: 404,
     });
 
-    try {
-      createError(503, elasticError);
-    } catch (err) {
-      expect(err instanceof TypeError).toBe(true);
-      expect(err.message).toBe(
-        'Cannot set property statusCode of [object Object] which has only a getter'
-      );
-    }
-  });
-
-  test('should create Error when indirectly creating from ElasticSearch error object', () => {
-    const elasticError = new errors.ResponseError({
-      body: {
-        errors: { error1: 'one ES error', error2: 'another ES error' },
-        status: 404,
-        error: 'test ElasticSearch Error',
-      },
-      statusCode: 404,
-      headers: {},
-      meta: {},
-    });
-
-    let testError = createError(503, elasticError.name, elasticError.body);
-
-    // Error status will be overwritten
-    expect(testError.status).toBe(503);
-    expect(testError.name).toBe('ServiceUnavailableError');
-    expect(testError.message).toBe('ResponseError');
-    expect(testError.errors).toStrictEqual({ error1: 'one ES error', error2: 'another ES error' });
-    expect(testError.error).toBe('test ElasticSearch Error');
-
-    testError = createError(elasticError.statusCode, elasticError.body);
-    expect(testError.status).toBe(404);
-    expect(testError.name).toBe('NotFoundError');
-    expect(testError.message).toBe('Not Found');
-    expect(testError.errors).toStrictEqual({ error1: 'one ES error', error2: 'another ES error' });
-    expect(testError.error).toBe('test ElasticSearch Error');
+    const testESError = createError(503, elasticError);
+    expect(testESError.status).toBe(404);
+    expect(testESError.message).toBe('ElasticSearch Error:ResponseError');
+    expect(testESError.body).toStrictEqual({ error: 'testing ElasticSearch Error' });
   });
 });
 
