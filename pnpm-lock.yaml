@@ -308,7 +308,7 @@ importers:
       nodemon: 2.0.15
       npm-run-all: 4.1.5
       perfect-scrollbar: 1.5.5
-      sass: 1.45.2
+      sass: 1.49.9
       vite: 2.7.13
       xterm: 4.15.0
       xterm-addon-fit: 0.5.0
@@ -326,8 +326,8 @@ importers:
       get-repo-package-json: 2.0.0
       npm-run-all: 4.1.5
       perfect-scrollbar: 1.5.5
-      sass: 1.45.2
-      vite: 2.7.13_sass@1.45.2
+      sass: 1.49.9
+      vite: 2.7.13_sass@1.49.9
       xterm: 4.15.0
       xterm-addon-fit: 0.5.0_xterm@4.15.0
       xterm-addon-web-links: 0.4.0_xterm@4.15.0
@@ -8980,7 +8980,7 @@ packages:
     resolution: {integrity: sha512-mHJ9O79RqluphRrcw2X/GTh3k9tVv8YcoyY4Kkh4WDMUYKRZUq0h1o0w2rrrxBqM7VoeUVqgb27xlEMXTnYt4g==}
     engines: {node: '>= 0.10.0'}
     dependencies:
-      accepts: 1.3.7
+      accepts: 1.3.8
       array-flatten: 1.1.1
       body-parser: 1.19.0
       content-disposition: 0.5.3
@@ -15333,9 +15333,9 @@ packages:
       postcss: 8.4.6
     dev: false
 
-  /sass/1.45.2:
-    resolution: {integrity: sha512-cKfs+F9AMPAFlbbTXNsbGvg3y58nV0mXA3E94jqaySKcC8Kq3/8983zVKQ0TLMUrHw7hF9Tnd3Bz9z5Xgtrl9g==}
-    engines: {node: '>=8.9.0'}
+  /sass/1.49.9:
+    resolution: {integrity: sha512-YlYWkkHP9fbwaFRZQRXgDi3mXZShslVmmo+FVK3kHLUELHHEYrCmL1x6IUjC7wLS6VuJSAFXRQS/DxdsC4xL1A==}
+    engines: {node: '>=12.0.0'}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
@@ -17267,7 +17267,7 @@ packages:
       vfile-message: 2.0.4
     dev: false
 
-  /vite/2.7.13_sass@1.45.2:
+  /vite/2.7.13_sass@1.49.9:
     resolution: {integrity: sha512-Mq8et7f3aK0SgSxjDNfOAimZGW9XryfHRa/uV0jseQSilg+KhYDSoNb9h1rknOy6SuMkvNDLKCYAYYUMCE+IgQ==}
     engines: {node: '>=12.2.0'}
     hasBin: true
@@ -17287,7 +17287,7 @@ packages:
       postcss: 8.4.6
       resolve: 1.22.0
       rollup: 2.67.2
-      sass: 1.45.2
+      sass: 1.49.9
     optionalDependencies:
       fsevents: 2.3.2
     dev: false
