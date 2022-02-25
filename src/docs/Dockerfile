@@ -31,6 +31,8 @@ CMD ["pnpm", "start"]
 FROM base as production
 WORKDIR /home/node/app
 COPY --chown=node:node --from=development /home/node/app/node_modules /home/node/app/node_modules
+# Build the Docusaurus app
+RUN pnpm build
 
 ## Deploy ######################################################################
 # Use a stable nginx image
