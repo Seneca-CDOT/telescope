@@ -16,7 +16,7 @@
   "dependencies": {
     "@bull-board/api": "3.7.0",
     "@bull-board/express": "3.7.0",
-    "@senecacdot/satellite": "latest",
+    "@senecacdot/satellite": "1.26.0",
     "bull": "3.22.0",
     "clean-whitespace": "0.1.2",
     "highlight.js": "11.4.0",
