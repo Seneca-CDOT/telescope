@@ -151,68 +151,7 @@ Default region name [None]: us-east-1
 Default output format [None]:
 ```
 
-## Installing Docker and Docker-Compose
-
-### Install Docker Engine - Community Edition
-
-Note https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
-
-4. Add the `ec2-user` to the `docker` group so you can execute Docker commands without using `sudo`
-
-```
-sudo usermod -a -G docker ec2-user
-```
-
-5. Log out and log back in again to pick up the new `docker` group permissions. You can accomplish this by closing your current SSH terminal window and reconnecting to your instance in a new one. Your new SSH session will have the appropriate `docker` group permissions.
-
-6. Verify that the `ec2-user` can run Docker commands without `sudo`
-
-```
-docker info
-```
-
-10. Now run docker as a service on your machine, on startup:
-
-- Enable docker on startup: `sudo systemctl enable docker`
-- Disable docker on startup: `sudo systemctl disable docker`
-
-### Install Docker-Compose
-
-3. Check installation using:
-
-```
-$ docker-compose --version
-
-docker-compose version 1.29.2, build 5becea4c
-```
-
-## Install git
-
-2. Verify git version
-
-```
-git version
-```
-
-## Install Node.js
-
-2. Verify installation
-
-```
-$ node -v
-v16.12.0
-
-$ pnpm -v
-6.23.2
-```
-
-## Setting up the Telescope repository in AWS EC2:
-
-1. Clone the Telescope repository and name the remote `upstream` by entering
-
-```
-git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
-```
+## Opening up the Telescope repository in AWS EC2:
 
 2. Open the `telescope` directory and the entire Telescope files and folder structure should be visible to you!
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+16_54_04-Settings.png)
