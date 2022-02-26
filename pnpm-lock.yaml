@@ -9,7 +9,7 @@ specifiers:
   eslint-plugin-anti-trojan-source: 1.1.0
   eslint-plugin-jest: 25.7.0
   express: 4.17.3
-  express-jwt: 6.1.0
+  express-jwt: 6.1.1
   get-port: 5.1.1
   helmet: 4.6.0
   http-errors: 1.8.1
@@ -32,7 +32,7 @@ dependencies:
   '@godaddy/terminus': 4.10.2
   cors: 2.8.5
   express: 4.17.3
-  express-jwt: 6.1.0
+  express-jwt: 6.1.1
   helmet: 4.6.0
   http-errors: 1.8.1
   ioredis: 4.28.5
@@ -1746,14 +1746,14 @@ packages:
       jest-message-util: 27.5.1
     dev: true
 
-  /express-jwt/6.1.0:
-    resolution: {integrity: sha512-mmSR52Ps1FMeGwchroHzEJONWhsobd5KHVVKBffYiUEpZh9iK9wI9ZWkmzY5ROwWQtJLNGHV/VUMLh2M208s4Q==}
+  /express-jwt/6.1.1:
+    resolution: {integrity: sha512-m8gkY04v5jtiFZn6bYQINYX/DVXq1DVb5nIW7H8l87qJ4BBvtQKFRpxyRE31odct7OPfHdT+B8678zJHhlMrpw==}
     engines: {node: '>= 8.0.0'}
     dependencies:
       async: 1.5.2
       express-unless: 1.0.0
       jsonwebtoken: 8.5.1
-      lodash.set: 4.3.2
+      lodash: 4.17.21
     dev: false
 
   /express-unless/1.0.0:
@@ -3069,6 +3069,7 @@ packages:
 
   /lodash.set/4.3.2:
     resolution: {integrity: sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=}
+    dev: true
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
