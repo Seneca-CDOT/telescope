@@ -81,7 +81,7 @@ const BannerButtons = () => {
           }}
           variant="outlined"
         >
-          {t(aboutUs)}
+          {t('aboutUs')}
         </Button>
       </Link>
       {user?.isRegistered ? (
@@ -108,7 +108,7 @@ const BannerButtons = () => {
             onClick={() => login()}
             variant="outlined"
           >
-            Sign in
+            {t('signIn')}
           </Button>
           {/* Bandaid solution to avoid signing up */}
           {/* <Link href="/signup" passHref>
