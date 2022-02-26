@@ -4,7 +4,7 @@ module.exports = {
     defaultLanguage: 'en',
     defaultLocale: 'en',
     fallbackLng: 'en',
-    locales: ['en', 'de', 'es'],
+    locales: ['en', 'es'],
   },
   react: { useSuspense: false },
 };
