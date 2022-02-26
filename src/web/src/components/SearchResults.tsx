@@ -85,7 +85,7 @@ const SearchResults = () => {
     !isReachingEnd && data && size > 0 && typeof data[size - 1] === 'undefined';
 
   // If there is no posts or if the search bar is empty, then show the search help, otherwise hide it
-  if (!error && (isEmpty || shouldFetch())) {
+  if (!error && isEmpty) {
     toggleHelp(true);
   } else {
     toggleHelp(false);
