@@ -1,4 +1,4 @@
-# Setting up Telescope to SSH into AWS EC2
+# Use AWS EC2 As Your Development Environment
 
 The following will show you how to create and connect to a virtual machine (VM) on AWS using the Visual Studio Code [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension. You'll be able to run Telescope in development on a remote machine with VS Code just like if the source code was local. This documentation is based on [Remote development over SSH](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 
@@ -39,7 +39,7 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
 
 1. In the upper-right hand corner of your AWS Management Console, select a region. In this tutorial, `US East (N. Virginia) us-east-1` as your `Region`
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_08_11-.png)
-2. In the upper-left hand corner of your AWS Management Console, click on `Services`. This will bring up a list of AWS Services, search for `EC2`
+2. In the search bar at the top, type in `ec2` and click on `EC2` to go to the EC2 Dashboard
 3. Click on `Launch instances`
 
 - Step 1 - Choose an Amazon Machine Image (AMI): `Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type`
@@ -108,7 +108,7 @@ It will take a few minutes for AWS to launch your new EC2 instance.
 6. Edit the `config` file with the following:
 
 ```
-Host aws-telescope-dev
+Host aws-e2
     HostName <your-ec2-ip-address>
     User ec2-user
     IdentityFile ~/.ssh/labsuser.pem
@@ -117,10 +117,10 @@ Host aws-telescope-dev
 ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+14_02_31-config+-+telescope+-+Visual+Studio+Code.png)
 
 7. Save the file
-8. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-telescope-dev` listed.
+8. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-ec2` listed.
 9. Select `aws-ec2` and a new Visual Studio Code window will open.
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_23_08-config+-+Visual+Studio+Code.png)
-10. You will see `"aws-telescope-dev" has fingerprint "SHA256:xxx"` and `Are you sure you want to continue?`. Click on `Continue`. Then You should see that you're connected!
+10. You will see `"aws-ec2" has fingerprint "SHA256:xxx"` and `Are you sure you want to continue?`. Click on `Continue`. Then You should see that you're connected!
     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_56_54-Get+Started+-+Visual+Studio+Code.png)
     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_58_26-.png)
 
@@ -157,30 +157,6 @@ Default output format [None]:
 
 Note https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html
 
-1. Update the yum package index:
-
-```
-sudo yum update -y
-```
-
-2. Install the most recent Docker Engine package for Amazon Linux 2
-
-```
-sudo amazon-linux-extras install docker
-```
-
-3. Start the Docker service
-
-```
-sudo service docker start
-```
-
-(Optional) On Amazon Linux 2, to ensure that the Docker daemon starts after each system reboot, run the following command:
-
-```
-sudo systemctl enable docker
-```
-
 4. Add the `ec2-user` to the `docker` group so you can execute Docker commands without using `sudo`
 
 ```
@@ -202,19 +178,6 @@ docker info
 
 ### Install Docker-Compose
 
-1. Run to download the current stable version of Docker-Compose:
-
-```
-wget https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)
-```
-
-2. Apply executable permissions to the downloaded file:
-
-```
-sudo mv docker-compose-$(uname -s)-$(uname -m) /usr/local/bin/docker-compose
-sudo chmod -v +x /usr/local/bin/docker-compose
-```
-
 3. Check installation using:
 
 ```
@@ -223,31 +186,15 @@ $ docker-compose --version
 docker-compose version 1.29.2, build 5becea4c
 ```
 
+## Install git
+
+2. Verify git version
+
+```
+git version
+```
+
 ## Install Node.js
-
-1. Install node version manager (nvm)
-
-```
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-```
-
-2. Activate nvm
-
-```
-. ~/.nvm/nvm.sh
-```
-
-3. Use nvm to install the latest version of Node.js
-
-```
-nvm install node
-```
-
-1. Install pnpm
-
-```bash
-npm install -g pnpm
-```
 
 2. Verify installation
 
@@ -257,20 +204,6 @@ v16.12.0
 
 $ pnpm -v
 6.23.2
-```
-
-## Install git
-
-1. Install git
-
-```
-sudo yum install git
-```
-
-2. Verify git version
-
-```
-git version
 ```
 
 ## Setting up the Telescope repository in AWS EC2:
@@ -327,7 +260,7 @@ $ curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 
 6. Open `<public-ip>:3000/feeds` in another browser tab to see all the feeds in the backend
 
-7. Open `<public-ip>:8443/v1/<microservice-port>` in another browser tab to see the microservices. For example `35.174.16.133:8443/v1/posts`
+7. Open `<public-ip>:8443/v1/<microservice-port>` in another browser tab to see the microservices. For example `35.174.16.133:8443/v1/status`
 
 ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_10_36-Telescope+%E2%80%94+Mozilla+Firefox.png)
 
