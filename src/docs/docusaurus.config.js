@@ -10,8 +10,8 @@ const config = {
   tagline: "A tool for tracking blogs in orbit around Seneca's open source involvement",
   url: 'https://telescope.cdot.systems',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'ignore',
+  onBrokenMarkdownLinks: 'ignore',
   favicon: 'img/favicon.ico',
   organizationName: 'seneca-cdot', // Usually your GitHub org/user name.
   projectName: 'telescope', // Usually your repo name.
@@ -34,6 +34,18 @@ const config = {
       }),
     ],
   ],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr', 'vi', 'ru', 'uk', 'es', 'zh-cn'],
+    localeConfigs: {
+      en: {
+        htmlLang: 'en-CA',
+      },
+      fr: {
+        htmlLang: 'fr-fr',
+      },
+    },
+  },
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
@@ -54,6 +66,10 @@ const config = {
           {
             href: 'https://github.com/Seneca-CDOT/telescope',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'localeDropdown',
             position: 'right',
           },
         ],

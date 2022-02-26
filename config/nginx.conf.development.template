@@ -156,31 +156,26 @@ http {
       # Directory from which we serve Next's static content
       root /var/www/data;
 
-      # TODO: update this for next.js, see https://github.com/vercel/next.js/blob/27555c8ef9b06ff71e245e086db191103ecd2026/packages/next/next-server/server/next-server.ts#L664
-      # for how they cache things.
+      # 1. next.js' Built Static Assets (JS bundles) can be cached forever.
+      # see https://github.com/vercel/next.js/blob/27555c8ef9b06ff71e245e086db191103ecd2026/packages/next/next-server/server/next-server.ts#L592
+      location /_next/static {
+        expires max;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+      }
 
-      # Specify cache behaviour, see docs: https://www.gatsbyjs.org/docs/caching.
-      # 1. Don't cache HTML
+      # 2. Don't cache HTML
       location ~* \.(?:html)$ {
-        add_header Cache-Control "public, max-age=0";
+        add_header Cache-Control "public, max-age=0, must-revalidate";
       }
-      # 2. Don't cache /page-data (including app-data.json)
-      location /page-data {
-        add_header Cache-Control "public, max-age=0";
-      }
-      # 3. Don't cache the service worker /sw.js script, see:
+
+      # 3. Don't cache the service worker /sw.js script
       location = /sw.js {
-        add_header Cache-Control "public, max-age=0";
+        add_header Cache-Control "public, max-age=0, must-revalidate";
       }
-      # 4. Files in icons/ and static/ can be cached forever
-      location  ~ ^/(static|icons) {
-        expires max;
-        add_header Cache-Control "public, max-age=31536000, immutable";
-      }
-      # 5. Cache js and css forever
-      location ~* \.(?:js|css)$ {
-        expires max;
-        add_header Cache-Control "public, max-age=31536000, immutable";
+
+      # 4. Cache custom styles we use in the front-end for a day
+      location /styles {
+        add_header Cache-Control "public, max-age=86400";
       }
     }
   }

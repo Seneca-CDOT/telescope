@@ -1,7 +1,7 @@
 {
   "extends": ["config:base"],
   "packageRules": [
-    { "matchPackagePatterns": ["@senecacdot/satellite"], "rangeStrategy": "replace" },
+    { "matchPackagePatterns": ["@senecacdot/satellite"], "rangeStrategy": "bump" },
     { "matchPackagePatterns": ["node-fetch"], "allowedVersions": "<3.0" }
   ],
   "dependencyDashboard": true,
