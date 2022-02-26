@@ -54,6 +54,7 @@ importers:
       jsdom: 18.1.1
       linkify-html: 3.0.5
       linkifyjs: 3.0.5
+      next-i18next: 10.4.0
       nock: 13.2.4
       node-fetch: 2.6.7
       normalize-url: 6.1.0
@@ -104,6 +105,7 @@ importers:
       jsdom: 18.1.1
       linkify-html: 3.0.5_linkifyjs@3.0.5
       linkifyjs: 3.0.5
+      next-i18next: 10.4.0
       node-fetch: 2.6.7
       normalize-url: 6.1.0
       opml-generator: 1.1.1
@@ -204,7 +206,7 @@ importers:
     dependencies:
       '@bull-board/api': 3.7.0
       '@bull-board/express': 3.7.0
-      '@senecacdot/satellite': 1.25.0
+      '@senecacdot/satellite': 1.26.0
       bull: 3.22.0
       clean-whitespace: 0.1.2
       highlight.js: 11.3.1
@@ -382,7 +384,7 @@ importers:
       nanoid: 3.2.0
       next: 12.0.9
       next-compose-plugins: 2.2.1
-      next-i18next: 10.4.0
+      next-i18next: ^10.4.0
       next-pwa: 5.4.4
       react: 17.0.2
       react-dom: 17.0.2
@@ -4718,6 +4720,31 @@ packages:
       jsonwebtoken: 8.5.1
       node-fetch: 2.6.7
       pino: 7.6.5
+      pino-http: 6.6.0
+      pino-pretty: 7.5.1
+    transitivePeerDependencies:
+      - encoding
+      - redis-commands
+      - supports-color
+    dev: false
+
+  /@senecacdot/satellite/1.26.0:
+    resolution: {integrity: sha512-GZTf0gN+2rfjFni/fT5uqCG2kjy+u1olSvtUMoTjjn5Kz52vmqZxDE9O2U1xlIuZ85ySiPnG0chfZamTSic1YQ==}
+    engines: {node: '>=14.0.0', pnpm: '>=6'}
+    dependencies:
+      '@elastic/elasticsearch': 7.17.0
+      '@elastic/elasticsearch-mock': 0.3.1
+      '@godaddy/terminus': 4.10.2
+      cors: 2.8.5
+      express: 4.17.3
+      express-jwt: 6.1.0
+      helmet: 4.6.0
+      http-errors: 1.8.1
+      ioredis: 4.28.5
+      ioredis-mock: 5.9.1_ioredis@4.28.5
+      jsonwebtoken: 8.5.1
+      node-fetch: 2.6.7
+      pino: 7.8.0
       pino-http: 6.6.0
       pino-pretty: 7.5.1
     transitivePeerDependencies:
@@ -12585,6 +12612,25 @@ packages:
     resolution: {integrity: sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==}
     dev: false
 
+  /next-i18next/10.4.0:
+    resolution: {integrity: sha512-3ShASQiQjEmfpCrghOXnUpq6f3tvp/DWyvL/TOoMiH30ERfpbdv7279m4f08tqwGaWlOukanutvs1s1vrQI3Pw==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      next: '>= 10.0.0'
+      react: '>= 16.8.0'
+    dependencies:
+      '@babel/runtime': 7.17.2
+      '@types/hoist-non-react-statics': 3.3.1
+      core-js: 3.21.1
+      hoist-non-react-statics: 3.3.2
+      i18next: 21.6.12
+      i18next-fs-backend: 1.1.4
+      react-i18next: 11.15.5_i18next@21.6.12
+    transitivePeerDependencies:
+      - react-dom
+      - react-native
+    dev: false
+
   /next-i18next/10.4.0_b543ccecfd29856b35e58d884b6ddddd:
     resolution: {integrity: sha512-3ShASQiQjEmfpCrghOXnUpq6f3tvp/DWyvL/TOoMiH30ERfpbdv7279m4f08tqwGaWlOukanutvs1s1vrQI3Pw==}
     engines: {node: '>=12'}
@@ -13546,6 +13592,22 @@ packages:
 
   /pino/7.6.5:
     resolution: {integrity: sha512-38tAwlJ7HevMENHD5FZE+yxSlAH5Wg3FoOjbB3MX2j3/kgpOEkmDHhTVKkecR57qxD5doHo2yi9nac94gqqbiQ==}
+    hasBin: true
+    dependencies:
+      fast-redact: 3.1.0
+      on-exit-leak-free: 0.2.0
+      pino-abstract-transport: 0.5.0
+      pino-std-serializers: 4.0.0
+      process-warning: 1.0.0
+      quick-format-unescaped: 4.0.4
+      real-require: 0.1.0
+      safe-stable-stringify: 2.3.1
+      sonic-boom: 2.6.0
+      thread-stream: 0.13.1
+    dev: false
+
+  /pino/7.8.0:
+    resolution: {integrity: sha512-Ynw2HRVapiyj+ZGfUcpms+SRgDKFIy0ztaFUf3X6IHh+vsysMvn+tpV/Ej3gyutPp4n9tgH6ZkkCAelSvP5zmQ==}
     hasBin: true
     dependencies:
       fast-redact: 3.1.0
@@ -14632,6 +14694,25 @@ packages:
       i18next: 21.6.12
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+    dev: false
+
+  /react-i18next/11.15.5_i18next@21.6.12:
+    resolution: {integrity: sha512-vBWuVEQgrhZrGKpyv8FmJ7Zs5jRQWl794Tte7yzJ0okZqqi3jd6j2pLYNg441WcREsbIOvWdiDXbY7W6E93p1A==}
+    peerDependencies:
+      i18next: '>= 19.0.0'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.17.2
+      html-escaper: 2.0.2
+      html-parse-stringify: 3.0.1
+      i18next: 21.6.12
     dev: false
 
   /react-icons/4.3.1_react@17.0.2:
