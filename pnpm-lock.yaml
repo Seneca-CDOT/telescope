@@ -15,7 +15,7 @@ specifiers:
   http-errors: 1.8.1
   husky: 5.2.0
   ioredis: 4.28.5
-  ioredis-mock: 5.9.1
+  ioredis-mock: 7.0.1
   jest: 27.5.1
   jsonwebtoken: 8.5.1
   nock: 13.2.4
@@ -36,7 +36,7 @@ dependencies:
   helmet: 4.6.0
   http-errors: 1.8.1
   ioredis: 4.28.5
-  ioredis-mock: 5.9.1_ioredis@4.28.5
+  ioredis-mock: 7.0.1_ioredis@4.28.5
   jsonwebtoken: 8.5.1
   node-fetch: 2.6.7
   pino: 7.8.0
@@ -2229,17 +2229,16 @@ packages:
       p-is-promise: 3.0.0
     dev: false
 
-  /ioredis-mock/5.9.1_ioredis@4.28.5:
-    resolution: {integrity: sha512-ZirdGJFOqH5nP8FYXuHUJmexvtZ6r2Ybc5alaGMzt38QA0kse5/rYnBQcb4ofxkyqzhXHuaCsXiwLlfG6NyhhQ==}
-    engines: {node: '>=10'}
+  /ioredis-mock/7.0.1_ioredis@4.28.5:
+    resolution: {integrity: sha512-/YuBx1mnTh8QKBPGqRUEFNg5JdXAMrgiRdj4Ke7AxIZkEOZ+vfDzkOz8mONSCYu0H1m28hIyxwTlaHT5J0mX4Q==}
+    engines: {node: '>=12'}
     peerDependencies:
       ioredis: 4.x
-      redis-commands: 1.x
     dependencies:
       fengari: 0.1.4
       fengari-interop: 0.1.3_fengari@0.1.4
       ioredis: 4.28.5
-      lodash: 4.17.21
+      redis-commands: 1.7.0
       standard-as-callback: 2.1.0
     dev: false
 
