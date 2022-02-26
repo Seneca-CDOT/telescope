@@ -2,35 +2,38 @@
 
 The following will show you how to create and connect to a virtual machine (VM) on AWS using the Visual Studio Code [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension. You'll be able to run Telescope in development on a remote machine with VS Code just like if the source code was local. This documentation is based on [Remote development over SSH](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 
-**Disclaimer**: The EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs. Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
+**Disclaimer**: This guide is specifically designed for students who are enrolled in AWS Academy so the services and technologies used adhere by the AWS Academy Learner Lab - Foundation Services restrictions.
 
-- Minimum: `t2.medium (4 GiB RAM + 2 vCPU)`
-- Recommended: `t2.large (8 GiB RAM + 2 vCPU)`
+**Note**: If you are not enrolled in AWS Academy, please note that the EC2 instance used in this guide is not within AWS's Free-Tier so please see [EC2 Pricing](https://aws.amazon.com/ec2/pricing/on-demand/) to see if you're comfortable with these costs.
+
+Running Docker in development is CPU intensive so these are the EC2 instances I recommend:
+
+- Minimum: `t2.large (8 GiB RAM + 2 vCPU)`
+- Recommended: `r5.large (16 GiB RAM + 2 vCPU)`
 
 **Summary of Pricing**:
 
-- t2.medium costs \$0.0464 per hour
 - t2.large costs \$0.0928 per hour
-- 30GB Amazon Elastic Block Storage (EBS) costs \$3 per month
+- r5.large costs \$0.126 per hour
+- 40GB Amazon Elastic Block Storage (EBS) costs \$1 per month
+- [Elastic IP Address](https://aws.amazon.com/ec2/pricing/on-demand/#Elastic_IP_Addresses)
 
 **Cost Estimate Per Month**:
 
-|                 | t2.medium | t2.large |
-| --------------- | --------- | -------- |
-| Cost per hour   | \$0.0464  | \$0.0928 |
-| Hours per day   | 8         | 8        |
-| Days per month  | 30        | 30       |
-| Sub-total       | \$11.14   | \$22.27  |
-| 30GB EBS Volume | \$3       | \$3      |
-| Total           | \$14.14   | \$25.27  |
+|                 | t2.large | r5.large |
+| --------------- | -------- | -------- |
+| Cost per hour   | \$0.0928 | \$0.126  |
+| Hours per day   | 6        | 6        |
+| Days per month  | 30       | 30       |
+| Sub-total       | \$16.70  | \$22.68  |
+| 40GB EBS Volume | \$1      | \$1      |
+| Total           | \$17.70  | \$23.68  |
 
 ## Prerequisites:
 
 - Download and install [Visual Studio Code](https://code.visualstudio.com/download)
 - Install the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
-- Create an [AWS Account](https://aws.amazon.com/). You can watch this [part](https://www.youtube.com/watch?v=3hLmDS179YE&t=10552s) of the AWS Certified Cloud Practitioner course on creating an account if you need help.
-- Create an IAM user with administrative privileges. You will need your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
-- Sign into your AWS Account using your IAM user
+- AWS Academy Account. You will need your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` and your SSH key (`.pem` file)
 
 ## Create your virtual machine (AWS EC2):
 
