@@ -2,6 +2,31 @@
 sidebar_position: 4
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+export const Palette = ({children, color}) => (
+<Fragment
+style={{
+  display: 'flex'
+}}>
+<span
+style={{
+  display: 'inline-block',
+  width: '1.6rem',
+  height: '1.6rem',
+  backgroundColor: color,
+  borderRadius: '0.5rem',
+  border: '1px solid black'
+}}/><p
+style={{
+  color: 'black',
+  fontWeight: 'bold',
+  paddingLeft: '0.5rem'
+}}>{children}</p>
+</Fragment>
+)
+
 # Frontend Development with Next.js
 
 The Telescope frontend is currently being developed using Typescript and NextJS. We encourage all new developers to read the [NextJS docs](https://nextjs.org/docs) in order to familiarize themselves with how Next works as well as the [Typescript docs](https://www.typescriptlang.org/docs/) in order to understand how the language operates.
@@ -24,66 +49,74 @@ When working on a new component for the Telescope frontend, please consider the 
 
 Here is the colour palette that we use to make our web site looks pretty and up-to-date.
 
+<Tabs className="unique-tabs">
+  <TabItem value="light" label="Light">
+
 ### Light Palette
 
-![#121D59](https://placehold.it/15/121D59/000000?text=+) **Primary**
+<Palette color="#121D59">Primary</Palette>
 
 - hex: #121D59
-- rgb: (18, 29, 89)
+- rgb: (18,29,89)
 
-![#A0D1FB](https://placehold.it/15/A0D1FB/000000?text=+) **Secondary**
+<Palette color="#A0D1FB">Secondary</Palette>
 
 - hex: #A0D1FB
 - rgb: (160,209,251)
 
-![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Background**
+<Palette color="#FFFFFF">Background</Palette>
 
 - hex: #FFFFFF
-- rgb: (255, 255, 255)
+- rgb: (255,255,255)
 
 #### Typography
 
-![#A0D1FB](https://placehold.it/15/A0D1FB/000000?text=+) **Primary**
-
-- hex: #A0D1FB
-- rgb:
-
-![#121D59](https://placehold.it/15/121D59/000000?text=+) **Secondary**
-
-- hex: #121D59
-- rgb: (18, 29, 89)
-
-“The Free Image Placeholder Service Favoured By Designers.” Placeholder.com, 17 Dec. 2019, placeholder.com/.
-
-### Dark Palette
-
-![#A0D1FB](https://placehold.it/15/A0D1FB/000000?text=+) **Primary**
+<Palette color="#A0D1FB">Primary</Palette>
 
 - hex: #A0D1FB
 - rgb: (160,209,251)
 
-![#4f96d8](https://placehold.it/15/4f96d8/000000?text=+) **Secondary**
+<Palette color="#121D59">Secondary</Palette>
 
-- hex: #4f96d8
+- hex: #121D59
+- rgb: (18,29,89)
+
+</TabItem>
+
+  <TabItem value="dark" label="Dark">
+
+### Dark Palette
+
+<Palette color="#A0D1FB">Primary</Palette>
+
+- hex: #A0D1FB
+- rgb: (160,209,251)
+
+<Palette color="#4F96D8">Secondary</Palette>
+
+- hex: #4F96D8
 - rgb: (79,150,216)
 
-![#000000](https://placehold.it/15/000000/000000?text=+) **Background**
+<Palette color="#000000">Background</Palette>
 
 - hex: #000000
 - rgb: (0,0,0)
 
 #### Typography
 
-![#FFFFFF](https://placehold.it/15/FFFFFF/000000?text=+) **Primary**
+<Palette color="#FFFFFF">Primary</Palette>
 
 - hex: #FFFFFF
 - rgb: (255,255,255)
 
-![#121D59](https://placehold.it/15/A0D1FB/000000?text=+) **Secondary**
+<Palette color="#121D59">Secondary</Palette>
 
 - hex: #A0D1FB
 - rgb: (160,209,251)
   <br/>
+
+</TabItem>
+</Tabs>
 
 # Theming Palette
 
