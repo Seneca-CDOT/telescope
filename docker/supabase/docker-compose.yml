@@ -49,7 +49,7 @@ services:
       - 'traefik.http.routers.kong.middlewares=strip_kong_prefix'
   auth:
     container_name: supabase-auth
-    image: supabase/gotrue:v2.2.12
+    image: supabase/gotrue:v2.5.16
     depends_on:
       - db
     restart: unless-stopped
