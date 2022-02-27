@@ -38,18 +38,24 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
 ## Create your virtual machine (AWS EC2):
 
 1. In the upper-right hand corner of your AWS Management Console, select a region. In this tutorial, `US East (N. Virginia) us-east-1` as your `Region`
-   ![](https://seneca-cdot-telescope.s3.amazonaws.com/aws-cloud9/2021-10-26+09_08_11-.png)
+
+   ![AWS Console Region](../../static/img/aws_console_region.png)
+
 2. In the search bar at the top, type in `ec2` and click on `EC2` to go to the EC2 Dashboard
+   ![AWS Search EC2](../../static/img/aws_search_ec2.png)
 3. Click on `Launch instances`
 
 - Step 1 - Choose an Amazon Machine Image (AMI): `Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type`
-  ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_47_51-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
+  ![AWS Linux 2 AMI](../../static/img/aws_linux_2_ami.png)
 - Step 2 - Choose an Instance Type: `r5.large`
-  ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_49_07-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
+  ![AWS r5.large Instance Type](../../static/img/aws_instance_type.png)
 - Step 3 - Configure Instance Details:
   - IAM role: LabInstanceProfile
+    ![AWS LabInstanceProfile IAM Role](../../static/img/aws_iam_role.png)
+  - Copy and paste the [aws-userdata.sh](../../../../tools/aws-userdata.sh) script into the `User data` field
+    ![AWS Userdata](../../static/img/aws_userdata.png)
 - Step 4 - Add Storage: Change the Size (GiB) from `8` to `40`
-  ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_51_25-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
+  ![AWS Storage](../../static/img/aws_storage.png)
 - Step 5 - Add Tags: No tags are needed. Proceed to the next step.
 - Step 6 - Configure Security Group:
 
@@ -77,7 +83,7 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
     - Port Range: `8443`
     - Source: `My IP`
 
-  ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_54_12-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
+  ![AWS Security Groups](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_54_12-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
 4. Click on `Review and Launch`. You will get a warning: `Your instance configuration is not eligible for the free usage tier`, this is because we're using a `r5.large` instance type.
 5. Click on `Launch`
@@ -86,26 +92,49 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
 - Select a key pair: `vockey`
 
 9. Click on `Launch Instances`
-   ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_57_01-Launch+instance+wizard+_+EC2+Management+Console+%E2%80%94+Mozilla+Firefox.png)
+   ![AWS Key Pair](../../static/img/aws_key_pair.png)
 
 It will take a few minutes for AWS to launch your new EC2 instance.
 
 10. Once your EC2 instance has been launched, you should name it something meaningful like `Telescope-Dev` and you can find your EC2 instance's public IPv4 address. Make note of this IP address.
     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+14_05_35-Preview+vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
+## Associate an Elastic IP address to your EC2 instance
+
+1. In the left-hand pane, go to `Network & Security` > `Elastic IPs`
+2. Click on `Allocate Elastic IP address` button
+   ![AWS Elastic IP Address](../../static/img/aws_elastic_ip_address.png)
+
+- Network Border Group: `us-east-1`
+- Public IPv4 address pool: `Amazon'pool of IPv4 addresses`
+  and click on `Allocate`
+  ![AWS Elastic IP Address Settings](../../static/img/aws_elastic_ip_address_2.png)
+
+3. Select the newly created Elastic IP address. In the `Actions` dropdown menu, select Associate Elastic IP address
+   ![AWS Elastic IP Address Actions](../../static/img/aws_elastic_ip_address_3.png)
+4. Select the EC2 instance you've created in the previous section `Telescope-Dev` and click on `Associate`
+   ![AWS Elastic IP Address Associate](../../static/img/aws_elastic_ip_address_4.png)
+5. In the left-hand pane, go to `Instances`, select `Telescope-Dev` and you should be able to see that your Elastic IP address has been associated to your EC2 instance
+
 ## Connect using SSH
 
-1. Open up Visual Studio Code
-2. Click on the `Open a Remote Window` icon at the bottom left-hand corner of the window
+### Obtain your AWS Credentials and SSH Key
+
+1. You can find your AWS credentials under `AWS Details` of your AWS Academy account
+   ![AWS Credentials](../../static/img/aws_credentials.png)
+2. Download the `SSH key` (labsuser.pem) file to your local computer. Note the file location
+
+3. Open up Visual Studio Code
+4. Click on the `Open a Remote Window` icon at the bottom left-hand corner of the window
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_11_22-.png)
-3. Select `Connect to Host`
+5. Select `Connect to Host`
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_12_53-Get+Started+-+Visual+Studio+Code.png)
-4. Select `Configure SSH Hosts...`
+6. Select `Configure SSH Hosts...`
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_14_34-Visual+Studio+Code.png)
-5. This will open up a `config` file in Visual Studio Code. If you're using Windows, it'll be something like `C:/Users/cindy/.ssh/config`
+7. This will open up a `config` file in Visual Studio Code. If you're using Windows, it'll be something like `C:/Users/cindy/.ssh/config`
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+13_15_09-Visual+Studio+Code.png)
 
-6. Edit the `config` file with the following:
+8. Edit the `config` file with the following:
 
 ```
 Host aws-e2
@@ -114,7 +143,7 @@ Host aws-e2
     IdentityFile ~/.ssh/labsuser.pem
 ```
 
-![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+14_02_31-config+-+telescope+-+Visual+Studio+Code.png)
+![AWS VS Code SSH Config](../../static/img/aws_ssh_config.png)
 
 7. Save the file
 8. When you click on the `Open a Remote Window` icon at the bottom left-hand corner again and choose `Connect to Host`, you will see `aws-ec2` listed.
@@ -152,6 +181,12 @@ Default output format [None]:
 ```
 
 ## Opening up the Telescope repository in AWS EC2:
+
+1. Clone the Telescope repository and name the remote upstream by entering
+
+```
+git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
+```
 
 2. Open the `telescope` directory and the entire Telescope files and folder structure should be visible to you!
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+16_54_04-Settings.png)
@@ -217,37 +252,15 @@ pnpm services:stop
 docker system prune -af --volumes
 ```
 
-### I get `Permission denied` error when I run `docker-compose --env-file .env up -d`
-
-Sometimes the Docker permissions aren't set properly when you first install Docker. You may need to reboot your VM or run
-
-```
-newgrp docker
-```
-
 ### I can't open `<EC2-ip>:8000` running, what could I be doing wrong?
 
-1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 3000 and 8000.
-
-2. AWS may change your EC2 instance IP address when you stop or restart your EC2 instance. One solution is to purchase an [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#eip-basics) to reserve the particular public IP address. However, you can just clean out the `env.remote` and `.env` files and run the `./tools/aws-ip.sh` script again to set your new EC2 IP address in the appropriate environment variables. Just remember to use the new EC2 IP address in the browser as well.
-
-### I can't SSH into my EC2 instance
-
-1. Same reason as above, your EC2 instance IP address may change when you stop or restart your EC2 instance. So make sure your `.ssh/config` file has the correct HostName
-2. If your own IP address changes (for example, you changed internet providers or you moved to a new location with a different IP address), you need to update your inbound rules to allow your IP address to access port 22. Don't forget to allow access to port 3000 and 8000 as well.
+1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 22, 3000, 8000, and 8443.
 
 ### How do I turn off my EC2 instance if I'm actively not using it?
 
-There are a number of different methods to stop an EC2 instance:
+1. Close your Remote Connection on VS Code
 
-1. Manually turning it off using the AWS Console
+2. Manually turning the EC2 instance off using the AWS Console
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_35_32-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
 
-2. Creating a Cloudwatch alarm to stop your EC2 instance for you after some inactivity
-   - Click on the `+` underneath `Alarm status` to start creating an alarm
-     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_49_53-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
-   - Click on `Create an alarm` radio button
-     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_50_43-Manage+CloudWatch+alarms+_+EC2+Management+Console+%E2%80%94+Mozilla+Firefox.png)
-   - Set `Alarm action` to `Stop`
-   - Set alarm to trigger if the CPU utilization of the EC2 instance has been less 25% for an hour
-     ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+17_52_37-Manage+CloudWatch+alarms+_+EC2+Management+Console+%E2%80%94+Mozilla+Firefox.png)
+3. Stop your AWS Academy Lab
