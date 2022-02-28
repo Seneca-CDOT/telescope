@@ -65,7 +65,7 @@ importers:
       pino-elasticsearch: 6.2.0
       pino-http: 6.6.0
       pino-pretty: 7.3.0
-      playwright: 1.17.1
+      playwright: 1.19.2
       prettier: 2.5.1
       pretty-quick: 3.1.3
       rss-parser: 3.12.0
@@ -135,7 +135,7 @@ importers:
       jest-playwright-preset: 1.7.0_jest@27.5.1
       nock: 13.2.4
       npm-run-all: 4.1.5
-      playwright: 1.17.1
+      playwright: 1.19.2
       prettier: 2.5.1
       pretty-quick: 3.1.3_prettier@2.5.1
       run.env: 1.1.0
@@ -13076,33 +13076,6 @@ packages:
       find-up: 3.0.0
     dev: false
 
-  /playwright-core/1.17.1:
-    resolution: {integrity: sha512-C3c8RpPiC3qr15fRDN6dx6WnUkPLFmST37gms2aoHPDRvp7EaGDPMMZPpqIm/QWB5J40xDrQCD4YYHz2nBTojQ==}
-    engines: {node: '>=12'}
-    hasBin: true
-    dependencies:
-      commander: 8.3.0
-      debug: 4.3.3
-      extract-zip: 2.0.1
-      https-proxy-agent: 5.0.0
-      jpeg-js: 0.4.3
-      mime: 2.6.0
-      pngjs: 5.0.0
-      progress: 2.0.3
-      proper-lockfile: 4.1.2
-      proxy-from-env: 1.1.0
-      rimraf: 3.0.2
-      socks-proxy-agent: 6.1.1
-      stack-utils: 2.0.5
-      ws: 7.5.7
-      yauzl: 2.10.0
-      yazl: 2.5.1
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: true
-
   /playwright-core/1.19.1:
     resolution: {integrity: sha512-+ByjhWX39PlINVRXr4ef9Kle85mk5QzA2WLioCoMQc3bSUtZpLV1mbeUDtRp/bvFw6YDIEyptj4QvzzRTXN3vg==}
     engines: {node: '>=12'}
@@ -13130,13 +13103,40 @@ packages:
       - utf-8-validate
     dev: true
 
-  /playwright/1.17.1:
-    resolution: {integrity: sha512-DisCkW9MblDJNS3rG61p8LiLA2WA7IY/4A4W7DX4BphWe/HuWjKmGQptuk4NVIh5UuSwXpW/jaH2+ZgjHs3GMA==}
+  /playwright-core/1.19.2:
+    resolution: {integrity: sha512-OsL3sJZIo1UxKNWSP7zW7sk3FyUGG06YRHxHeBw51eIOxTCQRx5t+hXd0cvXashN2CHnd3hIZTs2aKa/im4hZQ==}
+    engines: {node: '>=12'}
+    hasBin: true
+    dependencies:
+      commander: 8.3.0
+      debug: 4.3.3
+      extract-zip: 2.0.1
+      https-proxy-agent: 5.0.0
+      jpeg-js: 0.4.3
+      mime: 3.0.0
+      pngjs: 6.0.0
+      progress: 2.0.3
+      proper-lockfile: 4.1.2
+      proxy-from-env: 1.1.0
+      rimraf: 3.0.2
+      socks-proxy-agent: 6.1.1
+      stack-utils: 2.0.5
+      ws: 8.4.2
+      yauzl: 2.10.0
+      yazl: 2.5.1
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: true
+
+  /playwright/1.19.2:
+    resolution: {integrity: sha512-2JmGWr/Iw/Uu27bZULeHgjn8doNrRVxIYdhspMuMlfKNpzwAe/sfm7wH8uey6jiZxnPL4bC5V4ACQcF4dAGWnw==}
     engines: {node: '>=12'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      playwright-core: 1.17.1
+      playwright-core: 1.19.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -13233,11 +13233,6 @@ packages:
       - supports-color
       - utf-8-validate
     dev: false
-
-  /pngjs/5.0.0:
-    resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
-    engines: {node: '>=10.13.0'}
-    dev: true
 
   /pngjs/6.0.0:
     resolution: {integrity: sha512-TRzzuFRRmEoSW/p1KVAmiOgPco2Irlah+bGFCeNfJXxxYGwSw7YwAOAcd7X28K/m5bjBWKsC29KyoMfHbypayg==}
