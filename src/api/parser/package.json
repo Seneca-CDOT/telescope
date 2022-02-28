@@ -15,7 +15,7 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@bull-board/api": "3.10.0",
-    "@bull-board/express": "3.7.0",
+    "@bull-board/express": "3.10.0",
     "@senecacdot/satellite": "^1.26.0",
     "bull": "3.22.0",
     "clean-whitespace": "0.1.2",
