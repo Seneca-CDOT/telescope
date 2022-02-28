@@ -47,7 +47,7 @@ importers:
       http-proxy-middleware: 2.0.3
       husky: 7.0.4
       ioredis: 4.28.5
-      ioredis-mock: 5.8.1
+      ioredis-mock: 5.9.1
       jest: 27.5.1
       jest-fetch-mock: 3.0.3
       jest-playwright-preset: 1.7.0
@@ -100,7 +100,7 @@ importers:
       highlight.js: 11.4.0
       http-proxy-middleware: 2.0.3
       ioredis: 4.28.5
-      ioredis-mock: 5.8.1_ioredis@4.28.5
+      ioredis-mock: 5.9.1_ioredis@4.28.5
       jsdom: 18.1.1
       linkify-html: 3.0.5_linkifyjs@3.0.5
       linkifyjs: 3.0.5
@@ -240,7 +240,7 @@ importers:
       bull: 3.29.3
       express-validator: 6.14.0
       ioredis: 4.28.5
-      ioredis-mock: 5.8.1
+      ioredis-mock: 5.9.1
       jsdom: 18.1.1
       normalize-url: 6.1.0
       supertest: 6.1.6
@@ -249,7 +249,7 @@ importers:
       bull: 3.29.3
       express-validator: 6.14.0
       ioredis: 4.28.5
-      ioredis-mock: 5.8.1_ioredis@4.28.5
+      ioredis-mock: 5.9.1_ioredis@4.28.5
       jsdom: 18.1.1
       normalize-url: 6.1.0
     devDependencies:
@@ -10072,20 +10072,6 @@ packages:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
     dependencies:
       loose-envify: 1.4.0
-    dev: false
-
-  /ioredis-mock/5.8.1_ioredis@4.28.5:
-    resolution: {integrity: sha512-YWUoE7ZZLzo2fJMWLjeh3F/TkgHqeazdOeExZskit+/2ZSA0bsFPkXiKMOUHZxjOk2JskOP9iuYvf/iO3mhMZg==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      ioredis: 4.x
-      redis-commands: 1.x
-    dependencies:
-      fengari: 0.1.4
-      fengari-interop: 0.1.3_fengari@0.1.4
-      ioredis: 4.28.5
-      lodash: 4.17.21
-      standard-as-callback: 2.1.0
     dev: false
 
   /ioredis-mock/5.9.1_ioredis@4.28.5:
