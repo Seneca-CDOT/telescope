@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@bull-board/api": "3.8.1",
+    "@bull-board/api": "3.10.0",
     "@bull-board/express": "3.8.1",
     "@elastic/elasticsearch": "7.16.0",
     "@elastic/elasticsearch-mock": "0.3.1",
