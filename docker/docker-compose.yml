@@ -294,7 +294,7 @@ services:
 
   # API Gateway
   traefik:
-    image: traefik:v2.5.0
+    image: traefik:v2.6.1
     container_name: 'traefik'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
