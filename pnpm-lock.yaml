@@ -298,7 +298,7 @@ importers:
       '@octokit/core': 3.5.1
       '@octokit/plugin-retry': 3.0.9
       '@octokit/plugin-throttling': 3.5.2
-      '@popperjs/core': 2.10.2
+      '@popperjs/core': 2.11.2
       '@senecacdot/satellite': ^1.26.0
       bootstrap: 5.1.3
       env-cmd: 10.1.0
@@ -318,9 +318,9 @@ importers:
       '@octokit/core': 3.5.1
       '@octokit/plugin-retry': 3.0.9
       '@octokit/plugin-throttling': 3.5.2_@octokit+core@3.5.1
-      '@popperjs/core': 2.10.2
+      '@popperjs/core': 2.11.2
       '@senecacdot/satellite': 1.26.0
-      bootstrap: 5.1.3_@popperjs+core@2.10.2
+      bootstrap: 5.1.3_@popperjs+core@2.11.2
       express: 4.17.3
       express-handlebars: 6.0.2
       get-repo-package-json: 2.0.0
@@ -4265,8 +4265,8 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: false
 
-  /@popperjs/core/2.10.2:
-    resolution: {integrity: sha512-IXf3XA7+XyN7CP9gGh/XB0UxVMlvARGEgGXLubFICsUMGz6Q+DU+i4gGlpOxTjKvXjkJDJC8YdqdKkDj9qZHEQ==}
+  /@popperjs/core/2.11.2:
+    resolution: {integrity: sha512-92FRmppjjqz29VMJ2dn+xdyXZBrMlE42AV6Kq6BwjWV7CNUW1hs2FtxSNLQE+gJhaZ6AAmYuO9y8dshhcBl7vA==}
     dev: false
 
   /@rollup/plugin-babel/5.3.0_@babel+core@7.17.4+rollup@2.67.2:
@@ -6087,12 +6087,12 @@ packages:
     resolution: {integrity: sha1-aN/1++YMUes3cl6p4+0xDcwed24=}
     dev: false
 
-  /bootstrap/5.1.3_@popperjs+core@2.10.2:
+  /bootstrap/5.1.3_@popperjs+core@2.11.2:
     resolution: {integrity: sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==}
     peerDependencies:
       '@popperjs/core': ^2.10.2
     dependencies:
-      '@popperjs/core': 2.10.2
+      '@popperjs/core': 2.11.2
     dev: false
 
   /bottleneck/2.19.5:
