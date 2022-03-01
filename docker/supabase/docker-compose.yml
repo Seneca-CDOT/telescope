@@ -21,7 +21,7 @@ services:
 
   kong:
     container_name: supabase-kong
-    image: kong:2.1
+    image: kong:2.7
     restart: unless-stopped
     environment:
       KONG_DATABASE: 'off'
