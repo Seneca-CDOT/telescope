@@ -30,7 +30,7 @@ importers:
       babel-preset-next: 1.4.0
       bull: 3.29.3
       clean-whitespace: 0.1.2
-      connect-redis: 6.0.0
+      connect-redis: 6.1.1
       cors: 2.8.5
       date-fns: 2.28.0
       docker-compose: 0.23.17
@@ -85,7 +85,7 @@ importers:
       babel-jest: 27.5.1_@babel+core@7.17.5
       bull: 3.29.3
       clean-whitespace: 0.1.2
-      connect-redis: 6.0.0
+      connect-redis: 6.1.1
       cors: 2.8.5
       date-fns: 2.28.0
       docker-compose: 0.23.17
@@ -271,7 +271,7 @@ importers:
       '@senecacdot/satellite': ^1.26.0
       '@supabase/supabase-js': 1.29.4
       celebrate: 15.0.1
-      connect-redis: 6.0.0
+      connect-redis: 6.1.1
       env-cmd: 10.1.0
       express-session: 1.17.2
       jsonwebtoken: 8.5.1
@@ -283,7 +283,7 @@ importers:
       '@senecacdot/satellite': 1.26.0
       '@supabase/supabase-js': 1.29.4
       celebrate: 15.0.1
-      connect-redis: 6.0.0
+      connect-redis: 6.1.1
       express-session: 1.17.2
       jsonwebtoken: 8.5.1
       minimatch: 3.0.4
@@ -6723,8 +6723,8 @@ packages:
     engines: {node: '>=0.8'}
     dev: false
 
-  /connect-redis/6.0.0:
-    resolution: {integrity: sha512-6eGEAAPHYvcfbRNCMmPzBIjrqRWLw7at9lCUH4G6NQ8gwWDJelaUmFNOqPIhehbw941euVmIuqWsaWiKXfb+5g==}
+  /connect-redis/6.1.1:
+    resolution: {integrity: sha512-4on27NmUz1hVCVsrUFUOe06YkgCx88ZZ29Wi7D5mXg22alN/Xx+Y+iPrJ1Cc7coUKAe5SP3W2LF/zo6WXSJFFg==}
     engines: {node: '>=12'}
     dev: false
 
