@@ -309,7 +309,7 @@ importers:
       npm-run-all: 4.1.5
       perfect-scrollbar: 1.5.5
       sass: 1.49.9
-      vite: 2.8.5
+      vite: 2.8.6
       xterm: 4.15.0
       xterm-addon-fit: 0.5.0
       xterm-addon-web-links: 0.4.0
@@ -327,7 +327,7 @@ importers:
       npm-run-all: 4.1.5
       perfect-scrollbar: 1.5.5
       sass: 1.49.9
-      vite: 2.8.5_sass@1.49.9
+      vite: 2.8.6_sass@1.49.9
       xterm: 4.15.0
       xterm-addon-fit: 0.5.0_xterm@4.15.0
       xterm-addon-web-links: 0.4.0_xterm@4.15.0
@@ -16560,8 +16560,8 @@ packages:
       vfile-message: 2.0.4
     dev: false
 
-  /vite/2.8.5_sass@1.49.9:
-    resolution: {integrity: sha512-C/7EGNa1ugWejol6nOcd/0d8PR70Nzd+XXwsPbnNOfzZw0NN2xyXfmw/GNDHgr5fcaTSO4gjxCJCrwNhQUMhmA==}
+  /vite/2.8.6_sass@1.49.9:
+    resolution: {integrity: sha512-e4H0QpludOVKkmOsRyqQ7LTcMUDF3mcgyNU4lmi0B5JUbe0ZxeBBl8VoZ8Y6Rfn9eFKYtdXNPcYK97ZwH+K2ug==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:
