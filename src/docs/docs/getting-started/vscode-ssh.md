@@ -180,17 +180,47 @@ Default region name [None]: us-east-1
 Default output format [None]:
 ```
 
+## Verify that everything in the aws-userdata.sh script was installed correctly
+
+1. Check Docker: `docker info`
+2. Check docker-compose version: `docker-compose --version`
+3. Check Node.js version: `node -v`
+4. Check pnpm version: `pnpm -v`
+5. Check git version: `git --version`
+
+## Authenticate as your GitHub account with the GitHub CLI
+
+1. Run `gh auth login`
+2. What account do you want to log into? `GitHub.com`
+3. What is your preferred protocol for Git operations? `SSH`
+4. Generate a new SSH key to add to your GitHub account? `Yes`
+5. Enter a passphase for your new SSH key (Optional): `********`
+6. How would you like to authenticate GitHub CLI? `Login with a web browser`
+7. First copy your one-time code: `ABC1-234D`
+
 ## Opening up the Telescope repository in AWS EC2:
 
-1. Clone the Telescope repository and name the remote upstream by entering
+1. Clone your fork of the Telescope repository. For example `gh repo clone cindyledev/telescope`
 
 ```
-git clone -o upstream https://github.com/Seneca-CDOT/telescope.git
+gh repo clone <github-username>/telescope
 ```
 
 2. Open the `telescope` directory and the entire Telescope files and folder structure should be visible to you!
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+16_54_04-Settings.png)
    ![](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+16_55_08-Visual+Studio+Code.png)
+
+3. Add the Telescope repository and name the remote `upstream` by entering
+
+```
+git remote add upstream https://github.com/Seneca-CDOT/telescope.git
+```
+
+4. Verify that the remote has been added
+
+```
+git remote -v
+```
 
 3. Set all the necessary environment variables in your .env file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
 
