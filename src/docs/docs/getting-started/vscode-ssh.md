@@ -15,7 +15,7 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
 
 - t2.large costs \$0.0928 per hour
 - r5.large costs \$0.126 per hour
-- 40GB Amazon Elastic Block Storage (EBS) costs \$1 per month
+- 20GB Amazon Elastic Block Storage (EBS) costs \$1 per month
 - [Elastic IP Address](https://aws.amazon.com/ec2/pricing/on-demand/#Elastic_IP_Addresses)
 
 **Cost Estimate Per Month**:
@@ -27,8 +27,8 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
 | Hours per day                    | 6        | 6        |
 | Days per month                   | 30       | 30       |
 | Sub-total                        | \$17.60  | \$23.58  |
-| 40GB EBS Volume                  | \$1      | \$1      |
-| Total                            | \$18.60  | \$24.58  |
+| 20GB EBS Volume                  | \$0.5    | \$0.5    |
+| Total                            | \$18.10  | \$24.08  |
 
 ## Prerequisites:
 
@@ -55,7 +55,7 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
     ![AWS LabInstanceProfile IAM Role](../../static/img/aws_iam_role.png)
   - Copy and paste the [aws-userdata.sh](../../../../tools/aws-userdata.sh) script into the `User data` field
     ![AWS Userdata](../../static/img/aws_userdata.png)
-- Step 4 - Add Storage: Change the Size (GiB) from `8` to `40`
+- Step 4 - Add Storage: Change the Size (GiB) from `8` to `20`
   ![AWS Storage](../../static/img/aws_storage.png)
 - Step 5 - Add Tags: No tags are needed. Proceed to the next step.
 - Step 6 - Configure Security Group:
