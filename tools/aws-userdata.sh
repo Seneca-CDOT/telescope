@@ -12,7 +12,7 @@ sudo mv docker-compose-$(uname -s)-$(uname -m) /usr/local/bin/docker-compose
 sudo chmod -v +x /usr/local/bin/docker-compose
 
 # Install Node.js
-curl -sL https://rpm.nodesource.com/setup_16.x | sudo bash -
+curl -sL https://rpm.nodesource.com/setup_lts.x | sudo bash -
 yum install -y nodejs
 
 # Install pnpm

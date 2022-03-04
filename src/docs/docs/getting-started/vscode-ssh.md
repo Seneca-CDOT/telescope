@@ -20,14 +20,15 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
 
 **Cost Estimate Per Month**:
 
-|                 | t2.large | r5.large |
-| --------------- | -------- | -------- |
-| Cost per hour   | \$0.0928 | \$0.126  |
-| Hours per day   | 6        | 6        |
-| Days per month  | 30       | 30       |
-| Sub-total       | \$16.70  | \$22.68  |
-| 40GB EBS Volume | \$1      | \$1      |
-| Total           | \$17.70  | \$23.68  |
+|                                  | t2.large | r5.large |
+| -------------------------------- | -------- | -------- |
+| EC2 Instance cost per hour       | \$0.0928 | \$0.126  |
+| Elastic IP Address cost per hour | \$0.005  | \$0.005  |
+| Hours per day                    | 6        | 6        |
+| Days per month                   | 30       | 30       |
+| Sub-total                        | \$17.60  | \$23.58  |
+| 40GB EBS Volume                  | \$1      | \$1      |
+| Total                            | \$18.60  | \$24.58  |
 
 ## Prerequisites:
 
@@ -84,6 +85,8 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
     - Source: `My IP`
 
   ![AWS Security Groups](https://seneca-cdot-telescope.s3.amazonaws.com/vscode-ssh/2021-10-26+12_54_12-vscode-ssh.md+-+telescope+-+Visual+Studio+Code.png)
+
+  Note: `My IP` is the IP address of your (home) network. Your IP address will likely change if you manually reboot your router or a power outage occurs and your router reboots itself. If you know your IP address has changed, please update the Security Group on AWS.
 
 4. Click on `Review and Launch`. You will get a warning: `Your instance configuration is not eligible for the free usage tier`, this is because we're using a `r5.large` instance type.
 5. Click on `Launch`
@@ -200,7 +203,7 @@ Default output format [None]:
 
 ## Opening up the Telescope repository in AWS EC2:
 
-1. Clone your fork of the Telescope repository. For example `gh repo clone cindyledev/telescope`
+1. Clone your fork of the Telescope repository. For example `gh repo clone cindyledev/telescope`. If you do not have a fork of the Telescope repository, run `gh repo clone -o upstream Seneca-CDOT/telescope` to clone the Telescope repository and name the remote `upstream` then proceed to Step 5.
 
 ```
 gh repo clone <github-username>/telescope
@@ -222,7 +225,7 @@ git remote add upstream https://github.com/Seneca-CDOT/telescope.git
 git remote -v
 ```
 
-3. Set all the necessary environment variables in your .env file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
+5. Set all the necessary environment variables in your .env file to contain your EC2 instance's public IPv4 address by executing the `aws-ip.sh` script
 
 ```
 sh ./tools/aws-ip.sh
@@ -284,7 +287,9 @@ docker system prune -af --volumes
 
 ### I can't open `<EC2-ip>:8000` running, what could I be doing wrong?
 
-1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then allow your IP address to access the ports 22, 3000, 8000, and 8443.
+1. If you have a VPN on, turn it off and get your IP address by visiting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then updating your Security Group to allow your IP address to access the ports 22, 3000, 8000, and 8443.
+
+2. Your home IP address may have changed because your router was rebooted. This can happen when you manually reboot your router or when a power outage occurs. The solution here is the same as above. You can get your IP address by visting [http://checkip.amazonaws.com/](http://checkip.amazonaws.com/) then updating your Security Group to allow your IP address to access the ports 22, 3000, 8000, and 8443.
 
 ### How do I turn off my EC2 instance if I'm actively not using it?
 
