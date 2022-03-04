@@ -11,7 +11,7 @@ tasks:
       eval $(gp env -e API_HOST=$(gp url 8443))
       eval $(gp env -e SSO_LOGIN_URL=$(gp url 8081))
       eval $(gp env -e SUPABASE_API=$(gp url 8911))
-      eval $(gp env -e SERVICES="status image sso search posts feed-discovery users redis elasticsearch login")
+      eval $(gp env -e SERVICES="status image sso search posts feed-discovery redis elasticsearch login")
 
       sed -r \
           -e  "s@(.+=)http://localhost:8000(/[^ ]*)*@\1$WEB_URL\2@g" \
