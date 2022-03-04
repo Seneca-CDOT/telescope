@@ -148,7 +148,7 @@ services:
     # https://github.com/docker-library/docs/issues/496) and then reload this configuration
     # (and the associated certificates) every six hours in the background and launches nginx
     # in the foreground.
-    command: /bin/sh -c "envsubst '$$TELESCOPE_HOST $$API_HOST $$PORTAINER_HOST' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'"
+    command: /bin/sh -c "envsubst '$$TELESCOPE_HOST $$API_HOST $$PORTAINER_HOST $$SUPABASE_HOST' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'"
 
   # API Gateway running on 8888. We use nginx in front of this for secure/compressed/cached responses
   traefik:
@@ -212,5 +212,10 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ../../portainer:/data
       - ../../portainer/portainer:/data/portainer
+    depends_on:
+      - nginx
+
+  # Supabase studio for staging/prod to depends on nginx
+  studio:
     depends_on:
       - nginx
