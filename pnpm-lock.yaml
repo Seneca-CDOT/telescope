@@ -310,10 +310,10 @@ importers:
       perfect-scrollbar: 1.5.5
       sass: 1.49.9
       vite: 2.8.6
-      xterm: 4.15.0
+      xterm: 4.18.0
       xterm-addon-fit: 0.5.0
-      xterm-addon-web-links: 0.4.0
-      xterm-addon-webgl: 0.11.3
+      xterm-addon-web-links: 0.5.1
+      xterm-addon-webgl: 0.11.4
     dependencies:
       '@octokit/core': 3.5.1
       '@octokit/plugin-retry': 3.0.9
@@ -328,10 +328,10 @@ importers:
       perfect-scrollbar: 1.5.5
       sass: 1.49.9
       vite: 2.8.6_sass@1.49.9
-      xterm: 4.15.0
-      xterm-addon-fit: 0.5.0_xterm@4.15.0
-      xterm-addon-web-links: 0.4.0_xterm@4.15.0
-      xterm-addon-webgl: 0.11.3_xterm@4.15.0
+      xterm: 4.18.0
+      xterm-addon-fit: 0.5.0_xterm@4.18.0
+      xterm-addon-web-links: 0.5.1_xterm@4.18.0
+      xterm-addon-webgl: 0.11.4_xterm@4.18.0
     devDependencies:
       env-cmd: 10.1.0
       nodemon: 2.0.15
@@ -4886,7 +4886,7 @@ packages:
   /axios/0.21.4_debug@4.3.3:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.7_debug@4.3.3
+      follow-redirects: 1.14.7
     transitivePeerDependencies:
       - debug
     dev: false
@@ -8032,18 +8032,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-
-  /follow-redirects/1.14.7_debug@4.3.3:
-    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.3
-    dev: false
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -16392,32 +16380,32 @@ packages:
     engines: {node: '>=0.4'}
     dev: false
 
-  /xterm-addon-fit/0.5.0_xterm@4.15.0:
+  /xterm-addon-fit/0.5.0_xterm@4.18.0:
     resolution: {integrity: sha512-DsS9fqhXHacEmsPxBJZvfj2la30Iz9xk+UKjhQgnYNkrUIN5CYLbw7WEfz117c7+S86S/tpHPfvNxJsF5/G8wQ==}
     peerDependencies:
       xterm: ^4.0.0
     dependencies:
-      xterm: 4.15.0
+      xterm: 4.18.0
     dev: false
 
-  /xterm-addon-web-links/0.4.0_xterm@4.15.0:
-    resolution: {integrity: sha512-xv8GeiINmx0zENO9hf5k+5bnkaE8mRzF+OBAr9WeFq2eLaQSudioQSiT34M1ofKbzcdjSsKiZm19Rw3i4eXamg==}
+  /xterm-addon-web-links/0.5.1_xterm@4.18.0:
+    resolution: {integrity: sha512-dBjbOIrCNmxAcUQkkSrKj9BM6yLpmqUpZ9SOCUuZe/sznPl4d8OBZQClK7VcdZ0vf0+5i5Fce2rUUrew/XTZTg==}
     peerDependencies:
       xterm: ^4.0.0
     dependencies:
-      xterm: 4.15.0
+      xterm: 4.18.0
     dev: false
 
-  /xterm-addon-webgl/0.11.3_xterm@4.15.0:
-    resolution: {integrity: sha512-Lr6VjLYOrgxLNaUNLDdCBehkr1Vaja/laDMTtvghfRusUMRXTlRKlCb7E3yqx4VgCg5KcV96cArmh88KcwSpUg==}
+  /xterm-addon-webgl/0.11.4_xterm@4.18.0:
+    resolution: {integrity: sha512-/a/VFeftc+etGXQYWaaks977j1P7/wickBXn15zDxZzXYYMT9RN17ztqyIDVLXg9krtg28+icKK6lvgIYghJ0w==}
     peerDependencies:
       xterm: ^4.0.0
     dependencies:
-      xterm: 4.15.0
+      xterm: 4.18.0
     dev: false
 
-  /xterm/4.15.0:
-    resolution: {integrity: sha512-Ik1GoSq1yqKZQ2LF37RPS01kX9t4TP8gpamUYblD09yvWX5mEYuMK4CcqH6+plgiNEZduhTz/UrcaWs97gOlOw==}
+  /xterm/4.18.0:
+    resolution: {integrity: sha512-JQoc1S0dti6SQfI0bK1AZvGnAxH4MVw45ZPFSO6FHTInAiau3Ix77fSxNx3mX4eh9OL4AYa8+4C8f5UvnSfppQ==}
     dev: false
 
   /y18n/4.0.3:
