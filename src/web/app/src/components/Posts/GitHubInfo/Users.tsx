@@ -1,7 +1,7 @@
 import { VscGithub } from 'react-icons/vsc';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import TelescopeAvatar from '../../TelescopeAvatar';
-import useGithubInfo from '../../../hooks/use-genericInfo';
+import { useGithubInfo } from '../../../hooks/use-genericInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

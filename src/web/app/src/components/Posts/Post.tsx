@@ -17,7 +17,9 @@ import {
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import GitHubInfo from './GitHubInfo';
+import YouTubeInfo from './YouTubeInfo';
 import GitHubInfoMobile from './GitHubInfo/GitHubInfoMobile';
+import YouTubeInfoMobile from './YouTubeInfo/YouTubeInfoMobile';
 import GenericInfoProvider from '../GenericInfoProvider';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
@@ -248,6 +250,9 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: 1,
       position: 'sticky',
     },
+    accordionDetails: {
+      justifyContent: 'space-between',
+    },
     expandIcon: {
       alignSelf: 'center',
       borderLeft: '1px solid #cccccc',
@@ -446,6 +451,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
                 blogUrl={post.feed.link}
               />
               <GitHubInfo />
+              <YouTubeInfo />
             </ListSubheader>
           </>
         ) : (
@@ -497,8 +503,9 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
                 </div>
               </ListSubheader>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails className={classes.accordionDetails}>
               <GitHubInfoMobile />
+              <YouTubeInfoMobile />
             </AccordionDetails>
             <ExpandIcon
               small={false}
@@ -508,15 +515,6 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
           </Accordion>
         )}
 
-        <div className={classes.content}>
-          {isMedia && (
-            <LiteYouTubeEmbed
-              id={extractVideoId(post)}
-              title={post.title}
-              wrapperClass={`yt-lite ${classes.video}`}
-            />
-          )}
-        </div>
         <div className={classes.content}>
           {isMedia && (
             <LiteYouTubeEmbed
