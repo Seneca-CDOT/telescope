@@ -1,6 +1,7 @@
 # Telescope <img align="left" width="130" height="130" src=https://github.com/Seneca-CDOT/telescope/blob/master/src/web/public/logo.svg>
 
 [![js-airbnb/prettier-style](https://img.shields.io/badge/code%20style-airbnb%2Fprettier-blue)](https://github.com/airbnb/javascript)
+[![renovatebot - enabled](https://img.shields.io/badge/renovatebot-enabled-2ea44f?logo=renovatebot)](https://renovatebot.com)
 ![Node.js CI](https://github.com/Seneca-CDOT/telescope/workflows/node-js-ci/badge.svg)
 
 [![Prod API Status](https://img.shields.io/badge/Prod_API_Status-informational)](https://api.telescope.cdot.systems/v1/status)
