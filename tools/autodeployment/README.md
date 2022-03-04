@@ -17,10 +17,16 @@ auto deployment server:
 - `GET /deploy/status`: returns JSON data about the current status of the build.
 - `GET /deploy/log`: returns a real-time stream of current build log output, if any.
 
-On staging you can go to http://dev.telescope.cdot.systems/status and
-http://dev.telescope.cdot.systems/log, and on production you can use
-http://telescope.cdot.systems/status and http://telescope.cdot.systems/log.
+On staging you can go to:
+
+- https://dev.telescope.cdot.systems/deploy/status to check the deployment status,
+- https://dev.telescope.cdot.systems/deploy/log to check the deployment log,
+
+and on production you can use
+
+- https://telescope.cdot.systems/deploy/status to check the deployment status,
+- https://telescope.cdot.systems/deploy/log to check the deployment log.
 
 ```
-$ curl http://dev.telescope.cdot.systems/log
+$ curl https://dev.telescope.cdot.systems/deploy/log
 ```
