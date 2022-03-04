@@ -115,7 +115,7 @@
     "node": ">=14.0.0",
     "pnpm": ">=6"
   },
-  "packageManager": "pnpm@6.29.0",
+  "packageManager": "pnpm@6.32.2",
   "pnpm": {
     "overrides": {
       "json-ptr@<3.0.0": ">=3.0.0",
