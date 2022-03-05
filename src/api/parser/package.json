@@ -23,7 +23,7 @@
     "jsdom": "18.1.1",
     "linkify-html": "3.0.5",
     "linkifyjs": "3.0.5",
-    "normalize-url": "6.0.1",
+    "normalize-url": "6.1.0",
     "rss-parser": "3.12.0",
     "sanitize-html": "2.5.3"
   },
