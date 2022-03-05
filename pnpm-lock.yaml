@@ -22,7 +22,7 @@ specifiers:
   node-fetch: 2.6.7
   pino: 7.8.0
   pino-http: 6.6.0
-  pino-pretty: 7.5.1
+  pino-pretty: 7.5.3
   prettier: 2.5.1
   pretty-quick: 3.1.3
 
@@ -41,7 +41,7 @@ dependencies:
   node-fetch: 2.6.7
   pino: 7.8.0
   pino-http: 6.6.0
-  pino-pretty: 7.5.1
+  pino-pretty: 7.5.3
 
 devDependencies:
   eslint: 8.10.0
@@ -3475,8 +3475,8 @@ packages:
       pino-std-serializers: 5.1.0
     dev: false
 
-  /pino-pretty/7.5.1:
-    resolution: {integrity: sha512-xEOUJiokdBGcZ9d0v7OY6SqEp+rrVH2drE3bHOUsK8elw44eh9V83InZqeL1dFwgD1IDnd6crUoec3hIXxfdBQ==}
+  /pino-pretty/7.5.3:
+    resolution: {integrity: sha512-jOGysjWxOfaeUElKTeJPstiitt1Ii7owcb21lDc1BS5F4P4HRDDcGxL1f1jskSA0zkTyj64/iaXlMLGhwtLVtg==}
     hasBin: true
     dependencies:
       args: 5.0.1
