@@ -15,5 +15,6 @@
   "rebaseWhen": "never",
   "schedule": ["every weekend"],
   "prConcurrentLimit": 1,
-  "prHourlyLimit": 1
+  "prHourlyLimit": 1,
+  "ignorePaths": ["src/mobile/**"]
 }
