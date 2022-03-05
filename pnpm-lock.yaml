@@ -435,7 +435,7 @@ importers:
       date-fns: 2.28.0
       dotenv: 10.0.0
       merge-stream: 2.0.0
-      pm2: 5.1.1
+      pm2: 5.2.0
       rereadable-stream: 1.4.13
       shelljs: 0.8.5
     dependencies:
@@ -444,7 +444,7 @@ importers:
       date-fns: 2.28.0
       dotenv: 10.0.0
       merge-stream: 2.0.0
-      pm2: 5.1.1
+      pm2: 5.2.0
       rereadable-stream: 1.4.13
       shelljs: 0.8.5
 
@@ -5962,10 +5962,8 @@ packages:
       moment-timezone: 0.5.34
     dev: false
 
-  /cron/1.8.2:
-    resolution: {integrity: sha512-Gk2c4y6xKEO8FSAUTklqtfSr7oTq0CiPQeLBG5Fl0qoXpZyMcj1SG59YL+hqq04bu6/IuEA7lMkYDAplQNKkyg==}
-    dependencies:
-      moment-timezone: 0.5.34
+  /croner/4.1.97:
+    resolution: {integrity: sha512-/f6gpQuxDaqXu+1kwQYSckUglPaOrHdbIlBAu0YuW8/Cdb45XwXYNUBXg3r/9Mo6n540Kn/smKcZWko5x99KrQ==}
     dev: false
 
   /cross-fetch/3.1.5:
@@ -11647,7 +11645,7 @@ packages:
       http-proxy-agent: 4.0.1
       https-proxy-agent: 5.0.0
       pac-resolver: 5.0.0
-      raw-body: 2.4.2
+      raw-body: 2.4.3
       socks-proxy-agent: 5.0.1
     transitivePeerDependencies:
       - supports-color
@@ -11869,6 +11867,14 @@ packages:
   /pidusage/2.0.21:
     resolution: {integrity: sha512-cv3xAQos+pugVX+BfXpHsbyz/dLzX+lr44zNMsYiGxUw+kV5sgQCIcLd1z+0vq+KyC7dJ+/ts2PsfgWfSC3WXA==}
     engines: {node: '>=8'}
+    dependencies:
+      safe-buffer: 5.2.1
+    dev: false
+    optional: true
+
+  /pidusage/3.0.0:
+    resolution: {integrity: sha512-8VJLToXhj+RYZGNVw8oxc7dS54iCQXUJ+MDFHezQ/fwF5B8W4OWodAMboc1wb08S/4LiHwAmkT4ohf/d3YPPsw==}
+    engines: {node: '>=10'}
     dependencies:
       safe-buffer: 5.2.1
     dev: false
@@ -12122,8 +12128,8 @@ packages:
     dev: false
     optional: true
 
-  /pm2/5.1.1:
-    resolution: {integrity: sha512-2Agpn2IVXOKu8kP+qaxKOvMLNtbZ6lY4bzKcEW2d2tw7O0lpNO7QvDayY4af+8U1+WCn90UjPK4q2wPFVHt/sA==}
+  /pm2/5.2.0:
+    resolution: {integrity: sha512-PO5hMVhQ85cTszFM++6v07Me9hPJMkFbHjkFigtMMk+La8ty2wCi2dlBTeZYJDhPUSjK8Ccltpq2buNRcyMOTw==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     dependencies:
@@ -12137,7 +12143,7 @@ packages:
       chokidar: 3.5.3
       cli-tableau: 2.0.1
       commander: 2.15.1
-      cron: 1.8.2
+      croner: 4.1.97
       dayjs: 1.8.36
       debug: 4.3.3
       enquirer: 2.3.6
@@ -12145,7 +12151,7 @@ packages:
       fclone: 1.0.11
       mkdirp: 1.0.4
       needle: 2.4.0
-      pidusage: 2.0.21
+      pidusage: 3.0.0
       pm2-axon: 4.0.1
       pm2-axon-rpc: 0.7.1
       pm2-deploy: 1.0.2
