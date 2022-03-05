@@ -29,7 +29,7 @@
     "express": "4.17.3",
     "express-jwt": "6.1.1",
     "helmet": "5.0.2",
-    "http-errors": "1.8.1",
+    "http-errors": "2.0.0",
     "ioredis": "4.28.5",
     "ioredis-mock": "7.1.0",
     "jsonwebtoken": "8.5.1",

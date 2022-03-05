@@ -1,16 +1,18 @@
-const _createError = require('http-errors');
+const createError = require('http-errors');
 const { errors } = require('@elastic/elasticsearch');
 
 module.exports = (...args) => {
-  let status;
-  let argToSend;
+  // Set status to 500 by default instead of undefined
+  // https://github.com/jshttp/http-errors/blob/206aa2c15635dc1212c06c279540972aa90e23ea/index.js#L53
+  let status = 500;
+  let argToSend = '';
   let props = {};
   for (let i = 0; i < args.length; i++) {
     let arg = args[i];
     let type = typeof arg;
     // Deal with ElasticSearch Error objects
     if (type === 'object' && arg instanceof errors.ResponseError) {
-      argToSend = _createError(arg.statusCode, `ElasticSearch Error:${arg.name}`, arg.meta);
+      argToSend = createError(arg.statusCode, `ElasticSearch Error:${arg.name}`, arg.meta);
     }
     // Get the status code if the status code is a number and is the first argument
     // This follows how http-errors deals with status codes
@@ -29,5 +31,5 @@ module.exports = (...args) => {
       argToSend = arg;
     }
   }
-  return _createError(status, argToSend, props);
+  return createError(status, argToSend, props);
 };
