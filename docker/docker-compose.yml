@@ -305,7 +305,12 @@ services:
   redis:
     image: redis:latest
     container_name: 'redis'
-    command: ['redis-server', '--appendonly', 'yes']
+    command:
+      [
+        'bash',
+        '-c',
+        'printf "y\n" | redis-check-aof --fix /data/appendonly.aof ; redis-server --appendonly yes',
+      ]
     volumes:
       - ../redis-data:/data
 
