@@ -455,7 +455,7 @@ importers:
       eslint-config-prettier: 8.5.0
       eslint-plugin-anti-trojan-source: 1.1.0
       eslint-plugin-import: 2.25.4
-      eslint-plugin-jest: 25.3.4
+      eslint-plugin-jest: 25.7.0
       eslint-plugin-jest-playwright: 0.2.1
       eslint-plugin-jsx-a11y: 6.5.1
       eslint-plugin-node: 11.1.0
@@ -470,7 +470,7 @@ importers:
       eslint-config-prettier: 8.5.0_eslint@7.32.0
       eslint-plugin-anti-trojan-source: 1.1.0
       eslint-plugin-import: 2.25.4_eslint@7.32.0
-      eslint-plugin-jest: 25.3.4_094976e1e876b0d9ad3bbc43674570f9
+      eslint-plugin-jest: 25.7.0_094976e1e876b0d9ad3bbc43674570f9
       eslint-plugin-jest-playwright: 0.2.1
       eslint-plugin-jsx-a11y: 6.5.1_eslint@7.32.0
       eslint-plugin-node: 11.1.0_eslint@7.32.0
@@ -7207,8 +7207,8 @@ packages:
     resolution: {integrity: sha512-BicKUJUpVPsLbHN8c5hYaZn6pv8PCMjBGHXUfvlY1p75fh4APVfX2gTK14HuiR8/Bv3fKBQu5MTaqCro4E3OHg==}
     dev: true
 
-  /eslint-plugin-jest/25.3.4_094976e1e876b0d9ad3bbc43674570f9:
-    resolution: {integrity: sha512-CCnwG71wvabmwq/qkz0HWIqBHQxw6pXB1uqt24dxqJ9WB34pVg49bL1sjXphlJHgTMWGhBjN1PicdyxDxrfP5A==}
+  /eslint-plugin-jest/25.7.0_094976e1e876b0d9ad3bbc43674570f9:
+    resolution: {integrity: sha512-PWLUEXeeF7C9QGKqvdSbzLOiLTx+bno7/HC9eefePfEb257QFHg7ye3dh80AZVkaa/RQsBB1Q/ORQvg2X7F0NQ==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
     peerDependencies:
       '@typescript-eslint/eslint-plugin': ^4.0.0 || ^5.0.0
