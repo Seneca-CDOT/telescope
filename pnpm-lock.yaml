@@ -198,7 +198,7 @@ importers:
       linkify-html: 3.0.5
       linkifyjs: 3.0.5
       nodemon: 2.0.15
-      normalize-url: 6.0.1
+      normalize-url: 6.1.0
       rss-parser: 3.12.0
       sanitize-html: 2.5.3
     dependencies:
@@ -211,7 +211,7 @@ importers:
       jsdom: 18.1.1
       linkify-html: 3.0.5_linkifyjs@3.0.5
       linkifyjs: 3.0.5
-      normalize-url: 6.0.1
+      normalize-url: 6.1.0
       rss-parser: 3.12.0
       sanitize-html: 2.5.3
     devDependencies:
@@ -11264,11 +11264,6 @@ packages:
   /normalize-url/4.5.1:
     resolution: {integrity: sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==}
     engines: {node: '>=8'}
-
-  /normalize-url/6.0.1:
-    resolution: {integrity: sha512-VU4pzAuh7Kip71XEmO9aNREYAdMHFGTVj/i+CaTImS8x0i1d3jUZkXhqluy/PRgjPLMgsLQulYY3PJ/aSbSjpQ==}
-    engines: {node: '>=10'}
-    dev: false
 
   /normalize-url/6.1.0:
     resolution: {integrity: sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==}
