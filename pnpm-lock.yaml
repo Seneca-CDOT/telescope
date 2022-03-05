@@ -174,12 +174,12 @@ importers:
       del-cli: 4.0.1
       got: 11.8.3
       nodemon: 2.0.15
-      sharp: 0.30.1
+      sharp: 0.30.2
     dependencies:
       '@senecacdot/satellite': 1.26.0
       celebrate: 15.0.1
       got: 11.8.3
-      sharp: 0.30.1
+      sharp: 0.30.2
     devDependencies:
       del-cli: 4.0.1
       nodemon: 2.0.15
@@ -13967,8 +13967,8 @@ packages:
     resolution: {integrity: sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==}
     dev: false
 
-  /sharp/0.30.1:
-    resolution: {integrity: sha512-ycpz81q8AeVjz1pGvvirQBeJcYE2sXAjcLXR/69LWOe/oxavBLOrenZcTzvTXn83jqAGqY+OuwF+2kFXzbKtDA==}
+  /sharp/0.30.2:
+    resolution: {integrity: sha512-mrMeKI5ECTdYhslPlA2TbBtU3nZXMEBcQwI6qYXjPlu1LpW4HBZLFm6xshMI1HpIdEEJ3UcYp5AKifLT/fEHZQ==}
     engines: {node: '>=12.13.0'}
     requiresBuild: true
     dependencies:
