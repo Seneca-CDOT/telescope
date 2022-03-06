@@ -14,9 +14,11 @@ const depsList = [
 ];
 
 jest.mock('../src/dependency-list', () => {
-  return jest.fn().mockImplementation(() => {
-    return Promise.resolve(depsList);
-  });
+  return {
+    getDependencyList: jest.fn().mockImplementation(() => {
+      return Promise.resolve(depsList);
+    }),
+  };
 });
 
 describe('GET /projects', () => {
