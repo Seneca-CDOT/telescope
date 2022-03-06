@@ -305,6 +305,9 @@ services:
   redis:
     image: redis:latest
     container_name: 'redis'
+    # The following command invokes "redis-check-aof" to fix the AOF file in the case
+    # of corruption due to a power outage.
+    # We also need the "printf" command to confirm the prompt of "redis-check-aof"
     command:
       [
         'bash',
