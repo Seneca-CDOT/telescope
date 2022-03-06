@@ -13,7 +13,7 @@ specifiers:
   get-port: 5.1.1
   helmet: 4.6.0
   http-errors: 1.8.1
-  husky: 5.2.0
+  husky: 7.0.4
   ioredis: 4.28.5
   ioredis-mock: 7.1.0
   jest: 27.5.1
@@ -48,7 +48,7 @@ devDependencies:
   eslint-plugin-anti-trojan-source: 1.1.0
   eslint-plugin-jest: 25.7.0_eslint@8.10.0+jest@27.5.1
   get-port: 5.1.1
-  husky: 5.2.0
+  husky: 7.0.4
   jest: 27.5.1
   nock: 13.2.4
   prettier: 2.5.1
@@ -2162,9 +2162,9 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: true
 
-  /husky/5.2.0:
-    resolution: {integrity: sha512-AM8T/auHXRBxlrfPVLKP6jt49GCM2Zz47m8G3FOMsLmTv8Dj/fKVWE0Rh2d4Qrvmy131xEsdQnb3OXRib67PGg==}
-    engines: {node: '>= 10'}
+  /husky/7.0.4:
+    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
+    engines: {node: '>=12'}
     hasBin: true
     dev: true
 
