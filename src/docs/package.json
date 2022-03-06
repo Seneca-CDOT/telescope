@@ -11,6 +11,7 @@
     "clear": "docusaurus clear",
     "serve": "docusaurus serve --port 4631 --host 0.0.0.0",
     "lint": "pnpm eslint",
+    "clean": "rm -rf .docusaurus .turbo build",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids"
   },

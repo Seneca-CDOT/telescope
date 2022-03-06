@@ -5,6 +5,9 @@
     },
     "lint": {
       "outputs": []
+    },
+    "clean": {
+      "cache": false
     }
   }
 }

@@ -7,6 +7,7 @@
     "dev": "run-p watch:*",
     "build": "run-s compile:*",
     "start": "node src/server.js",
+    "clean": "rm -rf .turbo public/dist",
     "watch:server": "env-cmd -f env.local nodemon src/server.js",
     "compile:js": "vite build",
     "watch:js": "vite build --watch"

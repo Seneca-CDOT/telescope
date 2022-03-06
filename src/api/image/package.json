@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "clean": "del \"./photos/*.jpg\" \"!./photos/default.jpg\""
+    "clean": "find ./photos -type f -not -name 'default.jpg' -delete"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
