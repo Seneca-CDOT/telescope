@@ -305,7 +305,7 @@ services:
   redis:
     image: redis:latest
     container_name: 'redis'
-    command: ['redis-server', '--appendonly', 'yes']
+    command: ['redis-server']
     volumes:
       - ../redis-data:/data
 
