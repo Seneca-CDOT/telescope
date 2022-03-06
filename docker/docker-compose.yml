@@ -28,6 +28,9 @@ services:
       - SECRET
       - GITHUB_TOKEN
       - JWT_SECRET
+        # Supabase config
+      - SERVICE_ROLE_KEY
+      - SUPABASE_URL
     depends_on:
       - traefik
       - redis

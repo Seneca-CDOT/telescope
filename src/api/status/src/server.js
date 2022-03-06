@@ -4,12 +4,12 @@ const path = require('path');
 const { engine } = require('express-handlebars');
 const fs = require('fs/promises');
 const getPackage = require('get-repo-package-json');
-const { check } = require('./services.js');
-const getGitHubData = require('./js/github-stats.js');
-const getFeedCount = require('./js/feed-stats.js');
-const getPostsCount = require('./js/posts-stats.js');
-const getJobCount = require('./js/queue-stats.js');
-
+const { check } = require('./services');
+const getGitHubData = require('./js/github-stats');
+const getFeedCount = require('./js/feed-stats');
+const getPostsCount = require('./js/posts-stats');
+const getJobCount = require('./js/queue-stats');
+const BuildLog = require('./data/build-log');
 // We need to be able to talk to the autodeployment server
 const autodeploymentHost = process.env.WEB_URL || 'localhost';
 
@@ -43,7 +43,7 @@ const satelliteOptions = {
           'fonts.googleapis.com',
           'cdn.jsdelivr.net',
         ],
-        connectSrc: ["'self'", '*.fontawesome.com', autodeploymentHost, '*.github.com'],
+        connectSrc: ["'self'", '*.fontawesome.com', autodeploymentHost, '*.github.com', '*'],
         fontSrc: ["'self'", 'data:', 'https:', '*.fontawesome.com'],
         imgSrc: ["'self'", 'data:', 'https:'],
       },
@@ -152,6 +152,27 @@ service.router.get('/build', async (req, res) => {
   }
 
   return res.status(500).send('Fail to render /build');
+});
+
+// req.body should have { sha, code, log }
+service.router.post('/build/add', async (req, res) => {
+  try {
+    await BuildLog.create(req.body);
+    return res.status(200).json(`Added build log ${req.body.sha}`);
+  } catch (error) {
+    logger.warn({ error });
+    return res.status(500).json(`Fail to add build log ${req.body.sha}`);
+  }
+});
+
+service.router.get('/build/:sha', async (req, res) => {
+  try {
+    const buildLog = await BuildLog.bySha(req.params.sha);
+    return res.status(200).json(buildLog);
+  } catch (error) {
+    logger.warn({ error });
+    return res.status(500).json({ msg: `Fail to get Build log ${error}` });
+  }
 });
 
 const port = parseInt(process.env.STATUS_PORT || 1111, 10);

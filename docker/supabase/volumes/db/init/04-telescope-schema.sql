@@ -14,6 +14,12 @@ CREATE TABLE IF NOT EXISTS telescope_profiles (
   github_avatar_url text NOT NULL
 );
 
+CREATE TABLE build_logs (
+  sha text PRIMARY KEY,
+  code boolean NOT NULL,
+  log text NOT NULL
+);
+
 -- Planet CDOT Feed List, see https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List
 CREATE TABLE IF NOT EXISTS feeds (
   url text PRIMARY KEY,
@@ -24,6 +30,8 @@ CREATE TABLE IF NOT EXISTS feeds (
   invalid boolean DEFAULT false,
   flagged boolean DEFAULT false
 );
+
+
 
 -- Trigger for auto-updating update_at
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
@@ -70,5 +78,11 @@ CREATE POLICY feeds_update_policy ON feeds
 -- Every one can read the feed list
 CREATE POLICY feeds_read_policy ON feeds
     FOR SELECT
+    USING (true);
+
+ALTER TABLE build_logs ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY build_logs_policy ON build_logs
+    FOR ALL
     USING (true);
 
