@@ -5,7 +5,8 @@
     "build": "next build && next export",
     "dev": "next dev -p 8000",
     "start": "next start -p 8000",
-    "lint": "pnpm eslint"
+    "lint": "pnpm eslint",
+    "clean": "rm -rf .next .turbo out"
   },
   "version": "3.0.0",
   "dependencies": {
