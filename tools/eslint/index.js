@@ -32,12 +32,6 @@ module.exports = {
       },
     },
 
-    // Jest Test files
-    {
-      files: ['test/**/*.js', '*.test.js', '*.test.ts', '*.test.tsx', '**/__mocks__/**/*.js'],
-      env: { jest: true, node: true },
-    },
-
     // Expo React Native app
     {
       files: ['src/mobile/**/*.js', 'src/mobile/**/*.jsx'],
