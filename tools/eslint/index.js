@@ -24,12 +24,10 @@ module.exports = {
     },
   },
   overrides: [
-    // JavaScript for Node.js
+    // Jest Test files
     {
-      files: ['src/backend/**/*.js', 'tools/**/*.js', 'src/api/**/*.js'],
-      env: {
-        node: true,
-      },
+      files: ['test/**/*.js', '*.test.js', '*.test.ts', '*.test.tsx', '**/__mocks__/**/*.js'],
+      env: { jest: true, node: true },
     },
 
     // Expo React Native app
