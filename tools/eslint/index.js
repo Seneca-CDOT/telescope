@@ -32,12 +32,6 @@ module.exports = {
       },
     },
 
-    // Static dashboard
-    {
-      files: ['src/api/status/public/**/*.js'],
-      rules: { 'import/extensions': ['error', 'always'] },
-    },
-
     // Jest Test files
     {
       files: ['test/**/*.js', '*.test.js', '*.test.ts', '*.test.tsx', '**/__mocks__/**/*.js'],
