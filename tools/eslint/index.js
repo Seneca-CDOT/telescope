@@ -31,14 +31,6 @@ module.exports = {
         node: true,
       },
     },
-
-    // Expo React Native app
-    {
-      files: ['src/mobile/**/*.js', 'src/mobile/**/*.jsx'],
-      extends: ['plugin:react/recommended', 'plugin:react-hooks/recommended'],
-      plugins: ['react-native'],
-      rules: { 'no-use-before-define': 'off' },
-    },
   ],
 
   // Default rules for any file we lint
