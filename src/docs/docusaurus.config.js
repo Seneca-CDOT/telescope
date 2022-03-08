@@ -49,6 +49,9 @@ const config = {
       fr: {
         htmlLang: 'fr-fr',
       },
+      vi: {
+        htmlLang: 'vi-VN',
+      },
     },
   },
 
