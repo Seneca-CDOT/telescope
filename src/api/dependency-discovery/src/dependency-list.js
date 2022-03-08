@@ -45,7 +45,7 @@ async function getNpmPackageInfo(packageName) {
 
 async function isPackageDependency(packageName) {
   const dependencies = await getDependencies();
-  return dependencies[packageName] !== undefined;
+  return Object.prototype.hasOwnProperty.call(dependencies, packageName);
 }
 
 module.exports = {
