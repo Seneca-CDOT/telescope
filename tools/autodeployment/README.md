@@ -27,6 +27,13 @@ and on production you can use
 - https://telescope.cdot.systems/deploy/status to check the deployment status,
 - https://telescope.cdot.systems/deploy/log to check the deployment log.
 
+## Real-time build log
+
+In the dashboard, you can check the log in real-time through the following links:
+
+- https://dev.api.telescope.cdot.systems/v1/status/build for `staging`
+- https://api.telescope.cdot.systems/v1/status/build for `production`
+
 ```
 $ curl https://dev.telescope.cdot.systems/deploy/log
 ```
