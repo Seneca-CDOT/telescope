@@ -20,16 +20,16 @@ router.get('/projects/:namespace/:name?', async (req, res, next) => {
   const { namespace, name } = req.params;
   const packageName = name ? `${namespace}/${name}` : namespace;
 
-  if (!(await isPackageDependency(packageName))) {
-    res.status(404);
-    next();
-  } else {
-    try {
+  try {
+    if (!(await isPackageDependency(packageName))) {
+      res.status(404);
+      next();
+    } else {
       res.set('Cache-Control', 'max-age=3600');
       res.status(200).json(await getNpmPackageInfo(packageName));
-    } catch (err) {
-      next(err);
     }
+  } catch (err) {
+    next(err);
   }
 });
 
