@@ -1,4 +1,5 @@
 const sanitizeHTML = require('../src/backend/utils/html/sanitize');
+const { WEB_URL } = process.env;
 
 describe('Sanitize HTML', () => {
   test('<script> should be removed', () => {
@@ -105,19 +106,19 @@ describe('Sanitize HTML', () => {
 
   test('<iframe> tag to a spotify embed should not get removed', () => {
     const data = sanitizeHTML(
-      '<iframe src="https://open.spotify.com/embed/album/21wMUhXhWLew2zsWQhlYEM?referrer=https%3A%2F%2Fmedium.com%2F%40pedrofonsecadev%2Ftelescope-note-feb-22-2021-8601dfbaa1f0"></iframe>'
+      `<iframe src="https://open.spotify.com/embed/album/21wMUhXhWLew2zsWQhlYEM?referrer=https%3A%2F%2Fmedium.com%2F%40pedrofonsecadev%2Ftelescope-note-feb-22-2021-8601dfbaa1f0"></iframe>`
     );
     expect(data).toBe(
-      '<iframe src="https://open.spotify.com/embed/album/21wMUhXhWLew2zsWQhlYEM?referrer=https%3A%2F%2Fmedium.com%2F%40pedrofonsecadev%2Ftelescope-note-feb-22-2021-8601dfbaa1f0"></iframe>'
+      `<iframe src="https://open.spotify.com/embed/album/21wMUhXhWLew2zsWQhlYEM?referrer=https%3A%2F%2Fmedium.com%2F%40pedrofonsecadev%2Ftelescope-note-feb-22-2021-8601dfbaa1f0"></iframe>`
     );
   });
 
   test('cdn.embedly.com embedded content should not get removed', () => {
     const data = sanitizeHTML(
-      '<iframe src="https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fopen.spotify.com%2Fembed%2Falbum%2F21wMUhXhWLew2zsWQhlYEM&amp;display_name=Spotify&amp;url=https%3A%2F%2Fopen.spotify.com%2Falbum%2F21wMUhXhWLew2zsWQhlYEM&amp;image=https%3A%2F%2Fi.scdn.co%2Fimage%2Fab67616d00001e02142b21bd73f912e8dfd72ade&amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;type=text%2Fhtml&amp;schema=spotify"></iframe>'
+      '<iframe src="https://cdn.embedly.com/widgets/media.html?src=https://open.spotify.com/embed/album/21wMUhXhWLew2zsWQhlYEM&amp;display_name=Spotify&amp;url=https://open.spotify.com/album/21wMUhXhWLew2zsWQhlYEM&amp;image=https://i.scdn.co/image/ab67616d00001e02142b21bd73f912e8dfd72ade&amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;type=text/html&amp;schema=spotify"></iframe>'
     );
     expect(data).toBe(
-      '<iframe src="https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fopen.spotify.com%2Fembed%2Falbum%2F21wMUhXhWLew2zsWQhlYEM&amp;display_name=Spotify&amp;url=https%3A%2F%2Fopen.spotify.com%2Falbum%2F21wMUhXhWLew2zsWQhlYEM&amp;image=https%3A%2F%2Fi.scdn.co%2Fimage%2Fab67616d00001e02142b21bd73f912e8dfd72ade&amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;type=text%2Fhtml&amp;schema=spotify"></iframe>'
+      '<iframe src="https://cdn.embedly.com/widgets/media.html?src=https://open.spotify.com/embed/album/21wMUhXhWLew2zsWQhlYEM&amp;display_name=Spotify&amp;url=https://open.spotify.com/album/21wMUhXhWLew2zsWQhlYEM&amp;image=https://i.scdn.co/image/ab67616d00001e02142b21bd73f912e8dfd72ade&amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;type=text/html&amp;schema=spotify"></iframe>'
     );
   });
 
@@ -145,7 +146,14 @@ describe('Sanitize HTML', () => {
   });
 
   test('twitch.tv embedded content should not be removed', () => {
-    const data = sanitizeHTML('<iframe src="https://www.twitch.tv/0pensrc"></iframe>');
-    expect(data).toBe('<iframe src="https://www.twitch.tv/0pensrc"></iframe>');
+    // The parent domain also embeds the stream, so include the web url used here as well
+    const data = sanitizeHTML(
+      `<iframe src="https://player.twitch.tv/?video=1303803789&parent=dev.to"></iframe>`
+    );
+    expect(data).toBe(
+      `<iframe src="https://player.twitch.tv/?video=1303803789&amp;parent=${
+        new URL(WEB_URL).host
+      }"></iframe>`
+    );
   });
 });
