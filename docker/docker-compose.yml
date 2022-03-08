@@ -212,6 +212,7 @@ services:
   #     - JWT_ISSUER
   #     - JWT_AUDIENCE
   #     - JWT_SECRET
+  #     - WEB_URL
   #   depends_on:
   #     - traefik
   #     - redis
