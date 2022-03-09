@@ -11,6 +11,14 @@ describe('/image', () => {
     request(app).get('/default.jpg').expect(200, done);
   });
 
+  it('should return 200 when requesting an image at an index', (done) => {
+    request(app).get('/138').expect(200, done);
+  });
+
+  it('should return the default image when requesting an image at a negative index', (done) => {
+    request(app).get('/-23').expect(200, done);
+  });
+
   it('should return 200 when requesting no image', (done) => {
     request(app).get('/').expect(200, done);
   });
@@ -67,8 +75,8 @@ describe('/image', () => {
     request(app).get('/?w=one').expect(400, done);
   });
 
-  it('should return 400 if width is under 200', (done) => {
-    request(app).get('/?w=199').expect(400, done);
+  it('should return 400 if width is under 40', (done) => {
+    request(app).get('/?w=39').expect(400, done);
   });
 
   it('should return 400 if width is over 2000', (done) => {
@@ -79,8 +87,8 @@ describe('/image', () => {
     request(app).get('/?h=one').expect(400, done);
   });
 
-  it('should return 400 if height is under 200', (done) => {
-    request(app).get('/?h=199').expect(400, done);
+  it('should return 400 if height is under 40', (done) => {
+    request(app).get('/?h=39').expect(400, done);
   });
 
   it('should return 400 if height is over 3000', (done) => {

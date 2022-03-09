@@ -3,27 +3,28 @@ const { Router, createError } = require('@senecacdot/satellite');
 const { celebrate, Joi, errors, Segments } = require('celebrate');
 
 const { optimize } = require('../lib/image');
-const { getRandomPhotoFilename, getPhotoFilename } = require('../lib/photos');
+const { getRandomPhotoFilename, getPhotoFilename, getPhotoAt } = require('../lib/photos');
 
 const router = Router();
 
 /**
  * Support the following optional query params:
  *
- *  - w: the width to resize the image to. Must be 200-2000. Defaults to 800.
- *  - h: the height to resize the image to. Must be 200-3000. Defaults to height of image at width=800
+ *  - w: the width to resize the image to. Must be 40-2000. Defaults to 800.
+ *  - h: the height to resize the image to. Must be 40-3000. Defaults to height of image at width=800
  *  - t: the image type to render, one of: jpeg, jpg, png, webp. Defaults to jpeg.
  *
- * We also support passing an image name as a param in the URL:
+ * We also support passing an image name or image image index as a param in the URL:
  *
- * - image: should look like look '_ok8uVzL2gI.jpg'. Don't allow filenames like '../../dangerous/path/traversal'.
+ * - index: Can be any positive integer, will return a photo at a index in the circular buffer
+ * - image: should look like '_ok8uVzL2gI.jpg'. Don't allow filenames like '../../dangerous/path/traversal'.
  */
 router.use(
   celebrate({
     [Segments.QUERY]: Joi.object().keys({
       t: Joi.string().valid('jpeg', 'jpg', 'webp', 'png'),
-      w: Joi.number().integer().min(200).max(2000),
-      h: Joi.number().integer().min(200).max(3000),
+      w: Joi.number().integer().min(40).max(2000),
+      h: Joi.number().integer().min(40).max(3000),
     }),
   })
 );
@@ -64,9 +65,11 @@ const optimizeImage = (stream, req, res) => {
 router.use(
   '/:image?',
   /**
-   * Either the client requests an image by name, or we pick one at random.
-   * In both cases, we supply one on `req.imageFilename`.  If the requested
-   * image doesn't exist, we'll 404 here.
+   * Either the client requests an image by name or index, or we pick one at random.
+   * As users don't know about image file name, :image can be
+   * a random number that refers to a consistent photo
+   * In both cases, we supply one on `req.imageFilename`.
+   * If the requested image doesn't exist, we'll 404 here.
    */
   function pickImage(req, res, next) {
     const { image } = req.params;
@@ -74,6 +77,15 @@ router.use(
     // Generate a random filename and pass that on
     if (!image) {
       req.imageFilename = getRandomPhotoFilename();
+      next();
+      return;
+    }
+
+    // Return a specific photo at an index
+    // using isNaN() to check if a string is a not number, Number.isNaN() only checks if the value is NaN
+    // eslint-disable-next-line no-restricted-globals
+    if (!isNaN(image)) {
+      req.imageFilename = getPhotoAt(image | 0);
       next();
       return;
     }

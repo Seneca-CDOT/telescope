@@ -10,7 +10,7 @@ import BasicInfo from '../components/SignUp/Forms/BasicInfo';
 import GitHubAccount from '../components/SignUp/Forms/GitHubAccount';
 import RSSFeeds from '../components/SignUp/Forms/RSSFeeds';
 import Review from '../components/SignUp/Forms/Review';
-import DynamicImage from '../components/DynamicImage';
+import DynamicImage from '../components/BannerDynamicItems';
 
 import { SignUpForm } from '../interfaces';
 import formModels from '../components/SignUp/Schema/FormModel';
@@ -65,11 +65,6 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     imageContainer: {
-      minHeight: '100vh',
-      width: '100vw',
-      position: 'absolute',
-      top: '0',
-      bottom: '0',
       zIndex: -1,
       [theme.breakpoints.down(600)]: {
         display: 'none',

@@ -5,13 +5,16 @@ import Posts from '../components/Posts';
 import NavBar from '../components/NavBar';
 
 const Home = () => {
-  const [bannerIsVisible, setBannerVisibility] = useState(true);
+  const [bannerVisible, setBannerVisibility] = useState(true);
   return (
     <>
       <SEO pageTitle="Telescope" />
-      <Banner onVisibilityChange={(visible) => setBannerVisibility(visible)} />
+      <Banner
+        onVisibilityChange={(visible) => setBannerVisibility(visible)}
+        bannerVisible={bannerVisible}
+      />
       <main className="main">
-        <NavBar disabled={bannerIsVisible} />
+        <NavBar disabled={bannerVisible} />
         <Posts />
       </main>
     </>
