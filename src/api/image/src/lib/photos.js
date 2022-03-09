@@ -37,6 +37,15 @@ function getRandomPhotoFilename() {
   return path.join(photosDir, photoFilename);
 }
 
+// If users want to get a specific photo but don't know the file name, they have an option
+// to specify the index of the photo to get a consistent photo vs a random one everytime
+// Treat photos as a circular array, any index value >= 0 is valid
+function getPhotoAt(index) {
+  const atIndex = index < 0 ? 0 : index % photos.length;
+  const photoFilename = photos[atIndex];
+  return path.join(photosDir, photoFilename);
+}
+
 // Get a specific image filename from the photos/ directory.
 function getPhotoFilename(image) {
   return path.join(photosDir, image);
@@ -45,5 +54,6 @@ function getPhotoFilename(image) {
 exports.download = download;
 exports.getRandomPhotoFilename = getRandomPhotoFilename;
 exports.getPhotoFilename = getPhotoFilename;
+exports.getPhotoAt = getPhotoAt;
 exports.photosDir = photosDir;
 exports.getPhotos = () => [...photos];

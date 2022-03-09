@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { makeStyles, Tooltip, withStyles, Zoom } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import clsx from 'clsx';
 import useAuth from '../hooks/use-auth';
 import TelescopeAvatar from './TelescopeAvatar';
 import PopUp from './PopUp';
@@ -55,9 +56,10 @@ const BannerButtons = () => {
 
   return (
     <div
-      className={`${classes.buttonsContainer} ${
+      className={clsx(
+        classes.buttonsContainer,
         user?.isRegistered ? classes.userSignedInClass : classes.userNotSignedClass
-      }`}
+      )}
     >
       {user && !user?.isRegistered && (
         <PopUp

@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 import { imageServiceUrl } from '../config';
 
@@ -19,8 +21,22 @@ const useStyles = makeStyles(() => ({
     minHeight: '100%',
     maxHeight: '100%',
     objectFit: 'cover',
+    transition: 'opacity 1s ease',
+  },
+  loadingImg: {
+    opacity: 0,
+  },
+  loadedImg: {
+    opacity: 1,
+  },
+  placeholderImg: {
+    filter: 'blur(15px)',
+  },
+  mainImg: {
+    zIndex: 99,
   },
   backdrop: {
+    zIndex: 100,
     display: 'block',
     height: '100%',
     overflow: 'hidden',
@@ -32,24 +48,59 @@ const useStyles = makeStyles(() => ({
     boxSizing: 'border-box',
     margin: 0,
     backgroundColor: '#000000',
-    opacity: '.75',
+    opacity: '.70',
   },
 }));
 
-const DynamicImage = () => {
+type DynamicImageProps = {
+  imageURL?: string;
+  placeholderURL?: string;
+  visible?: boolean;
+};
+
+// Define a series of sizes, and let the browser figure out which one to use
+function createSrcset(imageSrc: string) {
+  const sizes = [200, 375, 450, 640, 750, 828, 1080, 1250, 1500, 1920, 2000];
+
+  return sizes.map((size) => `${imageSrc}?w=${size} ${size}w`).join(', ');
+}
+
+const DynamicImage = ({ imageURL, placeholderURL, visible = true }: DynamicImageProps) => {
   const classes = useStyles();
+  const [loading, setLoading] = useState(true);
+
+  const imageSrc = imageURL ?? imageServiceUrl!;
+  const srcset = createSrcset(imageSrc);
+
+  const onBannerImageLoaded = () => {
+    setLoading(false);
+  };
 
   return (
     <picture>
+      {placeholderURL && (
+        <img
+          className={clsx(classes.img, classes.placeholderImg)}
+          src={placeholderURL}
+          alt="Telescope banner placeholder"
+          decoding="async"
+          sizes="100vw"
+        />
+      )}
       <img
-        src={imageServiceUrl}
-        className={classes.img}
-        alt=""
+        src={imageURL}
+        className={clsx(
+          classes.img,
+          classes.mainImg,
+          loading || !visible ? classes.loadingImg : classes.loadedImg
+        )}
+        alt="Telescope banner"
+        loading="eager"
         decoding="async"
         // Let the browser know that we want to fill the whole viewport width with this image
         sizes="100vw"
-        // Define a series of sizes, and let the browser figure out which one to use
-        srcSet={`${imageServiceUrl}?w=200 200w, ${imageServiceUrl}?w=375 375w, ${imageServiceUrl}?w=450 450w, ${imageServiceUrl}?w=640 640w, ${imageServiceUrl}?w=750 750w, ${imageServiceUrl}?w=828 828w, ${imageServiceUrl}?w=1080 1080w, ${imageServiceUrl}?w=1250 1250w, ${imageServiceUrl}?w=1500 1500w, ${imageServiceUrl}?w=1920 1920w, ${imageServiceUrl}?w=2000 2000w`}
+        srcSet={srcset}
+        onLoad={onBannerImageLoaded}
       />
       <div className={classes.backdrop} />
     </picture>

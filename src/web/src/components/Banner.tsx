@@ -116,9 +116,10 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type BannerProps = {
   onVisibilityChange: (visible: boolean) => void;
+  bannerVisible: boolean;
 };
 
-export default function Banner({ onVisibilityChange }: BannerProps) {
+export default function Banner({ onVisibilityChange, bannerVisible }: BannerProps) {
   const classes = useStyles();
   const [gitInfo, setGitInfo] = useState({
     gitHubUrl: '',
@@ -180,7 +181,7 @@ export default function Banner({ onVisibilityChange }: BannerProps) {
   return (
     <>
       <div className={classes.heroBanner} ref={bannerAnchor}>
-        <BannerDynamicItems />
+        <BannerDynamicItems visible={bannerVisible} />
         <BannerButtons />
       </div>
       <div className={classes.textsContainer}>
