@@ -20,12 +20,18 @@ auto deployment server:
 On staging you can go to:
 
 - https://dev.telescope.cdot.systems/deploy/status to check the deployment status,
-- https://dev.telescope.cdot.systems/deploy/log to check the deployment log,
+- https://dev.telescope.cdot.systems/deploy/log to check the deployment log of
+  the current deployment (you can also use https://dev.telescope.cdot.systems/deploy/log/current),
+- https://dev.telescope.cdot.systems/deploy/log/previous to check the deployment log of
+  the previous deployment,
 
 and on production you can use
 
 - https://telescope.cdot.systems/deploy/status to check the deployment status,
-- https://telescope.cdot.systems/deploy/log to check the deployment log.
+- https://telescope.cdot.systems/deploy/log to check the deployment log of the
+  current deployment (you can also use https://telescope.cdot.systems/deploy/log/current),
+- https://telescope.cdot.systems/deploy/log/previous to check the deployment log of
+  the previous deployment.
 
 ## Real-time build log
 
