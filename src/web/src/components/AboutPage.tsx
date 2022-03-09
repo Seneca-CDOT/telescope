@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
+import StarField from './StarField';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -53,6 +54,9 @@ const useStyles = makeStyles((theme) => {
       '& svg': {
         color: theme.palette.primary.main,
       },
+      '& div': {
+        margin: 'auto',
+      },
     },
     languageSelector: {
       position: 'absolute',
@@ -69,7 +73,16 @@ const AboutPage = () => {
       <div className={classes.languageSelector}>
         <LanguageSelector />
       </div>
-      <h1> {t('about')}</h1>
+      <h1>Our Contributors</h1>
+      <p>
+        The result of Telescope is thanks to the combined work of all these talented people (and
+        robots).
+      </p>
+      <div>
+        <StarField />
+      </div>
+
+      <h1>{t('about')}</h1>
       <p>
         One of the key features of Seneca&apos;s open source involvement has been the emphasis on
         sharing what we&apos;re working on, teaching, and learning through blogging. We believe that
