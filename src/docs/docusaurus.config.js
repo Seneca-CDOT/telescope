@@ -27,6 +27,7 @@ const config = {
           editUrl: 'https://github.com/Seneca-CDOT/telescope/tree/master/src/docs/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
+          remarkPlugins: [require('mdx-mermaid')],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
