@@ -7,9 +7,9 @@ module.exports = (...args) => {
   let status = 500;
   let argToSend = '';
   let props = {};
-  for (let i = 0; i < args.length; i++) {
-    let arg = args[i];
-    let type = typeof arg;
+  for (let i = 0; i < args.length; i += 1) {
+    const arg = args[i];
+    const type = typeof arg;
     // Deal with ElasticSearch Error objects
     if (type === 'object' && arg instanceof errors.ResponseError) {
       argToSend = createError(arg.statusCode, `ElasticSearch Error:${arg.name}`, arg.meta);

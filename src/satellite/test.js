@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint no-unused-vars: off */
-//ESLint override to prevent errors for callback vars, e.g. (req, user) => {...}
+// ESLint override to prevent errors for callback vars, e.g. (req, user) => {...}
 
 const nock = require('nock');
 const getPort = require('get-port');
@@ -8,6 +9,7 @@ const jwt = require('jsonwebtoken');
 // Tests cause terminus to leak warning on too many listeners, increase a bit
 require('events').EventEmitter.defaultMaxListeners = 32;
 
+const { errors } = require('@elastic/elasticsearch');
 const {
   Satellite,
   Router,
@@ -21,7 +23,7 @@ const {
   Elastic,
   fetch,
 } = require('./src');
-const { errors } = require('@elastic/elasticsearch');
+
 const { JWT_EXPIRES_IN, JWT_ISSUER, JWT_AUDIENCE, JWT_SECRET } = process.env;
 
 const createSatelliteInstance = (options) => {
@@ -283,7 +285,7 @@ describe('Satellite()', () => {
       name: 'test',
     });
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get('/protected', isAuthenticated(), (req, res) => {
       // Make sure the user payload was added to req
@@ -336,7 +338,7 @@ describe('Satellite()', () => {
       roles: ['user', 'admin'],
     });
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get(
       '/protected',
@@ -355,7 +357,7 @@ describe('Satellite()', () => {
       // Public should need no bearer token
       let res = await fetch(`${url}/public`);
       expect(res.ok).toBe(true);
-      let body = await res.json();
+      const body = await res.json();
       expect(body).toEqual({ hello: 'public' });
 
       // Protected should fail without authorization header
@@ -395,7 +397,7 @@ describe('Satellite()', () => {
       roles: ['user', 'admin'],
     });
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get(
       '/protected',
@@ -452,7 +454,7 @@ describe('Satellite()', () => {
     const token = createToken({ sub: 'admin@email.com' });
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get(
       '/protected',
@@ -472,7 +474,7 @@ describe('Satellite()', () => {
       // Public should need no bearer token
       let res = await fetch(`${url}/public`);
       expect(res.ok).toBe(true);
-      let body = await res.json();
+      const body = await res.json();
       expect(body).toEqual({ hello: 'public' });
 
       // Protected should fail
@@ -493,7 +495,7 @@ describe('Satellite()', () => {
     });
     const token = createServiceToken();
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get(
       '/protected',
@@ -540,7 +542,7 @@ describe('Satellite()', () => {
     });
     const token = createToken({ sub: 'admin@email.com', roles: ['admin'] });
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get(
       '/protected',
@@ -587,7 +589,7 @@ describe('Satellite()', () => {
     });
     const token = createToken({ sub: 'admin@email.com' });
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get(
       '/protected',
@@ -632,7 +634,7 @@ describe('Satellite()', () => {
     });
     const token = createToken({ sub: 'admin@email.com' });
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get(
       '/protected',
@@ -649,7 +651,7 @@ describe('Satellite()', () => {
       // Public should need no bearer token
       let res = await fetch(`${url}/public`);
       expect(res.ok).toBe(true);
-      let body = await res.json();
+      const body = await res.json();
       expect(body).toEqual({ hello: 'public' });
 
       // Protected should fail without authorization header
@@ -676,7 +678,7 @@ describe('Satellite()', () => {
     });
     const token = createToken({ sub: 'admin@email.com' });
 
-    const router = service.router;
+    const { router } = service;
     router.get('/public', (req, res) => res.json({ hello: 'public' }));
     router.get(
       '/protected',
@@ -695,7 +697,7 @@ describe('Satellite()', () => {
       // Public should need no bearer token
       let res = await fetch(`${url}/public`);
       expect(res.ok).toBe(true);
-      let body = await res.json();
+      const body = await res.json();
       expect(body).toEqual({ hello: 'public' });
 
       // Protected should fail without authorization header
@@ -977,7 +979,7 @@ describe('Redis()', () => {
 describe('Elastic()', () => {
   describe('Tests for regular Elastic()', () => {
     test('Testing the name property which should be a string', async () => {
-      let client = Elastic();
+      const client = Elastic();
 
       const clientInfo = await client.info();
 
@@ -987,7 +989,7 @@ describe('Elastic()', () => {
 
   describe('Tests for mock Elastic()', () => {
     const client = Elastic();
-    const mock = client.mock;
+    const { mock } = client;
 
     beforeEach(() => mock.clearAll());
 
