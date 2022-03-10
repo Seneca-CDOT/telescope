@@ -59,7 +59,11 @@ const SearchResults = () => {
   const [totalPosts, setTotalPosts] = useState(0);
 
   const prepareUrl = (index: number) =>
-    `${searchServiceUrl}?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
+    // `${searchServiceUrl}?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
+
+    `${searchServiceUrl}/advanced/?${filter === 'author' ? `author` : `post`}=${encodeURIComponent(
+      textParam
+    )}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
   const shouldFetch = () => textParam.length > 0;
