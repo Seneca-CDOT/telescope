@@ -17,10 +17,29 @@ auto deployment server:
 - `GET /deploy/status`: returns JSON data about the current status of the build.
 - `GET /deploy/log`: returns a real-time stream of current build log output, if any.
 
-On staging you can go to http://dev.telescope.cdot.systems/status and
-http://dev.telescope.cdot.systems/log, and on production you can use
-http://telescope.cdot.systems/status and http://telescope.cdot.systems/log.
+On staging you can go to:
+
+- https://dev.telescope.cdot.systems/deploy/status to check the deployment status,
+- https://dev.telescope.cdot.systems/deploy/log to check the deployment log of
+  the current deployment (you can also use https://dev.telescope.cdot.systems/deploy/log/current),
+- https://dev.telescope.cdot.systems/deploy/log/previous to check the deployment log of
+  the previous deployment,
+
+and on production you can use
+
+- https://telescope.cdot.systems/deploy/status to check the deployment status,
+- https://telescope.cdot.systems/deploy/log to check the deployment log of the
+  current deployment (you can also use https://telescope.cdot.systems/deploy/log/current),
+- https://telescope.cdot.systems/deploy/log/previous to check the deployment log of
+  the previous deployment.
+
+## Real-time build log
+
+In the dashboard, you can check the log in real-time through the following links:
+
+- https://dev.api.telescope.cdot.systems/v1/status/build for `staging`
+- https://api.telescope.cdot.systems/v1/status/build for `production`
 
 ```
-$ curl http://dev.telescope.cdot.systems/log
+$ curl https://dev.telescope.cdot.systems/deploy/log
 ```
