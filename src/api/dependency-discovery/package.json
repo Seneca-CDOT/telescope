@@ -5,7 +5,10 @@
   "description": "A dependency graph compilation service for Telescope",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "env-cmd -f env.local nodemon src/server.js"
+    "dev": "env-cmd -f env.local nodemon src/server.js",
+    "lint": "pnpm eslint",
+    "eslint": "eslint --config .eslintrc.js \"**/*.js\"",
+    "eslint-fix": "eslint --config .eslintrc.js \"**/*.js\" --fix"
   },
   "repository": {
     "type": "git",
@@ -22,7 +25,9 @@
     "query-registry": "2.2.0"
   },
   "devDependencies": {
+    "@senecacdot/eslint-config-telescope": "workspace:1.0.0",
     "env-cmd": "10.1.0",
+    "eslint": "7.32.0",
     "nodemon": "2.0.15"
   }
 }

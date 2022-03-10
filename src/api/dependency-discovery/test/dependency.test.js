@@ -14,10 +14,11 @@ const depsList = [
 ];
 
 jest.mock('../src/dependency-list');
+const { __setMockDepList } = require('../src/dependency-list');
 
 describe('GET /projects', () => {
   beforeEach(() => {
-    require('../src/dependency-list').__setMockDepList(depsList);
+    __setMockDepList(depsList);
   });
 
   test('Should return 200 and an array of dependencies', async () => {
