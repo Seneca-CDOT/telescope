@@ -9,11 +9,7 @@
     "coverage": "jest -c jest.config.js --collect-coverage",
     "eslint": "eslint --config .eslintrc.js \"**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"**/*.js\" --fix",
-    "lint": "pnpm eslint",
-    "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml}\"",
-    "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml}\"",
-    "prepare": "husky install",
-    "pre-commit": "pretty-quick --staged && pnpm lint"
+    "lint": "pnpm eslint"
   },
   "repository": "Seneca-CDOT/satellite",
   "license": "BSD-2-Clause",
@@ -43,14 +39,11 @@
     "pnpm": ">=6"
   },
   "devDependencies": {
-    "eslint": "8.10.0",
-    "eslint-plugin-anti-trojan-source": "1.1.0",
-    "eslint-plugin-jest": "26.1.1",
+    "eslint": "7.32.0",
+    "@senecacdot/eslint-config-telescope": "latest",
     "get-port": "5.1.1",
-    "husky": "7.0.4",
     "jest": "27.5.1",
     "nock": "13.2.4",
-    "prettier": "2.5.1",
     "pretty-quick": "3.1.3"
   }
 }

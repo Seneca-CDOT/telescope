@@ -149,7 +149,7 @@ importers:
       env-cmd: 10.1.0
       nodemon: 2.0.15
     dependencies:
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
     devDependencies:
       env-cmd: 10.1.0
       nodemon: 2.0.15
@@ -161,7 +161,7 @@ importers:
       got: 11.8.3
       nodemon: 2.0.15
     dependencies:
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
       cheerio: 1.0.0-rc.10
       got: 11.8.3
     devDependencies:
@@ -176,7 +176,7 @@ importers:
       nodemon: 2.0.15
       sharp: 0.30.2
     dependencies:
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
       celebrate: 15.0.1
       got: 11.8.3
       sharp: 0.30.2
@@ -204,7 +204,7 @@ importers:
     dependencies:
       '@bull-board/api': 3.10.0
       '@bull-board/express': 3.10.0
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
       bull: 3.29.3
       clean-whitespace: 0.1.2
       highlight.js: 11.4.0
@@ -227,7 +227,7 @@ importers:
       express-handlebars: 6.0.3
       nodemon: 2.0.15
     dependencies:
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
       express: 4.17.3
       express-handlebars: 6.0.3
     devDependencies:
@@ -245,7 +245,7 @@ importers:
       normalize-url: 6.1.0
       supertest: 6.1.6
     dependencies:
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
       bull: 3.29.3
       express-validator: 6.14.0
       ioredis: 4.28.5
@@ -261,7 +261,7 @@ importers:
       express-validator: 6.14.0
       nodemon: 2.0.15
     dependencies:
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
       express-validator: 6.14.0
     devDependencies:
       nodemon: 2.0.15
@@ -280,7 +280,7 @@ importers:
       passport: 0.5.2
       passport-saml: 3.2.1
     dependencies:
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
       '@supabase/supabase-js': 1.29.4
       celebrate: 15.0.1
       connect-redis: 6.1.1
@@ -320,7 +320,7 @@ importers:
       '@octokit/plugin-retry': 3.0.9
       '@octokit/plugin-throttling': 3.5.2_@octokit+core@3.5.1
       '@popperjs/core': 2.11.2
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../satellite
       bootstrap: 5.1.3_@popperjs+core@2.11.2
       express: 4.17.3
       express-handlebars: 6.0.3
@@ -366,6 +366,53 @@ importers:
     devDependencies:
       '@docusaurus/types': 2.0.0-beta.17
       '@senecacdot/eslint-config-telescope': link:../../tools/eslint
+
+  src/satellite:
+    specifiers:
+      '@elastic/elasticsearch': 7.17.0
+      '@elastic/elasticsearch-mock': 0.3.1
+      '@godaddy/terminus': 4.10.2
+      '@senecacdot/eslint-config-telescope': latest
+      cors: 2.8.5
+      eslint: 7.32.0
+      express: 4.17.3
+      express-jwt: 6.1.1
+      get-port: 5.1.1
+      helmet: 5.0.2
+      http-errors: 2.0.0
+      ioredis: 4.28.5
+      ioredis-mock: 7.1.0
+      jest: 27.5.1
+      jsonwebtoken: 8.5.1
+      nock: 13.2.4
+      node-fetch: 2.6.7
+      pino: 7.8.0
+      pino-http: 6.6.0
+      pino-pretty: 7.5.3
+      pretty-quick: 3.1.3
+    dependencies:
+      '@elastic/elasticsearch': 7.17.0
+      '@elastic/elasticsearch-mock': 0.3.1
+      '@godaddy/terminus': 4.10.2
+      cors: 2.8.5
+      express: 4.17.3
+      express-jwt: 6.1.1
+      helmet: 5.0.2
+      http-errors: 2.0.0
+      ioredis: 4.28.5
+      ioredis-mock: 7.1.0_ioredis@4.28.5
+      jsonwebtoken: 8.5.1
+      node-fetch: 2.6.7
+      pino: 7.8.0
+      pino-http: 6.6.0
+      pino-pretty: 7.5.3
+    devDependencies:
+      '@senecacdot/eslint-config-telescope': link:../../tools/eslint
+      eslint: 7.32.0
+      get-port: 5.1.1
+      jest: 27.5.1
+      nock: 13.2.4
+      pretty-quick: 3.1.3_prettier@2.5.1
 
   src/web:
     specifiers:
@@ -446,7 +493,7 @@ importers:
       shelljs: 0.8.5
     dependencies:
       '@octokit/webhooks': 9.15.0
-      '@senecacdot/satellite': 1.26.0
+      '@senecacdot/satellite': link:../../src/satellite
       date-fns: 2.28.0
       dotenv: 10.0.0
       merge-stream: 2.0.0
@@ -3459,31 +3506,6 @@ packages:
       rollup: 2.67.2
     dev: false
 
-  /@senecacdot/satellite/1.26.0:
-    resolution: {integrity: sha512-GZTf0gN+2rfjFni/fT5uqCG2kjy+u1olSvtUMoTjjn5Kz52vmqZxDE9O2U1xlIuZ85ySiPnG0chfZamTSic1YQ==}
-    engines: {node: '>=14.0.0', pnpm: '>=6'}
-    dependencies:
-      '@elastic/elasticsearch': 7.17.0
-      '@elastic/elasticsearch-mock': 0.3.1
-      '@godaddy/terminus': 4.10.2
-      cors: 2.8.5
-      express: 4.17.3
-      express-jwt: 6.1.0
-      helmet: 4.6.0
-      http-errors: 1.8.1
-      ioredis: 4.28.5
-      ioredis-mock: 5.9.1_ioredis@4.28.5
-      jsonwebtoken: 8.5.1
-      node-fetch: 2.6.7
-      pino: 7.8.0
-      pino-http: 6.6.0
-      pino-pretty: 7.5.1
-    transitivePeerDependencies:
-      - encoding
-      - redis-commands
-      - supports-color
-    dev: false
-
   /@sideway/address/4.1.3:
     resolution: {integrity: sha512-8ncEUtmnTsMmL7z1YPB47kPUq7LpKWJNFPsRzHiIajGC5uXlWGn+AmkYPcHNl8S4tcEGx+cnORnNYaw2wvL+LQ==}
     dependencies:
@@ -4192,13 +4214,13 @@ packages:
       - typescript
     dev: true
 
-  /@typescript-eslint/experimental-utils/5.12.0_eslint@7.32.0:
-    resolution: {integrity: sha512-iFVADWH2CmiDF+E9kFK2r474BO2JILDKw1NVD5ytqHrM3ezsfdu5uo6B+77DH0suM7iUC/yOayHNziuiI9BPbQ==}
+  /@typescript-eslint/experimental-utils/5.14.0_eslint@7.32.0:
+    resolution: {integrity: sha512-ke48La1A/TWAn949cdgQiP3oK0NT7ArhDAOVOmNLVjT/uAXlFyrJY8dM4qqxHrATzIp8glg+G2OZjy2lRKBIUA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
-      '@typescript-eslint/utils': 5.12.0_eslint@7.32.0
+      '@typescript-eslint/utils': 5.14.0_eslint@7.32.0
       eslint: 7.32.0
     transitivePeerDependencies:
       - supports-color
@@ -4231,12 +4253,12 @@ packages:
       '@typescript-eslint/visitor-keys': 4.33.0
     dev: true
 
-  /@typescript-eslint/scope-manager/5.12.0:
-    resolution: {integrity: sha512-GAMobtIJI8FGf1sLlUWNUm2IOkIjvn7laFWyRx7CLrv6nLBI7su+B7lbStqVlK5NdLvHRFiJo2HhiDF7Ki01WQ==}
+  /@typescript-eslint/scope-manager/5.14.0:
+    resolution: {integrity: sha512-LazdcMlGnv+xUc5R4qIlqH0OWARyl2kaP8pVCS39qSL3Pd1F7mI10DbdXeARcE62sVQE4fHNvEqMWsypWO+yEw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      '@typescript-eslint/types': 5.12.0
-      '@typescript-eslint/visitor-keys': 5.12.0
+      '@typescript-eslint/types': 5.14.0
+      '@typescript-eslint/visitor-keys': 5.14.0
     dev: true
 
   /@typescript-eslint/types/4.33.0:
@@ -4244,8 +4266,8 @@ packages:
     engines: {node: ^8.10.0 || ^10.13.0 || >=11.10.1}
     dev: true
 
-  /@typescript-eslint/types/5.12.0:
-    resolution: {integrity: sha512-JowqbwPf93nvf8fZn5XrPGFBdIK8+yx5UEGs2QFAYFI8IWYfrzz+6zqlurGr2ctShMaJxqwsqmra3WXWjH1nRQ==}
+  /@typescript-eslint/types/5.14.0:
+    resolution: {integrity: sha512-BR6Y9eE9360LNnW3eEUqAg6HxS9Q35kSIs4rp4vNHRdfg0s+/PgHgskvu5DFTM7G5VKAVjuyaN476LCPrdA7Mw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
@@ -4269,8 +4291,8 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/typescript-estree/5.12.0:
-    resolution: {integrity: sha512-Dd9gVeOqt38QHR0BEA8oRaT65WYqPYbIc5tRFQPkfLquVEFPD1HAtbZT98TLBkEcCkvwDYOAvuSvAD9DnQhMfQ==}
+  /@typescript-eslint/typescript-estree/5.14.0:
+    resolution: {integrity: sha512-QGnxvROrCVtLQ1724GLTHBTR0lZVu13izOp9njRvMkCBgWX26PKvmMP8k82nmXBRD3DQcFFq2oj3cKDwr0FaUA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -4278,8 +4300,8 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@typescript-eslint/types': 5.12.0
-      '@typescript-eslint/visitor-keys': 5.12.0
+      '@typescript-eslint/types': 5.14.0
+      '@typescript-eslint/visitor-keys': 5.14.0
       debug: 4.3.3
       globby: 11.1.0
       is-glob: 4.0.3
@@ -4289,16 +4311,16 @@ packages:
       - supports-color
     dev: true
 
-  /@typescript-eslint/utils/5.12.0_eslint@7.32.0:
-    resolution: {integrity: sha512-k4J2WovnMPGI4PzKgDtQdNrCnmBHpMUFy21qjX2CoPdoBcSBIMvVBr9P2YDP8jOqZOeK3ThOL6VO/sy6jtnvzw==}
+  /@typescript-eslint/utils/5.14.0_eslint@7.32.0:
+    resolution: {integrity: sha512-EHwlII5mvUA0UsKYnVzySb/5EE/t03duUTweVy8Zqt3UQXBrpEVY144OTceFKaOe4xQXZJrkptCf7PjEBeGK4w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
     dependencies:
       '@types/json-schema': 7.0.9
-      '@typescript-eslint/scope-manager': 5.12.0
-      '@typescript-eslint/types': 5.12.0
-      '@typescript-eslint/typescript-estree': 5.12.0
+      '@typescript-eslint/scope-manager': 5.14.0
+      '@typescript-eslint/types': 5.14.0
+      '@typescript-eslint/typescript-estree': 5.14.0
       eslint: 7.32.0
       eslint-scope: 5.1.1
       eslint-utils: 3.0.0_eslint@7.32.0
@@ -4315,11 +4337,11 @@ packages:
       eslint-visitor-keys: 2.1.0
     dev: true
 
-  /@typescript-eslint/visitor-keys/5.12.0:
-    resolution: {integrity: sha512-cFwTlgnMV6TgezQynx2c/4/tx9Tufbuo9LPzmWqyRC3QC4qTGkAG1C6pBr0/4I10PAI/FlYunI3vJjIcu+ZHMg==}
+  /@typescript-eslint/visitor-keys/5.14.0:
+    resolution: {integrity: sha512-yL0XxfzR94UEkjBqyymMLgCBdojzEuy/eim7N9/RIcTNxpJudAcqsU8eRyfzBbcEzGoPWfdM3AGak3cN08WOIw==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
-      '@typescript-eslint/types': 5.12.0
+      '@typescript-eslint/types': 5.14.0
       eslint-visitor-keys: 3.3.0
     dev: true
 
@@ -7728,7 +7750,7 @@ packages:
         optional: true
     dependencies:
       '@typescript-eslint/eslint-plugin': 4.33.0_@typescript-eslint+parser@4.33.0
-      '@typescript-eslint/experimental-utils': 5.12.0_eslint@7.32.0
+      '@typescript-eslint/experimental-utils': 5.14.0_eslint@7.32.0
       eslint: 7.32.0
       jest: 27.5.1
     transitivePeerDependencies:
@@ -8109,14 +8131,14 @@ packages:
     resolution: {integrity: sha1-yr7HgSnEy5DNf7iU364huC4nywc=}
     dev: false
 
-  /express-jwt/6.1.0:
-    resolution: {integrity: sha512-mmSR52Ps1FMeGwchroHzEJONWhsobd5KHVVKBffYiUEpZh9iK9wI9ZWkmzY5ROwWQtJLNGHV/VUMLh2M208s4Q==}
+  /express-jwt/6.1.1:
+    resolution: {integrity: sha512-m8gkY04v5jtiFZn6bYQINYX/DVXq1DVb5nIW7H8l87qJ4BBvtQKFRpxyRE31odct7OPfHdT+B8678zJHhlMrpw==}
     engines: {node: '>= 8.0.0'}
     dependencies:
       async: 1.5.2
       express-unless: 1.0.0
       jsonwebtoken: 8.5.1
-      lodash.set: 4.3.2
+      lodash: 4.17.21
     dev: false
 
   /express-session/1.17.2:
@@ -8754,7 +8776,6 @@ packages:
   /get-port/5.1.1:
     resolution: {integrity: sha512-g/Q1aTSDOxFpchXC4i8ZWvxA1lnPqx/JHqcpIw0/LX9T8x/GBbi6YnlN5nhaKIFkT8oFsscUKgDJYxfwfS6QsQ==}
     engines: {node: '>=8'}
-    dev: false
 
   /get-repo-package-json/2.0.0:
     resolution: {integrity: sha512-LGadoJS49Wbm6R1nLL2BFwnQAVowiS6Akufajt94R/uaMq85PSX/tckvS+qH5C5Pas3ddEfXEq/vvD5dQIysag==}
@@ -9169,6 +9190,11 @@ packages:
     engines: {node: '>=10.0.0'}
     dev: false
 
+  /helmet/5.0.2:
+    resolution: {integrity: sha512-QWlwUZZ8BtlvwYVTSDTBChGf8EOcQ2LkGMnQJxSzD1mUu8CCjXJZq/BXP8eWw4kikRnzlhtYo3lCk0ucmYA3Vg==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   /highlight.js/11.4.0:
     resolution: {integrity: sha512-nawlpCBCSASs7EdvZOYOYVkJpGmAOKMYZgZtUqSRqodZE0GRVcFKwo1RcpeOemqh9hyttTdd5wDBwHkuSyUfnA==}
     engines: {node: '>=12.0.0'}
@@ -9329,6 +9355,17 @@ packages:
       inherits: 2.0.4
       setprototypeof: 1.2.0
       statuses: 1.5.0
+      toidentifier: 1.0.1
+    dev: false
+
+  /http-errors/2.0.0:
+    resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
+    engines: {node: '>= 0.8'}
+    dependencies:
+      depd: 2.0.0
+      inherits: 2.0.4
+      setprototypeof: 1.2.0
+      statuses: 2.0.1
       toidentifier: 1.0.1
     dev: false
 
@@ -9611,6 +9648,19 @@ packages:
       fengari-interop: 0.1.3_fengari@0.1.4
       ioredis: 4.28.5
       lodash: 4.17.21
+      standard-as-callback: 2.1.0
+    dev: false
+
+  /ioredis-mock/7.1.0_ioredis@4.28.5:
+    resolution: {integrity: sha512-Qq71Xf1ACz/k/DHF9ZH9owROLQSYGWGk/nOKIl1220mMuWRNWwLfgIxdK4KimuzZGNFpZLfN7QDAHrVjEfS0LA==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      ioredis: 4.x
+    dependencies:
+      fengari: 0.1.4
+      fengari-interop: 0.1.3_fengari@0.1.4
+      ioredis: 4.28.5
+      redis-commands: 1.7.0
       standard-as-callback: 2.1.0
     dev: false
 
@@ -11146,6 +11196,7 @@ packages:
 
   /lodash.set/4.3.2:
     resolution: {integrity: sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=}
+    dev: true
 
   /lodash.some/4.6.0:
     resolution: {integrity: sha1-G7nzFO9ri63tE7VJFpsqlF62jk0=}
@@ -12483,24 +12534,6 @@ packages:
       get-caller-file: 2.0.5
       pino: 7.8.0
       pino-std-serializers: 5.1.1
-    dev: false
-
-  /pino-pretty/7.5.1:
-    resolution: {integrity: sha512-xEOUJiokdBGcZ9d0v7OY6SqEp+rrVH2drE3bHOUsK8elw44eh9V83InZqeL1dFwgD1IDnd6crUoec3hIXxfdBQ==}
-    hasBin: true
-    dependencies:
-      args: 5.0.1
-      colorette: 2.0.16
-      dateformat: 4.6.3
-      fast-safe-stringify: 2.1.1
-      joycon: 3.1.1
-      pino-abstract-transport: 0.5.0
-      pump: 3.0.0
-      readable-stream: 3.6.0
-      rfdc: 1.3.0
-      secure-json-parse: 2.4.0
-      sonic-boom: 2.6.0
-      strip-json-comments: 3.1.1
     dev: false
 
   /pino-pretty/7.5.3:
@@ -14906,6 +14939,11 @@ packages:
   /statuses/1.5.0:
     resolution: {integrity: sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /statuses/2.0.1:
+    resolution: {integrity: sha512-RwNA9Z/7PrK06rYLIzFMlaF+l73iwpzsqRIFgbMLbTcLD6cOao82TaWefPXQvB2fOC4AjuYSEndS7N/mTCbkdQ==}
+    engines: {node: '>= 0.8'}
     dev: false
 
   /std-env/3.0.1:

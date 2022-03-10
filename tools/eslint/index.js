@@ -14,7 +14,7 @@ module.exports = {
     'plugin:jest-playwright/recommended',
     'plugin:import/recommended',
   ],
-  plugins: ['prettier', 'promise', 'jest', 'anti-trojan-source'],
+  plugins: ['prettier', 'promise', 'jest', 'anti-trojan-source', '@typescript-eslint'],
   settings: {
     'import/resolver': {
       node: {},

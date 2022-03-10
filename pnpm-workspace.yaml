@@ -6,5 +6,7 @@ packages:
   - 'src/web'
   # microservices
   - 'src/api/*'
+  # satellite
+  - 'src/satellite'
   # autodeployment
   - 'tools/*'

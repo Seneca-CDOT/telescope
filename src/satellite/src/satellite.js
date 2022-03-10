@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const { createTerminus } = require('@godaddy/terminus');
 
 const { createApp, createRouter } = require('./app');
