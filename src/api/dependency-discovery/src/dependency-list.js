@@ -13,8 +13,11 @@ const getDependencies = (function () {
 
       dependencyList
         .split(/\r\n?|\n/g)
-        .filter((line) => !!line)
+        .filter((line) => line !== '')
         .forEach((name) => {
+          // To determine whether a project name is a
+          // dependency or not, we initialize to null.
+          // Non-dependency project would evaluate to 'undefined'.
           dependencies[name] = null;
         });
     }
