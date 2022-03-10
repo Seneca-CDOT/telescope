@@ -22,7 +22,10 @@ By default, the server is listening on port 10500 (http://localhost:10500).
 ### Examples
 
 - `GET /projects` - Returns an array of the package names used by Telescope
--
+- `GET /projects/:name` - Returns an object with npm package information of a
+  specific project
+- `GET /projects/:namespace/:name` - Returns an object with npm package information
+  of a specific project
 
 ## Docker / `docker-compose`
 

@@ -13,13 +13,13 @@ const depsList = [
   '@babel/helper-create-regexp-features-plugin',
 ];
 
-jest.mock('../src/dependency-list', () => {
-  return jest.fn().mockImplementation(() => {
-    return Promise.resolve(depsList);
-  });
-});
+jest.mock('../src/dependency-list');
 
 describe('GET /projects', () => {
+  beforeEach(() => {
+    require('../src/dependency-list').__setMockDepList(depsList);
+  });
+
   test('Should return 200 and an array of dependencies', async () => {
     const res = await request(app).get('/projects');
     expect(res.status).toBe(200);

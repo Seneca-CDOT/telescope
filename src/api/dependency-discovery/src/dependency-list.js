@@ -1,14 +1,58 @@
 const { readFile } = require('fs/promises');
 const { join } = require('path');
 const { cwd } = require('process');
+const { getPackument } = require('query-registry');
 
-async function getDependencies() {
-  const dependencies = await readFile(join(cwd(), 'deps.txt'), 'utf8');
+const getDependencies = (function () {
+  let dependencies = null;
 
-  // The order of the alternatives is important!
-  // The regex engine will favor the first pattern on an alternation
-  // even if the other alternatives are subpatterns
-  return dependencies.split(/\r\n|\n|\r/).filter((line) => line !== '');
+  return async () => {
+    if (!dependencies) {
+      dependencies = {};
+      const dependencyList = await readFile(join(cwd(), 'deps.txt'), 'utf8');
+
+      dependencyList
+        .split(/\r\n?|\n/g)
+        .filter((line) => line !== '')
+        .forEach((name) => {
+          // To determine whether a project name is a
+          // dependency or not, we initialize to null.
+          // Non-dependency project would evaluate to 'undefined'.
+          dependencies[name] = null;
+        });
+    }
+
+    return dependencies;
+  };
+})();
+
+async function getDependencyList() {
+  const dependencies = await getDependencies();
+  return Object.keys(dependencies);
 }
 
-module.exports = getDependencies;
+async function getNpmPackageInfo(packageName) {
+  if (!(await isPackageDependency(packageName))) {
+    return null;
+  }
+
+  const dependencies = await getDependencies();
+
+  if (dependencies[packageName] === null) {
+    const { id, license, gitRepository } = await getPackument({ name: packageName });
+    dependencies[packageName] = { id, license, gitRepository };
+  }
+
+  return dependencies[packageName];
+}
+
+async function isPackageDependency(packageName) {
+  const dependencies = await getDependencies();
+  return Object.prototype.hasOwnProperty.call(dependencies, packageName);
+}
+
+module.exports = {
+  getDependencyList,
+  getNpmPackageInfo,
+  isPackageDependency,
+};
