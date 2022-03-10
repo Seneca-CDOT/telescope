@@ -59,8 +59,6 @@ const SearchResults = () => {
   const [totalPosts, setTotalPosts] = useState(0);
 
   const prepareUrl = (index: number) =>
-    // `${searchServiceUrl}?text=${encodeURIComponent(textParam)}&filter=${filter}&page=${index}`;
-
     `${searchServiceUrl}/advanced/?${filter === 'author' ? `author` : `post`}=${encodeURIComponent(
       textParam
     )}&page=${index}`;
