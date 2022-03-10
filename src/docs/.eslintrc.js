@@ -11,7 +11,6 @@ module.exports = {
       ],
       plugins: ['react', 'react-hooks'],
       rules: {
-        '@typescript-eslint/no-shadow': 'off',
         // https://github.com/facebook/docusaurus/blob/main/.eslintrc.js#L122
         // Ignore certain webpack aliases because they can't be resolved
         'import/no-unresolved': [

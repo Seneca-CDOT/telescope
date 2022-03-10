@@ -17,7 +17,7 @@ const languages: Array<{ name: string; code: string }> = [
   { name: 'Español', code: 'es' },
 ];
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     selectBox: {
       width: '10rem',

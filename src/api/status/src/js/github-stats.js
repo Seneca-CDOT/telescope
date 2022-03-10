@@ -1,6 +1,6 @@
 const { logger } = require('@senecacdot/satellite');
-const octokit = require('./octokit');
-const redis = require('../redis');
+const octokit = require('./octokit.js');
+const redis = require('../redis.js');
 
 const cacheTime = 60 * 10; // 10 mins of cache time
 

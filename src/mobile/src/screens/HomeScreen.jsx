@@ -1,6 +1,6 @@
-import { View, StyleSheet } from 'react-native';
-import Banner from '../components/Banner/Banner';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Banner from '../components/Banner/Banner';
 
 const styles = StyleSheet.create({
   container: {

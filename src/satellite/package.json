@@ -7,8 +7,8 @@
     "test:watch": "jest --watch",
     "test": "jest -c jest.config.js",
     "coverage": "jest -c jest.config.js --collect-coverage",
-    "eslint": "eslint --config .eslintrc.js \"**/*.js\"",
-    "eslint-fix": "eslint --config .eslintrc.js \"**/*.js\" --fix",
+    "eslint": "eslint --config .eslintrc.js \"./src/**/*.js\"",
+    "eslint-fix": "eslint --config .eslintrc.js \"./src/**/*.js\" --fix",
     "lint": "pnpm eslint"
   },
   "repository": "Seneca-CDOT/satellite",
@@ -39,8 +39,8 @@
     "pnpm": ">=6"
   },
   "devDependencies": {
-    "eslint": "7.32.0",
     "@senecacdot/eslint-config-telescope": "latest",
+    "eslint": "7.32.0",
     "get-port": "5.1.1",
     "jest": "27.5.1",
     "nock": "13.2.4",

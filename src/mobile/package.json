@@ -8,6 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "eslint": "eslint --config .eslintrc.js \"**/*.{js,jsx}\"",
+    "eslint-fix": "eslint --config .eslintrc.js \"**/*.{js,jsx}\" --fix",
     "lint": "pnpm eslint"
   },
   "dependencies": {
@@ -27,7 +29,8 @@
   },
   "devDependencies": {
     "@senecacdot/eslint-config-telescope": "1.0.0",
-    "@babel/core": "7.17.5"
+    "@babel/core": "7.17.5",
+    "eslint": "7.32.0"
   },
   "private": true
 }

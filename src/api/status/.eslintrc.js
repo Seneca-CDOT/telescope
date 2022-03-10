@@ -2,7 +2,7 @@ module.exports = {
   extends: '@senecacdot/eslint-config-telescope',
   overrides: [
     {
-      files: ['public/**/*.js'],
+      files: ['./src/**/*.js'],
       rules: {
         'import/extensions': ['error', 'always'],
       },
