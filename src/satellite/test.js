@@ -73,10 +73,7 @@ describe('Satellite()', () => {
     token = createToken({ sub: 'test-user@email.com' });
   });
 
-  afterEach((done) => {
-    service.stop(done);
-    service = null;
-  });
+  afterEach(() => service.stop());
 
   test('start() should throw if port not defined', () => {
     expect(() => service.start()).toThrow();
@@ -101,7 +98,8 @@ describe('Satellite()', () => {
       service.start(port, async () => {
         const res = await fetch(`${url}/healthcheck`);
         expect(res.ok).toBe(false);
-        service.stop(done);
+        await service.stop();
+        done();
       });
     });
 
@@ -115,7 +113,8 @@ describe('Satellite()', () => {
       service.start(port, async () => {
         const res = await fetch(`${url}/healthcheck`);
         expect(res.ok).toBe(true);
-        service.stop(done);
+        await service.stop();
+        done();
       });
     });
   });
@@ -130,7 +129,8 @@ describe('Satellite()', () => {
         const res = await fetch(`${url}/always-200`);
         expect(res.ok).toBe(true);
         expect(res.headers.get('permissions-policy')).toBe('interest-cohort=()');
-        service.stop(done);
+        await service.stop();
+        done();
       });
     });
 
@@ -142,7 +142,8 @@ describe('Satellite()', () => {
         const res = await fetch(`${url}/always-200`);
         expect(res.ok).toBe(true);
         expect(res.headers.get('permissions-policy')).toBe(null);
-        service.stop(done);
+        await service.stop();
+        done();
       });
     });
   });
@@ -186,7 +187,8 @@ describe('Satellite()', () => {
       expect(res.ok).toBe(true);
       const body = await res.json();
       expect(body).toEqual({ testValue: 'test' });
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -206,7 +208,8 @@ describe('Satellite()', () => {
       expect(res.ok).toBe(true);
       const body = await res.json();
       expect(body).toEqual({ hello: 'world' });
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -226,7 +229,8 @@ describe('Satellite()', () => {
       expect(res.ok).toBe(true);
       const body = await res.json();
       expect(body).toEqual({ testValue: 'test' });
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -252,7 +256,8 @@ describe('Satellite()', () => {
       expect(res.ok).toBe(true);
       const body = await res.json();
       expect(body).toEqual({ testValue: 'parsers-router' });
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -268,7 +273,7 @@ describe('Satellite()', () => {
       const testRoute = async () => {
         const res = await fetch(`${url}/router/sub-router`);
         expect(res.ok).toBe(true);
-        service.stop(done);
+        done();
       };
 
       service.start(port, () => {
@@ -313,7 +318,8 @@ describe('Satellite()', () => {
       body = await res.json();
       expect(body).toEqual({ hello: 'protected' });
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -381,7 +387,8 @@ describe('Satellite()', () => {
       expect(res.ok).toBe(false);
       expect(res.status).toEqual(401);
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -441,7 +448,8 @@ describe('Satellite()', () => {
       body = await res.json();
       expect(body).toEqual({ hello: 'protected' });
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -483,7 +491,8 @@ describe('Satellite()', () => {
       });
       expect(res.ok).toBe(true);
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -530,7 +539,8 @@ describe('Satellite()', () => {
       body = await res.json();
       expect(body).toEqual({ hello: 'protected' });
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -577,7 +587,8 @@ describe('Satellite()', () => {
       body = await res.json();
       expect(body).toEqual({ hello: 'protected' });
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -622,7 +633,8 @@ describe('Satellite()', () => {
       body = await res.json();
       expect(body).toEqual({ hello: 'protected' });
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -666,7 +678,8 @@ describe('Satellite()', () => {
       expect(res.ok).toBe(false);
       expect(res.status).toEqual(403);
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -712,7 +725,8 @@ describe('Satellite()', () => {
       expect(res.ok).toBe(false);
       expect(res.status).toEqual(403);
 
-      service.stop(done);
+      await service.stop();
+      done();
     });
   });
 
@@ -771,8 +785,7 @@ describe('Satellite()', () => {
       expect(res.ok).toBe(true);
       const body = await res.json();
       expect(body).toEqual({ message: 'hello world' });
-
-      service.stop(done);
+      done();
     };
 
     service.start(port, () => {
@@ -805,7 +818,8 @@ describe('Satellite()', () => {
         });
         expect(res.ok).toBe(true);
         expect(res.headers.get('access-control-allow-origin')).toBe(null);
-        corsService.stop(done);
+        await corsService.stop();
+        done();
       });
     });
 
@@ -822,7 +836,8 @@ describe('Satellite()', () => {
         });
         expect(res.ok).toBe(true);
         expect(res.headers.get('access-control-allow-origin')).toBe('http://example.com');
-        corsService.stop(done);
+        await corsService.stop();
+        done();
       });
     });
   });
@@ -847,7 +862,8 @@ describe('Satellite()', () => {
         const res = await fetch(`${url}/always-200`);
         expect(res.ok).toBe(true);
         expect(res.headers.get('x-xss-protection')).toBe(null);
-        helmetService.stop(done);
+        await helmetService.stop();
+        done();
       });
     });
 
@@ -861,7 +877,8 @@ describe('Satellite()', () => {
         const res = await fetch(`${url}/always-200`);
         expect(res.ok).toBe(true);
         expect(res.headers.get('x-xss-protection')).toBe(null);
-        helmetService.stop(done);
+        await helmetService.stop();
+        done();
       });
     });
   });
@@ -986,10 +1003,14 @@ describe('Elastic()', () => {
   });
 
   describe('Tests for mock Elastic()', () => {
-    const client = Elastic();
-    const { mock } = client;
+    let client;
+    let mock;
 
-    beforeEach(() => mock.clearAll());
+    beforeEach(() => {
+      client = Elastic();
+      mock = client.mock;
+      mock.clearAll();
+    });
 
     afterAll(() => {
       mock.clearAll();
