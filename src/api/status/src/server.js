@@ -4,11 +4,11 @@ const path = require('path');
 const { engine } = require('express-handlebars');
 const fs = require('fs/promises');
 const getPackage = require('get-repo-package-json');
-const { check } = require('./services');
-const getGitHubData = require('./js/github-stats');
-const getFeedCount = require('./js/feed-stats');
-const getPostsCount = require('./js/posts-stats');
-const getJobCount = require('./js/queue-stats');
+const { check } = require('./services.js');
+const getGitHubData = require('./js/github-stats.js');
+const getFeedCount = require('./js/feed-stats.js');
+const getPostsCount = require('./js/posts-stats.js');
+const getJobCount = require('./js/queue-stats.js');
 
 // We need to be able to talk to the autodeployment server
 const autodeploymentHost = process.env.WEB_URL || 'localhost';

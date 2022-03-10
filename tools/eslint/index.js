@@ -120,7 +120,7 @@ module.exports = {
      * https://github.com/typescript-eslint/typescript-eslint/issues/2483
      */
     'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': 'error',
+    '@typescript-eslint/no-shadow': 'off',
 
     /**
      * Halt if a trojan source attack is found

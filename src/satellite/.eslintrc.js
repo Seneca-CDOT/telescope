@@ -3,7 +3,10 @@ module.exports = {
 
   overrides: [
     {
-      files: ['./**/*.ts', './**/*.tsx'],
+      files: ['./src/**/*.js'],
+      rules: {
+        'no-unused-vars': 'error',
+      },
       env: {
         node: true,
         commonjs: true,

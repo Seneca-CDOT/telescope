@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint no-unused-vars: off */
 // ESLint override to prevent errors for callback vars, e.g. (req, user) => {...}
 
 const nock = require('nock');
