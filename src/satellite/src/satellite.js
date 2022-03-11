@@ -1,5 +1,6 @@
 /* eslint-disable global-require */
 const { createTerminus } = require('@godaddy/terminus');
+const { promisify } = require('util');
 
 const { createApp, createRouter } = require('./app');
 const redis = require('./redis');
@@ -55,9 +56,7 @@ class Satellite {
       onSignal() {
         // Do any async cleanup required to gracefully shutdown. The calls to
         // redis/elastic shutDown() will be no-ops if no connections are open.
-        return Promise.all([this.shutDown(), redis.shutDown(), elastic.shutDown()]).catch((err) =>
-          logger.error({ err }, 'unexpected error while shutting down')
-        );
+        return this.stop();
       },
       logger: (...args) => logger.error(...args),
     });
@@ -66,22 +65,14 @@ class Satellite {
     this.server.listen(port, callback);
   }
 
-  stop(callback) {
-    const self = this;
+  stop() {
+    const { server } = this;
 
-    function finished() {
-      self.server = null;
-      if (typeof callback === 'function') {
-        callback();
-      }
-    }
+    const promisifiedClose = server
+      ? promisify(server.close.bind(server))
+      : () => Promise.resolve();
 
-    if (!this.server) {
-      finished();
-      return;
-    }
-
-    this.server.close(finished);
+    return Promise.all([this.shutDown(), redis.shutDown(), elastic.shutDown(), promisifiedClose()]);
   }
 }
 
