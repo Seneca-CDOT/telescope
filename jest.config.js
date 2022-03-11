@@ -9,5 +9,7 @@ module.exports = {
     '<rootDir>/src/api/**/jest.config.js',
     // Our front-end
     '<rootDir>/src/web/jest.config.js',
+    // Satellite
+    '<rootDir>/src/satellite/jest.config.js',
   ],
 };
