@@ -151,7 +151,7 @@ class Post {
     }
 
     // Wrap an <a> tag on any link inside our content
-    article.content = linkifyHtml(article.content);
+    article.content = linkifyHtml(article.content, { ignoreTags: ['img'] });
 
     let html;
     try {

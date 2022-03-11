@@ -327,13 +327,6 @@ function handleZoom(e: MouseEvent) {
     e.preventDefault();
     zoomInImage(e.target);
   }
-  // if the user clicks an anchor with an image inside, do not open the image link in a new tab.
-  else if (
-    e.target instanceof HTMLAnchorElement &&
-    e.target.firstChild instanceof HTMLImageElement
-  ) {
-    e.preventDefault();
-  }
 }
 
 const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
