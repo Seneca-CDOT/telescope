@@ -2,7 +2,9 @@ import { createContext, ReactNode, useState, useEffect, useCallback } from 'reac
 import { useLocalStorage } from 'react-use';
 import { useRouter } from 'next/router';
 import { nanoid } from 'nanoid';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
+import supabase from '../supabase';
 import User from '../User';
 import { loginUrl, logoutUrl, webUrl } from '../config';
 
@@ -12,6 +14,7 @@ export interface AuthContextInterface {
   register: (token: string) => void;
   user?: User;
   token?: string;
+  supabase?: SupabaseClient;
 }
 
 const AuthContext = createContext<AuthContextInterface>({
@@ -117,6 +120,8 @@ const AuthProvider = ({ children }: Props) => {
           throw new Error(`login state '${state}' doesn't match expected state '${authState}'`);
         }
 
+        // Override the JWT on the public client
+        supabase.auth.setAuth(accessToken);
         // Store this token in localStorage and clear login state
         setToken(accessToken);
         removeAuthState();
@@ -137,7 +142,7 @@ const AuthProvider = ({ children }: Props) => {
   }
 
   return (
-    <AuthContext.Provider value={{ login, logout, register, user, token }}>
+    <AuthContext.Provider value={{ login, logout, register, user, token, supabase }}>
       {children}
     </AuthContext.Provider>
   );
