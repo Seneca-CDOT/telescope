@@ -17,6 +17,8 @@ const statusUrl = process.env.NEXT_PUBLIC_STATUS_URL;
 
 // Github sha commit
 const gitCommitSha = process.env.NEXT_PUBLIC_GIT_COMMIT;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const anonKey = process.env.NEXT_PUBLIC_ANON_KEY;
 
 const title = `Telescope`;
 const description = `A tool for tracking blogs in orbit around Seneca's open source involvement`;
@@ -38,6 +40,8 @@ export {
   webUrl,
   ssoServiceUrl,
   imageServiceUrl,
+  supabaseUrl,
+  anonKey,
   loginUrl,
   logoutUrl,
   userFeedsUrl,

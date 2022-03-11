@@ -22,9 +22,11 @@ jobs:
       search_url: 'https://api.telescope.cdot.systems/v1/search'
       feed_discovery_url: 'https://api.telescope.cdot.systems/v1/feed-discovery'
       status_url: 'https://api.telescope.cdot.systems/v1/status'
+      supabase_url: 'https://api.telescope.cdot.systems/v1/supabase'
     secrets:
       docker_username: ${{ secrets.DOCKER_CDOT_SYSTEMS_USERNAME }}
       docker_password: ${{ secrets.DOCKER_CDOT_SYSTEMS_PASSWORD }}
+      anon_key: ${{ secrets.SUPABASE_ANON_KEY}}
 
   release:
     runs-on: ubuntu-latest
