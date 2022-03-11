@@ -145,15 +145,19 @@ importers:
 
   src/api/dependency-discovery:
     specifiers:
+      '@senecacdot/eslint-config-telescope': workspace:1.0.0
       '@senecacdot/satellite': ^1.26.0
       env-cmd: 10.1.0
+      eslint: 7.32.0
       nodemon: 2.0.15
       query-registry: 2.2.0
     dependencies:
       '@senecacdot/satellite': link:../../satellite
       query-registry: 2.2.0
     devDependencies:
+      '@senecacdot/eslint-config-telescope': link:../../../tools/eslint
       env-cmd: 10.1.0
+      eslint: 7.32.0
       nodemon: 2.0.15
 
   src/api/feed-discovery:

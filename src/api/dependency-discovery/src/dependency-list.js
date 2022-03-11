@@ -31,6 +31,11 @@ async function getDependencyList() {
   return Object.keys(dependencies);
 }
 
+async function isPackageDependency(packageName) {
+  const dependencies = await getDependencies();
+  return Object.prototype.hasOwnProperty.call(dependencies, packageName);
+}
+
 async function getNpmPackageInfo(packageName) {
   if (!(await isPackageDependency(packageName))) {
     return null;
@@ -44,11 +49,6 @@ async function getNpmPackageInfo(packageName) {
   }
 
   return dependencies[packageName];
-}
-
-async function isPackageDependency(packageName) {
-  const dependencies = await getDependencies();
-  return Object.prototype.hasOwnProperty.call(dependencies, packageName);
 }
 
 module.exports = {
