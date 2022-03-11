@@ -5,7 +5,7 @@ import { MaterialIcons, Entypo, EvilIcons } from '@expo/vector-icons';
 import SearchScreen from '../screens/SearchScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SignUpScreen from '../screens/SignUpScreen';
-import ContactScreen from '../screens/ContactScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -54,7 +54,7 @@ const Navigation = () => {
       />
       <Tab.Screen
         name="Contact"
-        component={ContactScreen}
+        component={AboutScreen}
         options={{
           tabBarIcon: () => (
             <View style={styles.navBarIcon}>

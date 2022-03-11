@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import BannerButtons from './BannerButtons';
 import BannerText from './BannerText';
@@ -16,7 +17,6 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    boxSizing: 'border-box',
     margin: 0,
     backgroundColor: '#000000',
     opacity: 0.8,
