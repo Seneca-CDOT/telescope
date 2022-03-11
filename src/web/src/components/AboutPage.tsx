@@ -1,4 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from './LanguageSelector';
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -52,14 +54,22 @@ const useStyles = makeStyles((theme) => {
         color: theme.palette.primary.main,
       },
     },
+    languageSelector: {
+      position: 'absolute',
+      right: '10rem',
+    },
   };
 });
 
 const AboutPage = () => {
+  const { t } = useTranslation();
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <h1>About</h1>
+      <div className={classes.languageSelector}>
+        <LanguageSelector />
+      </div>
+      <h1> {t('about')}</h1>
       <p>
         One of the key features of Seneca&apos;s open source involvement has been the emphasis on
         sharing what we&apos;re working on, teaching, and learning through blogging. We believe that
