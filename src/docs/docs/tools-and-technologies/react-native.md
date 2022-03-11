@@ -79,3 +79,10 @@ Click on `debug remote JS` and then you can work on debugging the application us
 Remember to turn off `Remote JS debugging` mode or it will slow down the application
 
 :::
+
+## List of Useful Expo CLI Commands
+
+We did not use `Renovate-Bot` for our `mobile` subfolder. Instead [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) provide us with some helpful commands to diagnose and update our expo app.
+
+- `expo doctor`: Diagnose issues with the project (option`--fix-dependencies` help you to fix incompatible dependencies)
+- `expo upgrade` or `expo update`: Upgrade the project packages and config for the given SDK
