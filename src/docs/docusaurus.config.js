@@ -32,6 +32,10 @@ const config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        sitemap: {
+          changefreq: 'always',
+          priority: 0.5,
+        },
       }),
     ],
   ],
