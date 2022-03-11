@@ -145,7 +145,7 @@ importers:
 
   src/api/dependency-discovery:
     specifiers:
-      '@senecacdot/eslint-config-telescope': workspace:1.0.0
+      '@senecacdot/eslint-config-telescope': 1.0.0
       '@senecacdot/satellite': ^1.26.0
       env-cmd: 10.1.0
       eslint: 7.32.0
