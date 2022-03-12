@@ -25,7 +25,7 @@ const regex = /.*\.pnpm\/(@?[^@]+).*/g;
 
 console.log('Processing file...');
 const packageNames = [
-  ...new Set([...output.matchAll(regex)].map((results) => results[1].replaceAll('+', '/')).sort()),
+  ...new Set([...output.matchAll(regex)].map((results) => results[1].replace('+', '/')).sort()),
 ];
 
 const buffer = packageNames.join('\n');
