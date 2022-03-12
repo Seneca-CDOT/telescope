@@ -426,7 +426,7 @@ importers:
 
   src/web:
     specifiers:
-      '@fontsource/pt-serif': 4.5.2
+      '@fontsource/pt-serif': 4.5.3
       '@fontsource/spartan': 4.5.4
       '@material-ui/core': 4.12.3
       '@material-ui/icons': 4.11.2
@@ -462,7 +462,7 @@ importers:
       typescript: 4.4.4
       yup: 0.32.11
     dependencies:
-      '@fontsource/pt-serif': 4.5.2
+      '@fontsource/pt-serif': 4.5.3
       '@fontsource/spartan': 4.5.4
       '@material-ui/core': 4.12.3_b8fdba992ce7d797017dc07106486496
       '@material-ui/icons': 4.11.2_559d47d5a56c16e6435ddc61509dee08
@@ -2762,8 +2762,8 @@ packages:
       - supports-color
     dev: true
 
-  /@fontsource/pt-serif/4.5.2:
-    resolution: {integrity: sha512-8nnVehr92S7ubAPrI7QBOeyLBNBnB4EUvPL72EO+k0QNATPjMVGAwA0P2NSb3CZBtT8mBprYxoHsfijTiMl6Pg==}
+  /@fontsource/pt-serif/4.5.3:
+    resolution: {integrity: sha512-6850rlnGo1AebM+vO77YlQGnQdBATJn5j7sMtcO1ketNCM8n2y0aGAUSCS/rL3KWZrRB9z5i/WqpeFPCvxaF0A==}
     dev: false
 
   /@fontsource/spartan/4.5.4:
