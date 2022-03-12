@@ -175,9 +175,6 @@ services:
   # feed discovery service
   feed-discovery:
     container_name: 'feed-discovery'
-    build:
-      context: ../src/api/feed-discovery
-      dockerfile: Dockerfile
     environment:
       - NODE_ENV
       - FEED_DISCOVERY_PORT
