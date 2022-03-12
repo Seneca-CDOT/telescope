@@ -12,7 +12,7 @@
   },
   "version": "3.0.0",
   "dependencies": {
-    "@fontsource/pt-serif": "4.5.2",
+    "@fontsource/pt-serif": "4.5.3",
     "@fontsource/spartan": "4.5.4",
     "@material-ui/core": "4.12.3",
     "@material-ui/icons": "4.11.2",
