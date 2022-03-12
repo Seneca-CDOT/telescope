@@ -15,4 +15,5 @@ module.exports = {
   rootDir: '../..',
   testMatch: ['<rootDir>/src/satellite/test.js'],
   collectCoverageFrom: ['<rootDir>/src/satellite/src/**/*.js'],
+  moduleDirectories: ['<rootDir>/src/satellite/node_modules', 'node_modules'],
 };

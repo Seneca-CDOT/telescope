@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/satellite#readme",
   "dependencies": {
-    "@elastic/elasticsearch": "7.17.0",
-    "@elastic/elasticsearch-mock": "0.3.1",
+    "@elastic/elasticsearch": "8.1.0",
+    "@elastic/elasticsearch-mock": "2.0.0",
     "@godaddy/terminus": "4.10.2",
     "cors": "2.8.5",
     "express": "4.17.3",
