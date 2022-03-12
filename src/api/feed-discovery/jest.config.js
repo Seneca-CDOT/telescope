@@ -5,5 +5,4 @@ module.exports = {
   rootDir: '../../..',
   testMatch: ['<rootDir>/src/api/feed-discovery/test/*.test.js'],
   collectCoverageFrom: ['<rootDir>/src/api/feed-discovery/src/**/*.js'],
-  testEnvironment: 'node',
 };

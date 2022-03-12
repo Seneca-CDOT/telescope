@@ -1,3 +1,5 @@
+const baseConfig = require('../../jest.config.base');
+
 // Define the env variables our code expects
 process.env = Object.assign(process.env, {
   JWT_SECRET: 'your-super-secret-jwt-token-with-at-least-32-characters-long',
@@ -9,11 +11,8 @@ process.env = Object.assign(process.env, {
 });
 
 module.exports = {
-  testEnvironment: 'node',
-  bail: 1,
-  verbose: true,
-  testPathIgnorePatterns: ['/node_modules/'],
-  coverageDirectory: '<rootDir>/coverage',
-  collectCoverageFrom: ['<rootDir>/src/**/*.js'],
-  testTimeout: 8000,
+  ...baseConfig,
+  rootDir: '../..',
+  testMatch: ['<rootDir>/src/satellite/test.js'],
+  collectCoverageFrom: ['<rootDir>/src/satellite/src/**/*.js'],
 };
