@@ -115,6 +115,10 @@ services:
   dependency-discovery:
     restart: unless-stopped
 
+  feed-discovery:
+    image: docker.cdot.systems/feed-discovery
+    restart: unless-stopped
+
   ##############################################################################
   # Third-Party Dependencies and Support Services
   ##############################################################################
