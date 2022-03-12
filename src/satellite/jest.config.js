@@ -13,6 +13,6 @@ process.env = Object.assign(process.env, {
 module.exports = {
   ...baseConfig,
   rootDir: '../..',
-  testMatch: ['<rootDir>/src/satellite'],
+  testMatch: ['<rootDir>/src/satellite/test.js'],
   collectCoverageFrom: ['<rootDir>/src/satellite/src/**/*.js'],
 };
