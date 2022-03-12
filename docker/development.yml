@@ -92,3 +92,8 @@ services:
       - '1111:1111'
     environment:
       - POSTS_URL=http://posts:5555
+
+  feed-discovery:
+    build:
+      context: ../src/api/feed-discovery
+      dockerfile: Dockerfile
