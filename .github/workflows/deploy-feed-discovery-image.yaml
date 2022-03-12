@@ -16,9 +16,9 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: https://docker.cdot.systems
+          username: telescope-ci
+          password: ${{ secrets.DOCKER_CDOT_SYSTEMS_PASSWORD }}
 
       - name: Build and push
         id: docker_build
@@ -26,4 +26,4 @@ jobs:
         with:
           context: src/api/feed-discovery
           push: true
-          tags: feed-discovery:latest
+          tags: docker.cdot.systems/feed-discovery:latest

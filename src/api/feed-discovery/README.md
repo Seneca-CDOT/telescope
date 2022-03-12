@@ -18,7 +18,7 @@ pnpm start
 pnpm dev
 ```
 
-By default the server is running on http://localhost:9999/.
+By default the server is running on <http://localhost:9999/>.
 
 ### Examples
 
@@ -40,5 +40,6 @@ will return response body
 
 ## Docker
 
-- To build and tag: `docker build . -t telescope_feed_discovery_svc:latest`
-- To run locally: `docker run -p 9999:9999 telescope_feed_discovery_svc:latest`
+- To pull the image: `docker pull docker.cdot.systems/feed-discovery:latest`
+- To build and tag: `docker build . -t docker.cdot.systems/feed-discovery:latest`
+- To run locally: `docker run -p 9999:9999 docker.cdot.systems/feed-discovery:latest`
