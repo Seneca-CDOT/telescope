@@ -187,6 +187,7 @@ describe('Post data class tests', () => {
     beforeEach(async () => {
       nockRealWorldRssResponse();
       articles = await parse.parseURL(getRealWorldRssUri());
+
       expect(Array.isArray(articles.items)).toBe(true);
       expect(articles.items.length).toBe(15);
     });
@@ -295,6 +296,7 @@ describe('Post data class tests', () => {
     beforeEach(async () => {
       nockRealWorldYouTubeFeedResponse();
       articles = await parse.parseURL(getRealWorldYouTubeFeedUri());
+
       expect(Array.isArray(articles.items)).toBe(true);
       expect(articles.items.length).toBe(15);
     });

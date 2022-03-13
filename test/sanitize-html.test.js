@@ -1,4 +1,5 @@
 const sanitizeHTML = require('../src/backend/utils/html/sanitize');
+
 const { WEB_URL } = process.env;
 
 describe('Sanitize HTML', () => {

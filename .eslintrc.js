@@ -3,8 +3,9 @@ module.exports = {
 
   overrides: [
     {
-      files: ['./src/**/*.js', './test.js'],
+      files: ['./src/backend/**/*.js', './test/**/*.js'],
       rules: {
+        'jest/no-standalone-expect': 'off',
         'no-unused-vars': 'error',
       },
       env: {

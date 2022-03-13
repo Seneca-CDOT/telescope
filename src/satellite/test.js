@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // ESLint override to prevent errors for callback vars, e.g. (req, user) => {...}
 
 const nock = require('nock');

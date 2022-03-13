@@ -1,6 +1,7 @@
 // Sanitize HTML and prevent XSS attacks
 // <img src=x onerror=alert(1)> becomes <img src="x">
 const sanitizeHtml = require('sanitize-html');
+
 const { WEB_URL } = process.env;
 
 module.exports = function (dirty) {
