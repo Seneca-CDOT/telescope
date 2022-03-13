@@ -67,6 +67,10 @@ services:
     depends_on:
       - test-web-content
 
+  feed-discovery:
+    image: docker.cdot.systems/feed-discovery
+    restart: unless-stopped
+
   # TODO: https://github.com/Seneca-CDOT/telescope/issues/2111
   # parser:
   #   environment:
