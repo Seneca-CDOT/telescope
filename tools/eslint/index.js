@@ -23,15 +23,6 @@ module.exports = {
       version: '17.0',
     },
   },
-  overrides: [
-    // JavaScript for Node.js
-    {
-      files: ['src/backend/**/*.js', 'tools/**/*.js', 'src/api/**/*.js'],
-      env: {
-        node: true,
-      },
-    },
-  ],
 
   // Default rules for any file we lint
   rules: {
