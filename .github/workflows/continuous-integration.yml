@@ -1,12 +1,7 @@
-name: node-js-ci
+name: Continuous Integration
 
 on:
   pull_request:
-    branches:
-      - master
-    paths-ignore:
-      - 'src/docs/**'
-  push:
     branches:
       - master
     paths-ignore:
