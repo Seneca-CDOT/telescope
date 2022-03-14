@@ -8,7 +8,15 @@ on:
         # For more details, see https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet
         # and https://docs.npmjs.com/about-semantic-versioning
 
+env:
+  DOCKER_DEPLOY_TAG: production
+  AUTODEPLOYMENT_SERVER_URL: https://telescope.cdot.systems/deploy
+
 jobs:
+  docker-production:
+    name: Docker Build and Push - Production
+    uses: Seneca-CDOT/telescope/.github/workflows/docker-build-and-push.yml@master
+
   release:
     runs-on: ubuntu-latest
     steps:
@@ -35,18 +43,7 @@ jobs:
           draft: false
           prerelease: false
 
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.30.1
-      - name: NPM Publish
-        # Setup .npmrc file to publish to npm
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
-      - run: pnpm install
-      # pnpm fails on publish if we don't include --no-git-checks
-      - run: pnpm -r publish --no-git-checks --access=public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  deploy-production:
+    name: Staging Deploy
+    needs: [docker-production, release]
+    uses: Seneca-CDOT/telescope/.github/workflows/deploy-webhook.yml@master

@@ -1,0 +1,59 @@
+# Supply DOCKER_DEPLOY_TAG environment variable from calling workflow (e.g., `staging` or `production`)
+name: Docker Build and Push
+
+on:
+  workflow_call:
+
+jobs:
+  docker-build-push:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_REGISTRY: docker.cdot.systems
+      DOCKER_USERNAME: telescope-ci
+    strategy:
+      matrix:
+        include:
+          # TODO
+          # - context: src/api/Dockerfile
+          #  image: telescope-base
+          # - context: src/docs/Dockerfile
+          #  image: docs
+          - context: src/api/feed-discovery
+            image: feed-discovery
+          - context: src/web/Dockerfile
+            image: nginx
+          - context: src/api/planet/Dockerfile
+            image: planet
+          - context: src/api/posts/Dockerfile
+            image: posts
+          - context: src/api/dependency-discovery/Dockerfile
+            image: dependency-discovery
+          - context: src/api/status/Dockerfile
+            image: status
+          - context: src/api/parser/Dockerfile
+            image: parser
+          - context: src/api/image/Dockerfile
+            image: image
+          - context: src/api/search/Dockerfile
+            image: search
+          - context: src/api/sso/Dockerfile
+            image: sso
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: docker/login-action@v1
+        with:
+          registry: https://${{ env.DOCKER_REGISTRY }}
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_CDOT_SYSTEMS_PASSWORD }}
+
+      - uses: docker/build-push-action@v2
+        env:
+          DOCKER_REPO: ${{ env.DOCKER_REGISTRY }}/${{ matrix.image }}
+        with:
+          context: ${{ matrix.context }}
+          # Use our CDOT Docker Registry to cache image builds
+          cache-from: type=registry,ref=${{ env.DOCKER_REPO }}:buildcache
+          cache-to: type=registry,ref=${{ env.DOCKER_REPO }}:buildcache,mode=max
+          tags: ${{ env.DOCKER_REPO }}:${{ env.DOCKER_DEPLOY_TAG }}, ${{ env.DOCKER_REPO }}:latest
+          push: true

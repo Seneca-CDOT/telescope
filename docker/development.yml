@@ -97,3 +97,5 @@ services:
     build:
       context: ../src/api/feed-discovery
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/feed-discovery:buildcache

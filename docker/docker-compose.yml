@@ -15,6 +15,8 @@ services:
     build:
       context: ../src/api/status
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/status:buildcache
     environment:
       - NODE_ENV
       - WEB_URL
@@ -51,6 +53,8 @@ services:
     build:
       context: ../src/api/image
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/image:buildcache
     environment:
       - NODE_ENV
       - IMAGE_PORT
@@ -78,6 +82,8 @@ services:
     build:
       context: ../src/api/sso
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/sso:buildcache
     environment:
       - NODE_ENV
       - SSO_PORT
@@ -117,6 +123,8 @@ services:
     build:
       context: ../src/api/search
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/search:buildcache
     environment:
       - NODE_ENV
       - SEARCH_PORT
@@ -149,6 +157,8 @@ services:
     build:
       context: ../src/api/posts
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/posts:buildcache
     environment:
       - NODE_ENV
       - POSTS_PORT
@@ -202,6 +212,8 @@ services:
   #   build:
   #     context: ../src/api/parser
   #     dockerfile: Dockerfile
+  #      cache_from:
+  #      - docker.cdot.systems/parser:buildcache
   #   environment:
   #     - NODE_ENV
   #     - PARSER_PORT
@@ -232,6 +244,8 @@ services:
     build:
       context: ../src/api/planet
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/planet:buildcache
     environment:
       - NODE_ENV
       - PLANET_PORT
@@ -242,6 +256,8 @@ services:
     build:
       context: ../src/api/dependency-discovery
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/dependency-discovery:buildcache
     environment:
       - NODE_ENV
       - DEPENDENCY_DISCOVERY_PORT
@@ -268,6 +284,8 @@ services:
     build:
       context: ../src/web
       dockerfile: Dockerfile
+      cache_from:
+        - docker.cdot.systems/nginx:buildcache
       # next.js needs build-time access to a number of API URL values, forward as ARGs
       args:
         # Web front-end URL
