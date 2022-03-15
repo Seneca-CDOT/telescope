@@ -114,6 +114,7 @@ jobs:
           DOCKER_REPO: ${{ env.DOCKER_REGISTRY }}/${{ matrix.image }}
         with:
           context: ${{ matrix.context }}
+          build-args: ${{ matrix.build-args }}
           # Use our CDOT Docker Registry to cache image builds
           cache-from: type=registry,ref=${{ env.DOCKER_REPO }}:buildcache
           cache-to: type=registry,ref=${{ env.DOCKER_REPO }}:buildcache,mode=max
