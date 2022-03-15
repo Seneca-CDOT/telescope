@@ -5,18 +5,27 @@ on:
     branches:
       - master
 
-env:
-  DOCKER_DEPLOY_TAG: staging
-
 jobs:
   docker-staging:
     name: Docker Build and Push - Staging
     uses: Seneca-CDOT/telescope/.github/workflows/docker-build-and-push.yml@master
+    with:
+      deploy_tag: staging
+    secrets:
+      docker_username: ${{ secrets.DOCKER_CDOT_SYSTEMS_USERNAME }}
+      docker_password: ${{ secrets.DOCKER_CDOT_SYSTEMS_PASSWORD }}
 
   pnpm-publish:
     uses: Seneca-CDOT/telescope/.github/workflows/pnpm-publish.yml@master
+    secrets:
+      npm_token: ${{ secrets.NPM_TOKEN }}
 
   deploy-staging:
     name: Staging Deploy
     needs: [docker-staging, pnpm-publish]
     uses: Seneca-CDOT/telescope/.github/workflows/deploy-webhook.yml@master
+    with:
+      deploy_tag: staging
+      webhook_url: https://dev.telescope.cdot.systems/deploy
+    secrets:
+      webhook_token: ${{ secrets.STAGING_WEBHOOK_SECRET }}

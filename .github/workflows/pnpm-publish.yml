@@ -2,6 +2,10 @@ name: pnpm Publish
 
 on:
   workflow_call:
+    secrets:
+      npm_token:
+        description: 'The NPM Registry Token to use'
+        required: true
 
 jobs:
   pnpm-publish:
@@ -21,4 +25,4 @@ jobs:
       # pnpm fails on publish if we don't include --no-git-checks
       - run: pnpm -r publish --no-git-checks --access=public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}

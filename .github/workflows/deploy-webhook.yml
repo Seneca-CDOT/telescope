@@ -1,9 +1,20 @@
-# Supply DOCKER_DEPLOY_TAG environment variable from calling workflow (e.g., `staging` or `production`)
-# as well as the AUTODEPLOYMENT_SERVER_URL to use (e.g., `https://dev.telescope.cdot.systems/deploy`)
 name: Autodeployment Webhook
 
 on:
   workflow_call:
+    inputs:
+      deploy_tag:
+        description: 'The deploy tag to use, one of `staging` or `production`'
+        required: true
+        type: string
+      webhook_url:
+        description: 'The webhook URL to use'
+        required: true
+        type: string
+    secrets:
+      webhook_token:
+        description: 'The webhook secret token to use'
+        required: true
 
 jobs:
   deploy:
@@ -13,6 +24,6 @@ jobs:
         uses: distributhor/workflow-webhook@v2
         env:
           webhook_type: 'json-extended'
-          webhook_url: ${{ env.AUTODEPLOYMENT_SERVER_URL }}
-          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
-          data: '{ "deploy_tag": "${{ env.DOCKER_DEPLOY_TAG }}" }'
+          webhook_url: ${{ inputs.webhook_url }}
+          webhook_secret: ${{ secrets.webhook_token }}
+          data: '{ "deploy_tag": "${{ inputs.deploy_tag }}" }'
