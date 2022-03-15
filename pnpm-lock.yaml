@@ -125,7 +125,7 @@ importers:
       '@babel/preset-env': 7.16.11_@babel+core@7.17.5
       '@babel/preset-react': 7.16.7_@babel+core@7.17.5
       '@babel/preset-typescript': 7.16.7_@babel+core@7.17.5
-      '@senecacdot/eslint-config-telescope': 1.0.0
+      '@senecacdot/eslint-config-telescope': link:tools/eslint
       '@types/jest': 27.4.1
       '@typescript-eslint/eslint-plugin': 4.33.0_2951ba233cd46bb4e0f2f0a3f7fe108e
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0
@@ -159,7 +159,7 @@ importers:
       '@senecacdot/satellite': 1.27.0
       query-registry: 2.2.0
     devDependencies:
-      '@senecacdot/eslint-config-telescope': 1.0.0
+      '@senecacdot/eslint-config-telescope': link:../../../tools/eslint
       env-cmd: 10.1.0
       eslint: 7.32.0
       nodemon: 2.0.15
@@ -345,7 +345,7 @@ importers:
       xterm-addon-web-links: 0.5.1_xterm@4.18.0
       xterm-addon-webgl: 0.11.4_xterm@4.18.0
     devDependencies:
-      '@senecacdot/eslint-config-telescope': 1.0.0
+      '@senecacdot/eslint-config-telescope': link:../../../tools/eslint
       env-cmd: 10.1.0
       eslint: 7.32.0
       nodemon: 2.0.15
@@ -378,7 +378,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
     devDependencies:
       '@docusaurus/types': 2.0.0-beta.17
-      '@senecacdot/eslint-config-telescope': 1.0.0
+      '@senecacdot/eslint-config-telescope': link:../../tools/eslint
       eslint: 7.32.0
 
   src/satellite:
@@ -421,7 +421,7 @@ importers:
       pino-http: 6.6.0
       pino-pretty: 7.5.3
     devDependencies:
-      '@senecacdot/eslint-config-telescope': 1.0.0
+      '@senecacdot/eslint-config-telescope': link:../../tools/eslint
       eslint: 7.32.0
       get-port: 5.1.1
       jest: 27.5.1
@@ -494,7 +494,7 @@ importers:
       swr: 1.2.2_react@17.0.2
       yup: 0.32.11
     devDependencies:
-      '@senecacdot/eslint-config-telescope': 1.0.0
+      '@senecacdot/eslint-config-telescope': link:../../tools/eslint
       '@testing-library/react': 12.1.4_react-dom@17.0.2+react@17.0.2
       '@types/node': 16.11.26
       '@types/react': 17.0.40
@@ -3571,10 +3571,6 @@ packages:
       picomatch: 2.3.1
       rollup: 2.64.0
     dev: false
-
-  /@senecacdot/eslint-config-telescope/1.0.0:
-    resolution: {integrity: sha512-YgxzZb1c4lz9JQVI89ajMD7COgjbNeIKZXOLnfCqSQxtkb91o4D9/uf1fVdzjZ8FIWvpmLPHIwwtrREVp/UtkA==}
-    dev: true
 
   /@senecacdot/satellite/1.27.0:
     resolution: {integrity: sha512-Eq8g6dKMYRV2EDEcYApodHOlqOcYV0kVKqMF+DJZsGgFJjQFXYqrLhc2zQ+3Ms9AbjjhL3rso9GAuRxsy5A+zQ==}

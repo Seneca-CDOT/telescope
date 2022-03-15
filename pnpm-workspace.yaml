@@ -10,5 +10,3 @@ packages:
   - 'src/satellite'
   # autodeployment
   - 'tools/*'
-
-link-workspace-packages: false
