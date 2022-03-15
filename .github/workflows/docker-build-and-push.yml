@@ -78,7 +78,7 @@ jobs:
               API_URL=${{ inputs.api_url }}
               IMAGE_URL=${{ inputs.image_url }}
               SSO_URL=${{ inputs.sso_url }}
-              POSTS_URL=${{ inputs.posts.url }}
+              POSTS_URL=${{ inputs.posts_url }}
               SEARCH_URL=${{ inputs.search_url }}
               FEED_DISCOVERY_URL=${{ inputs.feed_discovery_url }}
               STATUS_URL=${{ inputs.status_url }}
