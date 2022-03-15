@@ -24,29 +24,29 @@ jobs:
       matrix:
         include:
           # TODO
-          # - context: src/api/Dockerfile
+          # - context: src/api
           #  image: telescope-base
-          # - context: src/docs/Dockerfile
+          # - context: src/docs
           #  image: docs
           - context: src/api/feed-discovery
             image: feed-discovery
-          - context: src/web/Dockerfile
+          - context: src/web
             image: nginx
-          - context: src/api/planet/Dockerfile
+          - context: src/api/planet
             image: planet
-          - context: src/api/posts/Dockerfile
+          - context: src/api/posts
             image: posts
-          - context: src/api/dependency-discovery/Dockerfile
+          - context: src/api/dependency-discovery
             image: dependency-discovery
-          - context: src/api/status/Dockerfile
+          - context: src/api/status
             image: status
-          - context: src/api/parser/Dockerfile
+          - context: src/api/parser
             image: parser
-          - context: src/api/image/Dockerfile
+          - context: src/api/image
             image: image
-          - context: src/api/search/Dockerfile
+          - context: src/api/search
             image: search
-          - context: src/api/sso/Dockerfile
+          - context: src/api/sso
             image: sso
     steps:
       - uses: actions/checkout@v2
