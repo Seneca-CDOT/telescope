@@ -10,7 +10,6 @@ services:
   studio:
     container_name: supabase-studio
     image: supabase/studio:latest
-    restart: unless-stopped
     ports:
       - ${STUDIO_PORT}:3000/tcp
     environment:
@@ -22,7 +21,6 @@ services:
   kong:
     container_name: supabase-kong
     image: kong:2.1
-    restart: unless-stopped
     environment:
       KONG_DATABASE: 'off'
       KONG_DECLARATIVE_CONFIG: /var/lib/kong/kong.yml
@@ -52,7 +50,6 @@ services:
     image: supabase/gotrue:v2.5.22
     depends_on:
       - db
-    restart: unless-stopped
     environment:
       GOTRUE_API_HOST: 0.0.0.0
       GOTRUE_API_PORT: 9999
@@ -89,7 +86,6 @@ services:
     image: postgrest/postgrest:v9.0.0
     depends_on:
       - db
-    restart: unless-stopped
     environment:
       PGRST_DB_URI: postgres://postgres:${POSTGRES_PASSWORD}@db:5432/postgres
       PGRST_DB_SCHEMAS: public,storage
@@ -102,7 +98,6 @@ services:
     image: supabase/realtime:v0.19.3
     depends_on:
       - db
-    restart: unless-stopped
     environment:
       DB_HOST: db
       DB_PORT: 5432
@@ -127,7 +122,6 @@ services:
     depends_on:
       - db
       - rest
-    restart: unless-stopped
     environment:
       ANON_KEY: ${ANON_KEY}
       SERVICE_KEY: ${SERVICE_ROLE_KEY}
@@ -150,7 +144,6 @@ services:
     image: supabase/postgres-meta:v0.33.3
     depends_on:
       - db
-    restart: unless-stopped
     environment:
       PG_META_PORT: 8080
       PG_META_DB_HOST: db
@@ -160,7 +153,6 @@ services:
     container_name: supabase-db
     image: supabase/postgres:14.1.0
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
-    restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:

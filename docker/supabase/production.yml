@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  studio:
+    restart: unless-stopped
+  kong:
+    restart: unless-stopped
+  auth:
+    restart: unless-stopped
+  rest:
+    restart: unless-stopped
+  realtime:
+    restart: unless-stopped
+  storage:
+    restart: unless-stopped
+  meta:
+    restart: unless-stopped
+  db:
+    restart: unless-stopped
