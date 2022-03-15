@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "clean": "find ./photos -type f -not -name 'default.jpg' -delete"
+    "clean": "find ./photos -type f -not -name 'default.jpg' -delete",
+    "lint": "pnpm eslint",
+    "eslint": "eslint --config .eslintrc.js \"**/*.js\"",
+    "eslint-fix": "eslint --config .eslintrc.js \"**/*.js\" --fix"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -24,7 +27,9 @@
     "node": ">=12.0.0"
   },
   "devDependencies": {
+   "@senecacdot/eslint-config-telescope": "1.0.0",
     "del-cli": "4.0.1",
+    "eslint": "7.32.0",
     "nodemon": "2.0.15"
   }
 }
