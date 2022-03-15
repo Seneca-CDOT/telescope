@@ -14,6 +14,14 @@ jobs:
     uses: Seneca-CDOT/telescope/.github/workflows/docker-build-and-push.yml@master
     with:
       deploy_tag: production
+      web_url: 'https://telescope.cdot.systems'
+      api_url: 'https://telescope.cdot.systems'
+      image_url: 'https://api.telescope.cdot.systems/v1/image'
+      sso_url: 'https://api.telescope.cdot.systems/v1/auth'
+      posts_url: 'https://api.telescope.cdot.systems/v1/posts'
+      search_url: 'https://api.telescope.cdot.systems/v1/search'
+      feed_discovery_url: 'https://api.telescope.cdot.systems/v1/feed-discovery'
+      status_url: 'https://api.telescope.cdot.systems/v1/status'
     secrets:
       docker_username: ${{ secrets.DOCKER_CDOT_SYSTEMS_USERNAME }}
       docker_password: ${{ secrets.DOCKER_CDOT_SYSTEMS_PASSWORD }}

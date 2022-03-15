@@ -16,6 +16,8 @@ const runtimeCaching = require('next-pwa/cache');
 const loadApiUrlFromEnv = (envFile) => dotenv.config({ path: envFile });
 
 // ENV Variables we need to forward to next by prefix with NEXT_PUBLIC_*
+// NOTE: these are also defined in .github/workflows/docker-build-and-push.yml
+// and ./Dockerfile, and need to be kept in sync!
 const envVarsToForward = [
   'WEB_URL',
   'API_URL',

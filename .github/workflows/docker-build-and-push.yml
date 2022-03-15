@@ -7,6 +7,46 @@ on:
         description: 'The deploy tag to use, one of `staging` or `production`'
         required: true
         type: string
+      web_url:
+        description: 'The front-end web URL (defaults to staging)'
+        required: false
+        default: 'https://dev.telescope.cdot.systems'
+        type: string
+      api_url:
+        description: 'The microservice gateway URL (defaults to staging)'
+        required: false
+        default: 'https://dev.telescope.cdot.systems'
+        type: string
+      image_url:
+        description: 'The image microservice URL (defaults to staging)'
+        required: false
+        default: 'https://dev.api.telescope.cdot.systems/v1/image'
+        type: string
+      sso_url:
+        description: 'The sso microservice URL (defaults to staging)'
+        required: false
+        default: 'https://dev.api.telescope.cdot.systems/v1/auth'
+        type: string
+      posts_url:
+        description: 'The posts microservice URL (defaults to staging)'
+        required: false
+        default: 'https://dev.api.telescope.cdot.systems/v1/posts'
+        type: string
+      search_url:
+        description: 'The search microservice URL (defaults to staging)'
+        required: false
+        default: 'https://dev.api.telescope.cdot.systems/v1/search'
+        type: string
+      feed_discovery_url:
+        description: 'The feed-discovery microservice URL (defaults to staging)'
+        required: false
+        default: 'https://dev.api.telescope.cdot.systems/v1/feed-discovery'
+        type: string
+      status_url:
+        description: 'The status microservice URL (defaults to staging)'
+        required: false
+        default: 'https://dev.api.telescope.cdot.systems/v1/status'
+        type: string
     secrets:
       docker_username:
         description: 'The Docker Registry username'
@@ -20,6 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOCKER_REGISTRY: docker.cdot.systems
+
     strategy:
       matrix:
         include:
@@ -32,6 +73,15 @@ jobs:
             image: feed-discovery
           - context: src/web
             image: nginx
+            build-args: |
+              WEB_URL=${{ inputs.web_url }}
+              API_URL=${{ inputs.api_url }}
+              IMAGE_URL=${{ inputs.image_url }}
+              SSO_URL=${{ inputs.sso_url }}
+              POSTS_URL=${{ inputs.posts.url }}
+              SEARCH_URL=${{ inputs.search_url }}
+              FEED_DISCOVERY_URL=${{ inputs.feed_discovery_url }}
+              STATUS_URL=${{ inputs.status_url }}
           - context: src/api/planet
             image: planet
           - context: src/api/posts
