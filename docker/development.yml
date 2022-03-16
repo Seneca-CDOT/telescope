@@ -53,7 +53,7 @@ services:
     ports:
       - '8888:80'
     volumes:
-      - ../test/test-web-content:/usr/share/nginx/html:ro
+      - ../src/web/test-web-content:/usr/share/nginx/html:ro
 
   redis:
     ports:
