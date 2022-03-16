@@ -111,3 +111,11 @@ describe('/image', () => {
       });
   });
 });
+
+it('should not block cross-origin resource embedding', (done) => {
+  request(app)
+    .get('/')
+    .expect(200)
+    .expect((res) => expect(res.headers['cross-origin-embedder-policy']).toBeUndefined())
+    .end(done);
+});
