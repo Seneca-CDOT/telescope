@@ -1,14 +1,11 @@
 import React from 'react';
 import { ScrollView, Text, StyleSheet, Linking, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import Footer from '../components/Footer';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-  },
-  scrollView: {
-    width: '80%',
   },
   header: {
     color: '#A0D1FB',
@@ -30,13 +27,22 @@ const styles = StyleSheet.create({
     width: '80%',
     paddingVertical: 10,
   },
+  aboutInfo: {
+    paddingVertical: 10,
+    width: '80%',
+    alignSelf: 'center',
+  },
+  scrollView: {
+    flexDirection: 'column',
+    width: '100%',
+  },
 });
 
 const AboutScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        <View style={{ paddingVertical: 10 }}>
+        <View style={styles.aboutInfo}>
           <Text style={[styles.header, styles.aboutHeader]}>About</Text>
           <Text>
             One of the key features of Seneca's open source involvement has been the emphasis on
@@ -121,6 +127,7 @@ const AboutScreen = () => {
             the task of defining our planet.
           </Text>
         </View>
+        <Footer />
       </ScrollView>
     </SafeAreaView>
   );
