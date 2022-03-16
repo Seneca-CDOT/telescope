@@ -58,6 +58,6 @@ jobs:
     uses: Seneca-CDOT/telescope/.github/workflows/deploy-webhook.yml@master
     with:
       deploy_tag: production
-      webhook_url: https://telescope.cdot.systems/deploy
+      webhook_url: https://telescope.cdot.systems:4000
     secrets:
       webhook_token: ${{ secrets.PRODUCTION_WEBHOOK_SECRET }}
