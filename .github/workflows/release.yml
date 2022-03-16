@@ -53,7 +53,7 @@ jobs:
           prerelease: false
 
   deploy-production:
-    name: Staging Deploy
+    name: Production Deploy
     needs: [docker-production, release]
     uses: Seneca-CDOT/telescope/.github/workflows/deploy-webhook.yml@master
     with:
