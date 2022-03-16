@@ -4,3 +4,8 @@ npm-debug.log
 Dockerfile
 .git
 .gitignore
+.env*
+env*
+jest.config.js
+test/
+.eslintrc.js
