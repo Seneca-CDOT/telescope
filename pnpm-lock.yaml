@@ -156,7 +156,7 @@ importers:
       nodemon: 2.0.15
       query-registry: 2.2.0
     dependencies:
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       query-registry: 2.2.0
     devDependencies:
       '@senecacdot/eslint-config-telescope': link:../../../tools/eslint
@@ -171,7 +171,7 @@ importers:
       got: 11.8.3
       nodemon: 2.0.15
     dependencies:
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       cheerio: 1.0.0-rc.10
       got: 11.8.3
     devDependencies:
@@ -186,7 +186,7 @@ importers:
       nodemon: 2.0.15
       sharp: 0.30.2
     dependencies:
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       celebrate: 15.0.1
       got: 11.8.3
       sharp: 0.30.2
@@ -214,7 +214,7 @@ importers:
     dependencies:
       '@bull-board/api': 3.10.0
       '@bull-board/express': 3.10.0
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       bull: 3.29.3
       clean-whitespace: 0.1.2
       highlight.js: 11.4.0
@@ -237,7 +237,7 @@ importers:
       express-handlebars: 6.0.3
       nodemon: 2.0.15
     dependencies:
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       express: 4.17.3
       express-handlebars: 6.0.3
     devDependencies:
@@ -255,7 +255,7 @@ importers:
       normalize-url: 6.1.0
       supertest: 6.1.6
     dependencies:
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       bull: 3.29.3
       express-validator: 6.14.0
       ioredis: 4.28.5
@@ -271,7 +271,7 @@ importers:
       express-validator: 6.14.0
       nodemon: 2.0.15
     dependencies:
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       express-validator: 6.14.0
     devDependencies:
       nodemon: 2.0.15
@@ -290,7 +290,7 @@ importers:
       passport: 0.5.2
       passport-saml: 3.2.1
     dependencies:
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       '@supabase/supabase-js': 1.29.4
       celebrate: 15.0.1
       connect-redis: 6.1.1
@@ -331,7 +331,7 @@ importers:
       '@octokit/plugin-retry': 3.0.9
       '@octokit/plugin-throttling': 3.5.2_@octokit+core@3.5.1
       '@popperjs/core': 2.11.3
-      '@senecacdot/satellite': link:../../satellite
+      '@senecacdot/satellite': 1.27.0
       bootstrap: 5.1.3_@popperjs+core@2.11.3
       express: 4.17.3
       express-handlebars: 6.0.3
@@ -515,7 +515,7 @@ importers:
       shelljs: 0.8.5
     dependencies:
       '@octokit/webhooks': 9.15.0
-      '@senecacdot/satellite': link:../../src/satellite
+      '@senecacdot/satellite': 1.27.0
       date-fns: 2.28.0
       dotenv: 10.0.0
       merge-stream: 2.0.0
@@ -3570,6 +3570,30 @@ packages:
       estree-walker: 1.0.1
       picomatch: 2.3.1
       rollup: 2.64.0
+    dev: false
+
+  /@senecacdot/satellite/1.27.0:
+    resolution: {integrity: sha512-Eq8g6dKMYRV2EDEcYApodHOlqOcYV0kVKqMF+DJZsGgFJjQFXYqrLhc2zQ+3Ms9AbjjhL3rso9GAuRxsy5A+zQ==}
+    engines: {node: '>=14.0.0', pnpm: '>=6'}
+    dependencies:
+      '@elastic/elasticsearch': 7.17.0
+      '@elastic/elasticsearch-mock': 0.3.1
+      '@godaddy/terminus': 4.10.2
+      cors: 2.8.5
+      express: 4.17.3
+      express-jwt: 6.1.1
+      helmet: 5.0.2
+      http-errors: 2.0.0
+      ioredis: 4.28.5
+      ioredis-mock: 7.1.0_ioredis@4.28.5
+      jsonwebtoken: 8.5.1
+      node-fetch: 2.6.7
+      pino: 7.8.0
+      pino-http: 6.6.0
+      pino-pretty: 7.5.3
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
     dev: false
 
   /@sideway/address/4.1.3:
