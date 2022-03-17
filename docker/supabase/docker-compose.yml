@@ -161,6 +161,11 @@ services:
     image: supabase/postgres:14.1.0
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
     restart: unless-stopped
+    ports:
+      # XXX: we need access to the postgres port on localhost for our e2e tests in dev,
+      # since they need to wait on the postgres db to become ready before starting.
+      # See src/api/sso/jest.config.e2e.js
+      - '5432:5432'
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
