@@ -13,22 +13,32 @@ ARG STATUS_URL
 # Front-end Web URL, set via ENV in docker or next build
 ARG WEB_URL
 
-FROM node:lts-alpine as base-docusaurus
+## Base ########################################################################
+FROM node:lts-alpine as base
+
+# Tini Entrypoint for Alpine
+# util-linux required to optimize builds using multiple cores
+RUN apk add --no-cache tini util-linux
+ENTRYPOINT [ "/sbin/tini", "--"]
 
 # Reduce npm log spam and colour during install within Docker
 ENV NPM_CONFIG_LOGLEVEL=warn
 ENV NPM_CONFIG_COLOR=false
 
-# We'll run the app as the `node` user, so put it in their home directory
-WORKDIR /home/node/docusaurus
 # Install pnpm
 RUN npm install -g pnpm
+
+WORKDIR /frontend
+COPY ./app .
+
+# We'll run the app as the `node` user, so put it in their home directory
+WORKDIR /home/node/docusaurus
 # Copy the source code over
 COPY --chown=node:node ./docusaurus /home/node/docusaurus/
 
 ## Development #################################################################
 # Define a development target that installs devDeps and runs in dev mode
-FROM base-docusaurus as development
+FROM base as development
 WORKDIR /home/node/docusaurus
 # Install (not ci) with dependencies, and for Linux vs. Linux Musl (which we use for -alpine)
 RUN pnpm install
@@ -41,28 +51,15 @@ CMD ["pnpm", "start"]
 
 ## Production ##################################################################
 # Also define a production target which doesn't use devDeps
-FROM base-docusaurus as production
+FROM base as production
 WORKDIR /home/node/docusaurus
 
 COPY --chown=node:node --from=development /home/node/docusaurus/node_modules /home/node/docusaurus/node_modules
 # Build the Docusaurus app
 RUN pnpm build
 
-## Base ########################################################################
-FROM node:lts-alpine as base-web
-
-# Tini Entrypoint for Alpine
-# util-linux required to optimize builds using multiple cores
-RUN apk add --no-cache tini util-linux
-ENTRYPOINT [ "/sbin/tini", "--"]
-
-RUN npm install -g pnpm
-
-WORKDIR /frontend
-
-COPY ./app .
-
-FROM base-web as dependencies
+## Dependencies ################################################################
+FROM base as dependencies
 
 # Copy the various API URLs build args over so next.js can see them in next.config.js
 ARG API_URL
@@ -89,15 +86,16 @@ ENV NEXT_PUBLIC_STATUS_URL ${STATUS_URL}}
 ARG WEB_URL
 ENV NEXT_PUBLIC_WEB_URL ${WEB_URL}
 
-RUN pnpm install
+WORKDIR /frontend
 
+RUN pnpm install
+# Build the web app
 RUN pnpm build
 
-## Deploy ########################################################################
+## Build ########################################################################
 FROM nginx:stable-alpine as build
 
 COPY --from=dependencies /frontend/out /var/www/data
 
-WORKDIR /home/node/docusaurus
 # Copy what we've installed/built from production
 COPY --chown=node:node --from=production /home/node/docusaurus/build /usr/share/nginx/html/
