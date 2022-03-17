@@ -62,10 +62,11 @@ services:
   elasticsearch:
     ports:
       - '9200:9200'
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+    environment:
+      # Use the minimum possible RAM in development
+      - 'ES_JAVA_OPTS=-Xms256m -Xmx256m'
+      # We only run a single node
+      - discovery.type=single-node
 
   sso:
     environment:
