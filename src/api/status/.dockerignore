@@ -3,3 +3,7 @@ node_modules
 npm-debug.log
 Dockerfile
 .eslintrc.js
+CHANGELOG.md
+.gitignore
+.env*
+env*
