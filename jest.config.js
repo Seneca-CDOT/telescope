@@ -4,7 +4,7 @@ module.exports = {
   ...baseConfig,
   projects: [
     // Our front-end
-    '<rootDir>/src/web/jest.config.js',
+    '<rootDir>/src/web/app/jest.config.js',
     // Our legacy backend tests, slowly being migrated to microservices
     '<rootDir>/test/jest.config.js',
     // Satellite
