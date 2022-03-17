@@ -118,5 +118,7 @@ module.exports = {
      * https://github.com/lirantal/eslint-plugin-anti-trojan-source
      */
     'anti-trojan-source/no-bidi': 'error',
+
+    'no-bitwise': ['error', { int32Hint: true }],
   },
 };
