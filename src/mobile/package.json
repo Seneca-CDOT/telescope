@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "eslint": "eslint --config .eslintrc.js \"**/*.{js,jsx}\"",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js \"**/*.{js,jsx}\"",
     "eslint-fix": "eslint --config .eslintrc.js \"**/*.{js,jsx}\" --fix",
     "lint": "pnpm eslint"
   },

@@ -7,7 +7,7 @@
     "test:watch": "jest --watch",
     "test": "jest -c jest.config.js",
     "coverage": "jest -c jest.config.js --collect-coverage",
-    "eslint": "eslint --config .eslintrc.js \"./src/**/*.js\"",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js \"./src/**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"./src/**/*.js\" --fix",
     "lint": "pnpm eslint"
   },

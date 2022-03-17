@@ -1,5 +1,5 @@
 {
-  "name": "dependency-discovery",
+  "name": "@senecacdot/dependency-discovery",
   "private": true,
   "version": "0.1.0",
   "description": "A dependency graph compilation service for Telescope",
@@ -7,7 +7,7 @@
     "start": "node src/server.js",
     "dev": "env-cmd -f env.local nodemon src/server.js",
     "lint": "pnpm eslint",
-    "eslint": "eslint --config .eslintrc.js \"**/*.js\"",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js \"**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"**/*.js\" --fix"
   },
   "repository": {
