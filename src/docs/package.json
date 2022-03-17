@@ -10,7 +10,7 @@
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve --port 4631 --host 0.0.0.0",
-    "eslint": "eslint --config .eslintrc.js \"**/*.js\"",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js \"**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"**/*.js\" --fix",
     "lint": "pnpm eslint",
     "clean": "rm -rf .docusaurus .turbo build",

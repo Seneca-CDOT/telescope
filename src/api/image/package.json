@@ -8,7 +8,7 @@
     "start": "node src/server.js",
     "clean": "find ./photos -type f -not -name 'default.jpg' -delete",
     "lint": "pnpm eslint",
-    "eslint": "eslint --config .eslintrc.js \"**/*.js\"",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js \"**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"**/*.js\" --fix"
   },
   "repository": "Seneca-CDOT/telescope",

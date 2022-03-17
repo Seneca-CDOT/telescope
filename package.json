@@ -13,7 +13,7 @@
     "build": "pnpm turbo run build",
     "dev": "pnpm dev --prefix src/web --",
     "develop": "pnpm dev",
-    "eslint": "eslint --config .eslintrc.js \"./src/backend/**/*.js\" \"./test/**/*.js\"",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js \"./src/backend/**/*.js\" \"./test/**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"./src/backend/**/*.js\" \"./test/**/*.js\" --fix",
     "lint": "pnpm turbo run lint && pnpm eslint",
     "clean": "pnpm turbo run clean && pnpm -r exec rm -rf node_modules",

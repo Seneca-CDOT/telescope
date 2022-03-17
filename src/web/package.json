@@ -5,7 +5,7 @@
     "build": "next build && next export",
     "dev": "next dev -p 8000",
     "start": "next start -p 8000",
-    "eslint": "eslint --config .eslintrc.js \"**/*.{js,jsx,ts,tsx}\"",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js \"**/*.{js,jsx,ts,tsx}\"",
     "eslint-fix": "eslint --config .eslintrc.js \"**/*.{js,jsx,ts,tsx}\" --fix",
     "lint": "pnpm eslint",
     "clean": "rm -rf .next .turbo out"
