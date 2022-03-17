@@ -94,7 +94,7 @@
     "@babel/preset-env": "7.16.11",
     "@babel/preset-react": "7.16.7",
     "@babel/preset-typescript": "7.16.7",
-    "@senecacdot/eslint-config-telescope": "1.0.0",
+    "@senecacdot/eslint-config-telescope": "1.0.1",
     "@types/jest": "27.4.1",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
