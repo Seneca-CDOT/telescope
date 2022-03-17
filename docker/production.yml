@@ -179,6 +179,13 @@ services:
     labels:
       # Disable Elasticsearch routing via Traefik in production (we enable it in development)
       - 'traefik.enable=false'
+    environment:
+      # Prefer memory to swap (faster)
+      - bootstrap.memory_lock=true
+      # Limit the initial heap size. By default it will use 1/4 of available RAM
+      - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+      # We only run a single node
+      - discovery.type=single-node
     ulimits:
       memlock:
         soft: -1
