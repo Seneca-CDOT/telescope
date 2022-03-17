@@ -1,14 +1,33 @@
-FROM node:lts-alpine as base
+## Base ###########################################################################
+# Set up the base layer
+FROM node:16-alpine3.15 as base
 
-# https://snyk.io/blog/10-best-practices-to-containerize-nodejs-web-applications-with-docker/
-RUN apk add dumb-init
+RUN npm i -g pnpm
 
 WORKDIR /app
 
+## Dependencies ###################################################################
+# Stage for installing prod dependencies
+FROM base as dependencies
+
+COPY package.json ./
+
+RUN pnpm install --prod
+
+## Deploy ########################################################################
+# Stage for running our app
+FROM base as deploy
+
 COPY --chown=node:node . .
 
-RUN npm install --only=production --no-package-lock
+COPY --chown=node:node --from=dependencies /app/node_modules ./node_modules
+
+ENV PORT=4445
 
 USER node
 
-CMD ["dumb-init", "node", "src/server.js"]
+# Docker Healthcheck
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+	CMD wget --no-verbose --tries=1 --spider localhost:${PORT}/healthcheck || exit 1
+
+CMD ["node", "src/server.js"]
