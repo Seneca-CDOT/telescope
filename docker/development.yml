@@ -16,6 +16,7 @@ services:
       - ../config/nginx.conf.development.template:/etc/nginx/nginx.conf
     ports:
       - '8000:8000'
+      - '4631:4631'
 
   traefik:
     command:

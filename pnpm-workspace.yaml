@@ -1,9 +1,9 @@
 # pnpm workspace definition: https://pnpm.io/pnpm-workspace_yaml
 packages:
   # docusaurus web app
-  - 'src/docs'
+  - 'src/web/docusaurus'
   # web front-end
-  - 'src/web'
+  - 'src/web/app'
   # microservices
   - 'src/api/*'
   # satellite

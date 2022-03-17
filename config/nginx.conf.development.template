@@ -179,4 +179,10 @@ http {
       }
     }
   }
+
+  server {
+    listen 4631 default_server;
+    server_name localhost;
+    root /usr/share/nginx/html;
+  }
 }
