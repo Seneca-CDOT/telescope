@@ -41,7 +41,7 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@senecacdot/eslint-config-telescope": "1.0.0",
+    "@senecacdot/eslint-config-telescope": "1.0.1",
     "@testing-library/react": "12.1.4",
     "@types/node": "16.11.26",
     "@types/react": "17.0.40",
