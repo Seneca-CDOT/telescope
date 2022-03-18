@@ -1,7 +1,7 @@
-import { IconButton, Tooltip, Zoom } from '@material-ui/core';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
-import Brightness4Icon from '@material-ui/icons/Brightness4';
+import { IconButton, Tooltip, Zoom } from '@mui/material';
+import { makeStyles, withStyles } from '@mui/styles';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
 
 import { useTheme } from './ThemeProvider';
 

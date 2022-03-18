@@ -1,5 +1,5 @@
-import { red } from '@material-ui/core/colors';
-import { createTheme, Theme } from '@material-ui/core/styles';
+import { red } from '@mui/material/colors';
+import { createTheme, Theme } from '@mui/material/styles';
 
 const commonThemeProps = {
   typography: {
@@ -10,7 +10,7 @@ const commonThemeProps = {
 export const lightTheme: Theme = createTheme({
   ...commonThemeProps,
   palette: {
-    type: 'light',
+    mode: 'light',
     primary: {
       main: '#121D59',
       light: '#4f96d8',
@@ -35,7 +35,7 @@ export const lightTheme: Theme = createTheme({
       selected: '#9E0059',
     },
     border: {
-      main: 'rgba(27,31,36,0.15)',
+      main: '#1B1F2426',
     },
   },
 });
@@ -43,7 +43,7 @@ export const lightTheme: Theme = createTheme({
 export const darkTheme: Theme = createTheme({
   ...commonThemeProps,
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
       main: '#A0D1FB',
       light: '#E5E5E5',
@@ -69,7 +69,7 @@ export const darkTheme: Theme = createTheme({
       selected: '#CCA1A6',
     },
     border: {
-      main: 'rgba(240,246,252,0.1)',
+      main: '#F0F6FC1A',
     },
   },
 });

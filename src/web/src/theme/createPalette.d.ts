@@ -1,11 +1,11 @@
-import { PaletteColorOptions, PaletteColor } from '@material-ui/core/styles/createPalette';
+import { PaletteColor, PaletteColorOptions } from '@mui/material/styles';
 
-declare module '@material-ui/core/styles/createPalette' {
-  interface PaletteOptions {
-    border?: PaletteColorOptions;
-  }
-
+declare module '@mui/material/styles/createPalette' {
   interface Palette {
     border: PaletteColor;
+  }
+
+  interface PaletteOptions {
+    border?: PaletteColorOptions;
   }
 }

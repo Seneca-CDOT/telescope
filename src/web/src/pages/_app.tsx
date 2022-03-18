@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { AppProps } from 'next/app';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { Theme, ThemeProvider } from '@mui/material/styles';
 import { SWRConfig } from 'swr';
 
 import AuthProvider from '../components/AuthProvider';
@@ -12,6 +12,11 @@ import { ThemeContext } from '../components/ThemeProvider';
 import '../styles/globals.css';
 import '@fontsource/spartan';
 import '@fontsource/pt-serif';
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_app.js
 const App = ({ Component, pageProps }: AppProps) => {
@@ -38,7 +43,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <SWRConfig
       value={{ fetcher: (resource, init) => fetch(resource, init).then((res) => res.json()) }}
     >
-      <ThemeContext.Provider value={{ theme, themeName: theme.palette.type, toggleTheme }}>
+      <ThemeContext.Provider value={{ theme, themeName: theme.palette.mode, toggleTheme }}>
         <ThemeProvider theme={theme}>
           <AuthProvider>
             <Component {...pageProps} />
