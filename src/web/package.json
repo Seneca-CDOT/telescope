@@ -5,8 +5,8 @@
     "build": "next build && next export",
     "dev": "next dev -p 8000",
     "start": "next start -p 8000",
-    "eslint": "TIMING=1 eslint --config .eslintrc.js \"**/*.{js,jsx,ts,tsx}\"",
-    "eslint-fix": "eslint --config .eslintrc.js \"**/*.{js,jsx,ts,tsx}\" --fix",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx}\"",
+    "eslint-fix": "eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx}\" --fix",
     "lint": "pnpm eslint",
     "clean": "rm -rf .next .turbo out"
   },
@@ -43,7 +43,8 @@
     "react-use": "17.3.2",
     "smoothscroll-polyfill": "0.4.4",
     "swr": "1.2.2",
-    "yup": "0.32.11"
+    "yup": "0.32.11",
+    "@testing-library/react": "12.1.4"
   },
   "devDependencies": {
     "@senecacdot/eslint-config-telescope": "1.0.1",
@@ -54,6 +55,8 @@
     "eslint": "7.32.0",
     "terser-webpack-plugin": "5.3.1",
     "typescript": "4.4.4",
-    "webpack": "5.9.0"
+    "webpack": "5.9.0",
+    "@typescript-eslint/eslint-plugin": "4.33.0",
+    "@typescript-eslint/parser": "4.33.0"
   }
 }

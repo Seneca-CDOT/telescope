@@ -1,18 +1,9 @@
 module.exports = {
-  extends: '@senecacdot/eslint-config-telescope',
+  extends: ['@senecacdot/eslint-config-telescope'],
 
-  overrides: [
-    {
-      files: ['./src/**/*.js', './test.js'],
-      rules: {
-        'no-unused-vars': 'error',
-      },
-      env: {
-        node: true,
-        commonjs: true,
-        es2021: true,
-        jest: true,
-      },
-    },
-  ],
+  env: {
+    node: true,
+    commonjs: true,
+    jest: true,
+  },
 };

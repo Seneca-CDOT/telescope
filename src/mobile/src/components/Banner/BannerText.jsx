@@ -7,14 +7,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
   },
+  logo: {
+    color: '#A0D1FB',
+    fontSize: 45,
+    fontWeight: '600',
+    letterSpacing: 13,
+    zIndex: 1000,
+  },
   studentQuote: {
     zIndex: 1000,
   },
   studentQuoteText: {
     color: 'white',
     fontSize: 21,
-    textAlign: 'center',
     marginTop: 25,
+    textAlign: 'center',
   },
 });
 
@@ -27,17 +34,7 @@ const BannerText = () => {
 
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          zIndex: 1000,
-          letterSpacing: 13,
-          fontSize: 45,
-          fontWeight: '600',
-          color: '#A0D1FB',
-        }}
-      >
-        Telescope
-      </Text>
+      <Text style={styles.logo}>Telescope</Text>
       <Pressable style={styles.studentQuote} onPress={() => Linking.openURL(studentQuote.url)}>
         <Text style={styles.studentQuoteText}>"{studentQuote.quote}"</Text>
         <Text style={styles.studentQuoteText}> {studentQuote.author}</Text>
