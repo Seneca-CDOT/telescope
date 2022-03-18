@@ -25,22 +25,46 @@ In conjunction with these, there are also multiple environment files, including:
 The env files are configured to specify which variables and docker-compose files are needed to be run.
 For most developers, doing the following will work:
 
+```sh
+pnpm services:start
 ```
+
+This will `build` any containers that need to be (re)built, and `pull` any that aren't present on the local machine. It is functionally equivalent to running:
+
+```sh
 docker-compose --env-file config/env.development up -d
 ```
 
-## Running the Services via docker-compose
+:::note
 
-You can access logs for one or more services:
+Telescope runs more than a dozen Docker containers, and it can be taxing on your computer to start them all. The `pnpm services:start` command can optionally take a list of specific services to start, for example: `pnpm services:start feed-discovery status`. The names of the services comes from the various `docker-compose.yml` files listed above.
 
+:::
+
+## Managing the Services
+
+If you want to update your local Docker images based on the most recent code built in our Continuous Integration builders, you can use:
+
+```sh
+pnpm services:pull
 ```
+
+You can access logs for one or more running services:
+
+```sh
 pnpm services:logs image status
 ```
 
 To stop the services:
 
-```
+```sh
 pnpm services:stop
+```
+
+To delete old containers:
+
+```sh
+pnpm services:clean
 ```
 
 ## API Lookup Table

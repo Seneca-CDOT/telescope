@@ -34,6 +34,7 @@
     "postversion": "git push upstream master --tags",
     "services:start": "node bin/services-start.js --",
     "services:stop": "node bin/services-stop.js",
+    "services:pull": "node bin/services-pull.js",
     "services:logs": "node bin/services-logs.js --",
     "services:clean": "node bin/services-clean.js",
     "prepare": "husky install",

@@ -29,6 +29,20 @@ module.exports.start = async (services) => {
   }
 };
 
+module.exports.pull = async () => {
+  // Pull images for the containers
+  try {
+    const { exitCode } = await dockerCompose.pullAll({
+      ...defaultOptions,
+      commandOptions: ['--ignore-pull-failures'],
+    });
+    process.exit(exitCode);
+  } catch (err) {
+    console.error(`Error pulling services with docker-compose: ${err.message}`);
+    process.exit(1);
+  }
+};
+
 module.exports.stop = async () => {
   // Stop the api service containers
   try {
