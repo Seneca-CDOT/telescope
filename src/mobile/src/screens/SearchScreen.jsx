@@ -1,9 +1,17 @@
-import { Text } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
 
 const SearchScreen = () => {
   return (
-    <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <SafeAreaView style={styles.container}>
       <Text>Search Screen</Text>
     </SafeAreaView>
   );

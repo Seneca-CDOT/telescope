@@ -1,27 +1,27 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2021,
-  },
+  parserOptions: { ecmaVersion: 2021 },
   extends: [
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'airbnb',
     'plugin:prettier/recommended',
     'plugin:promise/recommended',
     'plugin:jest-playwright/recommended',
-    'plugin:import/recommended',
   ],
-  plugins: ['prettier', 'promise', 'jest', 'anti-trojan-source', '@typescript-eslint'],
+  plugins: ['prettier', 'promise', 'jest', 'anti-trojan-source', 'react', 'react-hooks'],
   settings: {
     'import/resolver': {
-      node: {},
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
     },
     react: {
       version: '17.0',
     },
+  },
+  env: {
+    es2021: true,
   },
 
   // Default rules for any file we lint
@@ -29,6 +29,7 @@ module.exports = {
     /**
      * Force prettier formatting
      */
+
     'prettier/prettier': 'error',
     /**
      * Disallow the use of console
@@ -98,20 +99,6 @@ module.exports = {
     'react/no-danger': 'off',
 
     'jsx-a11y/control-has-associated-label': 'warn',
-
-    /**
-     * Due to having our dev dependencies in a monorepo layout, this is
-     * difficult to configure properly.  Disabling for now.
-     */
-    'import/no-extraneous-dependencies': ['off'],
-    'no-new': 'off',
-
-    /**
-     * False positive of no-shadow rule with ENUMs
-     * https://github.com/typescript-eslint/typescript-eslint/issues/2483
-     */
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': 'off',
 
     /**
      * Halt if a trojan source attack is found

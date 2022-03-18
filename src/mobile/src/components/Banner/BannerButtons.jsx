@@ -1,15 +1,15 @@
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 
 const styles = StyleSheet.create({
+  btnText: {
+    color: 'white',
+    fontSize: 17,
+    textTransform: 'uppercase',
+  },
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     zIndex: 1000,
-  },
-  btnText: {
-    color: 'white',
-    textTransform: 'uppercase',
-    fontSize: 17,
   },
 });
 
