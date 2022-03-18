@@ -47,6 +47,7 @@ services:
       - 'traefik.http.middlewares.strip_kong_prefix.stripprefix.prefixes=/${API_VERSION}/supabase'
       - 'traefik.http.middlewares.strip_kong_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.kong.middlewares=strip_kong_prefix'
+
   auth:
     container_name: supabase-auth
     image: supabase/gotrue:v2.5.22

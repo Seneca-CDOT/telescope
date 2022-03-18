@@ -10,22 +10,33 @@ jobs:
     strategy:
       matrix:
         node-version: [14.x, 16.x]
+    env:
+      # Whichever Docker containers are needed to pass e2e tests, define them here
+      DOCKER_CONTAINERS: 'sso feed-discovery auth login kong rest meta'
+
     steps:
       - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.23.5
+
       - uses: actions/setup-python@v2
         with:
-          python-version: '3.x'
+          python-version: 3.x
+
+      - uses: pnpm/action-setup@v2.1.0
+        with:
+          version: 6
+
       - uses: actions/setup-node@v2.5.1
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: pnpm
+
       - uses: docker/setup-buildx-action@v1
-      - uses: microsoft/playwright-github-action@v1
-      - name: Start microservices and run e2e tests
-        run: |
-          pnpm install
-          pnpm services:start
-          pnpm jest:e2e
+
+      - name: Install playwright
+        uses: microsoft/playwright-github-action@v1
+
+      # Pull, build, and run containers, then start e2e tests
+      - run: pnpm install
+      - name: Pull/Build Docker Containers Necessary for Running E2E Tests
+        run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
+      - run: pnpm jest:e2e
