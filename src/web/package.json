@@ -14,6 +14,7 @@
   "dependencies": {
     "@emotion/react": "11.8.2",
     "@emotion/styled": "11.8.1",
+    "@testing-library/react": "12.1.4",
     "@fontsource/pt-serif": "4.5.3",
     "@fontsource/spartan": "4.5.4",
     "@material-ui/core": "4.12.3",
@@ -43,20 +44,19 @@
     "react-use": "17.3.2",
     "smoothscroll-polyfill": "0.4.4",
     "swr": "1.2.2",
-    "yup": "0.32.11",
-    "@testing-library/react": "12.1.4"
+    "yup": "0.32.11"
   },
   "devDependencies": {
     "@senecacdot/eslint-config-telescope": "1.0.1",
     "@testing-library/react": "12.1.4",
+    "@typescript-eslint/eslint-plugin": "4.33.0",
+    "@typescript-eslint/parser": "4.33.0",
     "@types/node": "16.11.26",
     "@types/react": "17.0.40",
     "babel-loader": "8.2.3",
     "eslint": "7.32.0",
     "terser-webpack-plugin": "5.3.1",
     "typescript": "4.4.4",
-    "webpack": "5.9.0",
-    "@typescript-eslint/eslint-plugin": "4.33.0",
-    "@typescript-eslint/parser": "4.33.0"
+    "webpack": "5.9.0"
   }
 }
