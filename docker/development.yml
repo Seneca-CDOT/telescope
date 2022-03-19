@@ -12,6 +12,23 @@ version: '3'
 services:
   # API Gateway
   nginx:
+    build:
+      context: ../src/web
+      cache_from:
+        - docker.cdot.systems/nginx:buildcache
+      # next.js needs build-time access to a number of API URL values, forward as ARGs
+      args:
+        # Web front-end URL
+        - WEB_URL=${WEB_URL}
+        # Telescope 1.0 API URL
+        - API_URL=${API_URL}
+        # Telescope 2.0 Microservice URLs
+        - IMAGE_URL=${IMAGE_URL}
+        - SSO_URL=${SSO_URL}
+        - POSTS_URL=${POSTS_URL}
+        - SEARCH_URL=${SEARCH_URL}
+        - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
+        - STATUS_URL=${STATUS_URL}
     volumes:
       - ../config/nginx.conf.development.template:/etc/nginx/nginx.conf
     ports:
@@ -68,35 +85,72 @@ services:
       # We only run a single node
       - discovery.type=single-node
 
-  sso:
-    environment:
-      # In development and testing, the SSO service needs to contact the Supabase
-      # service directly via Docker vs through the http://localhost/v1/supabase domain.
-      - SUPABASE_URL=http://kong:8000
-    depends_on:
-      - test-web-content
-
   # TODO: https://github.com/Seneca-CDOT/telescope/issues/2111
   # parser:
   #   environment:
   #     # For development and testing, the Parser service needs to contact the users
   #     # service directly via Docker vs through the http://localhost domain.
 
-  planet:
-    ports:
-      - '9876:9876'
-    environment:
-      - POSTS_URL=http://posts:5555
-
   status:
+    build:
+      context: ../src/api/status
+      cache_from:
+        - docker.cdot.systems/status:buildcache
     ports:
       - '1111:1111'
     environment:
       - POSTS_URL=http://posts:5555
 
+  image:
+    build:
+      context: ../src/api/image
+      cache_from:
+        - docker.cdot.systems/image:buildcache
+
+  sso:
+    build:
+      context: ../src/api/sso
+      cache_from:
+        - docker.cdot.systems/sso:buildcache
+    environment:
+      # In development and testing, the SSO service needs to contact the Supabase
+      # service directly via Docker vs through the http://localhost/v1/supabase domain.
+      - SUPABASE_URL=http://kong:8000
+    depends_on:
+      - test-web-content
+      - traefik
+      - login
+
+  search:
+    build:
+      context: ../src/api/search
+      cache_from:
+        - docker.cdot.systems/search:buildcache
+
+  posts:
+    build:
+      context: ../src/api/posts
+      cache_from:
+        - docker.cdot.systems/posts:buildcache
+
   feed-discovery:
     build:
       context: ../src/api/feed-discovery
-      dockerfile: Dockerfile
       cache_from:
         - docker.cdot.systems/feed-discovery:buildcache
+
+  planet:
+    build:
+      context: ../src/api/planet
+      cache_from:
+        - docker.cdot.systems/planet:buildcache
+    ports:
+      - '9876:9876'
+    environment:
+      - POSTS_URL=http://posts:${POSTS_PORT:-5555}
+
+  dependency-discovery:
+    build:
+      context: ../src/api/dependency-discovery
+      cache_from:
+        - docker.cdot.systems/dependency-discovery:buildcache
