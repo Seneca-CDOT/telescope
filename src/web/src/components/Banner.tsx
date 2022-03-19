@@ -1,8 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
 import { BsInfoCircle } from 'react-icons/bs';
-import { makeStyles, Theme, createStyles, Typography, Fab } from '@material-ui/core';
 import smoothscroll from 'smoothscroll-polyfill';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Fab, Theme, Typography } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import { telescopeUrl, webUrl, statusUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';

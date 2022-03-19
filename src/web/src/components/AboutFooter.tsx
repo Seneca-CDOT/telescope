@@ -1,6 +1,7 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Box, createStyles, Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import { Box, Divider, Grid, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { createStyles, makeStyles } from '@mui/styles';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { FaSlack } from 'react-icons/fa';
 
 import GitHubContributorCard from './GitHubContributorCard';

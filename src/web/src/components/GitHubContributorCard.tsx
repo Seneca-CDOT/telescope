@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Avatar, Grid } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
+import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import useTelescopeContributor from '../hooks/use-telescope-contributor';
 
 const contributionsCount = (contributions: number) =>
@@ -8,7 +8,7 @@ const contributionsCount = (contributions: number) =>
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.secondary.main : theme.palette.secondary.dark,
+      theme.palette.mode === 'light' ? theme.palette.secondary.main : theme.palette.secondary.dark,
   },
   typography: {
     color: theme.palette.text.primary,

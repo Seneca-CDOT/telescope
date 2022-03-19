@@ -1,5 +1,5 @@
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Theme } from '@material-ui/core';
+import { makeStyles } from '@mui/styles';
+import { Typography, Theme } from '@mui/material';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     lineHeight: '3rem',
     color: theme.palette.text.primary,
     listStyleType: 'none',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       paddingLeft: theme.spacing(4),
       paddingRight: theme.spacing(4),
       paddingTop: 0,

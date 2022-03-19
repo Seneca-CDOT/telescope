@@ -1,6 +1,9 @@
-import { createContext, ChangeEvent, useState } from 'react';
-import { FormControl, Grid, InputLabel, MenuItem, Select } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+// Shouldn't produce errors but this component needs more care
+// Look into other Select examples https://mui.com/components/selects/#basic-select
+import { createContext, useState } from 'react';
+import { Box, FormControl, InputLabel, MenuItem } from '@mui/material';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { makeStyles } from '@mui/styles';
 
 import { setLang, getLang } from '../translations/i18n';
 
@@ -33,20 +36,19 @@ const LanguageSelector = () => {
   // and is not effected by rendering.
   const [language, setLanguage] = useState(getLang());
 
-  const changeLanguage = (
-    e: ChangeEvent<{ name?: string | undefined; value: string | unknown }>
-  ) => {
-    e.preventDefault();
+  const changeLanguage = (e: SelectChangeEvent) => {
     setLanguage(e.target.value as string);
     setLang(e.target.value);
   };
 
   return (
-    <Grid container>
+    <Box sx={{ minwidth: 120 }}>
       <FormControl>
-        <InputLabel>Language</InputLabel>
+        <InputLabel id="language-label">Language</InputLabel>
         <Select
           className={classes.selectBox}
+          labelId="language-label"
+          id="language-select"
           value={language}
           label="Language"
           onChange={changeLanguage}
@@ -60,7 +62,7 @@ const LanguageSelector = () => {
           })}
         </Select>
       </FormControl>
-    </Grid>
+    </Box>
   );
 };
 

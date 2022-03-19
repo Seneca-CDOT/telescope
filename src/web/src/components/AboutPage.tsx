@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/styles';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from './LanguageSelector';
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => {
       padding: '1em 0 2em 0',
       paddingTop: 'env(safe-area-inset-top)',
       wordWrap: 'break-word',
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         maxWidth: 'none',
       },
       '& h1': {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => {
         transition: 'color 1s',
         marginTop: 0,
         padding: '2vh 22vw',
-        [theme.breakpoints.down(1024)]: {
+        [theme.breakpoints.down('md')]: {
           padding: '1vh 8vw',
           wordWrap: 'break-word',
         },
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => {
         fontSize: 20,
         transition: 'color 1s',
         padding: '2vh 22vw',
-        [theme.breakpoints.down(1024)]: {
+        [theme.breakpoints.down('md')]: {
           padding: '1vh 8vw',
           wordWrap: 'break-word',
         },
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => {
         fontSize: 16,
         padding: '1vh 20vw',
         marginBottom: '0',
-        [theme.breakpoints.down(1024)]: {
+        [theme.breakpoints.down('md')]: {
           padding: '1vh 5vw',
           wordWrap: 'break-word',
         },

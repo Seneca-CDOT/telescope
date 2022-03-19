@@ -1,6 +1,6 @@
-import { makeStyles } from '@material-ui/core/styles';
 import NoSsr from '@material-ui/core/NoSsr';
 
+import { makeStyles } from '@mui/styles';
 import DynamicImage from './DynamicImage';
 import { imageServiceUrl } from '../config';
 
@@ -14,6 +14,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundPosition: '50% 0',
     backgroundImage:
       'linear-gradient(to right bottom, #51f2e4, #00cbea, #00a0ee, #0071e0, #0c39b7);',
+    [theme.breakpoints.down('md')]: {
+      height: 'calc(100vh - 64px)',
+    },
+    [theme.breakpoints.down('sm')]: {
+      height: 'calc(100vh - 56px)',
+    },
   },
 }));
 

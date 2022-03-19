@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { makeStyles, Tooltip, withStyles, Zoom } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
+import { Button, Tooltip, Zoom } from '@mui/material';
+import { makeStyles, withStyles } from '@mui/styles';
 import useAuth from '../hooks/use-auth';
+
 import TelescopeAvatar from './TelescopeAvatar';
 import PopUp from './PopUp';
 
@@ -26,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
   userSignedInClass: {
     width: '155px',
-    [theme.breakpoints.down(490)]: {
+    [theme.breakpoints.down('sm')]: {
       width: '100%',
       right: 0,
     },
   },
   userNotSignedClass: {
     width: '250px',
-    [theme.breakpoints.down(490)]: {
+    [theme.breakpoints.down('sm')]: {
       width: '100%',
       right: 0,
     },
