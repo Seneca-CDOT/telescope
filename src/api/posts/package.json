@@ -29,7 +29,8 @@
   },
   "devDependencies": {
     "@senecacdot/eslint-config-telescope": "1.1.0",
-    "supertest": "6.1.6",
-    "eslint": "7.32.0"
+    "eslint": "7.32.0",
+    "redis-commands": "1.7.0",
+    "supertest": "6.1.6"
   }
 }

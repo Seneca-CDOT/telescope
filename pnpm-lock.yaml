@@ -259,18 +259,20 @@ importers:
       ioredis-mock: 5.9.1
       jsdom: 18.1.1
       normalize-url: 6.1.0
+      redis-commands: 1.7.0
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.27.0
       bull: 3.29.3
       express-validator: 6.14.0
       ioredis: 4.28.5
-      ioredis-mock: 5.9.1_ioredis@4.28.5
+      ioredis-mock: 5.9.1_ba8a89de17b1bb8d40d8173f0d50f179
       jsdom: 18.1.1
       normalize-url: 6.1.0
     devDependencies:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       eslint: 7.32.0
+      redis-commands: 1.7.0
       supertest: 6.1.6
 
   src/api/search:
@@ -10278,6 +10280,21 @@ packages:
       loose-envify: 1.4.0
     dev: false
 
+  /ioredis-mock/5.9.1_ba8a89de17b1bb8d40d8173f0d50f179:
+    resolution: {integrity: sha512-ZirdGJFOqH5nP8FYXuHUJmexvtZ6r2Ybc5alaGMzt38QA0kse5/rYnBQcb4ofxkyqzhXHuaCsXiwLlfG6NyhhQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      ioredis: 4.x
+      redis-commands: 1.x
+    dependencies:
+      fengari: 0.1.4
+      fengari-interop: 0.1.3_fengari@0.1.4
+      ioredis: 4.28.5
+      lodash: 4.17.21
+      redis-commands: 1.7.0
+      standard-as-callback: 2.1.0
+    dev: false
+
   /ioredis-mock/5.9.1_ioredis@4.28.5:
     resolution: {integrity: sha512-ZirdGJFOqH5nP8FYXuHUJmexvtZ6r2Ybc5alaGMzt38QA0kse5/rYnBQcb4ofxkyqzhXHuaCsXiwLlfG6NyhhQ==}
     engines: {node: '>=10'}
@@ -14711,7 +14728,6 @@ packages:
 
   /redis-commands/1.7.0:
     resolution: {integrity: sha512-nJWqw3bTFy21hX/CPKHth6sfhZbdiHP6bTawSgQBlKOVRG7EZkfHbbHwQJnrE4vsQf0CMNE+3gJ4Fmm16vdVlQ==}
-    dev: false
 
   /redis-errors/1.2.0:
     resolution: {integrity: sha1-62LSrbFeTq9GEMBK/hUpOEJQq60=}
