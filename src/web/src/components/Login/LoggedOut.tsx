@@ -1,4 +1,4 @@
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import NavBarButton from '../NavBar/NavBarButton';
 import useAuth from '../../hooks/use-auth';

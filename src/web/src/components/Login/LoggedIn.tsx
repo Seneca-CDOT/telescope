@@ -1,4 +1,4 @@
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 import useAuth from '../../hooks/use-auth';
 import NavBarButton, { NavBarIconProps } from '../NavBar/NavBarButton';

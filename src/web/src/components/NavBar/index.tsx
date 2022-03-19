@@ -1,11 +1,13 @@
 import Link from 'next/link';
 import { useMemo, CSSProperties } from 'react';
-import { AppBar, Toolbar, Tooltip, Zoom } from '@material-ui/core';
-import { makeStyles, useTheme, withStyles } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import SearchIcon from '@material-ui/icons/Search';
-import HomeIcon from '@material-ui/icons/Home';
-import ContactSupportIcon from '@material-ui/icons/ContactSupport';
+import { AppBar, Toolbar, Tooltip, Zoom, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { makeStyles, withStyles } from '@mui/styles';
+
+import HomeIcon from '@mui/icons-material/Home';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import SearchIcon from '@mui/icons-material/Search';
+
 import { Transition } from 'react-transition-group';
 
 import dynamic from 'next/dynamic';
@@ -32,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
     width: '15em',
     height: 'fit-content',
     transition: `transform 200ms ease-in-out, opacity 200ms ease-in-out`,
-    [theme.breakpoints.down(1200)]: {
+    [theme.breakpoints.down('lg')]: {
       left: '-3vw',
     },
-    [theme.breakpoints.down(1024)]: {
+    [theme.breakpoints.down('md')]: {
       left: '0',
       top: 'auto',
       bottom: '0',
@@ -47,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     backgroundColor: 'transparent',
     transition: 'width 100ms linear,top 300ms linear',
-    [theme.breakpoints.down(1024)]: {
+    [theme.breakpoints.down('md')]: {
       transition: 'width 100ms linear,top 100ms cubic-bezier(0.5, 1, 0.89, 1)',
       flexDirection: 'row',
       alignItems: 'center',
@@ -58,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    [theme.breakpoints.down(1024)]: {
+    [theme.breakpoints.down('md')]: {
       flex: '1',
       justifyContent: 'space-around',
       flexDirection: 'row',
@@ -118,7 +120,7 @@ type NavBarProps = {
 export default function NavBar({ disabled }: NavBarProps) {
   const classes = useStyles();
   const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up(1024));
+  const desktop = useMediaQuery(theme.breakpoints.up('md'));
   const { user, logout } = useAuth();
 
   const slideTransition: { [state: string]: CSSProperties } = useMemo(

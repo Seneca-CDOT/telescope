@@ -1,8 +1,8 @@
 import { MouseEventHandler } from 'react';
 import Link from 'next/link';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { IconButton, Button, Tooltip, Zoom } from '@material-ui/core';
-import { SvgIconComponent } from '@material-ui/icons';
+import { makeStyles, withStyles } from '@mui/styles';
+import { Button, IconButton, Tooltip, Zoom } from '@mui/material';
+import { SvgIconComponent } from '@mui/icons-material';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -56,6 +56,7 @@ const NavBarButton = (props: NavBarIconProps) => {
             className={classes.button}
             aria-label={ariaLabel}
             component="a"
+            size="large"
           >
             <Icon className={classes.icon} />
           </IconButton>
