@@ -1,6 +1,6 @@
 {
   "name": "@senecacdot/eslint-config-telescope",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "ESLint config for Telescope",
   "main": "index.js",
   "repository": "Seneca-CDOT/telescope",
