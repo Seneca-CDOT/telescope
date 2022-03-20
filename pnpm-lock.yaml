@@ -373,7 +373,7 @@ importers:
       clsx: 1.1.1
       eslint: 7.32.0
       eslint-plugin-import: 2.25.4
-      mdx-mermaid: 1.2.1
+      mdx-mermaid: 1.2.2
       mermaid: 8.13.8
       prism-react-renderer: 1.3.1
       react: 17.0.2
@@ -386,7 +386,7 @@ importers:
       '@docusaurus/preset-classic': 2.0.0-beta.17_9914ddf3f32a3d74971b56f92e044041
       '@mdx-js/react': 1.6.22_react@17.0.2
       clsx: 1.1.1
-      mdx-mermaid: 1.2.1_86225b747a04048675421f37325d0553
+      mdx-mermaid: 1.2.2_86225b747a04048675421f37325d0553
       mermaid: 8.13.8
       prism-react-renderer: 1.3.1_react@17.0.2
       react: 17.0.2
@@ -5508,7 +5508,7 @@ packages:
   /axios/0.21.4_debug@4.3.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.9_debug@4.3.4
+      follow-redirects: 1.14.9
     transitivePeerDependencies:
       - debug
     dev: false
@@ -9179,18 +9179,6 @@ packages:
       debug:
         optional: true
 
-  /follow-redirects/1.14.9_debug@4.3.4:
-    resolution: {integrity: sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.4
-    dev: false
-
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
     dependencies:
@@ -11988,8 +11976,8 @@ packages:
     resolution: {integrity: sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4=}
     dev: false
 
-  /mdx-mermaid/1.2.1_86225b747a04048675421f37325d0553:
-    resolution: {integrity: sha512-RYmrUJodWDNy9S0A++Fex3vr5+Q2vLMDakjpw7cQjd8Owhg98eYe+AePpmMx6Y/wLHjWKIGv2wvHWj2qdaZN7w==}
+  /mdx-mermaid/1.2.2_86225b747a04048675421f37325d0553:
+    resolution: {integrity: sha512-izl9Vaus0fJHJb6IGgcGZ79LpfFACfn28ExPXKL815RTMT9bgDRIAubufZUCgoCAAv/2S1VTxJLWTwbck4TpLA==}
     peerDependencies:
       mermaid: '>= 8.11.0 < 8.12.0'
       react: ^16.8.4 || ^17.0.0
