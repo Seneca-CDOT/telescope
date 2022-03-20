@@ -52,7 +52,7 @@
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "@types/node": "16.11.26",
-    "@types/react": "17.0.40",
+    "@types/react": "17.0.41",
     "babel-loader": "8.2.3",
     "eslint": "7.32.0",
     "terser-webpack-plugin": "5.3.1",
