@@ -4,7 +4,10 @@
   "private": true,
   "description": "A service for retrieving posts",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "eslint": "TIMING=1 eslint --config .eslintrc.js \"./**/*.js\"",
+    "eslint-fix": "eslint --config .eslintrc.js \"./**/*.js\" --fix",
+    "lint": "pnpm eslint"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -25,6 +28,8 @@
     "normalize-url": "6.1.0"
   },
   "devDependencies": {
-    "supertest": "6.1.6"
+    "@senecacdot/eslint-config-telescope": "1.1.0",
+    "supertest": "6.1.6",
+    "eslint": "7.32.0"
   }
 }
