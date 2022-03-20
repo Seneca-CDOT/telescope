@@ -473,7 +473,7 @@ importers:
       eslint: 7.32.0
       formik: 2.2.9
       highlight.js: 11.4.0
-      i18next: 21.6.12
+      i18next: 21.6.14
       i18next-browser-languagedetector: 6.1.3
       jwt-decode: 3.1.2
       nanoid: 3.2.0
@@ -510,7 +510,7 @@ importers:
       dotenv: 10.0.0
       formik: 2.2.9_react@17.0.2
       highlight.js: 11.4.0
-      i18next: 21.6.12
+      i18next: 21.6.14
       i18next-browser-languagedetector: 6.1.3
       jwt-decode: 3.1.2
       nanoid: 3.2.0
@@ -519,7 +519,7 @@ importers:
       next-pwa: 5.4.5_eecde9f348147c673fc44d2fb476344b
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-i18next: 11.15.5_2c37a602a29bb6bd53f3de707a8cfcc5
+      react-i18next: 11.15.5_f94be6b4dd1edc1d8608af374b838bd6
       react-icons: 4.3.1_react@17.0.2
       react-lite-youtube-embed: 2.2.1_react-dom@17.0.2+react@17.0.2
       react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
@@ -5508,7 +5508,7 @@ packages:
   /axios/0.21.4_debug@4.3.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.9
+      follow-redirects: 1.14.9_debug@4.3.4
     transitivePeerDependencies:
       - debug
     dev: false
@@ -9179,6 +9179,18 @@ packages:
       debug:
         optional: true
 
+  /follow-redirects/1.14.9_debug@4.3.4:
+    resolution: {integrity: sha512-MQDfihBQYMcyy5dhRDJUHcw7lb2Pv/TuE6xP1vyraLukNDHKbDxDNaOE3NbCAdKQApno+GPRyo1YAp89yCjK4w==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.4
+    dev: false
+
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
     dependencies:
@@ -10113,8 +10125,8 @@ packages:
       '@babel/runtime': 7.17.8
     dev: false
 
-  /i18next/21.6.12:
-    resolution: {integrity: sha512-xlGTPdu2g5PZEUIE6TA1mQ9EIAAv9nMFONzgwAIrKL/KTmYYWufQNGgOmp5Og1PvgUji+6i1whz0rMdsz1qaKw==}
+  /i18next/21.6.14:
+    resolution: {integrity: sha512-XL6WyD+xlwQwbieXRlXhKWoLb/rkch50/rA+vl6untHnJ+aYnkQ0YDZciTWE78PPhOpbi2gR0LTJCJpiAhA+uQ==}
     dependencies:
       '@babel/runtime': 7.17.8
     dev: false
@@ -14412,7 +14424,7 @@ packages:
       shallowequal: 1.1.0
     dev: false
 
-  /react-i18next/11.15.5_2c37a602a29bb6bd53f3de707a8cfcc5:
+  /react-i18next/11.15.5_f94be6b4dd1edc1d8608af374b838bd6:
     resolution: {integrity: sha512-vBWuVEQgrhZrGKpyv8FmJ7Zs5jRQWl794Tte7yzJ0okZqqi3jd6j2pLYNg441WcREsbIOvWdiDXbY7W6E93p1A==}
     peerDependencies:
       i18next: '>= 19.0.0'
@@ -14428,7 +14440,7 @@ packages:
       '@babel/runtime': 7.17.8
       html-escaper: 2.0.2
       html-parse-stringify: 3.0.1
-      i18next: 21.6.12
+      i18next: 21.6.14
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
     dev: false
