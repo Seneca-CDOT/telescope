@@ -86,6 +86,7 @@ module.exports = async () => {
       // Make sure the URL for this feed is a valid http/https web URI,
       // then process into a Feed object.
       try {
+        // eslint-disable-next-line no-new
         new URL(currentFeedInfo.url);
         feeds.push(currentFeedInfo);
       } catch {
