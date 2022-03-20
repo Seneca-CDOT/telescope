@@ -95,7 +95,7 @@
     "@babel/preset-env": "7.16.11",
     "@babel/preset-react": "7.16.7",
     "@babel/preset-typescript": "7.16.7",
-    "@senecacdot/eslint-config-telescope": "1.0.1",
+    "@senecacdot/eslint-config-telescope": "1.1.0",
     "@types/jest": "27.4.1",
     "@vercel/node": "1.13.0",
     "babel-preset-next": "1.4.0",
