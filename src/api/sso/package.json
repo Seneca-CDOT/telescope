@@ -17,7 +17,7 @@
     "@senecacdot/satellite": "^1.27.0",
     "@supabase/supabase-js": "1.29.4",
     "celebrate": "15.0.1",
-    "connect-redis": "6.1.1",
+    "connect-redis": "6.1.3",
     "express-session": "1.17.2",
     "jsonwebtoken": "8.5.1",
     "minimatch": "3.0.4",
