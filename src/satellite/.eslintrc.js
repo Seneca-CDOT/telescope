@@ -4,14 +4,16 @@ module.exports = {
   overrides: [
     {
       files: ['./src/**/*.js', './test.js'],
-      rules: {
-        'no-unused-vars': 'error',
-      },
       env: {
         node: true,
         commonjs: true,
         es2021: true,
         jest: true,
+      },
+      rules: {
+        'no-unused-vars': 'error',
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'off',
       },
     },
   ],

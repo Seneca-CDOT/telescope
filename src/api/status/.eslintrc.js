@@ -3,12 +3,15 @@ module.exports = {
   overrides: [
     {
       files: ['./src/**/*.js'],
-      rules: {
-        'import/extensions': ['error', 'always'],
-      },
       env: {
         browser: true,
         node: true,
+      },
+      rules: {
+        'import/extensions': ['error', 'always'],
+        'no-unused-vars': 'error',
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'off',
       },
     },
   ],

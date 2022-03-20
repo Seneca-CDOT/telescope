@@ -28,6 +28,11 @@ module.exports = {
         // We build a static site, and nearly all components don't change.
         'react/no-array-index-key': 'off',
         'react/prop-types': 'off',
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'off',
+      },
+      parserOptions: {
+        sourceType: 'module',
       },
       settings: {
         'import/resolver': {

@@ -22,10 +22,11 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@senecacdot/satellite": "^1.27.0",
-    "query-registry": "2.2.0"
+    "query-registry": "2.2.0",
+    "supertest": "^6.2.2"
   },
   "devDependencies": {
-    "@senecacdot/eslint-config-telescope": "1.0.0",
+    "@senecacdot/eslint-config-telescope": "1.1.0",
     "env-cmd": "10.1.0",
     "eslint": "7.32.0",
     "nodemon": "2.0.15"

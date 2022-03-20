@@ -188,7 +188,9 @@ describe('Post data class tests', () => {
       nockRealWorldRssResponse();
       articles = await parse.parseURL(getRealWorldRssUri());
 
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(Array.isArray(articles.items)).toBe(true);
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(articles.items.length).toBe(15);
     });
 
@@ -297,7 +299,9 @@ describe('Post data class tests', () => {
       nockRealWorldYouTubeFeedResponse();
       articles = await parse.parseURL(getRealWorldYouTubeFeedUri());
 
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(Array.isArray(articles.items)).toBe(true);
+      // eslint-disable-next-line jest/no-standalone-expect
       expect(articles.items.length).toBe(15);
     });
 

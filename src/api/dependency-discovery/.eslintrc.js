@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-shadow
 module.exports = {
   extends: '@senecacdot/eslint-config-telescope',
 
@@ -10,6 +9,10 @@ module.exports = {
         commonjs: true,
         es2021: true,
         node: true,
+      },
+      rules: {
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'off',
       },
     },
   ],
