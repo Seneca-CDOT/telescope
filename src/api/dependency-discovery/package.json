@@ -26,7 +26,7 @@
     "supertest": "6.1.6"
   },
   "devDependencies": {
-    "@senecacdot/eslint-config-telescope": "1.0.1",
+    "@senecacdot/eslint-config-telescope": "1.1.0",
     "env-cmd": "10.1.0",
     "eslint": "7.32.0",
     "nodemon": "2.0.15"
