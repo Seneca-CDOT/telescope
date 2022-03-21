@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { Tooltip, IconButton, createStyles, Zoom } from '@material-ui/core';
-import { makeStyles, Theme, withStyles } from '@material-ui/core/styles';
-import CopyIcon from '@material-ui/icons/FileCopyOutlined';
-import Check from '@material-ui/icons/Check';
+import { IconButton, Tooltip, Zoom } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import { createStyles, makeStyles, withStyles } from '@mui/styles';
+
+import Check from '@mui/icons-material/Check';
+import CopyIcon from '@mui/icons-material/FileCopyOutlined';
 
 type Props = {
   url: string;
@@ -52,13 +54,14 @@ const ShareButton = ({ url }: Props) => {
         onClick={() => {
           copyToClipboardEvent();
         }}
+        size="large"
       >
         <CopyIcon className={classes.copy} />
       </IconButton>
     </ButtonTooltip>
   ) : (
     <ButtonTooltip title="Copied" arrow placement="top" TransitionComponent={Zoom}>
-      <IconButton className={classes.iconBtn}>
+      <IconButton className={classes.iconBtn} size="large">
         <Check className={classes.check} />
       </IconButton>
     </ButtonTooltip>

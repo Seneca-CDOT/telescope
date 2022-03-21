@@ -1,4 +1,5 @@
-import { createStyles, ListSubheader, makeStyles, Theme } from '@material-ui/core';
+import { ListSubheader, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import PostAvatar from './PostAvatar';
 import AdminButtons from '../AdminButtons';
 import ShareButton from './ShareButton';

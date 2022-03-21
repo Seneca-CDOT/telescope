@@ -1,20 +1,21 @@
 import { useRef, useState, useEffect } from 'react';
 import useSWR from 'swr';
 import clsx from 'clsx';
-import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import {
-  Box,
-  Grid,
-  Typography,
-  ListSubheader,
-  createStyles,
-  useMediaQuery,
   Accordion,
-  AccordionSummary,
   AccordionDetails,
+  AccordionSummary,
+  Box,
   Chip,
-} from '@material-ui/core';
-import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+  Grid,
+  ListSubheader,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
+import { Theme, useTheme } from '@mui/material/styles';
+import { createStyles, makeStyles } from '@mui/styles';
+import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
+
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import GitHubInfo from './GitHubInfo';
 import GitHubInfoMobile from './GitHubInfo/GitHubInfoMobile';
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '8em',
     },
     postInfo: {
-      [theme.breakpoints.down(1205)]: {
+      [theme.breakpoints.down('lg')]: {
         display: 'grid',
         gridTemplateAreas: "'avatar title title title''avatar author date date'",
         gridTemplateColumns: 'auto auto auto auto',
@@ -76,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 'auto',
       width: '85%',
       marginBottom: '1.5em',
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         width: '100%',
       },
     },
@@ -88,15 +89,15 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: '1.3',
       top: '-1.1em',
       overflowY: 'hidden',
-      [theme.breakpoints.down(1205)]: {
+      [theme.breakpoints.down('lg')]: {
         top: '-1.1em',
         width: '725px',
         padding: 'env(safe-area-inset-top, 1em) 0 .1em',
       },
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         width: '80vw',
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: '78vw',
       },
     },
@@ -109,12 +110,12 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       letterSpacing: '-1.5px',
       fontSize: 'clamp(2.5em, 4vw, 3em)',
-      [theme.breakpoints.down(1205)]: {
+      [theme.breakpoints.down('lg')]: {
         textAlign: 'start',
         fontSize: '2em',
         marginLeft: '.3em',
       },
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         marginLeft: '.1em',
       },
       cursor: 'pointer',
@@ -127,10 +128,10 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '16px',
       display: 'flex',
       justifyContent: 'flex-end',
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         margin: '0 2em 0.05em 0',
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         margin: '0 0 0.05em 0',
       },
     },
@@ -138,25 +139,25 @@ const useStyles = makeStyles((theme: Theme) =>
       border: `1px solid ${theme.palette.primary.main}`,
       color: `${theme.palette.text.primary}`,
       fontSize: '0.75em',
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         fontSize: '.65em',
       },
     },
     authorNameContainer: {
-      [theme.breakpoints.down(1205)]: {
+      [theme.breakpoints.down('lg')]: {
         gridArea: 'author',
         width: '100%',
       },
     },
     author: {
-      [theme.breakpoints.down(1205)]: {
+      [theme.breakpoints.down('lg')]: {
         fontSize: '2em',
         lineHeight: '1.5em',
         fontWeight: 'bold',
         margin: '.2em 0 0 .5em',
         color: theme.palette.text.primary,
       },
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         fontSize: '1.1em',
         marginRight: '.3em',
       },
@@ -169,33 +170,33 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     publishedDateContainer: {
-      [theme.breakpoints.down(1205)]: {
+      [theme.breakpoints.down('lg')]: {
         gridArea: 'date',
         display: 'flex',
         flexWrap: 'nowrap',
         justifyContent: 'flex-end',
         alignItems: 'flex-start',
       },
-      [theme.breakpoints.down(300)]: {
+      [theme.breakpoints.down('sm')]: {
         minWidth: '140px',
       },
     },
     published: {
-      [theme.breakpoints.down(1205)]: {
+      [theme.breakpoints.down('lg')]: {
         height: '10px',
         margin: '-.6em 1em -1em 1.5em',
         fontSize: '1.3em',
         fontWeight: 'lighter',
         color: theme.palette.text.primary,
       },
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         fontSize: '1.1em',
         height: '5px',
         margin: '-1.6em -.5em .5px',
       },
     },
     authorAvatarContainer: {
-      [theme.breakpoints.down(1205)]: {
+      [theme.breakpoints.down('lg')]: {
         gridArea: 'avatar',
         shapeOutside: 'circle(50%) border-box',
         shapeMargin: '1rem',
@@ -224,7 +225,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '& code': {
         backgroundColor: theme.palette.background.default,
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         padding: '.5em',
         width: 'auto',
       },

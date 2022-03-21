@@ -1,6 +1,8 @@
 import { ReactElement } from 'react';
-import { Container, createStyles } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Container } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import { createStyles, makeStyles } from '@mui/styles';
+
 import PostComponent from './Post';
 import { Post } from '../../interfaces';
 import LoadAutoScroll from './LoadAutoScroll';
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: '0',
       width: '800px',
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         width: '90%',
       },
     },
@@ -27,10 +29,10 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '2rem',
       fontFamily: 'Spartan',
       color: theme.palette.primary.main,
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         paddingBottom: 'calc(84px + env(safe-area-inset-bottom))',
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         paddingBottom: 'calc(76px + env(safe-area-inset-bottom))',
       },
     },

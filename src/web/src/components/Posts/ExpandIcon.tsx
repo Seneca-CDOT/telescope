@@ -1,7 +1,7 @@
-import { IconButton, createStyles } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import { IconButton } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 type Props = {
   small: Boolean;
@@ -31,7 +31,11 @@ const useStyles = makeStyles(() =>
 const ExpandIcon = ({ small, expandHeader, setExpandHeader }: Props) => {
   const classes = useStyles();
   return small ? (
-    <IconButton onClick={() => setExpandHeader(!expandHeader)} className={classes.iconBtn}>
+    <IconButton
+      onClick={() => setExpandHeader(!expandHeader)}
+      className={classes.iconBtn}
+      size="large"
+    >
       {expandHeader ? (
         <ExpandLessIcon className={classes.smallIcon} />
       ) : (
@@ -40,7 +44,11 @@ const ExpandIcon = ({ small, expandHeader, setExpandHeader }: Props) => {
     </IconButton>
   ) : (
     <div className={classes.container}>
-      <IconButton onClick={() => setExpandHeader(!expandHeader)} className={classes.iconBtn}>
+      <IconButton
+        onClick={() => setExpandHeader(!expandHeader)}
+        className={classes.iconBtn}
+        size="large"
+      >
         <ExpandLessIcon className={classes.bigIcon} />
       </IconButton>
     </div>

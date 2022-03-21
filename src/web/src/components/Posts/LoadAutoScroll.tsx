@@ -1,6 +1,6 @@
 import { useEffect, createRef } from 'react';
-import { Container, Button, Grid, createStyles, Theme } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Button, Container, Grid, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 type Scroll = {
   onScroll: Function;

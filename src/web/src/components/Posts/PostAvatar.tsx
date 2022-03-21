@@ -1,5 +1,5 @@
-import { createStyles, Theme, Avatar } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Avatar, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 type AvatarProps = {
   name: string;
@@ -16,19 +16,19 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '2.5rem',
       width: '2.5em',
       height: '2.5em',
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down('lg')]: {
         fontSize: '2.5em',
       },
-      [theme.breakpoints.down(1024)]: {
+      [theme.breakpoints.down('md')]: {
         fontSize: '2em',
       },
-      [theme.breakpoints.down(375)]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: '1.7em',
       },
     },
     text: {
       transform: 'translateY(3px)',
-      [theme.breakpoints.down(1200)]: {
+      [theme.breakpoints.down('lg')]: {
         transform: 'translateY(2px)',
       },
     },

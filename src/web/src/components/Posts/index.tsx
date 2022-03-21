@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import useSWRInfinite from 'swr/infinite';
-import { Container, createStyles, Grid } from '@material-ui/core';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Container, Grid } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import { createStyles, makeStyles } from '@mui/styles';
+
 import { usePrevious } from 'react-use';
-import SentimentDissatisfiedRoundedIcon from '@material-ui/icons/SentimentDissatisfiedRounded';
+import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded';
 import Timeline from './Timeline';
 import { postsServiceUrl } from '../../config';
 import useFaviconBadge from '../../hooks/use-favicon-badge';
