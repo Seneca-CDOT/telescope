@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useMemo, CSSProperties } from 'react';
-import { AppBar, Toolbar, Tooltip, Zoom, useMediaQuery } from '@mui/material';
+import { AppBar, Theme, Toolbar, Tooltip, Zoom, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { makeStyles, withStyles } from '@mui/styles';
 
@@ -26,7 +26,7 @@ const DynamicThemeToggleButton = dynamic(() => import('../ThemeToggleButton'), {
   ssr: false,
 });
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     position: 'fixed',
     top: '1.4em',

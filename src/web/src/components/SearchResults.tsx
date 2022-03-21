@@ -1,7 +1,7 @@
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import useSWRInfinite from 'swr/infinite';
-import { Container, Box, createStyles } from '@material-ui/core';
 import { useState } from 'react';
+import useSWRInfinite from 'swr/infinite';
+import { Box, Container, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 import { searchServiceUrl } from '../config';
 import Timeline from './Posts/Timeline';

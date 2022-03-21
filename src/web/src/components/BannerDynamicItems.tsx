@@ -1,10 +1,11 @@
 import NoSsr from '@material-ui/core/NoSsr';
 
+import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import DynamicImage from './DynamicImage';
 import { imageServiceUrl } from '../config';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   dynamic: {
     height: '100vh',
     transition: 'opacity 1s ease-in-out',

@@ -1,6 +1,7 @@
+import { IconButton } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
-import { IconButton } from '@mui/material';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import FlagIcon from '@mui/icons-material/Flag';
 import useAuth from '../hooks/use-auth';

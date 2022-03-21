@@ -1,7 +1,5 @@
 import { MouseEventHandler, useState } from 'react';
-
 import { useRouter } from 'next/router';
-
 import {
   Button,
   Dialog,

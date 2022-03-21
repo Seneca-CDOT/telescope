@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
-import { Button, Tooltip, Zoom } from '@mui/material';
+import { Button, Theme, Tooltip, Zoom } from '@mui/material';
 import { makeStyles, withStyles } from '@mui/styles';
 import useAuth from '../hooks/use-auth';
 
 import TelescopeAvatar from './TelescopeAvatar';
 import PopUp from './PopUp';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   buttonsContainer: {
     paddingTop: 'env(safe-area-inset-top, 0)',
     position: 'absolute',

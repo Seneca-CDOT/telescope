@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
-import { Card, CardActions, CardContent, Fab, Grid, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Fab, Grid, Theme, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { webUrl } from '../config';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     position: 'absolute',
     [theme.breakpoints.between('xs', 'sm')]: {

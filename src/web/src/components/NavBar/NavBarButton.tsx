@@ -1,10 +1,10 @@
 import { MouseEventHandler } from 'react';
 import Link from 'next/link';
+import { Button, IconButton, Theme, Tooltip, Zoom } from '@mui/material';
 import { makeStyles, withStyles } from '@mui/styles';
-import { Button, IconButton, Tooltip, Zoom } from '@mui/material';
 import { SvgIconComponent } from '@mui/icons-material';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   icon: {
     fontSize: '2.5rem',
   },

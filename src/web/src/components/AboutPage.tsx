@@ -1,8 +1,10 @@
-import { makeStyles } from '@mui/styles';
 import { useTranslation } from 'react-i18next';
+import { Theme } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
 import LanguageSelector from './LanguageSelector';
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles((theme: Theme) => {
   return {
     root: {
       backgroundColor: theme.palette.background.default,

@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef } from 'react';
 import { BsInfoCircle } from 'react-icons/bs';
 import smoothscroll from 'smoothscroll-polyfill';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { Fab, Theme, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { telescopeUrl, webUrl, statusUrl } from '../config';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
+import { telescopeUrl, webUrl, statusUrl } from '../config';
 import quotes from '../student-quotes';
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,5 +1,6 @@
 import { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
+
 import SearchResults from './SearchResults';
 import SearchBar from './SearchBar';
 import SearchHelp from './SearchHelp';

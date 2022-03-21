@@ -1,11 +1,11 @@
+import { Avatar, Card, CardContent, Grid, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import useTelescopeContributor from '../hooks/use-telescope-contributor';
 
 const contributionsCount = (contributions: number) =>
   contributions < 2 ? '1 contribution.' : `${contributions} contributions.`;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor:
       theme.palette.mode === 'light' ? theme.palette.secondary.main : theme.palette.secondary.dark,

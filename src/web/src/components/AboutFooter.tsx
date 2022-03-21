@@ -1,13 +1,14 @@
-import { Box, Divider, Grid, Typography, useMediaQuery } from '@mui/material';
+import { Box, Divider, Grid, Theme, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
+
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { FaSlack } from 'react-icons/fa';
 
 import GitHubContributorCard from './GitHubContributorCard';
 import Logo from './Logo';
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,

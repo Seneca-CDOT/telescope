@@ -1,6 +1,15 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  Box,
+  FormControl,
+  IconButton,
+  Grid,
+  MenuItem,
+  Paper,
+  TextField,
+  Theme,
+} from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { Grid, MenuItem, TextField, FormControl, Paper, IconButton, Box } from '@material-ui/core';
 
 import SearchInput from './SearchInput/SearchInput';
 import useSearchValue from '../hooks/use-search-value';
@@ -127,6 +136,7 @@ const SearchBar = () => {
                 type="submit"
                 onClick={onSubmitHandler}
                 aria-label="search"
+                size="large"
               >
                 <SearchIcon />
               </IconButton>

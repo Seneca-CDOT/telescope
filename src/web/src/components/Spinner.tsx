@@ -1,7 +1,8 @@
-import { makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
+import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
     '& > * + *': {

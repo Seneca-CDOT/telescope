@@ -1,11 +1,11 @@
-import { IconButton, Tooltip, Zoom } from '@mui/material';
+import { IconButton, Theme, Tooltip, Zoom } from '@mui/material';
 import { makeStyles, withStyles } from '@mui/styles';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 
 import { useTheme } from './ThemeProvider';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   themeToggleButton: {
     color: theme.palette.primary.main,
     '&:hover': {
