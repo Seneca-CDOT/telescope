@@ -1,11 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, createStyles, makeStyles, Theme } from '@material-ui/core';
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  Theme,
+} from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import { connect } from 'formik';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Checkbox from '@material-ui/core/Checkbox';
 
 import { feedDiscoveryServiceUrl } from '../../../config';
 import useAuth from '../../../hooks/use-auth';
@@ -23,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'relative',
       width: '100%',
       minHeight: '80%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         minHeight: '75%',
       },
     },
@@ -36,7 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
       position: 'absolute',
       minHeight: '100%',
       width: '100%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: '95%',
         marginLeft: '2.5%',
       },
@@ -67,7 +71,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '& .MuiFormLabel-root': {
         color: 'black',
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: '80% 20%',
       },
     },
@@ -90,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&.Mui-disabled': {
         backgroundColor: 'inherit',
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: 'auto',
       },
     },
@@ -128,7 +132,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     agreeMessage: {
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         alignSelf: 'end',
       },
     },

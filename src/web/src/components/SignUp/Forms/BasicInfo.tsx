@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core';
 import { connect } from 'formik';
+import { Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 import { SignUpForm } from '../../../interfaces';
 import useAuth from '../../../hooks/use-auth';
@@ -9,7 +10,7 @@ import { TextInput } from '../FormFields';
 
 const { firstName, lastName, displayName } = formModels;
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       padding: '0',
@@ -17,7 +18,7 @@ const useStyles = makeStyles((theme) =>
       width: '100%',
       position: 'relative',
       minHeight: '80%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         minHeight: '75%',
       },
     },
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) =>
       width: '100%',
       position: 'absolute',
       minHeight: '100%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: '95%',
         marginLeft: '2.5%',
       },
@@ -52,7 +53,7 @@ const useStyles = makeStyles((theme) =>
       border: '1px solid #C5EB98',
       background: 'rgba(197, 235, 152, 0.2)',
       borderRadius: '5px',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: '1fr',
       },
       '& span': {
@@ -62,7 +63,7 @@ const useStyles = makeStyles((theme) =>
     userInfoLabel: {
       gridColumnStart: '1',
       gridColumnEnd: '3',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         gridColumnStart: '1',
         gridColumnEnd: '2',
       },

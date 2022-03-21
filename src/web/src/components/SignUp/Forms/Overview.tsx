@@ -1,5 +1,5 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Button, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       position: 'relative',
       minHeight: '75%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         minHeight: '70%',
       },
     },
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       position: 'absolute',
       minHeight: '100%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: '90%',
         marginLeft: '5%',
       },

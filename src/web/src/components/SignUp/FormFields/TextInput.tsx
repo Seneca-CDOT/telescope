@@ -1,6 +1,6 @@
 import { useField, FieldHookConfig } from 'formik';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
-import { createStyles, makeStyles } from '@material-ui/core';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { createStyles, makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({

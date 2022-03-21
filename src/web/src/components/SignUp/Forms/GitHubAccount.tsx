@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import Button from '@material-ui/core/Button';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { connect } from 'formik';
+import { Button, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 import { SignUpForm } from '../../../interfaces';
 import formModels from '../Schema/FormModel';
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       position: 'relative',
       minHeight: '80%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         minHeight: '75%',
       },
     },
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       position: 'absolute',
       minHeight: '100%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: '90%',
         marginLeft: '5%',
       },
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyItems: 'center',
       alignItems: 'center',
       width: '90%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: '1fr',
       },
     },
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '&.Mui-disabled': {
         backgroundColor: 'inherit',
       },
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: 'auto',
       },
     },
@@ -86,7 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifySelf: 'end',
       padding: '6%',
       borderRadius: '5px',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         justifySelf: 'center',
         padding: '3%',
         marginTop: '5%',

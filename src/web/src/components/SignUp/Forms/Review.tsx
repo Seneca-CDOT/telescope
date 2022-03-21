@@ -1,4 +1,5 @@
-import { createStyles, makeStyles, Theme, FormHelperText } from '@material-ui/core';
+import { FormHelperText, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import { connect } from 'formik';
 
 import { SignUpForm } from '../../../interfaces';
@@ -12,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       position: 'relative',
       minHeight: '80%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         minHeight: '77%',
       },
     },
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       position: 'absolute',
       minHeight: '100%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: '90%',
         marginLeft: '5%',
       },
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
       gridTemplateRows: 'auto auto',
       gridGap: '5%',
       alignSelf: 'start',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         gridTemplateColumns: '1fr',
         height: '100%',
         alignItems: 'center',
@@ -56,14 +57,14 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       padding: '6%',
       fontSize: '0.7em',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         height: '85px',
         padding: '0',
       },
     },
     gitHubInfo: {
       marginTop: '8%',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         marginTop: '0',
         textAlign: 'start',
       },
@@ -82,7 +83,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '1%',
       minHeight: '60px',
       overflowY: 'auto',
-      [theme.breakpoints.down(600)]: {
+      [theme.breakpoints.down('sm')]: {
         width: '90%',
       },
     },

@@ -1,10 +1,7 @@
-import { createStyles, makeStyles } from '@material-ui/core';
 import { useField } from 'formik';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() =>
   createStyles({
