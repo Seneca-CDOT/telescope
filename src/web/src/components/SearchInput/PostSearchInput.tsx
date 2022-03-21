@@ -1,4 +1,5 @@
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Theme } from '@mui/material/styles';
+import { createStyles, makeStyles } from '@mui/styles';
 import useSearchValue from '../../hooks/use-search-value';
 
 const useStyles = makeStyles((theme: Theme) =>
