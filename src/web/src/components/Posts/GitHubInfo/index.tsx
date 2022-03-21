@@ -1,4 +1,5 @@
-import { createStyles, makeStyles, Theme, ListSubheader } from '@material-ui/core';
+import { ListSubheader, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import Repos from './Repos';
 import Issues from './Issues';
 import PullRequests from './PullRequests';

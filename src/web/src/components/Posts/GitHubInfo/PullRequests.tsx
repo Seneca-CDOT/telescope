@@ -1,5 +1,6 @@
 import { VscGitPullRequest } from 'react-icons/vsc';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import useGithubInfo from '../../../hooks/use-genericInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
