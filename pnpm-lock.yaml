@@ -455,7 +455,6 @@ importers:
       '@fontsource/pt-serif': 4.5.3
       '@fontsource/spartan': 4.5.4
       '@material-ui/core': 4.12.3
-      '@material-ui/icons': 4.11.2
       '@mui/icons-material': 5.5.1
       '@mui/material': 5.5.1
       '@mui/styles': 5.5.1
@@ -499,7 +498,6 @@ importers:
       '@fontsource/pt-serif': 4.5.3
       '@fontsource/spartan': 4.5.4
       '@material-ui/core': 4.12.3_4211ed8b26069fec1bc8ff4659f40efc
-      '@material-ui/icons': 4.11.2_eca83d1d956e61655abac121890d9ed0
       '@mui/icons-material': 5.5.1_3898148d0d9b82b9af7ddb4a8e17178b
       '@mui/material': 5.5.1_7e1331b1b228efabfef6463d5fbc30b1
       '@mui/styles': 5.5.1_6acae0b0a4a23c4372144902affe8735
@@ -3205,26 +3203,6 @@ packages:
       react-dom: 17.0.2_react@17.0.2
       react-is: 17.0.2
       react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
-    dev: false
-
-  /@material-ui/icons/4.11.2_eca83d1d956e61655abac121890d9ed0:
-    resolution: {integrity: sha512-fQNsKX2TxBmqIGJCSi3tGTO/gZ+eJgWmMJkgDiOfyNaunNaxcklJQFaFogYcFl0qFuaEz1qaXYXboa/bUXVSOQ==}
-    engines: {node: '>=8.0.0'}
-    deprecated: 'You can now upgrade to @mui/icons. See the guide: https://mui.com/guides/migration-v4/'
-    peerDependencies:
-      '@material-ui/core': ^4.0.0
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.17.8
-      '@material-ui/core': 4.12.3_4211ed8b26069fec1bc8ff4659f40efc
-      '@types/react': 17.0.41
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /@material-ui/styles/4.11.4_4211ed8b26069fec1bc8ff4659f40efc:

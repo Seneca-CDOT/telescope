@@ -9,7 +9,7 @@ import {
   Theme,
 } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@mui/icons-material/Search';
 
 import SearchInput from './SearchInput/SearchInput';
 import useSearchValue from '../hooks/use-search-value';
