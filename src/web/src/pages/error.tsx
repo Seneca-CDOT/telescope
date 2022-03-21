@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import { Card, CardActions, CardContent, Fab, Grid, Theme, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Card, CardActions, CardContent, Fab, Grid, Theme, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import { webUrl } from '../config';
 

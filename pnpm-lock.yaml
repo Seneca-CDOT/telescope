@@ -454,7 +454,7 @@ importers:
       '@emotion/styled': 11.8.1
       '@fontsource/pt-serif': 4.5.3
       '@fontsource/spartan': 4.5.4
-      '@material-ui/core': 4.12.3
+      '@mui/base': 5.0.0-alpha.72
       '@mui/icons-material': 5.5.1
       '@mui/material': 5.5.1
       '@mui/styles': 5.5.1
@@ -497,7 +497,7 @@ importers:
       '@emotion/styled': 11.8.1_0bd19656468de1d4aa39379bbff84910
       '@fontsource/pt-serif': 4.5.3
       '@fontsource/spartan': 4.5.4
-      '@material-ui/core': 4.12.3_4211ed8b26069fec1bc8ff4659f40efc
+      '@mui/base': 5.0.0-alpha.72_4211ed8b26069fec1bc8ff4659f40efc
       '@mui/icons-material': 5.5.1_3898148d0d9b82b9af7ddb4a8e17178b
       '@mui/material': 5.5.1_7e1331b1b228efabfef6463d5fbc30b1
       '@mui/styles': 5.5.1_6acae0b0a4a23c4372144902affe8735
@@ -3175,114 +3175,6 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.0.5
       '@jridgewell/sourcemap-codec': 1.4.11
-
-  /@material-ui/core/4.12.3_4211ed8b26069fec1bc8ff4659f40efc:
-    resolution: {integrity: sha512-sdpgI/PL56QVsEJldwEe4FFaFTLUqN+rd7sSZiRCdx2E/C7z5yK0y/khAWVBH24tXwto7I1hCzNWfJGZIYJKnw==}
-    engines: {node: '>=8.0.0'}
-    deprecated: 'You can now upgrade to @mui/material. See the guide: https://mui.com/guides/migration-v4/'
-    peerDependencies:
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.17.8
-      '@material-ui/styles': 4.11.4_4211ed8b26069fec1bc8ff4659f40efc
-      '@material-ui/system': 4.12.1_4211ed8b26069fec1bc8ff4659f40efc
-      '@material-ui/types': 5.1.0_@types+react@17.0.41
-      '@material-ui/utils': 4.11.2_react-dom@17.0.2+react@17.0.2
-      '@types/react': 17.0.41
-      '@types/react-transition-group': 4.4.4
-      clsx: 1.1.1
-      hoist-non-react-statics: 3.3.2
-      popper.js: 1.16.1-lts
-      prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-is: 17.0.2
-      react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
-    dev: false
-
-  /@material-ui/styles/4.11.4_4211ed8b26069fec1bc8ff4659f40efc:
-    resolution: {integrity: sha512-KNTIZcnj/zprG5LW0Sao7zw+yG3O35pviHzejMdcSGCdWbiO8qzRgOYL8JAxAsWBKOKYwVZxXtHWaB5T2Kvxew==}
-    engines: {node: '>=8.0.0'}
-    deprecated: 'You can now upgrade to @mui/styles. See the guide: https://mui.com/guides/migration-v4/'
-    peerDependencies:
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.17.8
-      '@emotion/hash': 0.8.0
-      '@material-ui/types': 5.1.0_@types+react@17.0.41
-      '@material-ui/utils': 4.11.2_react-dom@17.0.2+react@17.0.2
-      '@types/react': 17.0.41
-      clsx: 1.1.1
-      csstype: 2.6.20
-      hoist-non-react-statics: 3.3.2
-      jss: 10.9.0
-      jss-plugin-camel-case: 10.9.0
-      jss-plugin-default-unit: 10.9.0
-      jss-plugin-global: 10.9.0
-      jss-plugin-nested: 10.9.0
-      jss-plugin-props-sort: 10.9.0
-      jss-plugin-rule-value-function: 10.9.0
-      jss-plugin-vendor-prefixer: 10.9.0
-      prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    dev: false
-
-  /@material-ui/system/4.12.1_4211ed8b26069fec1bc8ff4659f40efc:
-    resolution: {integrity: sha512-lUdzs4q9kEXZGhbN7BptyiS1rLNHe6kG9o8Y307HCvF4sQxbCgpL2qi+gUk+yI8a2DNk48gISEQxoxpgph0xIw==}
-    engines: {node: '>=8.0.0'}
-    deprecated: 'You can now upgrade to @mui/system. See the guide: https://mui.com/guides/migration-v4/'
-    peerDependencies:
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.17.8
-      '@material-ui/utils': 4.11.2_react-dom@17.0.2+react@17.0.2
-      '@types/react': 17.0.41
-      csstype: 2.6.20
-      prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    dev: false
-
-  /@material-ui/types/5.1.0_@types+react@17.0.41:
-    resolution: {integrity: sha512-7cqRjrY50b8QzRSYyhSpx4WRw2YuO0KKIGQEVk5J8uoz2BanawykgZGoWEqKm7pVIbzFDN0SpPcVV4IhOFkl8A==}
-    peerDependencies:
-      '@types/react': '*'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      '@types/react': 17.0.41
-    dev: false
-
-  /@material-ui/utils/4.11.2_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-Uul8w38u+PICe2Fg2pDKCaIG7kOyhowZ9vjiC1FsVwPABTW8vPPKfF6OvxRq3IiBaI1faOJmgdvMG7rMJARBhA==}
-    engines: {node: '>=8.0.0'}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0
-      react-dom: ^16.8.0 || ^17.0.0
-    dependencies:
-      '@babel/runtime': 7.17.8
-      prop-types: 15.8.1
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-is: 17.0.2
-    dev: false
 
   /@mdx-js/mdx/1.6.22:
     resolution: {integrity: sha512-AMxuLxPz2j5/6TpF/XSdKpQP1NlG0z11dFOlq+2IP/lSgl11GY8ji6S/rgsViN/L0BDvHvUMruRb7ub+24LUYA==}
@@ -6818,10 +6710,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       cssom: 0.3.8
-
-  /csstype/2.6.20:
-    resolution: {integrity: sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==}
-    dev: false
 
   /csstype/3.0.11:
     resolution: {integrity: sha512-sa6P2wJ+CAbgyy4KFssIb/JNMLxFvKF1pCYCSXS8ZMuqZnMsrxqI2E5sPyoTpxoPU/gVZMzr2zjOfg8GIZOMsw==}
@@ -13477,10 +13365,6 @@ packages:
     resolution: {integrity: sha512-TRzzuFRRmEoSW/p1KVAmiOgPco2Irlah+bGFCeNfJXxxYGwSw7YwAOAcd7X28K/m5bjBWKsC29KyoMfHbypayg==}
     engines: {node: '>=12.13.0'}
     dev: true
-
-  /popper.js/1.16.1-lts:
-    resolution: {integrity: sha512-Kjw8nKRl1m+VrSFCoVGPph93W/qrSO7ZkqPpTf7F4bk/sqcfWK019dWBUpE/fBOsOQY1dks/Bmcbfn1heM/IsA==}
-    dev: false
 
   /portfinder/1.0.28:
     resolution: {integrity: sha512-Se+2isanIcEqf2XMHjyUKskczxbPH7dQnlMjXX6+dybayyHvAf/TCgyMRlzf/B6QDhAEFOGes0pzRo3by4AbMA==}

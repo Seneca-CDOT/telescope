@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import { Formik, Form, FormikHelpers } from 'formik';
 import { useRouter } from 'next/router';
-import Button from '@material-ui/core/Button';
+import { Formik, Form, FormikHelpers } from 'formik';
+import { Button, Theme } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 
 import useAuth from '../hooks/use-auth';
 import Overview from '../components/SignUp/Forms/Overview';
