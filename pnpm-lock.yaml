@@ -344,7 +344,6 @@ importers:
       eslint: 7.32.0
       express: 4.17.3
       express-handlebars: 6.0.3
-      get-repo-package-json: 2.0.0
       nodemon: 2.0.15
       npm-run-all: 4.1.5
       perfect-scrollbar: 1.5.5
@@ -363,7 +362,6 @@ importers:
       bootstrap: 5.1.3_@popperjs+core@2.11.4
       express: 4.17.3
       express-handlebars: 6.0.3
-      get-repo-package-json: 2.0.0
       npm-run-all: 4.1.5
       perfect-scrollbar: 1.5.5
       sass: 1.49.9
@@ -7278,11 +7276,6 @@ packages:
   /caniuse-lite/1.0.30001301:
     resolution: {integrity: sha512-csfD/GpHMqgEL3V3uIgosvh+SVIQvCh43SNu9HRbP1lnxkKm1kjDG4f32PP571JplkLjfS+mg2p1gxR7MYrrIA==}
 
-  /capture-stack-trace/1.0.1:
-    resolution: {integrity: sha512-mYQLZnx5Qt1JgB1WEiMCf2647plpGeQ2NMR/5L0HNZzGQo4fuSPnK+wjfPnKZV0aiJDgzmWqqkV/g7JD+DW0qw==}
-    engines: {node: '>=0.10.0'}
-    dev: false
-
   /ccount/1.1.0:
     resolution: {integrity: sha512-vlNK021QdI7PNeiUh/lKkC/mNHHfV0m/Ad5JoI0TYtlBnJAslM/JIkm/tGC88bkLIwO6OQ5uV6ztS6kVAtCDlg==}
     dev: false
@@ -7799,13 +7792,6 @@ packages:
       parse-json: 5.2.0
       path-type: 4.0.0
       yaml: 1.10.2
-    dev: false
-
-  /create-error-class/3.0.2:
-    resolution: {integrity: sha1-Br56vvlHo/FKMP1hBnHUAbyot7Y=}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      capture-stack-trace: 1.0.1
     dev: false
 
   /cron-parser/2.18.0:
@@ -10600,18 +10586,6 @@ packages:
     resolution: {integrity: sha512-g/Q1aTSDOxFpchXC4i8ZWvxA1lnPqx/JHqcpIw0/LX9T8x/GBbi6YnlN5nhaKIFkT8oFsscUKgDJYxfwfS6QsQ==}
     engines: {node: '>=8'}
 
-  /get-repo-package-json/2.0.0:
-    resolution: {integrity: sha512-LGadoJS49Wbm6R1nLL2BFwnQAVowiS6Akufajt94R/uaMq85PSX/tckvS+qH5C5Pas3ddEfXEq/vvD5dQIysag==}
-    dependencies:
-      github-url-to-object: 2.2.6
-      got: 6.7.1
-    dev: false
-
-  /get-stream/3.0.0:
-    resolution: {integrity: sha1-jpQ9E1jcN1VQVOy+LtsFqhdO3hQ=}
-    engines: {node: '>=4'}
-    dev: false
-
   /get-stream/4.1.0:
     resolution: {integrity: sha512-GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w==}
     engines: {node: '>=6'}
@@ -10676,12 +10650,6 @@ packages:
 
   /github-slugger/1.4.0:
     resolution: {integrity: sha512-w0dzqw/nt51xMVmlaV1+JRzN+oCa1KfcgGEWhxUG16wbdA+Xnt/yoFO8Z8x/V82ZcZ0wy6ln9QDup5avbhiDhQ==}
-    dev: false
-
-  /github-url-to-object/2.2.6:
-    resolution: {integrity: sha1-ypJQFlFJdI7uswv8xgAMb+DSQvc=}
-    dependencies:
-      is-url: 1.2.4
     dev: false
 
   /glob-parent/5.1.2:
@@ -10809,23 +10777,6 @@ packages:
       lowercase-keys: 2.0.0
       p-cancelable: 2.1.1
       responselike: 2.0.0
-    dev: false
-
-  /got/6.7.1:
-    resolution: {integrity: sha1-JAzQV4WpoY5WHcG0S0HHY+8ejbA=}
-    engines: {node: '>=4'}
-    dependencies:
-      create-error-class: 3.0.2
-      duplexer3: 0.1.4
-      get-stream: 3.0.0
-      is-redirect: 1.0.0
-      is-retry-allowed: 1.2.0
-      is-stream: 1.1.0
-      lowercase-keys: 1.0.1
-      safe-buffer: 5.2.1
-      timed-out: 4.0.1
-      unzip-response: 2.0.1
-      url-parse-lax: 1.0.0
     dev: false
 
   /got/9.6.0:
@@ -11766,11 +11717,6 @@ packages:
   /is-potential-custom-element-name/1.0.1:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}
 
-  /is-redirect/1.0.0:
-    resolution: {integrity: sha1-HQPd7VO9jbDzDCbk+V02/HyH3CQ=}
-    engines: {node: '>=0.10.0'}
-    dev: false
-
   /is-regex/1.1.4:
     resolution: {integrity: sha512-kvRdxDsxZjhzUX07ZnLydzS1TU/TJlTUHHY4YLL87e37oUA49DfkLqgy+VjFocowy29cKvcSiu+kIv728jTTVg==}
     engines: {node: '>= 0.4'}
@@ -11780,11 +11726,6 @@ packages:
 
   /is-regexp/1.0.0:
     resolution: {integrity: sha1-/S2INUXEa6xaYz57mgnof6LLUGk=}
-    engines: {node: '>=0.10.0'}
-    dev: false
-
-  /is-retry-allowed/1.2.0:
-    resolution: {integrity: sha512-RUbUeKwvm3XG2VYamhJL1xFktgjvPzL0Hq8C+6yrWIswDy3BIXGqCxhxkc30N9jqK311gVU137K8Ei55/zVJRg==}
     engines: {node: '>=0.10.0'}
     dev: false
 
@@ -11800,11 +11741,6 @@ packages:
     resolution: {integrity: sha512-NKzJmQzJfEEma3w5cJNcUMxoXfDjz0Zj0eyCalHn2E6VOwlzjZo0yuO2fcBSf8zhFuVCL/82/r5gRcoi6aEPVQ==}
     dependencies:
       protocols: 1.4.8
-    dev: false
-
-  /is-stream/1.1.0:
-    resolution: {integrity: sha1-EtSj3U5o4Lec6428hBc66A2RykQ=}
-    engines: {node: '>=0.10.0'}
     dev: false
 
   /is-stream/2.0.1:
@@ -11825,10 +11761,6 @@ packages:
 
   /is-typedarray/1.0.0:
     resolution: {integrity: sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=}
-
-  /is-url/1.2.4:
-    resolution: {integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==}
-    dev: false
 
   /is-weakref/1.0.2:
     resolution: {integrity: sha512-qctsuLZmIQ0+vSSMfoVvyFe2+GSEvnmZ2ezTup1SBse9+twCCeial6EEi3Nc2KFcf6+qz2FBPnjXsk8xhKSaPQ==}
@@ -15226,11 +15158,6 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prepend-http/1.0.4:
-    resolution: {integrity: sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=}
-    engines: {node: '>=0.10.0'}
-    dev: false
-
   /prepend-http/2.0.0:
     resolution: {integrity: sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=}
     engines: {node: '>=4'}
@@ -17527,11 +17454,6 @@ packages:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
     dev: false
 
-  /timed-out/4.0.1:
-    resolution: {integrity: sha1-8y6srFoXW+ol1/q1Zas+2HQe9W8=}
-    engines: {node: '>=0.10.0'}
-    dev: false
-
   /timsort/0.3.0:
     resolution: {integrity: sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=}
     dev: false
@@ -18110,11 +18032,6 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /unzip-response/2.0.1:
-    resolution: {integrity: sha1-0vD3N9FrBhXnKmk17QQhRXLVb5c=}
-    engines: {node: '>=4'}
-    dev: false
-
   /upath/1.2.0:
     resolution: {integrity: sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==}
     engines: {node: '>=4'}
@@ -18159,13 +18076,6 @@ packages:
       mime-types: 2.1.34
       schema-utils: 3.1.1
       webpack: 5.70.0
-    dev: false
-
-  /url-parse-lax/1.0.0:
-    resolution: {integrity: sha1-evjzA2Rem9eaJy56FKxovAYJ2nM=}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      prepend-http: 1.0.4
     dev: false
 
   /url-parse-lax/3.0.0:
