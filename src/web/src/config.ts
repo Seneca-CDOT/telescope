@@ -15,6 +15,9 @@ const searchServiceUrl = process.env.NEXT_PUBLIC_SEARCH_URL;
 const feedDiscoveryServiceUrl = process.env.NEXT_PUBLIC_FEED_DISCOVERY_URL;
 const statusUrl = process.env.NEXT_PUBLIC_STATUS_URL;
 
+// Github sha commit
+const gitCommitSha = process.env.NEXT_PUBLIC_GIT_COMMIT;
+
 const title = `Telescope`;
 const description = `A tool for tracking blogs in orbit around Seneca's open source involvement`;
 const author = `SDDS Students and Professors`;
@@ -46,4 +49,5 @@ export {
   searchServiceUrl,
   feedDiscoveryServiceUrl,
   statusUrl,
+  gitCommitSha,
 };

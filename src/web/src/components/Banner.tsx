@@ -3,7 +3,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { makeStyles, Theme, createStyles, Typography, Fab } from '@material-ui/core';
 import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { telescopeUrl, webUrl, statusUrl } from '../config';
+import { gitCommitSha, webUrl, statusUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
@@ -142,15 +142,21 @@ export default function Banner({ onVisibilityChange, bannerVisible }: BannerProp
   useEffect(() => {
     async function getGitData() {
       try {
-        const res = await fetch(`${telescopeUrl}/health`);
+        const sha = gitCommitSha || 'master';
+        const gitHubUrl = `https://github.com/Seneca-CDOT/telescope/commit/${sha}`;
+
+        const response = await fetch(
+          `https://raw.githubusercontent.com/Seneca-CDOT/telescope/${sha}/package.json`
+        );
 
         // Fetch failure
-        if (!res.ok) {
-          throw new Error(res.statusText);
+        if (!response.ok) {
+          throw new Error(response.statusText);
         }
 
-        const data = await res.json();
-        setGitInfo(data.info);
+        const { version } = await response.json();
+
+        setGitInfo({ gitHubUrl, sha, version });
       } catch (error) {
         console.error(`Error retrieving site's health info`, error);
       }

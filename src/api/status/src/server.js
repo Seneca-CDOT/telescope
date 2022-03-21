@@ -3,7 +3,6 @@ const { static: serveStatic } = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 const fs = require('fs/promises');
-const getPackage = require('get-repo-package-json');
 const { check } = require('./services.js');
 const getGitHubData = require('./js/github-stats.js');
 const getFeedCount = require('./js/feed-stats.js');
@@ -48,19 +47,6 @@ const satelliteOptions = {
         imgSrc: ["'self'", 'data:', 'https:'],
       },
     },
-  },
-  healthCheck: async (req, res) => {
-    const sha = process.env.GIT_COMMIT || 'master';
-    const gitHubUrl = `https://github.com/Seneca-CDOT/telescope/commit/${sha}`;
-    const { version } = await getPackage('https://github.com/Seneca-CDOT/telescope/blob/master/');
-
-    res.set('Cache-Control', 'public, max-age=300');
-
-    return {
-      version,
-      sha,
-      gitHubUrl,
-    };
   },
 };
 
