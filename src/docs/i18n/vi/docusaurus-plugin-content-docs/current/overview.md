@@ -10,7 +10,7 @@ Một trong những mục tiêu chính của việc tham gia và đóng góp c�
 
 Chúng tôi cũng tin rằng việc đọc các blog của nhau là rất quan trọng. Trong các bài đăng trên blog của các đồng nghiệp, chúng tôi thấy rằng chúng tôi không đơn độc trong cuộc đấu tranh để làm cho mọi thứ hoạt động, sở thích của chúng tôi trong các chủ đề khác nhau và imposter syndrome - cảm giác không có đủ khả năng và đánh giá thấp bản thân - không phải là điều mà chỉ riêng tôi phải trải qua.
 
-Để hỗ trợ tốt hơn việc khám phá các blog trong cộng đồng của chúng tôi, chúng tôi dựng lên một trang web open source (nguồn mở) [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>) để tổng hợp các bài blog từ các giảng viên và sinh viên Seneca làm việc trên nguồn mở trong một trang duy nhất. Blog Planet của chúng tôi hiện đang hoạt động tại [http://zenit.senecac.on.ca/~chris.tyler/planet/](http://zenit.senecac.on.ca/~chris.tyler/planet/).
+Để hỗ trợ tốt hơn việc khám phá các blog trong cộng đồng của chúng tôi, chúng tôi dựng lên một trang web open source (nguồn mở) [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>) để tổng hợp các bài blog từ các giảng viên và sinh viên Seneca làm việc trên nguồn mở trong một trang duy nhất. Blog Planet của chúng tôi hiện đang hoạt động tại [Planet CDOT](https://telescope.cdot.systems/planet).
 
 ## Planet là gì?
 
@@ -18,7 +18,7 @@ Chúng tôi cũng tin rằng việc đọc các blog của nhau là rất quan t
 
 Vào đầu những năm 2000, trước sự trỗi dậy của các ứng dụng truyền thông xã hội như Twitter và Facebook, Planet đã giải quyết được một vấn đề quan trọng trong cộng đồng tự do và open source. Nó sử dụng các công nghệ “nguồn cấp dữ liệu” khác nhau như là RSS, Atom, CDF để cho phép các bài đăng trên blog từ các nền tảng khác nhau được tổng hợp thành một trang duy nhất, và được cập nhật liên tục với các bài đăng mới nhất của những mọi người trong một cộng đồng cụ thể.
 
-[Được viết bằng Python bởi Jeff Waugh và Scott James Remnant](https://people.gnome.org/~jdub/bzr/planet/devel/trunk/), Planet có thể được định cấu hình với một danh sách các nguồn cấp dữ liệu blog và một mẫu HTML. Nó sẽ sử dụng những thứ này để tạo ra một trang web một cách linh hoạt với các bài đăng theo thứ tự thời gian từ các nguồn cấp dữ liệu được chỉ định.
+Được viết bằng Python bởi Jeff Waugh và Scott James Remnant, Planet có thể được định cấu hình với một danh sách các nguồn cấp dữ liệu blog và một mẫu HTML. Nó sẽ sử dụng những thứ này để tạo ra một trang web một cách linh hoạt với các bài đăng theo thứ tự thời gian từ các nguồn cấp dữ liệu được chỉ định.
 
 ## Đi tìm một ngôi nhà mới
 
