@@ -49,8 +49,11 @@ importers:
       ioredis: 4.28.5
       ioredis-mock: 5.9.1
       jest: 27.5.1
+      jest-circus: 27.5.1
+      jest-environment-node: 27.5.1
       jest-fetch-mock: 3.0.3
       jest-playwright-preset: 1.7.0
+      jest-runner: 27.5.1
       jsdom: 18.1.1
       linkify-html: 3.0.5
       linkifyjs: 3.0.5
@@ -68,6 +71,7 @@ importers:
       playwright: 1.19.2
       prettier: 2.5.1
       pretty-quick: 3.1.3
+      redis-commands: 1.7.0
       rss-parser: 3.12.0
       run.env: 1.1.0
       sanitize-html: 2.6.1
@@ -76,6 +80,7 @@ importers:
       supertest: 6.1.6
       ts-jest: 27.1.3
       turbo: 1.1.5
+      typescript: 4.4.4
     dependencies:
       '@bull-board/api': 3.10.0
       '@bull-board/express': 3.10.0
@@ -100,7 +105,7 @@ importers:
       highlight.js: 11.4.0
       http-proxy-middleware: 2.0.4
       ioredis: 4.28.5
-      ioredis-mock: 5.9.1_ioredis@4.28.5
+      ioredis-mock: 5.9.1_ba8a89de17b1bb8d40d8173f0d50f179
       jsdom: 18.1.1
       linkify-html: 3.0.5_linkifyjs@3.0.5
       linkifyjs: 3.0.5
@@ -131,17 +136,22 @@ importers:
       fast-xml-parser: 3.21.1
       husky: 7.0.4
       jest: 27.5.1
+      jest-circus: 27.5.1
+      jest-environment-node: 27.5.1
       jest-fetch-mock: 3.0.3
-      jest-playwright-preset: 1.7.0_jest@27.5.1
+      jest-playwright-preset: 1.7.0_5ef5350c5949a17a4231bb9b0d6390e9
+      jest-runner: 27.5.1
       nock: 13.2.4
       npm-run-all: 4.1.5
       playwright: 1.19.2
       prettier: 2.5.1
       pretty-quick: 3.1.3_prettier@2.5.1
+      redis-commands: 1.7.0
       run.env: 1.1.0
       supertest: 6.1.6
-      ts-jest: 27.1.3_fb64e266213ea1764ee20749ef5bc61d
+      ts-jest: 27.1.3_51afb1dbfa928e47413bfb52ed555f04
       turbo: 1.1.5
+      typescript: 4.4.4
 
   src/api/dependency-discovery:
     specifiers:
@@ -4461,6 +4471,7 @@ packages:
 
   /@types/node/16.11.26:
     resolution: {integrity: sha512-GZ7bu5A6+4DtG7q9GsoHXy3ALcgeIHP4NnL0Vv2wu0uUB/yQex26v0tf6/na1mm0+bS9Uw+0DFex7aaKr2qawQ==}
+    dev: true
 
   /@types/node/17.0.21:
     resolution: {integrity: sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==}
@@ -10306,20 +10317,6 @@ packages:
       standard-as-callback: 2.1.0
     dev: false
 
-  /ioredis-mock/5.9.1_ioredis@4.28.5:
-    resolution: {integrity: sha512-ZirdGJFOqH5nP8FYXuHUJmexvtZ6r2Ybc5alaGMzt38QA0kse5/rYnBQcb4ofxkyqzhXHuaCsXiwLlfG6NyhhQ==}
-    engines: {node: '>=10'}
-    peerDependencies:
-      ioredis: 4.x
-      redis-commands: 1.x
-    dependencies:
-      fengari: 0.1.4
-      fengari-interop: 0.1.3_fengari@0.1.4
-      ioredis: 4.28.5
-      lodash: 4.17.21
-      standard-as-callback: 2.1.0
-    dev: false
-
   /ioredis-mock/7.1.0_ioredis@4.28.5:
     resolution: {integrity: sha512-Qq71Xf1ACz/k/DHF9ZH9owROLQSYGWGk/nOKIl1220mMuWRNWwLfgIxdK4KimuzZGNFpZLfN7QDAHrVjEfS0LA==}
     engines: {node: '>=12'}
@@ -11051,7 +11048,7 @@ packages:
       '@types/node': 17.0.21
     dev: true
 
-  /jest-playwright-preset/1.7.0_jest@27.5.1:
+  /jest-playwright-preset/1.7.0_5ef5350c5949a17a4231bb9b0d6390e9:
     resolution: {integrity: sha512-G25Nik+By0SNniMDdkouDL/yA1LdqjzsXNSVU4xnRX1typjXRmzRE0aSgqxas2sRi8cwG3M1ioHdkLLsp6sang==}
     peerDependencies:
       jest: '>=26.6.3'
@@ -11061,7 +11058,10 @@ packages:
     dependencies:
       expect-playwright: 0.7.2
       jest: 27.5.1
+      jest-circus: 27.5.1
+      jest-environment-node: 27.5.1
       jest-process-manager: 0.3.1
+      jest-runner: 27.5.1
       nyc: 15.1.0
       playwright-core: 1.20.0
       rimraf: 3.0.2
@@ -11282,7 +11282,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.11.26
+      '@types/node': 17.0.21
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -16359,7 +16359,7 @@ packages:
     resolution: {integrity: sha512-Z86EW+fFFh/IFB1fqQ3/+7Zpf9t2ebOAxNI/V6Wo7r5gqiqtxmgTlQ1qbqQcjLKYeSHPTsEmvlJUDg/EuL0uHQ==}
     dev: false
 
-  /ts-jest/27.1.3_fb64e266213ea1764ee20749ef5bc61d:
+  /ts-jest/27.1.3_51afb1dbfa928e47413bfb52ed555f04:
     resolution: {integrity: sha512-6Nlura7s6uM9BVUAoqLH7JHyMXjz8gluryjpPXxr3IxZdAXnU6FhjvVLHFtfd1vsE1p8zD1OJfskkc0jhTSnkA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
@@ -16391,6 +16391,7 @@ packages:
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.3.5
+      typescript: 4.4.4
       yargs-parser: 20.2.9
     dev: true
 
