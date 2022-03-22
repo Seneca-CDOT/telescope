@@ -1,5 +1,10 @@
 const { Router } = require('@senecacdot/satellite');
-const { getDependencyList, getNpmPackageInfo, isPackageDependency } = require('./dependency-list');
+const {
+  getDependencyList,
+  getNpmPackageInfo,
+  getGitHubIssues,
+  isPackageDependency,
+} = require('./dependency-list');
 
 const router = Router();
 
@@ -27,6 +32,23 @@ router.get('/projects/:namespace/:name?', async (req, res, next) => {
     } else {
       res.set('Cache-Control', 'max-age=3600');
       res.status(200).json(await getNpmPackageInfo(packageName));
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/github/:namespace/:name?', async (req, res, next) => {
+  const { namespace, name } = req.params;
+  const packageName = name ? `${namespace}/${name}` : namespace;
+
+  try {
+    if (!(await isPackageDependency(packageName))) {
+      res.status(404).json({ msg: `${packageName} is not a Telescope dependency` });
+      next();
+    } else {
+      res.set('Cache-Control', 'max-age=3600');
+      res.status(200).json(await getGitHubIssues(packageName));
     }
   } catch (err) {
     next(err);
