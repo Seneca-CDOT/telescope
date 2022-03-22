@@ -2,6 +2,7 @@ const { readFile } = require('fs/promises');
 const { join } = require('path');
 const { cwd } = require('process');
 const { getPackument } = require('query-registry');
+const { requestGitHubInfo } = require('./github');
 
 const getDependencies = (function () {
   let dependencies = null;
@@ -51,8 +52,15 @@ async function getNpmPackageInfo(packageName) {
   return dependencies[packageName];
 }
 
+async function getGitHubIssues(packageName) {
+  const npmPackage = await getNpmPackageInfo(packageName);
+
+  return requestGitHubInfo(packageName, npmPackage.gitRepository.url);
+}
+
 module.exports = {
   getDependencyList,
   getNpmPackageInfo,
   isPackageDependency,
+  getGitHubIssues,
 };
