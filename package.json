@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "pnpm turbo run build",
-    "dev": "pnpm dev --prefix src/web --",
+    "dev": "pnpm dev --prefix src/web/app --",
     "develop": "pnpm dev",
     "eslint": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./src/backend/**/*.js\" \"./test/**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js --ignore-path .gitignore \"./src/backend/**/*.js\" \"./test/**/*.js\" --fix",

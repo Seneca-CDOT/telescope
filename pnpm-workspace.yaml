@@ -3,7 +3,7 @@ packages:
   # docusaurus web app
   - 'src/docs'
   # web front-end
-  - 'src/web'
+  - 'src/web/app'
   # microservices
   - 'src/api/*'
   # satellite

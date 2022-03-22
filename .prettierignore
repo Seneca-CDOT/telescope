@@ -11,8 +11,8 @@ pnpm-lock.yaml
 
 # We don't maintain these files
 src/api/status/public/assets
-src/web/public/sw*
-src/web/public/workbox*
+src/web/app/public/sw*
+src/web/app/public/workbox*
 src/api/status/src/views
 
 # Ignore these directories for the docusaurus docs website

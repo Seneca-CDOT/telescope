@@ -70,11 +70,11 @@ On Windows and macOS, Docker Desktop must be running before you can call these s
 
 ### Front-end Web App
 
-The front-end web app is written in TypeScript and uses next.js and Material UI for routing, component system, etc. The code lives in `src/web`.
+The front-end web app is written in TypeScript and uses next.js and Material UI for routing, component system, etc. The code lives in `src/web/app`.
 
-The web app accesses many of the microservices at runtime, and we depend on a build step to export and include the necessary runtime variables. In the front-end app, they are available at runtime via `src/web/src/config.ts`. These are populated via the `src/web/next.config.js` during build time. See [Environment Setup](../docs/getting-started/environment-setup.md) for details on how to populate these with different values for local, CI, staging, or production environments. See also [Front End](../docs/tools-and-technologies/nextjs.md) for more details about the front-end.
+The web app accesses many of the microservices at runtime, and we depend on a build step to export and include the necessary runtime variables. In the front-end app, they are available at runtime via `src/web/app/src/config.ts`. These are populated via the `src/web/app/next.config.js` during build time. See [Environment Setup](../docs/getting-started/environment-setup.md) for details on how to populate these with different values for local, CI, staging, or production environments. See also [Front End](../docs/tools-and-technologies/nextjs.md) for more details about the front-end.
 
-The front-end is run via its own container, and hosted statically by nginx. The container is defined in `src/web/Dockerfile`. Locally, it is available at <http://localhost:8000>, on staging at <https://dev.telescope.cdot.systems/>, and on production at <https://telescope.cdot.systems/>.
+The front-end is run via its own container, and hosted statically by nginx. The container is defined in `src/web/app/Dockerfile`. Locally, it is available at <http://localhost:8000>, on staging at <https://dev.telescope.cdot.systems/>, and on production at <https://telescope.cdot.systems/>.
 
 ### SAML2-based authentication and authorization
 
