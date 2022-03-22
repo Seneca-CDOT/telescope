@@ -80,20 +80,24 @@ services:
 
   # status service
   status:
+    image: docker.cdot.systems/status:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
     environment:
       - POSTS_URL
 
   # image service
   image:
+    image: docker.cdot.systems/image:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
 
   # sso auth service
   sso:
+    image: docker.cdot.systems/sso:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
 
   # posts service
   posts:
+    image: docker.cdot.systems/posts:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
 
   # TODO: https://github.com/Seneca-CDOT/telescope/issues/2111
@@ -103,20 +107,23 @@ services:
 
   # planet service
   planet:
+    image: docker.cdot.systems/planet:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
 
   # search service
   search:
+    image: docker.cdot.systems/search:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
     environment:
       - ELASTIC_URL=http://elasticsearch
       - ELASTIC_PORT=9200
 
   dependency-discovery:
+    image: docker.cdot.systems/dependency-discovery:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
 
   feed-discovery:
-    image: docker.cdot.systems/feed-discovery
+    image: docker.cdot.systems/feed-discovery:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
 
   ##############################################################################
@@ -125,6 +132,7 @@ services:
 
   # Our main ingress router, handling all traffic on 80/443
   nginx:
+    image: docker.cdot.systems/nginx:${DOCKER_DEPLOY_TAG:-latest}
     volumes:
       # Pass a templated version of our nginx.conf so the Telescope domains are replaced
       - ../config/nginx.conf.template:/etc/nginx/nginx.conf.template

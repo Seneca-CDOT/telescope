@@ -12,11 +12,6 @@ services:
   # status service
   status:
     container_name: 'status'
-    build:
-      context: ../src/api/status
-      dockerfile: Dockerfile
-      cache_from:
-        - docker.cdot.systems/status:buildcache
     environment:
       - NODE_ENV
       - WEB_URL
@@ -50,11 +45,6 @@ services:
   # image service
   image:
     container_name: 'image'
-    build:
-      context: ../src/api/image
-      dockerfile: Dockerfile
-      cache_from:
-        - docker.cdot.systems/image:buildcache
     environment:
       - NODE_ENV
       - IMAGE_PORT
@@ -79,11 +69,6 @@ services:
   # sso auth service (connects with Seneca's auth)
   sso:
     container_name: 'sso'
-    build:
-      context: ../src/api/sso
-      dockerfile: Dockerfile
-      cache_from:
-        - docker.cdot.systems/sso:buildcache
     environment:
       - NODE_ENV
       - SSO_PORT
@@ -120,11 +105,6 @@ services:
   # search service
   search:
     container_name: 'search'
-    build:
-      context: ../src/api/search
-      dockerfile: Dockerfile
-      cache_from:
-        - docker.cdot.systems/search:buildcache
     environment:
       - NODE_ENV
       - SEARCH_PORT
@@ -154,11 +134,6 @@ services:
   # posts service
   posts:
     container_name: 'posts'
-    build:
-      context: ../src/api/posts
-      dockerfile: Dockerfile
-      cache_from:
-        - docker.cdot.systems/posts:buildcache
     environment:
       - NODE_ENV
       - POSTS_PORT
@@ -242,11 +217,6 @@ services:
   # planet service
   planet:
     container_name: 'planet'
-    build:
-      context: ../src/api/planet
-      dockerfile: Dockerfile
-      cache_from:
-        - docker.cdot.systems/planet:buildcache
     environment:
       - NODE_ENV
       - PLANET_PORT
@@ -254,11 +224,6 @@ services:
 
   dependency-discovery:
     container_name: 'dependency-discovery'
-    build:
-      context: ../src/api/dependency-discovery
-      dockerfile: Dockerfile
-      cache_from:
-        - docker.cdot.systems/dependency-discovery:buildcache
     environment:
       - NODE_ENV
       - DEPENDENCY_DISCOVERY_PORT
@@ -282,24 +247,6 @@ services:
 
   # nginx
   nginx:
-    build:
-      context: ../src/web
-      dockerfile: Dockerfile
-      cache_from:
-        - docker.cdot.systems/nginx:buildcache
-      # next.js needs build-time access to a number of API URL values, forward as ARGs
-      args:
-        # Web front-end URL
-        - WEB_URL=${WEB_URL}
-        # Telescope 1.0 API URL
-        - API_URL=${API_URL}
-        # Telescope 2.0 Microservice URLs
-        - IMAGE_URL=${IMAGE_URL}
-        - SSO_URL=${SSO_URL}
-        - POSTS_URL=${POSTS_URL}
-        - SEARCH_URL=${SEARCH_URL}
-        - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
-        - STATUS_URL=${STATUS_URL}
     container_name: 'nginx'
     environment:
       - TELESCOPE_HOST
