@@ -20,7 +20,7 @@ something unique to "me."
 To better enable the discovery of blogs within our community, we set up an open
 source blog [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>): an aggregated
 feed of blog posts from Seneca faculty and students working on open source in a
-single page. Our blog Planet currently lives at [http://zenit.senecac.on.ca/~chris.tyler/planet/](http://zenit.senecac.on.ca/~chris.tyler/planet/).
+single page. Our blog Planet currently lives at [Planet CDOT](https://telescope.cdot.systems/planet).
 
 ## What is a Planet?
 
@@ -32,14 +32,14 @@ various "feed" technologies (RSS, Atom, CDF) to allow blog posts from different
 platforms to be aggregated into a single page that was constantly updated with
 the latest posts by people within a particular community.
 
-[Written in Python by Jeff Waugh and Scott James Remnant](https://people.gnome.org/~jdub/bzr/planet/devel/trunk/),
+Written in Python by Jeff Waugh and Scott James Remnant,
 Planet could be configured with a list of blog feeds and an HTML template. It would
 use these to dynamically generate a site with posts in chronological order from
 the specified feeds.
 
 ## In Search of a New Planet
 
-Our current Planet is dying. The [software we use was last updated 13 years ago](https://people.gnome.org/~jdub/bzr/planet/devel/trunk/).
+Our current Planet is dying. The software we use was last updated 13 years ago.
 While the underlying code as drifted further into the past, our needs have moved
 forward. Maintaining the existing system, especially with the number of students
 involved in open source at Seneca, has become too difficult. Our current site
