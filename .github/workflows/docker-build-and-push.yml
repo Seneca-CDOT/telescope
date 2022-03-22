@@ -71,7 +71,7 @@ jobs:
           #  image: docs
           - context: src/api/feed-discovery
             image: feed-discovery
-          - context: src/web
+          - context: src/web/app
             image: nginx
             build-args: |
               WEB_URL=${{ inputs.web_url }}

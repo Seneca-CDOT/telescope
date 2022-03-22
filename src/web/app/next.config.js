@@ -38,12 +38,12 @@ const forwardToNext = (envVar) => {
 };
 
 // Try using .env in the root (legacy Telescope 1.0)
-const legacyEnvPath = path.join(__dirname, '../..', '.env');
+const legacyEnvPath = path.join(__dirname, '../../..', '.env');
 console.info(`Trying to load missing ENV variables from ${legacyEnvPath}`);
 loadApiUrlFromEnv(legacyEnvPath);
 
 // Try using the env.development file in config/ (Telescope 2.0)
-const envDevelopmentPath = path.join(__dirname, '../..', 'config/env.development');
+const envDevelopmentPath = path.join(__dirname, '../../..', 'config/env.development');
 console.info(`Trying to load missing ENV variables from ${envDevelopmentPath}`);
 loadApiUrlFromEnv(envDevelopmentPath);
 

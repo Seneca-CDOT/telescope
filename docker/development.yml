@@ -13,7 +13,7 @@ services:
   # API Gateway
   nginx:
     build:
-      context: ../src/web
+      context: ../src/web/app
       cache_from:
         - docker.cdot.systems/nginx:buildcache
       # next.js needs build-time access to a number of API URL values, forward as ARGs
