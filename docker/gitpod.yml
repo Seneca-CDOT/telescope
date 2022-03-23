@@ -71,8 +71,8 @@ services:
     image: docker.cdot.systems/feed-discovery
     restart: unless-stopped
 
-  # TODO: https://github.com/Seneca-CDOT/telescope/issues/2111
-  # parser:
-  #   environment:
-  #     # For development and testing, the Parser service needs to contact the users
-  #     # service directly via Docker vs through the http://localhost domain.
+  parser:
+    build:
+      context: ../src/api/parser
+      cache_from:
+        - docker.cdot.systems/parser:buildcache
