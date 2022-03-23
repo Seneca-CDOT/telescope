@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 const { waitForPostgres } = require('@jcoreio/wait-for-postgres');
 
 const baseConfig = require('../../../jest.config.base');
