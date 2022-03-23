@@ -100,10 +100,10 @@ services:
     image: docker.cdot.systems/posts:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
 
-  # TODO: https://github.com/Seneca-CDOT/telescope/issues/2111
   # parser service
-  # parser:
-  #   restart: unless-stopped
+  parser:
+    image: docker.cdot.systems/parser:${DOCKER_DEPLOY_TAG:-latest}
+    restart: unless-stopped
 
   # planet service
   planet:
