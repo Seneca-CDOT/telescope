@@ -21,7 +21,7 @@ const output = execSync('pnpm list -w -r --parseable --depth=2', {
   maxBuffer: 1024 * 1024 * 10, // approx. 10 Megabyte = 1024 bytes per Kilobyte * 1024 Kilobytes per Megabyte * 10 Megabytes
 }).toString('utf8');
 
-const regex = /.*\.pnpm\/(@?[^@]+).*/g;
+const regex = /.*\.pnpm[\/\\](@?[^@]+).*/g;
 
 console.log('Processing file...');
 const packageNames = [
