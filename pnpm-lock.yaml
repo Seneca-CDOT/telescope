@@ -174,16 +174,22 @@ importers:
 
   src/api/feed-discovery:
     specifiers:
+      '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.27.0
       cheerio: 1.0.0-rc.10
       got: 11.8.3
+      nock: 13.2.4
       nodemon: 2.0.15
+      supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.27.0
       cheerio: 1.0.0-rc.10
       got: 11.8.3
     devDependencies:
+      '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
+      nock: 13.2.4
       nodemon: 2.0.15
+      supertest: 6.1.6
 
   src/api/image:
     specifiers:
