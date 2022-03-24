@@ -44,14 +44,25 @@ const ValidationRules = [
     .bail(),
 ];
 
+const authorRules = [
+  check('author')
+    .exists({ checkFalsy: true })
+    .withMessage('author should exist')
+    .bail()
+    .isLength({ max: 100, min: 1 })
+    .withMessage('invalid author value')
+    .bail(),
+];
+
 /**
  * Validates query by passing rules. The rules are different based on the pathname
- * of the request. If the pathname is '/' it is the basic route.
- * Otherwise, if '/advanced/' it is the advanced search
+ * of the request. If the pathname is '/' it is the advanced search route.
+ * Otherwise, if '/authors/autocomplete, it is the author autocomplete route
  */
 const validateQuery = () => {
   return async (req, res, next) => {
-    await Promise.all(ValidationRules.map((rule) => rule.run(req)));
+    const rules = req.route.path === '/' ? ValidationRules : authorRules;
+    await Promise.all(rules.map((rule) => rule.run(req)));
 
     const result = validationResult(req);
     if (result.isEmpty()) {

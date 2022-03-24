@@ -7,7 +7,86 @@ const { client } = require('../lib/elastic');
 const { logger } = require('./logger');
 
 const index = 'posts';
-const type = 'post';
+
+/*
+  Creates 'posts' index and add settings and mapping for autocomplete if the index doesn't already exist
+  exists API: https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-exists.html
+  create API: https://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html
+
+  Analysis settings are used to define our custom analyzers and tokenizers
+  analyzer: https://www.elastic.co/guide/en/elasticsearch/reference/current/analyzer.html
+  search_analyzer: https://www.elastic.co/guide/en/elasticsearch/reference/current/search-analyzer.html
+
+  Token filters are built in filters to build customized analyzers
+  'lowercase' changes text to lowercase: https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lowercase-tokenfilter.html
+  'remove_duplicates' removes duplicate tokens in the same position: https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-remove-duplicates-tokenfilter.html
+  creating a custom analyzer: https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-custom-analyzer.html
+
+  Edge n-gram tokenizer is used for our custom autocomplete tokenizer
+  tokenizer reference: https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-tokenizers.html
+  Edge n-gram tokenizer: https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-edgengram-tokenizer.html
+
+  'min_gram' and 'max_gram' are the minimum and maximum length of characters in a gram.
+  There are some max_gram limitations: https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-edgengram-tokenizer.html#max-gram-limits
+
+  'token_chars' are character classes that are included in a token.
+  Currently set at 'letter' and 'digit'
+
+  Mapping is used to set the custom author.autocomplete field to use our custom analyzers
+  mapping: https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping.html
+  fields: https://www.elastic.co/guide/en/elasticsearch/reference/current/multi-fields.html
+*/
+const setupPostsIndex = async () => {
+  try {
+    const response = await client.indices.exists({ index });
+    // If the index doesn't exist, 404 statusCode is returned
+    if (response.statusCode === 404) {
+      await client.indices.create({
+        index,
+        body: {
+          settings: {
+            analysis: {
+              analyzer: {
+                autocomplete_analyzer: {
+                  tokenizer: 'autocomplete',
+                  filter: ['lowercase', 'remove_duplicates'],
+                },
+                autocomplete_search_analyzer: {
+                  tokenizer: 'lowercase',
+                },
+              },
+              tokenizer: {
+                autocomplete: {
+                  type: 'edge_ngram',
+                  min_gram: 1,
+                  max_gram: 20,
+                  token_chars: ['letter', 'digit'],
+                },
+              },
+            },
+          },
+          mappings: {
+            properties: {
+              author: {
+                type: 'text',
+                fields: {
+                  autocomplete: {
+                    type: 'text',
+                    analyzer: 'autocomplete_analyzer',
+                    search_analyzer: 'autocomplete_search_analyzer',
+                  },
+                },
+                analyzer: 'standard',
+              },
+            },
+          },
+        },
+      });
+    }
+  } catch (error) {
+    logger.error({ error }, `Error setting up ${index} index`);
+  }
+};
 
 /**
  * Indexes the text and id from a post
@@ -22,7 +101,6 @@ const indexPost = async ({ text, id, title, published, author }) => {
   try {
     await client.index({
       index,
-      type,
       id,
       body: {
         text,
@@ -44,7 +122,6 @@ const deletePost = async (postId) => {
   try {
     await client.delete({
       index,
-      type,
       id: postId,
     });
   } catch (error) {
@@ -114,7 +191,6 @@ const search = async (
     size: perPage,
     _source: ['id'],
     index,
-    type,
     body: query,
   });
 
@@ -164,6 +240,9 @@ const waitOnReady = async () => {
 
   await clearIntervalAsync(intervalId);
   clearTimeout(timerId);
+
+  // Once elasticsearch is connected, set up `posts` index for autocomplete
+  await setupPostsIndex();
 };
 
 module.exports = {

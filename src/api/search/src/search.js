@@ -4,7 +4,6 @@ const { Elastic } = require('@senecacdot/satellite');
 const client = Elastic();
 
 const index = 'posts';
-const type = 'post';
 
 const calculateFrom = (page, perPage) => {
   const ES_MAX = 10000; // 10K is the upper limit of what ES will return without issue for searches
@@ -94,7 +93,6 @@ const search = async (options) => {
     size: options.perPage,
     _source: ['id'],
     index,
-    type,
     body: results,
   });
 
@@ -103,4 +101,53 @@ const search = async (options) => {
     values: hits.hits.map(({ _id }) => ({ id: _id, url: `${POSTS_URL}/${_id}` })),
   };
 };
-module.exports = { search };
+
+/**
+ * authorAutocomplete allows for querying author autocomplete fields
+ * @param { author } - text to search in author field
+ * @return all the results matching the fields text
+ */
+const authorAutocomplete = async ({ author }) => {
+  const results = {
+    query: {
+      match: {
+        'author.autocomplete': {
+          query: author,
+          operator: 'and',
+        },
+      },
+    },
+    highlight: {
+      fields: {
+        'author.autocomplete': {},
+      },
+    },
+  };
+
+  const {
+    body: { hits },
+  } = await client.search({
+    size: 10000,
+    _source: ['author'],
+    index,
+    body: results,
+  });
+
+  // Filter through all authors and remove duplicates
+  const res = hits.hits.reduce(
+    (acc, { _source }, i) =>
+      acc.find((item) => item.author === _source.author)
+        ? acc
+        : acc.concat({
+            author: _source.author,
+            highlight: hits.hits[i].highlight['author.autocomplete'][0],
+          }),
+    []
+  );
+
+  return {
+    results: res.length,
+    res,
+  };
+};
+module.exports = { search, authorAutocomplete };

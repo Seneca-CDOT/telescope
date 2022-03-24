@@ -292,7 +292,7 @@ describe('query routers', () => {
         mock.add(
           {
             method: ['POST', 'GET'],
-            path: '/posts/post/_search',
+            path: '/posts/_search',
           },
           () => {
             return mockResults;
@@ -352,7 +352,7 @@ describe('query routers', () => {
       mock.add(
         {
           method: ['POST', 'GET'],
-          path: '/posts/post/_search',
+          path: '/posts/_search',
         },
         () => {
           return mockResults;
@@ -383,7 +383,7 @@ describe('query routers', () => {
       mock.add(
         {
           method: ['POST', 'GET'],
-          path: '/posts/post/_search',
+          path: '/posts/_search',
         },
         () => {
           return mockResults;
