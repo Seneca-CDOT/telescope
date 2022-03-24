@@ -313,17 +313,20 @@ importers:
   src/api/sso:
     specifiers:
       '@jcoreio/wait-for-postgres': 2.0.0
+      '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.27.0
       '@supabase/supabase-js': 1.29.4
       celebrate: 15.0.1
       connect-redis: 6.1.3
       env-cmd: 10.1.0
+      eslint: 7.32.0
       express-session: 1.17.2
       jsonwebtoken: 8.5.1
       minimatch: 3.0.4
       nodemon: 2.0.15
       passport: 0.5.2
       passport-saml: 3.2.1
+      supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.27.0
       '@supabase/supabase-js': 1.29.4
@@ -336,8 +339,11 @@ importers:
       passport-saml: 3.2.1
     devDependencies:
       '@jcoreio/wait-for-postgres': 2.0.0
+      '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       env-cmd: 10.1.0
+      eslint: 7.32.0
       nodemon: 2.0.15
+      supertest: 6.1.6
 
   src/api/status:
     specifiers:
@@ -17147,7 +17153,7 @@ packages:
     dev: true
 
   /strip-json-comments/2.0.1:
-    resolution: {integrity: sha1-PFMZQukIwml8DsNEhYwobHygpgo=, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz}
+    resolution: {integrity: sha1-PFMZQukIwml8DsNEhYwobHygpgo=}
     engines: {node: '>=0.10.0'}
 
   /strip-json-comments/3.1.1:
