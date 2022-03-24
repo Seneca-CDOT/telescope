@@ -4,7 +4,7 @@ const { Webhooks, createNodeMiddleware } = require('@octokit/webhooks');
 const { addBuild } = require('./builds');
 
 // Current build process output stream (if any)
-const { SECRET, REPO_NAME, DEPLOY_TYPE } = process.env;
+const { SECRET } = process.env;
 
 const router = Router();
 
@@ -20,10 +20,10 @@ router.post('/', createNodeMiddleware(webhooks, { path: '/' }));
  */
 webhooks.on('push', (event) => {
   const githubData = event.payload;
-  const deployTag = githubData.data.deploy_tag;
+  const deployTag = githubData.data?.deploy_tag;
 
   if (deployTag) {
-    addBuild(deployTag, githubData, githubData.commit);
+    addBuild(deployTag, githubData, githubData.after);
   }
 });
 
