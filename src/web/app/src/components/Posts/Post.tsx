@@ -220,6 +220,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '& a:visited': {
         color: theme.palette.action.selected,
       },
+      '& pre': {
+        position: 'relative',
+      },
       '& pre code': {
         backgroundColor: theme.palette.background.default,
       },
@@ -323,7 +326,14 @@ const zoomInImage = (img: HTMLImageElement) => {
   document.body.appendChild(zoomedImgContainer);
 };
 
-function handleZoom(e: MouseEvent) {
+function copyCode(btn: HTMLElement) {
+  const nextNode = btn.nextElementSibling;
+  if (nextNode?.textContent) {
+    navigator.clipboard.writeText(nextNode.textContent);
+  }
+}
+
+function handleClick(e: MouseEvent) {
   // zoom out of all the currently zoomed images, if zoomed out, don't do anything.
   if (zoomOutAllImages()) return;
 
@@ -331,6 +341,51 @@ function handleZoom(e: MouseEvent) {
   if (e.target instanceof HTMLImageElement && e.target.closest('.telescope-post-content')) {
     e.preventDefault();
     zoomInImage(e.target);
+  }
+
+  // if the user clicks the copy button
+  if (e.target instanceof HTMLElement && e.target.closest('.copyCodeBtn')) {
+    e.preventDefault();
+    copyCode(e.target);
+  }
+}
+
+function createCopyButton(e: MouseEvent) {
+  if (
+    e.target instanceof HTMLElement &&
+    e.target.tagName === 'CODE' &&
+    e.target.parentElement?.tagName === 'PRE'
+  ) {
+    const parentDiv = e.target.parentNode;
+
+    const previousNode = e.target.previousElementSibling;
+    if (previousNode?.className !== 'copyCodeBtn') {
+      const elem = document.createElement('button');
+      elem.className = 'copyCodeBtn';
+      elem.innerHTML = 'COPY';
+      parentDiv?.insertBefore(elem, e.target);
+    }
+  }
+}
+
+function removeCopyButton() {
+  const copyButtons = document.querySelectorAll<HTMLDivElement>('.copyCodeBtn');
+  copyButtons.forEach((elem) => {
+    elem.parentNode?.removeChild(elem);
+  });
+}
+
+function handleMouseMove(e: MouseEvent) {
+  // if mouse hovers <code></code>, we call createCopyButton(e)
+  if (
+    e.target instanceof HTMLElement &&
+    e.target.tagName === 'CODE' &&
+    e.target.parentElement?.tagName === 'PRE'
+  ) {
+    e.preventDefault();
+    createCopyButton(e);
+    // if mouse leaves <pre></pre> => remove any copy button
+    e.target.parentElement.addEventListener('mouseleave', removeCopyButton);
   }
 }
 
@@ -365,9 +420,17 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
 
   // Listen for click events
   useEffect(() => {
-    window.document.addEventListener('click', handleZoom);
+    window.document.addEventListener('click', handleClick);
     return () => {
-      window.document.removeEventListener('click', handleZoom);
+      window.document.removeEventListener('click', handleClick);
+    };
+  }, []);
+
+  // Listen for mouse move events
+  useEffect(() => {
+    window.document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
