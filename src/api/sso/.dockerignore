@@ -4,3 +4,6 @@ npm-debug.log
 Dockerfile
 .git
 .gitignore
+jest*
+.env*
+test/
