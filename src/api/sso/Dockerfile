@@ -1,46 +1,45 @@
-## Base ########################################################################
+## Base ###########################################################################
+# Set up the base layer
 # Use a larger node image to do the build for native deps (e.g., gcc, pytyhon)
-FROM node:lts as base
+FROM node:16 as base
 
 # Reduce npm log spam and colour during install within Docker
 ENV NPM_CONFIG_LOGLEVEL=warn
 ENV NPM_CONFIG_COLOR=false
 
-# We'll run the app as the `node` user, so put it in their home directory
-WORKDIR /home/node/app
-# Copy the package.json and lock file over
-COPY package*.json /home/node/app/
+RUN npm i -g pnpm
 
-## Development #################################################################
-# Define a development target that installs devDeps and runs in dev mode
-FROM base as development
-WORKDIR /home/node/app
-# Install (not ci) with dependencies, and for Linux vs. Linux Musl (which we use for -alpine)
-RUN npm install
-# Copy the source code over
-COPY --chown=node:node . /home/node/app/
-# Switch to the node user vs. root
-USER node
-# Start the app in debug mode so we can attach the debugger
-CMD ["npm", "run", "dev"]
+WORKDIR /app
 
-## Production ##################################################################
-# Also define a production target which doesn't use devDeps
-FROM base as production
-WORKDIR /home/node/app
-# We'll install production only deps
-RUN npm install --production
+## Dependencies ###################################################################
+# Stage for installing prod dependencies
+FROM base as dependencies
+
+COPY package.json ./
+
+RUN pnpm install --prod
 
 ## Deploy ######################################################################
+# Stage for that run our app
 # Use a smaller node image (-alpine) at runtime
-FROM node:lts-alpine as deploy
+FROM node:16-alpine3.15 as deploy
 
-WORKDIR /home/node/app
-# Copy what we've installed/built from production
-COPY --chown=node:node --from=production /home/node/app/node_modules /home/node/app/node_modules/
+WORKDIR /app
+
+# Copy prodduction node_modules from dependencies
+COPY --chown=node:node --from=dependencies /app/node_modules ./node_modules/
+
 # Copy the source code
-COPY --chown=node:node . /home/node/app/
+COPY --chown=node:node . .
+
 # Switch to the node user vs. root
 USER node
+
+ENV SSO_PORT=7777
+
+# Docker Healthcheck
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+	CMD wget --no-verbose --tries=1 --spider localhost:${SSO_PORT}/healthcheck || exit 1
+
 # Start the app
 CMD ["node", "src/server.js"]
