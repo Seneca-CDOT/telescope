@@ -1,0 +1,21 @@
+name: pnpm lock file check
+
+on:
+  workflow_call:
+
+jobs:
+  # Make sure that the pnpm lock-file of the PR is not broken
+  lockfile:
+    name: Lock file check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.5
+      - uses: actions/setup-node@v2.5.1
+        with:
+          cache: 'pnpm'
+      - name: Check lock file with pnpm list
+        run: |
+          pnpm list

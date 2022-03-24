@@ -8,6 +8,9 @@ on:
       - 'src/docs/**'
 
 jobs:
+  lockfile:
+    uses: Seneca-CDOT/telescope/.github/workflows/pnpm-lock-check-ci.yml@master
+
   # Confirm that prettier was run on the changes
   prettier:
     uses: Seneca-CDOT/telescope/.github/workflows/prettier-ci.yml@master
