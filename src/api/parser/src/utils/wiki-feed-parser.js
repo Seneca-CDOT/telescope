@@ -1,5 +1,4 @@
 const { fetch, logger } = require('@senecacdot/satellite');
-const { setIntervalAsync, clearIntervalAsync } = require('set-interval-async/dynamic');
 const jsdom = require('jsdom');
 
 const { JSDOM } = jsdom;
@@ -34,7 +33,7 @@ const getWikiText = async (url) => {
  */
 module.exports = async () => {
   let url = process.env.FEED_URL;
-  // without parseInt(), setIntervalAsync fails, possibly because it takes the value in interval as a string
+  // without parseInt(), setInterval fails, possibly because it takes the value in interval as a string
   const interval = parseInt(process.env.FEED_URL_INTERVAL_MS || 30000, 10);
 
   if (!url) {
@@ -52,7 +51,7 @@ module.exports = async () => {
   let intervalId;
 
   const downloadFeedList = new Promise((resolve) => {
-    intervalId = setIntervalAsync(async () => {
+    intervalId = setInterval(async () => {
       try {
         resolve(await getWikiText(url));
       } catch (error) {
@@ -62,7 +61,7 @@ module.exports = async () => {
   });
 
   const wikiText = await downloadFeedList;
-  await clearIntervalAsync(intervalId);
+  await clearInterval(intervalId);
 
   const lines = wikiText.split(/\r\n|\r|\n/);
   const feeds = [];

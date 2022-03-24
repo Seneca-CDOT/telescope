@@ -51,6 +51,7 @@ module.exports = (dirty) => {
     },
     allowedIframeHostnames: [
       'www.youtube.com',
+      'www.twitch.tv',
       'player.vimeo.com',
       'player.twitch.tv',
       'giphy.com',
