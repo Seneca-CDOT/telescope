@@ -44,8 +44,8 @@ echo "GITHUB_TOKEN=$3" >> $ENV_FILE
 echo "JWT_SECRET=$(uuidgen)" >> $ENV_FILE
 
 
-echo "Building $ENV Container"
-docker-compose --env-file $ENV_FILE --project-name=$ENV build
+echo "Pulling $ENV Containers"
+docker-compose --env-file $ENV_FILE --project-name=$ENV pull
 
 # Delete associated project orphans (services) and volumes
 echo "Stopping "$OLD" Environment"
