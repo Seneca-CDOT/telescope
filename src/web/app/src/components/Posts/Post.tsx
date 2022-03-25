@@ -350,20 +350,20 @@ function handleClick(e: MouseEvent) {
   }
 }
 
-function createCopyButton(e: MouseEvent) {
-  if (
-    e.target instanceof HTMLElement &&
-    e.target.tagName === 'CODE' &&
-    e.target.parentElement?.tagName === 'PRE'
-  ) {
-    const parentDiv = e.target.parentNode;
+function isCodeSnippet(elem: Element) {
+  return elem.tagName === 'CODE' && elem.parentElement?.tagName === 'PRE';
+}
 
-    const previousNode = e.target.previousElementSibling;
+function createCopyButton(e: MouseEvent) {
+  const event = e.target;
+  if (event instanceof HTMLElement && isCodeSnippet(event)) {
+    const parentDiv = event.parentNode;
+    const previousNode = event.previousElementSibling;
     if (previousNode?.className !== 'copyCodeBtn') {
       const elem = document.createElement('button');
       elem.className = 'copyCodeBtn';
       elem.innerHTML = 'COPY';
-      parentDiv?.insertBefore(elem, e.target);
+      parentDiv?.insertBefore(elem, event);
     }
   }
 }
@@ -377,15 +377,11 @@ function removeCopyButton() {
 
 function handleMouseMove(e: MouseEvent) {
   // if mouse hovers <code></code>, we call createCopyButton(e)
-  if (
-    e.target instanceof HTMLElement &&
-    e.target.tagName === 'CODE' &&
-    e.target.parentElement?.tagName === 'PRE'
-  ) {
+  if (e.target instanceof HTMLElement && isCodeSnippet(e.target)) {
     e.preventDefault();
     createCopyButton(e);
     // if mouse leaves <pre></pre> => remove any copy button
-    e.target.parentElement.addEventListener('mouseleave', removeCopyButton);
+    e.target?.parentElement?.addEventListener('mouseleave', removeCopyButton);
   }
 }
 
