@@ -52,15 +52,17 @@ on:
         required: false
         default: 'https://dev.api.telescope.cdot.systems/v1/supabase'
         type: string
+      anon_key:
+        description: 'The Supabase Anonymous Key'
+        required: false
+        default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
+        type: string
     secrets:
       docker_username:
         description: 'The Docker Registry username'
         required: true
       docker_password:
         description: 'The Docker Registry password'
-        required: true
-      anon_key:
-        description: 'Anon key used to initialize supabase client'
         required: true
 
 jobs:
@@ -91,7 +93,7 @@ jobs:
               FEED_DISCOVERY_URL=${{ inputs.feed_discovery_url }}
               STATUS_URL=${{ inputs.status_url }}
               SUPABASE_URL=${{ inputs.supabase_url }}
-              ANON_KEY=${{ secrets.anon_key }}
+              ANON_KEY=${{ inputs.anon_key }}
           - context: src/api/planet
             image: planet
           - context: src/api/posts
