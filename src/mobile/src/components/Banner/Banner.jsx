@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   backdrop: {
     backgroundColor: '#000000',
     bottom: 0,
-    boxSizing: 'border-box',
     left: 0,
     margin: 0,
     opacity: 0.8,
