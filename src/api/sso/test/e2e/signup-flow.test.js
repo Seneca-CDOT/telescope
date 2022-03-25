@@ -4,7 +4,7 @@ const { decode } = require('jsonwebtoken');
 
 // We need to get the URL to the sso service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
-const { login } = require('./browser-util');
+const { login, logout } = require('./browser-util');
 const { cleanupTelescopeUsers, ensureUsers } = require('./supabase-util');
 
 const { SSO_URL, FEED_DISCOVERY_URL } = process.env;
@@ -14,7 +14,20 @@ const { SSO_URL, FEED_DISCOVERY_URL } = process.env;
 //
 // | Username    | Email                       | Password  | Display Name    |
 // |-------------|-----------------------------|-----------|-----------------|
+// | user1       | user1@example.com           | user1pass | Johannes Kepler |
 // | user2       | user2@example.com           | user2pass | Galileo Galilei |
+const johannesKepler = {
+  firstName: 'Johannes',
+  lastName: 'Kepler',
+  email: 'user1@example.com',
+  displayName: 'Johannes Kepler',
+  isAdmin: true,
+  isFlagged: false,
+  feeds: ['http://localhost:8888/feed.xml'],
+  githubUsername: 'jkepler',
+  githubAvatarUrl:
+    'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
+};
 const galileoGalilei = {
   firstName: 'Galileo',
   lastName: 'Galilei',
@@ -28,7 +41,7 @@ const galileoGalilei = {
     'https://avatars.githubusercontent.com/u/33902374?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
 };
 
-const users = [galileoGalilei];
+const users = [galileoGalilei, johannesKepler];
 
 describe('Signup Flow', () => {
   afterAll(async () => {
@@ -176,5 +189,36 @@ describe('Signup Flow', () => {
       body: JSON.stringify(galileoGalilei),
     });
     expect(res2.status).toBe(403);
+  });
+
+  it('Signup flow fails if feed is already used by another Telescope user', async () => {
+    // create the user1(johannes) account.
+    const account1 = await login(page, 'user1', 'user1pass');
+    const res = await fetch(`${SSO_URL}/register`, {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${account1.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(johannesKepler),
+    });
+    expect(res.status).toBe(201);
+
+    // Logout User1
+    await page.goto(`http://localhost:8888/auth.html`);
+    const logoutResult = await logout(page);
+    expect(logoutResult.token).toEqual(undefined);
+
+    // create the user2(Galileo) account.
+    const account2 = await login(page, 'user2', 'user2pass');
+    const res2 = await fetch(`${SSO_URL}/register`, {
+      method: 'POST',
+      headers: {
+        Authorization: `bearer ${account2.accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(galileoGalilei),
+    });
+    expect(res2.status).toBe(409);
   });
 });

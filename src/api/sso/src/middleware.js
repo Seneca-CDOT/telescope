@@ -89,7 +89,7 @@ const checkFeedExists = async (feeds) => {
   const { data: existingFeeds } = await supabase
     .from('feeds')
     .select('url, user_id')
-    .in('feed_url', feeds)
+    .in('url', feeds)
     .not('user_id', 'is', null)
     .limit(1);
 
