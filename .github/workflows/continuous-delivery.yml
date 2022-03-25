@@ -14,6 +14,7 @@ jobs:
     secrets:
       docker_username: ${{ secrets.DOCKER_CDOT_SYSTEMS_USERNAME }}
       docker_password: ${{ secrets.DOCKER_CDOT_SYSTEMS_PASSWORD }}
+      anon_key: ${{ secrets.SUPABASE_ANON_KEY }}
 
   pnpm-publish:
     uses: Seneca-CDOT/telescope/.github/workflows/pnpm-publish.yml@master
