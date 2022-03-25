@@ -368,10 +368,14 @@ function createCopyButton(e: MouseEvent) {
   }
 }
 
-function removeCopyButton() {
+function removeCopyButton(e: MouseEvent) {
   const copyButtons = document.querySelectorAll<HTMLDivElement>('.copyCodeBtn');
   copyButtons.forEach((elem) => {
     elem.parentNode?.removeChild(elem);
+    const event = e.target;
+    if (event instanceof HTMLElement && isCodeSnippet(event)) {
+      event.parentElement?.removeEventListener('mouseleave', removeCopyButton);
+    }
   });
 }
 
