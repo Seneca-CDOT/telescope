@@ -25,6 +25,13 @@ CREATE TABLE IF NOT EXISTS feeds (
   flagged boolean DEFAULT false
 );
 
+CREATE TABLE IF NOT EXISTS quotes (
+  quote_id serial primary key,
+  author_name text NOT NULL,
+  blog_url text NOT NULL,
+  quote text NOT NULL
+);
+
 -- Trigger for auto-updating update_at
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
