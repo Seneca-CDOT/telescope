@@ -92,6 +92,7 @@ jobs:
               SEARCH_URL=${{ inputs.search_url }}
               FEED_DISCOVERY_URL=${{ inputs.feed_discovery_url }}
               STATUS_URL=${{ inputs.status_url }}
+              GIT_COMMIT=${{ github.sha }}
               SUPABASE_URL=${{ inputs.supabase_url }}
               ANON_KEY=${{ inputs.anon_key }}
           - context: src/api/planet
