@@ -1,6 +1,6 @@
 ## Base ###########################################################################
 # Set up the base layer
-FROM node:16-alpine3.15 as base
+FROM node:16 as base
 
 RUN npm i -g pnpm
 
@@ -34,7 +34,9 @@ RUN pnpm build
 
 ## Deploy ########################################################################
 # Stage for that run our app
-FROM base as deploy
+FROM node:16-alpine3.15 as deploy
+
+WORKDIR /app
 
 COPY --chown=node:node --from=dependencies /app/node_modules ./node_modules
 
@@ -44,12 +46,12 @@ COPY --chown=node:node --from=builder /app/scss ./scss
 
 COPY --chown=node:node --from=builder /app/src ./src
 
-ENV PORT=1111
+ENV STATUS_PORT=1111
 
 USER node
 
 # Docker Healthcheck
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-	CMD wget --no-verbose --tries=1 --spider localhost:${PORT}/healthcheck || exit 1
+	CMD wget --no-verbose --tries=1 --spider localhost:${STATUS_PORT}/healthcheck || exit 1
 
 CMD ["node", "src/server.js"]

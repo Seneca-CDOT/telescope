@@ -15,12 +15,7 @@
 # as a build ARG in API_URL
 
 # Context: Build Context
-FROM node:lts-alpine as build
-
-# Tini Entrypoint for Alpine
-# util-linux required to optimize builds using multiple cores
-RUN apk add --no-cache tini util-linux
-ENTRYPOINT [ "/sbin/tini", "--"]
+FROM node:16 as build
 
 # Set Working Directory Context
 WORKDIR "/telescope"
@@ -40,7 +35,7 @@ RUN npm install --only=production --no-package-lock --ignore-scripts
 
 # -------------------------------------
 # Context: Release
-FROM build AS release
+FROM node:16-alpine3.15 AS release
 
 # GET production code from previous containers
 COPY --from=backend_dependencies /telescope/node_modules /telescope/node_modules

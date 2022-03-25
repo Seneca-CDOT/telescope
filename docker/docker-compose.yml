@@ -11,6 +11,7 @@ services:
 
   # status service
   status:
+    init: true
     container_name: 'status'
     environment:
       - NODE_ENV
@@ -44,6 +45,7 @@ services:
 
   # image service
   image:
+    init: true
     container_name: 'image'
     environment:
       - NODE_ENV
@@ -68,6 +70,7 @@ services:
 
   # sso auth service (connects with Seneca's auth)
   sso:
+    init: true
     container_name: 'sso'
     environment:
       - NODE_ENV
@@ -104,6 +107,7 @@ services:
 
   # search service
   search:
+    init: true
     container_name: 'search'
     environment:
       - NODE_ENV
@@ -133,6 +137,7 @@ services:
 
   # posts service
   posts:
+    init: true
     container_name: 'posts'
     environment:
       - NODE_ENV
@@ -159,6 +164,7 @@ services:
 
   # feed discovery service
   feed-discovery:
+    init: true
     container_name: 'feed-discovery'
     environment:
       - NODE_ENV
@@ -183,6 +189,7 @@ services:
       - 'traefik.http.routers.feed-discovery.middlewares=strip_feed_discovery_prefix'
 
   parser:
+    init: true
     container_name: 'parser'
     environment:
       - NODE_ENV
@@ -213,6 +220,7 @@ services:
 
   # planet service
   planet:
+    init: true
     container_name: 'planet'
     environment:
       - NODE_ENV
@@ -220,6 +228,7 @@ services:
       - POSTS_URL
 
   dependency-discovery:
+    init: true
     container_name: 'dependency-discovery'
     environment:
       - NODE_ENV

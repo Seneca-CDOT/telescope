@@ -15,12 +15,7 @@ ARG WEB_URL
 ARG SUPABASE_URL
 ARG ANON_KEY
 
-FROM node:lts-alpine as base
-
-# Tini Entrypoint for Alpine
-# util-linux required to optimize builds using multiple cores
-RUN apk add --no-cache tini util-linux
-ENTRYPOINT [ "/sbin/tini", "--"]
+FROM node:16 as base
 
 WORKDIR /frontend
 

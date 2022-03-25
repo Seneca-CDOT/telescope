@@ -1,6 +1,6 @@
 ## Base ###########################################################################
 # Set up the base layer
-FROM node:16-alpine3.15 as base
+FROM node:16 as base
 
 RUN npm i -g pnpm
 
@@ -16,7 +16,9 @@ RUN pnpm install --prod
 
 ## Deploy ########################################################################
 # Stage for running our app
-FROM base as deploy
+FROM node:16-alpine3.15 as deploy
+
+WORKDIR /app
 
 COPY --chown=node:node . .
 

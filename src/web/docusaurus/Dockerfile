@@ -1,6 +1,6 @@
 ## Base ########################################################################
 # Set up the base layer
-FROM node:16-alpine3.15 as base
+FROM node:16 as base
 
 # Reduce npm log spam and colour during install within Docker
 ENV NPM_CONFIG_LOGLEVEL=warn
