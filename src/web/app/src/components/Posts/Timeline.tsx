@@ -1,5 +1,7 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { Container, createStyles } from '@material-ui/core';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import PostComponent from './Post';
 import { Post } from '../../interfaces';
@@ -37,8 +39,62 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+function copyCode(codeSnippet: string) {
+  if (navigator) {
+    navigator.clipboard.writeText(codeSnippet);
+  }
+}
+
+function isCodeBlock(elem: Element) {
+  return elem.tagName === 'CODE' && elem.parentElement?.tagName === 'PRE';
+}
+
+function createButton(onClick: (e: MouseEvent) => void) {
+  const elem = document.createElement('button');
+  elem.className = 'copyCodeBtn';
+  elem.onclick = onClick;
+  return elem;
+}
+
+function removeButton(parent: HTMLElement) {
+  parent.querySelectorAll('.copyCodeBtn').forEach((button) => button.remove());
+}
+
+function handleMouseMove(e: MouseEvent) {
+  // if mouse hovers <code></code>, we call createCopyButton(e)
+  if (e.target instanceof HTMLElement && isCodeBlock(e.target)) {
+    e.preventDefault();
+    const snippet = e.target; // code tag
+    const parentDiv = snippet.parentElement; // pre tag
+    const previousNode = snippet.previousElementSibling;
+
+    // check if a button has already been added
+    if (previousNode?.className === 'copyCodeBtn') {
+      return;
+    }
+
+    // there's nothing to copy
+    if (!parentDiv || !snippet.textContent) {
+      return;
+    }
+
+    const copyButton = createButton(() => copyCode(snippet.textContent!));
+    parentDiv.insertBefore(copyButton, snippet);
+    ReactDOM.render(<FileCopyIcon />, copyButton); // render JSX icon into the pure HTML button
+    parentDiv.onmouseleave = () => removeButton(parentDiv);
+  }
+}
+
 const Timeline = ({ pages, totalPosts, nextPage }: Props) => {
   const classes = useStyles();
+
+  // Listen for mouse move events
+  useEffect(() => {
+    window.document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   if (!pages) {
     return null;

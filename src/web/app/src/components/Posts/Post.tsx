@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import useSWR from 'swr';
 import clsx from 'clsx';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
@@ -16,7 +15,6 @@ import {
   Chip,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import GitHubInfo from './GitHubInfo';
 import YouTubeInfo from './YouTubeInfo';
@@ -328,13 +326,6 @@ const zoomInImage = (img: HTMLImageElement) => {
   document.body.appendChild(zoomedImgContainer);
 };
 
-function copyCode(btn: HTMLElement) {
-  const nextNode = btn.nextElementSibling;
-  if (nextNode?.textContent) {
-    navigator.clipboard.writeText(nextNode.textContent);
-  }
-}
-
 function handleClick(e: MouseEvent) {
   // zoom out of all the currently zoomed images, if zoomed out, don't do anything.
   if (zoomOutAllImages()) return;
@@ -343,46 +334,6 @@ function handleClick(e: MouseEvent) {
   if (e.target instanceof HTMLImageElement && e.target.closest('.telescope-post-content')) {
     e.preventDefault();
     zoomInImage(e.target);
-  }
-}
-
-function isCodeSnippet(elem: Element) {
-  return elem.tagName === 'CODE' && elem.parentElement?.tagName === 'PRE';
-}
-
-function createCopyButton(e: MouseEvent) {
-  const event = e.target;
-  if (event instanceof HTMLElement && isCodeSnippet(event)) {
-    const parentDiv = event.parentNode;
-    const previousNode = event.previousElementSibling;
-    if (previousNode?.className !== 'copyCodeBtn') {
-      const elem = document.createElement('button');
-      elem.className = 'copyCodeBtn';
-      elem.onclick = () => copyCode(elem);
-      parentDiv?.insertBefore(elem, event);
-      ReactDOM.render(<FileCopyIcon />, elem);
-    }
-  }
-}
-
-function removeCopyButton(e: MouseEvent) {
-  const copyButtons = document.querySelectorAll<HTMLDivElement>('.copyCodeBtn');
-  copyButtons.forEach((elem) => {
-    elem.parentNode?.removeChild(elem);
-    const event = e.target;
-    if (event instanceof HTMLElement && isCodeSnippet(event)) {
-      event.parentElement?.removeEventListener('mouseleave', removeCopyButton);
-    }
-  });
-}
-
-function handleMouseMove(e: MouseEvent) {
-  // if mouse hovers <code></code>, we call createCopyButton(e)
-  if (e.target instanceof HTMLElement && isCodeSnippet(e.target)) {
-    e.preventDefault();
-    createCopyButton(e);
-    // if mouse leaves <pre></pre> => remove any copy button
-    e.target?.parentElement?.addEventListener('mouseleave', removeCopyButton);
   }
 }
 
@@ -420,14 +371,6 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
     window.document.addEventListener('click', handleClick);
     return () => {
       window.document.removeEventListener('click', handleClick);
-    };
-  }, []);
-
-  // Listen for mouse move events
-  useEffect(() => {
-    window.document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
