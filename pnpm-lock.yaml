@@ -18,7 +18,7 @@ importers:
       '@babel/preset-react': 7.16.7
       '@babel/preset-typescript': 7.16.7
       '@bull-board/api': 3.10.1
-      '@bull-board/express': 3.10.0
+      '@bull-board/express': 3.10.1
       '@elastic/elasticsearch': 7.16.0
       '@elastic/elasticsearch-mock': 0.3.1
       '@senecacdot/eslint-config-telescope': 1.1.0
@@ -83,7 +83,7 @@ importers:
       typescript: 4.4.4
     dependencies:
       '@bull-board/api': 3.10.1
-      '@bull-board/express': 3.10.0
+      '@bull-board/express': 3.10.1
       '@elastic/elasticsearch': 7.16.0
       '@elastic/elasticsearch-mock': 0.3.1
       '@wordpress/wordcount': 2.15.2
@@ -219,7 +219,7 @@ importers:
   src/api/parser:
     specifiers:
       '@bull-board/api': 3.10.1
-      '@bull-board/express': 3.10.0
+      '@bull-board/express': 3.10.1
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.27.0
       babel-jest: 27.5.1
@@ -239,7 +239,7 @@ importers:
       sanitize-html: 2.5.3
     dependencies:
       '@bull-board/api': 3.10.1
-      '@bull-board/express': 3.10.0
+      '@bull-board/express': 3.10.1
       '@senecacdot/satellite': 1.27.0
       bull: 3.29.3
       clean-whitespace: 0.1.2
@@ -3203,31 +3203,25 @@ packages:
     deprecated: Potential XSS vulnerability patched in v6.0.0.
     dev: false
 
-  /@bull-board/api/3.10.0:
-    resolution: {integrity: sha512-VAoTkb7hflJ1lYHGCMyhpZtUK7sqQqpTqqDU/yqn5+BpyVoPdQ+ULsyEuDotbthWLeegSJZ1gN35jLg/NTV71g==}
-    dependencies:
-      redis-info: 3.1.0
-    dev: false
-
   /@bull-board/api/3.10.1:
     resolution: {integrity: sha512-ZYjNBdoBQu+UVbLAHQuEhJL96C+i7vYioc2n7FL/XoVea44XIw2WiKFcFxq0LnActPErja26QyZBQht23ph1lg==}
     dependencies:
       redis-info: 3.1.0
     dev: false
 
-  /@bull-board/express/3.10.0:
-    resolution: {integrity: sha512-DLsrSCPNPL1TGsduGQHPnlrF/Vo9xL/7P145I43P1P6kZIvKT+tfi/6bh//MxvSBxKnJQFCH6BgPGZHtz1puUA==}
+  /@bull-board/express/3.10.1:
+    resolution: {integrity: sha512-jygcJBZhTZf34FXo//m6rFVcCwkXQBxSXdj2KUL5JZX8GBh80z4o95GqJtyB8A+vBN/zGr+bIG0ikkm2x8mTtQ==}
     dependencies:
-      '@bull-board/api': 3.10.0
-      '@bull-board/ui': 3.10.0
+      '@bull-board/api': 3.10.1
+      '@bull-board/ui': 3.10.1
       ejs: 3.1.6
-      express: 4.17.2
+      express: 4.17.3
     dev: false
 
-  /@bull-board/ui/3.10.0:
-    resolution: {integrity: sha512-0TkrMAe6p/j/Zy//YRUzFXW0jlAmBNzX8hVx9nQIYZm+o/gkk6a9PgVkhLsQS7AdWLzSKqB8YTRhkxm/8MjGqw==}
+  /@bull-board/ui/3.10.1:
+    resolution: {integrity: sha512-K2qEAvTuyHZxUdK31HaBb9sdTFSOSKAZkxsl/LeiT4FGNF/h54iYGmWF9+HSFytggcnGdM0XnK3wLihCaIQAOQ==}
     dependencies:
-      '@bull-board/api': 3.10.0
+      '@bull-board/api': 3.10.1
     dev: false
 
   /@docsearch/css/3.0.0:
@@ -7019,22 +7013,6 @@ packages:
     resolution: {integrity: sha1-vIUVVUMPI8n3ZQp172TGqUw0GMw=}
     dev: false
 
-  /body-parser/1.19.1:
-    resolution: {integrity: sha512-8ljfQi5eBk8EJfECMrgqNGWPEY5jWP+1IzkzkGdFFEwFQZZyaZ21UqdaHktgiMlH0xLHqIFtE/u2OYE5dOtViA==}
-    engines: {node: '>= 0.8'}
-    dependencies:
-      bytes: 3.1.1
-      content-type: 1.0.4
-      debug: 2.6.9
-      depd: 1.1.2
-      http-errors: 1.8.1
-      iconv-lite: 0.4.24
-      on-finished: 2.3.0
-      qs: 6.9.6
-      raw-body: 2.4.2
-      type-is: 1.6.18
-    dev: false
-
   /body-parser/1.19.2:
     resolution: {integrity: sha512-SAAwOxgoCKMGs9uUAUFHygfLAyaniaoun6I8mFY9pRAJL9+Kec34aU+oIjDhTycub1jozEfEwx1W1IuOYxVSFw==}
     engines: {node: '>= 0.8'}
@@ -7207,11 +7185,6 @@ packages:
 
   /bytes/3.0.0:
     resolution: {integrity: sha1-0ygVQE1olpn4Wk6k+odV3ROpYEg=}
-    engines: {node: '>= 0.8'}
-    dev: false
-
-  /bytes/3.1.1:
-    resolution: {integrity: sha512-dWe4nWO/ruEOY7HkUJ5gFt1DCFV9zPRoJr8pV0/ASQermOZjtq8jMjOprC0Kd10GLN+l7xaUPvxzJFWtxGu8Fg==}
     engines: {node: '>= 0.8'}
     dev: false
 
@@ -10006,42 +9979,6 @@ packages:
     dependencies:
       lodash: 4.17.21
       validator: 13.7.0
-    dev: false
-
-  /express/4.17.2:
-    resolution: {integrity: sha512-oxlxJxcQlYwqPWKVJJtvQiwHgosH/LrLSPA+H4UxpyvSS6jC5aH+5MoHFM+KABgTOt0APue4w66Ha8jCUo9QGg==}
-    engines: {node: '>= 0.10.0'}
-    dependencies:
-      accepts: 1.3.8
-      array-flatten: 1.1.1
-      body-parser: 1.19.1
-      content-disposition: 0.5.4
-      content-type: 1.0.4
-      cookie: 0.4.1
-      cookie-signature: 1.0.6
-      debug: 2.6.9
-      depd: 1.1.2
-      encodeurl: 1.0.2
-      escape-html: 1.0.3
-      etag: 1.8.1
-      finalhandler: 1.1.2
-      fresh: 0.5.2
-      merge-descriptors: 1.0.1
-      methods: 1.1.2
-      on-finished: 2.3.0
-      parseurl: 1.3.3
-      path-to-regexp: 0.1.7
-      proxy-addr: 2.0.7
-      qs: 6.9.6
-      range-parser: 1.2.1
-      safe-buffer: 5.2.1
-      send: 0.17.2
-      serve-static: 1.14.2
-      setprototypeof: 1.2.0
-      statuses: 1.5.0
-      type-is: 1.6.18
-      utils-merge: 1.0.1
-      vary: 1.1.2
     dev: false
 
   /express/4.17.3:
@@ -15445,11 +15382,6 @@ packages:
     dependencies:
       side-channel: 1.0.4
 
-  /qs/6.9.6:
-    resolution: {integrity: sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==}
-    engines: {node: '>=0.6'}
-    dev: false
-
   /qs/6.9.7:
     resolution: {integrity: sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==}
     engines: {node: '>=0.6'}
@@ -15530,16 +15462,6 @@ packages:
   /range-parser/1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
-    dev: false
-
-  /raw-body/2.4.2:
-    resolution: {integrity: sha512-RPMAFUJP19WIet/99ngh6Iv8fzAbqum4Li7AD6DtGaW2RpMB/11xDoalPiJMTbu6I3hkbMVkATvZrqb9EEqeeQ==}
-    engines: {node: '>= 0.8'}
-    dependencies:
-      bytes: 3.1.1
-      http-errors: 1.8.1
-      iconv-lite: 0.4.24
-      unpipe: 1.0.0
     dev: false
 
   /raw-body/2.4.3:
