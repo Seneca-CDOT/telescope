@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import useSWR from 'swr';
 import clsx from 'clsx';
 import { makeStyles, Theme, useTheme } from '@material-ui/core/styles';
@@ -15,6 +16,7 @@ import {
   Chip,
 } from '@material-ui/core';
 import ErrorRoundedIcon from '@material-ui/icons/ErrorRounded';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import LiteYouTubeEmbed from 'react-lite-youtube-embed';
 import GitHubInfo from './GitHubInfo';
 import YouTubeInfo from './YouTubeInfo';
@@ -342,12 +344,6 @@ function handleClick(e: MouseEvent) {
     e.preventDefault();
     zoomInImage(e.target);
   }
-
-  // if the user clicks the copy button
-  if (e.target instanceof HTMLElement && e.target.closest('.copyCodeBtn')) {
-    e.preventDefault();
-    copyCode(e.target);
-  }
 }
 
 function isCodeSnippet(elem: Element) {
@@ -362,8 +358,9 @@ function createCopyButton(e: MouseEvent) {
     if (previousNode?.className !== 'copyCodeBtn') {
       const elem = document.createElement('button');
       elem.className = 'copyCodeBtn';
-      elem.innerHTML = 'COPY';
+      elem.onclick = () => copyCode(elem);
       parentDiv?.insertBefore(elem, event);
+      ReactDOM.render(<FileCopyIcon />, elem);
     }
   }
 }
