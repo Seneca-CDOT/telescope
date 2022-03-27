@@ -497,7 +497,7 @@ importers:
       '@material-ui/core': 4.12.3
       '@material-ui/icons': 4.11.2
       '@mui/icons-material': 5.5.1
-      '@mui/material': 5.5.1
+      '@mui/material': 5.5.2
       '@mui/styles': 5.5.1
       '@octokit/request': 5.6.3
       '@senecacdot/eslint-config-telescope': 1.1.0
@@ -543,8 +543,8 @@ importers:
       '@fontsource/spartan': 4.5.4
       '@material-ui/core': 4.12.3_4211ed8b26069fec1bc8ff4659f40efc
       '@material-ui/icons': 4.11.2_eca83d1d956e61655abac121890d9ed0
-      '@mui/icons-material': 5.5.1_3898148d0d9b82b9af7ddb4a8e17178b
-      '@mui/material': 5.5.1_7e1331b1b228efabfef6463d5fbc30b1
+      '@mui/icons-material': 5.5.1_5fd51cdae7dbd730a1d3226eccd5db59
+      '@mui/material': 5.5.2_7e1331b1b228efabfef6463d5fbc30b1
       '@mui/styles': 5.5.1_6acae0b0a4a23c4372144902affe8735
       '@octokit/request': 5.6.3
       '@supabase/supabase-js': 1.29.4
@@ -4500,8 +4500,8 @@ packages:
     resolution: {integrity: sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==}
     dev: false
 
-  /@mui/base/5.0.0-alpha.72_4211ed8b26069fec1bc8ff4659f40efc:
-    resolution: {integrity: sha512-WCAooa9eqbsC68LhyKtDBRumH4hV1eRZ0A3SDKFHSwYG9fCOdsFv/H1dIYRJM0rwD45bMnuDiG3Qmx7YsTiptw==}
+  /@mui/base/5.0.0-alpha.73_4211ed8b26069fec1bc8ff4659f40efc:
+    resolution: {integrity: sha512-TEUCIIEAWrngAqpIa+dY3nofGSNj70LC3KC9WcCzyXPK3M4AG2GNi7ndd/g/0DtC55kbxrudzlV8TG3vrB2Vjw==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@types/react': ^16.8.6 || ^17.0.0
@@ -4523,7 +4523,7 @@ packages:
       react-is: 17.0.2
     dev: false
 
-  /@mui/icons-material/5.5.1_3898148d0d9b82b9af7ddb4a8e17178b:
+  /@mui/icons-material/5.5.1_5fd51cdae7dbd730a1d3226eccd5db59:
     resolution: {integrity: sha512-40f68p5+Yhq3dCn3QYHqQt5RETPyR3AkDw+fma8PtcjqvZ+d+jF84kFmT6NqwA3he7TlwluEtkyAmPzUE4uPdA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
@@ -4535,13 +4535,13 @@ packages:
         optional: true
     dependencies:
       '@babel/runtime': 7.17.2
-      '@mui/material': 5.5.1_7e1331b1b228efabfef6463d5fbc30b1
+      '@mui/material': 5.5.2_7e1331b1b228efabfef6463d5fbc30b1
       '@types/react': 17.0.41
       react: 17.0.2
     dev: false
 
-  /@mui/material/5.5.1_7e1331b1b228efabfef6463d5fbc30b1:
-    resolution: {integrity: sha512-bJSYgymgSZ7btPTNnWFrr2EmGoVQc4A/0WLfP/ESY2dxnhnbFDwt7twiOKmJp3u84YXriEDt5v9EZQLf7A+y0Q==}
+  /@mui/material/5.5.2_7e1331b1b228efabfef6463d5fbc30b1:
+    resolution: {integrity: sha512-r4p1u9eDlSqW3TS/Iq9yolifWHpuW6e0BSeqEJW3EEIcKfPVVk4WNUNJ+s8DtN7dBoDcveXxcQVVjYXTIv1d9g==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@emotion/react': ^11.5.0
@@ -4560,7 +4560,7 @@ packages:
       '@babel/runtime': 7.17.2
       '@emotion/react': 11.8.2_ac8e640ee2ebe4fcb4080b2762e3254a
       '@emotion/styled': 11.8.1_0bd19656468de1d4aa39379bbff84910
-      '@mui/base': 5.0.0-alpha.72_4211ed8b26069fec1bc8ff4659f40efc
+      '@mui/base': 5.0.0-alpha.73_4211ed8b26069fec1bc8ff4659f40efc
       '@mui/system': 5.5.2_865e4ca753a53ce0e61db82feb3cd335
       '@mui/types': 7.1.3_@types+react@17.0.41
       '@mui/utils': 5.4.4_react@17.0.2
@@ -6675,7 +6675,7 @@ packages:
   /axios/0.21.4_debug@4.3.3:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10350,6 +10350,18 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+
+  /follow-redirects/1.14.7_debug@4.3.3:
+    resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.3
+    dev: false
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
