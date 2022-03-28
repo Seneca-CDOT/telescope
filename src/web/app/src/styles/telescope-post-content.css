@@ -232,3 +232,12 @@
 .zoom-out {
   animation: scaleFadeOut 0.15s ease-in-out;
 }
+
+@keyframes fade-in-out {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

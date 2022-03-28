@@ -1,11 +1,11 @@
-import { ReactElement, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import { ReactElement, MouseEvent } from 'react';
+import { render } from 'react-dom';
 import { Container, createStyles } from '@material-ui/core';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import PostComponent from './Post';
 import { Post } from '../../interfaces';
 import LoadAutoScroll from './LoadAutoScroll';
+import CopyButton from './CopyButton';
 
 type Props = {
   pages: Post[][] | undefined;
@@ -49,15 +49,11 @@ function isCodeBlock(elem: Element) {
   return elem.tagName === 'CODE' && elem.parentElement?.tagName === 'PRE';
 }
 
-function createButton(onClick: (e: MouseEvent) => void) {
-  const elem = document.createElement('button');
-  elem.className = 'copyCodeBtn';
-  elem.onclick = onClick;
-  return elem;
-}
-
 function removeButton(parent: HTMLElement) {
   parent.querySelectorAll('.copyCodeBtn').forEach((button) => button.remove());
+}
+function createCopyButton(parent: HTMLElement, onClick: (e: MouseEvent) => void) {
+  render(<CopyButton onClick={onClick} />, parent);
 }
 
 function handleMouseMove(e: MouseEvent) {
@@ -66,35 +62,26 @@ function handleMouseMove(e: MouseEvent) {
     e.preventDefault();
     const snippet = e.target; // code tag
     const parentDiv = snippet.parentElement; // pre tag
-    const previousNode = snippet.previousElementSibling;
 
-    // check if a button has already been added
-    if (previousNode?.className === 'copyCodeBtn') {
-      return;
-    }
-
-    // there's nothing to copy
+    // There is no content to be copied
     if (!parentDiv || !snippet.textContent) {
       return;
     }
 
-    const copyButton = createButton(() => copyCode(snippet.textContent!));
-    parentDiv.insertBefore(copyButton, snippet);
-    ReactDOM.render(<FileCopyIcon />, copyButton); // render JSX icon into the pure HTML button
+    // check if a button has already been added
+    if (parentDiv.querySelector('.copyCodeBtn')) {
+      return;
+    }
+
+    const button = document.createElement('div');
+    createCopyButton(button, () => copyCode(snippet.textContent!));
+    parentDiv.insertBefore(button, snippet);
     parentDiv.onmouseleave = () => removeButton(parentDiv);
   }
 }
 
 const Timeline = ({ pages, totalPosts, nextPage }: Props) => {
   const classes = useStyles();
-
-  // Listen for mouse move events
-  useEffect(() => {
-    window.document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      window.document.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
 
   if (!pages) {
     return null;
@@ -137,7 +124,11 @@ const Timeline = ({ pages, totalPosts, nextPage }: Props) => {
     );
   }
 
-  return <Container className={classes.root}>{postsTimeline}</Container>;
+  return (
+    <div onMouseMove={handleMouseMove}>
+      <Container className={classes.root}>{postsTimeline}</Container>
+    </div>
+  );
 };
 
 export default Timeline;
