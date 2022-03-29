@@ -24,7 +24,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/Seneca-CDOT/telescope/tree/master/src/docs/',
+          editUrl: 'https://github.com/Seneca-CDOT/telescope/tree/master/src/web/docusaurus/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
           remarkPlugins: [require('mdx-mermaid')],

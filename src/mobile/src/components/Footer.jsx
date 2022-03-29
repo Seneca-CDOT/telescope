@@ -76,7 +76,7 @@ const Footer = () => {
             <Pressable
               onPress={() =>
                 Linking.openURL(
-                  'https://github.com/Seneca-CDOT/telescope/blob/master/src/docs/docs/getting-started/environment-setup.md'
+                  'https://github.com/Seneca-CDOT/telescope/blob/master/src/web/docusaurus/docs/getting-started/environment-setup.md'
                 )
               }
             >
@@ -85,7 +85,7 @@ const Footer = () => {
             <Pressable
               onPress={() =>
                 Linking.openURL(
-                  'https://github.com/Seneca-CDOT/telescope/blob/master/src/docs/docs/contributing/CONTRIBUTING.md'
+                  'https://github.com/Seneca-CDOT/telescope/blob/master/src/web/docusaurus/docs/contributing/CONTRIBUTING.md'
                 )
               }
             >

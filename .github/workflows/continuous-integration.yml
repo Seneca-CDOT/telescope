@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths-ignore:
-      - 'src/docs/**'
+      - 'src/web/docusaurus/docs/**'
 
 jobs:
   lockfile:

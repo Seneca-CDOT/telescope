@@ -5,12 +5,12 @@ on:
     branches:
       - master
     paths:
-      - 'src/docs/**'
+      - 'src/web/docusaurus/docs/**'
   push:
     branches:
       - master
     paths:
-      - 'src/docs/**'
+      - 'src/web/docusaurus/docs/**'
 
 jobs:
   # Confirm that prettier was run on the changes
