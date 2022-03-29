@@ -66,6 +66,10 @@ RUN npm install --no-package-lock
 
 RUN npm run build
 
-FROM nginx:stable-alpine as build
+FROM nginx:1.20.2-alpine as deploy
 
 COPY --from=dependencies /frontend/out /var/www/data
+
+ # Add Healthcheck
+ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+   CMD curl --fail localhost:80 || exit 1
