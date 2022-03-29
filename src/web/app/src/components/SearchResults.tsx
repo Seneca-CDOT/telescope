@@ -1,10 +1,12 @@
-import { Dispatch, useState, SetStateAction } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import useSWRInfinite from 'swr/infinite';
 import { Container, Box, createStyles } from '@material-ui/core';
 import { searchServiceUrl } from '../config';
 import Timeline from './Posts/Timeline';
 import Spinner from './Spinner';
+import SearchHelp from './SearchHelp';
 
 const NoResultsImg = '/noResults.svg';
 
@@ -51,20 +53,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchResults = ({
-  textParam,
-  filter,
-  toggleHelp,
-}: {
-  textParam: string;
-  filter: string;
-  toggleHelp: Dispatch<SetStateAction<boolean>>;
-}) => {
+const SearchResults = () => {
+  const router = useRouter();
   const classes = useStyles();
   const [totalPosts, setTotalPosts] = useState(0);
+  const textParam = Array.isArray(router.query.text)
+    ? router.query.text[0]
+    : router.query.text || '';
+  const filterParam = router.query.filter === 'post' || !router.query.filter ? 'post' : 'author';
 
   const prepareUrl = (index: number) =>
-    `${searchServiceUrl}?${filter === 'author' ? `author` : `post`}=${encodeURIComponent(
+    `${searchServiceUrl}?${filterParam === 'author' ? `author` : `post`}=${encodeURIComponent(
       textParam
     )}&page=${index}`;
 
@@ -91,11 +90,8 @@ const SearchResults = ({
 
   // If there is no posts or if the search bar is empty, then show the search help, otherwise hide it
   if (!error && (isEmpty || textParam.length === 0)) {
-    toggleHelp(true);
-  } else {
-    toggleHelp(false);
+    return <SearchHelp />;
   }
-
   if (error) {
     return (
       <Container className={classes.searchResults}>

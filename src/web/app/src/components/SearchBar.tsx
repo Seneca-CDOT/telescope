@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
@@ -94,15 +94,24 @@ const useStyles = makeStyles((theme: Theme) =>
 const SearchBar = () => {
   const classes = useStyles();
   const router = useRouter();
-  const [filter, setFilter] = useState('post');
+  const [filter, setFilter] = useState('');
   const [text, setText] = useState('');
 
-  const searchOptions = ['post', 'author'];
+  const textParam = Array.isArray(router.query.text)
+    ? router.query.text[0]
+    : router.query.text || '';
+  const filterParam = router.query.filter === 'post' || !router.query.filter ? 'post' : 'author';
 
+  const searchOptions = ['post', 'author'];
   const onSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
     router.push(`/search?text=${text}&filter=${filter}`);
   };
+
+  useEffect(() => {
+    setFilter(filterParam);
+    setText(textParam);
+  }, [textParam, filterParam]);
 
   return (
     <Box className={classes.root}>

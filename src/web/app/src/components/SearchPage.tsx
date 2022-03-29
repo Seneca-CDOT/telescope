@@ -1,9 +1,6 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import SearchResults from './SearchResults';
 import SearchBar from './SearchBar';
-import SearchHelp from './SearchHelp';
 
 const useStyles = makeStyles((theme: Theme) => ({
   searchPage: {
@@ -23,19 +20,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const SearchPage = () => {
   const classes = useStyles();
-  const [showHelp, toggleHelp] = useState(true);
-  const router = useRouter();
-
-  const textParam = Array.isArray(router.query.text)
-    ? router.query.text[0]
-    : router.query.text || '';
-  const filterParam = router.query.filter === 'post' || !router.query.filter ? 'post' : 'author';
 
   return (
     <div className={classes.searchPage}>
       <SearchBar />
-      {showHelp && <SearchHelp />}
-      <SearchResults textParam={textParam} filter={filterParam} toggleHelp={toggleHelp} />
+      <SearchResults />
     </div>
   );
 };
