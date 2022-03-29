@@ -144,6 +144,7 @@ services:
     restart: unless-stopped
     depends_on:
       - telescope
+      - oauth2-proxy
     # This makes nginx swap only the specified environment variables in our template (see:
     # https://github.com/docker-library/docs/issues/496) and then reload this configuration
     # (and the associated certificates) every six hours in the background and launches nginx
@@ -215,7 +216,24 @@ services:
     depends_on:
       - nginx
 
-  # Supabase studio for staging/prod to depends on nginx
-  studio:
+  # oauth2-proxy secure route for Supabase studio
+  oauth2-proxy:
+    image: bitnami/oauth2-proxy:7.2.1
+    container_name: 'oauth2-proxy'
+    command:
+      [
+        '--provider=github',
+        '--cookie-secure=false',
+        '--cookie-secret=${OAUTH2_SUPABASE_COOKIE_SECRET}',
+        '--upstream=http://studio:3000',
+        '--http-address=0.0.0.0:8080',
+        '--skip-auth-regex=/forms/*',
+        '--redirect-url=${SUPABASE_HOST}/oauth2/callback',
+        '--email-domain=*',
+        '--github-org=Seneca-CDOT',
+        '--github-team=telescope-admins',
+        '--client-id=${OAUTH2_SUPABASE_CLIENT_ID}',
+        '--client-secret=${OAUTH2_SUPABASE_CLIENT_SECRET}',
+      ]
     depends_on:
-      - nginx
+      - studio
