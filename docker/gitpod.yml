@@ -44,7 +44,7 @@ services:
       - ../config/simplesamlphp-users.php:/var/www/simplesamlphp/config/authsources.php
       - ../config/saml20-idp-hosted.php:/var/www/simplesamlphp/metadata/saml20-idp-hosted.php
 
-  # Static Web Content for tests, hosting the contents of test/test-web-content.
+  # Static Web Content for tests, hosting the contents of src/web/test-web-content.
   # The host can use http://localhost:8888 to access these files, and Docker
   # containers can use http://test-web-content instead.
   test-web-content:
@@ -53,7 +53,7 @@ services:
     ports:
       - '8888:80'
     volumes:
-      - ../test/test-web-content:/usr/share/nginx/html:ro
+      - ../src/web/test-web-content:/usr/share/nginx/html:ro
 
   redis:
     ports:
