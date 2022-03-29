@@ -77,7 +77,7 @@ jobs:
           # TODO
           # - context: src/api
           #  image: telescope-base
-          # - context: src/docs
+          # - context: src/web/docusaurus
           #  image: docs
           - context: src/api/feed-discovery
             image: feed-discovery
