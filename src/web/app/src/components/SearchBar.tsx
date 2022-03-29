@@ -1,9 +1,10 @@
+import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/router';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { Grid, MenuItem, TextField, FormControl, Paper, IconButton, Box } from '@material-ui/core';
 
 import SearchInput from './SearchInput/SearchInput';
-import useSearchValue from '../hooks/use-search-value';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -92,10 +93,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchBar = () => {
   const classes = useStyles();
-
-  const { filter, onFilterChange, onSubmitHandler } = useSearchValue();
+  const router = useRouter();
+  const [filter, setFilter] = useState('post');
+  const [text, setText] = useState('');
 
   const searchOptions = ['post', 'author'];
+
+  const onSubmitHandler = (event: FormEvent) => {
+    event.preventDefault();
+    router.push(`/search?text=${text}&filter=${filter}`);
+  };
 
   return (
     <Box className={classes.root}>
@@ -109,7 +116,7 @@ const SearchBar = () => {
                 value={filter}
                 InputProps={{ disableUnderline: true }}
                 className={classes.selectControl}
-                onChange={(event) => onFilterChange(event.target.value)}
+                onChange={(event) => setFilter(event.target.value)}
               >
                 {searchOptions.map((option) => (
                   <MenuItem key={option} value={option} className={classes.selectItem}>
@@ -121,7 +128,7 @@ const SearchBar = () => {
           </Grid>
           <Grid item xs={12} sm={10} lg={10}>
             <FormControl fullWidth>
-              <SearchInput />
+              <SearchInput text={text} setText={setText} />
               <IconButton
                 className={classes.iconButton}
                 type="submit"

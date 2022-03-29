@@ -1,12 +1,10 @@
+import { Dispatch, useState, SetStateAction } from 'react';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import useSWRInfinite from 'swr/infinite';
 import { Container, Box, createStyles } from '@material-ui/core';
-import { useState } from 'react';
-
 import { searchServiceUrl } from '../config';
 import Timeline from './Posts/Timeline';
 import Spinner from './Spinner';
-import useSearchValue from '../hooks/use-search-value';
 
 const NoResultsImg = '/noResults.svg';
 
@@ -53,9 +51,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const SearchResults = () => {
+const SearchResults = ({
+  textParam,
+  filter,
+  toggleHelp,
+}: {
+  textParam: string;
+  filter: string;
+  toggleHelp: Dispatch<SetStateAction<boolean>>;
+}) => {
   const classes = useStyles();
-  const { textParam, filter, toggleHelp } = useSearchValue();
   const [totalPosts, setTotalPosts] = useState(0);
 
   const prepareUrl = (index: number) =>

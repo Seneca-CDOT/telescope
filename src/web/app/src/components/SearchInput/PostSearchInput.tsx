@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import useSearchValue from '../../hooks/use-search-value';
 
@@ -27,10 +28,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PostSearchInput = () => {
-  const classes = useStyles();
+interface SearchInputInterface {
+  text: string;
+  setText: Dispatch<SetStateAction<string>>;
+}
 
-  const { text, onTextChange } = useSearchValue();
+const SearchInput = ({ text, setText }: SearchInputInterface) => {
+  const classes = useStyles();
 
   return (
     <>
@@ -38,10 +42,10 @@ const PostSearchInput = () => {
         className={classes.input}
         placeholder="How to contribute to Open Source"
         value={text}
-        onChange={(event) => onTextChange(event.target.value)}
+        onChange={(event) => setText(event.target.value)}
       />
     </>
   );
 };
 
-export default PostSearchInput;
+export default SearchInput;
