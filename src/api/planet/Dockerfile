@@ -30,4 +30,4 @@ ENV PORT=9876
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 	CMD wget --no-verbose --tries=1 --spider localhost:${PORT}/healthcheck || exit 1
 
-CMD ["pnpm", "start"]
+CMD ["node", "src/server.js"]
