@@ -37,6 +37,10 @@ export const lightTheme: Theme = createTheme({
     border: {
       main: 'rgba(27,31,36,0.15)',
     },
+    info: {
+      main: '#121D59',
+      light: '#123B67',
+    },
   },
 });
 
@@ -70,6 +74,10 @@ export const darkTheme: Theme = createTheme({
     },
     border: {
       main: 'rgba(240,246,252,0.1)',
+    },
+    info: {
+      main: '#a0d1fb',
+      light: '#228CB6',
     },
   },
 });
