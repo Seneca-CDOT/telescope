@@ -1,0 +1,19 @@
+# This is meant to be used with ./docker-compose.yml in development
+services:
+  studio:
+    ports:
+      - ${STUDIO_PORT}:3000/tcp
+
+  storage:
+    volumes:
+      - ./supabase/volumes/storage:/var/lib/storage
+
+  db:
+    ports:
+      # XXX: we need access to the postgres port on localhost for our e2e tests in dev,
+      # since they need to wait on the postgres db to become ready before starting.
+      # See src/api/sso/jest.config.e2e.js
+      - '5432:5432'
+    volumes:
+      - ./supabase/volumes/db/data:/var/lib/postgresql/data
+      - ./supabase/volumes/db/init:/docker-entrypoint-initdb.d
