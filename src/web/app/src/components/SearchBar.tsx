@@ -171,6 +171,7 @@ const SearchBar = () => {
         setText={setPost}
         clickEvent={!openDialog ? onSubmitHandler : null}
         labelFor="Browse for a post"
+        onEnterKey={onSubmitHandler}
       />
 
       {openDialog && (

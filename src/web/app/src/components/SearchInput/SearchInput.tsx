@@ -55,9 +55,10 @@ interface SearchInputInterface {
   setText: Dispatch<SetStateAction<string>>;
   labelFor: string;
   clickEvent?: any;
+  onEnterKey?: any;
 }
 
-const SearchInput = ({ text, setText, labelFor, clickEvent }: SearchInputInterface) => {
+const SearchInput = ({ text, setText, labelFor, clickEvent, onEnterKey }: SearchInputInterface) => {
   const classes = useStyles();
 
   return (

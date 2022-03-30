@@ -84,6 +84,7 @@ const SearchResults = () => {
   const { data, size, setSize, error } = useSWRInfinite(
     (index: number) => (shouldFetch() ? prepareUrl(index) : null),
     async (u: string) => {
+      console.log('fetching...');
       const res = await fetch(u);
       const results = await res.json();
 
