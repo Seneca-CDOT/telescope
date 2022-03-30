@@ -14,15 +14,19 @@ cd telescope
 if [ $1 = 'production' ]
 then
   ENV_FILE=config/env.production
+  # The env.secrets file doesn't live in git
+  SECRETS_ENV_FILE=../env.production.secrets
 elif [ $1 = 'staging' ]
 then
   ENV_FILE=config/env.staging
+  # The env.secrets file doesn't live in git
+  SECRETS_ENV_FILE=../env.staging.secrets
 else
   echo $1 is not a valid argument. Please use either production or staging.
   exit 1
 fi
 
-if [[ $(docker-compose --env-file $ENV_FILE --project-name=blue ps -q) ]]; then
+if [[ $(docker-compose --env-file $ENV_FILE --env-file $SECRETS_ENV_FILE --project-name=blue ps -q) ]]; then
     ENV="green"
     OLD="blue"
 else
@@ -37,25 +41,19 @@ echo "GIT_COMMIT=$2" >> $ENV_FILE
 # Include the GitHub Token we get from the script invocation in the env file
 echo "GITHUB_TOKEN=$3" >> $ENV_FILE
 
-# HACK: define a JWT_SECRET (e.g., 5AFA34C5-8E29-4F0B-9779-286E2A9C8D6F) that can be shared
-# across all containers for this deployment. This isn't ideal, since it will
-# invalidate sessions whenever we deploy, but that's better than hard-coding it. We should
-# find a way to secure this for longer.
-echo "JWT_SECRET=$(uuidgen)" >> $ENV_FILE
-
 
 echo "Pulling $ENV Containers"
-docker-compose --env-file $ENV_FILE --project-name=$ENV pull
+docker-compose --env-file $ENV_FILE --env-file $SECRETS_ENV_FILE --project-name=$ENV pull
 
 # Delete associated project orphans (services) and volumes
 echo "Stopping "$OLD" Environment"
-docker-compose --env-file $ENV_FILE --project-name=$OLD down --remove-orphans
+docker-compose --env-file $ENV_FILE --env-file $SECRETS_ENV_FILE --project-name=$OLD down --remove-orphans
 
 echo "Deleting $OLD Volumes"
 docker volume prune -f
 
 echo "Starting $ENV Environment"
-docker-compose --env-file $ENV_FILE --project-name=$ENV up -d
+docker-compose --env-file $ENV_FILE --env-file $SECRETS_ENV_FILE --project-name=$ENV up -d
 
 echo "Removing dangling images"
 docker rmi $(docker images -f "dangling=true" -q)
