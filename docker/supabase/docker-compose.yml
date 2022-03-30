@@ -1,11 +1,18 @@
-# This is the main Supabase container definition, and is meant to
-# be run with one of supabase-development.yml or supabase-production.yml.
+# Usage
+#   Start:          docker-compose up
+#   With helpers:   docker-compose -f docker-compose.yml -f ./dev/docker-compose.dev.yml up
+#   Stop:           docker-compose down
+#   Destroy:        docker-compose -f docker-compose.yml -f ./dev/docker-compose.dev.yml down -v --remove-orphans
+
+version: '3.8'
 
 services:
   studio:
     container_name: supabase-studio
     image: supabase/studio:latest
     restart: unless-stopped
+    ports:
+      - ${STUDIO_PORT}:3000/tcp
     environment:
       SUPABASE_URL: http://kong:8000
       STUDIO_PG_META_URL: http://meta:8080
@@ -136,6 +143,8 @@ services:
       # TODO: https://github.com/supabase/storage-api/issues/55
       REGION: stub
       GLOBAL_S3_BUCKET: stub
+    volumes:
+      - ./supabase/volumes/storage:/var/lib/storage
 
   meta:
     container_name: supabase-meta
@@ -153,5 +162,13 @@ services:
     image: supabase/postgres:14.1.0
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
     restart: unless-stopped
+    ports:
+      # XXX: we need access to the postgres port on localhost for our e2e tests in dev,
+      # since they need to wait on the postgres db to become ready before starting.
+      # See src/api/sso/jest.config.e2e.js
+      - '5432:5432'
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      # - ./supbase/volumes/db/data:/var/lib/postgresql/data
+      - ./supabase/volumes/db/init:/docker-entrypoint-initdb.d
