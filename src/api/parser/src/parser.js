@@ -1,7 +1,7 @@
 const { logger } = require('@senecacdot/satellite');
 const { feedQueue } = require('./feed/queue');
-const getWikiFeeds = require('./utils/wiki-feed-parser');
 const Feed = require('./data/feed');
+const { getAllFeeds } = require('./utils/supabase');
 
 /**
  * Adds the feed to the database if necessary, or gets a more complete
@@ -58,8 +58,8 @@ const processFeeds = (feeds) => {
  */
 const processAllFeeds = async () => {
   try {
-    // Get an Array of Feed objects from the wiki feed list
-    const feeds = await getWikiFeeds();
+    // Get an Array of Feed objects from the wiki feed list and Redis
+    const feeds = await getAllFeeds();
     // Process these feeds into the database and feed queue
     await processFeeds(feeds);
   } catch (err) {
