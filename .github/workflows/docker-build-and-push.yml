@@ -55,7 +55,7 @@ on:
       anon_key:
         description: 'The Supabase Anonymous Key'
         required: false
-        default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE'
+        default: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UiLAogICAgImlhdCI6IDE2NDg2MTI4MDAsCiAgICAiZXhwIjogMTgwNjM3OTIwMAp9.mCKt384B1BIKP6DFUgC3bwcFGY8HdbWNUAsPTVQbQxo'
         type: string
     secrets:
       docker_username:
