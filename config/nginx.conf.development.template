@@ -151,6 +151,10 @@ http {
       proxy_pass http://planet:9876;
     }
 
+    location /docs {
+      root /usr/share/nginx/html;
+    }
+
     # Static next.js front-end
     location / {
       # Directory from which we serve Next's static content
