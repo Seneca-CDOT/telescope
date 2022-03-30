@@ -15,13 +15,18 @@ The steps to launch Telescope in staging or production mode are almost identical
 
 ## Directory Structure
 
-The project needs to be set up using a specific directory structure to make sure that Telescope has access to the SSL certificates, redis data and elasticsearch data, and to prevent the certificates and the stored data from being deleted during a redeployment.
+The project needs to be set up using a specific directory structure to make sure that Telescope has access to the SSL certificates and shared data volumes (redis, elasticsearch, postgres), and to prevent the certificates and the stored data from being deleted during a redeployment.
+
+Also, we use an extra `env` file to store secrets in `config/env.production.secrets` (production) and `config/env.staging.secrets` (staging). These do **not** go in git, and must be maintained manually.
 
 ```sh
 ├── parent-directory
 │   ├── autodeployment
 │   ├── certbot
+│   ├── config
+│   │   └── env.production.secrets
 │   ├── elastic-data
+|   ├── postgres-data
 │   ├── redis-data
 │   └── telescope
 ```
@@ -57,6 +62,7 @@ sudo chown -R <user_name>: certbot
 ### 3.- Autodeployment server
 
 Telescope uses [GitHub webhooks](https://docs.github.com/en/developers/webhooks-and-events/about-webhooks) to automate deployments whenever a pull requests is merged or a new version is released.
+
 When a GitHub event is triggered, it sends a POST request payload to the webhook's configured URL. Telescope's autodeployment server receives that POST request and updates Telescope with the latest merged changes or with a new release.
 
 After [creating a GitHub webhook](https://docs.github.com/en/developers/webhooks-and-events/creating-webhooks), copy the `autodeployment` directory in `tools` in the repository to the chosen directory where the project lives, as indicated above.

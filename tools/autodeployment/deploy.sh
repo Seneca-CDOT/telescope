@@ -15,12 +15,12 @@ if [ $1 = 'production' ]
 then
   ENV_FILE=config/env.production
   # The env.secrets file doesn't live in git
-  SECRETS_ENV_FILE=../env.production.secrets
+  SECRETS_ENV_FILE=../config/env.production.secrets
 elif [ $1 = 'staging' ]
 then
   ENV_FILE=config/env.staging
   # The env.secrets file doesn't live in git
-  SECRETS_ENV_FILE=../env.staging.secrets
+  SECRETS_ENV_FILE=../config/env.staging.secrets
 else
   echo $1 is not a valid argument. Please use either production or staging.
   exit 1
