@@ -2,15 +2,18 @@
   "author": "",
   "private": true,
   "dependencies": {
+    "@supabase/supabase-js": "1.29.4",
+    "dotenv": "10.0.0",
     "jsdom": "18.1.1",
     "node-fetch": "2.6.7"
   },
-  "description": "Migrates users from the planet feed wiki list to a JSON file.",
+  "description": "Migrates users from the planet feed wiki list to a JSON file or supabase-db",
   "license": "ISC",
   "main": "migrate.js",
   "name": "migrate",
   "scripts": {
-    "start": "node migrate.js"
+    "to_json": "node to_json.js",
+    "to_supabase": "node to_supabase.js"
   },
   "version": "1.0.0"
 }

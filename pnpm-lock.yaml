@@ -639,9 +639,13 @@ importers:
 
   tools/migrate:
     specifiers:
+      '@supabase/supabase-js': 1.29.4
+      dotenv: 10.0.0
       jsdom: 18.1.1
       node-fetch: 2.6.7
     dependencies:
+      '@supabase/supabase-js': 1.29.4
+      dotenv: 10.0.0
       jsdom: 18.1.1
       node-fetch: 2.6.7
 
