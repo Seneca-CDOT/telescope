@@ -171,6 +171,18 @@ http {
     }
   }
 
+  # Requests to the oauth2-proxy which redirect to supabase studio app once authenticated
+  server {
+    listen 443 ssl http2;
+    server_name ${SUPABASE_HOST};
+
+    location / {
+      proxy_set_header Connection "";
+      proxy_set_header Host $host;
+      proxy_pass http://oauth2-proxy:8080/;
+    }
+  }
+
   # Requests to the api.* domain should be proxied to Traefik
   server {
     listen 443 ssl http2;

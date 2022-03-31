@@ -144,11 +144,12 @@ services:
     restart: unless-stopped
     depends_on:
       - telescope
+      - oauth2-proxy
     # This makes nginx swap only the specified environment variables in our template (see:
     # https://github.com/docker-library/docs/issues/496) and then reload this configuration
     # (and the associated certificates) every six hours in the background and launches nginx
     # in the foreground.
-    command: /bin/sh -c "envsubst '$$TELESCOPE_HOST $$API_HOST $$PORTAINER_HOST' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'"
+    command: /bin/sh -c "envsubst '$$TELESCOPE_HOST $$API_HOST $$PORTAINER_HOST $$SUPABASE_HOST' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g 'daemon off;'"
 
   # API Gateway running on 8888. We use nginx in front of this for secure/compressed/cached responses
   traefik:
@@ -214,3 +215,25 @@ services:
       - ../../portainer/portainer:/data/portainer
     depends_on:
       - nginx
+
+  # oauth2-proxy secure route for Supabase studio
+  oauth2-proxy:
+    image: bitnami/oauth2-proxy:7.2.1
+    container_name: 'oauth2-proxy'
+    command:
+      [
+        '--provider=github',
+        '--cookie-secure=false',
+        '--cookie-secret=${OAUTH2_SUPABASE_COOKIE_SECRET}',
+        '--upstream=http://studio:3000',
+        '--http-address=0.0.0.0:8080',
+        '--skip-auth-regex=/forms/*',
+        '--redirect-url=${SUPABASE_HOST}/oauth2/callback',
+        '--email-domain=*',
+        '--github-org=Seneca-CDOT',
+        '--github-team=telescope-admins',
+        '--client-id=${OAUTH2_SUPABASE_CLIENT_ID}',
+        '--client-secret=${OAUTH2_SUPABASE_CLIENT_SECRET}',
+      ]
+    depends_on:
+      - studio

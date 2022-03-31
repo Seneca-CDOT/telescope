@@ -278,6 +278,7 @@ services:
       - TELESCOPE_HOST
       - API_HOST
       - PORTAINER_HOST
+      - SUPABASE_HOST
     restart: unless-stopped
     depends_on:
       - traefik
