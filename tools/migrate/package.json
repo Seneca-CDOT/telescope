@@ -15,5 +15,5 @@
     "to_json": "node to_json.js",
     "to_supabase": "node to_supabase.js"
   },
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
