@@ -26,7 +26,7 @@ else
   exit 1
 fi
 
-if [[ $(docker-compose --env-file $ENV_FILE --env-file $SECRETS_ENV_FILE --project-name=blue ps -q) ]]; then
+if [[ $(docker-compose --env-file $ENV_FILE --project-name=blue ps -q) ]]; then
     ENV="green"
     OLD="blue"
 else
@@ -41,19 +41,22 @@ echo "GIT_COMMIT=$2" >> $ENV_FILE
 # Include the GitHub Token we get from the script invocation in the env file
 echo "GITHUB_TOKEN=$3" >> $ENV_FILE
 
+# Include the local secrets in the env file
+cat $SECRETS_ENV_FILE >> $ENV_FILE
+
 
 echo "Pulling $ENV Containers"
-docker-compose --env-file $ENV_FILE --env-file $SECRETS_ENV_FILE --project-name=$ENV pull
+docker-compose --env-file $ENV_FILE --project-name=$ENV pull
 
 # Delete associated project orphans (services) and volumes
 echo "Stopping "$OLD" Environment"
-docker-compose --env-file $ENV_FILE --env-file $SECRETS_ENV_FILE --project-name=$OLD down --remove-orphans
+docker-compose --env-file $ENV_FILE --project-name=$OLD down --remove-orphans
 
 echo "Deleting $OLD Volumes"
 docker volume prune -f
 
 echo "Starting $ENV Environment"
-docker-compose --env-file $ENV_FILE --env-file $SECRETS_ENV_FILE --project-name=$ENV up -d
+docker-compose --env-file $ENV_FILE --project-name=$ENV up -d
 
 echo "Removing dangling images"
 docker rmi $(docker images -f "dangling=true" -q)
