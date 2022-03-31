@@ -12,10 +12,28 @@ version: '3'
 services:
   # API Gateway
   nginx:
+    build:
+      context: ../src/web/app
+      cache_from:
+        - docker.cdot.systems/nginx:buildcache
+      # next.js needs build-time access to a number of API URL values, forward as ARGs
+      args:
+        # Web front-end URL
+        - WEB_URL=${WEB_URL}
+        # Telescope 1.0 API URL
+        - API_URL=${API_URL}
+        # Telescope 2.0 Microservice URLs
+        - IMAGE_URL=${IMAGE_URL}
+        - SSO_URL=${SSO_URL}
+        - POSTS_URL=${POSTS_URL}
+        - SEARCH_URL=${SEARCH_URL}
+        - FEED_DISCOVERY_URL=${FEED_DISCOVERY_URL}
+        - STATUS_URL=${STATUS_URL}
     volumes:
       - ../config/nginx.conf.development.template:/etc/nginx/nginx.conf
     ports:
       - '8000:8000'
+    restart: unless-stopped
 
   traefik:
     command:
@@ -28,6 +46,7 @@ services:
       - '8443:80'
       # The Web UI (enabled by --api.insecure=true)
       - '8080:8080'
+    restart: unless-stopped
 
   # SSO Identity Provider test service, https://simplesamlphp.org
   # Access to the login page available at http://localhost:8081
@@ -58,17 +77,11 @@ services:
   redis:
     ports:
       - '6379:6379'
+    restart: unless-stopped
 
   elasticsearch:
     ports:
       - '9200:9200'
-
-  sso:
-    depends_on:
-      - test-web-content
-
-  feed-discovery:
-    image: docker.cdot.systems/feed-discovery
     restart: unless-stopped
 
   parser:
@@ -76,3 +89,80 @@ services:
       context: ../src/api/parser
       cache_from:
         - docker.cdot.systems/parser:buildcache
+    depends_on:
+      - elasticsearch
+      - traefik
+      - redis
+    restart: unless-stopped
+
+  status:
+    build:
+      context: ../src/api/status
+      cache_from:
+        - docker.cdot.systems/status:buildcache
+    ports:
+      - '1111:1111'
+    environment:
+      - POSTS_URL=http://posts:5555
+    restart: unless-stopped
+
+  image:
+    build:
+      context: ../src/api/image
+      cache_from:
+        - docker.cdot.systems/image:buildcache
+    restart: unless-stopped
+
+  sso:
+    build:
+      context: ../src/api/sso
+      cache_from:
+        - docker.cdot.systems/sso:buildcache
+    environment:
+      # In development and testing, the SSO service needs to contact the Supabase
+      # service directly via Docker vs through the http://localhost/v1/supabase domain.
+      - SUPABASE_URL=http://kong:8000
+    depends_on:
+      - test-web-content
+      - traefik
+      - login
+    restart: unless-stopped
+
+  search:
+    build:
+      context: ../src/api/search
+      cache_from:
+        - docker.cdot.systems/search:buildcache
+    restart: unless-stopped
+
+  posts:
+    build:
+      context: ../src/api/posts
+      cache_from:
+        - docker.cdot.systems/posts:buildcache
+    restart: unless-stopped
+
+  feed-discovery:
+    build:
+      context: ../src/api/feed-discovery
+      cache_from:
+        - docker.cdot.systems/feed-discovery:buildcache
+    restart: unless-stopped
+
+  planet:
+    build:
+      context: ../src/api/planet
+      cache_from:
+        - docker.cdot.systems/planet:buildcache
+    ports:
+      - '9876:9876'
+    environment:
+      - POSTS_URL=http://posts:${POSTS_PORT:-5555}
+    restart: unless-stopped
+
+  dependency-discovery:
+    build:
+      context: ../src/api/dependency-discovery
+      cache_from:
+        - docker.cdot.systems/dependency-discovery:buildcache
+    restart: unless-stopped
