@@ -34,7 +34,7 @@ pnpm install
 ## Usage
 
 ```bash
-cd src/tools/migrate
+cd tools/migrate
 # To JSON
 pnpm to_json
 # To Supabase
