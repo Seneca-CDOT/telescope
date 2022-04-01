@@ -27,7 +27,7 @@ copy env.example .env
 ## Install dependencies
 
 ```bash
-cd src/tools/migrate
+cd tools/migrate
 pnpm install
 ```
 
