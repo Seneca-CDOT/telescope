@@ -8,19 +8,19 @@ sidebar_position: 1
 
 There are a number of [docker-compose](https://docs.docker.com/compose/) files available for running Telescope's services, including:
 
-- [docker/docker-compose.yml](../../../../docker/docker-compose.yml) - the base docker-compose stack
+- [docker/docker-compose.yml](https://github.com/Seneca-CDOT/telescope/blob/master/docker/docker-compose.yml) - the base docker-compose stack
   definition of our microservices, dependent services, and our api gateway, [Traefik](https://traefik.io). This is meant to be used in development only.
-- [docker/development.yml](../../../../docker/development.yml) - overrides and extensions to the base docker-compose
+- [docker/development.yml](https://github.com/Seneca-CDOT/telescope/blob/master/docker/development.yml) - overrides and extensions to the base docker-compose
   stack, with extra settings and services necessary for running in development or CI.
-- [docker/production.yml](../../../../docker/production.yml) - overrides and extensions to the base docker-compose
+- [docker/production.yml](https://github.com/Seneca-CDOT/telescope/blob/master/docker/production.yml) - overrides and extensions to the base docker-compose
   stack, with extra settings and services necessary for running in staging and production.
 
 In conjunction with these, there are also multiple environment files, including:
 
-- [config/env.development](../../../../config/env.development) - environment variables for local development. This
+- [config/env.development](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.development) - environment variables for local development. This
   is likely what you need to adjust or pay attention to if you're developing Telescope.
-- [config/env.staging](../../../../config/env.staging) - environment variables for our staging server.
-- [config/env.production](../../../../config/env.production) - environment variables for our production server.
+- [config/env.staging](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.staging) - environment variables for our staging server.
+- [config/env.production](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.production) - environment variables for our production server.
 
 The env files are configured to specify which variables and docker-compose files are needed to be run.
 For most developers, doing the following will work:
