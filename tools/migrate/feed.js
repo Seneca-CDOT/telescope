@@ -1,10 +1,8 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
-const fs = require('fs');
 
 const { JSDOM } = jsdom;
 const FEED_URL = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
-const FILE = 'legacy_users.json';
 
 const getWikiText = async (url) => {
   try {
@@ -18,7 +16,15 @@ const getWikiText = async (url) => {
   }
 };
 
-(async () => {
+/**
+ * @typedef {{firstName:string,lastName:string,feed: string }} PlanetUser
+ */
+
+/**
+ * Parse all users from the planet feed list hosted at https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List
+ * @return {PromiseLike<PlanetUser[]>} - A list valid parsed users
+ */
+const parsePlanetFeedList = async () => {
   let wikiText;
 
   // Try to fetch the feed list from 'FEED_URL'
@@ -38,6 +44,7 @@ const getWikiText = async (url) => {
   let lastName;
   let feed;
   const users = [];
+  const uniqueUrls = new Set();
 
   // Iterate through all lines and find url/name pairs, then parse them.
   lines.forEach((line, index) => {
@@ -45,10 +52,14 @@ const getWikiText = async (url) => {
       feed = line.replace(/[[\]']/g, '');
 
       try {
-        new URL(feed);
-        // If the URL is valid, continue
+        // eslint-disable-next-line no-new
+        new URL(feed); // If the URL is valid, continue
         [firstName, lastName] = lines[index + 1].replace(/^\s*name\s*=\s*/, '').split(' ');
-        users.push({ firstName, lastName, feed });
+
+        if (!uniqueUrls.has(feed)) {
+          users.push({ firstName, lastName, feed });
+          uniqueUrls.add(feed);
+        }
       } catch {
         // If the URL is invalid, display error message
         console.error(`Skipping invalid wiki feed url ${feed} for author ${firstName} ${lastName}`);
@@ -56,12 +67,7 @@ const getWikiText = async (url) => {
     }
   });
 
-  try {
-    fs.writeFileSync(`${FILE}`, JSON.stringify(users));
-    console.log(
-      `Processed ${users.length} records. Legacy users were successfully written to file: ${FILE}.`
-    );
-  } catch (err) {
-    console.error(err);
-  }
-})();
+  return users;
+};
+
+module.exports = { getWikiText, parsePlanetFeedList };
