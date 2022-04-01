@@ -224,13 +224,11 @@ services:
     command:
       [
         '--provider=github',
-        '--cookie-secure=false',
+        '--cookie-secure=true',
         '--cookie-secret=${OAUTH2_SUPABASE_COOKIE_SECRET}',
         '--upstream=http://studio:3000',
         '--http-address=0.0.0.0:8080',
-        '--skip-auth-regex=/forms/*',
-        '--redirect-url=/oauth2/callback',
-        '--force-https=true',
+        '--reverse-proxy=true',
         '--email-domain=*',
         '--github-org=Seneca-CDOT',
         '--github-team=telescope-admins',
