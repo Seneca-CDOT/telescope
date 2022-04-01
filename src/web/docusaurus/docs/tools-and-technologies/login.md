@@ -59,7 +59,7 @@ If running Elasticsearch or Redis natively, please avoid using `docker-compose u
 
 :::
 
-5. The test SSO server uses the following fake user accounts defined in [simplesamlphp-users.php](../../../../config/simplesamlphp-users.php):
+5. The test SSO server uses the following fake user accounts defined in [simplesamlphp-users.php](https://github.com/Seneca-CDOT/telescope/blob/master/config/simplesamlphp-users.php):
 
 | Username    | Password  | Name            | Email                      |
 | ----------- | --------- | --------------- | -------------------------- |

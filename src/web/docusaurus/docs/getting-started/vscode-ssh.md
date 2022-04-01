@@ -53,7 +53,7 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
 - Step 3 - Configure Instance Details:
   - IAM role: LabInstanceProfile
     ![AWS LabInstanceProfile IAM Role](../../static/img/aws_iam_role.png)
-  - Copy and paste the [aws-userdata.sh](../../../../tools/aws-userdata.sh) script into the `User data` field
+  - Copy and paste the [aws-userdata.sh](https://github.com/Seneca-CDOT/telescope/blob/master/tools/aws-userdata.sh) script into the `User data` field
     ![AWS Userdata](../../static/img/aws_userdata.png)
 - Step 4 - Add Storage: Change the Size (GiB) from `8` to `20`
   ![AWS Storage](../../static/img/aws_storage.png)

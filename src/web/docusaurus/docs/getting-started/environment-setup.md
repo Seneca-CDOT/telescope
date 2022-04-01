@@ -242,9 +242,9 @@ Docker builds Telescope's dependencies at launch and keeps them on disk. In some
 
 ### Start Telescope
 
-There are different ways to run the application. By default, [env.development](../../../../config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
+There are different ways to run the application. By default, [env.development](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
 
-There are also [env.production](../../../../config/env.production) and [env.staging](../../../../config/env.staging) to choose based on developer's need. For example, if you want to use staging, you can do `cp ./config/env.staging ./.env` on Linux/macOS, or `copy config/env.staging .env` on Windows.
+There are also [env.production](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.production) and [env.staging](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.staging) to choose based on developer's need. For example, if you want to use staging, you can do `cp ./config/env.staging ./.env` on Linux/macOS, or `copy config/env.staging .env` on Windows.
 
 Here are instructions for different scenarios:
 

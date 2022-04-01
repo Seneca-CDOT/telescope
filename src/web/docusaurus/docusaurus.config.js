@@ -10,8 +10,8 @@ const config = {
   tagline: "A tool for tracking blogs in orbit around Seneca's open source involvement",
   url: 'https://telescope.cdot.systems',
   baseUrl: '/',
-  onBrokenLinks: 'ignore',
-  onBrokenMarkdownLinks: 'ignore',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'seneca-cdot', // Usually your GitHub org/user name.
   projectName: 'telescope', // Usually your repo name.
