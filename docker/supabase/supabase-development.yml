@@ -17,3 +17,7 @@ services:
     volumes:
       - ./supabase/volumes/db/data:/var/lib/postgresql/data
       - ./supabase/volumes/db/init:/docker-entrypoint-initdb.d
+
+  kong:
+    volumes:
+      - ./supabase/volumes/api/kong.yml:/var/lib/kong/kong.yml

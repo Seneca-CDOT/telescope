@@ -22,8 +22,6 @@ services:
       # https://github.com/supabase/cli/issues/14
       KONG_DNS_ORDER: LAST,A,CNAME
       KONG_PLUGINS: request-transformer,cors,key-auth,acl
-    volumes:
-      - ./supabase/volumes/api/kong.yml:/var/lib/kong/kong.yml
     depends_on:
       - traefik
     labels:
