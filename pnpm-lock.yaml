@@ -468,7 +468,7 @@ importers:
       '@types/yup': 0.29.13
       '@typescript-eslint/eslint-plugin': 4.33.0
       '@typescript-eslint/parser': 4.33.0
-      babel-loader: 8.2.3
+      babel-loader: 8.2.4
       clsx: 1.1.1
       dotenv: 10.0.0
       eslint: 7.32.0
@@ -538,7 +538,7 @@ importers:
       '@types/react': 17.0.43
       '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
-      babel-loader: 8.2.3_@babel+core@7.17.8+webpack@5.9.0
+      babel-loader: 8.2.4_@babel+core@7.17.8+webpack@5.9.0
       eslint: 7.32.0
       terser-webpack-plugin: 5.3.1_webpack@5.9.0
       typescript: 4.4.4
@@ -5854,20 +5854,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /babel-loader/8.2.3_@babel+core@7.17.8+webpack@5.9.0:
-    resolution: {integrity: sha512-n4Zeta8NC3QAsuyiizu0GkmRcQ6clkV9WFUnUf1iXP//IeSKbWjofW3UHyZVwlOB4y039YQKefawyTn64Zwbuw==}
-    engines: {node: '>= 8.9'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-      webpack: '>=2'
-    dependencies:
-      '@babel/core': 7.17.8
-      find-cache-dir: 3.3.2
-      loader-utils: 1.4.0
-      make-dir: 3.1.0
-      schema-utils: 2.7.1
-      webpack: 5.9.0
-
   /babel-loader/8.2.3_fa907c5a4f16ccc493e21649ccc59574:
     resolution: {integrity: sha512-n4Zeta8NC3QAsuyiizu0GkmRcQ6clkV9WFUnUf1iXP//IeSKbWjofW3UHyZVwlOB4y039YQKefawyTn64Zwbuw==}
     engines: {node: '>= 8.9'}
@@ -5882,6 +5868,20 @@ packages:
       schema-utils: 2.7.1
       webpack: 5.70.0
     dev: false
+
+  /babel-loader/8.2.4_@babel+core@7.17.8+webpack@5.9.0:
+    resolution: {integrity: sha512-8dytA3gcvPPPv4Grjhnt8b5IIiTcq/zeXOPk4iTYI0SVXcsmuGg7JtBRDp8S9X+gJfhQ8ektjXZlDu1Bb33U8A==}
+    engines: {node: '>= 8.9'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+      webpack: '>=2'
+    dependencies:
+      '@babel/core': 7.17.8
+      find-cache-dir: 3.3.2
+      loader-utils: 2.0.0
+      make-dir: 3.1.0
+      schema-utils: 2.7.1
+      webpack: 5.9.0
 
   /babel-plugin-apply-mdx-type-prop/1.6.22_@babel+core@7.12.9:
     resolution: {integrity: sha512-VefL+8o+F/DfK24lPZMtJctrCVOfgbqLAGZSkxwhazQv4VxPg3Za/i40fu22KR2m8eEda+IfSOlPLUSIiLcnCQ==}
@@ -11950,6 +11950,7 @@ packages:
       big.js: 5.2.2
       emojis-list: 3.0.0
       json5: 1.0.1
+    dev: false
 
   /loader-utils/2.0.0:
     resolution: {integrity: sha512-rP4F0h2RaWSvPEkD7BLDFQnvSf+nK+wr3ESUjNTyAGobqrijmW92zc+SO6d4p4B1wh7+B/Jg1mkQe5NYUEHtHQ==}
@@ -11958,7 +11959,6 @@ packages:
       big.js: 5.2.2
       emojis-list: 3.0.0
       json5: 2.2.0
-    dev: false
 
   /loader-utils/3.2.0:
     resolution: {integrity: sha512-HVl9ZqccQihZ7JM85dco1MvO9G+ONvxoGa9rkhzFsneGLKSUg1gJf9bWzhRhcvm2qChhWpebQhP44qxjKIUCaQ==}
@@ -12577,7 +12577,7 @@ packages:
     peerDependencies:
       next: '>=9.0.0'
     dependencies:
-      babel-loader: 8.2.3_@babel+core@7.17.8+webpack@5.9.0
+      babel-loader: 8.2.4_@babel+core@7.17.8+webpack@5.9.0
       clean-webpack-plugin: 4.0.0_webpack@5.9.0
       globby: 11.1.0
       next: 12.1.0_978f344c876a57c1143ffe356b90df31
