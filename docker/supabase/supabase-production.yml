@@ -2,13 +2,15 @@
 services:
   storage:
     volumes:
-      - ../../../supabase/volumes/storage:/var/lib/storage
+      - ../../supabase/volumes/storage:/var/lib/storage
 
   db:
     volumes:
-      - ../../../supabase/volumes/db/data:/var/lib/postgresql/data
+      # We keep the actual data in a volume outside of git, so it survives restarts
+      - ../../supabase/volumes/db/data:/var/lib/postgresql/data
+      # We pull in .sql migrations, schema files from the git repo
       - ./supabase/volumes/db/init:/docker-entrypoint-initdb.d
 
   kong:
     volumes:
-      - ../../../config/kong.yml:/var/lib/kong/kong.yml
+      - ../../config/kong.yml:/var/lib/kong/kong.yml
