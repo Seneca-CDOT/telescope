@@ -92,9 +92,8 @@ service.router.get('/status', (req, res) => {
 // Home page
 service.router.get('/', async (req, res) => {
   try {
-    const [telescope, satellite, totalPost, totalFeeds, jobCount, distJsPath] = await Promise.all([
+    const [telescope, totalPost, totalFeeds, jobCount, distJsPath] = await Promise.all([
       getGitHubData('Seneca-CDOT', 'telescope'),
-      getGitHubData('Seneca-CDOT', 'satellite'),
       getPostsCount(),
       getFeedCount(),
       getJobCount(),
@@ -110,7 +109,6 @@ service.router.get('/', async (req, res) => {
       active_dashboard: true,
       headers: { title: 'Telescope Dashboard' },
       telescope: { ...telescope, title: 'Telescope' },
-      satellite: { ...satellite, title: 'Satellite' },
       totalPost,
       totalFeeds,
       jobCount,
