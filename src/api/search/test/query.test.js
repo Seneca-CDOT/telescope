@@ -273,7 +273,7 @@ describe('query routers', () => {
 
   describe('Test queries that pass validation', () => {
     // All Satellite Elastic clients will share this mock
-    // For more information please read the documentation at https://github.com/Seneca-CDOT/satellite#elastic
+    // For more information please read the documentation at https://github.com/Seneca-CDOT/telescope/tree/master/src/satellite#elastic
     const { mock } = Elastic();
 
     afterEach(() => {
