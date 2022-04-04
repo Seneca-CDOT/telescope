@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     searchResults: {
       padding: 0,
-      width: '81vw',
+      width: '100%',
       justifyContent: 'center',
     },
     errorBackground: {
@@ -49,6 +49,11 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       margin: '2rem',
       color: theme.palette.primary.main,
+    },
+    errorBox: {
+      maxWidth: '500px',
+      borderRadius: '20px',
+      margin: 'auto',
     },
   })
 );
@@ -99,7 +104,7 @@ const SearchResults = () => {
   if (error) {
     return (
       <Container className={classes.searchResults}>
-        <Box boxShadow={2} marginTop={10}>
+        <Box boxShadow={2} marginTop={10} className={classes.errorBox}>
           <div className={classes.errorBackground}>
             <div>
               <p className={classes.errorTitle}>Search Error</p>
