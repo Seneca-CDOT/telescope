@@ -11,12 +11,12 @@
     "eslint-fix": "eslint --config .eslintrc.js \"./src/**/*.js\" --fix",
     "lint": "pnpm eslint"
   },
-  "repository": "Seneca-CDOT/satellite",
+  "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/Seneca-CDOT/telescope/issues"
   },
-  "homepage": "https://github.com/Seneca-CDOT/satellite#readme",
+  "homepage": "https://github.com/Seneca-CDOT/telescope/tree/master/src/satellite",
   "dependencies": {
     "@elastic/elasticsearch": "7.17.0",
     "@elastic/elasticsearch-mock": "0.3.1",
