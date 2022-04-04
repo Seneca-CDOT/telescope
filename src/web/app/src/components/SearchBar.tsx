@@ -1,9 +1,8 @@
-import { FormEvent, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { useRouter } from 'next/router';
 import SearchIcon from '@material-ui/icons/Search';
-import { Grid, MenuItem, TextField, FormControl, Paper, IconButton, Box } from '@material-ui/core';
-
+import { Box, Button } from '@material-ui/core';
+import { FormEvent, useEffect, useState } from 'react';
 import SearchInput from './SearchInput/SearchInput';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -14,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: 'auto',
       marginRight: 'auto',
       padding: theme.spacing(2, 2, 0, 2),
-      marginBottom: theme.spacing(6),
+      marginBottom: theme.spacing(8),
     },
     card: {
       padding: theme.spacing(0, 0, 0, 2),
@@ -22,17 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       alignItems: 'center',
       borderRadius: '50px',
-      background: theme.palette.background.paper,
-      border: 'solid 1px transparent',
+      background: theme.palette.background.default,
+      border: `2px solid ${theme.palette.info.main}`,
       transition: 'background-color .5s',
-      '&:hover': {
-        backgroundColor: theme.palette.background.default,
-        border: 'solid 1px #999999',
-      },
-      [theme.breakpoints.down('xs')]: {
-        borderRadius: '15px',
-        padding: theme.spacing(0, 0, 0, 2),
-      },
     },
     header: {
       padding: 0,
@@ -55,9 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     iconButton: {
-      backgroundColor: '#999999',
+      backgroundColor: theme.palette.info.main,
       '&:hover': {
-        backgroundColor: theme.palette.secondary.dark,
+        backgroundColor: theme.palette.info.light,
       },
       '& * > .MuiSvgIcon-root': {
         fontSize: '2rem',
@@ -65,8 +56,9 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       margin: 0,
       position: 'absolute',
-      right: '10px',
-      top: '6px',
+      top: '10px',
+      padding: '8px',
+      color: '#A0D1FA',
     },
     selectControl: {
       '& > *': {
@@ -74,7 +66,6 @@ const useStyles = makeStyles((theme: Theme) =>
         transform: 'translateY(2px)',
         fontSize: '1.5rem',
         textTransform: 'capitalize',
-        color: theme.palette.primary.main,
         paddingLeft: '2rem',
         [theme.breakpoints.down('xs')]: {
           paddingLeft: '1rem',
@@ -86,7 +77,44 @@ const useStyles = makeStyles((theme: Theme) =>
     selectItem: {
       fontSize: '1.4rem',
       textTransform: 'capitalize',
-      color: theme.palette.primary.main,
+    },
+    advanceSearchButton: {
+      float: 'right',
+      width: 'auto',
+      padding: '5px 10px',
+      outline: 'none',
+      border: 'none',
+      background: 'transparent',
+      color: theme.palette.info.main,
+      fontSize: '10px',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+    backButton: {
+      float: 'left',
+      width: 'auto',
+      padding: '5px 10px',
+      outline: 'none',
+      border: 'none',
+      background: 'transparent',
+      color: theme.palette.info.main,
+      fontSize: '10px',
+      cursor: 'pointer',
+      '&:hover': {
+        textDecoration: 'underline',
+      },
+    },
+    advancedSearchInputDiv: {
+      margin: '15px 0px',
+    },
+    searchButton: {
+      float: 'right',
+      borderRadius: '50px',
+      '&:hover': {
+        backgroundColor: theme.palette.info.light,
+      },
     },
   })
 );
@@ -94,62 +122,72 @@ const useStyles = makeStyles((theme: Theme) =>
 const SearchBar = () => {
   const classes = useStyles();
   const router = useRouter();
-  const [filter, setFilter] = useState('');
-  const [text, setText] = useState('');
+  const [openDialog, setOpenDialog] = useState(false);
+  const [author, setAuthor] = useState('');
+  const [post, setPost] = useState('');
 
-  const textParam = Array.isArray(router.query.text)
-    ? router.query.text[0]
-    : router.query.text || '';
-  const filterParam = router.query.filter === 'post' || !router.query.filter ? 'post' : 'author';
+  const postParam = Array.isArray(router.query.post)
+    ? router.query.post[0]
+    : router.query.post || '';
 
-  const searchOptions = ['post', 'author'];
+  const authorParam = Array.isArray(router.query.author)
+    ? router.query.author[0]
+    : router.query.author || '';
+
   const onSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
-    router.push(`/search?text=${text}&filter=${filter}`);
+    router.push(
+      `/search?${author ? `author=${author}${post ? `&post=${post}` : ``}` : ``}${
+        !author && post ? `post=${post}` : ``
+      }`
+    );
+  };
+
+  // Function to clear out old fields.
+  const resetAdvancedFields = () => {
+    setAuthor('');
   };
 
   useEffect(() => {
-    setFilter(filterParam);
-    setText(textParam);
-  }, [textParam, filterParam]);
+    setPost(postParam);
+    setAuthor(authorParam);
+  }, [postParam, authorParam]);
 
   return (
     <Box className={classes.root}>
-      <Paper component="form" className={classes.card} elevation={0}>
-        <Grid container direction="row" spacing={2} alignItems="center" justifyContent="flex-start">
-          <Grid item xs={12} sm={2} lg={2}>
-            <FormControl fullWidth>
-              <TextField
-                id="standard-select-search-type"
-                select
-                value={filter}
-                InputProps={{ disableUnderline: true }}
-                className={classes.selectControl}
-                onChange={(event) => setFilter(event.target.value)}
-              >
-                {searchOptions.map((option) => (
-                  <MenuItem key={option} value={option} className={classes.selectItem}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={10} lg={10}>
-            <FormControl fullWidth>
-              <SearchInput text={text} setText={setText} />
-              <IconButton
-                className={classes.iconButton}
-                type="submit"
-                onClick={onSubmitHandler}
-                aria-label="search"
-              >
-                <SearchIcon />
-              </IconButton>
-            </FormControl>
-          </Grid>
-        </Grid>
-      </Paper>
+      <SearchInput
+        text={post}
+        setText={setPost}
+        clickEvent={!openDialog ? onSubmitHandler : null}
+        labelFor="Browse for a post"
+      />
+
+      {openDialog && (
+        <div className={classes.advancedSearchInputDiv}>
+          <SearchInput text={author} setText={setAuthor} labelFor="Look for an Author" />
+        </div>
+      )}
+      <Button
+        className={!openDialog ? classes.advanceSearchButton : classes.backButton}
+        onClick={() => {
+          setOpenDialog(!openDialog);
+          resetAdvancedFields();
+        }}
+      >
+        {!openDialog ? 'Advanced Search' : 'Regular search'}
+      </Button>
+      {openDialog && (
+        <Button
+          variant="contained"
+          startIcon={<SearchIcon />}
+          color="primary"
+          size="large"
+          className={classes.searchButton}
+          onClick={onSubmitHandler}
+        >
+          Search
+        </Button>
+      )}
     </Box>
   );
 };

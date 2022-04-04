@@ -50,6 +50,11 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '2rem',
       color: theme.palette.primary.main,
     },
+    errorBox: {
+      maxWidth: '500px',
+      borderRadius: '20px',
+      margin: 'auto',
+    },
   })
 );
 
@@ -57,21 +62,25 @@ const SearchResults = () => {
   const router = useRouter();
   const classes = useStyles();
   const [totalPosts, setTotalPosts] = useState(0);
-  const textParam = Array.isArray(router.query.text)
-    ? router.query.text[0]
-    : router.query.text || '';
-  const filterParam = router.query.filter === 'post' || !router.query.filter ? 'post' : 'author';
+  const postParam = Array.isArray(router.query.post)
+    ? router.query.post[0]
+    : router.query.post || '';
+
+  const authorParam = Array.isArray(router.query.author)
+    ? router.query.author[0]
+    : router.query.author || '';
 
   const prepareUrl = (index: number) =>
-    `${searchServiceUrl}?${filterParam === 'author' ? `author` : `post`}=${encodeURIComponent(
-      textParam
+    `${searchServiceUrl}/?author=${encodeURIComponent(authorParam)}&post=${encodeURIComponent(
+      postParam
     )}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
-  const shouldFetch = () => textParam.length > 0;
+  const shouldFetch = () => postParam.length > 0 || authorParam.length > 0;
   const { data, size, setSize, error } = useSWRInfinite(
     (index: number) => (shouldFetch() ? prepareUrl(index) : null),
     async (u: string) => {
+      console.log('fetching...');
       const res = await fetch(u);
       const results = await res.json();
 
@@ -81,7 +90,7 @@ const SearchResults = () => {
   );
   const loading = !data && !error;
   // Search result is empty when the the array of posts on the first page is empty
-  const isEmpty = data?.[0]?.length === 0;
+  const isEmpty = !data?.[0]?.length;
   // There no more posts when the last page has no posts
   const isReachingEnd = !data?.[data.length - 1]?.length;
   // Another page is being loaded when size is incremented but data[size - 1] is still undefined
@@ -89,13 +98,13 @@ const SearchResults = () => {
     !isReachingEnd && data && size > 0 && typeof data[size - 1] === 'undefined';
 
   // If there is no posts or if the search bar is empty, then show the search help, otherwise hide it
-  if (!error && (isEmpty || textParam.length === 0)) {
+  if (!error && isEmpty && postParam.length === 0 && authorParam.length === 0) {
     return <SearchHelp />;
   }
   if (error) {
     return (
       <Container className={classes.searchResults}>
-        <Box boxShadow={2} marginTop={10}>
+        <Box boxShadow={2} marginTop={10} className={classes.errorBox}>
           <div className={classes.errorBackground}>
             <div>
               <p className={classes.errorTitle}>Search Error</p>
@@ -109,7 +118,7 @@ const SearchResults = () => {
     );
   }
 
-  if (textParam.length && loading) {
+  if ((postParam.length || authorParam.length) && loading) {
     return (
       <Container className={classes.searchResults}>
         <h1 className={classes.spinner}>
