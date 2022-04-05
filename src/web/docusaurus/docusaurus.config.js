@@ -42,7 +42,7 @@ const config = {
   ],
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'fr', 'vi', 'ru', 'uk', 'es', 'zh-cn'],
+    locales: ['en', 'vi'],
     localeConfigs: {
       en: {
         htmlLang: 'en-CA',
