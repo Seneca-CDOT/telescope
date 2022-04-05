@@ -150,3 +150,14 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  pg_backup:
+    build: ./supabase/backup
+    container_name: 'pg-backup-cron-job'
+    depends_on:
+      - db
+    environment:
+      PG_HOST_NAME: db
+      PG_DB_NAME: postgres
+      PG_USER_NAME: postgres
+      PG_USER_PASSWORD: ${POSTGRES_PASSWORD}

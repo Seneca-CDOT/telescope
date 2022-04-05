@@ -11,6 +11,15 @@ services:
       # We pull in .sql migrations, schema files from the git repo
       - ./supabase/volumes/db/init:/docker-entrypoint-initdb.d
 
+  pg_backup:
+    environment:
+      PG_HOST_PORT: 5432
+    volumes:
+      # Directory that will contain the database dumps
+      - ../../supabase/volumes/backups/:/var/opt/pg_dumps/
+      # Directory where all daily cron task scripts reside
+      - ./supabase/backup/cron-tasks:/etc/periodic/daily:ro
+
   kong:
     volumes:
       - ../../config/kong.yml:/var/lib/kong/kong.yml
