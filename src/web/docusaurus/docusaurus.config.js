@@ -9,7 +9,7 @@ const config = {
   title: 'Telescope',
   tagline: "A tool for tracking blogs in orbit around Seneca's open source involvement",
   url: 'https://telescope.cdot.systems',
-  baseUrl: '/',
+  baseUrl: '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',

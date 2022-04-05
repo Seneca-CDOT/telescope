@@ -15,13 +15,35 @@ ARG WEB_URL
 ARG SUPABASE_URL
 ARG ANON_KEY
 
+## Base ###########################################################################
 FROM node:16 as base
 
-WORKDIR /frontend
+RUN npm install -g pnpm
 
-COPY . .
+## Dependencies ###################################################################
+## Telescope app
+FROM base as dependencies-app
 
-FROM base as dependencies
+WORKDIR /app
+
+COPY ./app/package.json ./
+
+RUN pnpm install
+
+## Telescope docs
+FROM base as dependencies-docs
+
+WORKDIR /docs
+
+COPY ./docusaurus/package.json ./
+
+RUN pnpm install
+
+## Build ######################################################################
+## Telescope app
+FROM base as build-app
+
+WORKDIR /app
 
 # Copy the various API URLs build args over so next.js can see them in next.config.js
 ARG API_URL
@@ -57,10 +79,29 @@ ENV NEXT_PUBLIC_SUPABASE_URL ${SUPABASE_URL}
 ARG ANON_KEY
 ENV NEXT_PUBLIC_ANON_KEY ${ANON_KEY}
 
-RUN npm install --no-package-lock
+COPY ./app ./
 
-RUN npm run build
+COPY --from=dependencies-app /app/node_modules ./node_modules
 
-FROM nginx:stable-alpine as build
+RUN pnpm build
 
-COPY --from=dependencies /frontend/out /var/www/data
+## Telescope docs
+FROM base as build-docs
+
+WORKDIR /docs
+
+COPY ./docusaurus ./
+
+COPY --from=dependencies-docs /docs/node_modules ./node_modules
+
+RUN pnpm build
+
+## Deploy ######################################################################
+FROM nginx:1.20.2-alpine as deploy
+
+WORKDIR /
+
+COPY --from=build-app /app/out /var/www/data
+
+COPY --from=build-docs /docs/build /usr/share/nginx/html/docs
+
