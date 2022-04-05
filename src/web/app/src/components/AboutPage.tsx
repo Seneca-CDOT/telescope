@@ -107,7 +107,19 @@ const AboutPage = () => {
         you want to see it..
       </p>
 
-      <h2>What is a Planet?</h2>
+      <h2>What does Telescope do?</h2>
+      <p>
+        In essence, Telescope takes <a href="https://en.wikipedia.org/wiki/RSS">RSS</a>{' '}
+        <a href=" https://rss.com/blog/rss-feed-for-blog/">blog post feeds</a>, rebuilds those blog
+        posts into HTML and collects them in a single web page to display. It is able to handle
+        various formatting, such as code blocks or embedded videos. Telescope also collects data
+        about those posts in the{' '}
+        <a href="https://api.telescope.cdot.systems/v1/status/">dashboard</a>. Blog posts on
+        Telescope come from contributors to Telescope. Therefore, you get to follow the
+        website&quot;s development on the website itself!
+      </p>
+
+      <h2>It all started with a Planet</h2>
       <blockquote>
         Planet is a feed aggregator application designed to collect posts from the weblogs of
         members of an Internet community and display them on a single page. Planet runs on a web
@@ -142,10 +154,6 @@ const AboutPage = () => {
         Maintaining the existing system, especially with the number of students involved in open
         source at Seneca, has become too difficult. Our current site often breaks, and needs manual
         interventions on a regular basis. Going forward, we need a new planet to call home.
-      </p>
-      <p>
-        We have decided it is time to consider moving to a new system. Unfortunately, almost every
-        system that came to replace Planet has itself become unmaintained.
       </p>
       <p>
         Rather than try to find an existing solution, we have instead decided to try and create one.
