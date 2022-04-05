@@ -27,6 +27,7 @@ const config = {
           editUrl: 'https://github.com/Seneca-CDOT/telescope/tree/master/src/web/docusaurus/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
+          routeBasePath: '/',
           remarkPlugins: [require('mdx-mermaid')],
         },
         theme: {
