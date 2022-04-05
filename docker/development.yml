@@ -94,6 +94,7 @@ services:
       - elasticsearch
       - traefik
       - redis
+    restart: unless-stopped
 
   status:
     build:

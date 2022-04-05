@@ -58,10 +58,10 @@ const processFeeds = (feeds) => {
  */
 const processAllFeeds = async () => {
   try {
-    // Get an Array of Feed objects from the wiki feed list and Redis
-    const [all, wiki] = await Promise.all([Feed.all(), getWikiFeeds()]);
+    // Get an Array of Feed objects from the wiki feed list
+    const feeds = await getWikiFeeds();
     // Process these feeds into the database and feed queue
-    await processFeeds([...all, ...wiki]);
+    await processFeeds(feeds);
   } catch (err) {
     logger.error({ err }, 'Error queuing feeds');
   }

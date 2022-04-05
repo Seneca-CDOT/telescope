@@ -8,28 +8,7 @@ const getWikiFeeds = require('../../src/utils/wiki-feed-parser');
 
 const urlToId = (url) => hash(normalizeUrl(url));
 
-jest.mock('../../src/utils/wiki-feed-parser');
-
-const valid = [
-  {
-    author: 'Tue Nguyen',
-    url: 'https://dev.to/feed/tuenguyen2911_67',
-  },
-  {
-    author: 'Antonio Bennett',
-    url: 'https://dev.to/feed/antoniobennett',
-  },
-];
-const invalid = [
-  {
-    author: 'Waqas Khan',
-    url: 'http://wkhan10.wordpress.com/feed',
-  },
-  {
-    author: 'Daniel Hodgin',
-    url: 'http://www.hodgin.ca/?feed=rss2&cat=4',
-  },
-];
+jest.mock('../../src/utils/wiki-feed-parser', () => jest.fn());
 
 const fetchData = async (url) => {
   const res = await fetch(url);
@@ -47,12 +26,11 @@ const waitForDrained = () =>
   });
 
 const processFeeds = () => {
-  // Feed.all() should return empty array => mock getWikiFeeds to return 2 valid feeds
-  feedQueue.on('failed', (job, err) =>
+  feedQueue.on('failed', (job, err) => {
     invalidateFeed(job.data.id, err).catch((error) =>
       logger.error({ error }, 'Unable to invalidate feed')
-    )
-  );
+    );
+  });
   return feedWorker.start();
 };
 
@@ -67,7 +45,17 @@ afterAll(() => Promise.all([feedQueue.close(), satellite.stop()]));
 
 describe("Testing parser service's flow", () => {
   test('Parser should process 2 valid feeds', async () => {
-    getWikiFeeds.mockReturnValue(valid); // Feed.all() should return an empty array => mock getWikiFeeds to return what feeds we want to test
+    const valid = [
+      {
+        author: 'Tue Nguyen',
+        url: 'http://localhost:8888/feed.xml',
+      },
+      {
+        author: 'Antonio Bennett',
+        url: 'http://localhost:8888/feed.xml',
+      },
+    ];
+    getWikiFeeds.mockImplementation(() => Promise.resolve(valid)); // mock getWikiFeeds to return what feeds we want to test
     loadFeedsIntoQueue();
     await waitForDrained();
 
@@ -85,7 +73,17 @@ describe("Testing parser service's flow", () => {
   });
 
   test('Parser should process 2 invalid feeds', async () => {
-    getWikiFeeds.mockReturnValue(invalid);
+    const invalid = [
+      {
+        author: 'John Doe',
+        url: 'https://johnhasinvalidfeed.com/feed',
+      },
+      {
+        author: 'Jane Doe',
+        url: 'https://janehasinvalidfeed.com/feed',
+      },
+    ];
+    getWikiFeeds.mockImplementation(() => Promise.resolve(invalid));
     loadFeedsIntoQueue();
     await waitForDrained();
 
