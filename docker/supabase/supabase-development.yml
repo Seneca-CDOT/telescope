@@ -18,6 +18,15 @@ services:
       - ./supabase/volumes/db/data:/var/lib/postgresql/data
       - ./supabase/volumes/db/init:/docker-entrypoint-initdb.d
 
+  pg_backup:
+    environment:
+      PG_HOST_PORT: 5432
+    volumes:
+      # Directory that will contain the database dumps
+      - ./supabase/volumes/backups/:/var/opt/pg_dumps/
+      # Directory where all daily cron task scripts reside
+      - ./supabase/backup/cron-tasks:/etc/periodic/daily:ro
+
   kong:
     volumes:
       - ./supabase/volumes/api/kong.yml:/var/lib/kong/kong.yml
