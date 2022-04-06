@@ -9,7 +9,8 @@
     "clean": "find ./photos -type f -not -name 'default.jpg' -delete",
     "lint": "pnpm eslint",
     "eslint": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\"",
-    "eslint-fix": "eslint --config .eslintrc.js  --ignore-path .gitignore \"./**/*.js\" --fix"
+    "eslint-fix": "eslint --config .eslintrc.js  --ignore-path .gitignore \"./**/*.js\" --fix",
+    "test": "jest -c jest.config.js"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
