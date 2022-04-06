@@ -1,7 +1,10 @@
-const { logger } = require('@senecacdot/satellite');
+const { Satellite, logger } = require('@senecacdot/satellite');
 const { feedQueue } = require('./feed/queue');
 const feedWorker = require('./feed/worker');
 const { loadFeedsIntoQueue, invalidateFeed } = require('./parser');
+
+const port = parseInt(process.env.PARSER_PORT || 10000, 10);
+const service = new Satellite();
 
 /**
  * When the feed queue is drained (all feeds are processed in the queue),
@@ -20,7 +23,9 @@ feedQueue.on('failed', (job, err) =>
 );
 
 /**
- * Also load all feeds now and begin processing.
+ * Start server and load all feeds now and begin processing.
  */
-loadFeedsIntoQueue();
-feedWorker.start();
+service.start(port, () => {
+  loadFeedsIntoQueue();
+  feedWorker.start();
+});
