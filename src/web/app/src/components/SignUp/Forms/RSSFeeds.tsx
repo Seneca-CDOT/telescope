@@ -13,7 +13,7 @@ import { SignUpForm } from '../../../interfaces';
 import { TextInput, CheckBoxInput } from '../FormFields';
 import formModels from '../Schema/FormModel';
 
-const { blogUrl, blogOwnership } = formModels;
+const { blogUrl, blogOwnership, youtubeUrl } = formModels;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -146,11 +146,12 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
   const { token } = useAuth();
 
   const [blogUrlError, setBlogUrlError] = useState('');
+  const [youtubeUrlError, setYouTubeUrlError] = useState('');
   const [validating, setValidating] = useState(false);
   const controllerRef = useRef<AbortController | null>();
 
   const validateBlog = async () => {
-    if (errors.blogUrl) {
+    if (errors.blogUrl && errors.youtubeUrl) {
       setFieldValue('feeds', [], true);
       return;
     }
@@ -167,6 +168,7 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
         },
         body: JSON.stringify({
           blogUrl: values.blogUrl,
+          youtubeUrl: values.youtubeUrl,
         }),
       });
       if (!response.ok) {
@@ -175,11 +177,13 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
       const res = await response.json();
 
       setBlogUrlError('');
+      setYouTubeUrlError('');
       setFieldValue('allFeeds', res.feedUrls);
     } catch (err) {
       console.error(err, 'Unable to discover feeds');
 
       setBlogUrlError('Unable to discover feeds');
+      setYouTubeUrlError('Unable to discover feeds');
       setFieldValue('allFeeds', []);
     } finally {
       // eslint-disable-next-line require-atomic-updates
@@ -224,6 +228,17 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
             />
             <Button className={classes.button} onClick={validateBlog} disabled={validating}>
               Validate Blog
+            </Button>
+          </div>
+          <div className={classes.inputsContainer}>
+            <TextInput
+              name={youtubeUrl.name}
+              label={youtubeUrl.label}
+              helperText={youtubeUrlError || 'Validate your URL'}
+              error={!!youtubeUrlError}
+            />
+            <Button className={classes.button} onClick={validateBlog} disabled={validating}>
+              Validate URL
             </Button>
           </div>
           <div className={classes.RssButtonContainer}>

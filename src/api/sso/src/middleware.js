@@ -106,6 +106,7 @@ const createNewProfile = async (id, body) => {
     githubUsername,
     githubAvatarUrl,
     blogUrl,
+    youtubeUrl,
   } = body;
   const result = await supabase.from('telescope_profiles').insert(
     {
@@ -127,6 +128,7 @@ const createNewProfile = async (id, body) => {
         url: feedUrl,
         html_url: blogUrl,
         // TODO: Allow adding Youtube/Twitch feed
+        youtube_link: youtubeUrl,
         type: 'blog',
       })),
       { returning: 'minimal' }

@@ -70,8 +70,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     senecaBlogInfo: {
       textAlign: 'start',
+      wordBreak: 'break-all',
     },
     blogUrl: {
+      textAlign: 'start',
+    },
+    youtubeUrl: {
       textAlign: 'start',
     },
     titleRss: {
@@ -97,7 +101,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const Review = connect<{ accountError: string | undefined }, SignUpForm>((props) => {
   const classes = useStyles();
 
-  const { feeds, displayName, firstName, lastName, email, github, blogUrl } = props.formik.values;
+  const { feeds, displayName, firstName, lastName, email, github, blogUrl, youtubeUrl } =
+    props.formik.values;
 
   return (
     <div className={classes.root}>
@@ -114,6 +119,7 @@ const Review = connect<{ accountError: string | undefined }, SignUpForm>((props)
             </h3>
             <h3>Email : {email}</h3>
             <h3>Blog URL: {blogUrl}</h3>
+            <h3>Youtube URL: {youtubeUrl}</h3>
           </div>
           <div>
             <div className={classes.gitHubInfo}>

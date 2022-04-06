@@ -29,6 +29,7 @@ export type SignUpForm = {
   githubUsername: string;
   githubOwnership: boolean;
   blogUrl: string;
+  youtubeUrl: string;
   feeds: Array<string>;
   allFeeds: Array<string>;
   blogOwnership: boolean;

@@ -39,6 +39,12 @@ export default {
     requiredErrorMsg: 'Blog URL is required',
     invalidErrorMsg: 'Invalid URL',
   },
+  youtubeUrl: {
+    name: 'youtubeUrl',
+    label: 'Youtube URl',
+    requiredErrorMsg: 'Youtube URL is required',
+    invalidErrorMsg: 'Invalid URL',
+  },
   feeds: {
     name: 'feeds',
     label: 'RSS Feeds',
