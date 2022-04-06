@@ -13,57 +13,7 @@ version: '3'
 
 services:
   ##############################################################################
-  # Telescope 1.0: Front-end and Legacy (pre-microservices) Back-end
-  ##############################################################################
-  telescope:
-    build:
-      context: ..
-      dockerfile: Dockerfile
-    container_name: 'telescope'
-    restart: unless-stopped
-    environment:
-      # a place-holder for the variable passed by CLI with a default value
-      # the passed or default value is a command to run `telescope`
-      - script=${script:-start}
-      # override the .env variable for `REDIS_URL`
-      - REDIS_URL=redis://redis:6379
-      # variables for elasticsearch
-      - ES_HOST=elasticsearch
-      - ELASTIC_PORT=9200
-      - ELASTIC_URL=http://elasticsearch
-      # Environment values we expect from our legacy .env file
-      - NODE_ENV=production
-      - PORT
-      - POSTS_URL
-      - API_URL
-      - SSO_URL
-      - WEB_URL
-      - SEARCH_URL
-      - FEED_DISCOVERY_URL
-      - LOG_LEVEL
-      - FEED_URL
-      - FEED_URL_INTERVAL_MS
-      - ELASTIC_MAX_RESULTS_PER_PAGE
-      - ELASTIC_DELAY_MS
-      - SSO_LOGIN_URL
-      - SSO_LOGIN_CALLBACK_URL
-      - SLO_LOGOUT_URL
-      - SLO_LOGOUT_CALLBACK_URL
-      - SSO_IDP_PUBLIC_KEY_CERT
-      - SAML_ENTITY_ID
-      - ADMINISTRATORS
-      - FEED_PROCESSING_DELAY_SEC
-      - FEED_QUEUE_ATTEMPTS
-      - FEED_QUEUE_DELAY_MS
-      - FEED_QUEUE_PARALLEL_WORKERS
-      - MAX_POSTS_PER_PAGE
-      - GIT_COMMIT
-    depends_on:
-      - redis
-      - elasticsearch
-
-  ##############################################################################
-  # Telescope 2.0 Microservices
+  # Telescope Microservices
   ##############################################################################
 
   # status service

@@ -15,7 +15,6 @@ jobs:
     with:
       deploy_tag: production
       web_url: 'https://telescope.cdot.systems'
-      api_url: 'https://telescope.cdot.systems'
       image_url: 'https://api.telescope.cdot.systems/v1/image'
       sso_url: 'https://api.telescope.cdot.systems/v1/auth'
       posts_url: 'https://api.telescope.cdot.systems/v1/posts'
