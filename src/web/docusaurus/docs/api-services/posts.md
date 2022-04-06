@@ -18,12 +18,6 @@ Find any posts that are currently cached in redis.
 GET /
 ```
 
-#### Parameters
-
-| Name  | Type   | In   | Description                        |
-| ----- | ------ | ---- | ---------------------------------- |
-| posts | string | body | _Required_. The URL for all posts. |
-
 #### Code Samples
 
 ##### Shell
@@ -57,15 +51,61 @@ Status: 200 OK
 }
 ```
 
-##### Bad Request
+### Get a single post
+
+Find a single post that is currently cached in redis. Response can be retrieved as html, json, or plain-text
 
 ```
-Status: 400 Bad Request
+GET /:id
+```
+
+#### Parameters
+
+| Name | Type   | In    | Description                         |
+| ---- | ------ | ----- | ----------------------------------- |
+| id   | string | query | _Required_: The id of the blog post |
+
+#### Code Samples
+
+##### Shell
+
+```bash
+curl -X GET \
+  http://localhost/v1/posts/64f3152a00
+```
+
+##### JavaScript
+
+- With `fetch`
+
+```js
+fetch('http://localhost/v1/posts/64f3152a00');
+```
+
+#### Responses
+
+##### Successful response
+
+```
+Status: 200 OK
+```
+
+```json
+{
+  "post": {
+    "id": "64f3152a00",
+    "url": "https://dev.api.telescope.cdot.systems/v1/posts/64f3152a00"
+  }
+}
+```
+
+##### Internal Server Error
+
+```
+Status: 500 Internal Server Error
 ```
 
 This could be due to several reasons. For example,
 
-- the `blogUrl` provided is invalid (cannot be used as a proper URL).
-- the blog itself cannot be retrieved (the blog itself was deleted or the
-  server is restricting access to the blog).
-- the service could not find any feed URL associated to the blog.
+- the service is down and not available
+- one of it's dependent service is not available (redis)
