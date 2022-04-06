@@ -59,6 +59,11 @@ const services = [
     staging: stagingUrl('/rss-bridge'),
     production: prodUrl('/rss-bridge'),
   },
+  {
+    name: 'docusaurus',
+    staging: 'https://dev.telescope.cdot.systems/docs',
+    production: 'https://telescope.cdot.systems/docs',
+  },
 ];
 
 async function checkService(service) {
