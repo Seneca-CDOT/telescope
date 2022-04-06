@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { IconButton, TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import AuthorInput from './AuthorInput';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,13 +13,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: '1rem',
     },
     customInput: {
-      borderRadius: `4rem 4rem 4rem 4rem`,
+      borderRadius: `4rem`,
       borderColor: theme.palette.info.main,
       borderWidth: `2px`,
       transition: theme.transitions.create(['background-color', 'border-color'], {
         duration: '.5s',
       }),
-      fontSize: '14px',
+      fontSize: '1.2rem',
       display: 'block',
       color: theme.palette.text.primary,
     },
@@ -61,27 +62,31 @@ const SearchInput = ({ text, setText, labelFor, clickEvent }: SearchInputInterfa
 
   return (
     <div className={classes.wrapper}>
-      <TextField
-        variant="outlined"
-        size="medium"
-        fullWidth
-        label={labelFor}
-        onChange={(event) => setText(event.target.value)}
-        value={text}
-        InputProps={{
-          classes: {
-            root: classes.customInput,
-            focused: classes.customInput,
-            notchedOutline: classes.customInput,
-          },
-        }}
-        InputLabelProps={{
-          classes: {
-            root: classes.customInputText,
-            focused: classes.customInputText,
-          },
-        }}
-      />
+      {labelFor === 'Look for an Author' ? (
+        <AuthorInput text={text} setText={setText} labelFor={labelFor} />
+      ) : (
+        <TextField
+          variant="outlined"
+          size="medium"
+          fullWidth
+          label={labelFor}
+          onChange={(event) => setText(event.target.value)}
+          value={text}
+          InputProps={{
+            classes: {
+              root: classes.customInput,
+              focused: classes.customInput,
+              notchedOutline: classes.customInput,
+            },
+          }}
+          InputLabelProps={{
+            classes: {
+              root: classes.customInputText,
+              focused: classes.customInputText,
+            },
+          }}
+        />
+      )}
       {clickEvent && (
         <IconButton
           className={classes.iconButton}
