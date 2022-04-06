@@ -185,7 +185,7 @@ describe('Post data class tests', () => {
       mock.add(
         {
           method: ['POST', 'GET'],
-          path: '/posts/post/_search',
+          path: '/posts/_search',
         },
         () => {
           return esMockResults;
@@ -212,7 +212,7 @@ describe('Post data class tests', () => {
       mock.add(
         {
           method: ['POST', 'GET'],
-          path: '/posts/post/_search',
+          path: '/posts/_search',
         },
         () => {
           return esMockEmpty;
