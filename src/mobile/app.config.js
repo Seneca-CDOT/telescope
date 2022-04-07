@@ -33,6 +33,7 @@ export default {
     extra: {
       supabaseUrl: process.env.SUPABASE_URL,
       supabaseKey: process.env.ANON_KEY,
+      postsUrl: process.env.POSTS_URL,
     },
   },
 };
