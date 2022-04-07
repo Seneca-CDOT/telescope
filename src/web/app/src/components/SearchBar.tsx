@@ -125,6 +125,7 @@ const SearchBar = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [author, setAuthor] = useState('');
   const [post, setPost] = useState('');
+  const [title, setTitle] = useState('');
 
   const postParam = Array.isArray(router.query.post)
     ? router.query.post[0]
@@ -134,24 +135,34 @@ const SearchBar = () => {
     ? router.query.author[0]
     : router.query.author || '';
 
+  const titleParam = Array.isArray(router.query.title)
+    ? router.query.title[0]
+    : router.query.title || '';
+
   const onSubmitHandler = (event: FormEvent) => {
     event.preventDefault();
-    router.push(
-      `/search?${author ? `author=${author}${post ? `&post=${post}` : ``}` : ``}${
-        !author && post ? `post=${post}` : ``
-      }`
-    );
+
+    // creates url params out of key/value pairs
+    const parameters = new URLSearchParams();
+
+    if (author) parameters.append('author', author);
+    if (post) parameters.append('post', post);
+    if (title) parameters.append('title', title);
+
+    router.push(`/search?${parameters}`);
   };
 
-  // Function to clear out old fields.
+  // Function to clear out old fields when collapsing the advanced search.
   const resetAdvancedFields = () => {
     setAuthor('');
+    setTitle('');
   };
 
   useEffect(() => {
     setPost(postParam);
     setAuthor(authorParam);
-  }, [postParam, authorParam]);
+    setTitle(titleParam);
+  }, [postParam, authorParam, titleParam]);
 
   return (
     <Box className={classes.root}>
@@ -163,9 +174,14 @@ const SearchBar = () => {
       />
 
       {openDialog && (
-        <div className={classes.advancedSearchInputDiv}>
-          <SearchInput text={author} setText={setAuthor} labelFor="Look for an Author" />
-        </div>
+        <>
+          <div className={classes.advancedSearchInputDiv}>
+            <SearchInput text={title} setText={setTitle} labelFor="The blog title was..." />
+          </div>
+          <div className={classes.advancedSearchInputDiv}>
+            <SearchInput text={author} setText={setAuthor} labelFor="Look for an Author" />
+          </div>
+        </>
       )}
       <Button
         className={!openDialog ? classes.advanceSearchButton : classes.backButton}
