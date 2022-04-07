@@ -8,3 +8,5 @@ packages:
   - 'src/satellite'
   # autodeployment
   - 'tools/*'
+  # Prisma
+  - 'src/db'

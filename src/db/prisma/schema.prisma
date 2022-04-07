@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum FeedType {
+  blog
+  youtube
+  twitch
+}
+
+// Planet CDOT Feed List, see https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List
+model feeds {
+  url                String              @id
+  user_id            String? // optional, a user can claim an existing feed when they register
+  wiki_author_name   String? // wiki owner of a feed, maybe unused when the feed is linked with an actual user
+  html_url           String? //actual URL the feed refers to, could be a blog URL, a Youtube or Twitch channel
+  type               FeedType?           @default(blog)
+  invalid            Boolean?            @default(false)
+  flagged            Boolean?            @default(false)
+  telescope_profiles telescope_profiles? @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+// In the GitHub API, pull requests are considered issues, too.
+// Therefore, we would group both pull requests and issues in a single
+// table. For more information, read:
+// https://docs.github.com/en/rest/reference/issues and
+// https://docs.github.com/en/rest/reference/pulls
+model github_issues {
+  id                  Int                 @id @default(autoincrement())
+  number              Int
+  repo                Int
+  type                String              @db.Citext
+  github_repositories github_repositories @relation(fields: [repo], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([repo, number])
+}
+
+model github_repositories {
+  id            Int             @id @default(autoincrement())
+  name          String
+  owner         Int
+  github_users  github_users    @relation(fields: [owner], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  github_issues github_issues[]
+
+  @@unique([owner, name])
+}
+
+model github_users {
+  id                  Int                   @id @default(autoincrement())
+  login               String                @db.Citext // the user name of the user, known as the `login` field in GitHub API responses
+  type                String                @db.Citext
+  github_repositories github_repositories[]
+}
+
+model quotes {
+  quote_id    Int    @id @default(autoincrement())
+  author_name String
+  blog_url    String
+  quote       String
+}
+
+model telescope_profiles {
+  id                String   @id
+  registered_at     DateTime @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  updated_at        DateTime @default(dbgenerated("timezone('utc'::text, now())")) @db.Timestamptz(6)
+  display_name      String   @unique @db.Citext
+  first_name        String
+  last_name         String
+  email             String   @unique @db.Citext
+  github_username   String   @unique @db.Citext
+  github_avatar_url String
+  feeds             feeds[]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "telescope-db-migration",
+  "version": "1.0.0",
+  "description": "Managing Postgres database migration",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "3.12.0"
+  },
+  "dependencies": {
+    "@prisma/client": "3.12.0"
+  }
+}
