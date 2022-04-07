@@ -22,8 +22,6 @@ jobs:
           python-version: 3.x
 
       - uses: pnpm/action-setup@v2.2.1
-        with:
-          version: 6
 
       - uses: actions/setup-node@v2.5.1
         with:
