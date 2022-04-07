@@ -396,3 +396,131 @@ describe('query routers', () => {
     });
   });
 });
+
+describe('author autocomplete query routers', () => {
+  const { mock } = Elastic();
+
+  afterEach(() => {
+    mock.clearAll();
+  });
+
+  it('Return error 400 if "author" param is empty', async () => {
+    const res = await request(app).get('/authors/autocomplete/').query({ author: '' });
+    expect(res.status).toBe(400);
+    expect(res.body).toStrictEqual([
+      {
+        value: '',
+        msg: 'author should exist',
+        param: 'author',
+        location: 'query',
+      },
+    ]);
+  });
+
+  it('Results return number of searched authors and array of authors', async () => {
+    const mockResults = {
+      hits: {
+        total: {
+          value: 2,
+        },
+        hits: [
+          {
+            _id: '1111',
+            _source: {
+              author: 'Roxanne Lee',
+            },
+            highlight: {
+              'author.autocomplete': ['<em>Ro</em>xanne <em>Le</em>e'],
+            },
+          },
+          {
+            _id: '2222',
+            _source: {
+              author: 'Rose LeName',
+            },
+            highlight: {
+              'author.autocomplete': ['<em>Ro</em>se <em>Le</em>Name'],
+            },
+          },
+        ],
+      },
+    };
+
+    const mockNoResults = {
+      hits: {
+        total: {
+          value: 0,
+        },
+        hits: [],
+      },
+    };
+
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/_search',
+      },
+      () => {
+        return mockResults;
+      }
+    );
+
+    let res;
+    res = await request(app).get('/authors/autocomplete/').query({ author: 'ro le' });
+    expect(res.status).toBe(200);
+    expect(res.body.results).toBe(2);
+    expect(res.body.res).toStrictEqual([
+      {
+        author: 'Roxanne Lee',
+        highlight: '<em>Ro</em>xanne <em>Le</em>e',
+      },
+      {
+        author: 'Rose LeName',
+        highlight: '<em>Ro</em>se <em>Le</em>Name',
+      },
+    ]);
+
+    mock.clearAll();
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/_search',
+      },
+      () => {
+        return mockNoResults;
+      }
+    );
+    res = await request(app).get('/authors/autocomplete/').query({ author: 'ro le' });
+    expect(res.status).toBe(200);
+    expect(res.body.results).toBe(0);
+    expect(res.body.res).toStrictEqual([]);
+  });
+
+  it('Return Error when an ElasticSearch Error occurs', async () => {
+    const mockResults = {
+      hits: {
+        total: {
+          value: 0,
+        },
+        hits: [],
+      },
+    };
+
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/wrongIndex/_search',
+      },
+      () => {
+        return mockResults;
+      }
+    );
+
+    const res = await request(app).get('/authors/autocomplete/').query({ author: 'R' });
+    expect(res.error instanceof Error).toBe(true);
+    expect(res.body).toStrictEqual({});
+    expect(res.error.text).toStrictEqual(
+      '<h1>404 Error</h1><p>ElasticSearch Error:ResponseError</p>'
+    );
+  });
+});
