@@ -13,6 +13,8 @@ jobs:
     env:
       # Whichever Docker containers are needed to pass e2e tests, define them here
       DOCKER_CONTAINERS: 'sso feed-discovery auth login kong rest meta elasticsearch redis posts traefik'
+      # Postgres database connection string to run db migration
+      DATABASE_URL: 'postgresql://postgres:your-super-secret-and-long-postgres-password@localhost/postgres'
 
     steps:
       - uses: actions/checkout@v2
@@ -37,4 +39,6 @@ jobs:
       - run: pnpm install
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
         run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
+      - name: Apply database migrations
+        run: pnpm migrate
       - run: pnpm jest:e2e

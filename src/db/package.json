@@ -8,6 +8,11 @@
   "devDependencies": {
     "prisma": "3.12.0"
   },
+  "scripts": {
+    "migrate": "prisma migrate dev",
+    "create-migration": "prisma migrate dev --create-only",
+    "format": "prisma format"
+  },
   "dependencies": {
     "@prisma/client": "3.12.0"
   }
