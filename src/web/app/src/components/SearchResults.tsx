@@ -70,17 +70,20 @@ const SearchResults = () => {
     ? router.query.author[0]
     : router.query.author || '';
 
+  const titleParam = Array.isArray(router.query.title)
+    ? router.query.title[0]
+    : router.query.title || '';
+
   const prepareUrl = (index: number) =>
     `${searchServiceUrl}/?author=${encodeURIComponent(authorParam)}&post=${encodeURIComponent(
       postParam
-    )}&page=${index}`;
+    )}&title=${encodeURIComponent(titleParam)}&page=${index}`;
 
   // We only bother doing the request if we have something to search for.
-  const shouldFetch = () => postParam.length > 0 || authorParam.length > 0;
+  const shouldFetch = () => postParam.length > 0 || authorParam.length > 0 || titleParam.length > 0;
   const { data, size, setSize, error } = useSWRInfinite(
     (index: number) => (shouldFetch() ? prepareUrl(index) : null),
     async (u: string) => {
-      console.log('fetching...');
       const res = await fetch(u);
       const results = await res.json();
 
@@ -98,7 +101,13 @@ const SearchResults = () => {
     !isReachingEnd && data && size > 0 && typeof data[size - 1] === 'undefined';
 
   // If there is no posts or if the search bar is empty, then show the search help, otherwise hide it
-  if (!error && isEmpty && postParam.length === 0 && authorParam.length === 0) {
+  if (
+    !error &&
+    isEmpty &&
+    postParam.length === 0 &&
+    authorParam.length === 0 &&
+    titleParam.length === 0
+  ) {
     return <SearchHelp />;
   }
   if (error) {
@@ -118,7 +127,7 @@ const SearchResults = () => {
     );
   }
 
-  if ((postParam.length || authorParam.length) && loading) {
+  if ((postParam.length || authorParam.length || titleParam.length) && loading) {
     return (
       <Container className={classes.searchResults}>
         <h1 className={classes.spinner}>
