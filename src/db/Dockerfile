@@ -6,4 +6,4 @@ FROM node:16-alpine3.15
 WORKDIR /db-migrations
 COPY . .
 RUN npm install
-CMD ["npm", "run", "migrate"]
+CMD ["npm", "run", "migrate", "--force"]
