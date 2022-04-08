@@ -193,6 +193,7 @@
 @mui/types
 @mui/utils
 @next/env
+@next/swc-android-arm-eabi
 @next/swc-android-arm64
 @next/swc-darwin-arm64
 @next/swc-darwin-x64
@@ -224,6 +225,9 @@
 @pm2/js-api
 @pm2/pm2-version-check
 @popperjs/core
+@prisma/client
+@prisma/engines
+@prisma/engines-version
 @senecacdot/eslint-config-telescope
 @senecacdot/satellite
 @sideway/address
@@ -618,8 +622,6 @@ eslint-plugin-prettier
 eslint-plugin-promise
 eslint-plugin-react
 eslint-plugin-react-hooks
-eslint-plugin-react-native
-eslint-plugin-react-native-globals
 eslint-scope
 eslint-utils
 eslint-visitor-keys
@@ -1039,6 +1041,7 @@ pretty-format
 pretty-quick
 pretty-time
 prism-react-renderer
+prisma
 prismjs
 process-on-spawn
 process-warning
@@ -1272,7 +1275,6 @@ upath
 update-notifier
 url
 url-loader
-use-subscription
 util-deprecate
 util.promisify
 utility-types
