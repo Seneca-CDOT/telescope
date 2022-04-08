@@ -140,7 +140,7 @@ const SearchBar = () => {
     : router.query.title || '';
 
   const onSubmitHandler = (event: FormEvent) => {
-    event.preventDefault();
+    event?.preventDefault();
 
     // creates url params out of key/value pairs
     const parameters = new URLSearchParams();
@@ -171,15 +171,26 @@ const SearchBar = () => {
         setText={setPost}
         clickEvent={!openDialog ? onSubmitHandler : null}
         labelFor="Browse for a post"
+        onEnterKey={(e: FormEvent) => onSubmitHandler(e)}
       />
 
       {openDialog && (
         <>
           <div className={classes.advancedSearchInputDiv}>
-            <SearchInput text={title} setText={setTitle} labelFor="The blog title was..." />
+            <SearchInput
+              text={title}
+              setText={setTitle}
+              labelFor="The blog title was..."
+              onEnterKey={(e: FormEvent) => onSubmitHandler(e)}
+            />
           </div>
           <div className={classes.advancedSearchInputDiv}>
-            <SearchInput text={author} setText={setAuthor} labelFor="Look for an Author" />
+            <SearchInput
+              text={author}
+              setText={setAuthor}
+              labelFor="Look for an Author"
+              onEnterKey={(e: FormEvent) => onSubmitHandler(e)}
+            />
           </div>
         </>
       )}
