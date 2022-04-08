@@ -40,6 +40,7 @@ FROM node:16-alpine3.15 AS release
 # GET production code from previous containers
 COPY --from=backend_dependencies /telescope/node_modules /telescope/node_modules
 COPY ./src/backend ./src/backend
+COPY package.json .
 
 # Directory for log files
 RUN mkdir /log
