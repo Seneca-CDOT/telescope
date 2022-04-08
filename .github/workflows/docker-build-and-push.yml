@@ -109,6 +109,8 @@ jobs:
             image: search
           - context: src/api/sso
             image: sso
+          - context: src/db
+            image: db-migrations
     steps:
       - uses: actions/checkout@v2
 
