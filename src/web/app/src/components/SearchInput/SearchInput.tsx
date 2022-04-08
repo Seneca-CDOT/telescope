@@ -86,9 +86,9 @@ const SearchInput = ({ text, setText, labelFor, clickEvent, onEnterKey }: Search
               focused: classes.customInputText,
             },
           }}
-          onKeyDown={(event) =>
-            event.key === 'Enter' ? console.log('enter was pressed') : console.log('NOT ENTER')
-          }
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') onEnterKey();
+          }}
         />
       )}
       {clickEvent && (
