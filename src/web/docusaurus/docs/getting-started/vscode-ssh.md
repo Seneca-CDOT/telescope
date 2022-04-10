@@ -1,5 +1,11 @@
 # Use AWS EC2 As Your Development Environment
 
+:::info
+
+This guide has also been translated into a [CloudFormation](https://aws.amazon.com/cloudformation/) Template that can be used to automatically create the same resources. See [config/e2c-template.yml](../../../../../config/ec2-template.yml).
+
+:::
+
 The following will show you how to create and connect to a virtual machine (VM) on AWS using the Visual Studio Code [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension. You'll be able to run Telescope in development on a remote machine with VS Code just like if the source code was local. This documentation is based on [Remote development over SSH](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 
 **Disclaimer**: This guide is specifically designed for students who are enrolled in AWS Academy so the services and technologies used adhere by the AWS Academy Learner Lab - Foundation Services restrictions.
@@ -30,13 +36,13 @@ Running Docker in development is CPU intensive so these are the EC2 instances I 
 | 20GB EBS Volume                  | \$0.5    | \$0.5    |
 | Total                            | \$18.10  | \$24.08  |
 
-## Prerequisites:
+## Prerequisites
 
 - Download and install [Visual Studio Code](https://code.visualstudio.com/download)
 - Install the [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension
 - AWS Academy Account. You will need your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` and your SSH key (`.pem` file)
 
-## Create your virtual machine (AWS EC2):
+## Create your virtual machine (AWS EC2)
 
 1. In the upper-right hand corner of your AWS Management Console, select a region. In this tutorial, `US East (N. Virginia) us-east-1` as your `Region`
 
@@ -201,7 +207,7 @@ Default output format [None]:
 6. How would you like to authenticate GitHub CLI? `Login with a web browser`
 7. First copy your one-time code: `ABC1-234D`
 
-## Opening up the Telescope repository in AWS EC2:
+## Opening up the Telescope repository in AWS EC2
 
 1. Clone your fork of the Telescope repository. For example `gh repo clone cindyledev/telescope`. If you do not have a fork of the Telescope repository, run `gh repo clone -o upstream Seneca-CDOT/telescope` to clone the Telescope repository and name the remote `upstream` then proceed to Step 5.
 
@@ -231,9 +237,9 @@ git remote -v
 sh ./tools/aws-ip.sh
 ```
 
-### If you did everything correctly, you've completed the environment setup!
+### If you did everything correctly, you've completed the environment setup
 
-## Now to get started with development...
+## Now to get started with development
 
 1. Install all dependencies
 
