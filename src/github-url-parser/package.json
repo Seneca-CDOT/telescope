@@ -1,0 +1,21 @@
+{
+  "name": "@senecacdot/github-url-parser",
+  "version": "0.1.0",
+  "description": "A library for parsing GitHub URLs from HTM text",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest -c jest.config.js",
+    "coverage": "jest -c jest.config.js --collect-coverage",
+    "eslint": "eslint --config .eslintrc.js \"./**/*.js\"",
+    "eslint-fix": "eslint --config .eslintrc.js \"./**/*.js\" --fix",
+    "lint": "pnpm eslint"
+  },
+  "repository": "Seneca-CDOT/telescope",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Seneca-CDOT/telescope/issues"
+  },
+  "devDependencies": {
+    "jsdom": "18.1.1"
+  }
+}

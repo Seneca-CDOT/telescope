@@ -6,6 +6,8 @@ packages:
   - 'src/api/*'
   # satellite
   - 'src/satellite'
+  # github-url-parser
+  - 'src/github-url-parser'
   # autodeployment
   - 'tools/*'
   # Prisma
