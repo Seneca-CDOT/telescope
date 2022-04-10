@@ -1,0 +1,89 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+# https://telescope.cdot.systems/docs/getting-started/vscode-ssh
+Description: Telescope EC2 VSCode SSH Development Environment
+
+Parameters:
+  ImageId:
+    Type: AWS::EC2::Image::Id
+    Default: ami-0c02fb55956c7d316
+    Description: EC2 Image ID, defaults to Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type - ami-0c02fb55956c7d316 (64-bit x86)
+
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: vockey # Default key in Vocareum
+
+  MyIp:
+    Type: String
+    Description: Your home IP address (use http://checkip.amazonaws.com/ to check)`
+
+  StorageSize:
+    Type: Number
+    Default: 40
+    Description: Amount of storage (GiB) attached to instance
+
+Resources:
+  Ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: r5.large
+      ImageId: !Ref ImageId
+      IamInstanceProfile: LabInstanceProfile
+      KeyName: !Ref KeyName
+      SecurityGroups:
+        - !Ref SecurityGroup
+      BlockDeviceMappings:
+        - DeviceName: /dev/xvda
+          Ebs:
+            VolumeSize: !Ref StorageSize
+      # TODO: could also pass a file via `--user-data file://script.sh`
+      UserData: !Base64 |
+        #!/bin/bash
+        sudo yum update -y
+        # Install docker
+        sudo amazon-linux-extras install docker
+        sudo service docker start
+        sudo systemctl enable docker
+        sudo usermod -a -G docker ec2-user
+        # Install Node.js
+        curl -sL https://rpm.nodesource.com/setup_lts.x | sudo bash -
+        sudo yum install -y nodejs
+        # Install pnpm
+        sudo npm install -g pnpm
+        # Install git
+        sudo yum install -y git
+        # Install GitHub CLI
+        sudo yum install -y https://github.com/cli/cli/releases/download/v2.7.0/gh_2.7.0_linux_amd64.rpm
+
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Telescope SSH (22) and Web Access (80)
+      GroupName: telescope-sg
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Sub ${MyIp}/32
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          # Also allow EC2 Connect (e.g., from console) for us-east-1
+          CidrIp: 18.206.107.24/29
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: !Sub ${MyIp}/32
+
+  EIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref Ec2Instance
+
+Outputs:
+  PublicDnsName:
+    Value: !GetAtt Ec2Instance.PublicDnsName
+    Description: Public DNS for EC2 instance
+  PublicIp:
+    Value: !GetAtt Ec2Instance.PublicIp
+    Description: Public IP Address for EC2 instance
