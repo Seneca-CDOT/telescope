@@ -18,10 +18,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-      - name: Get number of CPU cores
-        uses: SimenB/github-actions-cpu-cores@v1
+
+      - name: Turborepo local server
+        uses: felixmosh/turborepo-gh-artifacts@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          server-token: ${{ secrets.TURBO_SERVER_TOKEN }}
+
       - name: Install dependencies and run tests with default env
         run: |
           pnpm install
-          # pnpm can't handle passing args through to run scripts: https://github.com/pnpm/pnpm/issues/2764
-          npm run jest --max-workers ${{ steps.cpu-cores.outputs.count }}
+          pnpm turbo run test --api="http://127.0.0.1:9080" --token="${{ secrets.TURBO_SERVER_TOKEN }}"

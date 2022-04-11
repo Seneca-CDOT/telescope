@@ -14,7 +14,14 @@ jobs:
       - uses: actions/setup-node@v2.5.1
         with:
           cache: 'pnpm'
+
+      - name: Turborepo local server
+        uses: felixmosh/turborepo-gh-artifacts@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          server-token: ${{ secrets.TURBO_SERVER_TOKEN }}
+
       - name: Install dependencies and run eslint
         run: |
           pnpm install
-          pnpm lint
+          pnpm turbo run lint --api="http://127.0.0.1:9080" --token="${{ secrets.TURBO_SERVER_TOKEN }}"
