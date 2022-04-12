@@ -20,5 +20,3 @@ jobs:
   # Make sure eslint passes
   eslint:
     uses: Seneca-CDOT/telescope/.github/workflows/eslint-ci.yml@master
-    secrets:
-      turbo_server_token: ${{ secrets.TURBO_SERVER_TOKEN }}

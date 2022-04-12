@@ -2,10 +2,6 @@ name: ESLint Workflow
 
 on:
   workflow_call:
-    secrets:
-      turbo_server_token:
-        description: 'The Turborepo local server token'
-        required: true
 
 jobs:
   # Make sure eslint passes
@@ -13,7 +9,8 @@ jobs:
     name: ESLint Check
     runs-on: ubuntu-latest
     env:
-      SERVER_TOKEN: ${{ secrets.turbo_server_token }}
+      # Use the git sha as a unique token for Turbo Repo
+      SERVER_TOKEN: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2.2.1

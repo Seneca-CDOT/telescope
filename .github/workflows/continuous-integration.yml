@@ -18,14 +18,10 @@ jobs:
   # Make sure eslint passes
   eslint:
     uses: Seneca-CDOT/telescope/.github/workflows/eslint-ci.yml@master
-    secrets:
-      turbo_server_token: ${{ secrets.TURBO_SERVER_TOKEN }}
 
   # Run unit tests on all platforms/versions of node
   unit:
     uses: Seneca-CDOT/telescope/.github/workflows/unit-tests-ci.yml@master
-    secrets:
-      turbo_server_token: ${{ secrets.TURBO_SERVER_TOKEN }}
 
   # Run end-to-end tests along with the microservices in docker-compose on Linux
   e2e:
