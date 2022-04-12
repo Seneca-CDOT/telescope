@@ -8,7 +8,8 @@
     "start": "node src/server.js",
     "eslint": "TIMING=1 eslint --config .eslintrc.js \"./**/**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"./**/**/*.js\" --fix",
-    "lint": "pnpm eslint"
+    "lint": "pnpm eslint",
+    "test": "jest -c jest.config.js"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",

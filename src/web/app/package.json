@@ -8,6 +8,7 @@
     "eslint": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx}\"",
     "eslint-fix": "eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx}\" --fix",
     "lint": "pnpm eslint",
+    "test": "jest -c jest.config.js",
     "clean": "rm -rf .next .turbo out"
   },
   "version": "3.0.0",
