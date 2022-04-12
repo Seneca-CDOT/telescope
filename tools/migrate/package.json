@@ -2,10 +2,12 @@
   "author": "",
   "private": true,
   "dependencies": {
+    "@senecacdot/satellite": "^1.27.0",
     "@supabase/supabase-js": "1.29.4",
     "dotenv": "10.0.0",
     "jsdom": "18.1.1",
-    "node-fetch": "2.6.7"
+    "node-fetch": "2.6.7",
+    "normalize-url": "6.1.0"
   },
   "description": "Migrates users from the planet feed wiki list to a JSON file or supabase-db",
   "license": "ISC",
