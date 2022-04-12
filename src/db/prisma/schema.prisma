@@ -16,6 +16,7 @@ enum FeedType {
 // Planet CDOT Feed List, see https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List
 model feeds {
   url                String              @id
+  id                 String              @default("")
   user_id            String? // optional, a user can claim an existing feed when they register
   wiki_author_name   String? // wiki owner of a feed, maybe unused when the feed is linked with an actual user
   html_url           String? //actual URL the feed refers to, could be a blog URL, a Youtube or Twitch channel
