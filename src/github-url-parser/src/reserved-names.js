@@ -1,4 +1,5 @@
-module.exports = [
+/* @type {string[]} */
+const names = [
   'team',
   'enterprise',
   'explore',
@@ -25,3 +26,5 @@ module.exports = [
   'about',
   'security',
 ];
+
+module.exports = names;

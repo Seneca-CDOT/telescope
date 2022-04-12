@@ -21,3 +21,6 @@ src/web/docusaurus/build
 src/web/docusaurus/node_modules/
 src/web/docusaurus/package.json
 src/web/docusaurus/package-lock.json
+
+# Don't update the generated types
+src/github-url-parser/dist

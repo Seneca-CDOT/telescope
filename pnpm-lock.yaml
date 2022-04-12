@@ -414,8 +414,10 @@ importers:
   src/github-url-parser:
     specifiers:
       jsdom: 18.1.1
+      typescript: 4.4.4
     devDependencies:
       jsdom: 18.1.1
+      typescript: 4.4.4
 
   src/satellite:
     specifiers:

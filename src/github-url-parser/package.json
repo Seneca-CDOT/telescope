@@ -8,7 +8,9 @@
     "coverage": "jest -c jest.config.js --collect-coverage",
     "eslint": "eslint --config .eslintrc.js \"./**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"./**/*.js\" --fix",
-    "lint": "pnpm eslint"
+    "lint": "pnpm eslint",
+    "preversion": "pnpm types",
+    "types": "tsc"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -16,6 +18,8 @@
     "url": "https://github.com/Seneca-CDOT/telescope/issues"
   },
   "devDependencies": {
-    "jsdom": "18.1.1"
-  }
+    "jsdom": "18.1.1",
+    "typescript": "4.4.4"
+  },
+  "types": "./dist/index.d.ts"
 }
