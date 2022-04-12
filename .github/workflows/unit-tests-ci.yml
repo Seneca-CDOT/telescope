@@ -3,9 +3,6 @@ name: Unit Tests Workflow
 on:
   workflow_call:
     secrets:
-      github-token:
-        description: 'The GitHub authentication token'
-        required: true
       turborepo-token:
         description: 'The Turborepo local server token'
         required: true
@@ -29,7 +26,7 @@ jobs:
       - name: Turborepo local server
         uses: felixmosh/turborepo-gh-artifacts@v1
         with:
-          repo-token: ${{ secrets.github-token }}
+          repo-token: ${{ github.token }}
           server-token: ${{ secrets.turborepo-token }}
 
       - name: Install dependencies and run tests with default env
