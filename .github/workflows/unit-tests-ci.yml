@@ -2,17 +2,14 @@ name: Unit Tests Workflow
 
 on:
   workflow_call:
-    secrets:
-      turbo_server_token:
-        description: 'The Turborepo local server token'
-        required: true
 
 jobs:
   unit:
     name: Unit Tests
     runs-on: ${{matrix.os}}
     env:
-      SERVER_TOKEN: ${{ secrets.turbo_server_token }}
+      # Use the git sha as a unique token for Turbo Repo
+      SERVER_TOKEN: ${{ github.sha }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
