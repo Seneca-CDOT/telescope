@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "feeds" ALTER COLUMN "id" DROP DEFAULT;

@@ -1,5 +1,6 @@
 const { hash } = require('@senecacdot/satellite');
 const { createClient } = require('@supabase/supabase-js');
+const normalizeUrl = require('normalize-url');
 
 const { SUPABASE_URL, ANON_KEY } = process.env;
 const {
@@ -152,6 +153,7 @@ describe('Test Row Level Security Policies', () => {
         const { status } = await supabase.from('feeds').insert(
           {
             url: 'http://dev.to/devto',
+            id: hash(normalizeUrl('http://dev.to/devto')),
             wiki_author_name: 'devto',
           },
           { returning: 'minimal' }
@@ -283,6 +285,7 @@ describe('Test Row Level Security Policies', () => {
         const { status, data: feeds } = await supabase.from('feeds').insert(
           {
             url: 'http://dev.to/devto',
+            id: hash(normalizeUrl('http://dev.to/devto')),
             user_id: hash(telescopeUser1.email),
           },
           { returning: 'representation' }
@@ -297,6 +300,7 @@ describe('Test Row Level Security Policies', () => {
         const { status } = await supabase.from('feeds').insert(
           {
             url: 'http://dev.to/devto',
+            id: hash(normalizeUrl('http://dev.to/devto')),
             wiki_author_name: 'devto',
             user_id: hash(unregisteredUser.email),
           },
