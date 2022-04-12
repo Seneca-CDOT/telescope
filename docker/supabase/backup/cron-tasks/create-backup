@@ -5,6 +5,5 @@ TIMESTAMP="$(date +%Y-%m-%d-%H%M%S)"
 pg_dump --format=custom \
 	--host=$PG_HOST_NAME \
 	--port=$PG_HOST_PORT \
-	--dbname=$PG_DB_NAME \
-	--username=$PG_USER_NAME \
-	--password=$PG_USER_PASSWORD > "/var/opt/pg_dumps/$TIMESTAMP.dump"
+	--dbname="dbname=$PG_DB_NAME password=$PG_USER_PASSWORD" \
+	--username=$PG_USER_NAME > "/var/opt/pg_dumps/$TIMESTAMP.dump"
