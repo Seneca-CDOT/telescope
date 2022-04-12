@@ -1,5 +1,6 @@
-const { logger, createError } = require('@senecacdot/satellite');
+const { logger, createError, hash } = require('@senecacdot/satellite');
 const { celebrate, Segments, Joi } = require('celebrate');
+const normalizeUrl = require('normalize-url');
 
 const supabase = require('./supabase');
 const User = require('./user');
@@ -125,6 +126,7 @@ const createNewProfile = async (id, body) => {
       feeds.map((feedUrl) => ({
         user_id: id,
         url: feedUrl,
+        id: hash(normalizeUrl(feedUrl)),
         html_url: blogUrl,
         // TODO: Allow adding Youtube/Twitch feed
         type: 'blog',

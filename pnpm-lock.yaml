@@ -340,6 +340,7 @@ importers:
       jsonwebtoken: 8.5.1
       minimatch: 3.0.4
       nodemon: 2.0.15
+      normalize-url: 6.1.0
       passport: 0.5.2
       passport-saml: 3.2.1
       supertest: 6.1.6
@@ -351,6 +352,7 @@ importers:
       express-session: 1.17.2
       jsonwebtoken: 8.5.1
       minimatch: 3.0.4
+      normalize-url: 6.1.0
       passport: 0.5.2
       passport-saml: 3.2.1
     devDependencies:

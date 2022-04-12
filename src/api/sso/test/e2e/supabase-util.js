@@ -1,5 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const { hash } = require('@senecacdot/satellite');
+const normalizeUrl = require('normalize-url');
 
 const { SUPABASE_URL, SERVICE_ROLE_KEY } = process.env;
 
@@ -70,6 +71,7 @@ const addFeeds = (feeds) =>
     .insert(
       feeds.map((feed) => ({
         url: feed.url,
+        id: hash(normalizeUrl(feed.url)),
         wiki_author_name: feed.wikAuthorName,
         ...(feed.userId ? { user_id: feed.userId } : {}),
       })),
