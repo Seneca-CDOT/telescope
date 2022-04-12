@@ -21,4 +21,4 @@ jobs:
   eslint:
     uses: Seneca-CDOT/telescope/.github/workflows/eslint-ci.yml@master
     secrets:
-      server-token: ${{ secrets.TURBO_SERVER_TOKEN }}
+      turbo_server_token: ${{ secrets.TURBO_SERVER_TOKEN }}
