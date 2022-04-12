@@ -263,12 +263,14 @@ importers:
     specifiers:
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.27.0
+      '@supabase/supabase-js': 1.29.4
       env-cmd: 10.1.0
       express: 4.17.3
       express-handlebars: 6.0.4
       nodemon: 2.0.15
     dependencies:
       '@senecacdot/satellite': 1.27.0
+      '@supabase/supabase-js': 1.29.4
       express: 4.17.3
       express-handlebars: 6.0.4
     devDependencies:
