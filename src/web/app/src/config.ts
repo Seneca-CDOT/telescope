@@ -29,8 +29,6 @@ const imageAlt = `Telescope Logo`;
 
 const loginUrl = `${ssoServiceUrl}/login`;
 const logoutUrl = `${ssoServiceUrl}/logout`;
-const userFeedsUrl = `${telescopeUrl}/user/feeds`;
-const feedsUrl = `${telescopeUrl}/feeds`;
 
 export {
   title,
@@ -44,8 +42,6 @@ export {
   anonKey,
   loginUrl,
   logoutUrl,
-  userFeedsUrl,
-  feedsUrl,
   keywords,
   image,
   imageAlt,

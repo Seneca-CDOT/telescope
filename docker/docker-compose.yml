@@ -225,6 +225,8 @@ services:
       - NODE_ENV
       - PLANET_PORT
       - POSTS_URL
+      - SERVICE_ROLE_KEY
+      - SUPABASE_URL
 
   dependency-discovery:
     init: true
