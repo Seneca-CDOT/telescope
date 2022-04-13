@@ -125,7 +125,7 @@ services:
     environment:
       # In development and testing, the SSO service needs to contact the Supabase
       # service directly via Docker vs through the http://localhost/v1/supabase domain.
-      - SUPABASE_URL=http://kong:8000
+      - SUPABASE_URL=${SUPABASE_URL:-http://kong:8000}
     depends_on:
       - test-web-content
       - traefik
