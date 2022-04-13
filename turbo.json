@@ -3,6 +3,23 @@
     "build": {
       "dependsOn": ["^build"]
     },
+    "next#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["src/web/app/dist/**", "src/web/app/.next/**"]
+    },
+    "docs#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["src/web/docusaurus/build", "src/web/docusaurus/.docusaurus"]
+    },
+    "status#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["src/api/status/public/dist"]
+    },
+    "gh-url-parser#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["src/github-url-parser/dist"]
+    },
+
     "test": {
       "outputs": []
     },
