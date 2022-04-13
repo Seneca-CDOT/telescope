@@ -191,6 +191,38 @@ describe('POST /', () => {
       expect(res.body).toEqual(result);
     });
 
+    it('should return 200 and 1 rss+xml feed url if the link is from a Twitch channel', async () => {
+      const twitchDomain = 'https://www.twitch.tv';
+      const channelUri = '/javascriptdenoobapro';
+      const twitchChannelUrl = `${twitchDomain}${channelUri}`;
+      const mockTwitchChannelUrlResponseBody = `
+        <html lang="en">
+          <head>
+            <link rel="alternate" type="application/rss+xml" title="RSS" href="https://dev.api.telescope.cdot.systems/v1/rss-bridge/?action=display&bridge=Twitch&channel=javascriptdenoobapro&type=all&format=Atom"/>
+          </head>
+          <body></body>
+        </html>
+      `;
+
+      const result = {
+        feedUrls: [
+          'https://dev.api.telescope.cdot.systems/v1/rss-bridge/?action=display&bridge=Twitch&channel=javascriptdenoobapro&type=all&format=Atom',
+        ],
+      };
+
+      // Mocking the response body html when call GET request to blog url
+      nock(twitchDomain).get(channelUri).reply(200, mockTwitchChannelUrlResponseBody, {
+        'Content-Type': 'text/html',
+      });
+
+      const res = await request(app)
+        .post('/')
+        .set('Authorization', `bearer ${createServiceToken()}`)
+        .send({ blogUrl: twitchChannelUrl });
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual(result);
+    });
+
     it('should return 401 if no authorization token is included in headers', async () => {
       const res = await request(app).post('/').send({ blogUrl: 'https://test321.blogspot.com/' });
       expect(res.status).toBe(401);
