@@ -18,7 +18,7 @@ feedQueue.on('drained', loadFeedsIntoQueue);
  */
 feedQueue.on('failed', (job, err) =>
   invalidateFeed(job.data.id, err).catch((error) =>
-    logger.error({ error }, 'Unable to invalidate feed')
+    logger.error({ error }, `Unable to invalidate feed ${job.data.id}`)
   )
 );
 

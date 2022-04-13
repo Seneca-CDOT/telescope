@@ -3,19 +3,18 @@ const {
   addFeed,
   getFeed,
   getFeeds,
-  getFlaggedFeeds,
   getFeedsCount,
   removeFeed,
-  setFlaggedFeed,
-  unsetFlaggedFeed,
   addPost,
   getPost,
   getPosts,
   getPostsCount,
   removePost,
 } = require('../src/utils/storage');
-
 const Feed = require('../src/data/feed');
+
+jest.mock('../src/utils/supabase');
+const { __setMockFeeds } = require('../src/utils/supabase');
 
 describe('Storage tests for feeds', () => {
   const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith', 'user');
@@ -30,7 +29,10 @@ describe('Storage tests for feeds', () => {
     'last-modified'
   );
 
-  beforeAll(() => Promise.all([addFeed(feed1), addFeed(feed2), addFeed(feed3), addFeed(feed4)]));
+  beforeAll(async () => {
+    __setMockFeeds([feed1, feed2, feed3, feed4]);
+    await Promise.all([addFeed(feed1), addFeed(feed2), addFeed(feed3), addFeed(feed4)]);
+  });
 
   it('should allow retrieving a feed by id after inserting', async () => {
     const feed = await getFeed(feed1.id);
@@ -84,24 +86,6 @@ describe('Storage tests for feeds', () => {
     const feeds = await getFeeds();
     expect(removedFeed.id).toBe(undefined);
     expect(feeds.includes(feed.id)).toBe(false);
-  });
-
-  it('feed3 should appear in flaggedFeed set after being flagged', async () => {
-    const feed = await getFeed(feed3.id);
-    await setFlaggedFeed(feed3.id);
-    const feeds = await getFeeds();
-    const flaggedFeeds = await getFlaggedFeeds();
-    expect(flaggedFeeds.includes(feed.id)).toBe(true);
-    expect(feeds.includes(feed.id)).toBe(false);
-  });
-
-  it('feed3 should not appear in flaggedFeed set after being unflagged', async () => {
-    const feed = await getFeed(feed3.id);
-    await unsetFlaggedFeed(feed3.id);
-    const feeds = await getFeeds();
-    const flaggedFeeds = await getFlaggedFeeds();
-    expect(feeds.includes(feed.id)).toBe(true);
-    expect(flaggedFeeds.includes(feed.id)).toBe(false);
   });
 });
 

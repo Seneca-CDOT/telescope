@@ -7,6 +7,9 @@ const { search } = require('../src/utils/indexer');
 
 const urlToId = (url) => hash(normalizeUrl(url));
 
+jest.mock('../src/utils/supabase');
+const { __setMockFeeds, __resetMockFeeds } = require('../src/utils/supabase');
+
 describe('Post data class tests', () => {
   const data = {
     author: 'Post Author',
@@ -92,7 +95,11 @@ describe('Post data class tests', () => {
 
   describe('Get and Set Feed objects from database', () => {
     const { mock } = Elastic();
-    beforeAll(() => createFeed().save());
+    beforeAll(async () => {
+      const feed = new Feed(data.author, data.url, data.user, data.link, null, null);
+      __setMockFeeds([feed]);
+      await feed.save();
+    });
     afterEach(() => mock.clearAll());
 
     test('Feed.byId() for a valid id should return a Feed', async () => {
@@ -128,6 +135,7 @@ describe('Post data class tests', () => {
     test('Setting etag on a feed should persist', async () => {
       const feed = new Feed('author', 'http://url.com/with/etag');
       feed.etag = 'etag';
+      __setMockFeeds([feed]);
       await feed.save();
       const persisted = await Feed.byId(feed.id);
       expect(persisted.etag).toEqual('etag');
@@ -139,6 +147,7 @@ describe('Post data class tests', () => {
     test('Setting lastModified on a feed should persist', async () => {
       const feed = new Feed('author', 'http://url.com/with/lastModified');
       feed.lastModified = 'lastModified';
+      __setMockFeeds([feed]);
       await feed.save();
       const persisted = await Feed.byId(feed.id);
       expect(persisted.lastModified).toEqual('lastModified');
@@ -158,6 +167,7 @@ describe('Post data class tests', () => {
       const feed = new Feed(data.author, data.url, data.user, data.link, null, null);
       feed.author = 'Author Post';
       feed.url = 'https://modified.user.feed.com/feed.rss';
+      __setMockFeeds([feed]);
       await feed.update();
       const modifiedFeed = await Feed.byId(feed.id);
       // modifiedFeed.id should be different from feed.id as feed hasn't been reassigned to updated feed.id value
@@ -236,7 +246,7 @@ describe('Post data class tests', () => {
       let feed = new Feed(data.author, data.url, data.user, data.link, 'etag', 'lastModified');
       let feed2 = new Feed(data2.author, data2.url, data2.user, data2.link, 'etag', 'lastModified');
       let feed3 = new Feed(data3.author, data3.url, data3.user, data3.link, 'etag', 'lastModified');
-
+      __setMockFeeds([feed, feed2, feed3]);
       feed = await Feed.byId(await Feed.create(feed));
       feed2 = await Feed.byId(await Feed.create(feed2));
       feed3 = await Feed.byId(await Feed.create(feed3));
@@ -262,32 +272,30 @@ describe('Post data class tests', () => {
       // Teardown removing the added feed
       await Promise.all([await feed.delete(), await feed2.delete(), await feed3.delete()]);
     });
+  });
+  describe('Set and get flagged feeds objects from Supabase', () => {
+    beforeAll(() => {
+      __resetMockFeeds();
+    });
 
-    test('Flagged feed should appear in t:feeds:flagged and not t:feeds', async () => {
+    test('Flagged feed should be set and retrieved correctly', async () => {
       const feedData = new Feed(data.author, data.url, data.user, data.link);
       const feedData2 = new Feed(data2.author, data2.url, data2.user, data2.link);
       const feedData3 = new Feed(data3.author, data3.url, data3.user, data3.link);
+      __setMockFeeds([feedData, feedData2, feedData3]);
 
       // Check all three feeds are created
       const feed = await Feed.byId(await Feed.create(feedData));
       const feed2 = await Feed.byId(await Feed.create(feedData2));
       const feed3 = await Feed.byId(await Feed.create(feedData3));
 
-      let unFlaggedFeeds = await Feed.all();
+      const unFlaggedFeeds = await Feed.all();
       expect(unFlaggedFeeds.length).toBe(3);
 
       // Test flag()
       await Promise.all([feed.flag(), feed2.flag()]);
-      unFlaggedFeeds = await Feed.all();
-      expect(unFlaggedFeeds.length).toBe(1);
-
       let flaggedFeeds = await Feed.flagged();
       expect(flaggedFeeds.length).toBe(2);
-
-      // Feed should not appear in unflagged set if Feed is flagged and added again
-      await Feed.create(feedData);
-      unFlaggedFeeds = await Feed.all();
-      expect(unFlaggedFeeds.length).toBe(1);
 
       // Flagged feeds should have same data as feed + feed2
       expect(flaggedFeeds.some((flaggedFeed) => flaggedFeed.id === feed.id)).toBe(true);
@@ -295,21 +303,15 @@ describe('Post data class tests', () => {
 
       // Test unflag();
       await feed2.unflag();
-      unFlaggedFeeds = await Feed.all();
-      expect(unFlaggedFeeds.length).toBe(2);
-
       flaggedFeeds = await Feed.flagged();
       expect(flaggedFeeds.length).toBe(1);
 
-      // Testing delete() as part of teardown, feed should be removed from t:feeds:flagged
-      await feed.delete();
+      await feed.unflag();
       flaggedFeeds = await Feed.flagged();
       expect(flaggedFeeds.length).toBe(0);
-      await feed2.delete();
-      await feed3.delete();
 
-      // Testing whether removing an already removed feed will error
-      await feed.delete();
+      // Testing delete() as part of teardown, feed should be removed from t:feeds:flagged
+      await Promise.all([feed.delete(), feed2.delete(), feed3.delete()]);
     });
   });
 });

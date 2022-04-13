@@ -26,6 +26,8 @@ const Post = require('../src/data/post');
 const Feed = require('../src/data/feed');
 
 jest.mock('../src/utils/indexer');
+jest.mock('../src/utils/supabase');
+const { __setMockFeeds } = require('../src/utils/supabase');
 
 describe('Post data class tests', () => {
   let feed;
@@ -42,6 +44,7 @@ describe('Post data class tests', () => {
   };
 
   beforeAll(async () => {
+    __setMockFeeds([{ url: 'http://feed-url.com/' }]);
     const id = await Feed.create({
       author: 'Feed Author',
       url: 'http://feed-url.com/',
@@ -136,6 +139,7 @@ describe('Post data class tests', () => {
   });
 
   test('Post.create() should be able to parse an Object into a Post', async () => {
+    __setMockFeeds([{ url: data.url }]);
     const id = await Post.create(data);
     const expectedId = 'a371654c75';
     expect(id).toEqual(expectedId);
@@ -145,6 +149,7 @@ describe('Post data class tests', () => {
   });
 
   test('Posts should have a (dynamic) text property', async () => {
+    __setMockFeeds([{ url: data.url }]);
     const id = await Post.create(data);
     const post = await Post.byId(id);
     expect(post.text).toEqual(text);
@@ -154,6 +159,7 @@ describe('Post data class tests', () => {
     const missingData = { ...data, updated: null, feed };
 
     // Make sure that updated was turned into a date
+    __setMockFeeds([{ url: missingData.url }]);
     const id = await Post.create(missingData);
     const parsed = await Post.byId(id);
     expect(parsed.updated).toBeDefined();
@@ -161,6 +167,7 @@ describe('Post data class tests', () => {
   });
 
   test('Post.save() and Post.byId() should both work as expected', async () => {
+    __setMockFeeds([{ url: data.url }]);
     const id = await Post.create(data);
     const post = await Post.byId(id);
     expect(post).toEqual(data);
