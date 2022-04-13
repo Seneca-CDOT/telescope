@@ -4,11 +4,14 @@ const normalizeUrl = require('normalize-url');
 const { loadFeedsIntoQueue, invalidateFeed } = require('../../src/parser');
 const feedWorker = require('../../src/feed/worker');
 const { feedQueue } = require('../../src/feed/queue');
-const getWikiFeeds = require('../../src/utils/wiki-feed-parser');
+const { getAllFeeds } = require('../../src/utils/supabase');
 
 const urlToId = (url) => hash(normalizeUrl(url));
 
-jest.mock('../../src/utils/wiki-feed-parser', () => jest.fn());
+jest.mock('../../src/utils/supabase', () => ({
+  ...jest.requireActual('../../src/utils/supabase'),
+  getAllFeeds: jest.fn(),
+}));
 
 const fetchData = async (url) => {
   const res = await fetch(url);
@@ -36,9 +39,10 @@ const processFeeds = () => {
 
 let satellite;
 
-beforeAll(() => {
+beforeAll(async () => {
   satellite = new Satellite();
-  return processFeeds(); // start the feed queue for e2e test
+  await feedQueue.empty(); // remove jobs from the queue
+  await processFeeds(); // start the feed queue for e2e test
 });
 
 afterAll(() => Promise.all([feedQueue.close(), satellite.stop()]));
@@ -55,7 +59,7 @@ describe("Testing parser service's flow", () => {
         url: 'http://localhost:8888/feed.xml',
       },
     ];
-    getWikiFeeds.mockImplementation(() => Promise.resolve(valid)); // mock getWikiFeeds to return what feeds we want to test
+    getAllFeeds.mockImplementation(() => Promise.resolve(valid));
     loadFeedsIntoQueue();
     await waitForDrained();
 
@@ -83,7 +87,7 @@ describe("Testing parser service's flow", () => {
         url: 'https://janehasinvalidfeed.com/feed',
       },
     ];
-    getWikiFeeds.mockImplementation(() => Promise.resolve(invalid));
+    getAllFeeds.mockImplementation(() => Promise.resolve(invalid));
     loadFeedsIntoQueue();
     await waitForDrained();
 
