@@ -53,7 +53,7 @@ Status: 200 OK
 
 ### Get a single post
 
-Find a single post that is currently cached in redis. Response can be retrieved as html, json, or plain-text
+Find a single post that is currently cached in redis. Response can be retrieved as html, json, or plain-text. Specify as part of the headers what you want the response to look like.
 
 ```
 GET /:id
@@ -92,10 +92,25 @@ Status: 200 OK
 
 ```json
 {
-  "post": {
-    "id": "64f3152a00",
-    "url": "https://dev.api.telescope.cdot.systems/v1/posts/64f3152a00"
-  }
+  id: '28867e65b0',
+  title: 'First time being a Sheriff',
+  html: '<h1>\n  \n  \n  What is a Sheriff in Telescope:\n</h1>…d only touch that issue just a little bit. </p>\n\n',
+  published: '2022-04-12T08:43:19.000Z',
+  updated: '2022-04-12T08:43:19.000Z',
+  feed: {
+      id: 'b0ea6fdde8',
+      author: 'Hung Nguyen',
+      url: 'https://dev.to/feed/nguyenhung15913',
+      user: '',
+      link: 'https://dev.to/nguyenhung15913'
+    }
+  guid: "https://dev.to/nguyenhung15913/first-time-being-a-sheriff-3cn3"
+  id: "28867e65b0"
+  published: "2022-04-12T08:43:19.000Z"
+  title: "First time being a Sheriff"
+  type: "blogpost"
+  updated: "2022-04-12T08:43:19.000Z"
+  url: "https://dev.to/nguyenhung15913/first-time-being-a-sheriff-3cn3"
 }
 ```
 
