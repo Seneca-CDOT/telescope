@@ -1,10 +1,26 @@
 module.exports = {
   extends: ['@senecacdot/eslint-config-telescope'],
-
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2021,
+  },
   env: {
-    node: true,
     browser: true,
-    commonjs: true,
+    node: true,
     jest: true,
+  },
+  plugins: ['@typescript-eslint'],
+  rules: {
+    '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'import/extensions': 'off',
+    'no-useless-constructor': 'off',
+    'no-empty-function': 'off',
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-focused-tests': 'error',
+    'jest/no-identical-title': 'error',
+    'jest/prefer-to-have-length': 'warn',
+    'jest/valid-expect': 'error',
   },
 };

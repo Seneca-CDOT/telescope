@@ -1,5 +1,4 @@
-/* @type {string[]} */
-const names = [
+export default [
   'team',
   'enterprise',
   'explore',
@@ -26,5 +25,3 @@ const names = [
   'about',
   'security',
 ];
-
-module.exports = names;

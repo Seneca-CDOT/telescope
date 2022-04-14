@@ -1,4 +1,4 @@
-const githubUrlParser = require('../src');
+const { githubUrlParser } = require('../dist/main');
 const { parser } = require('./util');
 
 describe('githubUrlParser', () => {

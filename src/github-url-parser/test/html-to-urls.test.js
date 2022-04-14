@@ -1,4 +1,5 @@
-const htmlToUrls = require('../src/html-to-urls');
+const { htmlToUrls } = require('../dist/main');
+
 const { parser } = require('./util');
 
 describe('htmlToUrls', () => {
