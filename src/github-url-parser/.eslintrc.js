@@ -1,6 +1,5 @@
 module.exports = {
   extends: ['@senecacdot/eslint-config-telescope'],
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2021,
   },
