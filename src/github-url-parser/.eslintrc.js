@@ -9,7 +9,18 @@ module.exports = {
     node: true,
     jest: true,
   },
-  plugins: ['@typescript-eslint'],
+  overrides: [
+    {
+      parser: '@typescript-eslint/parser',
+      files: 'src/**/*.ts',
+      plugins: ['@typescript-eslint'],
+      rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+      },
+    },
+  ],
   rules: {
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
