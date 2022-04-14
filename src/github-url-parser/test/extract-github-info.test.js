@@ -1,6 +1,16 @@
-const extractGitHubInfo = require('../src/extract-github-info');
+const { extractGitHubInfo, parseGitHubUrl } = require('../dist/main');
 
 describe('extractGitHubInfo', () => {
+  test('Should deal with non-GitHub URLs', () => {
+    const urls = ['https://github.com/Seneca-CDOT/telescope', 'https://yahoo.com'];
+    expect(extractGitHubInfo(urls).repos).toEqual(['Seneca-CDOT/telescope']);
+  });
+
+  test('Should deal with bare GitHub URL', () => {
+    const urls = ['https://github.com'];
+    expect(extractGitHubInfo(urls).repos).toEqual([]);
+  });
+
   test('Should extract correct repos without duplicates', () => {
     const urls = [
       'https://github.com/Seneca-CDOT/telescope',
@@ -80,5 +90,29 @@ describe('extractGitHubInfo', () => {
       issues: ['/Seneca-CDOT/telescope/issues/3452'],
       pullRequests: ['/Seneca-CDOT/telescope/pull/3456'],
     });
+  });
+});
+
+describe('parseGitHubUrl', () => {
+  test('Should return null for invalid URLs', () => {
+    expect(() => parseGitHubUrl('http://github .com')).toThrow();
+  });
+
+  test('Should return null for non-GitHub URLs', () => {
+    expect(() => parseGitHubUrl('http://yahoo.com')).toThrow();
+  });
+
+  test('Should extract correct pathname', () => {
+    const url =
+      'https://github.com/Seneca-CDOT/telescope/pull/2367/commits/d3fagd3fagd3fagd3fagd3fagd3fag4d41265748';
+    expect(parseGitHubUrl(url).pathname).toEqual(
+      '/Seneca-CDOT/telescope/pull/2367/commits/d3fagd3fagd3fagd3fagd3fagd3fag4d41265748'
+    );
+  });
+
+  test('Should extract correct hostname', () => {
+    const url =
+      'https://github.com/Seneca-CDOT/telescope/pull/2367/commits/d3fagd3fagd3fagd3fagd3fagd3fag4d41265748';
+    expect(parseGitHubUrl(url).hostname).toEqual('github.com');
   });
 });

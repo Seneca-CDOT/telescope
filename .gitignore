@@ -48,3 +48,5 @@ redis-data/
 
 # JetBrains IDE cache
 .idea
+
+.parcel-cache/

@@ -1,15 +1,29 @@
-const parseGitHubUrl = require('./parse-github-url');
-const reservedNames = require('./reserved-names');
+import { GitHubInfo } from '.';
+import reservedNames from './reserved-names';
 
-module.exports = (gitHubUrls) => {
-  const issues = new Set();
-  const pullRequests = new Set();
-  const repos = new Set();
-  const commits = new Set();
-  const users = new Set();
+export const parseGitHubUrl = (url: string): URL => {
+  const ghUrl = new URL(url);
+  if (ghUrl.hostname !== 'github.com') {
+    throw new Error('expected github.com URL');
+  }
+  return ghUrl;
+};
+
+export const extractGitHubInfo = (gitHubUrls: string[]): GitHubInfo => {
+  const issues = new Set<string>();
+  const pullRequests = new Set<string>();
+  const repos = new Set<string>();
+  const commits = new Set<string>();
+  const users = new Set<string>();
 
   gitHubUrls
-    .map((url) => parseGitHubUrl(url))
+    .map((url) => {
+      try {
+        return parseGitHubUrl(url);
+      } catch (_) {
+        return null!;
+      }
+    })
     .filter(Boolean)
     .filter((url) => !reservedNames.includes(url.pathname.split('/').slice(1, 2)[0]))
     .forEach((url) => {
