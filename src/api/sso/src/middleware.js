@@ -90,7 +90,10 @@ const checkFeedExists = async (feeds) => {
   const { data: existingFeeds } = await supabase
     .from('feeds')
     .select('url, user_id')
-    .in('url', feeds)
+    .in(
+      'url',
+      feeds.map((feed) => feed.feedUrl)
+    )
     .not('user_id', 'is', null)
     .limit(1);
 
@@ -123,13 +126,12 @@ const createNewProfile = async (id, body) => {
   if (!result.error) {
     // A feed might already exist in the planet feed list and can be claimed later when users register
     return supabase.from('feeds').upsert(
-      feeds.map((feedUrl) => ({
+      feeds.map(({ feedUrl, type }) => ({
         user_id: id,
         url: feedUrl,
         id: hash(normalizeUrl(feedUrl)),
         html_url: blogUrl,
-        // TODO: Allow adding Youtube/Twitch feed
-        type: 'blog',
+        type: type || 'blog',
       })),
       { returning: 'minimal' }
     );

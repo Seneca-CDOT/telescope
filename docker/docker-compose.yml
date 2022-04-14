@@ -168,6 +168,7 @@ services:
     environment:
       - NODE_ENV
       - FEED_DISCOVERY_PORT
+      - RSS_BRIDGE_URL
       # Satellite authentication/authorization support
       - JWT_ISSUER
       - JWT_AUDIENCE
