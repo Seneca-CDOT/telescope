@@ -1,5 +1,4 @@
-const { request } = require('@octokit/request');
-
+const { Octokit } = require('octokit');
 // Check whether a specific time has reached the GitHub time limit.
 // @param {Date} datetime - a Date object representing a moment in the past
 // @returns {Boolean}
@@ -11,9 +10,33 @@ const labels = ['hacktoberfest', 'good first issue', 'help wanted'];
 
 async function constructGitHubRequest(gitHubUrl) {
   const [owner, repo] = new URL(gitHubUrl).pathname.substring(1).split('/');
+  const octokit = new Octokit({
+    auth: process.env.GITHUB_TOKEN,
+    // options for throttling plugin https://github.com/octokit/plugin-throttling.js
+    throttle: {
+      onRateLimit: (retryAfter, options, octokitClient) => {
+        octokitClient.log.warn(
+          `Request quota exhausted for request ${options.method} ${options.url}`
+        );
+
+        if (options.request.retryCount === 0) {
+          // only retries once
+          octokitClient.log.info(`Retrying after ${retryAfter} seconds!`);
+          // Return true to automatically retry the request after retryAfter seconds.
+          return true;
+        }
+
+        return false;
+      },
+      onAbuseLimit: (retryAfter, options, octokitClient) => {
+        // does not retry, only logs a warning
+        octokitClient.log.warn(`Abuse detected for request ${options.method} ${options.url}`);
+      },
+    },
+  });
 
   const requestPromises = labels.map((label) => {
-    return request('GET /repos/{owner}/{repo}/issues{?assignee,state,labels}', {
+    return octokit.request('GET /repos/{owner}/{repo}/issues{?assignee,state,labels}', {
       owner,
       repo,
       assignee: 'none',
