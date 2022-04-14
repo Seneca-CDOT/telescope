@@ -30,6 +30,7 @@ const envVarsToForward = [
   'GIT_COMMIT',
   'SUPABASE_URL',
   'ANON_KEY',
+  'DEPENDENCY_DISCOVERY_URL',
 ];
 
 // Copy an existing ENV Var so it's visible to next: API_URL -> NEXT_PUBLIC_API_URL

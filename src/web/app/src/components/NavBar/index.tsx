@@ -7,6 +7,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import { Transition } from 'react-transition-group';
+import { FiPackage } from 'react-icons/fi';
 
 import dynamic from 'next/dynamic';
 
@@ -108,6 +109,12 @@ const iconProps: NavBarIconProps[] = [
     title: 'About',
     ariaLabel: 'about',
     Icon: ContactSupportIcon,
+  },
+  {
+    href: '/dependencies',
+    title: 'Dependencies',
+    ariaLabel: 'Dependencies',
+    Icon: FiPackage,
   },
 ];
 
