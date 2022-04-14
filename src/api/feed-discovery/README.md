@@ -25,9 +25,7 @@ By default the server is running on <http://localhost:9999/>.
 `POST /` with request body
 
 ```json
-{
-  "blogUrl": "https://tonyknvu.medium.com/"
-}
+["https://tonyknvu.medium.com/"]
 ```
 
 will return response body

@@ -15,6 +15,11 @@ import formModels from '../Schema/FormModel';
 
 const { blogUrl, blogOwnership } = formModels;
 
+// See feed-discovery service
+type FeedType = 'blog' | 'youtube' | 'twitch';
+type DiscoveredFeed = { feedUrl: string; type: FeedType };
+type DiscoveredFeeds = { feedUrls: DiscoveredFeed[] };
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -158,6 +163,8 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
       setValidating(true);
       controllerRef?.current?.abort();
       controllerRef.current = new AbortController();
+      // Allow a list of URLs, separated by spaces
+      const urls = values.blogUrl.split(/ +/);
       const response = await fetch(`${feedDiscoveryServiceUrl}`, {
         signal: controllerRef.current?.signal,
         method: 'post',
@@ -165,17 +172,18 @@ const RSSFeeds = connect<{}, SignUpForm>((props) => {
           Authorization: `bearer ${token}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          blogUrl: values.blogUrl,
-        }),
+        body: JSON.stringify(urls),
       });
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-      const res = await response.json();
+      const { feedUrls }: DiscoveredFeeds = await response.json();
 
       setBlogUrlError('');
-      setFieldValue('allFeeds', res.feedUrls);
+      setFieldValue(
+        'allFeeds',
+        feedUrls.map((discoveredFeed: DiscoveredFeed) => discoveredFeed.feedUrl)
+      );
     } catch (err) {
       console.error(err, 'Unable to discover feeds');
 

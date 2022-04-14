@@ -23,7 +23,7 @@ const johannesKepler = {
   displayName: 'Johannes Kepler',
   isAdmin: true,
   isFlagged: false,
-  feeds: ['http://localhost:8888/feed.xml'],
+  feeds: [{ feedUrl: 'http://localhost:8888/feed.xml', type: 'blog' }],
   githubUsername: 'jkepler',
   githubAvatarUrl:
     'https://avatars.githubusercontent.com/u/7242003?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
@@ -35,7 +35,7 @@ const galileoGalilei = {
   displayName: 'Galileo Galilei',
   isAdmin: false,
   isFlagged: false,
-  feeds: ['http://localhost:8888/feed.xml'],
+  feeds: [{ feedUrl: 'http://localhost:8888/feed.xml', type: 'blog' }],
   githubUsername: 'hlippershey',
   githubAvatarUrl:
     'https://avatars.githubusercontent.com/u/33902374?s=460&u=733c50a2f50ba297ed30f6b5921a511c2f43bfee&v=4',
@@ -97,11 +97,13 @@ describe('Signup Flow', () => {
           Authorization: `bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ blogUrl }),
+        body: JSON.stringify([blogUrl]),
       });
       expect(res.status).toBe(200);
       const result = await res.json();
-      expect(result).toEqual({ feedUrls: [...galileoGalilei.feeds] });
+      expect(result).toEqual({
+        feedUrls: [...galileoGalilei.feeds],
+      });
       return result.feedUrls;
     }
 
