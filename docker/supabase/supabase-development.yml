@@ -15,7 +15,6 @@ services:
       # See src/api/sso/jest.config.e2e.js
       - '5432:5432'
     volumes:
-      - ./supabase/volumes/db/data:/var/lib/postgresql/data
       - ./supabase/volumes/db/init:/docker-entrypoint-initdb.d
 
   pg_backup:
