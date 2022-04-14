@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   userSignedInClass: {
-    width: '155px',
+    width: '255px',
     [theme.breakpoints.down(490)]: {
       width: '100%',
       right: 0,
     },
   },
   userNotSignedClass: {
-    width: '250px',
+    width: '350px',
     [theme.breakpoints.down(490)]: {
       width: '100%',
       right: 0,
@@ -83,6 +83,7 @@ const BannerButtons = () => {
           About us
         </Button>
       </Link>
+
       {user?.isRegistered ? (
         <>
           <ButtonTooltip title="Sign out" arrow placement="top" TransitionComponent={Zoom}>

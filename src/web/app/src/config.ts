@@ -14,6 +14,7 @@ const postsServiceUrl = process.env.NEXT_PUBLIC_POSTS_URL;
 const searchServiceUrl = process.env.NEXT_PUBLIC_SEARCH_URL;
 const feedDiscoveryServiceUrl = process.env.NEXT_PUBLIC_FEED_DISCOVERY_URL;
 const statusUrl = process.env.NEXT_PUBLIC_STATUS_URL;
+const dependencyDiscoveryUrl = process.env.NEXT_PUBLIC_DEPENDENCY_DISCOVERY_URL;
 
 // Github sha commit
 const gitCommitSha = process.env.NEXT_PUBLIC_GIT_COMMIT;
@@ -50,4 +51,5 @@ export {
   feedDiscoveryServiceUrl,
   statusUrl,
   gitCommitSha,
+  dependencyDiscoveryUrl,
 };
