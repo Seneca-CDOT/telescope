@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@octokit/request": "5.6.3",
     "@senecacdot/satellite": "^1.27.0",
+    "octokit": "1.7.1",
     "query-registry": "2.2.0",
     "supertest": "6.1.6"
   },

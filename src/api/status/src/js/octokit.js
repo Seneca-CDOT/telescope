@@ -1,9 +1,6 @@
-const { Octokit } = require('@octokit/core');
-const { retry } = require('@octokit/plugin-retry');
-const { throttling } = require('@octokit/plugin-throttling');
+const { Octokit } = require('octokit');
 
-const MyOctokit = Octokit.plugin(retry, throttling);
-const octokit = new MyOctokit({
+const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
   // options for throttling plugin https://github.com/octokit/plugin-throttling.js
   throttle: {
