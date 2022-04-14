@@ -6,6 +6,13 @@ This guide has also been translated into a [CloudFormation](https://aws.amazon.c
 
 :::
 
+:::info
+
+This guide has also been translated into a [Terraform](https://www.terraform.io/) Template that can be used to automatically create the same resources.
+Please follow [Terraform Setup](./terraform.md).
+
+:::
+
 The following will show you how to create and connect to a virtual machine (VM) on AWS using the Visual Studio Code [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) extension. You'll be able to run Telescope in development on a remote machine with VS Code just like if the source code was local. This documentation is based on [Remote development over SSH](https://code.visualstudio.com/docs/remote/ssh-tutorial)
 
 **Disclaimer**: This guide is specifically designed for students who are enrolled in AWS Academy so the services and technologies used adhere by the AWS Academy Learner Lab - Foundation Services restrictions.

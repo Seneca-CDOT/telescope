@@ -50,3 +50,7 @@ redis-data/
 .idea
 
 .parcel-cache/
+
+# Terraform
+config/terraform/.terraform
+config/terraform/*.tfstate*
