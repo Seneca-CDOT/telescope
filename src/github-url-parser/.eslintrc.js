@@ -21,9 +21,6 @@ module.exports = {
     },
   ],
   rules: {
-    '@typescript-eslint/no-unused-vars': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'import/extensions': 'off',
     'no-useless-constructor': 'off',
     'no-empty-function': 'off',
