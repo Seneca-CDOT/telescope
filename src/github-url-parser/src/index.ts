@@ -20,7 +20,7 @@ export const htmlToUrls = (htmlString: string, parser: DOMParser): string[] => {
   return Array.from(new Set(allGithubLinks));
 };
 
-export const githubUrlParser = (htmlString: string, parser: DOMParser): GitHubInfo => {
+export const parseGitHubUrls = (htmlString: string, parser?: DOMParser): GitHubInfo => {
   if (!parser && !('DOMParser' in globalThis)) {
     throw new Error('Missing parser property and environment does not support DOMParser');
   }
