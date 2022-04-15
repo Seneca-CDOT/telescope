@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const jsdom = require('jsdom');
+const normalizeUrl = require('normalize-url');
 
 const { JSDOM } = jsdom;
 const FEED_URL = 'https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List';
@@ -56,9 +57,10 @@ const parsePlanetFeedList = async () => {
         new URL(feed); // If the URL is valid, continue
         [firstName, lastName] = lines[index + 1].replace(/^\s*name\s*=\s*/, '').split(' ');
 
-        if (!uniqueUrls.has(feed)) {
-          users.push({ firstName, lastName, feed });
-          uniqueUrls.add(feed);
+        const url = normalizeUrl(feed);
+        if (!uniqueUrls.has(url)) {
+          users.push({ firstName, lastName, feed: url });
+          uniqueUrls.add(url);
         }
       } catch {
         // If the URL is invalid, display error message
