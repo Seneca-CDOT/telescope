@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: theme.transitions.create(['background-color', 'border-color'], {
         duration: '.5s',
       }),
-      fontSize: '1.2rem',
+      fontSize: '14px',
       display: 'block',
       color: theme.palette.text.primary,
     },
