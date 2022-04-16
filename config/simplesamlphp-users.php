@@ -42,6 +42,21 @@ $config = array(
           'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname' => 'Hans',
           'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname' => 'Lippershey',
           'http://schemas.microsoft.com/identity/claims/displayname' => 'Hans Lippershey',
+        ),
+        /**
+         * We include one user for local development purposes, with a blog feed, posts, etc.
+         * NOTE: we don't use this user account/info in tests.  It's only there for running
+         * everything locally.
+         */
+        'telescope:telescope' => array(
+          'uid' => array('2'),
+          'eduPersonAffiliation' => array('group2'),
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress' => 'telescope-developer@example.com',
+          'email' => 'telescope-developer@example.com',
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname' => 'Telescope',
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname' => 'Developer',
+          'http://schemas.microsoft.com/identity/claims/displayname' => 'Telescope Developer',
+        ),
       ),
     ),
 

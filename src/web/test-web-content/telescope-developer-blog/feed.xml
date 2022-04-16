@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<rss version="2.0">
+  <channel>
+    <title>Telescope Developer Blog Feed</title>
+    <description>Blog feed for testing Telescope locally.</description>
+    <link>http://localhost:8888/telescope-developer-blog/</link>
+    <language>en-ca</language>
+    <lastBuildDate>Sat, 16 Apr 2022 13:39:14 -0500</lastBuildDate>
+    <item>
+      <title>Hello World</title>
+      <description>Welcome to &lt;a href=&quot;https://telescope.cdot.systems/&quot;&gt;Telescope&lt;/a&gt;. If you're reading this, you have have managed to get Telescope built and running locally.  Congratulations!  Our &lt;a href=&quot;https://github.com/Seneca-CDOT/telescope&quot;&gt;repo&lt;/a&gt; has lots of issues you can help us fix.</description>
+      <link>http://localhost:8888/telescope-developer-blog/hello-world.html</link>
+      <guid>http://localhost:8888/telescope-developer-blog/hello-world.html</guid>
+      <category>open source</category>
+      <pubDate>Sat, 16 Apr 2022 13:39:14 -0500</pubDate>
+    </item>
+  </channel>
+</rss>
