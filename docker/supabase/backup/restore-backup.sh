@@ -21,7 +21,6 @@ BACKUP_FILE="$1"
 # too much if you drop the database.
 pg_restore --format=custom \
 	   --clean \
-	   --create \
 	   --if-exists \
 	   --enable-row-security \
 	   --disable-triggers \
