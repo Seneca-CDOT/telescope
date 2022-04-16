@@ -1,6 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
 const { hash } = require('@senecacdot/satellite');
-const normalizeUrl = require('normalize-url');
 const { parsePlanetFeedList } = require('./feed');
 
 require('dotenv').config();
@@ -21,7 +20,7 @@ const { SUPABASE_URL, SERVICE_ROLE_KEY } = process.env;
     url: feed,
     wiki_author_name: `${firstName} ${lastName}`,
     type: 'blog',
-    id: hash(normalizeUrl(feed)),
+    id: hash(feed),
   }));
 
   const { error, count } = await supabase.from('feeds').upsert(feeds, {
