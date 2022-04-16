@@ -7,9 +7,9 @@ const hasGitHubExpired = (dateTime) => new Date() - dateTime > 60 * 60 * 1000;
 
 const gitHubInformationRequestor = {};
 
-async function constructGitHubRequest(gitHubUrl) {
-  const labels = ['hacktoberfest', 'good first issue', 'help wanted'];
+const labels = ['hacktoberfest', 'good first issue', 'help wanted'];
 
+async function constructGitHubRequest(gitHubUrl) {
   const [owner, repo] = new URL(gitHubUrl).pathname.substring(1).split('/');
 
   const requestPromises = labels.map((label) => {
@@ -63,4 +63,5 @@ function requestGitHubInfo(packageName, gitHubUrl) {
 
 module.exports = {
   requestGitHubInfo,
+  labels,
 };

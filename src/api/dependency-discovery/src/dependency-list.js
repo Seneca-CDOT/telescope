@@ -2,7 +2,7 @@ const { readFile } = require('fs/promises');
 const { join } = require('path');
 const { cwd } = require('process');
 const { getPackument } = require('query-registry');
-const { requestGitHubInfo } = require('./github');
+const { requestGitHubInfo, labels } = require('./github');
 
 const getDependencies = (function () {
   let dependencies = null;
@@ -46,6 +46,16 @@ async function getNpmPackageInfo(packageName) {
 
   if (dependencies[packageName] === null) {
     const { id, license, gitRepository } = await getPackument({ name: packageName });
+
+    // Create Github issue URL that filter open issue with labels hacktoberfest, good first issue, or help wanted.
+    if (gitRepository?.url) {
+      const query = new URLSearchParams(
+        `q=is:open is:issue label:${labels.map((label) => `"${label}"`).join(',')}`
+      );
+      const issuesUrl = new URL(`${gitRepository.url}/issues?${query.toString()}`).href;
+      gitRepository.issuesUrl = issuesUrl;
+    }
+
     dependencies[packageName] = { id, license, gitRepository };
   }
 

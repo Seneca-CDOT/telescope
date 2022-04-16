@@ -21,6 +21,8 @@ const depsNpmPackageList = {
     gitRepository: {
       type: 'git',
       url: 'https://github.com/algolia/algoliasearch-client-javascript',
+      issuesUrl:
+        'https://github.com/algolia/algoliasearch-client-javascript/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22%2C%22hacktoberfest%22%2C%22help+wanted%22',
     },
   },
   'faker-package': {
@@ -29,6 +31,8 @@ const depsNpmPackageList = {
     gitRepository: {
       type: 'git',
       url: 'https://github.com/faker-org/faker',
+      issuesUrl:
+        'https://github.com/faker-org/faker/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22%2C%22hacktoberfest%22%2C%22help+wanted%22',
     },
   },
 };
