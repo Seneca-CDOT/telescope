@@ -9,29 +9,50 @@ sidebar_position: 10
 [Supabase](https://supabase.com/docs/) is an application development software that includes many backend services:
 
 - Database: A dedicated scalable Postgres database
-- Studio: A web dashboard that includes Table & SQL editors, Database management, API documentation.
-- Rest API: Auto generated API for your database
+- Studio: A web dashboard that includes Table & SQL editors, Database management, and API documentation.
+- Rest API: Auto-generated API for your database
 - Realtime: Realtime subscription to database changes
-- Authorization: User management with Role Revel Security
+- Authorization: User management with Row Revel Security
 
 ## Architecture
 
 ![Supabase Architecture](../../static/img/supabase-architecture.png)
 
-## Self hosting
+## Self-hosting
 
 Unlike the [hosted platform](https://app.supabase.io/), Telescope self-hosts and manages the infrastructure where the containerized Supabase runs.
 
 Supabase consists of many containerized images defined in [docker/supabase](https://github.com/Seneca-CDOT/telescope/tree/master/docker/supabase)
 
-### Configration
+### Configuration
 
-There are 4 important keys that help us securing our database.
+There are 4 important keys that help us secure our database.
 
 - `POSTGRES_PASSWORD`: POSTGRES database password
 - `ANON_KEY`: A public API key, used for interacting with the database through REST interface but restricted by RLS
-- `SERVICE_ROLE_KEY`: A private admin key used only the server and is not restricted by RLS
+- `SERVICE_ROLE_KEY`: A private admin key used on the server-side and is not restricted by RLS
 - `JWT_SECRET`: JWT secret used for verifying the signature of backend-issued JWT token
+
+### Role level security - RLS
+
+Row-level security (RLS for short) is a PostgreSQL security feature that allows database administrators to define policies to control how specific rows of data display and operate for one or more roles.
+
+RLS is, in essence, an additional filter you can apply to a PostgreSQL database table. When a user tries to perform an action on a table, this filter is applied before the query criteria or other filtering, and the data is narrowed or rejected according to your security policy.
+
+You can create row-level security policies for specific commands like SELECT, INSERT, UPDATE, and DELETE, specify it for ALL commands.
+
+#### Example
+
+```sql
+-- Enable read access for Seneca users
+CREATE POLICY profiles_read_policy ON telescope_profiles
+    FOR SELECT
+    USING (((current_setting('request.jwt.claims'::text, true))::jsonb #> '{roles}'::text[]) ? 'seneca'::text);
+```
+
+Source: [20220406234157_enable_rls/migration.sql](https://github.com/Seneca-CDOT/telescope/blob/master/src/db/prisma/migrations/20220406234157_enable_rls/migration.sql)
+
+In the example above, the RLS policy is written in PostgreSQL syntax. It is meant to give read access to the `telescope_profiles` table only to authenticated Seneca users. When a request comes in, either through HTTPS or using the client library, it is going to extract the request's JWT claims and check if the `roles` claim includes `Seneca`, which means an authenticated Seneca student. If `roles` claim includes `Seneca`, Postgres returns all rows users ask for, if it does not, no rows are returned.
 
 ### Interacting with the database through a restful interface
 
