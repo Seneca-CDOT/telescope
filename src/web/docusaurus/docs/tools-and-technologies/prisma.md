@@ -12,7 +12,7 @@ sidebar_position: 11
 
 ## Database Schema
 
-Our database schema is defined in [schema.prisma](https://github.com/Seneca-CDOT/telescope/blob/master/src/db/prisma/schema.prisma). This is where we defined models and their relations using Prisma schema syntax.
+Our database schema is defined in [schema.prisma](https://github.com/Seneca-CDOT/telescope/blob/master/src/db/prisma/schema.prisma). This is where we define models and their relations using Prisma's schema syntax.
 
 Managing the database schema using Prisma, we can track granular changes to the database schema. These granular changes are reflected as separate SQL script files. That way, our granular schema changes are reflected as code that can be captured with any version control software. This makes sure that the local development database or the production database is always up to date with the latest Schema.
 
@@ -32,7 +32,7 @@ See also [DB maintenance on staging and production](../contributing/database-mai
 
 ## Creating migration
 
-For a migration that has "narrowing" nature such as dropping a table, dropping a column or converting data types or similar changes, running a migration requires attention to make sure the data loss is under control. Prisma is smart enough to warn us about any potential data loss.
+For a migration that has a "narrowing" nature such as dropping a table, dropping a column or converting data types or similar changes, running a migration requires attention to make sure the data loss is under control. Prisma is smart enough to warn us about any potential data loss.
 
 ### Schema change
 
@@ -46,7 +46,7 @@ Simply edit the schema in [schema.prisma](https://github.com/Seneca-CDOT/telesco
 
 ### Custom migration
 
-Sometimes, we want to make changes other than the modifying the schema, for example, adding new RLS to a table. We can do so by creating an empty migration file, which is an empty SQL script where we write our own SQL queries to be apply to the database.
+Sometimes, we want to make changes other than the modifying the schema, for example, adding new RLS policies to a table. We can do so by creating an empty migration file, which is an empty SQL script where we write our own SQL queries to be applied to the database.
 
 ```bash
   cd src/db
@@ -54,7 +54,7 @@ Sometimes, we want to make changes other than the modifying the schema, for exam
   pnpm create-migration
 ```
 
-Write SQL query inside the newly created `migration.sql`.
+After creating the empty migration file, you can write SQL queries inside the newly created `migration.sql`. After writing the desired statements, you can apply the migration:
 
 ```bash
   pnpm migrate
