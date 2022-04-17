@@ -61,8 +61,8 @@ We can interact with our API directly via HTTP requests, or through the Supabase
 #### Via HTTPS
 
 ```bash
-curl http://localhost/v1/supabase/rest/v1/feeds?select=*&limit=2
-   -H "apiKey:<ANON_KEY>"
+curl "http://localhost/v1/supabase/rest/v1/feeds?select=*&limit=2" \
+   -H "apiKey:<ANON_KEY>" \
    -H "Content-Type: application/json"
 ```
 
