@@ -38,14 +38,15 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       margin: 0,
       position: 'absolute',
-      top: '20px',
-      padding: '13px',
+      top: '50%',
+      right: '0.4rem',
+      transform: 'translateY(-50%)',
       color: '#A0D1FA',
-      marginRight: '0.5rem',
     },
     wrapper: {
       display: 'flex',
       flexDirection: 'row-reverse',
+      position: 'relative',
     },
   })
 );
