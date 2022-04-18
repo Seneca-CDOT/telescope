@@ -12,6 +12,7 @@ const {
   feeds,
   allFeeds,
   blogUrl,
+  twitchUrl,
   blogOwnership,
 } = formModels;
 
@@ -45,6 +46,7 @@ export default [
   // Third step we collect the user blog and the RSSfeeds from it.
   Yup.object().shape({
     [blogUrl.name]: Yup.string().url().required(blogUrl.requiredErrorMsg),
+    [twitchUrl.name]: Yup.string().url(),
     [feeds.name]: Yup.array().of(Yup.string()).min(1, feeds.requiredErrorMsg),
     [allFeeds.name]: Yup.array().of(Yup.string()),
     [blogOwnership.name]: Yup.boolean().test(

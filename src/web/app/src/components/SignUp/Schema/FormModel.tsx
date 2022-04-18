@@ -35,8 +35,13 @@ export default {
   },
   blogUrl: {
     name: 'blogUrl',
-    label: 'Blog URl',
+    label: 'Blog URL',
     requiredErrorMsg: 'Blog URL is required',
+    invalidErrorMsg: 'Invalid URL',
+  },
+  twitchUrl: {
+    name: 'twitchUrl',
+    label: 'Twitch URL',
     invalidErrorMsg: 'Invalid URL',
   },
   feeds: {
