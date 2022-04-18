@@ -19,13 +19,23 @@ const useStyles = makeStyles((theme: Theme) =>
       transition: theme.transitions.create(['background-color', 'border-color'], {
         duration: '.5s',
       }),
-      fontSize: '14px',
+      fontSize: '1.4rem',
       display: 'block',
       color: theme.palette.text.primary,
+      '&:hover fieldset': {
+        borderColor: `${theme.palette.info.main} !important`,
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: `${theme.palette.info.main} !important`,
+      },
+    },
+    label: {
+      color: `${theme.palette.text.secondary} !important`,
+      fontSize: '1.4rem',
     },
     customInputText: {
       color: theme.palette.text.primary,
-      fontSize: '14px',
+      fontSize: '1.4rem',
     },
     iconButton: {
       backgroundColor: theme.palette.info.main,
@@ -83,8 +93,8 @@ const SearchInput = ({ text, setText, labelFor, clickEvent, onEnterKey }: Search
           }}
           InputLabelProps={{
             classes: {
-              root: classes.customInputText,
-              focused: classes.customInputText,
+              root: classes.label,
+              focused: classes.label,
             },
           }}
           onKeyDown={(event) => {
