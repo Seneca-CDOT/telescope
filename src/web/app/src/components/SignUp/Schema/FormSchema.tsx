@@ -12,7 +12,9 @@ const {
   feeds,
   allFeeds,
   blogUrl,
+  channelUrl,
   blogOwnership,
+  channelOwnership,
 } = formModels;
 
 // Each signup step has one validation schema
@@ -50,6 +52,18 @@ export default [
     [blogOwnership.name]: Yup.boolean().test(
       'agreed',
       blogOwnership.invalidErrorMsg,
+      (val) => !!val
+    ),
+  }),
+
+  // Fourth step we collect the user YouTube/Twitch channels and the RSSfeeds from it.
+  Yup.object().shape({
+    [channelUrl.name]: Yup.string(),
+    [feeds.name]: Yup.array().of(Yup.string()),
+    [allFeeds.name]: Yup.array().of(Yup.string()),
+    [channelOwnership.name]: Yup.boolean().test(
+      'agreed',
+      channelOwnership.invalidErrorMsg,
       (val) => !!val
     ),
   }),

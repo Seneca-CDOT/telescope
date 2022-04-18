@@ -29,9 +29,11 @@ export type SignUpForm = {
   githubUsername: string;
   githubOwnership: boolean;
   blogUrl: string;
+  channelUrl: string;
   feeds: Array<string>;
   allFeeds: Array<string>;
   blogOwnership: boolean;
+  channelOwnership: boolean;
 };
 
 export type ThemeName = 'light' | 'dark';

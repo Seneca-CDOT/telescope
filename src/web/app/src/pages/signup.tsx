@@ -9,6 +9,8 @@ import Overview from '../components/SignUp/Forms/Overview';
 import BasicInfo from '../components/SignUp/Forms/BasicInfo';
 import GitHubAccount from '../components/SignUp/Forms/GitHubAccount';
 import RSSFeeds from '../components/SignUp/Forms/RSSFeeds';
+import ChannelFeeds from '../components/SignUp/Forms/ChannelFeeds';
+
 import Review from '../components/SignUp/Forms/Review';
 import DynamicImage from '../components/BannerDynamicItems';
 
@@ -24,6 +26,7 @@ enum SIGN_UP_STEPS {
   BASIC_INFO,
   GITHUB_ACCOUNT,
   RSS_FEEDS,
+  CHANNEL_FEEDS,
   REVIEW,
 }
 
@@ -186,7 +189,7 @@ const SignUpPage = () => {
   }, [user]);
 
   const handleSubmit = async (values: SignUpForm, actions: FormikHelpers<SignUpForm>) => {
-    if (activeStep < 4) {
+    if (activeStep < 5) {
       handleNext();
       actions.setTouched({});
       actions.setSubmitting(false);
@@ -247,6 +250,9 @@ const SignUpPage = () => {
 
       case SIGN_UP_STEPS.RSS_FEEDS:
         return <RSSFeeds />;
+
+      case SIGN_UP_STEPS.CHANNEL_FEEDS:
+        return <ChannelFeeds />;
 
       case SIGN_UP_STEPS.REVIEW:
         return <Review accountError={telescopeAccount.error} />;
@@ -349,7 +355,7 @@ const SignUpPage = () => {
                       )}
                       {activeStep > 0 && loggedIn && (
                         <Button className={classes.button} type="submit" disabled={isSubmitting}>
-                          {activeStep === 4 ? 'Confirm' : 'Next'}
+                          {activeStep === 5 ? 'Confirm' : 'Next'}
                         </Button>
                       )}
                     </div>

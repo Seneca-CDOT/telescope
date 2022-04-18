@@ -35,9 +35,14 @@ export default {
   },
   blogUrl: {
     name: 'blogUrl',
-    label: 'Blog URl',
+    label: 'Blog URL',
     requiredErrorMsg: 'Blog URL is required',
     invalidErrorMsg: 'Invalid URL',
+  },
+  channelUrl: {
+    name: 'channelUrl',
+    label: 'YouTube/Twitch URL(s)',
+    invalidErrorMsg: 'Invalid URL(s)',
   },
   feeds: {
     name: 'feeds',
@@ -51,5 +56,10 @@ export default {
     name: 'blogOwnership',
     label: 'I declare I’m the owner and the maintainer of this blog account',
     invalidErrorMsg: 'You must be the owner of this account',
+  },
+  channelOwnership: {
+    name: 'channelOwnership',
+    label: 'I declare I’m the owner and the maintainer of the channel(s) above',
+    invalidErrorMsg: 'You must be the owner of the channel(s)',
   },
 };
