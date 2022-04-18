@@ -18,7 +18,7 @@ importers:
       '@babel/preset-react': 7.16.7
       '@babel/preset-typescript': 7.16.7
       '@bull-board/api': 3.10.4
-      '@bull-board/express': 3.10.3
+      '@bull-board/express': 3.10.4
       '@elastic/elasticsearch': 7.16.0
       '@elastic/elasticsearch-mock': 0.3.1
       '@parcel/packager-ts': 2.4.1
@@ -84,7 +84,7 @@ importers:
       typescript: 4.4.4
     dependencies:
       '@bull-board/api': 3.10.4
-      '@bull-board/express': 3.10.3
+      '@bull-board/express': 3.10.4
       '@elastic/elasticsearch': 7.16.0
       '@elastic/elasticsearch-mock': 0.3.1
       '@wordpress/wordcount': 2.15.2
@@ -221,7 +221,7 @@ importers:
   src/api/parser:
     specifiers:
       '@bull-board/api': 3.10.4
-      '@bull-board/express': 3.10.3
+      '@bull-board/express': 3.10.4
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.27.0
       '@supabase/supabase-js': 1.29.4
@@ -242,7 +242,7 @@ importers:
       sanitize-html: 2.5.3
     dependencies:
       '@bull-board/api': 3.10.4
-      '@bull-board/express': 3.10.3
+      '@bull-board/express': 3.10.4
       '@senecacdot/satellite': 1.27.0
       '@supabase/supabase-js': 1.29.4
       bull: 3.29.3
@@ -3304,31 +3304,25 @@ packages:
     deprecated: Potential XSS vulnerability patched in v6.0.0.
     dev: false
 
-  /@bull-board/api/3.10.3:
-    resolution: {integrity: sha512-kV6EPwi9j71qBmozvDmtT01j986r4cFqNmBgq7HApYXW0G2U8Brmv0Ut0iMQZRc/X7aA5KYL3qXcEsriFnq+jw==}
-    dependencies:
-      redis-info: 3.1.0
-    dev: false
-
   /@bull-board/api/3.10.4:
     resolution: {integrity: sha512-JJjMg8O/ELeaqkuL1Wsdn6rdQfH+/2+BfnFD0B7j4ZCtLVAPfsOUZYpLqSKUgaNizwp1nTw0e3L/EI0yvX5aiw==}
     dependencies:
       redis-info: 3.1.0
     dev: false
 
-  /@bull-board/express/3.10.3:
-    resolution: {integrity: sha512-ag6kziQjc6sYVtbHluev7dQznE143JnI12mwCusvOb1tMv8eKmC4Bvw9WhudOJNQwXKzhbxSOxxX5+1MpRo/XQ==}
+  /@bull-board/express/3.10.4:
+    resolution: {integrity: sha512-F8E54TUjQn1Q4tbYfRVlrs6okz4gkZbm0ksvog7XurshsOPC66q9HlRQCW6oVs1a6VBDPJZkvNAtKKA+OsKeFA==}
     dependencies:
-      '@bull-board/api': 3.10.3
-      '@bull-board/ui': 3.10.3
+      '@bull-board/api': 3.10.4
+      '@bull-board/ui': 3.10.4
       ejs: 3.1.6
       express: 4.17.3
     dev: false
 
-  /@bull-board/ui/3.10.3:
-    resolution: {integrity: sha512-6zYW3FqySg+4IKEeM1jt/5ixNVBKQjtZLG9W81ADVcHk8YceQ++7URWzDb8nQEct3rEW4bjR6nicVWNXMSN7Lw==}
+  /@bull-board/ui/3.10.4:
+    resolution: {integrity: sha512-nqnE3wqqpso7ORPcmcGVesYeFkHwv3AsBdRV2W0VLtfBPGzMdqZ1sJeSTAmlanFZnvTprU4Eg/G0DcEeMUTGhA==}
     dependencies:
-      '@bull-board/api': 3.10.3
+      '@bull-board/api': 3.10.4
     dev: false
 
   /@docsearch/css/3.0.0:
