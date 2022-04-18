@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme: Theme) =>
       maxWidth: '785px',
       marginLeft: 'auto',
       marginRight: 'auto',
-      padding: theme.spacing(2, 2, 0, 2),
-      marginBottom: theme.spacing(8),
+      padding: theme.spacing(4, 2, 0, 2),
+      marginBottom: theme.spacing(12),
     },
     card: {
       padding: theme.spacing(0, 0, 0, 2),
@@ -107,7 +107,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     advancedSearchInputDiv: {
-      margin: '15px 0px',
+      margin: '2.5rem 0px',
     },
     searchButton: {
       float: 'right',
