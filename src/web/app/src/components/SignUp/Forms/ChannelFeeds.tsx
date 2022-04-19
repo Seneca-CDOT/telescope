@@ -13,7 +13,7 @@ import { SignUpForm } from '../../../interfaces';
 import { TextInput } from '../FormFields';
 import formModels from '../Schema/FormModel';
 
-const { twitchUrl } = formModels;
+const { channelUrl } = formModels;
 
 // See feed-discovery service
 type FeedType = 'blog' | 'youtube' | 'twitch';
@@ -145,17 +145,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const YoutubeTwitchFeeds = connect<{}, SignUpForm>((props) => {
+const ChannelFeeds = connect<{}, SignUpForm>((props) => {
   const classes = useStyles();
   const { values, errors, setFieldValue } = props.formik;
   const { token } = useAuth();
 
-  const [twitchUrlError, setTwitchUrlError] = useState('');
+  const [channelUrlError, setChannelUrlError] = useState('');
   const [validating, setValidating] = useState(false);
   const controllerRef = useRef<AbortController | null>();
 
-  const validateTwitch = async () => {
-    if (errors.twitchUrl) {
+  const validateChannel = async () => {
+    if (errors.channelUrl) {
       setFieldValue('feeds', [], true);
       return;
     }
@@ -164,7 +164,7 @@ const YoutubeTwitchFeeds = connect<{}, SignUpForm>((props) => {
       controllerRef?.current?.abort();
       controllerRef.current = new AbortController();
       // Allow a list of URLs, separated by spaces
-      const urls = values.twitchUrl.split(/ +/);
+      const urls = values.channelUrl.split(/ +/);
       const response = await fetch(`${feedDiscoveryServiceUrl}`, {
         signal: controllerRef.current?.signal,
         method: 'post',
@@ -179,7 +179,7 @@ const YoutubeTwitchFeeds = connect<{}, SignUpForm>((props) => {
       }
       const { feedUrls }: DiscoveredFeeds = await response.json();
 
-      setTwitchUrlError('');
+      setChannelUrlError('');
       setFieldValue(
         'allFeeds',
         feedUrls.map((discoveredFeed: DiscoveredFeed) => discoveredFeed.feedUrl)
@@ -187,7 +187,7 @@ const YoutubeTwitchFeeds = connect<{}, SignUpForm>((props) => {
     } catch (err) {
       console.error(err, 'Unable to discover feeds');
 
-      setTwitchUrlError('Unable to discover feeds');
+      setChannelUrlError('Unable to discover feeds');
       setFieldValue('allFeeds', []);
     } finally {
       // eslint-disable-next-line require-atomic-updates
@@ -205,8 +205,8 @@ const YoutubeTwitchFeeds = connect<{}, SignUpForm>((props) => {
   };
 
   useEffect(() => {
-    if (errors.twitchUrl) {
-      validateTwitch();
+    if (errors.channelUrl) {
+      validateChannel();
     }
 
     return () => {
@@ -220,18 +220,19 @@ const YoutubeTwitchFeeds = connect<{}, SignUpForm>((props) => {
       <div className={classes.container}>
         <h1 className={classes.blogPageTitle}>Youtube and Twitch</h1>
         <h2 className={classes.helpText}>
-          OPTIONAL: Enter your Twitch URL and select the RSS you want to use in Telescope ecosystem.
+          OPTIONAL: Enter your YouTube and/or Twitch channels and select the RSS feed(s) you want to
+          use in Telescope (separate more than one URL with a space)
         </h2>
         <div className={classes.infoContainer}>
           <div className={classes.inputsContainer}>
             <TextInput
-              name={twitchUrl.name}
-              label={twitchUrl.label}
-              helperText={twitchUrlError || 'Validate your Twitch URL'}
-              error={!!twitchUrlError}
+              name={channelUrl.name}
+              label={channelUrl.label}
+              helperText={channelUrlError || 'Validate your Youtube or Twitch URL(s)'}
+              error={!!channelUrlError}
             />
-            <Button className={classes.button} onClick={validateTwitch} disabled={validating}>
-              Validate Twitch
+            <Button className={classes.button} onClick={validateChannel} disabled={validating}>
+              Validate Channel(s)
             </Button>
           </div>
           <div className={classes.RssButtonContainer}>
@@ -257,7 +258,9 @@ const YoutubeTwitchFeeds = connect<{}, SignUpForm>((props) => {
                   </FormHelperText>
                 </FormControl>
               ) : (
-                <h3 className={classes.noBlogMessage}>Please validate your Twitch URL</h3>
+                <h3 className={classes.noBlogMessage}>
+                  Please validate your YouTube or Twitch URL(s)
+                </h3>
               )}
             </div>
           </div>
@@ -267,4 +270,4 @@ const YoutubeTwitchFeeds = connect<{}, SignUpForm>((props) => {
   );
 });
 
-export default YoutubeTwitchFeeds;
+export default ChannelFeeds;

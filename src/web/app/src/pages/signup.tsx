@@ -9,7 +9,7 @@ import Overview from '../components/SignUp/Forms/Overview';
 import BasicInfo from '../components/SignUp/Forms/BasicInfo';
 import GitHubAccount from '../components/SignUp/Forms/GitHubAccount';
 import RSSFeeds from '../components/SignUp/Forms/RSSFeeds';
-import YoutubeTwitchFeeds from '../components/SignUp/Forms/YoutubeTwitchFeeds';
+import ChannelFeeds from '../components/SignUp/Forms/ChannelFeeds';
 
 import Review from '../components/SignUp/Forms/Review';
 import DynamicImage from '../components/BannerDynamicItems';
@@ -26,7 +26,7 @@ enum SIGN_UP_STEPS {
   BASIC_INFO,
   GITHUB_ACCOUNT,
   RSS_FEEDS,
-  YOUTUBE_TWITCH_FEEDS,
+  CHANNEL_FEEDS,
   REVIEW,
 }
 
@@ -251,8 +251,8 @@ const SignUpPage = () => {
       case SIGN_UP_STEPS.RSS_FEEDS:
         return <RSSFeeds />;
 
-      case SIGN_UP_STEPS.YOUTUBE_TWITCH_FEEDS:
-        return <YoutubeTwitchFeeds />;
+      case SIGN_UP_STEPS.CHANNEL_FEEDS:
+        return <ChannelFeeds />;
 
       case SIGN_UP_STEPS.REVIEW:
         return <Review accountError={telescopeAccount.error} />;
