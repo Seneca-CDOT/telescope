@@ -2,7 +2,7 @@
 
 :::info
 
-This guide has also been translated into a [CloudFormation](https://aws.amazon.com/cloudformation/) Template that can be used to automatically create the same resources. See [config/e2c-template.yml](../../../../../config/ec2-template.yml).
+This guide has also been translated into a [CloudFormation](https://aws.amazon.com/cloudformation/) Template that can be used to automatically create the same resources. See `config/e2c-template.yml`.
 
 :::
 
