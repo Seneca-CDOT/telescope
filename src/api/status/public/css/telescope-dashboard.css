@@ -6,3 +6,7 @@
 .card-header--telescope {
   margin-bottom: auto;
 }
+
+#status-cards {
+  gap: 1.5rem 0;
+}
