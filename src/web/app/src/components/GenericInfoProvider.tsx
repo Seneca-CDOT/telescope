@@ -1,10 +1,11 @@
 import { createContext, useMemo, ReactNode } from 'react';
+import { parseGitHubUrls, GitHubInfo } from '@senecacdot/github-url-parser';
+
 import { Post } from '../interfaces';
-import { GitHubInfoContextInterface, extractGitHubInfo } from './GitHubInfo';
 import { YouTubeInfoContextInterface, extractYouTubeInfo } from './YouTubeInfo';
 
 type GenericInfoContextInterface = {
-  gitHubInfo: GitHubInfoContextInterface;
+  gitHubInfo: GitHubInfo;
   youTubeInfo: YouTubeInfoContextInterface;
 };
 
@@ -31,7 +32,7 @@ type Props = {
 const GenericInfoProvider = ({ children, post }: Props) => {
   const genericInfo = useMemo(() => {
     return {
-      gitHubInfo: extractGitHubInfo(post),
+      gitHubInfo: parseGitHubUrls(post.html),
       youTubeInfo: extractYouTubeInfo(post),
     };
   }, [post]);
