@@ -10,10 +10,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { feedDiscoveryServiceUrl } from '../../../config';
 import useAuth from '../../../hooks/use-auth';
 import { SignUpForm } from '../../../interfaces';
-import { TextInput } from '../FormFields';
+import { TextInput, CheckBoxInput } from '../FormFields';
 import formModels from '../Schema/FormModel';
 
-const { channelUrl } = formModels;
+const { channelUrl, channelOwnership } = formModels;
 
 // See feed-discovery service
 type FeedType = 'blog' | 'youtube' | 'twitch';
@@ -265,6 +265,11 @@ const ChannelFeeds = connect<{}, SignUpForm>((props) => {
             </div>
           </div>
         </div>
+        <CheckBoxInput
+          label={channelOwnership.label}
+          name={channelOwnership.name}
+          checked={values.channelOwnership}
+        />
       </div>
     </div>
   );

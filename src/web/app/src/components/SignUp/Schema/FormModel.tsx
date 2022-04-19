@@ -57,4 +57,9 @@ export default {
     label: 'I declare I’m the owner and the maintainer of this blog account',
     invalidErrorMsg: 'You must be the owner of this account',
   },
+  channelOwnership: {
+    name: 'channelOwnership',
+    label: 'I declare I’m the owner and the maintainer of the channel(s) above',
+    invalidErrorMsg: 'You must be the owner of the channel(s)',
+  },
 };
