@@ -1,9 +1,16 @@
+import useSWR from 'swr';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import { Autocomplete } from '@mui/material';
 import TextField from '@material-ui/core/TextField';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import { useDebounce } from 'react-use';
 import { searchServiceUrl } from '../../config';
+
+type AutocompleteOption = {
+  author: string;
+  highlight: string;
+};
 
 type AutocompleteStyleProps = {
   isListOpen: boolean;
@@ -29,6 +36,8 @@ const useStyles = makeStyles<Theme, AutocompleteStyleProps>((theme) =>
         borderWidth: '2px',
         borderBottom: ({ isListOpen }) =>
           isListOpen ? `none` : `2px solid ${theme.palette.info.main}`,
+        boxShadow: ({ isListOpen }) =>
+          isListOpen ? `${theme.palette.info.main} 0px 1px 4px` : 'none',
       },
     },
     label: {
@@ -43,6 +52,8 @@ const useStyles = makeStyles<Theme, AutocompleteStyleProps>((theme) =>
 
       overflow: 'hidden',
       borderRadius: '0 0 2rem 2rem',
+      boxShadow: ({ isListOpen }) =>
+        isListOpen ? `${theme.palette.info.main} 0px 1px 4px` : 'none',
       '& > div': {
         backgroundColor: theme.palette.background.default,
         borderRadius: 0,
@@ -69,23 +80,6 @@ const useStyles = makeStyles<Theme, AutocompleteStyleProps>((theme) =>
   })
 );
 
-const fetchResults = async (url: string | null) => {
-  if (url) {
-    try {
-      const res = await fetch(url);
-      if (res.ok) {
-        const results = await res.json();
-        // return up to first 10 results
-        return results.res.slice(0, 10);
-      }
-    } catch (error) {
-      console.error(error);
-      return [];
-    }
-  }
-  return [];
-};
-
 interface AuthorInputInterface {
   text: string;
   setText: Dispatch<SetStateAction<string>>;
@@ -94,27 +88,34 @@ interface AuthorInputInterface {
 
 const AuthorInput = ({ text, setText, labelFor }: AuthorInputInterface) => {
   const [isListOpen, setIsListOpen] = useState(false);
-  const [options, setOptions] = useState<[{ author: string; highlight: string }]>();
+  const [author, setAuthor] = useState(text);
+
+  const shouldFetch = () => author.length > 0;
+  const prepareUrl = () => `${searchServiceUrl}/authors/autocomplete/?author=${text}`;
+  const { data: options } = useSWR<AutocompleteOption[]>(
+    shouldFetch() ? prepareUrl() : null,
+    async (url) => {
+      const res = await fetch(url);
+      if (res.ok) {
+        const results = await res.json();
+        // return up to first 10 results
+        return results.res.slice(0, 10);
+      }
+      return [];
+    }
+  );
+
   const cs = useStyles({
     isListOpen: isListOpen && !!options?.length,
   });
 
-  useEffect(() => {
-    // debounce so it searches every 0.5 seconds, instead of on every stroke
-    const debounce = setTimeout(() => {
-      (async () => {
-        const prepareUrl = () => `${searchServiceUrl}/authors/autocomplete/?author=${text}`;
-        // Do the request if there is something to search for
-        const shouldFetch = () => text.length > 0;
-        const data = await fetchResults(shouldFetch() ? prepareUrl() : null);
-        if (data) {
-          setOptions(data);
-        }
-      })();
-    }, 500);
-
-    return () => clearTimeout(debounce);
-  }, [text]);
+  useDebounce(
+    () => {
+      setAuthor(text);
+    },
+    500,
+    [text]
+  );
 
   return (
     <Autocomplete
