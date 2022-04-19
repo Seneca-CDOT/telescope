@@ -493,6 +493,7 @@ importers:
       '@mui/styles': 5.5.1
       '@octokit/request': 5.6.3
       '@senecacdot/eslint-config-telescope': 1.1.0
+      '@senecacdot/github-url-parser': 2.0.0
       '@supabase/supabase-js': 1.29.4
       '@testing-library/react': 12.1.4
       '@types/node': 16.11.26
@@ -539,6 +540,7 @@ importers:
       '@mui/material': 5.5.2_f336e8f880f1224828908f4ff3e69012
       '@mui/styles': 5.5.1_c8e45b4eb687790dba17b4e1c4b4273f
       '@octokit/request': 5.6.3
+      '@senecacdot/github-url-parser': 2.0.0
       '@supabase/supabase-js': 1.29.4
       '@testing-library/react': 12.1.4_react-dom@17.0.2+react@17.0.2
       '@types/smoothscroll-polyfill': 0.3.1
@@ -5999,6 +6001,10 @@ packages:
     dependencies:
       eslint: 7.32.0
     dev: true
+
+  /@senecacdot/github-url-parser/2.0.0:
+    resolution: {integrity: sha512-vzlEkMdYsTlrTNbOsrvnYK04/DX0NkyZPl/pm42+pOO0M03uC1GbyjrMVLA09n84AqLbEVnd4NehbMz/ji2Jgg==}
+    dev: false
 
   /@senecacdot/satellite/1.27.0:
     resolution: {integrity: sha512-Eq8g6dKMYRV2EDEcYApodHOlqOcYV0kVKqMF+DJZsGgFJjQFXYqrLhc2zQ+3Ms9AbjjhL3rso9GAuRxsy5A+zQ==}
