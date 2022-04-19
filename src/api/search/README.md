@@ -11,16 +11,26 @@ Run `pnpm install` from the root.
 ## Usage
 
 ```
-# normal mode
+# docker mode
 pnpm start
 ```
 
 By default the server is running on http://localhost:4445/.
 
+```
+# dev mode
+pnpm services:start
+```
+
+By default the server is running on http://localhost/v1/search.
+
 ### Examples
 
-- `GET /query?text=Telescope&filter=post&page=0` - Returns the search results of posts containing the keyword "Telescope"
-- `GET /query?text=SenecaCDOT?filter=author&page=0` - Returns the search results of authors which relate to the keyword "SenecaCDOT"
+- `GET /?post=Telescope&page=0` - Returns the search results of posts containing the keyword "Telescope"
+- `GET /?title=Release&page=0` - Returns the search results of titles containing the keyword "Release"
+- `GET /?author=SenecaCDOT&page=0` - Returns the search results of authors which relate to the keyword "SenecaCDOT"
+- `GET /authors/autocomplete/?author=te` - Returns the search results of authors with names that start with "te"
+- `GET /authors/autocomplete/?author=t s` - Returns the search results of authors with names that start with "t" and "s"
 - `GET /healthcheck` - returns `{ "status": "ok" }` if everything is running properly
 
 ## Docker / Docker-Compose
@@ -32,6 +42,6 @@ By default the server is running on http://localhost:4445/.
 
 ### Docker-Compose
 
-_Commands to be run from the `~/src/api` directory_
+_Commands to be run from the `root` directory_
 
-- To build and run: `docker-compose -f docker-compose-api-production.yml up --build search`
+- To build and run: `docker-compose -f docker/development.yml up --build search`
