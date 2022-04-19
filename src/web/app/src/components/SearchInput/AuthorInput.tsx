@@ -75,7 +75,6 @@ const useStyles = makeStyles<Theme, AutocompleteStyleProps>((theme) =>
       },
     },
     option: {
-      borderRadius: '3px',
       '&.Mui-focused': {
         backgroundColor: `${theme.palette.background.paper} !important`,
       },
