@@ -1,32 +1,17 @@
-import { useState } from 'react';
-import { Tooltip, IconButton, createStyles, Zoom } from '@material-ui/core';
-import { makeStyles, Theme, withStyles } from '@material-ui/core/styles';
-import CopyIcon from '@material-ui/icons/FileCopyOutlined';
-import Check from '@material-ui/icons/Check';
+import { createStyles } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import CopyButton from './CopyButton';
 
 type Props = {
   url: string;
 };
 
-const ButtonTooltip = withStyles({
-  tooltip: {
-    fontSize: '1.25rem',
-    margin: 0,
-  },
-})(Tooltip);
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    copy: {
-      fill: theme.palette.primary.main,
-    },
-
-    check: {
-      fill: '#3fb950',
-    },
-
-    iconBtn: {
-      padding: '5px',
+    copyButton: {
+      color: theme.palette.primary.main,
+      fontSize: '1.25rem',
+      display: 'inline',
     },
   })
 );
@@ -34,34 +19,14 @@ const useStyles = makeStyles((theme: Theme) =>
 const ShareButton = ({ url }: Props) => {
   const classes = useStyles();
 
-  const [isCopiedToClipboard, setIsCopiedToClipboard] = useState(false);
-
-  const copyToClipboardEvent = () => {
-    navigator.clipboard.writeText(url);
-    setIsCopiedToClipboard(true);
-
-    setTimeout(() => {
-      setIsCopiedToClipboard(false);
-    }, 3000);
-  };
-
-  return !isCopiedToClipboard ? (
-    <ButtonTooltip title="Copy URL" arrow placement="top" TransitionComponent={Zoom}>
-      <IconButton
-        className={classes.iconBtn}
-        onClick={() => {
-          copyToClipboardEvent();
-        }}
-      >
-        <CopyIcon className={classes.copy} />
-      </IconButton>
-    </ButtonTooltip>
-  ) : (
-    <ButtonTooltip title="Copied" arrow placement="top" TransitionComponent={Zoom}>
-      <IconButton className={classes.iconBtn}>
-        <Check className={classes.check} />
-      </IconButton>
-    </ButtonTooltip>
+  return (
+    <CopyButton
+      className={classes.copyButton}
+      onClick={() => {
+        navigator.clipboard.writeText(url);
+      }}
+      beforeCopyMessage="Copy URL"
+    />
   );
 };
 
