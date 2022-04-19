@@ -67,7 +67,7 @@ class Star {
     this.p5 = p5;
     this.x = p5.random(-p5.width / 2, p5.width / 2);
     this.y = p5.random(-p5.height / 2, p5.height / 2);
-    this.z = p5.random(p5.width * 0.75, p5.width);
+    this.z = p5.random(p5.width * 0.1, p5.width * 0.95);
   }
 
   update(speed: number) {
@@ -77,7 +77,7 @@ class Star {
     if (this.z < 1) {
       this.x = p5.random(-p5.width / 2, p5.width / 2);
       this.y = p5.random(-p5.height / 2, p5.height / 2);
-      this.z = p5.width;
+      this.z = p5.random(p5.width * 0.1, p5.width * 0.95);
     }
   }
 
