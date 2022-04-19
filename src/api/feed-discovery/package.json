@@ -10,6 +10,7 @@
     "eslint-time": "TIMING=1 eslint --config .eslintrc.js \"./**/*.js\" ",
     "eslint-fix": "eslint --config .eslintrc.js \"./**/*.js\" --fix",
     "lint": "pnpm eslint",
+    "lint-time": "pnpm eslint-time",
     "test": "jest -c jest.config.js"
   },
   "repository": "Seneca-CDOT/telescope",

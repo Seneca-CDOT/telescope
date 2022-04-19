@@ -7,7 +7,9 @@
     "start": "node src/server.js",
     "dev": "env-cmd -f env.local nodemon src/server.js",
     "lint": "pnpm eslint",
-    "eslint": "TIMING=1 eslint --config .eslintrc.js \"**/*.js\"",
+    "lint-time": "pnpm eslint-time",
+    "eslint": "eslint --config .eslintrc.js \"**/*.js\"",
+    "eslint-time": "TIMING=1 eslint --config .eslintrc.js \"**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"**/*.js\" --fix",
     "test": "jest -c jest.config.js"
   },

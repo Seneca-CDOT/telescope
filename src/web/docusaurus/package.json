@@ -10,9 +10,11 @@
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve --port 4631 --host 0.0.0.0",
-    "eslint": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\"",
+    "eslint": "eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\"",
+    "eslint-time": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\" --fix",
     "lint": "pnpm eslint",
+    "lint-time": "pnpm eslint-time",
     "clean": "rm -rf .docusaurus .turbo build",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids"

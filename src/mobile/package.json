@@ -8,9 +8,11 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "eslint": "TIMING=1 eslint --config .eslintrc.js \"**/*.{js,jsx}\"",
+    "eslint": "eslint --config .eslintrc.js \"**/*.{js,jsx}\"",
+    "eslint-time": "TIMING=1 eslint --config .eslintrc.js \"**/*.{js,jsx}\"",
     "eslint-fix": "eslint --config .eslintrc.js \"**/*.{js,jsx}\" --fix",
     "lint": "pnpm eslint",
+    "lint-time": "pnpm eslint-time",
     "test": "jest -c jest.config.js"
   },
   "dependencies": {
