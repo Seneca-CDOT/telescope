@@ -53,7 +53,26 @@ function removeButton(parent: HTMLElement) {
   parent.querySelectorAll('.copyCodeBtn').forEach((button) => button.remove());
 }
 function createCopyButton(parent: HTMLElement, onClick: (e: MouseEvent) => void) {
-  render(<CopyButton onClick={onClick} />, parent);
+  render(
+    <CopyButton
+      className="copyCodeBtn"
+      style={{
+        position: 'absolute',
+        right: 0,
+        padding: '1rem',
+        marginRight: '1.5rem',
+        transitionDuration: '0.2s',
+        transitionTimingFunction: 'ease',
+        cursor: 'pointer',
+        animation: 'fade-in-out 200ms both',
+        fontSize: '2rem',
+        color: 'inherit',
+      }}
+      onClick={onClick}
+      beforeCopyMessage="Copy code block"
+    />,
+    parent
+  );
 }
 
 function handleMouseMove(e: MouseEvent) {
