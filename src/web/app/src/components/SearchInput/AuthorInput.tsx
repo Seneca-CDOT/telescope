@@ -22,6 +22,9 @@ const useStyles = makeStyles<Theme, AutocompleteStyleProps>((theme) =>
       fontSize: '1.4rem',
       color: theme.palette.text.primary,
       borderRadius: ({ isListOpen }) => (isListOpen ? '2rem 2rem 0 0' : '4rem'),
+      transition: theme.transitions.create(['border-radius'], {
+        duration: '.1s',
+      }),
       borderColor: theme.palette.info.main,
       borderWidth: '2px',
       padding: '1rem !important',
