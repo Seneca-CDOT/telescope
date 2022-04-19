@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { IconButton, TextField } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import AuthorInput from './AuthorInput';
 
@@ -66,10 +67,9 @@ interface SearchInputInterface {
   setText: Dispatch<SetStateAction<string>>;
   labelFor: string;
   clickEvent?: any;
-  onEnterKey?: any;
 }
 
-const SearchInput = ({ text, setText, labelFor, clickEvent, onEnterKey }: SearchInputInterface) => {
+const SearchInput = ({ text, setText, labelFor, clickEvent }: SearchInputInterface) => {
   const classes = useStyles();
 
   return (
@@ -96,9 +96,6 @@ const SearchInput = ({ text, setText, labelFor, clickEvent, onEnterKey }: Search
               root: classes.label,
               focused: classes.label,
             },
-          }}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter') onEnterKey();
           }}
         />
       )}
