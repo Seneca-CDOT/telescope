@@ -1,7 +1,7 @@
 import { NamedExoticComponent, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { request } from '@octokit/request';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { P5Instance, P5WrapperProps } from 'react-p5-wrapper';
 
 const ReactP5Wrapper = dynamic(
@@ -17,10 +17,13 @@ const ReactP5Wrapper = dynamic(
 
 const P5_WRAPPER_ELEM_ID = 'p5-wrapper';
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme: Theme) => {
   return {
     root: {
       width: '70vw',
+      [theme.breakpoints.down('xs')]: {
+        width: '90vw',
+      },
       aspectRatio: '16 / 9',
     },
   };
@@ -90,7 +93,7 @@ class Star {
     const sx = p5.map(x / z, 0, 1, 0, p5.width);
     const sy = p5.map(y / z, 0, 1, 0, p5.height);
 
-    const r = p5.map(this.z, 0, p5.width, 75, 0);
+    const r = p5.map(this.z, 0, p5.width, p5.width * 0.09, 0);
     p5.image(imageGraphic, sx, sy, r, r);
   }
 }
