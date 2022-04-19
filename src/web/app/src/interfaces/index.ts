@@ -33,6 +33,7 @@ export type SignUpForm = {
   feeds: Array<string>;
   allFeeds: Array<string>;
   blogOwnership: boolean;
+  channelOwnership: boolean;
 };
 
 export type ThemeName = 'light' | 'dark';
