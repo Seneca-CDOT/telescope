@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useRouter } from 'next/router';
 import SearchIcon from '@material-ui/icons/Search';
-import { Box, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { FormEvent, useEffect, useState } from 'react';
 import SearchInput from './SearchInput/SearchInput';
 
@@ -140,7 +140,7 @@ const SearchBar = () => {
     : router.query.title || '';
 
   const onSubmitHandler = (event: FormEvent) => {
-    event?.preventDefault();
+    event.preventDefault();
 
     // creates url params out of key/value pairs
     const parameters = new URLSearchParams();
@@ -165,36 +165,26 @@ const SearchBar = () => {
   }, [postParam, authorParam, titleParam]);
 
   return (
-    <Box className={classes.root}>
+    <form className={classes.root} onSubmit={onSubmitHandler}>
       <SearchInput
         text={post}
         setText={setPost}
         clickEvent={!openDialog ? onSubmitHandler : null}
         labelFor="Browse for a post"
-        onEnterKey={(e: FormEvent) => onSubmitHandler(e)}
       />
 
       {openDialog && (
         <>
           <div className={classes.advancedSearchInputDiv}>
-            <SearchInput
-              text={title}
-              setText={setTitle}
-              labelFor="The blog title was..."
-              onEnterKey={(e: FormEvent) => onSubmitHandler(e)}
-            />
+            <SearchInput text={title} setText={setTitle} labelFor="The blog title was..." />
           </div>
           <div className={classes.advancedSearchInputDiv}>
-            <SearchInput
-              text={author}
-              setText={setAuthor}
-              labelFor="Look for an Author"
-              onEnterKey={(e: FormEvent) => onSubmitHandler(e)}
-            />
+            <SearchInput text={author} setText={setAuthor} labelFor="Look for an Author" />
           </div>
         </>
       )}
       <Button
+        type="button"
         className={!openDialog ? classes.advanceSearchButton : classes.backButton}
         onClick={() => {
           setOpenDialog(!openDialog);
@@ -205,17 +195,17 @@ const SearchBar = () => {
       </Button>
       {openDialog && (
         <Button
+          type="submit"
           variant="contained"
           startIcon={<SearchIcon />}
           color="primary"
           size="large"
           className={classes.searchButton}
-          onClick={onSubmitHandler}
         >
           Search
         </Button>
       )}
-    </Box>
+    </form>
   );
 };
 
