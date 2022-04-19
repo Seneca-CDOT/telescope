@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import { request } from '@octokit/request';
-import { ReactP5Wrapper } from 'react-p5-wrapper';
 import styles from './StarField.module.css';
 
 // The original idea of the process to calculate the position and size of the
@@ -133,9 +133,16 @@ const StarField = () => {
   }, [contributorPage]);
 
   return (
-    <div id={P5_WRAPPER_ELEM_ID} className={styles.p5Canvas}>
-      <ReactP5Wrapper sketch={sketch} contributorList={contributorList} />
-    </div>
+    <BrowserOnly>
+      {() => {
+        const ReactP5Wrapper = require('react-p5-wrapper').ReactP5Wrapper;
+        return (
+          <div id={P5_WRAPPER_ELEM_ID} className={styles.p5Canvas}>
+            <ReactP5Wrapper sketch={sketch} contributorList={contributorList} />
+          </div>
+        );
+      }}
+    </BrowserOnly>
   );
 };
 
