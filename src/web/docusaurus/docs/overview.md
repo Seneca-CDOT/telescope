@@ -2,7 +2,15 @@
 sidebar_position: 0
 ---
 
+import StarField from '@site/src/components/StarField';
+
 # Telescope Overview
+
+## Our Contributors
+
+The result of Telescope is thanks to the combined work of all these talented people (and robots).
+
+<StarField />
 
 ## Introduction
 
