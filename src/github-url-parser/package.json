@@ -12,8 +12,10 @@
     "jest": "jest -c jest.config.js",
     "coverage": "jest -c jest.config.js --collect-coverage",
     "eslint": "eslint --config .eslintrc.js \"./src/**/*\"",
+    "eslint-time": "TIMING=1 eslint --config .eslintrc.js \"./src/**/*\"",
     "eslint-fix": "eslint --config .eslintrc.js \"./src/**/*\" --fix",
     "lint": "pnpm eslint",
+    "lint-time": "pnpm eslint-time",
     "watch": "parcel watch",
     "build": "parcel build",
     "prepublish": "pnpm build"

@@ -8,7 +8,9 @@
     "start": "node src/server.js",
     "clean": "find ./photos -type f -not -name 'default.jpg' -delete",
     "lint": "pnpm eslint",
-    "eslint": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\"",
+    "lint-time": "pnpm eslint-time",
+    "eslint": "eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\"",
+    "eslint-time": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js  --ignore-path .gitignore \"./**/*.js\" --fix",
     "test": "jest -c jest.config.js"
   },

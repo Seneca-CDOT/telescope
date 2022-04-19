@@ -11,9 +11,11 @@
     "watch:server": "env-cmd -f env.local nodemon src/server.js",
     "compile:js": "vite build",
     "watch:js": "vite build --watch",
-    "eslint": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./src/**/*.js\"",
+    "eslint": "eslint --config .eslintrc.js --ignore-path .gitignore \"./src/**/*.js\"",
+    "eslint-time": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./src/**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js --ignore-path .gitignore \"./src/**/*.js\" --fix",
-    "lint": "pnpm eslint"
+    "lint": "pnpm eslint",
+    "lint-time": "pnpm eslint-time"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",

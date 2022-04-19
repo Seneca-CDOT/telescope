@@ -5,9 +5,11 @@
     "build": "next build && next export",
     "dev": "next dev -p 8000",
     "start": "next start -p 8000",
-    "eslint": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx}\"",
+    "eslint": "eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx}\"",
+    "eslint-time": "TIMING=1 eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx}\"",
     "eslint-fix": "eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx}\" --fix",
     "lint": "pnpm eslint",
+    "lint-time": "pnpm eslint-time",
     "test": "jest -c jest.config.js",
     "clean": "rm -rf .next .turbo out"
   },
