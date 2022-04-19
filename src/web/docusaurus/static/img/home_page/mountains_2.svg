@@ -11,17 +11,19 @@
 ]>
 <svg enable-background="new 0 0 2086.2 1130.9" version="1.1" viewBox="0 0 2086.2 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
 <style type="text/css">
-	.mt_2_0{fill:url(#a);}
+	.mounts2{fill:url(#mount_a);}
+
+	.mt_2_0{fill:url(#mt2_a);}
 </style>
 <switch>
 	<foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/">
 	</foreignObject>
 	<g>
-		<linearGradient id="a" x1="1059.3" x2="1058.2" y1="808.49" y2="1089.9" gradientUnits="userSpaceOnUse">
+		<linearGradient id="mount_a" x1="1059.3" x2="1058.2" y1="808.49" y2="1089.9" gradientUnits="userSpaceOnUse">
 			<stop stop-color="#8A8196" offset="0"/>
 			<stop stop-color="#666475" offset="1"/>
 		</linearGradient>
-		<polygon class="mt_2_0" points="2064 1090.1 2064 811.9 1879.8 743.9 1612.9 811.9 1308.4 768.1 1174.6 811.9 1090.9 698.1 980.3 811.9 746.1 811.9 718.5 752.6 618.9 811.9 302.2 739.6 53.3 847 53.3 1096.9"/>
+		<polygon class="mounts2" points="2064 1090.1 2064 811.9 1879.8 743.9 1612.9 811.9 1308.4 768.1 1174.6 811.9 1090.9 698.1 980.3 811.9 746.1 811.9 718.5 752.6 618.9 811.9 302.2 739.6 53.3 847 53.3 1096.9"/>
 	</g>
 </switch>
 </svg>

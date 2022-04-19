@@ -11,13 +11,13 @@
 ]>
 <svg enable-background="new 0 0 2086.2 1130.9" version="1.1" viewBox="0 0 2086.2 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
 <style type="text/css">
-	.mt_1_0{fill:url(#a);}
+	.mt_1_0{fill:url(#mt_a);}
 </style>
 <switch>
 	<foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/">
 	</foreignObject>
 	<g>
-		<linearGradient id="a" x1="1061.9" x2="1060.9" y1="798.57" y2="1076" gradientUnits="userSpaceOnUse">
+		<linearGradient id="mt_a" x1="1061.9" x2="1060.9" y1="798.57" y2="1076" gradientUnits="userSpaceOnUse">
 			<stop stop-color="#565066" offset="0"/>
 			<stop stop-color="#2E2A3F" offset="1"/>
 		</linearGradient>

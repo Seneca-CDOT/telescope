@@ -14,7 +14,7 @@
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2086.2 1130.9"
 	 style="enable-background:new 0 0 2086.2 1130.9;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:url(#SVGID_1_);}
+	.st0{fill:url(#sky_1);}
 	.st1{fill:#F9F9F9;}
 </style>
 <switch>
@@ -23,7 +23,7 @@
 		</i:aipgfRef>
 	</foreignObject>
 	<g i:extraneous="self">
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="1053.2439" y1="25.043" x2="1053.2439" y2="1052.6936">
+		<linearGradient id="sky_1" gradientUnits="userSpaceOnUse" x1="1053.2439" y1="25.043" x2="1053.2439" y2="1052.6936">
 			<stop  offset="0" style="stop-color:#1C1F34"/>
 			<stop  offset="1" style="stop-color:#5D455A"/>
 		</linearGradient>
