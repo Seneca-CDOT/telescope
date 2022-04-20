@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const POST_URL = 'https://dev.api.telescope.cdot.systems/v1/posts'; // Constants.manifest.extra.postsUrl;
+const POST_URL = Constants.manifest.extra.postsUrl;
 
 function Posts() {
   const {
