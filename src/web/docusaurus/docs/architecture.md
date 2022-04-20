@@ -27,19 +27,7 @@ The following gives an overview of the current (i.e. 2.4.0) design of Telescope.
 
 ### Legacy Monolithic Back-end (1.0)
 
-Telescope's back-end began as a single, monolithic node.js app. During the 2.0 release, much of the back-end was split into separate microservices (see below). However, parts of the legacy back-end code are still in use, see `src/backend/*`.
-
-The current system uses the legacy backend in order to run the feed parser and feed queue, see `src/backend/feed/*`. The processed feeds and posts are then stored in Redis (cache) and Elasticsearch (indexing) databases, and various microservices use these in order to get their data.
-
-Telescope's data model is built on Feeds and Posts. A feed represents an RSS/Atom feed, and includes metadata about a particular blog (e.g., URL, author, etc) as well as URLs to individual Posts. A Post includes metadata about a particular blog post (e.g., URL, date created, date updated, etc).
-
-The legacy back-end is started using `pnpm start` in the root of the Telescope monorepo, and it (currently) must be run alongside the microservices. When it runs, the logs show information about feeds being parsed in real-time, which continues forever.
-
-The parser downloads the [CDOT Feed List](https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List#Feeds), parses it, creates `Feed` objects and puts them into a queue managed by [Bull](https://github.com/OptimalBits/bull) and backed by Redis. These are then processed in `src/backend/feed/processor.js` in order to download the individual Posts, which are also cached in Redis.
-
-There is code duplication between the current back-end and the Parser microservice (see `src/api/parser`), and anyone changing the back-end will also need to update the Parser service at the same time (for now). One of the 3.0 goals is to [remove the back-end and move all of this logic to the Parser service](https://github.com/Seneca-CDOT/telescope/issues?q=is%3Aissue+is%3Aopen+parser+service).
-
-In production, the legacy back-end is deployed as a container named `telescope` (see `docker/production.yml`), and its Dockerfile lives in the root at `./Dockerfile`.
+Telescope's back-end began as a single, monolithic node.js app. During the 2.0 release, much of the back-end was split into separate microservices (see below). However, parts of the legacy back-end code were still in use (see [`src/backend`](https://github.com/Seneca-CDOT/telescope/tree/d780d630abdd903b55a2a645b0f98ee96554e434/src/backend)) but they were eventually replaced by the `parser` service during 3.0 release.
 
 ### Back-end Microservices (2.0)
 
@@ -52,7 +40,7 @@ The legacy back-end has been split into a series of microservices. Each microser
 - Posts Service (`src/api/posts`) - API for accessing Post and Feed data in Redis (probably not well named at this point)
 - Search Service (`src/api/search`) - API for doing searches against Elasticsearch
 - Status Service (`src/api/status`) - API for accessing Telescope status information, as well as providing the Dashboards
-- Parser Service (`src/api/parser`) - feed and post parsing. Currently disabled, see <https://github.com/Seneca-CDOT/telescope/issues/2111>
+- Parser Service (`src/api/parser`) - feed and post parsing which was disabled in 2.0 but now enabled.
 
 All microservices are built on a common foundation, the [Satellite module](https://github.com/Seneca-CDOT/telescope/tree/master/src/satellite). Satellite provides a common set of features for building Express-based microservices, with proper logging, health checks, headers, authorization middleware, as well as connections to Redis and Elasticsearch. It saves us having to manage the same set of dependencies a dozen times, and repeat the same boilerplate code.
 

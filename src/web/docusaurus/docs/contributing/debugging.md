@@ -32,7 +32,6 @@ Now that we know how to launch the server. We will look at different launching o
 
 ![VS Launch Options Screenshot](../../static/img/VS-Launch-Options.png)
 
-1. Launch Telescope -> Launches index.js and tries to run the backend.
 1. Launch Auto Deployment -> Launches autodeployment found in tools.
 1. Launch All Tests -> Runs all the tests in the tests folder.
 1. Launch Opened Test File -> Will run a test that is currently opened in a VS code tab.

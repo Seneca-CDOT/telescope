@@ -4,12 +4,12 @@ sidebar_position: 5
 
 # Logging Support Using Pino
 
-This project uses [Pino](http://getpino.io/#/) to provide support for logging in Production as well as development environments. The [logger.js](https://github.com/Seneca-CDOT/telescope/blob/master/src/backend/utils/logger.js) module exports a logger instance that can be used in other modules to implement logging for important events.
+This project uses [Pino](http://getpino.io/#/) to provide support for logging in Production as well as development environments. `Satellite` exports a [`logger`](https://github.com/Seneca-CDOT/telescope/blob/master/src/satellite/src/logger.js) instance that can be used in other modules to implement logging for important events.
 
 ## How to use the logger
 
 ```javascript
-const { logger } = require('../src/backend/utils/logger');
+const { logger } = require('@senecacdot/satellite');
 
 logger.info('Important information...');
 logger.trace('Information About Trace');
