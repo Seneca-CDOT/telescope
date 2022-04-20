@@ -47,6 +47,11 @@ on:
         required: false
         default: 'https://dev.api.telescope.cdot.systems/v1/status'
         type: string
+      dependency_discovery_url:
+        description: 'The feed-discovery microservice URL (defaults to staging)'
+        required: false
+        default: 'https://dev.api.telescope.cdot.systems/v1/dependency-discovery'
+        type: string
       supabase_url:
         description: 'The Supabase URL'
         required: false
@@ -93,6 +98,7 @@ jobs:
               GIT_COMMIT=${{ github.sha }}
               SUPABASE_URL=${{ inputs.supabase_url }}
               ANON_KEY=${{ inputs.anon_key }}
+              DEPENDENCY_DISCOVERY_URL=${{ inputs.dependency_discovery_url }}
           - context: src/api/planet
             image: planet
           - context: src/api/posts

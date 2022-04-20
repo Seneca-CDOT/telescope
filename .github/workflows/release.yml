@@ -22,6 +22,7 @@ jobs:
       search_url: 'https://api.telescope.cdot.systems/v1/search'
       feed_discovery_url: 'https://api.telescope.cdot.systems/v1/feed-discovery'
       status_url: 'https://api.telescope.cdot.systems/v1/status'
+      dependency_discovery_url: 'https://api.telescope.cdot.systems/v1/dependency-discovery'
       supabase_url: 'https://api.telescope.cdot.systems/v1/supabase'
       anon_key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UiLAogICAgImlhdCI6IDE2NDg2MTI4MDAsCiAgICAiZXhwIjogMTgwNjM3OTIwMAp9.YMOYR_8pZqqDRJkoAFuEWp-FaQfvmHXTOXKncBlRjdE'
     secrets:
