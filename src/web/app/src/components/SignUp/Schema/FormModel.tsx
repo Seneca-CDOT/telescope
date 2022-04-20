@@ -41,7 +41,7 @@ export default {
   },
   channelUrl: {
     name: 'channelUrl',
-    label: 'Youtube/Twitch URL(s)',
+    label: 'YouTube/Twitch URL(s)',
     invalidErrorMsg: 'Invalid URL(s)',
   },
   feeds: {

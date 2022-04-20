@@ -145,7 +145,7 @@ class Post {
       article.date = article.pubdate;
     }
 
-    // All the Youtube feed return an array off html so we will need to convert it to a string so as to process and sanitize it
+    // All the YouTube feed return an array off html so we will need to convert it to a string so as to process and sanitize it
     if (Array.isArray(article.content)) {
       article.content = article.content.join(' ');
     }

@@ -218,7 +218,7 @@ const ChannelFeeds = connect<{}, SignUpForm>((props) => {
   return (
     <div className={classes.root}>
       <div className={classes.container}>
-        <h1 className={classes.blogPageTitle}>Youtube and Twitch</h1>
+        <h1 className={classes.blogPageTitle}>YouTube and Twitch</h1>
         <h2 className={classes.helpText}>
           OPTIONAL: Enter your YouTube and/or Twitch channels and select the RSS feed(s) you want to
           use in Telescope (separate more than one URL with a space)
@@ -228,7 +228,7 @@ const ChannelFeeds = connect<{}, SignUpForm>((props) => {
             <TextInput
               name={channelUrl.name}
               label={channelUrl.label}
-              helperText={channelUrlError || 'Validate your Youtube or Twitch URL(s)'}
+              helperText={channelUrlError || 'Validate your YouTube or Twitch URL(s)'}
               error={!!channelUrlError}
             />
             <Button className={classes.button} onClick={validateChannel} disabled={validating}>
