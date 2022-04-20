@@ -8,5 +8,9 @@ module.exports = {
     // slowMo: 1000,
     headless: true,
   },
-  browsers: ['chromium', 'firefox', 'webkit'],
+  browsers: [
+    /* 'chromium' - chromium disabled until we fix https://github.com/Seneca-CDOT/telescope/issues/3504 */
+    'firefox',
+    'webkit',
+  ],
 };

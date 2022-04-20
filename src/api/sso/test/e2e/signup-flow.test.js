@@ -63,8 +63,7 @@ describe('Signup Flow', () => {
   it('should have none of the users in the Users service for test data accounts', () =>
     ensureUsers(users, false));
 
-  // https://github.com/Seneca-CDOT/telescope/issues/3504
-  it.skip('signup flow works to login and register a new Telescope user', async () => {
+  it('signup flow works to login and register a new Telescope user', async () => {
     // Part 1: login using SSO, as a user who does not have a Telescope account.
     // Confirm that the payload of the token we get back matches what we expect.
     // NOTE: the data comes from config/simplesamlphp-users.php.
