@@ -40,7 +40,7 @@ The legacy back-end has been split into a series of microservices. Each microser
 - Posts Service (`src/api/posts`) - API for accessing Post and Feed data in Redis (probably not well named at this point)
 - Search Service (`src/api/search`) - API for doing searches against Elasticsearch
 - Status Service (`src/api/status`) - API for accessing Telescope status information, as well as providing the Dashboards
-- Parser Service (`src/api/parser`) - feed and post parsing which was disabled in 2.0 but now enabled.
+- Parser Service (`src/api/parser`) - feed and post parsing which was disabled in 2.0, but now enabled in 3.0 release.
 
 All microservices are built on a common foundation, the [Satellite module](https://github.com/Seneca-CDOT/telescope/tree/master/src/satellite). Satellite provides a common set of features for building Express-based microservices, with proper logging, health checks, headers, authorization middleware, as well as connections to Redis and Elasticsearch. It saves us having to manage the same set of dependencies a dozen times, and repeat the same boilerplate code.
 
