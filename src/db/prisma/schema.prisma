@@ -19,7 +19,7 @@ model feeds {
   id                 String  // A short hashed id generated from the URL by Satellite,
   user_id            String? // optional, a user can claim an existing feed when they register
   wiki_author_name   String? // wiki owner of a feed, maybe unused when the feed is linked with an actual user
-  html_url           String? //actual URL the feed refers to, could be a blog URL, a Youtube or Twitch channel
+  html_url           String? //actual URL the feed refers to, could be a blog URL, a YouTube or Twitch channel
   type               FeedType?           @default(blog)
   invalid            Boolean?            @default(false)
   flagged            Boolean?            @default(false)

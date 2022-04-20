@@ -56,7 +56,7 @@ export default [
     ),
   }),
 
-  // Fourth step we collect the user Youtube/Twitch channels and the RSSfeeds from it.
+  // Fourth step we collect the user YouTube/Twitch channels and the RSSfeeds from it.
   Yup.object().shape({
     [channelUrl.name]: Yup.string(),
     [feeds.name]: Yup.array().of(Yup.string()),
