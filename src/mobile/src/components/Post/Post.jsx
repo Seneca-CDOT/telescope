@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, useWindowDimensions, Image } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+  Image,
+  Pressable,
+  Linking,
+} from 'react-native';
 import useSWR from 'swr';
 import RenderHtml from 'react-native-render-html';
 import { tagsStyles, baseStyles } from './styles/post';
@@ -59,7 +67,9 @@ export default function Post({ postURL }) {
         <Image style={styles.postAvatar} source={require('../../assets/adaptive-icon.png')} />
         <View style={styles.postInfo}>
           <Text style={styles.postTitle}>{post.title}</Text>
-          <Text style={styles.postAuthor}>{post.feed.author}</Text>
+          <Pressable onPress={() => Linking.openURL(post.feed.link)}>
+            <Text style={styles.postAuthor}>{post.feed.author}</Text>
+          </Pressable>
         </View>
       </View>
       <RenderHtml
