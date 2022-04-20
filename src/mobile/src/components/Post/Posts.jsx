@@ -6,17 +6,19 @@ import Post from './Post';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 15,
   },
   divider: {
     backgroundColor: '#9f9f9f',
     height: 1,
+    marginBottom: 20,
     marginHorizontal: 'auto',
     marginVertical: 16,
-    width: '80%',
+    width: '100%',
   },
 });
 
-const POST_URL = Constants.manifest.extra.postsUrl;
+const POST_URL = 'https://dev.api.telescope.cdot.systems/v1/posts'; // Constants.manifest.extra.postsUrl;
 
 function Posts() {
   const {

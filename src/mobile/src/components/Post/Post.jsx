@@ -1,19 +1,34 @@
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { StyleSheet, Text, View, useWindowDimensions, Image } from 'react-native';
 import useSWR from 'swr';
 import RenderHtml from 'react-native-render-html';
 import { tagsStyles, baseStyles } from './styles/post';
 
 const styles = StyleSheet.create({
   post: {
-    minHeight: 300,
+    minHeight: 400,
   },
-  title: {
-    color: '#A0D1FB',
-    fontSize: 28,
-    fontWeight: 'bold',
-    letterSpacing: -1.5,
-    paddingVertical: 16,
-    textAlign: 'center',
+  postAuthor: {
+    color: 'black',
+    fontSize: 15,
+  },
+  postAvatar: {
+    height: 50,
+    width: '20%',
+  },
+  postHeader: {
+    alignItems: 'center',
+    borderBottomColor: '#cccccc',
+    borderBottomWidth: 1.5,
+    flexDirection: 'row',
+    marginBottom: 10,
+    paddingBottom: 5,
+  },
+  postInfo: {
+    width: '80%',
+  },
+  postTitle: {
+    color: '#121D59',
+    fontSize: 20,
   },
 });
 
@@ -40,7 +55,13 @@ export default function Post({ postURL }) {
 
   return (
     <View style={styles.post}>
-      <Text style={styles.title}>{post.title}</Text>
+      <View style={styles.postHeader}>
+        <Image style={styles.postAvatar} source={require('../../assets/adaptive-icon.png')} />
+        <View style={styles.postInfo}>
+          <Text style={styles.postTitle}>{post.title}</Text>
+          <Text style={styles.postAuthor}>{post.feed.author}</Text>
+        </View>
+      </View>
       <RenderHtml
         contentWidth={width}
         source={{ html: `${post.html}` }}
