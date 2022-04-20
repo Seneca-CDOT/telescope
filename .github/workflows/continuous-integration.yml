@@ -25,4 +25,47 @@ jobs:
 
   # Run end-to-end tests along with the microservices in docker-compose on Linux
   e2e:
-    uses: Seneca-CDOT/telescope/.github/workflows/e2e-tests-ci.yml@master
+    name: End-To-End Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+    env:
+      # Whichever Docker containers are needed to pass e2e tests, define them here
+      DOCKER_CONTAINERS: 'sso feed-discovery auth login kong rest meta elasticsearch redis posts traefik'
+      # Postgres database connection string to run db migration
+      DATABASE_URL: 'postgresql://postgres:your-super-secret-and-long-postgres-password@localhost/postgres'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - uses: pnpm/action-setup@v2.2.1
+
+      - uses: actions/setup-node@v2.5.1
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - uses: docker/setup-buildx-action@v1
+
+      - name: Install playwright
+        uses: microsoft/playwright-github-action@v1
+
+      # Pull, build, and run containers, then start e2e tests
+      - run: pnpm install
+      - name: Pull/Build Docker Containers Necessary for Running E2E Tests
+        run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
+      - name: Apply database migrations
+        run: pnpm migrate
+      - name: Run End-To-End Tests
+        continue-on-error: true
+        run: pnpm jest:e2e
+      - name: Dump Logs
+        run: |
+          docker logs test-web-content
+          docker logs feed-discovery
+          docker logs sso

@@ -1,9 +1,11 @@
 // eslint-disable-next-line
 const { waitForPostgres } = require('@jcoreio/wait-for-postgres');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const waitOn = require('wait-on');
 
 const baseConfig = require('../../../jest.config.base');
 
-module.exports = async () => {
+const waitOnSupabase = async () => {
   try {
     console.log('Waiting for Supabase postgres container to become ready...');
     await waitForPostgres({
@@ -13,12 +15,27 @@ module.exports = async () => {
       database: 'postgres',
       timeout: 60 * 1000,
     });
+    console.log('Supabase postgres container ready.');
   } catch (err) {
     console.warn('Unable to connect to postgres container');
     throw err;
   }
+};
 
-  console.log('Supabase postgres container ready.');
+const waitOnTestWebContent = async () => {
+  try {
+    console.log('Waiting for test-web-content container to become ready...');
+    await waitOn({ resources: ['http://localhost:8888/auth.html'] });
+    console.log('test-web-content container ready.');
+  } catch (err) {
+    console.warn('Unable to connect to test-web-content container');
+    throw err;
+  }
+};
+
+module.exports = async () => {
+  await Promise.all([waitOnSupabase(), waitOnTestWebContent()]);
+
   return {
     ...baseConfig,
     rootDir: '../../..',
