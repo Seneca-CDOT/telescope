@@ -1,10 +1,10 @@
 .featureSvg {
   position: absolute;
-  height: 80vh;
+  height: 106vh;
   width: 100%;
   z-index: var(--index);
 }
 
 .telArt {
-  height: 80vh;
+  height: 106vh;
 }

@@ -9,19 +9,19 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg enable-background="new 0 0 2086.2 1130.9" version="1.1" viewBox="0 0 2086.2 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<svg enable-background="new 0 0 2010.5 1130.9" version="1.1" viewBox="0 0 2010.5 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
 <style type="text/css">
-	.mt_1_0{fill:url(#mt_a);}
+	.mt_1_0{fill:url(#mt1_a);}
 </style>
 <switch>
 	<foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/">
 	</foreignObject>
 	<g>
-		<linearGradient id="mt_a" x1="1061.9" x2="1060.9" y1="798.57" y2="1076" gradientUnits="userSpaceOnUse">
+		<linearGradient id="mt1_a" x1="1005.8" x2="1004.8" y1="842.06" y2="1123.9" gradientUnits="userSpaceOnUse">
 			<stop stop-color="#565066" offset="0"/>
 			<stop stop-color="#2E2A3F" offset="1"/>
 		</linearGradient>
-		<polygon class="mt_1_0" points="2030.7 1076.4 2030.7 828.5 1718.4 791.7 1450.9 691.1 1251.9 808.1 1053.2 791.7 901 738.9 858.1 791.7 821.3 764.7 714.6 791.7 537.9 707 341.6 801.7 211.6 818.7 129.4 758.3 92 824.8 92 1082.9"/>
+		<polygon class="mt_1_0" points="2010.5 1132.5 2010.5 875.4 1686.6 837.2 1409.3 732.9 1202.9 854.3 996.8 837.2 839 782.5 794.5 837.2 756.3 809.2 645.6 837.2 462.4 749.4 258.9 847.6 124 865.2 38.8 802.6 -0.1 871.6 0 1130.9"/>
 	</g>
 </switch>
 </svg>
