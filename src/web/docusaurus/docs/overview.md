@@ -72,6 +72,12 @@ expectations for what a system like this can and should be. This has gone into o
 
 See [Architecture](architecture.md) for a more complete picture of our current design.
 
+## What does Telescope do?
+
+In essence, Telescope takes [RSS](https://en.wikipedia.org/wiki/RSS) [blog post feeds](https://rss.com/blog/rss-feed-for-blog/), rebuilds those blog posts into HTML and collects them in a single web page to display. It is able to handle various formatting, such as code blocks or embedded videos. Telescope also collects data about those posts in the [dashboard](https://api.telescope.cdot.systems/v1/status/) . Blog posts on
+Telescope come from contributors to Telescope. Therefore, you get to follow the
+website&quot;s development on the website itself!
+
 ## Project History
 
 - [Telescope 1.0](https://blog.humphd.org/telescope-1-0-0-or-dave-is-once-again-asking-for-a-blog/) (April 2020)

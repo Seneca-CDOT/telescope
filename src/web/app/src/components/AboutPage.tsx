@@ -110,7 +110,7 @@ const AboutPage = () => {
       <h2>What does Telescope do?</h2>
       <p>
         In essence, Telescope takes <a href="https://en.wikipedia.org/wiki/RSS">RSS</a>{' '}
-        <a href=" https://rss.com/blog/rss-feed-for-blog/">blog post feeds</a>, rebuilds those blog
+        <a href="https://rss.com/blog/rss-feed-for-blog/">blog post feeds</a>, rebuilds those blog
         posts into HTML and collects them in a single web page to display. It is able to handle
         various formatting, such as code blocks or embedded videos. Telescope also collects data
         about those posts in the{' '}

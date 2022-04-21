@@ -71,7 +71,7 @@ const BannerButtons = () => {
           disagreeButtonText="CANCEL"
         />
       )}
-      <Link href="/about" passHref>
+      <Link href="https://dev.telescope.cdot.systems/docs/overview/" passHref>
         <Button
           style={{
             border: 'none',
