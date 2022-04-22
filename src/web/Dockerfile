@@ -1,8 +1,3 @@
-# NEXT_PUBLIC_API_URL is needed by the next.js build, which we define
-# as a build ARG in API_URL.  NOTE: if you add or change anything to
-# these build args, also update .github/workflows/docker-build-and-push.yml
-# and the workflows that call it.
-ARG API_URL
 # API Service URLs, set via ENV in docker or next build
 ARG IMAGE_URL
 ARG SSO_URL
@@ -47,8 +42,6 @@ FROM base as build-app
 WORKDIR /app
 
 # Copy the various API URLs build args over so next.js can see them in next.config.js
-ARG API_URL
-ENV NEXT_PUBLIC_API_URL ${API_URL}
 
 ARG IMAGE_URL
 ENV NEXT_PUBLIC_IMAGE_URL ${IMAGE_URL}

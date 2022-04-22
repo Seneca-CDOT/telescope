@@ -12,11 +12,6 @@ on:
         required: false
         default: 'https://dev.telescope.cdot.systems'
         type: string
-      api_url:
-        description: 'The microservice gateway URL (defaults to staging)'
-        required: false
-        default: 'https://dev.telescope.cdot.systems'
-        type: string
       image_url:
         description: 'The image microservice URL (defaults to staging)'
         required: false
@@ -88,7 +83,6 @@ jobs:
             image: nginx
             build-args: |
               WEB_URL=${{ inputs.web_url }}
-              API_URL=${{ inputs.api_url }}
               IMAGE_URL=${{ inputs.image_url }}
               SSO_URL=${{ inputs.sso_url }}
               POSTS_URL=${{ inputs.posts_url }}

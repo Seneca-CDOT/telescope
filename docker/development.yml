@@ -78,9 +78,8 @@ services:
       cache_from:
         - docker.cdot.systems/parser:buildcache
     environment:
-      # In development and testing, the SSO service needs to contact the Supabase
+      # In development and testing, the Parser service needs to contact the Supabase
       # service directly via Docker vs through the http://localhost/v1/supabase domain.
-      # Using staging database
       - SUPABASE_URL=http://kong:8000
     depends_on:
       - elasticsearch

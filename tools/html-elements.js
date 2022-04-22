@@ -7,7 +7,7 @@
 
 const jsdom = require('jsdom');
 
-const Post = require('../src/backend/data/post');
+const Post = require('../src/api/parser/data/post');
 const processPosts = require('./lib/process-posts');
 
 const { JSDOM } = jsdom;

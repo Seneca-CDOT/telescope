@@ -2,7 +2,7 @@
  * Helper for iterating over posts in Redis.
  */
 
-const { getPosts } = require('../../src/backend/utils/storage');
+const { getPosts } = require('../../src/api/parser/src/utils/storage');
 
 /**
  * Process all posts in the database, calling the processPosts function on each.

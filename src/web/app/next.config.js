@@ -20,7 +20,6 @@ const loadApiUrlFromEnv = (envFile) => dotenv.config({ path: envFile });
 // and ./Dockerfile, and need to be kept in sync!
 const envVarsToForward = [
   'WEB_URL',
-  'API_URL',
   'IMAGE_URL',
   'POSTS_URL',
   'SSO_URL',
@@ -33,7 +32,7 @@ const envVarsToForward = [
   'DEPENDENCY_DISCOVERY_URL',
 ];
 
-// Copy an existing ENV Var so it's visible to next: API_URL -> NEXT_PUBLIC_API_URL
+// Copy an existing ENV Var so it's visible to next: WEB_URL -> NEXT_PUBLIC_WEB_URL
 const forwardToNext = (envVar) => {
   if (process.env[envVar]) {
     process.env[`NEXT_PUBLIC_${envVar}`] = process.env[envVar];

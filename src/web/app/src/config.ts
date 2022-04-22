@@ -1,9 +1,6 @@
 // This comes via the top level .env and its API_URL value,
 // and gets set in next.config.js at build time.
 
-// The URL to use when accessing the Telescope 1.0 backend APIs
-const telescopeUrl = process.env.NEXT_PUBLIC_API_URL;
-
 // The URL where our front-end is being hosted.
 const webUrl = process.env.NEXT_PUBLIC_WEB_URL;
 
@@ -25,7 +22,7 @@ const title = `Telescope`;
 const description = `A tool for tracking blogs in orbit around Seneca's open source involvement`;
 const author = `SDDS Students and Professors`;
 const keywords = `Telescope, Seneca College, Open Source, Programming, Software Development, Blogs, Education, CDOT, SDDS, Students, Professors, Learning, Teaching`;
-const image = `${telescopeUrl}/logoImages/apple-splash-1334-750.jpg`;
+const image = `/logo.svg`;
 const imageAlt = `Telescope Logo`;
 
 const loginUrl = `${ssoServiceUrl}/login`;
@@ -35,17 +32,16 @@ export {
   title,
   description,
   author,
-  telescopeUrl,
   webUrl,
   ssoServiceUrl,
+  image,
   imageServiceUrl,
+  imageAlt,
   supabaseUrl,
   anonKey,
   loginUrl,
   logoutUrl,
   keywords,
-  image,
-  imageAlt,
   postsServiceUrl,
   searchServiceUrl,
   feedDiscoveryServiceUrl,

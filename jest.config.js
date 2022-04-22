@@ -5,8 +5,6 @@ module.exports = {
   projects: [
     // Our front-end
     '<rootDir>/src/web/app/jest.config.js',
-    // Our legacy backend tests, slowly being migrated to microservices
-    '<rootDir>/test/jest.config.js',
     // Satellite
     '<rootDir>/src/satellite/jest.config.js',
     // Our current microservices, we're missing a few that needs tests still
