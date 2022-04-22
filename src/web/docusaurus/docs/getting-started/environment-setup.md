@@ -260,8 +260,6 @@ This is the default setting, you do not need to copy or modify any `env` file.
 
 ```bash
 pnpm services:start
-
-pnpm start
 ```
 
 Then visit `localhost:8000` in a web browser to see Telescope running locally. `localhost:3000/posts` will show you the list of posts in JSON
