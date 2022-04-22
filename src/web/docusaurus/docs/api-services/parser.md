@@ -2,7 +2,7 @@
 sidebar_position: 8
 ---
 
-# Parser Service:
+# Parser Service
 
 The current system uses the parser service in order to run the feed parser and feed queue, see [`./data/feed.js`](https://github.com/Seneca-CDOT/telescope/blob/master/src/api/parser/src/data/feed.js). The blog feeds are stored into a supabase database. They are fetched and loaded into a [queue](https://github.com/Seneca-CDOT/telescope/blob/master/src/api/parser/src/lib/queue.js) to create [Feed](https://github.com/Seneca-CDOT/telescope/blob/master/src/api/parser/src/data/feed.js) and [Post](https://github.com/Seneca-CDOT/telescope/blob/master/src/api/parser/src/data/post.js) objects so it can be stored into `Redis` (cache) and `Elasticsearch` (indexing) database. Afterwards, various microservices can use them to request data.
 
