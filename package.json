@@ -21,7 +21,8 @@
     "clean": "pnpm turbo run clean && pnpm -r exec rm -rf node_modules",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml,ts,tsx}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml,ts,tsx}\"",
-    "migrate": "pnpm migrate --prefix src/db",
+    "migrate": "prisma migrate dev --schema=src/db/prisma/schema.prisma && prisma generate --schema=src/db/prisma/schema.prisma",
+    "seed": "prisma db seed",
     "test": "pnpm turbo run test",
     "jest": "jest -c jest.config.js --",
     "jest:e2e": "jest -c jest.config.e2e.js --forceExit --",
@@ -42,7 +43,7 @@
     "services:clean": "node bin/services-clean.js",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "cd src/mobile && npm install"
+    "postinstall": "npm install --prefix src/mobile"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -117,6 +118,7 @@
     "playwright": "1.20.2",
     "prettier": "2.5.1",
     "pretty-quick": "3.1.3",
+    "prisma": "3.12.0",
     "redis-commands": "1.7.0",
     "run.env": "1.1.0",
     "supertest": "6.1.6",
@@ -138,5 +140,8 @@
       "marked@<4.0.10": ">=4.0.10",
       "node-fetch@<2.6.7": ">=2.6.7"
     }
+  },
+  "prisma": {
+    "seed": "node src/db/seed"
   }
 }

@@ -23,8 +23,6 @@ Whenever we start up the DB container or after updating our schema, we should ru
 ## Running migration
 
 ```bash
-  cd src/db
-  cp env.example .env
   pnpm migrate
 ```
 
@@ -39,8 +37,6 @@ For a migration that has a "narrowing" nature such as dropping a table, dropping
 Simply edit the schema in [schema.prisma](https://github.com/Seneca-CDOT/telescope/blob/master/src/db/prisma/schema.prisma) and apply the migration.
 
 ```bash
-  cd src/db
-  cp env.example .env
   pnpm migrate
 ```
 
@@ -59,3 +55,13 @@ After creating the empty migration file, you can write SQL queries inside the ne
 ```bash
   pnpm migrate
 ```
+
+### Seeding the database
+
+The first time you start the database, it doesn't have any data. Therefore, we need database seeding as a way to populate the database with an initial set of data to make some parts of our application work properly.
+
+```bash
+  pnpm seed
+```
+
+Please note that `feeds` data seeding in `src/db/seed` is different from the feeds migration in `tool/migrate`. Seeding intends to insert some initial feeds to the local database, where `migration` is used to parse feeds from the legacy [Planet_CDOT_Feed_List](https://wiki.cdot.senecacollege.ca/wiki/Planet_CDOT_Feed_List) and insert them into the local, staging, or production database.

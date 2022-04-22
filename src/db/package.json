@@ -11,7 +11,8 @@
   "scripts": {
     "migrate": "prisma migrate dev --",
     "create-migration": "prisma migrate dev --create-only",
-    "format": "prisma format"
+    "format": "prisma format",
+    "seed": "prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "3.12.0"

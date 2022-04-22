@@ -1,0 +1,176 @@
+[
+  {
+    "quote_id": 1,
+    "author_name": "Shreena",
+    "blog_url": "https://shreenasopensource.wordpress.com/2018/12/13/osd-600-reflection/",
+    "quote": "Looking back at these last 31/2 months I feel I grew as an open source developer. I can recall the first week of this class not even knowing what open source development was."
+  },
+  {
+    "quote_id": 2,
+    "author_name": "Abdulbasid Guled",
+    "blog_url": "https://dev.to/hyperthd/dps911-blog-2-telescope-1-5-ships-my-first-release-4a67",
+    "quote": "oh my goodness, there's so many commits we pushed in this release that it makes me wonder if my team and I have lives outside of open source."
+  },
+  {
+    "quote_id": 3,
+    "author_name": "Julia McGeoghan",
+    "blog_url": "https://medium.com/@juliakmdev/the-virtues-of-open-source-4cd3e080399d",
+    "quote": "It seemed too good to be true that I could just jump in and contribute code for popular development tools or even languages. It took a while for me to realize that I was ready and capable of doing so."
+  },
+  {
+    "quote_id": 4,
+    "author_name": "Julia McGeoghan",
+    "blog_url": "https://medium.com/@juliakmdev/the-virtues-of-open-source-4cd3e080399d",
+    "quote": "I’ve gotten to work with a team that seems dedicated to a strong development process and code quality, which in turn helps me build good habits when writing code."
+  },
+  {
+    "quote_id": 5,
+    "author_name": "Abdulbasid Guled",
+    "blog_url": "https://dev.to/hyperthd/4-months-of-open-source-what-i-ve-learned-from-taking-dps909-and-what-i-plan-to-do-about-dps911-next-month-1g62",
+    "quote": "Overall, my experiences with [open source development] were very positive. Even when I was down, I tried to work my way back up."
+  },
+  {
+    "quote_id": 6,
+    "author_name": "Mohammed Ahmed",
+    "blog_url": "https://moho472.medium.com/dps911-here-we-go-telescope-28e0b9a51f86",
+    "quote": "Wow, I finally get to start talking about Open Source again! I’m very excited just writing about this, cause I have a greater chance to work on Telescope, and my own projects."
+  },
+  {
+    "quote_id": 7,
+    "author_name": "Royce Ayroso-Ong",
+    "blog_url": "https://roycedev.medium.com/two-steps-forward-one-step-back-b0c105037a04",
+    "quote": "I took on responsibilities that I honestly did not think I could handle, and though I still have a lot of PRs to review and issues to solve, I believe it was a step in the right direction."
+  },
+  {
+    "quote_id": 8,
+    "author_name": "Chris Pinkney",
+    "blog_url": "https://dev.to/chrispinkney/going-down-with-the-ship-p51",
+    "quote": "Down with the Shipness, Everybody is working for the Shipend, and Stairway to Shipven. It's a joke about shipping software"
+  },
+  {
+    "quote_id": 9,
+    "author_name": "Abdulbasid Guled",
+    "blog_url": "https://dev.to/hyperthd/4-months-of-open-source-what-i-ve-learned-from-taking-dps909-and-what-i-plan-to-do-about-dps911-next-month-1g62",
+    "quote": "I also need to keep reminding myself, that failure does not ever define who I am. It's how I come back from failure that shows what I'm really capable of."
+  },
+  {
+    "quote_id": 10,
+    "author_name": "Chris Pinkney",
+    "blog_url": "https://dev.to/chrispinkney/going-down-with-the-ship-p51",
+    "quote": "Open Source is amazing and I hope I can keep it going even after finishing this course."
+  },
+  {
+    "quote_id": 11,
+    "author_name": "Ilya Zhuravlev",
+    "blog_url": "https://ilya-zhurik.medium.com/bye-gatsby-episode-1-3fd63db08aa1",
+    "quote": "For example, the Login component suddenly realized that he is Special, and started a riot by not following the styling of the Header. How did I suppress the Riot? Well, I will tell you about it in my next blogpost ;)"
+  },
+  {
+    "quote_id": 12,
+    "author_name": "Calvin Ho",
+    "blog_url": "https://c3ho.blogspot.com/2021/04/documentation.html",
+    "quote": "If it is one thing OSD has taught me, it was to research and adapt, and maybe there might be a light at the end of it all"
+  },
+  {
+    "quote_id": 13,
+    "author_name": "Oleg Mytryniuk",
+    "blog_url": "https://osd600mytryniuk.wordpress.com/2017/03/16/open-source-experience-that-is-a-big-plus-in-my-mind/",
+    "quote": "I felt like people see me as a person who can make their project better, not as a person who does something wrong."
+  },
+  {
+    "quote_id": 14,
+    "author_name": "Huda A",
+    "blog_url": "https://hudascoding.wordpress.com/2018/10/31/hacktoberfest-beginning-to-a-good-start/",
+    "quote": "I have certainly learned that contribution to an open-source community is not limited to just coding! You can certainly help make technology better for people around the world through this! "
+  },
+  {
+    "quote_id": 15,
+    "author_name": "Abdul Abdi",
+    "blog_url": "https://abdulosd.blogspot.com/2020/12/the-end.html",
+    "quote": "I was also able to learn and gain confidence in approaching other developers for projects to work and overcome some of the imposter syndrome I feel sometimes."
+  },
+  {
+    "quote_id": 16,
+    "author_name": "William To",
+    "blog_url": "https://williamto10.wordpress.com/2019/12/09/project-stage-3-final-attempt-and-conclusion/",
+    "quote": "Even though we can fail, we always learn something during the process and come out better on the other side."
+  },
+  {
+    "quote_id": 17,
+    "author_name": "Joel Azwar",
+    "blog_url": "https://joelazwaros.blogspot.com/2020/11/hackvember-fest-pr4-days-late-conclusion.html",
+    "quote": "Wanting to code as opposed to having to code. And the end result just makes it all the more worth. Overall, I'm looking forward to more of this in the future."
+  },
+  {
+    "quote_id": 18,
+    "author_name": "Ray Gervais",
+    "blog_url": "https://raygervais.dev/articles/2017/04/a-conclusion-to-my-first-semester-dedicated-to-open-source-technologies/",
+    "quote": "Open Source is an idea, a culture; a vast culture full of subcultures, projects, and innovations which do change the world within the blink of a passing day."
+  },
+  {
+    "quote_id": 19,
+    "author_name": "Hao Chen",
+    "blog_url": "https://medium.com/haorc/1-open-source-hao-0-62267bbff596",
+    "quote": "What did I learn? 1. Trust your gut feeling; 2. Understand the problem, before looking for the cause!"
+  },
+  {
+    "quote_id": 20,
+    "author_name": "Ahmad Rokay",
+    "blog_url": "https://dev.to/ar/first-hacktoberfest-contribution-486m",
+    "quote": "Even though it was small, it felt really good contributing to someone's real world project and seeing my work in their repo."
+  },
+  {
+    "quote_id": 21,
+    "author_name": "Francesco Menghi",
+    "blog_url": "https://dev.to/menghif/contributing-to-mozilla-45l2",
+    "quote": "Even though this was a one line fix, I am proud of the fact that I was able to contribute to an organization such as Mozilla."
+  },
+  {
+    "quote_id": 22,
+    "author_name": "Le Minh Pham",
+    "blog_url": "https://medium.com/@lmpham1/dps909-hacktoberfest-recap-ea3af09c6a7",
+    "quote": "It also feels good to be able to make contributions to actual real-life projects"
+  },
+  {
+    "quote_id": 23,
+    "author_name": "Oliver Pham",
+    "blog_url": "https://dev.to/oliverpham/mistakes-to-avoid-before-submitting-your-pull-request-3nl8",
+    "quote": "Although it was just a small fix, I couldn't help feeling proud while looking at the result of my contribution and my name in the project's change log"
+  },
+  {
+    "quote_id": 24,
+    "author_name": "Josuha Li",
+    "blog_url": "https://dev.to/jli/my-3rd-hacktoberfest-pr-2p8h",
+    "quote": "So after this PR I think I feel a bit more confident in viewing larger projects: it's important to remember that you are not expected to know the ins and outs of the entire project."
+  },
+  {
+    "quote_id": 25,
+    "author_name": "Andre Willomitzer",
+    "blog_url": "https://dev.to/andrewillomitzer/publishing-my-first-npm-package-38ad",
+    "quote": "Collaborating with classmates has truly opened my eyes about new ways of doing things and best practices of development"
+  },
+  {
+    "quote_id": 26,
+    "author_name": "Andre Willomitzer",
+    "blog_url": "https://dev.to/andrewillomitzer/publishing-my-first-npm-package-38ad",
+    "quote": "I have had the opportunity to contribute to things I never dreamed of having a hand in working on like the jasmine testing framework, and also learned how to persevere when things aren't going right and to keep trying different approaches."
+  },
+  {
+    "quote_id": 27,
+    "author_name": "Andrew Nguyen",
+    "blog_url": "https://blog.andrewnt.dev/post/microsoft-vsce-warn-users-about-missing-LICENSE",
+    "quote": "The thought of having my code run on every published VSCode extension excites me."
+  },
+  {
+    "quote_id": 28,
+    "author_name": "Duke Manh",
+    "blog_url": "https://medium.com/@manhducdkcb/hacktoberfest-2-contributing-to-grafana-80f196d57402",
+    "quote": "What I learned when contributing to open-source is to not be overwhelmed by big projects. The codebase might be large, but at the same time, it’s very organized and well documented."
+  },
+  {
+    "quote_id": 29,
+    "author_name": "Eugene Chung",
+    "blog_url": "https://ycechung-opensource.blogspot.com/2021/12/thoughts-on-osd600-course-from-my.html",
+    "quote": "Throughout my three month plus journey, I have fought, I have struggled and I have conquered Git and Github workflow in projects related our individual SSG project, large open source projects like Microsoft Quantum and Manim, internal projects like Telescope and IPC144 and smaller projects like Cchess."
+  }
+]
