@@ -1,11 +1,10 @@
-.features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
+.featureSvg {
+  position: absolute;
+  height: 106vh;
   width: 100%;
+  z-index: var(--index);
 }
 
-.featureSvg {
-  height: 200px;
-  width: 200px;
+.telArt {
+  height: 106vh;
 }

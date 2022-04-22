@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd' [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg enable-background="new 0 0 2010.5 1130.9" version="1.1" viewBox="0 0 2010.5 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<style type="text/css">
+	.pl_3_0{fill:#131F4F;}
+	.pl_3_1{fill:#354072;}
+	.pl_3_2{fill:#A0D1FB;}
+</style>
+<switch>
+	<foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/">
+	</foreignObject>
+	<g>
+		<circle class="pl_3_0" cx="1440.4" cy="242.3" r="102.3"/>
+		<circle class="pl_3_1" cx="1414.8" cy="185" r="20.7"/>
+		<circle class="pl_3_1" cx="1476.1" cy="214.3" r="11.4"/>
+		<circle class="pl_3_1" cx="1382.1" cy="247" r="32.7"/>
+		<circle class="pl_3_1" cx="1432" cy="271.7" r="11.2"/>
+		<path class="pl_3_2" d="m1556.1 189.1c-11.4-29.4-45.8-45.6-87.2-45.1 10.5 3 20.3 7.7 29.1 13.7 22.2 5.8 39.2 18.4 46.3 36.7 5.2 13.5 4.3 28.3-1.5 42.9-12.2 26-40.1 55.7-76.8 69.9-37.6 14.5-75.7 14.6-102.3 2.7-16.1-6.8-28.3-17.8-34-32.6-7.5-19.4-2.4-41.6 11.9-61.8 2.8-10.5 7.3-20.3 13-29.1-33.4 28-49.5 64.6-37.7 95 8.3 21.6 29.1 36 56 42h0.3c2.2 0.5 4.4 0.9 6.6 1.3l0.4 0.1c25.8 4.1 60.6 3.7 91-8.1s55.4-35.6 71.1-56.4c17.2-23 22.4-48.8 13.8-71.2z"/>
+	</g>
+</switch>
+</svg>

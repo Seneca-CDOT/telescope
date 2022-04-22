@@ -1,65 +1,45 @@
 import React from 'react';
-import clsx from 'clsx';
 import styles from './HomepageFeatures.module.css';
 
-const FeatureList = [
+const TelescopeBG = [
   {
-    title: 'Easy to Use',
-    Svg: require('../../static/img/undraw_docusaurus_mountain.svg').default,
-    description: (
-      <>
-        Docusaurus was designed from the ground up to be easily installed and used to get your
-        website up and running quickly.
-      </>
-    ),
+    alt: 'Telescope on the foreground',
+    Svg: require('../../static/img/home_page/telescope_0.svg').default,
+    layer: 0,
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('../../static/img/undraw_docusaurus_tree.svg').default,
-    description: (
-      <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your
-        docs into the <code>docs</code> directory.
-      </>
-    ),
+    alt: 'Mountains at the front',
+    Svg: require('../../static/img/home_page/mountains_1.svg').default,
+    layer: -1,
   },
   {
-    title: 'Powered by React',
-    Svg: require('../../static/img/undraw_docusaurus_react.svg').default,
-    description: (
-      <>
-        Extend or customize your website layout by reusing React. Docusaurus can be extended while
-        reusing the same header and footer.
-      </>
-    ),
+    alt: 'Mountains at the back',
+    Svg: require('../../static/img/home_page/mountains_2.svg').default,
+    layer: -2,
+  },
+  {
+    alt: 'Planet in the sky',
+    Svg: require('../../static/img/home_page/planet_3.svg').default,
+    layer: -3,
+  },
+  {
+    alt: 'Dark skies with stars in the background',
+    Svg: require('../../static/img/home_page/sky_4.svg').default,
+    layer: -4,
   },
 ];
 
-function Feature({ Svg, title, description }) {
-  return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} alt={title} />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
-    </div>
-  );
+function Feature({ Svg, title, layer }) {
+  return <Svg className={styles.featureSvg} style={{ zIndex: layer }} alt={title} />;
 }
 
 export default function HomepageFeatures() {
   return (
-    <section className={styles.features}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Feature key={idx} {...props} />
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className={styles.telArt}>
+      {TelescopeBG.map((props, idx) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <Feature key={idx} {...props} />
+      ))}
+    </div>
   );
 }
