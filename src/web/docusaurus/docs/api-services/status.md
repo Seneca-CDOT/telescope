@@ -22,6 +22,11 @@ pnpm install
 ```
 
 ```bash
+# Go to the status service directory
+cd src/api/status
+```
+
+```bash
 # Boot up website and server
 pnpm dev
 ```
@@ -50,7 +55,7 @@ There are views for separate pages and partial views which are composite compone
 
 #### Main views:
 
-- **Status**: Consists of **Card partials** and the **API status board**. Currently is the default page.
+- **Status**: Consists of **Card partials** and the **API status board**. This is the current default page.
 - **Builds**: A build log of Telescope Production.
 
 #### Partials:
