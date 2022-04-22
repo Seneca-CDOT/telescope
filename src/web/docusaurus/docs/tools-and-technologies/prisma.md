@@ -23,7 +23,7 @@ Whenever we start up the DB container or after updating our schema, we should ru
 ## Running migration
 
 ```bash
-  pnpm migrate
+  pnpm db:migrate
 ```
 
 See also [DB maintenance on staging and production](../contributing/database-maintenance.md).
@@ -37,7 +37,7 @@ For a migration that has a "narrowing" nature such as dropping a table, dropping
 Simply edit the schema in [schema.prisma](https://github.com/Seneca-CDOT/telescope/blob/master/src/db/prisma/schema.prisma) and apply the migration.
 
 ```bash
-  pnpm migrate
+  pnpm db:migrate
 ```
 
 ### Custom migration
@@ -53,7 +53,7 @@ Sometimes, we want to make changes other than the modifying the schema, for exam
 After creating the empty migration file, you can write SQL queries inside the newly created `migration.sql`. After writing the desired statements, you can apply the migration:
 
 ```bash
-  pnpm migrate
+  pnpm db:migrate
 ```
 
 ### Seeding the database

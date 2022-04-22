@@ -40,5 +40,5 @@ jobs:
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
         run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
       - name: Apply database migrations
-        run: pnpm migrate
+        run: pnpm db:migrate
       - run: pnpm jest:e2e

@@ -2,24 +2,44 @@ const { PrismaClient } = require('@prisma/client');
 const feeds = require('./feeds.json');
 const quotes = require('./quotes.json');
 
-(async function seedFeeds() {
+(function seedFeeds() {
   const prisma = new PrismaClient();
 
-  await Promise.all(
+  Promise.all(
     feeds.map((feed) => {
-      return prisma.feeds.createMany({ data: feed });
+      return prisma.feeds.upsert({
+        where: {
+          id: feed.id,
+        },
+        update: {},
+        create: feed,
+      });
     })
-  ).catch((error) => {
-    console.error('Erorr seeding feeds');
-    console.error(error);
-  });
+  )
+    .then((records) => {
+      console.log(`Seeded ${records.length} feeds`);
+      return records.length;
+    })
+    .catch((error) => {
+      console.error(error);
+      console.error('Erorr seeding feeds\n\n');
+    });
 
-  await Promise.all(
+  Promise.all(
     quotes.map((quote) => {
-      return prisma.quotes.createMany({ data: quote });
+      return prisma.quotes.upsert({
+        where: { quote_id: quote.quote_id },
+        update: {},
+        create: quote,
+      });
     })
-  ).catch((error) => {
-    console.error('Erorr seeding quotes');
-    console.error(error);
-  });
+  )
+    .then((records) => {
+      console.log(`Seeded ${records.length} quotes`);
+      return records;
+    })
+    .catch((error) => {
+      console.error(error);
+      console.error('Erorr seeding quotes');
+    });
 })();
