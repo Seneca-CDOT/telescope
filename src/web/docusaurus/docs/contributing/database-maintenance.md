@@ -47,7 +47,7 @@ Some operations will fail if tables exist or if the schema in the dump file does
 5. Go back to **Containers** and click **Add Container** to add a new container
 6. Enter a **Name**: `db-migrations`
 7. Select the `docker.cdot.systems` **Registry**. If you don't see it, add it via the **Registries** navigation menu on the left.
-8. Enter **Image Name**: `db-migrations:staging`
+8. Enter **Image Name**: `db-migrations:staging` or `db-migrations:production`
 9. Under **Advanced Container Settings**, click the **Network** tab, and change the **Network** from `bridge` to use current default network (e.g., `blue_default` or `green_default`).
 10. Under **Advanced Container Settings**, click the **Env** tab, and add an environment variable, `DATABASE_URL` with a value of `postgres://postgres:<$POSTGRES_PASSWORD>@db:5432/postgres`, where `<$POSTGRES_PASSWORD>` is the current postgres password for the `db` container.
 11. Click the **Deploy the container** button
