@@ -217,12 +217,6 @@ http {
       root /var/www/certbot;
     }
 
-    # Non-cached routes /admin /user /health /auth
-    location ~ ^/(admin|user|health|auth) {
-      proxy_cache_bypass 1;
-      proxy_pass http://telescope:3000;
-    }
-
     # Cache content served by /legacy forever
     location /legacy {
       expires max;
@@ -289,26 +283,6 @@ http {
 
       # Try serving static content, and if not found continue with @proxy
       try_files $uri $uri/ @proxy;
-    }
-
-    location @proxy {
-      proxy_cache telescope_cache;
-
-      # Defines conditions under which the response will not be taken from a cache
-      # In this case, cache will be ignored when requested from client
-      proxy_cache_bypass  $http_cache_control;
-
-      # Sets caching time for different response codes
-      proxy_cache_valid 200 307 10m;
-      proxy_cache_valid 404 1m;
-
-      # Disables processing of certain response header fields from the proxied server
-      proxy_ignore_headers "Cache-Control" "Expires";
-
-      # Added 'X-Proxy-Cache' header to be able to monitor caching
-      add_header X-Proxy-Cache $upstream_cache_status;
-
-      proxy_pass http://telescope:3000;
     }
   }
 }
