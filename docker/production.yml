@@ -81,7 +81,6 @@ services:
       - 443:443
     restart: unless-stopped
     depends_on:
-      - telescope
       - oauth2-proxy
     # This makes nginx swap only the specified environment variables in our template (see:
     # https://github.com/docker-library/docs/issues/496) and then reload this configuration
