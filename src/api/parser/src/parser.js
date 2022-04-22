@@ -33,7 +33,7 @@ const updateFeed = async (feedData) => {
  */
 const invalidateFeed = async (id, error) => {
   const feed = await Feed.byId(id);
-  await feed.setInvalid(error.message);
+  await feed.setInvalid();
   logger.info(`Invalidating feed ${feed.url} for the following reason: ${error.message}`);
 };
 

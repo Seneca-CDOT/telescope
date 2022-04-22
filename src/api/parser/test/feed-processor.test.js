@@ -3,6 +3,8 @@ const processor = require('../src/feed/processor');
 const Feed = require('../src/data/feed');
 
 jest.mock('../src/utils/indexer');
+jest.mock('../src/utils/supabase');
+const { __setMockFeeds } = require('../src/utils/supabase');
 
 describe('Feed Processor Tests', () => {
   const createFeed = (url) =>
@@ -13,6 +15,7 @@ describe('Feed Processor Tests', () => {
 
   test('Passing a valid Atom feed URI should pass', async () => {
     const url = fixtures.getAtomUri();
+    __setMockFeeds([{ url }]);
     const id = await createFeed(url);
     fixtures.nockValidAtomResponse();
     const job = fixtures.createMockJobObjectFromFeedId(id);
@@ -21,6 +24,7 @@ describe('Feed Processor Tests', () => {
 
   test('Passing a valid RSS feed URI should pass', async () => {
     const url = fixtures.getRssUri();
+    __setMockFeeds([{ url }]);
     const id = await createFeed(url);
     fixtures.nockValidRssResponse();
     const job = fixtures.createMockJobObjectFromFeedId(id);
@@ -29,6 +33,7 @@ describe('Feed Processor Tests', () => {
 
   test('Passing an invalid RSS category feed should pass', async () => {
     const url = fixtures.getRssUri();
+    __setMockFeeds([{ url }]);
     const id = await createFeed(url);
     fixtures.nockInvalidRssResponse();
     const job = fixtures.createMockJobObjectFromFeedId(id);
@@ -37,6 +42,7 @@ describe('Feed Processor Tests', () => {
 
   test('Passing a valid RSS category feed should pass', async () => {
     const url = fixtures.getRssUri();
+    __setMockFeeds([{ url }]);
     const id = await createFeed(url);
     fixtures.nockValidRssResponse();
     const job = fixtures.createMockJobObjectFromFeedId(id);

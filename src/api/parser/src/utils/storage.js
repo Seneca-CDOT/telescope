@@ -1,26 +1,24 @@
 const { logger, Redis } = require('@senecacdot/satellite');
+const { isFlagged } = require('./supabase');
 
 const redis = Redis();
 
 // Redis Keys
 
 const feedsKey = 't:feeds';
-const flaggedFeedsKey = 't:feeds:flagged';
 const postsKey = 't:posts';
 
 // Namespaces
 const feedNamespace = 't:feed:';
 const postNamespace = 't:post:';
 // Suffixes
-const invalidSuffix = ':invalid';
 const delayedSuffix = ':delayed';
 
 // "6Xoj0UXOW3" to "t:post:6Xoj0UXOW3"
 const createPostKey = (id) => postNamespace.concat(id);
 // "NirlSYranl" to "t:feed:NirlSYranl"
 const createFeedKey = (id) => feedNamespace.concat(id);
-// "NirlSYranl" to "t:feed:NirlSYranl:invalid"
-const createInvalidFeedKey = (id) => createFeedKey(id).concat(invalidSuffix);
+
 // "NirlSYranl" to "t:feed:NirlSYranl:delayed"
 const createDelayedFeedKey = (id) => createFeedKey(id).concat(delayedSuffix);
 
@@ -50,7 +48,7 @@ module.exports = {
   addFeed: async (feed) => {
     // Check if feed being added already exists in flagged feeds set
     // If it is, do nothing
-    if (await redis.sismember(flaggedFeedsKey, feed.id)) return;
+    if (await isFlagged(feed.id)) return;
 
     const key = createFeedKey(feed.id);
     await redis
@@ -78,20 +76,6 @@ module.exports = {
 
   getFeeds: () => redis.smembers(feedsKey),
 
-  getInvalidFeeds: async () => {
-    const invalidKeys = await getFeedKeysUsingScanStream(`${feedNamespace}*${invalidSuffix}`);
-    return Promise.all(
-      invalidKeys.map(async (key) => {
-        const reason = await redis.get(key);
-        const id = key.replace(feedNamespace, '').replace(invalidSuffix, '');
-        return {
-          id,
-          reason: reason.replace(/\n/g, ' '),
-        };
-      })
-    );
-  },
-
   getDelayedFeeds: async () => {
     const delayedKeys = await getFeedKeysUsingScanStream(`${feedNamespace}*${delayedSuffix}`);
     return delayedKeys.map((key) => {
@@ -102,17 +86,9 @@ module.exports = {
     });
   },
 
-  getFlaggedFeeds: () => redis.smembers(flaggedFeedsKey),
-
   getFeed: (id) => redis.hgetall(feedNamespace.concat(id)),
 
   getFeedsCount: () => redis.scard(feedsKey),
-
-  setInvalidFeed: (id, reason) => {
-    const key = createInvalidFeedKey(id);
-    const sevenDaysInSeconds = 60 * 60 * 24 * 7; // Expire after 7 days
-    return redis.set(key, reason, 'EX', sevenDaysInSeconds);
-  },
 
   /**
    * Removes a feed entry from redis
@@ -120,25 +96,17 @@ module.exports = {
    */
   removeFeed: async (id) => {
     const key = createFeedKey(id);
-    // Checks which set the feed is currently in
-    const redisKey = (await redis.sismember(feedsKey, id)) ? feedsKey : flaggedFeedsKey;
     try {
       await redis
         .multi()
         .hdel(key, 'id', 'author', 'url', 'user', 'link', 'etag', 'lastModified')
-        .srem(redisKey, id)
+        .srem(feedsKey, id)
         .exec();
     } catch (error) {
       logger.error({ error }, `Error removing Feed ${id} from Redis`);
       throw new Error(`Error trying to remove feed from Redis`);
     }
   },
-
-  setFlaggedFeed: (id) => redis.smove(feedsKey, flaggedFeedsKey, id),
-
-  unsetFlaggedFeed: (id) => redis.smove(flaggedFeedsKey, feedsKey, id),
-
-  isInvalid: (id) => redis.exists(createInvalidFeedKey(id)),
 
   setDelayedFeed: (id, seconds) => redis.set(createDelayedFeedKey(id), seconds, 'EX', seconds),
 
