@@ -133,7 +133,7 @@ const createNewProfile = async (id, body) => {
         html_url: blogUrl,
         type: type || 'blog',
       })),
-      { returning: 'minimal' }
+      { returning: 'minimal', onConflict: 'id' }
     );
   }
   return result;
