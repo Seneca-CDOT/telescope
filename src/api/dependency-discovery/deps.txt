@@ -35,7 +35,6 @@
 @babel/plugin-proposal-async-generator-functions
 @babel/plugin-proposal-class-properties
 @babel/plugin-proposal-class-static-block
-@babel/plugin-proposal-decorators
 @babel/plugin-proposal-dynamic-import
 @babel/plugin-proposal-export-namespace-from
 @babel/plugin-proposal-json-strings
@@ -51,7 +50,6 @@
 @babel/plugin-syntax-async-generators
 @babel/plugin-syntax-class-properties
 @babel/plugin-syntax-class-static-block
-@babel/plugin-syntax-decorators
 @babel/plugin-syntax-dynamic-import
 @babel/plugin-syntax-export-namespace-from
 @babel/plugin-syntax-json-strings
@@ -395,7 +393,6 @@
 @webassemblyjs/wasm-parser
 @webassemblyjs/wast-parser
 @webassemblyjs/wast-printer
-@wordpress/wordcount
 @xmldom/xmldom
 @xobotyi/scrollbar-width
 abab
@@ -448,10 +445,8 @@ babel-plugin-macros
 babel-plugin-polyfill-corejs2
 babel-plugin-polyfill-corejs3
 babel-plugin-polyfill-regenerator
-babel-plugin-react-require
 babel-preset-current-node-syntax
 babel-preset-jest
-babel-preset-next
 balanced-match
 big.js
 blessed
@@ -691,7 +686,6 @@ eta
 etag
 eval
 eventemitter2
-eventemitter3
 events
 execa
 exit
@@ -700,7 +694,6 @@ expect
 expect-playwright
 express
 express-handlebars
-express-healthcheck
 express-jwt
 express-session
 express-unless
@@ -717,7 +710,6 @@ fast-redact
 fast-safe-stringify
 fast-shallow-equal
 fast-url-parser
-fast-xml-parser
 fastest-stable-stringify
 fclone
 feed
@@ -733,7 +725,6 @@ find-process
 find-root
 find-up
 flat-cache
-follow-redirects
 for-each
 foreground-child
 fork-ts-checker-webpack-plugin
@@ -791,7 +782,6 @@ html-webpack-plugin
 htmlparser2
 http-cache-semantics
 http-errors
-http-proxy
 http-proxy-agent
 http-proxy-middleware
 http2-wrapper
@@ -828,7 +818,6 @@ ipaddr.js
 is-binary-path
 is-ci
 is-core-module
-is-extglob
 is-generator-fn
 is-glob
 is-in-browser
@@ -837,7 +826,6 @@ is-nan
 is-npm
 is-path-cwd
 is-path-inside
-is-plain-obj
 is-plain-object
 is-potential-custom-element-name
 is-root
@@ -1023,7 +1011,6 @@ once
 onetime
 open
 opener
-opml-generator
 optionator
 p-cancelable
 p-event
@@ -1065,7 +1052,6 @@ pidtree
 pidusage
 pino
 pino-abstract-transport
-pino-elasticsearch
 pino-http
 pino-pretty
 pino-std-serializers
@@ -1177,7 +1163,6 @@ relateurl
 remark-admonitions
 remark-emoji
 require-in-the-middle
-requires-port
 rereadable-stream
 resize-observer-polyfill
 resolve
@@ -1195,7 +1180,6 @@ rtl-css-js
 rtl-detect
 rtlcss
 run-series
-run.env
 rxjs
 safe-buffer
 safe-regex2
@@ -1218,7 +1202,6 @@ serve-handler
 serve-index
 serve-static
 set-harmonic-interval
-set-interval-async
 setprototypeof
 shallowequal
 sharp
@@ -1263,7 +1246,6 @@ strip-ansi
 strip-bom
 strip-final-newline
 strip-json-comments
-strnum
 styled-jsx
 stylis
 superagent
@@ -1378,10 +1360,8 @@ wrap-ansi
 write-file-atomic
 ws
 xdg-basedir
-xml
 xml-crypto
 xml-encryption
-xml-js
 xml-name-validator
 xml2js
 xmlbuilder
