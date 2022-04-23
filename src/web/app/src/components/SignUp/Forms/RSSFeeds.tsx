@@ -9,16 +9,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import { feedDiscoveryServiceUrl } from '../../../config';
 import useAuth from '../../../hooks/use-auth';
-import { SignUpForm } from '../../../interfaces';
+import { SignUpForm, DiscoveredFeed, DiscoveredFeeds } from '../../../interfaces';
 import { TextInput, CheckBoxInput } from '../FormFields';
-import formModels from '../Schema/FormModel';
-
-const { blogUrl, blogOwnership } = formModels;
-
-// See feed-discovery service
-type FeedType = 'blog' | 'youtube' | 'twitch';
-type DiscoveredFeed = { feedUrl: string; type: FeedType };
-type DiscoveredFeeds = { feedUrls: DiscoveredFeed[] };
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -145,131 +137,168 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const RSSFeeds = connect<{}, SignUpForm>((props) => {
-  const classes = useStyles();
-  const { values, errors, setFieldValue } = props.formik;
-  const { token } = useAuth();
+type RSSFeedsFormProps = {
+  feeds: {
+    selected: 'blogs' | 'channels';
+    discovered: 'allBlogs' | 'allChannels';
+  };
+  prompt: string;
+  title: string;
+  buttonText: string;
+  helperText: string;
+  input: {
+    name: string;
+    label: string;
+  };
+  agreement: {
+    name: string;
+    label: string;
+  };
+  noFeedsSelected?: string;
+};
 
-  const [blogUrlError, setBlogUrlError] = useState('');
-  const [validating, setValidating] = useState(false);
-  const controllerRef = useRef<AbortController | null>();
+const RSSFeeds = connect<RSSFeedsFormProps, SignUpForm>(
+  ({
+    feeds: { selected, discovered },
+    prompt,
+    title,
+    buttonText,
+    helperText,
+    noFeedsSelected,
+    agreement,
+    input,
+    formik,
+  }) => {
+    const classes = useStyles();
+    const { values, errors, setFieldValue } = formik;
+    const { token } = useAuth();
 
-  const validateBlog = async () => {
-    if (errors.blogUrl) {
-      setFieldValue('feeds', [], true);
-      return;
-    }
-    try {
-      setValidating(true);
-      controllerRef?.current?.abort();
-      controllerRef.current = new AbortController();
-      // Allow a list of URLs, separated by spaces
-      const urls = values.blogUrl.split(/ +/);
-      const response = await fetch(`${feedDiscoveryServiceUrl}`, {
-        signal: controllerRef.current?.signal,
-        method: 'post',
-        headers: {
-          Authorization: `bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(urls),
-      });
-      if (!response.ok) {
-        throw new Error(response.statusText);
+    const [urlError, setUrlError] = useState('');
+    const [validating, setValidating] = useState(false);
+    const controllerRef = useRef<AbortController | null>();
+    const name = input.name as keyof SignUpForm;
+
+    const validateBlog = async () => {
+      if (errors[name]) {
+        setFieldValue(selected, [], true);
+        return;
       }
-      const { feedUrls }: DiscoveredFeeds = await response.json();
+      try {
+        setValidating(true);
+        controllerRef?.current?.abort();
+        controllerRef.current = new AbortController();
+        // Allow a list of URLs, separated by spaces
+        const urls = (values[name] as string).split(/ +/);
+        const response = await fetch(`${feedDiscoveryServiceUrl}`, {
+          signal: controllerRef.current?.signal,
+          method: 'post',
+          headers: {
+            Authorization: `bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(urls),
+        });
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        const { feedUrls }: DiscoveredFeeds = await response.json();
 
-      setBlogUrlError('');
-      setFieldValue(
-        'allFeeds',
-        feedUrls.map((discoveredFeed: DiscoveredFeed) => discoveredFeed.feedUrl)
-      );
-    } catch (err) {
-      console.error(err, 'Unable to discover feeds');
+        setUrlError('');
+        setFieldValue(discovered, feedUrls);
+      } catch (err) {
+        console.error(err, 'Unable to discover feeds');
 
-      setBlogUrlError('Unable to discover feeds');
-      setFieldValue('allFeeds', []);
-    } finally {
-      // eslint-disable-next-line require-atomic-updates
-      controllerRef.current = null;
-      setValidating(false);
-    }
-  };
-
-  const handleCheck = (url: string) => {
-    const selectedFeeds = values.feeds.includes(url)
-      ? values.feeds.filter((val: string) => val !== url)
-      : [...values.feeds, url];
-
-    setFieldValue('feeds', selectedFeeds, true);
-  };
-
-  useEffect(() => {
-    if (errors.blogUrl) {
-      validateBlog();
-    }
-
-    return () => {
-      controllerRef?.current?.abort();
+        setUrlError('Unable to discover feeds');
+        setFieldValue(discovered, []);
+      } finally {
+        // eslint-disable-next-line require-atomic-updates
+        controllerRef.current = null;
+        setValidating(false);
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.container}>
-        <h1 className={classes.blogPageTitle}>Blog and RSS</h1>
-        <h2 className={classes.helpText}>
-          Enter your blog URL and select the RSS you want to use in Telescope ecosystem.
-        </h2>
-        <div className={classes.infoContainer}>
-          <div className={classes.inputsContainer}>
-            <TextInput
-              name={blogUrl.name}
-              label={blogUrl.label}
-              helperText={blogUrlError || 'Validate your Blog URL'}
-              error={!!blogUrlError}
-            />
-            <Button className={classes.button} onClick={validateBlog} disabled={validating}>
-              Validate Blog
-            </Button>
-          </div>
-          <div className={classes.RssButtonContainer}>
-            <div className={classes.infoRSSContainer}>
-              {values.allFeeds.length ? (
-                <FormControl required component="fieldset">
-                  <FormGroup>
-                    {values.allFeeds.map((url) => (
-                      <FormControlLabel
-                        key={url}
-                        control={
-                          <Checkbox
-                            checked={values.feeds.includes(url)}
-                            onChange={() => handleCheck(url)}
-                          />
-                        }
-                        label={<h1 className={classes.formControlLabel}>{url}</h1>}
-                      />
-                    ))}
-                  </FormGroup>
-                  <FormHelperText className={classes.helpMessage} error>
-                    {errors.feeds || ''}
-                  </FormHelperText>
-                </FormControl>
-              ) : (
-                <h3 className={classes.noBlogMessage}>Please validate your blog URL</h3>
-              )}
+    const handleCheck = ({ feedUrl, type }: DiscoveredFeed) => {
+      const selectedValues = values[selected];
+      const selectedFeeds = selectedValues.find((feed) => feed.feedUrl === feedUrl)
+        ? selectedValues.filter((feed) => feed.feedUrl !== feedUrl)
+        : [...selectedValues, { feedUrl, type }];
+
+      setFieldValue(selected, selectedFeeds, true);
+    };
+
+    useEffect(() => {
+      if (errors[input.name as keyof SignUpForm]) {
+        validateBlog();
+      }
+
+      return () => {
+        controllerRef?.current?.abort();
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+      <div className={classes.root}>
+        <div className={classes.container}>
+          <h1 className={classes.blogPageTitle}>{title}</h1>
+          <h2 className={classes.helpText}>{prompt}</h2>
+          <div className={classes.infoContainer}>
+            <div className={classes.inputsContainer}>
+              <TextInput
+                name={input.name}
+                label={input.label}
+                helperText={urlError || helperText}
+                error={!!urlError}
+              />
+              <Button className={classes.button} onClick={validateBlog} disabled={validating}>
+                {buttonText}
+              </Button>
+            </div>
+            <div className={classes.RssButtonContainer}>
+              <div className={classes.infoRSSContainer}>
+                {values[discovered].length ? (
+                  <FormControl required component="fieldset">
+                    <FormGroup>
+                      {values[discovered].map((feed) => (
+                        <FormControlLabel
+                          key={feed.feedUrl}
+                          control={
+                            <Checkbox
+                              checked={!!values[selected].find((f) => f.feedUrl === feed.feedUrl)}
+                              onChange={() => handleCheck(feed)}
+                            />
+                          }
+                          label={
+                            <h1 className={classes.formControlLabel}>
+                              {feed.type}: {feed.feedUrl}
+                            </h1>
+                          }
+                        />
+                      ))}
+                    </FormGroup>
+                    <FormHelperText className={classes.helpMessage} error>
+                      {errors[selected] || ''}
+                    </FormHelperText>
+                  </FormControl>
+                ) : (
+                  <>
+                    {noFeedsSelected && (
+                      <h3 className={classes.noBlogMessage}>{noFeedsSelected}</h3>
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
+          <CheckBoxInput
+            label={agreement.label}
+            name={agreement.name}
+            checked={values[agreement.name as keyof SignUpForm] as boolean}
+          />
         </div>
-        <CheckBoxInput
-          label={blogOwnership.label}
-          name={blogOwnership.name}
-          checked={values.blogOwnership}
-        />
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 export default RSSFeeds;

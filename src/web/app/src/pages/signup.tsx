@@ -8,7 +8,7 @@ import useAuth from '../hooks/use-auth';
 import Overview from '../components/SignUp/Forms/Overview';
 import BasicInfo from '../components/SignUp/Forms/BasicInfo';
 import GitHubAccount from '../components/SignUp/Forms/GitHubAccount';
-import RSSFeeds from '../components/SignUp/Forms/RSSFeeds';
+import BlogFeeds from '../components/SignUp/Forms/BlogFeeds';
 import ChannelFeeds from '../components/SignUp/Forms/ChannelFeeds';
 
 import Review from '../components/SignUp/Forms/Review';
@@ -43,10 +43,13 @@ const {
   github,
   githubOwnership,
   blogUrl,
-  feeds,
-  allFeeds,
+  blogs,
+  channels,
+  allBlogs,
+  allChannels,
   email,
   blogOwnership,
+  channelOwnership,
 } = formModels;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -203,7 +206,7 @@ const SignUpPage = () => {
         displayName: values.displayName,
         githubUsername: values.github.username,
         githubAvatarUrl: values.github.avatarUrl,
-        feeds: values.feeds,
+        feeds: values.blogs.concat(values.channels),
         blogUrl: values.blogUrl,
       };
 
@@ -249,7 +252,7 @@ const SignUpPage = () => {
         return <GitHubAccount />;
 
       case SIGN_UP_STEPS.RSS_FEEDS:
-        return <RSSFeeds />;
+        return <BlogFeeds />;
 
       case SIGN_UP_STEPS.CHANNEL_FEEDS:
         return <ChannelFeeds />;
@@ -327,9 +330,12 @@ const SignUpPage = () => {
                     avatarUrl: '',
                   },
                   [blogUrl.name]: 'https://',
-                  [feeds.name]: [] as Array<string>,
-                  [allFeeds.name]: [] as Array<string>,
+                  [blogs.name]: [] as SignUpForm['blogs'],
+                  [allBlogs.name]: [] as SignUpForm['allBlogs'],
+                  [channels.name]: [] as SignUpForm['channels'],
+                  [allChannels.name]: [] as SignUpForm['allChannels'],
                   [blogOwnership.name]: false,
+                  [channelOwnership.name]: false,
                 } as SignUpForm
               }
             >
