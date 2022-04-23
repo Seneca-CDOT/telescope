@@ -1,6 +1,11 @@
-import * as Yup from 'yup';
+import { string, array, object, boolean } from 'yup';
 
 import formModels from './FormModel';
+
+const DiscoveredFeed = object().shape({
+  feedUrl: string().required(),
+  type: string().required(),
+});
 
 const {
   firstName,
@@ -9,8 +14,10 @@ const {
   githubUsername,
   github,
   githubOwnership,
-  feeds,
-  allFeeds,
+  blogs,
+  allBlogs,
+  channels,
+  allChannels,
   blogUrl,
   channelUrl,
   blogOwnership,
@@ -20,24 +27,24 @@ const {
 // Each signup step has one validation schema
 export default [
   // First step we receive data from SSO.
-  Yup.object().shape({}),
+  object().shape({}),
 
-  Yup.object().shape({
-    [firstName.name]: Yup.string().required(firstName.requiredErrorMsg),
-    [lastName.name]: Yup.string().required(lastName.requiredErrorMsg),
-    [displayName.name]: Yup.string().required(displayName.requiredErrorMsg),
+  object().shape({
+    [firstName.name]: string().required(firstName.requiredErrorMsg),
+    [lastName.name]: string().required(lastName.requiredErrorMsg),
+    [displayName.name]: string().required(displayName.requiredErrorMsg),
   }),
 
   // Second step we fetch data from GitHub.
-  Yup.object().shape({
-    [githubUsername.name]: Yup.string().required(githubUsername.requiredErrorMsg),
-    [github.name]: Yup.object()
+  object().shape({
+    [githubUsername.name]: string().required(githubUsername.requiredErrorMsg),
+    [github.name]: object()
       .shape({
-        username: Yup.string().required(),
-        avatarUrl: Yup.string().url().required(),
+        username: string().required(),
+        avatarUrl: string().url().required(),
       })
       .required(github.invalidErrorMsg),
-    [githubOwnership.name]: Yup.boolean().test(
+    [githubOwnership.name]: boolean().test(
       'agreed',
       githubOwnership.invalidErrorMsg,
       (val) => !!val
@@ -45,29 +52,24 @@ export default [
   }),
 
   // Third step we collect the user blog and the RSSfeeds from it.
-  Yup.object().shape({
-    [blogUrl.name]: Yup.string().url().required(blogUrl.requiredErrorMsg),
-    [feeds.name]: Yup.array().of(Yup.string()).min(1, feeds.requiredErrorMsg),
-    [allFeeds.name]: Yup.array().of(Yup.string()),
-    [blogOwnership.name]: Yup.boolean().test(
-      'agreed',
-      blogOwnership.invalidErrorMsg,
-      (val) => !!val
-    ),
+  object().shape({
+    [blogUrl.name]: string().url().required(blogUrl.requiredErrorMsg),
+    [blogs.name]: array().of(DiscoveredFeed).min(1, blogs.requiredErrorMsg),
+    [allBlogs.name]: array().of(DiscoveredFeed),
+    [blogOwnership.name]: boolean().test('agreed', blogOwnership.invalidErrorMsg, (val) => !!val),
   }),
 
   // Fourth step we collect the user YouTube/Twitch channels and the RSSfeeds from it.
-  Yup.object().shape({
-    [channelUrl.name]: Yup.string(),
-    [feeds.name]: Yup.array().of(Yup.string()),
-    [allFeeds.name]: Yup.array().of(Yup.string()),
-    [channelOwnership.name]: Yup.boolean().test(
-      'agreed',
-      channelOwnership.invalidErrorMsg,
-      (val) => !!val
-    ),
+  object().shape({
+    [channelUrl.name]: string(),
+    [channels.name]: array().of(DiscoveredFeed),
+    [allChannels.name]: array().of(DiscoveredFeed),
+    [channelOwnership.name]: boolean().when(allChannels.name, {
+      is: (val: {}[]) => !!val.length,
+      then: (shema) => shema.test('agreed', channelOwnership.invalidErrorMsg, (val) => !!val),
+    }),
   }),
 
   // Reviewing step has no validation logic. We just display all data that we collected.
-  Yup.object().shape({}),
+  object().shape({}),
 ];

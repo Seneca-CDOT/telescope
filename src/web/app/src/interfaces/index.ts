@@ -17,6 +17,12 @@ export type Post = {
   type: 'blogpost' | 'video';
 };
 
+export type FeedType = 'blog' | 'youtube' | 'twitch';
+
+export type DiscoveredFeed = { feedUrl: string; type: FeedType };
+
+export type DiscoveredFeeds = { feedUrls: DiscoveredFeed[] };
+
 export type SignUpForm = {
   displayName: string;
   firstName: string;
@@ -30,8 +36,10 @@ export type SignUpForm = {
   githubOwnership: boolean;
   blogUrl: string;
   channelUrl: string;
-  feeds: Array<string>;
-  allFeeds: Array<string>;
+  blogs: DiscoveredFeed[];
+  allBlogs: DiscoveredFeed[];
+  channels: DiscoveredFeed[];
+  allChannels: DiscoveredFeed[];
   blogOwnership: boolean;
   channelOwnership: boolean;
 };

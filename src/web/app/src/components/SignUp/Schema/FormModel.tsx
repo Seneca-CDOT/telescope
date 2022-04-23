@@ -35,22 +35,29 @@ export default {
   },
   blogUrl: {
     name: 'blogUrl',
-    label: 'Blog URL',
+    label: 'Blog URL(s), seperated by spaces',
     requiredErrorMsg: 'Blog URL is required',
     invalidErrorMsg: 'Invalid URL',
   },
   channelUrl: {
     name: 'channelUrl',
-    label: 'YouTube/Twitch URL(s)',
+    label: 'YouTube/Twitch URL(s), seperated by spaces',
     invalidErrorMsg: 'Invalid URL(s)',
   },
-  feeds: {
-    name: 'feeds',
-    label: 'RSS Feeds',
+  blogs: {
+    name: 'blogs',
+    label: 'Blog Feeds',
     requiredErrorMsg: 'Please select at least one URL',
   },
-  allFeeds: {
-    name: 'allFeeds',
+  allBlogs: {
+    name: 'allBlogs',
+  },
+  channels: {
+    name: 'channels',
+    label: 'YouTube/Twich Feeds',
+  },
+  allChannels: {
+    name: 'allChannels',
   },
   blogOwnership: {
     name: 'blogOwnership',

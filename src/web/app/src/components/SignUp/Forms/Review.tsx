@@ -97,7 +97,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const Review = connect<{ accountError: string | undefined }, SignUpForm>((props) => {
   const classes = useStyles();
 
-  const { feeds, displayName, firstName, lastName, email, github, blogUrl } = props.formik.values;
+  const { blogs, channels, displayName, firstName, lastName, email, github, blogUrl, channelUrl } =
+    props.formik.values;
 
   return (
     <div className={classes.root}>
@@ -105,7 +106,7 @@ const Review = connect<{ accountError: string | undefined }, SignUpForm>((props)
         <h1 className={classes.titlePage}>Review your Information</h1>
         <div className={classes.contentContainer}>
           <div className={classes.avatar}>
-            <PostAvatar name={displayName} url={blogUrl} img={github.avatarUrl} />
+            <PostAvatar name={displayName} img={github.avatarUrl} />
             <h2>{displayName}</h2>
           </div>
           <div className={classes.senecaBlogInfo}>
@@ -113,7 +114,8 @@ const Review = connect<{ accountError: string | undefined }, SignUpForm>((props)
               Full Name: {firstName} {lastName}
             </h3>
             <h3>Email : {email}</h3>
-            <h3>Blog URL: {blogUrl}</h3>
+            <h3>Blog URL(s): {blogUrl}</h3>
+            <h3>Channel URL(s): {channelUrl}</h3>
           </div>
           <div>
             <div className={classes.gitHubInfo}>
@@ -122,11 +124,19 @@ const Review = connect<{ accountError: string | undefined }, SignUpForm>((props)
             </div>
           </div>
           <div>
-            <h3 className={classes.titleRss}>Blog RSS:</h3>
             <div className={classes.blogRss}>
+              <h3 className={classes.titleRss}>Blog RSS:</h3>
               <div>
-                {feeds.map((rss) => (
-                  <h4 key={rss}>{rss}</h4>
+                {blogs.map(({ feedUrl }) => (
+                  <h4 key={feedUrl}>{feedUrl}</h4>
+                ))}
+              </div>
+              <h3 className={classes.titleRss}>Twich/Youtube Channel RSS:</h3>
+              <div>
+                {channels.map(({ type, feedUrl }) => (
+                  <h4 key={feedUrl}>
+                    {type}: {feedUrl}
+                  </h4>
                 ))}
               </div>
             </div>
