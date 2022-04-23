@@ -16,12 +16,25 @@ const useStyles = makeStyles((theme) => ({
     right: '5%',
     display: 'flex',
     justifyContent: 'space-around',
-    '& > .MuiButton-root': {
-      color: 'white',
-      border: '1.5px solid white',
-      '&:hover': {
-        color: '#9ABDFF',
-      },
+  },
+  signUpButton: {
+    color: 'white',
+    fontSize: '1.3rem',
+    border: '1.5px solid white',
+    '&:hover': {
+      color: '#9ABDFF',
+      borderColor: '#9ABDFF',
+      backgroundColor: 'transparent',
+    },
+  },
+  buttons: {
+    border: 'none',
+    color: 'white',
+    padding: 0,
+    fontSize: '1.2rem',
+    '&:hover': {
+      color: '#9ABDFF',
+      backgroundColor: 'transparent',
     },
   },
   userSignedInClass: {
@@ -54,6 +67,9 @@ const BannerButtons = () => {
 
   const router = useRouter();
 
+  const handleSignIn = () => login();
+  const handleSignOut = () => logout();
+
   return (
     <div
       className={clsx(
@@ -67,19 +83,12 @@ const BannerButtons = () => {
           message={`Hello ${user?.name}, to sign in you need to create your Telescope account. Click SIGN UP to start.`}
           agreeAction={() => router.push('/signup')}
           agreeButtonText="SIGN UP"
-          disagreeAction={() => logout()}
+          disagreeAction={handleSignOut}
           disagreeButtonText="CANCEL"
         />
       )}
       <Link href="https://dev.telescope.cdot.systems/docs/overview/" passHref>
-        <Button
-          style={{
-            border: 'none',
-            padding: 0,
-            fontSize: '1.2rem',
-          }}
-          variant="outlined"
-        >
+        <Button className={classes.buttons} variant="outlined">
           About us
         </Button>
       </Link>
@@ -89,7 +98,7 @@ const BannerButtons = () => {
           <ButtonTooltip title="Sign out" arrow placement="top" TransitionComponent={Zoom}>
             <div>
               <TelescopeAvatar
-                action={() => logout()}
+                action={handleSignOut}
                 name={user.name}
                 img={user.avatarUrl}
                 size="40px"
@@ -99,24 +108,11 @@ const BannerButtons = () => {
         </>
       ) : (
         <>
-          <Button
-            style={{
-              border: 'none',
-              padding: 0,
-              fontSize: '1.2rem',
-            }}
-            onClick={() => login()}
-            variant="outlined"
-          >
+          <Button className={classes.buttons} onClick={handleSignIn} variant="outlined">
             Sign in
           </Button>
           <Link href="/signup" passHref>
-            <Button
-              style={{
-                fontSize: '1.3rem',
-              }}
-              variant="outlined"
-            >
+            <Button className={classes.signUpButton} variant="outlined">
               Sign up
             </Button>
           </Link>
