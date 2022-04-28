@@ -1,14 +1,17 @@
+const { test, expect } = require('@playwright/test');
+
 const { hash } = require('@senecacdot/satellite');
 const { createClient } = require('@supabase/supabase-js');
 const normalizeUrl = require('normalize-url');
 
 const { SUPABASE_URL, ANON_KEY } = process.env;
+
 const {
   createTelescopeUsers,
   cleanupTelescopeUsers,
   addFeeds,
   cleanFeeds,
-} = require('./supabase-util');
+} = require('./lib/supabase-util');
 const { createToken } = require('../../src/token');
 
 const createSupabaseClient = () => createClient(SUPABASE_URL, ANON_KEY);
@@ -70,15 +73,15 @@ const feedList = [
   },
 ];
 
-describe('Test Row Level Security Policies', () => {
-  describe('Unauthenticated users with public anon_key', () => {
+test.describe('Test Row Level Security Policies', () => {
+  test.describe('Unauthenticated users with public anon_key', () => {
     const supabase = createSupabaseClient();
-    describe('"telescope_profiles" security policies', () => {
-      beforeEach(() => createTelescopeUsers(users));
+    test.describe('"telescope_profiles" security policies', () => {
+      test.beforeEach(() => createTelescopeUsers(users));
 
-      afterEach(() => cleanupTelescopeUsers(users));
+      test.afterEach(() => cleanupTelescopeUsers(users));
 
-      it('should return no users', async () => {
+      test('should return no users', async () => {
         const { status, count } = await supabase
           .from('telescope_profiles')
           .select('*', { count: 'exact' });
@@ -88,7 +91,7 @@ describe('Test Row Level Security Policies', () => {
         expect(count).toBe(0);
       });
 
-      it('should not allow creating new users', async () => {
+      test('should not allow creating new users', async () => {
         const { status } = await supabase.from('telescope_profiles').insert(
           {
             id: hash(unregisteredUser.email),
@@ -106,7 +109,7 @@ describe('Test Row Level Security Policies', () => {
         expect(status).toBe(403);
       });
 
-      it('should not allow updating users', async () => {
+      test('should not allow updating users', async () => {
         const { status } = await supabase
           .from('telescope_profiles')
           .update({ display_name: 'my name' })
@@ -116,7 +119,7 @@ describe('Test Row Level Security Policies', () => {
         expect(status).toBe(404);
       });
 
-      it('should not allow deleting users', async () => {
+      test('should not allow deleting users', async () => {
         const { status, count } = await supabase
           .from('telescope_profiles')
           .delete({ count: 'exact' })
@@ -130,26 +133,33 @@ describe('Test Row Level Security Policies', () => {
       });
     });
 
-    describe('"feeds" security policies', () => {
+    test.describe('"feeds" security policies', () => {
       // Create feeds for HansLippershey and an unregistered user
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         await createTelescopeUsers([telescopeUser1]);
         await addFeeds(feedList);
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         await cleanFeeds(feedList);
         await cleanupTelescopeUsers([telescopeUser1]);
       });
 
-      it('should allow reading the feeds list', async () => {
-        const { status, count } = await supabase.from('feeds').select('url', { count: 'exact' });
-
+      test('should allow reading the feeds list', async () => {
+        const { status, data } = await supabase.from('feeds').select();
         expect(status).toBe(200);
-        expect(count).toBe(feedList.length);
+        expect(data).toEqual(
+          expect.arrayContaining(
+            feedList.map((feed) =>
+              expect.objectContaining({
+                url: feed.url,
+              })
+            )
+          )
+        );
       });
 
-      it('should not allow adding new feeds', async () => {
+      test('should not allow adding new feeds', async () => {
         const { status } = await supabase.from('feeds').insert(
           {
             url: 'http://dev.to/devto',
@@ -163,7 +173,7 @@ describe('Test Row Level Security Policies', () => {
         expect(status).toBe(403);
       });
 
-      it('should not allow updating feeds', async () => {
+      test('should not allow updating feeds', async () => {
         const { status } = await supabase
           .from('feeds')
           .update({ html_url: 'http://dev.to/' }, { returning: 'minimal' })
@@ -172,7 +182,7 @@ describe('Test Row Level Security Policies', () => {
         expect(status).toBe(404);
       });
 
-      it('should not allow deleting feeds', async () => {
+      test('should not allow deleting feeds', async () => {
         const { status, count } = await supabase.from('feeds').delete({ count: 'exact' }).match({
           url: feedList[0].url,
         });
@@ -184,7 +194,7 @@ describe('Test Row Level Security Policies', () => {
     });
   });
 
-  describe('Authenticated users through Seneca SSO', () => {
+  test.describe('Authenticated users through Seneca SSO', () => {
     const { email, firstName, lastName, displayName, githubAvatarUrl } = telescopeUser1;
     const accessToken = createToken(
       email,
@@ -198,12 +208,12 @@ describe('Test Row Level Security Policies', () => {
     // Override the JWT on the public client
     supabase.auth.setAuth(accessToken);
 
-    describe('"telescope_profiles" security policies', () => {
-      beforeEach(() => createTelescopeUsers(users));
+    test.describe('"telescope_profiles" security policies', () => {
+      test.beforeEach(() => createTelescopeUsers(users));
 
-      afterEach(() => cleanupTelescopeUsers(users));
+      test.afterEach(() => cleanupTelescopeUsers(users));
 
-      it('should return all users', async () => {
+      test('should return all users', async () => {
         const { status, count } = await supabase
           .from('telescope_profiles')
           .select('id', { count: 'exact' });
@@ -212,7 +222,7 @@ describe('Test Row Level Security Policies', () => {
         expect(count).toBe(users.length);
       });
 
-      it('should not allow creating new users', async () => {
+      test('should not allow creating new users', async () => {
         const { status } = await supabase.from('telescope_profiles').insert(
           {
             id: hash(unregisteredUser.email),
@@ -229,7 +239,7 @@ describe('Test Row Level Security Policies', () => {
         expect(status).toBe(401);
       });
 
-      it('should allow users to update their own profiles', async () => {
+      test('should allow users to update their own profiles', async () => {
         const { status, data: profiles } = await supabase
           .from('telescope_profiles')
           .update({ display_name: 'my name' }, { returning: 'representation' })
@@ -240,7 +250,7 @@ describe('Test Row Level Security Policies', () => {
         expect(profiles[0].display_name).toBe('my name');
       });
 
-      it("should not allow users to update others' profiles", async () => {
+      test("should not allow users to update others' profiles", async () => {
         const { status } = await supabase
           .from('telescope_profiles')
           .update({ display_name: 'my name' })
@@ -249,7 +259,7 @@ describe('Test Row Level Security Policies', () => {
         expect(status).toBe(404);
       });
 
-      it('should not allow deleting users', async () => {
+      test('should not allow deleting users', async () => {
         const { status, count } = await supabase
           .from('telescope_profiles')
           .delete({ count: 'exact' })
@@ -262,26 +272,34 @@ describe('Test Row Level Security Policies', () => {
       });
     });
 
-    describe('"feeds" security policies', () => {
+    test.describe('"feeds" security policies', () => {
       // Create feeds for HansLippershey and an unregistered user
-      beforeEach(async () => {
+      test.beforeEach(async () => {
         await createTelescopeUsers([telescopeUser1]);
         await addFeeds(feedList);
       });
 
-      afterEach(async () => {
+      test.afterEach(async () => {
         await cleanFeeds(feedList);
         await cleanupTelescopeUsers([telescopeUser1]);
       });
 
-      it('should allow reading the feeds list', async () => {
-        const { status, count } = await supabase.from('feeds').select('url', { count: 'exact' });
+      test('should allow reading the feeds list', async () => {
+        const { status, data } = await supabase.from('feeds').select();
 
         expect(status).toBe(200);
-        expect(count).toBe(feedList.length);
+        expect(data).toEqual(
+          expect.arrayContaining(
+            feedList.map((feed) =>
+              expect.objectContaining({
+                url: feed.url,
+              })
+            )
+          )
+        );
       });
 
-      it('should allow users to add feeds linked to their account', async () => {
+      test('should allow users to add feeds linked to their account', async () => {
         const { status, data: feeds } = await supabase.from('feeds').insert(
           {
             url: 'http://dev.to/devto',
@@ -296,7 +314,7 @@ describe('Test Row Level Security Policies', () => {
         expect(feeds[0].url).toBe('http://dev.to/devto');
       });
 
-      it('should not allow users to add feeds not linked to their account', async () => {
+      test('should not allow users to add feeds not linked to their account', async () => {
         const { status } = await supabase.from('feeds').insert(
           {
             url: 'http://dev.to/devto',
@@ -310,7 +328,7 @@ describe('Test Row Level Security Policies', () => {
         expect(status).toBe(401);
       });
 
-      it('should allow user to update their own feeds', async () => {
+      test('should allow user to update their own feeds', async () => {
         const { status, data: feeds } = await supabase
           .from('feeds')
           .update({ type: 'youtube' }, { returning: 'representation' })
@@ -321,7 +339,7 @@ describe('Test Row Level Security Policies', () => {
         expect(feeds[0].type).toBe('youtube');
       });
 
-      it("should not allow users to update others' feeds", async () => {
+      test("should not allow users to update others' feeds", async () => {
         const { status } = await supabase
           .from('feeds')
           .update({ type: 'youtube' })
@@ -330,7 +348,7 @@ describe('Test Row Level Security Policies', () => {
         expect(status).toBe(404);
       });
 
-      it('should allow users to delete their own feeds', async () => {
+      test('should allow users to delete their own feeds', async () => {
         const { status, count } = await supabase.from('feeds').delete({ count: 'exact' }).match({
           url: telescopeUser1.feeds[0],
         });
@@ -339,7 +357,7 @@ describe('Test Row Level Security Policies', () => {
         expect(count).toBe(1);
       });
 
-      it("should not allow users to delete others' feeds", async () => {
+      test("should not allow users to delete others' feeds", async () => {
         const { status, count } = await supabase
           .from('feeds')
           .delete({ count: 'exact' })

@@ -1,3 +1,4 @@
+const { expect } = require('@playwright/test');
 const { createClient } = require('@supabase/supabase-js');
 const { hash } = require('@senecacdot/satellite');
 const normalizeUrl = require('normalize-url');

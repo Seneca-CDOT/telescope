@@ -43,5 +43,4 @@ jobs:
         run: pnpx -y wait-on -t 60000 tcp:5432 http://localhost:8081/simplesaml
       - name: Apply database migrations
         run: pnpm db:migrate
-      - name: Run e2e tests
       - run: pnpm jest:e2e

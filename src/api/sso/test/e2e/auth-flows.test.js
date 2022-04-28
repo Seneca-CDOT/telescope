@@ -1,11 +1,13 @@
+const { test, expect } = require('@playwright/test');
+
 // NOTE: you need to run the sso and login services in docker for these to work
 const { hash } = require('@senecacdot/satellite');
 
 // We need to get the URL to the sso service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
 const { SSO_URL, ALLOWED_APP_ORIGINS } = process.env;
-const { login, logout, getTokenAndState } = require('./browser-util');
-const { createTelescopeUsers, cleanupTelescopeUsers, ensureUsers } = require('./supabase-util');
+const { login, logout, getTokenAndState } = require('./lib/browser-util');
+const { createTelescopeUsers, cleanupTelescopeUsers, ensureUsers } = require('./lib/supabase-util');
 
 // We have 3 SSO user accounts in the login service (see config/simplesamlphp-users.php):
 //
@@ -52,47 +54,40 @@ const galileoGalilei = {
 // Create 2 Telescope accounts, one for user1@example.com and one for hans-lippershey@example.com.
 const users = [johannesKepler, hansLippershey];
 
-describe('Authentication Flows', () => {
-  beforeEach(async () => {
+test.describe('Authentication Flows', () => {
+  test.beforeEach(async ({ page }) => {
     await createTelescopeUsers(users);
-
-    context = await browser.newContext();
-    page = await browser.newPage();
-    await page.goto(`http://localhost:8888/auth.html`);
+    return page.goto(`http://localhost:8888/auth.html`);
   });
 
-  afterEach(async () => {
-    await cleanupTelescopeUsers(users);
-    await context.close();
-    await page.close();
-  });
+  test.afterEach(() => cleanupTelescopeUsers(users));
 
-  it('should use the same origin in .env for ALLOWED_APP_ORIGINS that test cases use', () => {
+  test('should use the same origin in .env for ALLOWED_APP_ORIGINS that test cases use', () => {
     const origins = ALLOWED_APP_ORIGINS.split(' ');
     expect(origins).toContain('http://localhost:8888');
   });
 
-  it('should use the same SSO_URL as we have hard-coded in the test HTML', () => {
+  test('should use the same SSO_URL as we have hard-coded in the test HTML', () => {
     expect(SSO_URL).toEqual('http://localhost/v1/auth');
   });
 
-  it('should have all expected Telescope users in Users service for test data accounts', () =>
+  test('should have all expected Telescope users in Users service for test data accounts', () =>
     ensureUsers(users));
 
-  it('Login flow preserves state param', async () => {
+  test('Login flow preserves state param', async ({ page }) => {
     const { state } = await login(page, 'user1', 'user1pass');
     // Expect the state to match what we sent originally (see index.html <a>)
     expect(state).toEqual('abc123');
   });
 
-  it('Login flow issues JWT access token with with expected sub claim', async () => {
+  test('Login flow issues JWT access token with with expected sub claim', async ({ page }) => {
     const { jwt } = await login(page, 'user1', 'user1pass');
     // The sub claim should match our user's email
     expect(typeof jwt === 'object').toBe(true);
     expect(jwt.sub).toEqual(hash(johannesKepler.email));
   });
 
-  it('Admin user can login, and has expected token payload', async () => {
+  test('Admin user can login, and has expected token payload', async ({ page }) => {
     const { jwt } = await login(page, 'user1', 'user1pass');
     expect(jwt.sub).toEqual(hash(johannesKepler.email));
     expect(jwt.email).toEqual(johannesKepler.email);
@@ -105,7 +100,7 @@ describe('Authentication Flows', () => {
     expect(jwt.picture).toEqual(johannesKepler.githubAvatarUrl);
   });
 
-  it('Telescope user can login, and has expected token payload', async () => {
+  test('Telescope user can login, and has expected token payload', async ({ page }) => {
     const { jwt } = await login(page, 'lippersheyh', 'telescope');
     expect(jwt.sub).toEqual(hash(hansLippershey.email));
     expect(jwt.email).toEqual(hansLippershey.email);
@@ -118,7 +113,7 @@ describe('Authentication Flows', () => {
     expect(jwt.picture).toEqual(hansLippershey.githubAvatarUrl);
   });
 
-  it('Seneca user can login, and has expected token payload', async () => {
+  test('Seneca user can login, and has expected token payload', async ({ page }) => {
     const { jwt } = await login(page, 'user2', 'user2pass');
     expect(jwt.sub).toEqual(hash(galileoGalilei.email));
     expect(jwt.email).toEqual(galileoGalilei.email);
@@ -131,7 +126,7 @@ describe('Authentication Flows', () => {
     expect(jwt.picture).toBe(undefined);
   });
 
-  it("Logging in twice doesn't require username and password again", async () => {
+  test("Logging in twice doesn't require username and password again", async ({ page }) => {
     const firstLogin = await login(page, 'user1', 'user1pass');
     expect(firstLogin.jwt.sub).toEqual(hash(johannesKepler.email));
 
@@ -149,8 +144,8 @@ describe('Authentication Flows', () => {
     expect(secondLogin.jwt.sub).toEqual(firstLogin.jwt.sub);
   });
 
-  describe('Logout', () => {
-    it('Logout works after logging in', async () => {
+  test.describe('Logout', () => {
+    test('Logout works after logging in', async ({ page }) => {
       const firstLogin = await login(page, 'user1', 'user1pass');
       expect(firstLogin.jwt.sub).toEqual(hash(johannesKepler.email));
 
@@ -160,7 +155,7 @@ describe('Authentication Flows', () => {
       expect(logoutResult.token).toEqual(undefined);
     });
 
-    it('Logging in works after logout', async () => {
+    test('Logging in works after logout', async ({ page }) => {
       const firstLogin = await login(page, 'user1', 'user1pass');
       expect(firstLogin.jwt.sub).toEqual(hash(johannesKepler.email));
 

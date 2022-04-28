@@ -1,8 +1,10 @@
+const { test, expect } = require('@playwright/test');
+
 // NOTE: you need to run the sso and login services in docker for these to work
 const { hash } = require('@senecacdot/satellite');
 
-const { login } = require('./browser-util');
-const { createTelescopeUsers, cleanupTelescopeUsers, ensureUsers } = require('./supabase-util');
+const { login } = require('./lib/browser-util');
+const { createTelescopeUsers, cleanupTelescopeUsers, ensureUsers } = require('./lib/supabase-util');
 
 // We have 3 SSO user accounts in the login service (see config/simplesamlphp-users.php):
 //
@@ -12,20 +14,11 @@ const { createTelescopeUsers, cleanupTelescopeUsers, ensureUsers } = require('./
 // | user2       | user2@example.com           | user2pass | Galileo Galilei |
 // | lippersheyh | hans-lippershey@example.com | telescope | Hans Lippershey |
 
-describe('Super User Authentication', () => {
-  describe('Seneca Super User', () => {
-    beforeEach(async () => {
-      context = await browser.newContext();
-      page = await browser.newPage();
-      await page.goto(`http://localhost:8888/auth.html`);
-    });
+test.describe('Super User Authentication', () => {
+  test.describe('Seneca Super User', () => {
+    test.beforeEach(({ page }) => page.goto(`http://localhost:8888/auth.html`));
 
-    afterEach(async () => {
-      await context.close();
-      await page.close();
-    });
-
-    it('Super user can login, and has expected token payload', async () => {
+    test('Super user can login, and has expected token payload', async ({ page }) => {
       const email = 'user1@example.com';
       const { jwt } = await login(page, 'user1', 'user1pass');
       expect(jwt.sub).toEqual(hash(email));
@@ -37,7 +30,7 @@ describe('Super User Authentication', () => {
     });
   });
 
-  describe('Telescope Admin User', () => {
+  test.describe('Telescope Admin User', () => {
     const johannesKepler = {
       firstName: 'Johannes',
       lastName: 'Kepler',
@@ -53,24 +46,17 @@ describe('Super User Authentication', () => {
     };
     const users = [johannesKepler];
 
-    beforeEach(async () => {
+    test.beforeEach(async ({ page }) => {
       await createTelescopeUsers(users);
-
-      context = await browser.newContext();
-      page = await browser.newPage();
-      await page.goto(`http://localhost:8888/auth.html`);
+      return page.goto(`http://localhost:8888/auth.html`);
     });
 
-    afterEach(async () => {
-      await cleanupTelescopeUsers(users);
-      await context.close();
-      await page.close();
-    });
+    test.afterEach(() => cleanupTelescopeUsers(users));
 
-    it('should have all expected Telescope users in Users service for test data accounts', () =>
+    test('should have all expected Telescope users in Users service for test data accounts', () =>
       ensureUsers(users));
 
-    it('Super user can login, and has expected token payload', async () => {
+    test('Super user can login, and has expected token payload', async ({ page }) => {
       const { jwt } = await login(page, 'user1', 'user1pass');
       expect(jwt.sub).toEqual(hash(johannesKepler.email));
       expect(jwt.email).toEqual(johannesKepler.email);
@@ -81,7 +67,7 @@ describe('Super User Authentication', () => {
     });
   });
 
-  describe('Telescope Non-Admin, Super User', () => {
+  test.describe('Telescope Non-Admin, Super User', () => {
     const johannesKepler = {
       firstName: 'Johannes',
       lastName: 'Kepler',
@@ -98,24 +84,17 @@ describe('Super User Authentication', () => {
     };
     const users = [johannesKepler];
 
-    beforeEach(async () => {
+    test.beforeEach(async ({ page }) => {
       await createTelescopeUsers(users);
-
-      context = await browser.newContext();
-      page = await browser.newPage();
-      await page.goto(`http://localhost:8888/auth.html`);
+      return page.goto(`http://localhost:8888/auth.html`);
     });
 
-    afterEach(async () => {
-      await cleanupTelescopeUsers(users);
-      await context.close();
-      await page.close();
-    });
+    test.afterEach(() => cleanupTelescopeUsers(users));
 
-    it('should have all expected Telescope users in Users service for test data accounts', () =>
+    test('should have all expected Telescope users in Users service for test data accounts', () =>
       ensureUsers(users));
 
-    it('Super user can login, and has expected token payload', async () => {
+    test('Super user can login, and has expected token payload', async ({ page }) => {
       const { jwt } = await login(page, 'user1', 'user1pass');
       expect(jwt.sub).toEqual(hash(johannesKepler.email));
       expect(jwt.email).toEqual(johannesKepler.email);
