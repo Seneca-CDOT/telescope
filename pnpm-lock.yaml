@@ -144,7 +144,7 @@ importers:
 
   src/api/parser:
     specifiers:
-      '@bull-board/api': 3.10.4
+      '@bull-board/api': 3.10.7
       '@bull-board/express': 3.10.4
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.27.0
@@ -165,7 +165,7 @@ importers:
       rss-parser: 3.12.0
       sanitize-html: 2.5.3
     dependencies:
-      '@bull-board/api': 3.10.4
+      '@bull-board/api': 3.10.7
       '@bull-board/express': 3.10.4
       '@senecacdot/satellite': 1.27.0
       '@supabase/supabase-js': 1.29.4
@@ -3308,6 +3308,12 @@ packages:
 
   /@bull-board/api/3.10.4:
     resolution: {integrity: sha512-JJjMg8O/ELeaqkuL1Wsdn6rdQfH+/2+BfnFD0B7j4ZCtLVAPfsOUZYpLqSKUgaNizwp1nTw0e3L/EI0yvX5aiw==}
+    dependencies:
+      redis-info: 3.1.0
+    dev: false
+
+  /@bull-board/api/3.10.7:
+    resolution: {integrity: sha512-ue13uj8t43hGZX/ssSl9D2+ICz66aP632YLvc1xbJ6rMTYK0ArG5Uke3wBlzqGtg7NpILPoQoirAuq1nEE0jhA==}
     dependencies:
       redis-info: 3.1.0
     dev: false
@@ -7727,7 +7733,7 @@ packages:
   /axios/0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.7_debug@4.3.3
+      follow-redirects: 1.14.7
     transitivePeerDependencies:
       - debug
     dev: false
@@ -11341,7 +11347,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dev: true
 
   /follow-redirects/1.14.7_debug@4.3.3:
     resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
@@ -12235,7 +12240,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.14.7_debug@4.3.3
+      follow-redirects: 1.14.7
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
