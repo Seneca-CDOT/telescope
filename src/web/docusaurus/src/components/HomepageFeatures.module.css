@@ -1,10 +1,11 @@
 .featureSvg {
   position: absolute;
-  height: 106vh;
+  height: 100%;
   width: 100%;
   z-index: var(--index);
 }
 
 .telArt {
-  height: 106vh;
+  position: relative;
+  min-height: 70vh; /* Size of the svg art */
 }
