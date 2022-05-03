@@ -9,7 +9,7 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg enable-background="new 0 0 2010.5 1130.9" version="1.1" viewBox="0 0 2010.5 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<svg enable-background="new 0 0 2010.5 1130.9" version="1.1" viewBox="0 0 2010.5 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
 <style type="text/css">
   .mounts2{fill:url(#mount_a);}
 

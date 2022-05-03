@@ -9,7 +9,7 @@
 	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
 	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
 ]>
-<svg enable-background="new 0 0 2010.5 1130.9" version="1.1" viewBox="0 0 2010.5 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<svg enable-background="new 0 0 2010.5 1130.9" version="1.1" viewBox="0 0 2010.5 1130.9" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMax meet">
 <style type="text/css">
 	.tl_0_0{fill:#2D2A4C;}
 	.tl_0_1{fill:#171A30;}
