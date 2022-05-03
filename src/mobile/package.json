@@ -20,7 +20,6 @@
     "@react-navigation/bottom-tabs": "6.1.0",
     "@react-navigation/native": "6.0.7",
     "@react-navigation/native-stack": "6.3.0",
-    "@senecacdot/telescope": "file:../..",
     "@supabase/supabase-js": "1.32.1",
     "dotenv": "16.0.0",
     "expo": "44.0.6",
