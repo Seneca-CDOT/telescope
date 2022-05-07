@@ -57,7 +57,7 @@
     "@senecacdot/eslint-config-telescope": "1.1.0",
     "@testing-library/react": "12.1.5",
     "@types/node": "16.11.33",
-    "@types/react": "17.0.44",
+    "@types/react": "17.0.45",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "babel-loader": "8.2.5",
