@@ -83,7 +83,7 @@ importers:
       '@senecacdot/satellite': ^1.27.0
       env-cmd: 10.1.0
       eslint: 7.32.0
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       octokit: 1.7.1
       query-registry: 2.2.0
       supertest: 6.1.6
@@ -96,7 +96,7 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       env-cmd: 10.1.0
       eslint: 7.32.0
-      nodemon: 2.0.15
+      nodemon: 2.0.16
 
   src/api/feed-discovery:
     specifiers:
@@ -106,7 +106,7 @@ importers:
       eslint: 7.32.0
       got: 11.8.3
       nock: 13.2.4
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.27.0
@@ -116,7 +116,7 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       eslint: 7.32.0
       nock: 13.2.4
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       supertest: 6.1.6
 
   src/api/image:
@@ -127,7 +127,7 @@ importers:
       del-cli: 4.0.1
       eslint: 7.32.0
       got: 11.8.3
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       sharp: 0.30.2
       supertest: 6.1.6
     dependencies:
@@ -140,7 +140,7 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       del-cli: 4.0.1
       eslint: 7.32.0
-      nodemon: 2.0.15
+      nodemon: 2.0.16
 
   src/api/parser:
     specifiers:
@@ -160,7 +160,7 @@ importers:
       linkify-html: 3.0.5
       linkifyjs: 3.0.5
       nock: 13.2.4
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       normalize-url: 6.1.0
       rss-parser: 3.12.0
       sanitize-html: 2.5.3
@@ -185,7 +185,7 @@ importers:
       eslint: 7.32.0
       jest-fetch-mock: 3.0.3
       nock: 13.2.4
-      nodemon: 2.0.15
+      nodemon: 2.0.16
 
   src/api/planet:
     specifiers:
@@ -195,7 +195,7 @@ importers:
       env-cmd: 10.1.0
       express: 4.17.3
       express-handlebars: 6.0.5
-      nodemon: 2.0.15
+      nodemon: 2.0.16
     dependencies:
       '@senecacdot/satellite': 1.27.0
       '@supabase/supabase-js': 1.29.4
@@ -204,7 +204,7 @@ importers:
     devDependencies:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       env-cmd: 10.1.0
-      nodemon: 2.0.15
+      nodemon: 2.0.16
 
   src/api/posts:
     specifiers:
@@ -239,7 +239,7 @@ importers:
       '@senecacdot/satellite': ^1.27.0
       eslint: 7.32.0
       express-validator: 6.14.0
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.27.0
@@ -247,7 +247,7 @@ importers:
     devDependencies:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       eslint: 7.32.0
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       supertest: 6.1.6
 
   src/api/sso:
@@ -262,7 +262,7 @@ importers:
       express-session: 1.17.2
       jsonwebtoken: 8.5.1
       minimatch: 3.0.4
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       normalize-url: 6.1.0
       passport: 0.5.2
       passport-saml: 3.2.1
@@ -282,7 +282,7 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       env-cmd: 10.1.0
       eslint: 7.32.0
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       supertest: 6.1.6
 
   src/api/status:
@@ -295,7 +295,7 @@ importers:
       eslint: 7.32.0
       express: 4.17.3
       express-handlebars: 6.0.5
-      nodemon: 2.0.15
+      nodemon: 2.0.16
       npm-run-all: 4.1.5
       octokit: 1.7.1
       perfect-scrollbar: 1.5.5
@@ -324,7 +324,7 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       env-cmd: 10.1.0
       eslint: 7.32.0
-      nodemon: 2.0.15
+      nodemon: 2.0.16
 
   src/db:
     specifiers:
@@ -8670,7 +8670,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       dot-prop: 5.3.0
-      graceful-fs: 4.2.9
+      graceful-fs: 4.2.10
       make-dir: 3.1.0
       unique-string: 2.0.0
       write-file-atomic: 3.0.3
@@ -14805,8 +14805,8 @@ packages:
   /node-releases/2.0.4:
     resolution: {integrity: sha512-gbMzqQtTtDz/00jQzZ21PQzdI9PyLYqUSvD0p3naOhX4odFji0ZxYdnVwPTxmSwkmxhcFImpozceidSG+AgoPQ==}
 
-  /nodemon/2.0.15:
-    resolution: {integrity: sha512-gdHMNx47Gw7b3kWxJV64NI+Q5nfl0y5DgDbiVtShiwa7Z0IZ07Ll4RLFo6AjrhzMtoEZn5PDE3/c2AbVsiCkpA==}
+  /nodemon/2.0.16:
+    resolution: {integrity: sha512-zsrcaOfTWRuUzBn3P44RDliLlp263Z/76FPoHFr3cFFkOz0lTPAcIw8dCzfdVIx/t3AtDYCZRCDkoCojJqaG3w==}
     engines: {node: '>=8.10.0'}
     hasBin: true
     requiresBuild: true
@@ -14814,7 +14814,7 @@ packages:
       chokidar: 3.5.3
       debug: 3.2.7
       ignore-by-default: 1.0.1
-      minimatch: 3.0.4
+      minimatch: 3.1.2
       pstree.remy: 1.1.8
       semver: 5.7.1
       supports-color: 5.5.0
