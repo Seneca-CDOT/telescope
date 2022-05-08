@@ -437,7 +437,7 @@ importers:
       react-dom: 17.0.2
       react-i18next: 11.15.5
       react-icons: 4.3.1
-      react-lite-youtube-embed: 2.2.1
+      react-lite-youtube-embed: 2.2.2
       react-p5-wrapper: 3.1.0
       react-transition-group: 4.4.2
       react-use: 17.3.2
@@ -478,7 +478,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-i18next: 11.15.5_f94be6b4dd1edc1d8608af374b838bd6
       react-icons: 4.3.1_react@17.0.2
-      react-lite-youtube-embed: 2.2.1_react-dom@17.0.2+react@17.0.2
+      react-lite-youtube-embed: 2.2.2_react-dom@17.0.2+react@17.0.2
       react-p5-wrapper: 3.1.0_react-dom@17.0.2+react@17.0.2
       react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
       react-use: 17.3.2_react-dom@17.0.2+react@17.0.2
@@ -16793,8 +16793,8 @@ packages:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
     dev: false
 
-  /react-lite-youtube-embed/2.2.1_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-BcD1e9l3QgI+a1MhFeqCt+HoXmPIg31bwUzYdWYVfEfI7WLEA5MkDB6/XCZnkKRuSebJsFp+NV0axh9WUUGMKQ==}
+  /react-lite-youtube-embed/2.2.2_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-1NqbNDcunRcB/9G9upXM59jyLdEUXy3Xk/XJ+JdIdT04qNTj5Xi8enR1BzMdowLsrDv8yW5qge2ob3gb22Qfnw==}
     peerDependencies:
       react: '>=16.0.8'
       react-dom: '>=16.0.8'
