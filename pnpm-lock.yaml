@@ -360,7 +360,7 @@ importers:
       cors: 2.8.5
       eslint: 7.32.0
       express: 4.17.3
-      express-jwt: 6.1.1
+      express-jwt: 6.1.2
       get-port: 5.1.1
       helmet: 5.0.2
       http-errors: 2.0.0
@@ -380,7 +380,7 @@ importers:
       '@godaddy/terminus': 4.10.2
       cors: 2.8.5
       express: 4.17.3
-      express-jwt: 6.1.1
+      express-jwt: 6.1.2
       helmet: 5.0.2
       http-errors: 2.0.0
       ioredis: 4.28.5
@@ -10960,6 +10960,16 @@ packages:
     engines: {node: '>= 8.0.0'}
     dependencies:
       async: 1.5.2
+      express-unless: 1.0.0
+      jsonwebtoken: 8.5.1
+      lodash: 4.17.21
+    dev: false
+
+  /express-jwt/6.1.2:
+    resolution: {integrity: sha512-l5dlf5lNM/1EODMsJGfHn1VnrhhsUYEetzrKFStJZLjFQXtR+HGdBiW+jUNZ+ISsFe+h7Wl/hQKjLrY2TX0Qkg==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      async: 3.2.3
       express-unless: 1.0.0
       jsonwebtoken: 8.5.1
       lodash: 4.17.21
