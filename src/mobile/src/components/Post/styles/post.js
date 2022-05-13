@@ -47,12 +47,8 @@ const tagsStyles = {
     fontStyle: 'italic',
   },
   img: {
-    margin: '0 auto',
-    maxHeight: 80,
     paddingTop: 20,
     paddingBottom: 16,
-    display: 'block',
-    height: 'auto',
   },
   h1: {
     fontSize: 24,
