@@ -13,6 +13,11 @@ module.exports = {
      */
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': 'off',
+    /**
+     * Disabled due to bug see:
+     * https://github.com/Intellicode/eslint-plugin-react-native/issues/270
+     */
+    'react-native/no-raw-text': 'off',
   },
   env: {
     'react-native/react-native': true,

@@ -1,91 +1,35 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet } from 'react-native';
-import { MaterialIcons, Entypo, EvilIcons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import SearchScreen from '../screens/SearchScreen';
-import HomeScreen from '../screens/HomeScreen';
-import SignUpScreen from '../screens/SignUpScreen';
-import AboutScreen from '../screens/AboutScreen';
+import PostScreen from '../screens/PostScreen';
+import BottomNavbar from './BottomNavbar';
 
-const Tab = createBottomTabNavigator();
-
-const styles = StyleSheet.create({
-  navBarIcon: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const screenOptionStyle = {
+  tabBarShowLabel: false,
+  headerShown: true,
+  headerBackTitleVisible: false,
+  headerTintColor: '#000000',
+};
+const Stack = createStackNavigator();
 
 const Navigation = () => {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarStyle: [
-          {
-            display: 'flex',
-          },
-          null,
-        ],
-      }}
-    >
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <Entypo name="home" size={24} color="#121D59" />
-            </View>
-          ),
-        }}
+    <Stack.Navigator screenOptions={screenOptionStyle}>
+      <Stack.Screen
+        name="Base"
+        options={() => ({
+          headerShown: false,
+        })}
+        component={BottomNavbar}
       />
-      <Tab.Screen
-        name="Search"
-        component={SearchScreen}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <EvilIcons name="search" size={24} color="#121D59" />
-            </View>
-          ),
-        }}
+      <Stack.Screen
+        name="Post"
+        options={() => ({
+          headerTitle: '',
+          cardStyle: { backgroundColor: '#F9FAFB' },
+        })}
+        component={PostScreen}
       />
-      <Tab.Screen
-        name="Contact"
-        component={AboutScreen}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <MaterialIcons name="contact-support" size={24} color="#121D59" />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="SignUp"
-        component={SignUpScreen}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <MaterialIcons name="exit-to-app" size={24} color="#121D59" />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Theme"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <MaterialIcons name="brightness-4" size={24} color="#121D59" />
-            </View>
-          ),
-        }}
-      />
-    </Tab.Navigator>
+    </Stack.Navigator>
   );
 };
 
