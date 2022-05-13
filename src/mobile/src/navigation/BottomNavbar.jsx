@@ -1,17 +1,28 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, StyleSheet } from 'react-native';
-import { MaterialIcons, Entypo, EvilIcons } from '@expo/vector-icons';
+import { View, StyleSheet, Platform } from 'react-native';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 import SearchScreen from '../screens/SearchScreen';
 import HomeScreen from '../screens/HomeScreen';
-import SignUpScreen from '../screens/SignUpScreen';
+import MenuScreen from '../screens/MenuScreen';
 
 const Tab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
-  navBarIcon: {
+  bottomNavbar: {
+    backgroundColor: '#FFFFFF',
+    height: Platform.OS === 'android' ? 70 : 90,
+  },
+  centerIcon: {
     alignItems: 'center',
+  },
+  dot: {
+    backgroundColor: '#121D59',
+    borderRadius: 25,
+    bottom: -4,
+    height: 3,
     justifyContent: 'center',
+    width: 8,
   },
 });
 
@@ -19,58 +30,53 @@ const BottomNavbar = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: [
-          {
-            display: 'flex',
-          },
-          null,
-        ],
+        tabBarStyle: styles.bottomNavbar,
+        headerShown: false,
+        tabBarActiveTintColor: '#121D59',
+        tabBarInactiveTintColor: '#52525B95',
       }}
     >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <Entypo name="home" size={24} color="#121D59" />
-            </View>
-          ),
+          tabBarIcon: ({ focused, color, size }) => {
+            return (
+              <View style={styles.centerIcon}>
+                <AntDesign name="home" color={color} size={size} />
+                {focused ? <View style={styles.dot} /> : null}
+              </View>
+            );
+          },
         }}
       />
       <Tab.Screen
         name="Search"
         component={SearchScreen}
         options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <EvilIcons name="search" size={24} color="#121D59" />
-            </View>
-          ),
+          tabBarIcon: ({ focused, color, size }) => {
+            return (
+              <View style={styles.centerIcon}>
+                <Ionicons name="search" color={color} size={size} />
+                {focused ? <View style={styles.dot} /> : null}
+              </View>
+            );
+          },
         }}
       />
       <Tab.Screen
-        name="SignUp"
-        component={SignUpScreen}
+        name="Menu"
+        component={MenuScreen}
         options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <MaterialIcons name="exit-to-app" size={24} color="#121D59" />
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Theme"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: () => (
-            <View style={styles.navBarIcon}>
-              <MaterialIcons name="brightness-4" size={24} color="#121D59" />
-            </View>
-          ),
+          tabBarIcon: ({ focused, color, size }) => {
+            return (
+              <View style={styles.centerIcon}>
+                <Ionicons name="md-menu" color={color} size={size} />
+                {focused ? <View style={styles.dot} /> : null}
+              </View>
+            );
+          },
         }}
       />
     </Tab.Navigator>
