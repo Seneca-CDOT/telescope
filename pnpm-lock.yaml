@@ -197,13 +197,13 @@ importers:
       env-cmd: 10.1.0
       eslint: 7.32.0
       express: 4.17.3
-      express-handlebars: 6.0.5
+      express-handlebars: 6.0.6
       nodemon: 2.0.16
     dependencies:
       '@senecacdot/satellite': 1.27.0
       '@supabase/supabase-js': 1.29.4
       express: 4.17.3
-      express-handlebars: 6.0.5
+      express-handlebars: 6.0.6
     devDependencies:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       env-cmd: 10.1.0
@@ -298,7 +298,7 @@ importers:
       env-cmd: 10.1.0
       eslint: 7.32.0
       express: 4.17.3
-      express-handlebars: 6.0.5
+      express-handlebars: 6.0.6
       nodemon: 2.0.16
       npm-run-all: 4.1.5
       octokit: 1.7.1
@@ -314,7 +314,7 @@ importers:
       '@senecacdot/satellite': 1.27.0
       bootstrap: 5.1.3_@popperjs+core@2.11.5
       express: 4.17.3
-      express-handlebars: 6.0.5
+      express-handlebars: 6.0.6
       npm-run-all: 4.1.5
       octokit: 1.7.1
       perfect-scrollbar: 1.5.5
@@ -7895,7 +7895,7 @@ packages:
   /axios/0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10853,11 +10853,11 @@ packages:
       jest-message-util: 27.5.1
     dev: true
 
-  /express-handlebars/6.0.5:
-    resolution: {integrity: sha512-XEujWSZpsdptky62Qt0Yj8jVGVT6yVXS6fOteL/b8wLdB122ykrxVlcQbNWVxFSEgusju3f6/0uqDC7R9qfwDw==}
+  /express-handlebars/6.0.6:
+    resolution: {integrity: sha512-E4QHYCh+9fyfdBEb8uKJ8p6HD4qq/sUSHBq83lRNlLJp2TQKEg2nFJYbVdC+M3QzaV19dODe43lgjQWVaIpbyQ==}
     engines: {node: '>=v12.22.9'}
     dependencies:
-      glob: 8.0.1
+      glob: 8.0.3
       graceful-fs: 4.2.10
       handlebars: 4.7.7
     dev: false
@@ -11270,6 +11270,7 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dev: true
 
   /follow-redirects/1.14.7_debug@4.3.3:
     resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
@@ -11591,8 +11592,8 @@ packages:
       once: 1.4.0
       path-is-absolute: 1.0.1
 
-  /glob/8.0.1:
-    resolution: {integrity: sha512-cF7FYZZ47YzmCu7dDy50xSRRfO3ErRfrXuLZcNIuyiJEco0XSrGtuilG19L5xp3NcwTx7Gn+X6Tv3fmsUPTbow==}
+  /glob/8.0.3:
+    resolution: {integrity: sha512-ull455NHSHI/Y1FqGaaYFaLGkNMMJbavMrEGFXG/PGrg6y7sutWHUHrz6gy6WEBH6akM1M414dWKCNs+IhKdiQ==}
     engines: {node: '>=12'}
     dependencies:
       fs.realpath: 1.0.0
@@ -11600,7 +11601,6 @@ packages:
       inherits: 2.0.4
       minimatch: 5.0.1
       once: 1.4.0
-      path-is-absolute: 1.0.1
     dev: false
 
   /global-dirs/3.0.0:
@@ -12177,7 +12177,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
