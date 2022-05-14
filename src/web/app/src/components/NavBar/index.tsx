@@ -105,7 +105,7 @@ const iconProps: NavBarIconProps[] = [
     Icon: HomeIcon,
   },
   {
-    href: '/about',
+    href: '/docs/overview',
     title: 'About',
     ariaLabel: 'about',
     Icon: ContactSupportIcon,
