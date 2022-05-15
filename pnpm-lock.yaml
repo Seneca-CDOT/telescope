@@ -407,8 +407,8 @@ importers:
       '@babel/core': 7.17.10
       '@emotion/react': 11.8.2
       '@emotion/styled': 11.8.1
-      '@fontsource/pt-serif': 4.5.3
-      '@fontsource/spartan': 4.5.4
+      '@fontsource/pt-serif': 4.5.8
+      '@fontsource/spartan': 4.5.8
       '@material-ui/core': 4.12.3
       '@material-ui/icons': 4.11.2
       '@mui/icons-material': 5.5.1
@@ -458,8 +458,8 @@ importers:
       '@babel/core': 7.17.10
       '@emotion/react': 11.8.2_0191d4f7d13d8e58ed45c49e4813c090
       '@emotion/styled': 11.8.1_72fe7963e559bbe90f987a6e5e59b319
-      '@fontsource/pt-serif': 4.5.3
-      '@fontsource/spartan': 4.5.4
+      '@fontsource/pt-serif': 4.5.8
+      '@fontsource/spartan': 4.5.8
       '@material-ui/core': 4.12.3_569957a51d469c962fcce166a59b9f78
       '@material-ui/icons': 4.11.2_ac89d8ade9e6b8e78692a52e21cf96dc
       '@mui/icons-material': 5.5.1_1a76dcbdf729f765b2f5b7da054bd0c6
@@ -3221,12 +3221,12 @@ packages:
       - supports-color
     dev: true
 
-  /@fontsource/pt-serif/4.5.3:
-    resolution: {integrity: sha512-6850rlnGo1AebM+vO77YlQGnQdBATJn5j7sMtcO1ketNCM8n2y0aGAUSCS/rL3KWZrRB9z5i/WqpeFPCvxaF0A==}
+  /@fontsource/pt-serif/4.5.8:
+    resolution: {integrity: sha512-GmJoCKJ8Hh06wf67/c5nFO2NaTl2Y370eYiqDD1OstexvSYdKko6uOGoLGehb4jRSvtGk1wKNyriWNsd5IE2GQ==}
     dev: false
 
-  /@fontsource/spartan/4.5.4:
-    resolution: {integrity: sha512-qZwaH1vAaod26F7siGvJIWMoE2uGbmN0P55xj8IHAYfe3Q5FFWjkafTNc/iZOHrSDzfreof91U9pZ8N6NiTdXg==}
+  /@fontsource/spartan/4.5.8:
+    resolution: {integrity: sha512-g2zQ/Jh43stU3xDCZsJA10IXfmN5EKzvuhTf8OxAiYZIxGr/tFey5pC/TGrd57mdz32A1vDeEe+FTXWSIY1uXQ==}
     dev: false
 
   /@godaddy/terminus/4.10.2:
@@ -6797,7 +6797,7 @@ packages:
   /axios/0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10121,6 +10121,7 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dev: true
 
   /follow-redirects/1.14.7_debug@4.3.3:
     resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
@@ -11026,7 +11027,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
