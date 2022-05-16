@@ -2370,6 +2370,8 @@ packages:
       '@bull-board/ui': 3.10.4
       ejs: 3.1.6
       express: 4.17.3
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@bull-board/ui/3.10.4:
@@ -2491,7 +2493,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2602,7 +2603,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2642,7 +2642,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2676,7 +2675,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2708,7 +2706,6 @@ packages:
       - '@parcel/css'
       - '@swc/core'
       - '@types/react'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2738,7 +2735,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2767,7 +2763,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2800,7 +2795,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2839,7 +2833,6 @@ packages:
       - '@parcel/css'
       - '@swc/core'
       - '@types/react'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2896,7 +2889,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2931,7 +2923,6 @@ packages:
     transitivePeerDependencies:
       - '@parcel/css'
       - '@swc/core'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -2975,7 +2966,6 @@ packages:
       - '@parcel/css'
       - '@swc/core'
       - '@types/react'
-      - acorn
       - bufferutil
       - csso
       - debug
@@ -4336,7 +4326,6 @@ packages:
       '@parcel/transformer-react-refresh-wrap': 2.4.1
       '@parcel/transformer-svg': 2.4.1
     transitivePeerDependencies:
-      - acorn
       - cssnano
       - postcss
       - purgecss
@@ -4625,8 +4614,6 @@ packages:
       '@parcel/utils': 2.4.1
       nullthrows: 1.1.1
       terser: 5.10.0
-    transitivePeerDependencies:
-      - acorn
     dev: true
 
   /@parcel/package-manager/2.4.1:
@@ -4842,18 +4829,20 @@ packages:
   /@parcel/transformer-image/2.4.1_@parcel+core@2.4.1:
     resolution: {integrity: sha512-pOfgPVe13lMTKdzydjXXNl4bojVMmuQmwm44OZ9cmpwOD3phkZzCtrxgySoV1eRBCOipdQg1O6GGI3za1KNdvw==}
     engines: {node: '>= 12.0.0', parcel: ^2.4.1}
+    peerDependencies:
+      '@parcel/core': '*'
     dependencies:
       '@parcel/core': 2.4.1
       '@parcel/plugin': 2.4.1
       '@parcel/workers': 2.4.1_@parcel+core@2.4.1
       nullthrows: 1.1.1
-    transitivePeerDependencies:
-      - '@parcel/core'
     dev: true
 
   /@parcel/transformer-js/2.4.1_@parcel+core@2.4.1:
     resolution: {integrity: sha512-39Y9RUuDk5dc09Z3Pgj8snQd5E8926IqOowdTLKNJr7EcmkwHdinbpI4EqgKnisOwX4NSzxUti1I2DHsP1QZHw==}
     engines: {node: '>= 12.0.0', parcel: ^2.4.1}
+    peerDependencies:
+      '@parcel/core': '*'
     dependencies:
       '@parcel/core': 2.4.1
       '@parcel/diagnostic': 2.4.1
@@ -4867,8 +4856,6 @@ packages:
       nullthrows: 1.1.1
       regenerator-runtime: 0.13.9
       semver: 5.7.1
-    transitivePeerDependencies:
-      - '@parcel/core'
     dev: true
 
   /@parcel/transformer-json/2.4.1:
@@ -5273,6 +5260,8 @@ packages:
     dependencies:
       '@types/websocket': 1.0.5
       websocket: 1.0.34
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /@supabase/storage-js/1.5.1:
@@ -5292,6 +5281,7 @@ packages:
       '@supabase/storage-js': 1.5.1
     transitivePeerDependencies:
       - encoding
+      - supports-color
     dev: false
 
   /@surma/rollup-plugin-off-main-thread/2.2.3:
@@ -6804,7 +6794,7 @@ packages:
   /axios/0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -7050,6 +7040,8 @@ packages:
       qs: 6.9.7
       raw-body: 2.4.3
       type-is: 1.6.18
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /bonjour-service/1.0.12:
@@ -7691,6 +7683,8 @@ packages:
       on-headers: 1.0.2
       safe-buffer: 5.1.2
       vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /concat-map/0.0.1:
@@ -8396,13 +8390,35 @@ packages:
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.0.0
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
     dependencies:
       ms: 2.1.3
+
+  /debug/3.2.7_supports-color@5.5.0:
+    resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    dependencies:
+      ms: 2.1.3
+      supports-color: 5.5.0
+    dev: true
 
   /debug/4.3.3:
     resolution: {integrity: sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==}
@@ -8620,6 +8636,8 @@ packages:
     dependencies:
       address: 1.1.2
       debug: 2.6.9
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /detect-port/1.3.0:
@@ -8629,6 +8647,8 @@ packages:
     dependencies:
       address: 1.1.2
       debug: 2.6.9
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /diff-sequences/27.5.1:
@@ -9296,14 +9316,33 @@ packages:
     dependencies:
       debug: 3.2.7
       resolve: 1.22.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
-  /eslint-module-utils/2.7.2:
+  /eslint-module-utils/2.7.2_a2e9ad6bb1d60475ebc0dfc5e76a2549:
     resolution: {integrity: sha512-zquepFnWCY2ISMFwD/DqzaM++H+7PDzOpUvotJWm/y1BAFt5R4oeULgdrTejKqLkz7MA/tgstsUMNYc7wNdTrg==}
     engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint-import-resolver-node: '*'
+      eslint-import-resolver-typescript: '*'
+      eslint-import-resolver-webpack: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      eslint-import-resolver-node:
+        optional: true
+      eslint-import-resolver-typescript:
+        optional: true
+      eslint-import-resolver-webpack:
+        optional: true
     dependencies:
       debug: 3.2.7
+      eslint-import-resolver-node: 0.3.6
       find-up: 2.1.0
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /eslint-plugin-anti-trojan-source/1.1.0:
@@ -9327,7 +9366,11 @@ packages:
     resolution: {integrity: sha512-/KJBASVFxpu0xg1kIBn9AUa8hQVnszpwgE7Ld0lKAlx7Ie87yzEzCgSkekt+le/YVhiaosO4Y14GDAOc41nfxA==}
     engines: {node: '>=4'}
     peerDependencies:
+      '@typescript-eslint/parser': '*'
       eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
     dependencies:
       array-includes: 3.1.4
       array.prototype.flat: 1.2.5
@@ -9335,7 +9378,7 @@ packages:
       doctrine: 2.1.0
       eslint: 7.32.0
       eslint-import-resolver-node: 0.3.6
-      eslint-module-utils: 2.7.2
+      eslint-module-utils: 2.7.2_a2e9ad6bb1d60475ebc0dfc5e76a2549
       has: 1.0.3
       is-core-module: 2.8.1
       is-glob: 4.0.3
@@ -9343,6 +9386,10 @@ packages:
       object.values: 1.1.5
       resolve: 1.22.0
       tsconfig-paths: 3.12.0
+    transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
     dev: true
 
   /eslint-plugin-jest-playwright/0.7.1_1aa5895969f38f202479fa26bc379f88:
@@ -9752,6 +9799,8 @@ packages:
       parseurl: 1.3.3
       safe-buffer: 5.2.1
       uid-safe: 2.1.5
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /express-unless/1.0.0:
@@ -9800,6 +9849,8 @@ packages:
       type-is: 1.6.18
       utils-merge: 1.0.1
       vary: 1.1.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /ext/1.6.0:
@@ -10018,6 +10069,8 @@ packages:
       parseurl: 1.3.3
       statuses: 1.5.0
       unpipe: 1.0.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /find-cache-dir/3.3.2:
@@ -10128,6 +10181,7 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dev: true
 
   /follow-redirects/1.14.7_debug@4.3.3:
     resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
@@ -10394,8 +10448,15 @@ packages:
       - supports-color
     dev: false
 
-  /git-node-fs/1.0.0:
+  /git-node-fs/1.0.0_js-git@0.7.8:
     resolution: {integrity: sha1-SbIV4kLr5Dqkx1Ybu6SZUhdSCA8=}
+    peerDependencies:
+      js-git: ^0.7.8
+    peerDependenciesMeta:
+      js-git:
+        optional: true
+    dependencies:
+      js-git: 0.7.8
     dev: false
 
   /git-sha1/0.1.2:
@@ -10847,8 +10908,6 @@ packages:
       param-case: 3.0.4
       relateurl: 0.2.7
       terser: 5.10.0
-    transitivePeerDependencies:
-      - acorn
     dev: false
 
   /html-parse-stringify/3.0.1:
@@ -10878,8 +10937,6 @@ packages:
       pretty-error: 4.0.0
       tapable: 2.2.1
       webpack: 5.72.1
-    transitivePeerDependencies:
-      - acorn
     dev: false
 
   /htmlnano/2.0.2_svgo@2.8.0:
@@ -11033,7 +11090,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
@@ -13365,6 +13422,8 @@ packages:
       debug: 3.2.7
       iconv-lite: 0.4.24
       sax: 1.2.4
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /negotiator/0.6.3:
@@ -13400,7 +13459,6 @@ packages:
       - '@babel/core'
       - '@swc/core'
       - '@types/babel__core'
-      - acorn
       - esbuild
       - supports-color
       - uglify-js
@@ -13545,7 +13603,7 @@ packages:
     requiresBuild: true
     dependencies:
       chokidar: 3.5.3
-      debug: 3.2.7
+      debug: 3.2.7_supports-color@5.5.0
       ignore-by-default: 1.0.1
       minimatch: 3.1.2
       pstree.remy: 1.1.8
@@ -14049,7 +14107,6 @@ packages:
       get-port: 4.2.0
       v8-compile-cache: 2.3.0
     transitivePeerDependencies:
-      - acorn
       - cssnano
       - postcss
       - purgecss
@@ -15407,6 +15464,7 @@ packages:
       text-table: 0.2.0
     transitivePeerDependencies:
       - eslint
+      - supports-color
       - typescript
       - vue-template-compiler
       - webpack
@@ -16122,8 +16180,6 @@ packages:
       rollup: 2.64.0
       serialize-javascript: 4.0.0
       terser: 5.10.0
-    transitivePeerDependencies:
-      - acorn
     dev: false
 
   /rollup/2.64.0:
@@ -16380,6 +16436,8 @@ packages:
       on-finished: 2.3.0
       range-parser: 1.2.1
       statuses: 1.5.0
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /serialize-javascript/4.0.0:
@@ -16417,6 +16475,8 @@ packages:
       http-errors: 1.6.3
       mime-types: 2.1.34
       parseurl: 1.3.3
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /serve-static/1.14.2:
@@ -16427,6 +16487,8 @@ packages:
       escape-html: 1.0.3
       parseurl: 1.3.3
       send: 0.17.2
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /set-blocking/2.0.0:
@@ -17195,57 +17257,6 @@ packages:
       supports-hyperlinks: 2.2.0
     dev: true
 
-  /terser-webpack-plugin/5.3.1_acorn@8.7.0+webpack@5.72.1:
-    resolution: {integrity: sha512-GvlZdT6wPQKbDNW/GDQzZFg/j4vKU96yl2q6mcUkzKOgW4gwf1Z8cZToUCrz31XHlPWH8MVb1r2tFtdDtTGJ7g==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      '@swc/core': '*'
-      esbuild: '*'
-      uglify-js: '*'
-      webpack: ^5.1.0
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      esbuild:
-        optional: true
-      uglify-js:
-        optional: true
-    dependencies:
-      jest-worker: 27.4.6
-      schema-utils: 3.1.1
-      serialize-javascript: 6.0.0
-      source-map: 0.6.1
-      terser: 5.10.0_acorn@8.7.0
-      webpack: 5.72.1
-    transitivePeerDependencies:
-      - acorn
-
-  /terser-webpack-plugin/5.3.1_acorn@8.7.0+webpack@5.9.0:
-    resolution: {integrity: sha512-GvlZdT6wPQKbDNW/GDQzZFg/j4vKU96yl2q6mcUkzKOgW4gwf1Z8cZToUCrz31XHlPWH8MVb1r2tFtdDtTGJ7g==}
-    engines: {node: '>= 10.13.0'}
-    peerDependencies:
-      '@swc/core': '*'
-      esbuild: '*'
-      uglify-js: '*'
-      webpack: ^5.1.0
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      esbuild:
-        optional: true
-      uglify-js:
-        optional: true
-    dependencies:
-      jest-worker: 27.4.6
-      schema-utils: 3.1.1
-      serialize-javascript: 6.0.0
-      source-map: 0.6.1
-      terser: 5.10.0_acorn@8.7.0
-      webpack: 5.9.0
-    transitivePeerDependencies:
-      - acorn
-    dev: true
-
   /terser-webpack-plugin/5.3.1_webpack@5.72.1:
     resolution: {integrity: sha512-GvlZdT6wPQKbDNW/GDQzZFg/j4vKU96yl2q6mcUkzKOgW4gwf1Z8cZToUCrz31XHlPWH8MVb1r2tFtdDtTGJ7g==}
     engines: {node: '>= 10.13.0'}
@@ -17268,9 +17279,6 @@ packages:
       source-map: 0.6.1
       terser: 5.10.0
       webpack: 5.72.1
-    transitivePeerDependencies:
-      - acorn
-    dev: false
 
   /terser-webpack-plugin/5.3.1_webpack@5.9.0:
     resolution: {integrity: sha512-GvlZdT6wPQKbDNW/GDQzZFg/j4vKU96yl2q6mcUkzKOgW4gwf1Z8cZToUCrz31XHlPWH8MVb1r2tFtdDtTGJ7g==}
@@ -17294,30 +17302,11 @@ packages:
       source-map: 0.6.1
       terser: 5.10.0
       webpack: 5.9.0
-    transitivePeerDependencies:
-      - acorn
 
   /terser/5.10.0:
     resolution: {integrity: sha512-AMmF99DMfEDiRJfxfY5jj5wNH/bYO09cniSqhfoyxc8sFoYIgkJy86G04UoZU5VjlpnplVu0K6Tx6E9b5+DlHA==}
     engines: {node: '>=10'}
     hasBin: true
-    peerDependencies:
-      acorn: ^8.5.0
-    peerDependenciesMeta:
-      acorn:
-        optional: true
-    dependencies:
-      acorn: 8.7.0
-      commander: 2.20.3
-      source-map: 0.7.3
-      source-map-support: 0.5.21
-
-  /terser/5.10.0_acorn@8.7.0:
-    resolution: {integrity: sha512-AMmF99DMfEDiRJfxfY5jj5wNH/bYO09cniSqhfoyxc8sFoYIgkJy86G04UoZU5VjlpnplVu0K6Tx6E9b5+DlHA==}
-    engines: {node: '>=10'}
-    hasBin: true
-    peerDependencies:
-      acorn: ^8.5.0
     peerDependenciesMeta:
       acorn:
         optional: true
@@ -18161,7 +18150,7 @@ packages:
     engines: {node: '>=4.0'}
     dependencies:
       async: 2.6.3
-      git-node-fs: 1.0.0
+      git-node-fs: 1.0.0_js-git@0.7.8
       ini: 1.3.8
       js-git: 0.7.8
     dev: false
@@ -18419,7 +18408,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.1_acorn@8.7.0+webpack@5.72.1
+      terser-webpack-plugin: 5.3.1_webpack@5.72.1
       watchpack: 2.3.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:
@@ -18458,7 +18447,7 @@ packages:
       pkg-dir: 4.2.0
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.1_acorn@8.7.0+webpack@5.9.0
+      terser-webpack-plugin: 5.3.1_webpack@5.9.0
       watchpack: 2.3.1
       webpack-sources: 2.3.1
     transitivePeerDependencies:
@@ -18504,6 +18493,8 @@ packages:
       typedarray-to-buffer: 3.1.5
       utf-8-validate: 5.0.8
       yaeti: 0.0.6
+    transitivePeerDependencies:
+      - supports-color
     dev: false
 
   /whatwg-encoding/1.0.5:
@@ -18668,7 +18659,6 @@ packages:
       workbox-window: 6.5.1
     transitivePeerDependencies:
       - '@types/babel__core'
-      - acorn
       - supports-color
     dev: false
 
@@ -18766,7 +18756,6 @@ packages:
       workbox-build: 6.5.1
     transitivePeerDependencies:
       - '@types/babel__core'
-      - acorn
       - supports-color
     dev: false
 
