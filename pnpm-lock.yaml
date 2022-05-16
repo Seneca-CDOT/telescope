@@ -523,7 +523,7 @@ importers:
       eslint-plugin-import: 2.25.4
       mdx-mermaid: 1.2.2
       mermaid: 8.11.0
-      prism-react-renderer: 1.3.1
+      prism-react-renderer: 1.3.2
       react: 17.0.2
       react-dom: 17.0.2
       react-p5-wrapper: 3.1.0
@@ -538,7 +538,7 @@ importers:
       clsx: 1.1.1
       mdx-mermaid: 1.2.2_a286d63e128c0c80012f5f18976e536d
       mermaid: 8.11.0
-      prism-react-renderer: 1.3.1_react@17.0.2
+      prism-react-renderer: 1.3.2_react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-p5-wrapper: 3.1.0_react-dom@17.0.2+react@17.0.2
@@ -2887,7 +2887,7 @@ packages:
       lodash: 4.17.21
       nprogress: 0.2.0
       postcss: 8.4.13
-      prism-react-renderer: 1.3.1_react@17.0.2
+      prism-react-renderer: 1.3.2_react@17.0.2
       prismjs: 1.28.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -2923,7 +2923,7 @@ packages:
       '@docusaurus/plugin-content-pages': 2.0.0-beta.20_f315c2d88d281911b1fd83660389de05
       clsx: 1.1.1
       parse-numeric-range: 1.3.0
-      prism-react-renderer: 1.3.1_react@17.0.2
+      prism-react-renderer: 1.3.2_react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       tslib: 2.4.0
@@ -15106,8 +15106,8 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /prism-react-renderer/1.3.1_react@17.0.2:
-    resolution: {integrity: sha512-xUeDMEz074d0zc5y6rxiMp/dlC7C+5IDDlaEUlcBOFE2wddz7hz5PNupb087mPwTt7T9BrFmewObfCBuf/LKwQ==}
+  /prism-react-renderer/1.3.2_react@17.0.2:
+    resolution: {integrity: sha512-JxNQHvi6MENQpsjZhBBNL+7bYumSw4kxwR9O1VETSe92QLnHjmgyJVdjZ4sr8cVJqXLH+JupJUxODcFZzEqEjw==}
     peerDependencies:
       react: '>=0.14.9'
     dependencies:
