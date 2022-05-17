@@ -10,7 +10,7 @@ const BlogFeeds = () => {
       prompt="Enter your blog URL and select the RSS you want to use in Telescope"
       buttonText="validate blog"
       helperText="Validate your Blog URL"
-      noFeedsSelected="Please validatte your blog URL"
+      noFeedsSelected="Please validate your blog URL"
       feeds={{
         selected: blogs.name as any,
         discovered: allBlogs.name as any,
