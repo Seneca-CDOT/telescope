@@ -30,7 +30,7 @@
     "@supabase/supabase-js": "1.29.4",
     "@testing-library/react": "12.1.5",
     "@types/smoothscroll-polyfill": "0.3.1",
-    "@types/yup": "0.29.13",
+    "@types/yup": "0.29.14",
     "clsx": "1.1.1",
     "dotenv": "10.0.0",
     "formik": "2.2.9",
