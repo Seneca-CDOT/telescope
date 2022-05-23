@@ -21,7 +21,7 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@senecacdot/satellite": "^1.27.0",
-    "express-validator": "6.14.0"
+    "express-validator": "6.14.1"
   },
   "engines": {
     "node": ">=12.0.0"
