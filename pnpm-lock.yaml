@@ -216,7 +216,7 @@ importers:
       '@senecacdot/satellite': ^1.27.0
       bull: 3.29.3
       eslint: 7.32.0
-      express-validator: 6.14.0
+      express-validator: 6.14.1
       ioredis: 4.28.5
       ioredis-mock: 5.9.1
       jsdom: 18.1.1
@@ -226,7 +226,7 @@ importers:
     dependencies:
       '@senecacdot/satellite': 1.27.0
       bull: 3.29.3
-      express-validator: 6.14.0
+      express-validator: 6.14.1
       ioredis: 4.28.5
       ioredis-mock: 5.9.1_ba8a89de17b1bb8d40d8173f0d50f179
       jsdom: 18.1.1
@@ -242,12 +242,12 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.27.0
       eslint: 7.32.0
-      express-validator: 6.14.0
+      express-validator: 6.14.1
       nodemon: 2.0.16
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.27.0
-      express-validator: 6.14.0
+      express-validator: 6.14.1
     devDependencies:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       eslint: 7.32.0
@@ -6794,7 +6794,7 @@ packages:
   /axios/0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
     transitivePeerDependencies:
       - debug
     dev: false
@@ -9879,8 +9879,8 @@ packages:
     resolution: {integrity: sha512-zXSSClWBPfcSYjg0hcQNompkFN/MxQQ53eyrzm9BYgik2ut2I7PxAf2foVqBRMYCwWaZx/aWodi+uk76npdSAw==}
     dev: false
 
-  /express-validator/6.14.0:
-    resolution: {integrity: sha512-ZWHJfnRgePp3FKRSKMtnZVnD1s8ZchWD+jSl7UMseGIqhweCo1Z9916/xXBbJAa6PrA3pUZfkOvIsHZG4ZtIMw==}
+  /express-validator/6.14.1:
+    resolution: {integrity: sha512-4w7gn/jPW1a+r833xBqpu4pL7XiiScDwlbBIMtiqUEt/MVNqR94HOHyKLcCtnqCnEPiqrX1Mqt9l/SVN/iqeLA==}
     engines: {node: '>= 8.0.0'}
     dependencies:
       lodash: 4.17.21
@@ -10253,6 +10253,7 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dev: true
 
   /follow-redirects/1.14.7_debug@4.3.3:
     resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
@@ -11170,7 +11171,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.14.7
+      follow-redirects: 1.14.7_debug@4.3.3
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
