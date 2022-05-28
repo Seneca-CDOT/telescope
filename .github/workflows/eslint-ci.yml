@@ -11,7 +11,7 @@ jobs:
     env:
       # Use the git sha as a unique token for Turbo Repo
       SERVER_TOKEN: ${{ github.sha }}
-      SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2.2.1
@@ -30,18 +30,9 @@ jobs:
           pnpm install
           pnpm turbo run lint --api="http://127.0.0.1:9080" --token="${{ env.SERVER_TOKEN }}" --team="telescope-admins"
 
-      - name: Notify slack success
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#telescope-bot'
         if: always()
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          channel: telescope-bot
-          status: SUCCESS
-          color: good
-
-      - name: Notify slack fail
-        if: failure()
-        uses: voxmedia/github-action-slack-notify-build@v1
-        with:
-          channel: telescope-bot
-          status: FAILED
-          color: danger
