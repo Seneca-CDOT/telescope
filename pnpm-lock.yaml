@@ -421,7 +421,7 @@ importers:
       '@testing-library/react': 12.1.5
       '@types/node': 16.11.36
       '@types/react': 17.0.45
-      '@types/react-dom': 18.0.4
+      '@types/react-dom': 18.0.5
       '@types/react-transition-group': 4.4.4
       '@types/smoothscroll-polyfill': 0.3.1
       '@types/yup': 0.29.14
@@ -497,7 +497,7 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       '@types/node': 16.11.36
       '@types/react': 17.0.45
-      '@types/react-dom': 18.0.4
+      '@types/react-dom': 18.0.5
       '@types/react-transition-group': 4.4.4
       '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
       '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
@@ -5767,8 +5767,8 @@ packages:
       '@types/react': 17.0.45
     dev: false
 
-  /@types/react-dom/18.0.4:
-    resolution: {integrity: sha512-FgTtbqPOCI3dzZPZoC2T/sx3L34qxy99ITWn4eoSA95qPyXDMH0ALoAqUp49ITniiJFsXUVBtalh/KffMpg21Q==}
+  /@types/react-dom/18.0.5:
+    resolution: {integrity: sha512-OWPWTUrY/NIrjsAPkAk1wW9LZeIjSvkXRhclsFO8CZcZGCOg2G0YZy4ft+rOyYxy8B7ui5iZzi9OkDebZ7/QSA==}
     dependencies:
       '@types/react': 17.0.45
     dev: true
@@ -6794,7 +6794,7 @@ packages:
   /axios/0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.14.7_debug@4.3.3
+      follow-redirects: 1.14.7
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10253,7 +10253,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dev: true
 
   /follow-redirects/1.14.7_debug@4.3.3:
     resolution: {integrity: sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==}
@@ -11171,7 +11170,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.14.7_debug@4.3.3
+      follow-redirects: 1.14.7
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
