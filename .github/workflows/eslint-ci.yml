@@ -11,7 +11,6 @@ jobs:
     env:
       # Use the git sha as a unique token for Turbo Repo
       SERVER_TOKEN: ${{ github.sha }}
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
       - uses: act10ns/slack@v1
         with:
@@ -40,6 +39,9 @@ jobs:
           pnpm turbo run lint --api="http://127.0.0.1:9080" --token="${{ env.SERVER_TOKEN }}" --team="telescope-admins"
 
       - uses: act10ns/slack@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
         with:
           status: ${{ job.status }}
           steps: ${{ toJson(steps) }}
