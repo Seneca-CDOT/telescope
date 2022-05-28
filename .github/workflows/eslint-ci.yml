@@ -28,3 +28,29 @@ jobs:
         run: |
           pnpm install
           pnpm turbo run lint --api="http://127.0.0.1:9080" --token="${{ env.SERVER_TOKEN }}" --team="telescope-admins"
+
+  report_success:
+    name: Notify slack success
+    needs: eslint
+    if: success()
+    env:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+    steps:
+      uses: voxmedia/github-action-slack-notify-build@v1
+      with:
+        channel_id: C03FPSQ53V0
+        status: SUCCESS
+        color: good
+
+  report_failure:
+    name: Notify slack fail
+    needs: eslint
+    if: failure()
+    env:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
+    steps:
+      uses: voxmedia/github-action-slack-notify-build@v1
+      with:
+        channel_id: C03FPSQ53V0
+        status: FAILED
+        color: danger

@@ -6,6 +6,9 @@ on:
       - master
     paths-ignore:
       - 'src/web/docusaurus/docs/**'
+  push:
+    branches:
+      - github-actions-slack
 
 jobs:
   lockfile:
