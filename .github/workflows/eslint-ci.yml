@@ -38,7 +38,7 @@ jobs:
     steps:
       uses: voxmedia/github-action-slack-notify-build@v1
       with:
-        channel_id: C03FPSQ53V0
+        channel: telescope-bot
         status: SUCCESS
         color: good
 
@@ -51,6 +51,6 @@ jobs:
     steps:
       uses: voxmedia/github-action-slack-notify-build@v1
       with:
-        channel_id: C03FPSQ53V0
+        channel: telescope-bot
         status: FAILED
         color: danger

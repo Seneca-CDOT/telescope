@@ -55,7 +55,7 @@ jobs:
     steps:
       uses: voxmedia/github-action-slack-notify-build@v1
       with:
-        channel_id: C03FPSQ53V0
+        channel: C03FPSQ53V0
         status: SUCCESS
         color: good
 
