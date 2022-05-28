@@ -15,6 +15,7 @@ jobs:
       DOCKER_CONTAINERS: 'sso feed-discovery auth login kong rest meta elasticsearch redis posts traefik'
       # Postgres database connection string to run db migration
       DATABASE_URL: 'postgresql://postgres:your-super-secret-and-long-postgres-password@localhost/postgres'
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
@@ -46,28 +47,18 @@ jobs:
       - name: Run E2E tests
         run: pnpm jest:e2e
 
-  report_success:
-    name: Notify slack success
-    needs: e2e
-    if: success()
-    env:
-      SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
-    steps:
-      uses: voxmedia/github-action-slack-notify-build@v1
-      with:
-        channel: C03FPSQ53V0
-        status: SUCCESS
-        color: good
+      - name: Notify slack success
+        if: success()
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel_id: C03FPSQ53V0
+          status: SUCCESS
+          color: good
 
-  report_failure:
-    name: Notify slack fail
-    needs: e2e
-    if: failure()
-    env:
-      SLACK_BOT_TOKEN: ${{ secrets.SLACK_NOTIFICATIONS_BOT_TOKEN }}
-    steps:
-      uses: voxmedia/github-action-slack-notify-build@v1
-      with:
-        channel_id: C03FPSQ53V0
-        status: FAILED
-        color: danger
+      - name: Notify slack fail
+        if: failure()
+        uses: voxmedia/github-action-slack-notify-build@v1
+        with:
+          channel: telescope-bot
+          status: FAILED
+          color: danger
