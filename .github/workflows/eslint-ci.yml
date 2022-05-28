@@ -26,6 +26,7 @@ jobs:
           server-token: ${{ env.SERVER_TOKEN }}
 
       - name: Install dependencies and run eslint
+        id: run-eslint
         run: |
           pnpm install
           pnpm turbo run lint --api="http://127.0.0.1:9080" --token="${{ env.SERVER_TOKEN }}" --team="telescope-admins"
