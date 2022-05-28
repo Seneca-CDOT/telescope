@@ -31,7 +31,7 @@ jobs:
           pnpm turbo run lint --api="http://127.0.0.1:9080" --token="${{ env.SERVER_TOKEN }}" --team="telescope-admins"
 
       - name: Notify slack success
-        if: success()
+        if: always()
         uses: voxmedia/github-action-slack-notify-build@v1
         with:
           channel: telescope-bot
