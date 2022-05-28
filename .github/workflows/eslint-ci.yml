@@ -13,6 +13,14 @@ jobs:
       SERVER_TOKEN: ${{ github.sha }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
     steps:
+      - uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          steps: ${{ toJson(steps) }}
+          channel: '#telescope-bot'
+          message: Testing a bot...
+        if: always()
+
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2.2.1
       - uses: actions/setup-node@v2.5.1
