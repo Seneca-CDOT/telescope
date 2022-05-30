@@ -1,4 +1,6 @@
-import 'dotenv/config';
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: './.env.development' });
 
 export default {
   expo: {
