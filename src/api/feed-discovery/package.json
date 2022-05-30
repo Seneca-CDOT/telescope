@@ -22,7 +22,7 @@
   "dependencies": {
     "@senecacdot/satellite": "^1.27.0",
     "cheerio": "1.0.0-rc.11",
-    "got": "11.8.3"
+    "got": "11.8.5"
   },
   "engines": {
     "node": ">=12.0.0"
