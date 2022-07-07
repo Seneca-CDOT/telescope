@@ -38,8 +38,7 @@
     "services:logs": "node bin/services-logs.js --",
     "services:clean": "node bin/services-clean.js",
     "prepare": "husky install",
-    "preinstall": "npx only-allow pnpm",
-    "postinstall": "npm install --prefix src/mobile"
+    "preinstall": "npx only-allow pnpm"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -58,7 +57,7 @@
     "@babel/preset-env": "7.17.10",
     "@babel/preset-react": "7.16.7",
     "@babel/preset-typescript": "7.16.7",
-    "@parcel/packager-ts": "2.4.1",
+    "@parcel/packager-ts": "2.6.2",
     "@senecacdot/eslint-config-telescope": "1.1.0",
     "@types/jest": "27.4.1",
     "@vercel/node": "1.13.0",
@@ -87,16 +86,6 @@
     "pnpm": ">=6"
   },
   "packageManager": "pnpm@6.32.13",
-  "pnpm": {
-    "overrides": {
-      "json-ptr@<3.0.0": ">=3.0.0",
-      "ansi-regex@>2.1.1 <5.0.1": ">=5.0.1",
-      "trim@<0.0.3": ">=0.0.3",
-      "node-forge@<1.0.0": ">=1.0.0",
-      "marked@<4.0.10": ">=4.0.10",
-      "node-fetch@<2.6.7": ">=2.6.7"
-    }
-  },
   "prisma": {
     "seed": "node src/db/seed"
   }
