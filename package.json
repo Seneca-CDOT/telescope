@@ -57,6 +57,7 @@
     "@babel/preset-env": "7.17.10",
     "@babel/preset-react": "7.16.7",
     "@babel/preset-typescript": "7.16.7",
+    "@parcel/core": "2.6.2",
     "@parcel/packager-ts": "2.6.2",
     "@senecacdot/eslint-config-telescope": "1.1.0",
     "@types/jest": "27.4.1",
