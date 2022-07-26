@@ -361,7 +361,6 @@ propagate
 proper-lockfile
 proxy-from-env
 qs
-react-is
 read-pkg
 readable-stream
 redis-commands
