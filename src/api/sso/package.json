@@ -28,7 +28,7 @@
     "jsonwebtoken": "8.5.1",
     "minimatch": "3.0.4",
     "normalize-url": "6.1.0",
-    "passport": "0.5.2",
+    "passport": "0.6.0",
     "passport-saml": "3.2.1"
   },
   "engines": {
