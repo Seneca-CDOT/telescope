@@ -469,7 +469,7 @@ describe('author autocomplete query routers', () => {
     res = await request(app).get('/authors/autocomplete/').query({ author: 'ro le' });
     expect(res.status).toBe(200);
     expect(res.body.results).toBe(2);
-    expect(res.body.res).toStrictEqual([
+    expect(res.body.authors).toStrictEqual([
       {
         author: 'Roxanne Lee',
         highlight: '<em>Ro</em>xanne <em>Le</em>e',
@@ -493,7 +493,7 @@ describe('author autocomplete query routers', () => {
     res = await request(app).get('/authors/autocomplete/').query({ author: 'ro le' });
     expect(res.status).toBe(200);
     expect(res.body.results).toBe(0);
-    expect(res.body.res).toStrictEqual([]);
+    expect(res.body.authors).toStrictEqual([]);
   });
 
   it('Return Error when an ElasticSearch Error occurs', async () => {
