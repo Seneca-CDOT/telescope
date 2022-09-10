@@ -4,7 +4,8 @@ module.exports = {
   ...baseConfig,
   projects: [
     // Our front-end
-    '<rootDir>/src/web/app/jest.config.js',
+    // To do: Add front-end tests. https://github.com/Seneca-CDOT/telescope/issues/3655
+    // '<rootDir>/src/web/app/jest.config.js',
     // Satellite
     '<rootDir>/src/satellite/jest.config.js',
     // Our current microservices, we're missing a few that needs tests still
