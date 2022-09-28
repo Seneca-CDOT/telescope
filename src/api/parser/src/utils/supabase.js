@@ -25,7 +25,7 @@ module.exports = {
 
     return data.map((feed) => ({
       // Prefer the a user's display name if present, fallback to wiki name otherwise
-      author: feed.display_name || feed.wiki_author_name,
+      author: feed.telescope_profiles?.display_name || feed.wiki_author_name,
       url: feed.url,
     }));
   },
