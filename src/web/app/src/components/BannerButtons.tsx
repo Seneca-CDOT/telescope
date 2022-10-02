@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import useAuth from '../hooks/use-auth';
 import TelescopeAvatar from './TelescopeAvatar';
 import PopUp from './PopUp';
+import { webUrl } from '../config';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {
@@ -87,7 +88,7 @@ const BannerButtons = () => {
           disagreeButtonText="CANCEL"
         />
       )}
-      <Link href="https://dev.telescope.cdot.systems/docs/overview/" passHref>
+      <Link href={`${webUrl}/docs/overview/`} passHref>
         <Button className={classes.buttons} variant="outlined">
           About us
         </Button>
