@@ -32,6 +32,12 @@ hljs.registerLanguage('php', require('highlight.js/lib/languages/php'));
 hljs.registerLanguage('dos', require('highlight.js/lib/languages/dos'));
 
 /**
+ * Disable displaying warning message for unescaped html
+ * https://github.com/highlightjs/highlight.js/wiki/security
+ */
+hljs.configure({ ignoreUnescapedHTML: true });
+
+/**
  * Given a parsed JSDOM Object, find all <pre>...</pre> code blocks
  * and apply syntax highlight markup.
  */
