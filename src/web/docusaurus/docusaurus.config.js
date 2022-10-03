@@ -120,7 +120,7 @@ const config = async () => {
               items: [
                 {
                   label: 'Documentation',
-                  href: 'https://docusaurus.io/docs/',
+                  href: 'https://telescope.cdot.systems/docs/overview/',
                 },
                 {
                   label: 'Slack',
