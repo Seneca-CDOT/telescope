@@ -30,6 +30,7 @@ const search = async (options) => {
         must: [],
       },
     },
+    sort: [{ published: { order: 'desc' } }],
   };
 
   const { must } = results.query.bool;
@@ -40,6 +41,7 @@ const search = async (options) => {
         author: {
           query: options.author,
           zero_terms_query: 'all',
+          operator: 'and',
         },
       },
     });
@@ -133,21 +135,23 @@ const authorAutocomplete = async ({ author }) => {
     body: results,
   });
 
-  // Filter through all authors and remove duplicates
-  const res = hits.hits.reduce(
-    (acc, { _source }, i) =>
-      acc.find((item) => item.author === _source.author)
-        ? acc
-        : acc.concat({
-            author: _source.author,
-            highlight: hits.hits[i].highlight['author.autocomplete'][0],
-          }),
-    []
-  );
+  // Filter through all authors and remove duplicates then return up to 10 results
+  const authors = hits.hits
+    .reduce(
+      (acc, { _source }, i) =>
+        acc.find((item) => item.author === _source.author)
+          ? acc
+          : acc.concat({
+              author: _source.author,
+              highlight: hits.hits[i].highlight['author.autocomplete'][0],
+            }),
+      []
+    )
+    .slice(0, 10);
 
   return {
-    results: res.length,
-    res,
+    results: authors.length,
+    authors,
   };
 };
 module.exports = { search, authorAutocomplete };

@@ -99,9 +99,7 @@ const AuthorInput = ({ text, setText, labelFor }: AuthorInputInterface) => {
     async (url) => {
       const res = await fetch(url);
       if (res.ok) {
-        const results = await res.json();
-        // return up to first 10 results
-        return results.res.slice(0, 10);
+        return (await res.json()).authors;
       }
       return [];
     }

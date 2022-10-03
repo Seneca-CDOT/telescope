@@ -1,4 +1,8 @@
 module.exports = {
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+  },
   extends: [
     '@senecacdot/eslint-config-telescope',
     'plugin:node/recommended',
