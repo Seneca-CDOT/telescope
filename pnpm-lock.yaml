@@ -299,7 +299,7 @@ importers:
       octokit: 2.0.3
       perfect-scrollbar: 1.5.5
       sass: 1.49.9
-      vite: 2.8.6
+      vite: 2.9.13
       xterm: 4.18.0
       xterm-addon-fit: 0.5.0
       xterm-addon-web-links: 0.5.1
@@ -314,7 +314,7 @@ importers:
       octokit: 2.0.3
       perfect-scrollbar: 1.5.5
       sass: 1.49.9
-      vite: 2.8.6_sass@1.49.9
+      vite: 2.9.13_sass@1.49.9
       xterm: 4.18.0
       xterm-addon-fit: 0.5.0_xterm@4.18.0
       xterm-addon-web-links: 0.5.1_xterm@4.18.0
@@ -19476,8 +19476,8 @@ packages:
       vfile-message: 2.0.4
     dev: false
 
-  /vite/2.8.6_sass@1.49.9:
-    resolution: {integrity: sha512-e4H0QpludOVKkmOsRyqQ7LTcMUDF3mcgyNU4lmi0B5JUbe0ZxeBBl8VoZ8Y6Rfn9eFKYtdXNPcYK97ZwH+K2ug==}
+  /vite/2.9.13_sass@1.49.9:
+    resolution: {integrity: sha512-AsOBAaT0AD7Mhe8DuK+/kE4aWYFMx/i0ZNi98hJclxb4e0OhQcZYUrvLjIaQ8e59Ui7txcvKMiJC1yftqpQoDw==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:
