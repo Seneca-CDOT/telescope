@@ -134,7 +134,8 @@ class Post {
     }
 
     // Allow for missing title, but give it one
-    if (!article.title) {
+    // Allow for missing title given as { '$': { type: 'text' } }, but set to 'Untitled'
+    if (!article.title || article.title.$) {
       logger.debug('article missing title, substituting "Untitled"');
       article.title = 'Untitled';
     }
