@@ -993,72 +993,118 @@ describe('Redis()', () => {
 });
 
 describe('Elastic()', () => {
-  describe('Tests for regular Elastic()', () => {
-    test('Testing the name property which should be a string', async () => {
-      const client = Elastic();
+  let client;
+  let mock;
 
-      const clientInfo = await client.info();
-
-      expect(clientInfo.statusCode).toBe(200);
-    });
+  beforeEach(() => {
+    client = Elastic();
+    mock = client.mock;
+    mock.clearAll();
   });
 
-  describe('Tests for mock Elastic()', () => {
-    let client;
-    let mock;
+  afterAll(() => {
+    mock.clearAll();
+  });
 
-    beforeEach(() => {
-      client = Elastic();
-      mock = client.mock;
-      mock.clearAll();
-    });
-
-    afterAll(() => {
-      mock.clearAll();
-    });
-
-    test('Should mock an API', async () => {
-      mock.add(
-        {
-          method: 'GET',
-          path: '/_cat/indices',
-        },
-        () => {
-          return { status: 'ok' };
-        }
-      );
-
-      const response = await client.cat.indices();
-      expect(response.body).toStrictEqual({ status: 'ok' });
-      expect(response.statusCode).toBe(200);
-    });
-
-    test('If an API is not mocked correctly, it should return a 404', async () => {
-      let response;
-
-      mock.add(
-        {
-          method: 'GET',
-          path: '/_cat/health',
-          querystring: { pretty: 'true' },
-        },
-        () => {
-          return { status: 'ok' };
-        }
-      );
-
-      try {
-        response = await client.cat.health();
-      } catch (err) {
-        expect(err instanceof errors.ResponseError).toBe(true);
-        expect(err.body).toStrictEqual({ error: 'Mock not found' });
-        expect(err.statusCode).toBe(404);
+  test('Should mock an API', async () => {
+    mock.add(
+      {
+        method: 'GET',
+        path: '/_cat/indices',
+      },
+      () => {
+        return { status: 'ok' };
       }
+    );
 
-      response = await client.cat.health({ pretty: true });
-      expect(response.body).toStrictEqual({ status: 'ok' });
-      expect(response.statusCode).toBe(200);
+    const response = await client.cat.indices({}, { meta: true });
+    expect(response.body).toStrictEqual({ status: 'ok' });
+    expect(response.statusCode).toBe(200);
+  });
+
+  test('If an API is not mocked correctly, it should return a 404', async () => {
+    let response;
+
+    mock.add(
+      {
+        method: 'GET',
+        path: '/_cat/health',
+        querystring: { pretty: 'true' },
+      },
+      () => {
+        return { status: 'ok' };
+      }
+    );
+
+    try {
+      response = await client.cat.health();
+    } catch (err) {
+      expect(err instanceof errors.ResponseError).toBe(true);
+      expect(err.body).toStrictEqual({ error: 'Mock not found' });
+      expect(err.statusCode).toBe(404);
+    }
+
+    response = await client.cat.health({ pretty: true }, { meta: true });
+    expect(response.body).toStrictEqual({ status: 'ok' });
+    expect(response.statusCode).toBe(200);
+  });
+
+  test('mock.clearAll() will work for mocks that share the same client', async () => {
+    const mockResults1 = { text: 'first result' };
+    const mockResults2 = { text: 'second result' };
+
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/_search',
+      },
+      () => {
+        return mockResults1;
+      }
+    );
+
+    let response = await client.search({
+      index: 'posts',
+      query: { match_all: {} },
     });
+    expect(response).toStrictEqual(mockResults1);
+
+    // Adding a second mock without clearing
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/_search',
+      },
+      () => {
+        return mockResults2;
+      }
+    );
+
+    response = await client.search({
+      index: 'posts',
+      query: { match_all: {} },
+    });
+    // Will not get the results of the new mock
+    expect(response).toStrictEqual(mockResults1);
+
+    // Clearing mocks before adding a new mock
+    mock.clearAll();
+    mock.add(
+      {
+        method: ['POST', 'GET'],
+        path: '/posts/_search',
+      },
+      () => {
+        return mockResults2;
+      }
+    );
+
+    response = await client.search({
+      index: 'posts',
+      query: { match_all: {} },
+    });
+    // Will get the results of the new mock as expected
+    expect(response).toStrictEqual(mockResults2);
   });
 });
 
