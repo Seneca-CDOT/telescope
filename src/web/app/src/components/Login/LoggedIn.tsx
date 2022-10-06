@@ -1,7 +1,7 @@
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
-import useAuth from '../../hooks/use-auth';
-import NavBarButton, { NavBarIconProps } from '../NavBar/NavBarButton';
+import useAuth from '@hooks/use-auth';
+import NavBarButton, { NavBarIconProps } from '@components/NavBar/NavBarButton';
 
 const LoggedIn = () => {
   const { logout, user } = useAuth();

@@ -1,6 +1,6 @@
 import { createStyles, ListSubheader, makeStyles, Theme } from '@material-ui/core';
 import PostAvatar from './PostAvatar';
-import AdminButtons from '../AdminButtons';
+import AdminButtons from '@components/AdminButtons';
 import ShareButton from './ShareButton';
 
 const useStyles = makeStyles((theme: Theme) =>

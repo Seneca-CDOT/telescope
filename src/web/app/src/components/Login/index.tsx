@@ -1,6 +1,6 @@
 import LoggedIn from './LoggedIn';
 import LoggedOut from './LoggedOut';
-import useAuth from '../../hooks/use-auth';
+import useAuth from '@hooks/use-auth';
 
 /**
  * Show either a Login button (if user isn't authenticated)

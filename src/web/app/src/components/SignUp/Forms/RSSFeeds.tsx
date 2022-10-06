@@ -7,9 +7,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import { feedDiscoveryServiceUrl } from '../../../config';
-import useAuth from '../../../hooks/use-auth';
-import { SignUpForm, DiscoveredFeed, DiscoveredFeeds } from '../../../interfaces';
+import { feedDiscoveryServiceUrl } from '@config';
+import useAuth from '@hooks/use-auth';
+import { SignUpForm, DiscoveredFeed, DiscoveredFeeds } from '@interfaces';
 import { TextInput, CheckBoxInput } from '../FormFields';
 
 const useStyles = makeStyles((theme: Theme) =>

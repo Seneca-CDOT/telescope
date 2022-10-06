@@ -1,6 +1,6 @@
-import SEO from '../components/SEO';
-import SearchPage from '../components/SearchPage';
-import NavBar from '../components/NavBar';
+import SEO from '@components/SEO';
+import SearchPage from '@components/SearchPage';
+import NavBar from '@components/NavBar';
 
 const Search = () => {
   return (

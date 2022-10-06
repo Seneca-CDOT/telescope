@@ -1,7 +1,7 @@
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-import NavBarButton from '../NavBar/NavBarButton';
-import useAuth from '../../hooks/use-auth';
+import NavBarButton from '@components/NavBar/NavBarButton';
+import useAuth from '@hooks/use-auth';
 
 const LoggedOut = () => {
   const { login } = useAuth();

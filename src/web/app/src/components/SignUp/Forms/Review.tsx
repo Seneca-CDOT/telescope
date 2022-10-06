@@ -1,8 +1,8 @@
 import { createStyles, makeStyles, Theme, FormHelperText } from '@material-ui/core';
 import { connect } from 'formik';
 
-import { SignUpForm } from '../../../interfaces';
-import PostAvatar from '../../Posts/PostAvatar';
+import { SignUpForm } from '@interfaces';
+import PostAvatar from '@components/Posts/PostAvatar';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

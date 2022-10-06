@@ -6,7 +6,7 @@ import type { SupabaseClient } from '@supabase/supabase-js';
 
 import supabase from '../supabase';
 import User from '../User';
-import { loginUrl, logoutUrl, webUrl } from '../config';
+import { loginUrl, logoutUrl, webUrl } from '@config';
 
 export interface AuthContextInterface {
   login: (returnTo?: string) => void;

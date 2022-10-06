@@ -14,7 +14,7 @@ import { FiPackage } from 'react-icons/fi';
 import useSWR from 'swr';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { dependencyDiscoveryUrl } from '../../config';
+import { dependencyDiscoveryUrl } from '@config';
 
 const useStyles = makeStyles((theme) => ({
   root: {

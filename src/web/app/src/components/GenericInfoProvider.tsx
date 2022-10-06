@@ -1,7 +1,7 @@
 import { createContext, useMemo, ReactNode } from 'react';
 import { parseGitHubUrls, GitHubInfo } from '@senecacdot/github-url-parser';
 
-import { Post } from '../interfaces';
+import { Post } from '@interfaces';
 import { YouTubeInfoContextInterface, extractYouTubeInfo } from './YouTubeInfo';
 
 type GenericInfoContextInterface = {

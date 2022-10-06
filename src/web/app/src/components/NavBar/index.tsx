@@ -12,10 +12,10 @@ import { FiPackage } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
 
 import NavBarButton, { NavBarIconProps } from './NavBarButton';
-import Logo from '../Logo';
-import Login from '../Login';
-import TelescopeAvatar from '../TelescopeAvatar';
-import useAuth from '../../hooks/use-auth';
+import Logo from '@components/Logo';
+import Login from '@components/Login';
+import TelescopeAvatar from '@components/TelescopeAvatar';
+import useAuth from '@hooks/use-auth';
 
 /**  This will solve the problem of incorrect rendering of theme icon when theme preference is dark
  * This ensures that the version displayed to user is the client view which ties to the client's preference theme.

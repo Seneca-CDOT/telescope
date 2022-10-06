@@ -20,14 +20,14 @@ import GitHubInfo from './GitHubInfo';
 import YouTubeInfo from './YouTubeInfo';
 import GitHubInfoMobile from './GitHubInfo/GitHubInfoMobile';
 import YouTubeInfoMobile from './YouTubeInfo/YouTubeInfoMobile';
-import GenericInfoProvider from '../GenericInfoProvider';
+import GenericInfoProvider from '@components/GenericInfoProvider';
 import PostDesktopInfo from './PostInfo';
 import PostAvatar from './PostAvatar';
-import AdminButtons from '../AdminButtons';
-import Spinner from '../Spinner';
+import AdminButtons from '@components/AdminButtons';
+import Spinner from '@components/Spinner';
 import ShareButton from './ShareButton';
 import ExpandIcon from './ExpandIcon';
-import { Post } from '../../interfaces';
+import { Post } from '@interfaces';
 
 import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 

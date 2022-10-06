@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import NoSsr from '@material-ui/core/NoSsr';
 
 import DynamicImage from './DynamicImage';
-import { imageServiceUrl } from '../config';
+import { imageServiceUrl } from '@config';
 
 const useStyles = makeStyles((theme) => ({
   dynamic: {

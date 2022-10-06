@@ -2,9 +2,9 @@ import { Children } from 'react';
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
-import { logoUrl } from '../components/Logo';
-import { title, description, author, keywords, image, imageAlt } from '../config';
-import { lightTheme } from '../theme';
+import { logoUrl } from '@components/Logo';
+import { title, description, author, keywords, image, imageAlt } from '@config';
+import { lightTheme } from '@theme';
 
 // Reference: https://github.com/mui-org/material-ui/blob/master/examples/nextjs/pages/_document.js
 class MyDocument extends Document {

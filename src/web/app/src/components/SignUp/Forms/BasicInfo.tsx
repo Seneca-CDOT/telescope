@@ -2,8 +2,8 @@ import { ReactNode } from 'react';
 import { createStyles, makeStyles } from '@material-ui/core';
 import { connect } from 'formik';
 
-import { SignUpForm } from '../../../interfaces';
-import useAuth from '../../../hooks/use-auth';
+import { SignUpForm } from '@interfaces';
+import useAuth from '@hooks/use-auth';
 import formModels from '../Schema/FormModel';
 import { TextInput } from '../FormFields';
 

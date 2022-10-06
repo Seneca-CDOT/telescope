@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import { makeStyles, Tooltip, withStyles, Zoom } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
-import useAuth from '../hooks/use-auth';
+import useAuth from '@hooks/use-auth';
 import TelescopeAvatar from './TelescopeAvatar';
 import PopUp from './PopUp';
-import { webUrl } from '../config';
+import { webUrl } from '@config';
 
 const useStyles = makeStyles((theme) => ({
   buttonsContainer: {

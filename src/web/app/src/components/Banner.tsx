@@ -3,7 +3,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { makeStyles, Theme, createStyles, Typography, Fab } from '@material-ui/core';
 import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { gitCommitSha, webUrl, statusUrl } from '../config';
+import { gitCommitSha, webUrl, statusUrl } from '@config';
 import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
