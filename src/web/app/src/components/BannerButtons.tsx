@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ButtonTooltip = withStyles({
   tooltip: {
+    marginTop: '12px',
     fontSize: '1.5rem',
     margin: 0,
   },
