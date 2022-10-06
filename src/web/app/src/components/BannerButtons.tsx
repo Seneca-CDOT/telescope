@@ -58,7 +58,6 @@ const ButtonTooltip = withStyles({
   tooltip: {
     marginTop: '12px',
     fontSize: '1.5rem',
-    margin: 0,
   },
 })(Tooltip);
 
