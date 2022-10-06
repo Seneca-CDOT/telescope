@@ -306,8 +306,12 @@ services:
 
   # Elasticsearch
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.4
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.4.0
     container_name: 'elasticsearch'
+    environment:
+      # ElasticSearch added security settings in 8.0
+      # See https://www.elastic.co/guide/en/elasticsearch/reference/current/security-settings.html#general-security-settings
+      - xpack.security.enabled=false
 
   rss-bridge:
     image: rssbridge/rss-bridge:2022-01-20

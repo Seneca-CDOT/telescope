@@ -90,13 +90,18 @@ const search = async (options) => {
 
   const {
     body: { hits },
-  } = await client.search({
-    from: calculateFrom(options.page, options.perPage),
-    size: options.perPage,
-    _source: ['id'],
-    index,
-    body: results,
-  });
+  } = await client.search(
+    {
+      from: calculateFrom(options.page, options.perPage),
+      size: options.perPage,
+      _source: ['id'],
+      index,
+      body: results,
+    },
+    {
+      meta: true,
+    }
+  );
 
   return {
     results: hits.total.value,
@@ -128,12 +133,17 @@ const authorAutocomplete = async ({ author }) => {
 
   const {
     body: { hits },
-  } = await client.search({
-    size: 10000,
-    _source: ['author'],
-    index,
-    body: results,
-  });
+  } = await client.search(
+    {
+      size: 10000,
+      _source: ['author'],
+      index,
+      body: results,
+    },
+    {
+      meta: true,
+    }
+  );
 
   // Filter through all authors and remove duplicates then return up to 10 results
   const authors = hits.hits
