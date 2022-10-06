@@ -120,7 +120,7 @@ const config = async () => {
               items: [
                 {
                   label: 'Documentation',
-                  to: '/docs/overview',
+                  to: '/overview',
                 },
                 {
                   label: 'Slack',
