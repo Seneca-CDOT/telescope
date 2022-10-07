@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "pnpm turbo run build",
-    "dev": "cd src/web/app && pnpm dev",
+    "dev": "pnpm --filter @senecacdot/telescope-frontend dev",
     "develop": "pnpm dev",
     "lint": "pnpm turbo run lint && pnpm eslint",
     "lint-time": "pnpm turbo run lint-time && pnpm eslint-time",
