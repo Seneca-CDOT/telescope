@@ -17,7 +17,33 @@ const config = async () => {
     favicon: 'img/favicon.ico',
     organizationName: 'seneca-cdot', // Usually your GitHub org/user name.
     projectName: 'telescope', // Usually your repo name.
-
+    plugins: [
+      [
+        '@docusaurus/plugin-pwa',
+        {
+          debug: false,
+          offlineModeActivationStrategies: ['appInstalled', 'standalone', 'queryString'],
+          pwaHead: [
+            {
+              tagName: 'link',
+              rel: 'icon',
+              href: '/img/manifest-icon-512.png',
+            },
+            {
+              tagName: 'link',
+              rel: 'manifest',
+              href: '/manifest.json',
+            },
+            {
+              tagName: 'meta',
+              name: 'theme-color',
+              content: '#121D59',
+            },
+          ],
+        },
+      ],
+    ],
+    clientModules: [require.resolve('./pwaCustomButton.js')],
     presets: [
       [
         'classic',
@@ -98,6 +124,9 @@ const config = async () => {
                 {
                   label: 'Telescope Mobile Apps',
                   to: 'https://telescope.cdot.systems/',
+                },
+                {
+                  html: `<a href='#' id='pwa-button' class='footer__link-item' hidden>Install Documentation as an App</a>`,
                 },
               ],
             },
