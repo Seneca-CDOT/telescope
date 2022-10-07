@@ -1,6 +1,5 @@
-const { POSTS_URL = 'http://localhost/v1/posts' } = process.env;
-const { Elastic, logger, createError } = require('@senecacdot/satellite');
-const { waitOnReady, indexPost, deletePost, search } = require('../src/utils/indexer');
+const { Elastic, logger } = require('@senecacdot/satellite');
+const { waitOnReady, indexPost, deletePost } = require('../src/utils/indexer');
 
 const index = 'posts';
 
@@ -120,63 +119,6 @@ describe('Indexer tests', () => {
       expect(loggerSpy.mock.lastCall[1]).toStrictEqual(
         `There was an error deleting the post with id ${otherPost.id}`
       );
-    });
-  });
-
-  // For more ES search related tests, check out src/api/search tests
-  describe('Searching "Posts" index tests', () => {
-    const searchSpy = jest.fn().mockReturnValue({
-      results: 2,
-      hits: {
-        total: { value: 2 },
-        hits: [
-          {
-            _id: mockPost.id,
-          },
-          {
-            _id: otherPost.id,
-          },
-        ],
-      },
-    });
-
-    const esMock = (indexName) => {
-      mock.add(
-        {
-          method: ['POST', 'GET'],
-          path: `/${indexName}/_search`,
-        },
-        searchSpy
-      );
-    };
-
-    it('Successful search will display results', async () => {
-      esMock(index);
-      const res = await search();
-      expect(searchSpy).toHaveBeenCalled();
-      expect(searchSpy).toBeCalledTimes(1);
-      expect(res.results).toBe(2);
-      expect(res.values).toStrictEqual([
-        { id: mockPost.id, url: `${POSTS_URL}/${mockPost.id}` },
-        { id: otherPost.id, url: `${POSTS_URL}/${otherPost.id}` },
-      ]);
-    });
-
-    it('When an ElasticSearch Error occurs, there will be no search results', async () => {
-      // The mock below is used to force an ElasticSearch error to occur.
-      esMock('otherIndex');
-      let results;
-      try {
-        results = await search();
-      } catch (error) {
-        // This error will be of type ResponseError, which is an unique ES Error
-        // ResponseError is not currently exported from Satellite Elastic to use in tests
-        // But we can wrap it with Satellite CreateError to see the error type
-        const esError = createError(error);
-        expect(esError.message).toBe('ElasticSearch Error:ResponseError');
-      }
-      expect(results).toBeUndefined();
-      expect(searchSpy).toBeCalledTimes(0);
     });
   });
 });

@@ -1,9 +1,8 @@
 const normalizeUrl = require('normalize-url');
-const { hash, Elastic } = require('@senecacdot/satellite');
+const { hash } = require('@senecacdot/satellite');
 
 const Feed = require('../src/data/feed');
 const Post = require('../src/data/post');
-const { search } = require('../src/utils/indexer');
 
 const urlToId = (url) => hash(normalizeUrl(url));
 
@@ -63,20 +62,6 @@ describe('Post data class tests', () => {
     date: 'dooDate',
   };
 
-  const esMockResults = {
-    hits: {
-      total: { value: 2 },
-      hits: [{ _id: `${articleData1.id}` }, { _id: `${articleData2.id}` }],
-    },
-  };
-
-  const esMockEmpty = {
-    hits: {
-      total: { value: 0 },
-      hits: [],
-    },
-  };
-
   test('Feed should be a function', () => {
     expect(typeof Feed).toBe('function');
   });
@@ -94,13 +79,11 @@ describe('Post data class tests', () => {
   });
 
   describe('Get and Set Feed objects from database', () => {
-    const { mock } = Elastic();
     beforeAll(async () => {
       const feed = new Feed(data.author, data.url, data.user, data.link, null, null);
       __setMockFeeds([feed]);
       await feed.save();
     });
-    afterEach(() => mock.clearAll());
 
     test('Feed.byId() for a valid id should return a Feed', async () => {
       const feed = await Feed.byId(data.id);
@@ -192,17 +175,6 @@ describe('Post data class tests', () => {
 
       const posts = await Promise.all([Post.byId(articleData1.id), Post.byId(articleData2.id)]);
 
-      mock.add(
-        {
-          method: ['POST', 'GET'],
-          path: '/posts/_search',
-        },
-        () => {
-          return esMockResults;
-        }
-      );
-      const elasticPosts = await search();
-
       // Make sure our feed is correct and saved
       expect(feed.id).toBe(data.id);
       // Make sure our posts actually have data and is the same as PostData1 + PostData2
@@ -212,23 +184,8 @@ describe('Post data class tests', () => {
       expect(posts[1].feed.id).toBe(feed.id);
       expect(posts[0].feed.author).toBe(feed.author);
       expect(posts[1].feed.author).toBe(feed.author);
-      // Testing Posts in ElasticSearch here
-      expect(elasticPosts.results).toBe(posts.length);
-      // Each element of values should include 'id' key
-      expect(Object.keys(elasticPosts.values[0])).toEqual(expect.arrayContaining(['id']));
-      expect(Object.keys(elasticPosts.values[1])).toEqual(expect.arrayContaining(['id']));
+
       await feed.delete();
-      mock.clearAll();
-      mock.add(
-        {
-          method: ['POST', 'GET'],
-          path: '/posts/_search',
-        },
-        () => {
-          return esMockEmpty;
-        }
-      );
-      const esSearchDelete = await search();
 
       // Make sure posts are removed as well
       const removedFeed = await Feed.byId(feed.id);
@@ -238,8 +195,6 @@ describe('Post data class tests', () => {
       ]);
       expect(removedFeed).toBe(null);
       expect(removedPosts[0]).toBe(null);
-      expect(esSearchDelete.values).toStrictEqual([]);
-      expect(esSearchDelete.results).toBe(0);
     });
 
     test('clearCache should set lastModified and etag to null', async () => {
@@ -273,6 +228,7 @@ describe('Post data class tests', () => {
       await Promise.all([await feed.delete(), await feed2.delete(), await feed3.delete()]);
     });
   });
+
   describe('Set and get flagged feeds objects from Supabase', () => {
     beforeAll(() => {
       __resetMockFeeds();
