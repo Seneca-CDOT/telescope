@@ -123,7 +123,8 @@ class Post {
     // link is the URL of the post
     if (!article.link) missing.push('link');
     // guid is the unique identifier of the post
-    if (!article.guid) missing.push('guid');
+    // consider missing guid that is returned as an { '$': { isPermaLink: 'false' } } object.
+    if (!article.guid || article.guid.$) missing.push('guid');
     // pubdate is the publication date of the post
     if (!article.pubdate) missing.push('pubdate');
 

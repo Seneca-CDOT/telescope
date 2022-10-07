@@ -39,6 +39,7 @@ describe('Indexer tests', () => {
         createSpy
       );
     };
+
     it('Established connection and successful index creation should have no errors or logged errors', async () => {
       esMock(index);
       await waitOnReady();

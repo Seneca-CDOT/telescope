@@ -108,6 +108,7 @@ const articlesToPosts = (articles, feed) => {
         if (error instanceof ArticleError) {
           return;
         }
+        logger.error({ error }, `Unable to parse articles to posts for feed ${feed.url}`);
         throw error;
       }
     })

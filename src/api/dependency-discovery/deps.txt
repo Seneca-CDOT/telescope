@@ -142,6 +142,7 @@
 @docusaurus/utils-validation
 @elastic/elasticsearch
 @elastic/elasticsearch-mock
+@elastic/transport
 @emotion/babel-plugin
 @emotion/cache
 @emotion/hash
@@ -174,7 +175,9 @@
 @jest/transform
 @jest/types
 @jridgewell/gen-mapping
+@jridgewell/resolve-uri
 @jridgewell/source-map
+@jridgewell/sourcemap-codec
 @jridgewell/trace-mapping
 @lezer/common
 @lezer/lr
@@ -1168,7 +1171,6 @@ secure-json-parse
 selfsigned
 semver
 semver-diff
-semver-store
 send
 serialize-javascript
 serve-handler
@@ -1281,6 +1283,7 @@ typescript
 uglify-js
 uid-safe
 undefsafe
+undici
 unfetch
 unified
 unist-util-is

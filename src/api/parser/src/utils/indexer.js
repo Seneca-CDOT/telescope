@@ -35,8 +35,8 @@ const client = Elastic();
 const setupPostsIndex = async () => {
   try {
     const response = await client.indices.exists({ index });
-    // If the index doesn't exist, 404 statusCode is returned
-    if (response.statusCode === 404) {
+    // If the index doesn't exist, 'response' will return 'false'
+    if (!response) {
       await client.indices.create({
         index,
         body: {
@@ -79,6 +79,7 @@ const setupPostsIndex = async () => {
         },
       });
     }
+    logger.info(`${index} index created in ElasticSearch!`);
   } catch (error) {
     logger.error({ error }, `Error setting up ${index} index`);
   }
@@ -182,13 +183,18 @@ const search = async (
 
   const {
     body: { hits },
-  } = await client.search({
-    from: calculateFrom(page, perPage),
-    size: perPage,
-    _source: ['id'],
-    index,
-    body: query,
-  });
+  } = await client.search(
+    {
+      from: calculateFrom(page, perPage),
+      size: perPage,
+      _source: ['id'],
+      index,
+      body: query,
+    },
+    {
+      meta: true,
+    }
+  );
 
   return {
     results: hits.total.value,
