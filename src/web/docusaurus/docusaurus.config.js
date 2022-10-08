@@ -54,7 +54,7 @@ const config = async () => {
         },
         uk: {
           htmlLang: 'uk-UA',
-        }
+        },
       },
     },
 
