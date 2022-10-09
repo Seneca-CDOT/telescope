@@ -19,9 +19,11 @@ import { dependencyDiscoveryUrl } from '../../config';
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTableCell-body': {
-      fontSize: '14px',
+      fontFamily: 'Spartan',
+      fontSize: '16px',
       color: theme.palette.text.secondary,
       fontWeight: 700,
+      borderBottom: '0.01em solid #909090 !important',
     },
     cursor: 'pointer',
   },
@@ -35,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
   icons: {
     color: theme.palette.text.secondary,
     fontSize: '2rem !important',
+  },
+  dependencyInfoCell: {
+    borderBottom: '0.01em solid #909090 !important',
   },
   dependencyInfo: {
     display: 'inline-flex',
@@ -142,7 +147,11 @@ export const Row = ({ dependency }: RowProps) => {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={2}>
+        <TableCell
+          className={classes.dependencyInfoCell}
+          style={{ paddingBottom: 0, paddingTop: 0 }}
+          colSpan={2}
+        >
           <Collapse in={open} timeout="auto" unmountOnExit>
             {projectInfo && issues ? (
               <Box className={classes.collapseBox}>
