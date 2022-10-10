@@ -452,6 +452,7 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
                 authorName={post.feed.author}
                 postDate={formatPublishedDate(post.updated)}
                 blogUrl={post.feed.link}
+                githubUsername={post.feed.githubUsername}
               />
               <GitHubInfo />
               <YouTubeInfo />
@@ -478,7 +479,11 @@ const PostComponent = ({ postUrl, currentPost, totalPosts }: Props) => {
                   </Typography>
                 </div>
                 <div className={classes.authorAvatarContainer}>
-                  <PostAvatar name={post.feed.author} url={post.feed.link} />
+                  <PostAvatar
+                    name={post.feed.author}
+                    url={post.feed.link}
+                    githubUsername={post.feed.githubUsername}
+                  />
                 </div>
                 <div className={classes.authorNameContainer}>
                   <h1 className={classes.author}>

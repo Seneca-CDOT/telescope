@@ -3,6 +3,7 @@ export type Feed = {
   author: string;
   url: string;
   link: string;
+  githubUsername: string;
 };
 
 export type Post = {

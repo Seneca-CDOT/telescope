@@ -68,7 +68,9 @@ module.exports = {
         'etag',
         feed.etag,
         'lastModified',
-        feed.lastModified
+        feed.lastModified,
+        'githubUsername',
+        feed.githubUsername
       )
       .sadd(feedsKey, feed.id)
       .exec();
@@ -99,7 +101,7 @@ module.exports = {
     try {
       await redis
         .multi()
-        .hdel(key, 'id', 'author', 'url', 'user', 'link', 'etag', 'lastModified')
+        .hdel(key, 'id', 'author', 'url', 'user', 'link', 'etag', 'lastModified', 'githubUsername')
         .srem(feedsKey, id)
         .exec();
     } catch (error) {

@@ -106,7 +106,7 @@ const Review = connect<{ accountError: string | undefined }, SignUpForm>((props)
         <h1 className={classes.titlePage}>Review your Information</h1>
         <div className={classes.contentContainer}>
           <div className={classes.avatar}>
-            <PostAvatar name={displayName} img={github.avatarUrl} />
+            <PostAvatar name={displayName} githubUsername={github.username} />
             <h2>{displayName}</h2>
           </div>
           <div className={classes.senecaBlogInfo}>

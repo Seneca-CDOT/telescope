@@ -18,6 +18,7 @@ describe('Post data class tests', () => {
     link: 'https://user.feed.com/',
     etag: null,
     lastModified: null,
+    githubUsername: 'github User 1',
   };
 
   const data2 = {
@@ -27,6 +28,7 @@ describe('Post data class tests', () => {
     link: 'https://user2.feed.com/',
     etag: null,
     lastModified: null,
+    githubUsername: 'github User 2',
   };
 
   const data3 = {
@@ -36,9 +38,11 @@ describe('Post data class tests', () => {
     link: 'https://user3.feed.com/',
     etag: null,
     lastModified: null,
+    githubUsername: 'github User 3',
   };
 
-  const createFeed = () => new Feed(data.author, data.url, data.user, data.link, null, null);
+  const createFeed = () =>
+    new Feed(data.author, data.url, data.user, data.link, null, null, data.githubUsername);
 
   const articleData1 = {
     guid: 'http://dev.telescope.cdot.systems',
@@ -80,7 +84,15 @@ describe('Post data class tests', () => {
 
   describe('Get and Set Feed objects from database', () => {
     beforeAll(async () => {
-      const feed = new Feed(data.author, data.url, data.user, data.link, null, null);
+      const feed = new Feed(
+        data.author,
+        data.url,
+        data.user,
+        data.link,
+        null,
+        null,
+        data.githubUsername
+      );
       __setMockFeeds([feed]);
       await feed.save();
     });
@@ -93,6 +105,7 @@ describe('Post data class tests', () => {
       expect(feed.id).toEqual(data.id);
       expect(feed.link).toEqual(data.link);
       expect(feed.user).toEqual(data.user);
+      expect(feed.githubUsername).toEqual(data.githubUsername);
     });
 
     test('Feed.byId() for an invalid id should return null', async () => {
@@ -108,6 +121,7 @@ describe('Post data class tests', () => {
       expect(feed.id).toEqual(data.id);
       expect(feed.link).toEqual(data.link);
       expect(feed.user).toEqual(data.user);
+      expect(feed.githubUsername).toEqual(data.githubUsername);
     });
 
     test('Feed.byUrl() for an invalid url should return null', async () => {
@@ -147,7 +161,15 @@ describe('Post data class tests', () => {
     });
 
     test('Updated feed should be different from data', async () => {
-      const feed = new Feed(data.author, data.url, data.user, data.link, null, null);
+      const feed = new Feed(
+        data.author,
+        data.url,
+        data.user,
+        data.link,
+        null,
+        null,
+        data.githubUsername
+      );
       feed.author = 'Author Post';
       feed.url = 'https://modified.user.feed.com/feed.rss';
       __setMockFeeds([feed]);
