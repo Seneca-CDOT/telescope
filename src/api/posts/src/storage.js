@@ -123,7 +123,7 @@ module.exports = {
     try {
       await redis
         .multi()
-        .hdel(key, 'id', 'author', 'url', 'user', 'link', 'etag', 'lastModified')
+        .hdel(key, 'id', 'author', 'url', 'user', 'link', 'etag', 'lastModified', 'githubUsername')
         .srem(redisKey, id)
         .exec();
     } catch (error) {

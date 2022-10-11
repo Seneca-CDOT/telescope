@@ -73,13 +73,14 @@ type Props = {
   blogUrl: string;
   authorName: string;
   postDate: string;
+  githubUsername: string;
 };
-const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl }: Props) => {
+const PostDesktopInfo = ({ authorName, postDate, blogUrl, postUrl, githubUsername }: Props) => {
   const classes = useStyles();
   return (
     <ListSubheader component="div" className={classes.root}>
       <div className={classes.authorAvatarContainer}>
-        <PostAvatar name={authorName} url={blogUrl} />
+        <PostAvatar name={authorName} url={blogUrl} githubUsername={githubUsername} />
       </div>
       <div className={classes.authorNameContainer}>
         <p className={classes.author}>

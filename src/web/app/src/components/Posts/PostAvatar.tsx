@@ -3,8 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 type AvatarProps = {
   name: string;
-  img?: string;
   url?: string;
+  githubUsername: string;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,11 +38,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const PostAvatar = ({ name, img, url }: AvatarProps) => {
+const PostAvatar = ({ name, url, githubUsername }: AvatarProps) => {
   const classes = useStyles();
 
-  if (img) {
-    return <Avatar className={classes.avatar} src={img} />;
+  if (githubUsername) {
+    const userAvatar = `https://github.com/${githubUsername}.png?size=64`;
+    return (
+      <>
+        {url?.length ? (
+          <a href={url} className={classes.link} title={name} target="_blank" rel="noreferrer">
+            <Avatar className={classes.avatar} src={userAvatar} />
+          </a>
+        ) : (
+          <Avatar className={classes.avatar} src={userAvatar} />
+        )}
+      </>
+    );
   }
 
   if (name.length > 0) {
