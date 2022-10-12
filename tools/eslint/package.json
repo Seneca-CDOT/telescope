@@ -5,6 +5,9 @@
   "main": "index.js",
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
+  "scripts": {
+    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules"
+  },
   "peerDependencies": {
     "eslint": "7.32.0"
   },
@@ -23,6 +26,7 @@
     "eslint-plugin-react": "7.29.4",
     "eslint-plugin-react-hooks": "4.3.0",
     "prettier": "2.5.1",
+    "rimraf": "3.0.2",
     "typescript": "4.4.4"
   }
 }

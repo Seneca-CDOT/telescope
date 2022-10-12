@@ -5,16 +5,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "prisma": "3.15.2"
-  },
   "scripts": {
     "migrate": "prisma migrate dev --",
     "create-migration": "prisma migrate dev --create-only",
     "format": "prisma format",
-    "seed": "prisma db seed"
+    "seed": "prisma db seed",
+    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules"
   },
   "dependencies": {
     "@prisma/client": "3.15.2"
+  },
+  "devDependencies": {
+    "prisma": "3.15.2",
+    "rimraf": "3.0.2"
   }
 }

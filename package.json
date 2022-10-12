@@ -15,7 +15,9 @@
     "develop": "pnpm dev",
     "lint": "pnpm turbo run lint && pnpm eslint",
     "lint-time": "pnpm turbo run lint-time && pnpm eslint-time",
-    "clean": "pnpm turbo run clean && pnpm -r exec rm -rf node_modules",
+    "clean": "run-s clean:turbo clean:root",
+    "clean:root": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules",
+    "clean:turbo": "pnpm exec turbo run clean",
     "prettier": "prettier --write \"./**/*.{md,jsx,json,html,css,js,yml,ts,tsx}\"",
     "prettier-check": "prettier --check \"./**/*.{md,jsx,json,html,css,js,yml,ts,tsx}\"",
     "db:migrate": "prisma migrate dev --schema=src/db/prisma/schema.prisma && prisma generate --schema=src/db/prisma/schema.prisma",
@@ -77,13 +79,14 @@
     "pretty-quick": "3.1.3",
     "prisma": "3.15.2",
     "redis-commands": "1.7.0",
+    "rimraf": "3.0.2",
     "supertest": "6.1.6",
     "ts-jest": "27.1.5",
     "turbo": "1.2.11",
     "typescript": "4.4.4"
   },
   "engines": {
-    "node": ">=14.0.0",
+    "node": ">=14",
     "pnpm": ">=6"
   },
   "packageManager": "pnpm@6.32.13",

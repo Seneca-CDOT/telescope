@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "clean": "find ./photos -type f -not -name 'default.jpg' -delete",
+    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules",
     "lint": "pnpm eslint",
     "lint-time": "pnpm eslint-time",
     "eslint": "eslint --config .eslintrc.js --ignore-path .gitignore \"./**/*.js\"",
@@ -34,6 +34,7 @@
    "@senecacdot/eslint-config-telescope": "1.1.0",
     "del-cli": "4.0.1",
     "eslint": "7.32.0",
-    "nodemon": "2.0.16"
+    "nodemon": "2.0.16",
+    "rimraf": "3.0.2"
   }
 }

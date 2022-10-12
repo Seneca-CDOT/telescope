@@ -11,7 +11,8 @@
     "eslint-fix": "eslint --config .eslintrc.js \"./**/*.js\" --fix",
     "lint": "pnpm eslint",
     "lint-time": "pnpm eslint-time",
-    "test": "jest -c jest.config.js"
+    "test": "jest -c jest.config.js",
+    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -45,6 +46,7 @@
     "eslint": "7.32.0",
     "jest-fetch-mock": "3.0.3",
     "nock": "13.2.4",
-    "nodemon": "2.0.16"
+    "nodemon": "2.0.16",
+    "rimraf": "3.0.2"
   }
 }

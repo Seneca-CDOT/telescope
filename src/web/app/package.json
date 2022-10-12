@@ -11,7 +11,7 @@
     "lint": "pnpm eslint",
     "lint-time": "pnpm eslint-time",
     "test": "jest -c jest.config.js",
-    "clean": "rm -rf .next .turbo out"
+    "clean": "pnpm rimraf .next .turbo out node_modules || pnpm rimraf node_modules"
   },
   "version": "3.0.0",
   "dependencies": {
@@ -66,6 +66,7 @@
     "@typescript-eslint/parser": "4.33.0",
     "babel-loader": "8.2.5",
     "eslint": "7.32.0",
+    "rimraf": "3.0.2",
     "terser-webpack-plugin": "5.3.6",
     "typescript": "4.4.4",
     "webpack": "5.9.0"
