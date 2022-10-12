@@ -32,6 +32,7 @@ importers:
       pretty-quick: 3.1.3
       prisma: 3.15.2
       redis-commands: 1.7.0
+      rimraf: 3.0.2
       supertest: 6.1.6
       ts-jest: 27.1.5
       turbo: 1.2.11
@@ -66,6 +67,7 @@ importers:
       pretty-quick: 3.1.3_prettier@2.5.1
       prisma: 3.15.2
       redis-commands: 1.7.0
+      rimraf: 3.0.2
       supertest: 6.1.6
       ts-jest: 27.1.5_hg4wb444wq7xfutvq6ct4im4j4
       turbo: 1.2.11
@@ -81,6 +83,7 @@ importers:
       nodemon: 2.0.16
       octokit: 2.0.3
       query-registry: 2.2.0
+      rimraf: 3.0.2
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.28.0
@@ -92,6 +95,7 @@ importers:
       env-cmd: 10.1.0
       eslint: 7.32.0
       nodemon: 2.0.16
+      rimraf: 3.0.2
 
   src/api/feed-discovery:
     specifiers:
@@ -102,6 +106,7 @@ importers:
       got: 11.8.5
       nock: 13.2.4
       nodemon: 2.0.16
+      rimraf: 3.0.2
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.28.0
@@ -112,6 +117,7 @@ importers:
       eslint: 7.32.0
       nock: 13.2.4
       nodemon: 2.0.16
+      rimraf: 3.0.2
       supertest: 6.1.6
 
   src/api/image:
@@ -123,6 +129,7 @@ importers:
       eslint: 7.32.0
       got: 11.8.5
       nodemon: 2.0.16
+      rimraf: 3.0.2
       sharp: 0.30.5
       supertest: 6.1.6
     dependencies:
@@ -136,6 +143,7 @@ importers:
       del-cli: 4.0.1
       eslint: 7.32.0
       nodemon: 2.0.16
+      rimraf: 3.0.2
 
   src/api/parser:
     specifiers:
@@ -158,6 +166,7 @@ importers:
       nock: 13.2.4
       nodemon: 2.0.16
       normalize-url: 6.1.0
+      rimraf: 3.0.2
       rss-parser: 3.12.0
       sanitize-html: 2.5.3
     dependencies:
@@ -183,6 +192,7 @@ importers:
       jest-fetch-mock: 3.0.3
       nock: 13.2.4
       nodemon: 2.0.16
+      rimraf: 3.0.2
 
   src/api/planet:
     specifiers:
@@ -194,6 +204,7 @@ importers:
       express: 4.17.3
       express-handlebars: 6.0.6
       nodemon: 2.0.16
+      rimraf: 3.0.2
     dependencies:
       '@senecacdot/satellite': 1.28.0
       '@supabase/supabase-js': 1.29.4
@@ -204,6 +215,7 @@ importers:
       env-cmd: 10.1.0
       eslint: 7.32.0
       nodemon: 2.0.16
+      rimraf: 3.0.2
 
   src/api/posts:
     specifiers:
@@ -217,6 +229,7 @@ importers:
       jsdom: 18.1.1
       normalize-url: 6.1.0
       redis-commands: 1.7.0
+      rimraf: 3.0.2
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.28.0
@@ -230,6 +243,7 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       eslint: 7.32.0
       redis-commands: 1.7.0
+      rimraf: 3.0.2
       supertest: 6.1.6
 
   src/api/search:
@@ -239,6 +253,7 @@ importers:
       eslint: 7.32.0
       express-validator: 6.14.1
       nodemon: 2.0.16
+      rimraf: 3.0.2
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.28.0
@@ -247,6 +262,7 @@ importers:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       eslint: 7.32.0
       nodemon: 2.0.16
+      rimraf: 3.0.2
       supertest: 6.1.6
 
   src/api/sso:
@@ -265,6 +281,7 @@ importers:
       normalize-url: 6.1.0
       passport: 0.5.2
       passport-saml: 3.2.2
+      rimraf: 3.0.2
       supertest: 6.1.6
     dependencies:
       '@senecacdot/satellite': 1.28.0
@@ -282,6 +299,7 @@ importers:
       env-cmd: 10.1.0
       eslint: 7.32.0
       nodemon: 2.0.16
+      rimraf: 3.0.2
       supertest: 6.1.6
 
   src/api/status:
@@ -298,6 +316,7 @@ importers:
       npm-run-all: 4.1.5
       octokit: 2.0.3
       perfect-scrollbar: 1.5.5
+      rimraf: 3.0.2
       sass: 1.49.9
       vite: 2.9.13
       xterm: 4.18.0
@@ -324,15 +343,18 @@ importers:
       env-cmd: 10.1.0
       eslint: 7.32.0
       nodemon: 2.0.16
+      rimraf: 3.0.2
 
   src/db:
     specifiers:
       '@prisma/client': 3.15.2
       prisma: 3.15.2
+      rimraf: 3.0.2
     dependencies:
       '@prisma/client': 3.15.2_prisma@3.15.2
     devDependencies:
       prisma: 3.15.2
+      rimraf: 3.0.2
 
   src/github-url-parser:
     specifiers:
@@ -342,6 +364,7 @@ importers:
       jsdom: 18.1.1
       npm-run-all: 4.1.5
       parcel: 2.6.2
+      rimraf: 3.0.2
       typescript: 4.4.4
     devDependencies:
       '@parcel/core': 2.6.2
@@ -350,6 +373,7 @@ importers:
       jsdom: 18.1.1
       npm-run-all: 4.1.5
       parcel: 2.6.2
+      rimraf: 3.0.2
       typescript: 4.4.4
 
   src/satellite:
@@ -376,6 +400,7 @@ importers:
       pino-pretty: 7.5.3
       prettier: 2.5.1
       pretty-quick: 3.1.3
+      rimraf: 3.0.2
     dependencies:
       '@elastic/elasticsearch': 8.4.0
       '@elastic/elasticsearch-mock': 2.0.0
@@ -400,6 +425,7 @@ importers:
       nock: 13.2.4
       prettier: 2.5.1
       pretty-quick: 3.1.3_prettier@2.5.1
+      rimraf: 3.0.2
 
   src/web/app:
     specifiers:
@@ -448,6 +474,7 @@ importers:
       react-p5-wrapper: 3.1.0
       react-transition-group: 4.4.5
       react-use: 17.3.2
+      rimraf: 3.0.2
       smoothscroll-polyfill: 0.4.4
       swr: 1.2.2
       terser-webpack-plugin: 5.3.6
@@ -504,6 +531,7 @@ importers:
       '@typescript-eslint/parser': 4.33.0_wnilx7boviscikmvsfkd6ljepe
       babel-loader: 8.2.5_77pyk2cen3yciahrrdqdol36oa
       eslint: 7.32.0
+      rimraf: 3.0.2
       terser-webpack-plugin: 5.3.6_webpack@5.9.0
       typescript: 4.4.4
       webpack: 5.9.0
@@ -531,6 +559,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2
       react-p5-wrapper: 3.1.0
+      rimraf: 3.0.2
       typescript: 4.4.4
       unist-util-visit: 2.0.3
     dependencies:
@@ -556,6 +585,7 @@ importers:
       '@types/react': 17.0.45
       eslint: 7.32.0
       eslint-plugin-import: 2.25.4_eslint@7.32.0
+      rimraf: 3.0.2
       typescript: 4.4.4
       unist-util-visit: 2.0.3
 
@@ -568,6 +598,7 @@ importers:
       merge-stream: 2.0.0
       pm2: 5.2.0
       rereadable-stream: 1.4.13
+      rimraf: 3.0.2
       shelljs: 0.8.5
     dependencies:
       '@octokit/webhooks': 9.15.0
@@ -578,6 +609,8 @@ importers:
       pm2: 5.2.0
       rereadable-stream: 1.4.13
       shelljs: 0.8.5
+    devDependencies:
+      rimraf: 3.0.2
 
   tools/eslint:
     specifiers:
@@ -595,6 +628,7 @@ importers:
       eslint-plugin-react: 7.29.4
       eslint-plugin-react-hooks: 4.3.0
       prettier: 2.5.1
+      rimraf: 3.0.2
       typescript: 4.4.4
     devDependencies:
       eslint: 7.32.0
@@ -611,6 +645,7 @@ importers:
       eslint-plugin-react: 7.29.4_eslint@7.32.0
       eslint-plugin-react-hooks: 4.3.0_eslint@7.32.0
       prettier: 2.5.1
+      rimraf: 3.0.2
       typescript: 4.4.4
 
   tools/migrate:
@@ -621,6 +656,7 @@ importers:
       jsdom: 18.1.1
       node-fetch: 2.6.7
       normalize-url: 6.1.0
+      rimraf: 3.0.2
     dependencies:
       '@senecacdot/satellite': 1.28.0
       '@supabase/supabase-js': 1.29.4
@@ -628,6 +664,8 @@ importers:
       jsdom: 18.1.1
       node-fetch: 2.6.7
       normalize-url: 6.1.0
+    devDependencies:
+      rimraf: 3.0.2
 
 packages:
 
@@ -3264,13 +3302,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       core-js-pure: 3.25.5
-      regenerator-runtime: 0.13.9
+      regenerator-runtime: 0.13.10
 
   /@babel/runtime/7.19.4:
     resolution: {integrity: sha512-EXpLCrk55f+cYqmHsSR+yD/0gAIMxxA9QK9lnQWzhMCvt+YmoBN7Zx94s++Kv0+unHk39vxNO8t+CMA2WSS3wA==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      regenerator-runtime: 0.13.9
+      regenerator-runtime: 0.13.10
 
   /@babel/template/7.18.10:
     resolution: {integrity: sha512-TI+rCtooWHr3QJ27kJxfjutghu44DLnasDMwpDqCXVTal9RLp3RSYNh4NdBrRP2cQAoG9A8juOQl6P6oZG4JxA==}
@@ -6133,7 +6171,7 @@ packages:
       browserslist: 4.21.4
       detect-libc: 1.0.3
       nullthrows: 1.1.1
-      regenerator-runtime: 0.13.9
+      regenerator-runtime: 0.13.10
       semver: 5.7.1
     dev: true
 
@@ -15267,7 +15305,7 @@ packages:
       minimatch: 3.1.2
       pidtree: 0.3.1
       read-pkg: 3.0.0
-      shell-quote: 1.7.3
+      shell-quote: 1.7.4
       string.prototype.padend: 3.1.3
 
   /npm-run-path/4.0.1:
@@ -17006,7 +17044,7 @@ packages:
       prompts: 2.4.2
       react-error-overlay: 6.0.11
       recursive-readdir: 2.2.2
-      shell-quote: 1.7.3
+      shell-quote: 1.7.4
       strip-ansi: 6.0.1
       text-table: 0.2.0
       typescript: 4.4.4
@@ -17404,8 +17442,8 @@ packages:
   /regenerate/1.4.2:
     resolution: {integrity: sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==}
 
-  /regenerator-runtime/0.13.9:
-    resolution: {integrity: sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==}
+  /regenerator-runtime/0.13.10:
+    resolution: {integrity: sha512-KepLsg4dU12hryUO7bp/axHAKvwGOCV0sGloQtpagJ12ai+ojVDqkeGSiRX1zlq+kjIMZ1t7gpze+26QqtdGqw==}
 
   /regenerator-transform/0.15.0:
     resolution: {integrity: sha512-LsrGtPmbYg19bcPHwdtmXwbW+TqNvtY4riE3P83foeHRroMbH6/2ddFBfab3t7kbzc7v7p4wbkIecHImqt0QNg==}
@@ -18092,8 +18130,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  /shell-quote/1.7.3:
-    resolution: {integrity: sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==}
+  /shell-quote/1.7.4:
+    resolution: {integrity: sha512-8o/QEhSSRb1a5i7TFR0iM4G16Z0vYB2OQVs4G3aAFXjn3T6yEx8AZxy1PgDF7I00LZHYA3WxaSYIf5e5sAX8Rw==}
 
   /shelljs/0.8.5:
     resolution: {integrity: sha512-TiwcRcrkhHvbrZbnRcFYMLl30Dfov3HKqzp5tO5b4pt6G/SezKcYhmDg15zXVBswHmctSAQKznqNW2LO5tTDow==}

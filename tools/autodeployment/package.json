@@ -14,8 +14,12 @@
     "rereadable-stream": "1.4.13",
     "shelljs": "0.8.5"
   },
+  "devDependencies": {
+    "rimraf": "3.0.2"
+  },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules"
   },
   "repository": "https://github.com/Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
