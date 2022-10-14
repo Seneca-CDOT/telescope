@@ -3,6 +3,7 @@
 @algolia/requester-common
 @algolia/transporter
 @ampproject/remapping
+@apideck/better-ajv-errors
 @babel/code-frame
 @babel/compat-data
 @babel/core
@@ -129,6 +130,7 @@
 @docusaurus/plugin-debug
 @docusaurus/plugin-google-analytics
 @docusaurus/plugin-google-gtag
+@docusaurus/plugin-pwa
 @docusaurus/plugin-sitemap
 @docusaurus/preset-classic
 @docusaurus/react-loadable
@@ -154,6 +156,7 @@
 @emotion/styled
 @emotion/utils
 @emotion/weak-memoize
+@esbuild/linux-loong64
 @eslint/eslintrc
 @fontsource/pt-serif
 @fontsource/spartan
@@ -292,6 +295,9 @@
 @prisma/client
 @prisma/engines
 @prisma/engines-version
+@rollup/plugin-babel
+@rollup/plugin-node-resolve
+@rollup/plugin-replace
 @senecacdot/eslint-config-telescope
 @senecacdot/github-url-parser
 @senecacdot/satellite
@@ -305,6 +311,7 @@
 @supabase/realtime-js
 @supabase/storage-js
 @supabase/supabase-js
+@surma/rollup-plugin-off-main-thread
 @svgr/core
 @svgr/plugin-jsx
 @svgr/plugin-svgo
@@ -490,6 +497,7 @@ colors
 combine-promises
 combined-stream
 commander
+common-tags
 commondir
 component-emitter
 compression
@@ -939,7 +947,6 @@ mime
 mime-db
 mime-types
 mimic-response
-mini-create-react-context
 mini-css-extract-plugin
 minimatch
 minimist
@@ -1010,6 +1017,7 @@ p5
 param-case
 parcel
 parent-module
+parse-numeric-range
 parse-srcset
 parse5
 parse5-htmlparser2-tree-adapter
@@ -1150,6 +1158,7 @@ responselike
 rfdc
 rimraf
 rollup
+rollup-plugin-terser
 rooks
 rss-parser
 rtl-css-js
@@ -1219,6 +1228,7 @@ string_decoder
 stringify-object
 strip-ansi
 strip-bom
+strip-comments
 strip-final-newline
 strip-json-comments
 styled-jsx
@@ -1233,6 +1243,7 @@ systeminformation
 table
 tapable
 tar-fs
+tempy
 term-size
 terser
 terser-webpack-plugin
@@ -1296,6 +1307,7 @@ upath
 update-browserslist-db
 update-notifier
 url-loader
+url-parse
 util-deprecate
 util.promisify
 utility-types
@@ -1329,8 +1341,21 @@ widest-line
 wildcard
 word-wrap
 wordwrap
+workbox-background-sync
+workbox-broadcast-update
 workbox-build
+workbox-cacheable-response
 workbox-core
+workbox-expiration
+workbox-google-analytics
+workbox-navigation-preload
+workbox-precaching
+workbox-range-requests
+workbox-recipes
+workbox-routing
+workbox-strategies
+workbox-streams
+workbox-sw
 workbox-webpack-plugin
 workbox-window
 wrap-ansi
