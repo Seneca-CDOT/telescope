@@ -240,6 +240,24 @@ Docker builds Telescope's dependencies at launch and keeps them on disk. In some
 
 :::
 
+### Seeding PostgresSQL
+
+The first time you start the database, it doesn't have any data. Therefore, we need database seeding as a way to populate the database with an initial set of data.
+
+To seed the database with initial data use the command `pnpm db:init` which will run `db:migrate` and `db:seed`.
+
+#### About `db:migrate`
+
+Running `db:migrate` , will run a migration to apply new changes to the database if any.
+
+#### About `db:seed`
+
+Running this command will populate the database with an initial set of data to make some parts of our application work properly.
+
+Finally, restart the `parser` container by running `pnpm:services start parser`/
+
+More information on our database can be found [here](https://telescope.cdot.systems/docs/tools-and-technologies/prisma/).
+
 ### Start Telescope
 
 There are different ways to run the application. By default, [env.development](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
