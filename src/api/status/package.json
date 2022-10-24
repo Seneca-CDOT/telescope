@@ -25,7 +25,7 @@
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
     "@popperjs/core": "2.11.6",
-    "@senecacdot/satellite": "^1.28.0",
+    "@senecacdot/satellite": "^1.29.0",
     "bootstrap": "5.2.2",
     "express": "4.18.2",
     "express-handlebars": "6.0.6",
