@@ -2,7 +2,7 @@
   "author": "",
   "private": true,
   "dependencies": {
-    "@senecacdot/satellite": "^1.28.0",
+    "@senecacdot/satellite": "^1.29.0",
     "@supabase/supabase-js": "1.29.4",
     "dotenv": "10.0.0",
     "jsdom": "18.1.1",
