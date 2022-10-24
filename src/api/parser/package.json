@@ -24,7 +24,7 @@
     "@babel/core": "7.17.10",
     "@bull-board/api": "3.10.7",
     "@bull-board/express": "3.10.4",
-    "@senecacdot/satellite": "^1.28.0",
+    "@senecacdot/satellite": "^1.29.0",
     "@supabase/supabase-js": "1.29.4",
     "bull": "3.29.3",
     "clean-whitespace": "0.1.2",

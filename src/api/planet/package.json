@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@senecacdot/satellite": "^1.28.0",
+    "@senecacdot/satellite": "^1.29.0",
     "@supabase/supabase-js": "1.29.4",
     "express": "4.18.2",
     "express-handlebars": "6.0.6"
