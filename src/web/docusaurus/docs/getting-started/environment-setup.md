@@ -274,6 +274,24 @@ For more information about the services, please read [Telescope API Services](..
 
 If this doesn't work for you, it is possible that you have an old `.env` file in the root that you copied from `env.example` from telescope 1.0. Please remove it, and try again.
 
+##### Seeding the database
+
+Run `cp ./src/db/env.example .env` from the `root` directory to copy database url and store it an `.env` file.
+
+Run the `pnpm db:init` script as it will populate the database with an initial set of data to make some parts of our application work properly.
+
+:::note
+`pnpm db:init` script will run `db:migrate` and `db:seed`.
+
+`db:migrate` is responsible to run a migration to apply new changes to the database if any.
+
+`db:seed` is responsible to populate the database with an initial set of data.
+:::
+
+Stop the `parser` service running. If you have Docker app installed locally make sure to stop the `parser` container before continuing to the next step.
+
+Finally, restart the `parser` container by running `pnpm:services start parser`.
+
 #### Option 2: Run frontend only
 
 ```bash
