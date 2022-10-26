@@ -4,14 +4,14 @@
   "private": true,
   "description": "A service for retrieving posts",
   "scripts": {
-    "start": "node src/server.js",
+    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules",
     "eslint": "eslint --config .eslintrc.js \"./**/*.js\"",
-    "eslint-time": "TIMING=1 eslint --config .eslintrc.js \"./**/*.js\"",
     "eslint-fix": "eslint --config .eslintrc.js \"./**/*.js\" --fix",
+    "eslint-time": "TIMING=1 eslint --config .eslintrc.js \"./**/*.js\"",
     "lint": "pnpm eslint",
     "lint-time": "pnpm eslint-time",
-    "test": "jest -c jest.config.js",
-    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules"
+    "start": "node src/server.js",
+    "test": "jest -c jest.config.js"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=16"
   },
   "dependencies": {
     "@senecacdot/satellite": "^1.29.0",
