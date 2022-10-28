@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'start',
     },
     blogRss: {
+      maxWidth: '300px',
       textAlign: 'start',
       padding: '1%',
       minHeight: '60px',
@@ -90,6 +91,14 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: '0.9em',
       alignSelf: 'end',
       color: '#474747',
+    },
+    rssContainer: {
+      display: 'flex',
+    },
+    rssContent: {
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
   })
 );
@@ -128,14 +137,20 @@ const Review = connect<{ accountError: string | undefined }, SignUpForm>((props)
               <h3 className={classes.titleRss}>Blog RSS:</h3>
               <div>
                 {blogs.map(({ feedUrl }) => (
-                  <h4 key={feedUrl}>{feedUrl}</h4>
+                  <h4 key={feedUrl} className={classes.rssContainer}>
+                    <span className={classes.rssContent} title={feedUrl}>
+                      {feedUrl}
+                    </span>
+                  </h4>
                 ))}
               </div>
-              <h3 className={classes.titleRss}>Twich/Youtube Channel RSS:</h3>
+              <h3 className={classes.titleRss}>Twitch/Youtube Channel RSS:</h3>
               <div>
                 {channels.map(({ type, feedUrl }) => (
-                  <h4 key={feedUrl}>
-                    {type}: {feedUrl}
+                  <h4 key={feedUrl} className={classes.rssContainer}>
+                    <span className={classes.rssContent} title={feedUrl}>
+                      {type}: {feedUrl}
+                    </span>
                   </h4>
                 ))}
               </div>
