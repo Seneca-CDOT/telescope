@@ -275,10 +275,10 @@ importers:
       express-session: 1.17.3
       jsonwebtoken: 8.5.1
       minimatch: 3.0.5
-      nodemon: 2.0.16
+      nodemon: 2.0.20
       normalize-url: 6.1.0
       passport: 0.5.2
-      passport-saml: 3.2.2
+      passport-saml: 3.2.4
       rimraf: 3.0.2
       supertest: 6.1.6
     dependencies:
@@ -291,12 +291,12 @@ importers:
       minimatch: 3.0.5
       normalize-url: 6.1.0
       passport: 0.5.2
-      passport-saml: 3.2.2
+      passport-saml: 3.2.4
     devDependencies:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
       env-cmd: 10.1.0
       eslint: 7.32.0
-      nodemon: 2.0.16
+      nodemon: 2.0.20
       rimraf: 3.0.2
       supertest: 6.1.6
 
@@ -12484,7 +12484,7 @@ packages:
     engines: {node: '>= 10.17.0'}
     hasBin: true
     dependencies:
-      debug: 4.3.3
+      debug: 4.3.4
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -13721,7 +13721,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.3
+      debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -16853,8 +16853,8 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /passport-saml/3.2.2:
-    resolution: {integrity: sha512-69lhv2HVuXlMcywSeZ91o91L5BW1tSK3xX3TJh8QfRUv8M65B5Jm0cgm2PV63IM3qn4Cq4jDkq934vcBEBcRNw==}
+  /passport-saml/3.2.4:
+    resolution: {integrity: sha512-JSgkFXeaexLNQh1RrOvJAgjLnZzH/S3HbX/mWAk+i7aulnjqUe7WKnPl1NPnJWqP7Dqsv0I2Xm6KIFHkftk0HA==}
     engines: {node: '>= 12'}
     dependencies:
       '@xmldom/xmldom': 0.7.6
@@ -19317,7 +19317,7 @@ packages:
     engines: {node: '>= 10'}
     dependencies:
       agent-base: 6.0.2
-      debug: 4.3.3
+      debug: 4.3.4
       socks: 2.7.1
     transitivePeerDependencies:
       - supports-color
