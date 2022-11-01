@@ -31,7 +31,7 @@ export const lightTheme: Theme = createTheme({
       secondary: '#121D59',
     },
     action: {
-      active: '#390099',
+      active: '#1A73E8',
       selected: '#9E0059',
     },
     border: {
