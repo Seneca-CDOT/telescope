@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
     },
     error: {
-      color: '#B5B5B5',
+      color: theme.palette.error.light,
       fontSize: '5rem',
       paddingBottom: '30px',
     },
     errorIcon: {
-      color: '#B5B5B5',
+      color: theme.palette.error.light,
       fontSize: '10rem',
       paddingBottom: '0',
     },
