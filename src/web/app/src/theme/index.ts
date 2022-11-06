@@ -21,6 +21,7 @@ export const lightTheme: Theme = createTheme({
     },
     error: {
       main: red.A400,
+      light: '#4d4d4d',
     },
     background: {
       default: '#FFFFFF',
