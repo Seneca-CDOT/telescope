@@ -203,6 +203,10 @@ const RSSFeeds = connect<RSSFeedsFormProps, SignUpForm>(
         }
         const { feedUrls }: DiscoveredFeeds = await response.json();
 
+        if (feedUrls.length === 1) {
+          setFieldValue(selected, [feedUrls[0]], true);
+        }
+
         setUrlError('');
         setFieldValue(discovered, feedUrls);
       } catch (err) {
