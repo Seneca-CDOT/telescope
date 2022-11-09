@@ -15,8 +15,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: '1.5rem',
   },
   list: {
-    fontFamily: 'Times New Roman',
-    fontSize: '1.7rem',
+    fontFamily: 'Spartan',
+    fontSize: '1.5rem',
     lineHeight: '3rem',
     color: theme.palette.text.primary,
     listStyleType: 'none',
