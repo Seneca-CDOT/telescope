@@ -8,8 +8,8 @@ const ChannelFeeds = () => {
     <RSSFeeds
       title="YouTube and Twitch"
       prompt="OPTIONAL: Enter your YouTube and/or Twitch channel"
-      buttonText="validate blog"
-      helperText="Validate your Blog URL"
+      buttonText="Validate"
+      helperText="Validate your channel(s)"
       feeds={{
         selected: channels.name as any,
         discovered: allChannels.name as any,

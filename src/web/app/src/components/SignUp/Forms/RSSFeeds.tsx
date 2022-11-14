@@ -74,9 +74,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       height: '35px',
-      width: '50%',
+      width: '70%',
+      padding: '4px',
       alignSelf: 'center',
-      fontSize: '0.8em',
+      fontSize: '1.1em',
       marginLeft: '5%',
       background: '#121D59',
       color: '#A0D1FB',
@@ -93,6 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     RssButtonContainer: {
       width: '90%',
+      padding: '2px',
       display: 'grid',
     },
     infoRSSContainer: {
