@@ -208,6 +208,10 @@
   height: 100%;
 }
 
+.palette-preview {
+  border: 1px solid dimgray;
+}
+
 @keyframes scaleFadeIn {
   from {
     opacity: 0;

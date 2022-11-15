@@ -1,19 +1,18 @@
 import { createContext, useContext } from 'react';
 import { Theme } from '@material-ui/core/styles';
-
-import { ThemeName } from '../interfaces';
 import { lightTheme } from '../theme';
+import { ThemeName, LIGHT_DEFAULT } from '../interfaces/index';
 
 type ThemeContextType = {
   theme: Theme;
-  themeName: ThemeName;
-  toggleTheme: () => void;
+  preferredTheme?: ThemeName;
+  changeTheme: (themeId: ThemeName) => void;
 };
 
 export const ThemeContext = createContext<ThemeContextType>({
   theme: lightTheme,
-  themeName: 'light',
-  toggleTheme: () => console.warn('missing theme provider'),
+  preferredTheme: LIGHT_DEFAULT,
+  changeTheme: () => console.warn('missing change theme provider'),
 });
 
 export const useTheme = () => useContext(ThemeContext);
