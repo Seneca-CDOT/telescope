@@ -410,4 +410,4 @@ Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above
 
 ### No Posts after Running
 
-If you have no posts after running make sure That you properly seeded the database and ran the start script. You do not need to modify any of the config files This includes modifying the Postgress URL.
+If you have no posts after starting the services, make sure that you properly seeded the database and ran the `start` script. You do not need to modify any of the config files or modify the Postgres URL.
