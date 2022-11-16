@@ -246,7 +246,7 @@ There are different ways to run the application. By default, [env.development](h
 
 :::caution Important
 
-You do not need to modify any of the config files configs for them to run. 
+You do not need to modify any of the config files for them to run. 
 
 :::
 
