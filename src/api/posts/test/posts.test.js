@@ -69,6 +69,19 @@ describe('/posts', () => {
     expect(res.body.length).toBeGreaterThan(0);
   });
 
+  test('request posts with a valid expand query param', async () => {
+    const res = await request(app).get('/?page=1&expand=0');
+    expect(res.status).toEqual(200);
+    // This will depend on the env value, so as long as we get back something.
+    expect(res.body.length).toBeGreaterThan(0);
+  });
+  test('request posts with an invalid expand query param', async () => {
+    const res = await request(app).get('/?page=1&expand=abc');
+    expect(res.status).toEqual(200);
+    // This will depend on the env value, so as long as we get back something.
+    expect(res.body.length).toBeGreaterThan(0);
+  });
+
   test('request posts with non-integer page param', async () => {
     const res = await request(app).get(`/?page=${nonInteger}`);
     expect(res.status).toEqual(400);

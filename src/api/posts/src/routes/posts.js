@@ -63,7 +63,7 @@ posts.get('/', validatePostsQuery(), async (req, res, next) => {
   let data;
   if (expand === 1) {
     data = await Promise.all(
-      ids.map(async (id, title, published) => {
+      ids.map(async (id) => {
         let post = await Post.byId(id); //obtain the corresponding feed to populate the author's name to the return data.
         return {
           id,
