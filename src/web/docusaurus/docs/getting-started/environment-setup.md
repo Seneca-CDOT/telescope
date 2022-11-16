@@ -294,9 +294,16 @@ Run the `pnpm db:init` script as it will populate the database with an initial s
 `db:seed` is responsible to populate the database with an initial set of data.
 :::
 
-Stop the `parser` service running. If you have Docker app installed locally make sure to stop the `parser` container before continuing to the next step.
+Stop the `parser` service running. Make sure to stop the `parser` container before continuing to the next step by either using
 
-Finally, restart the `parser` container by running `pnpm:services start parser`.
+Docker Desktop app:
+![image](https://user-images.githubusercontent.com/58532267/202260945-30cc22f1-a634-4d4c-9d21-55824fd6bb5a.png)
+
+Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
+
+Switch to app's `.env` by `cp ./config/env.development ./.env` (you changed `.env` previously to seed database).
+
+Finally, restart the `parser` container by running `pnpm:services start parser`. 
 
 #### Option 2: Run frontend only
 
