@@ -297,7 +297,7 @@ Run the `pnpm db:init` script as it will populate the database with an initial s
 Stop the `parser` service running. Make sure to stop the `parser` container before continuing to the next step by either using
 
 Docker Desktop app:
-![image](https://user-images.githubusercontent.com/58532267/202260945-30cc22f1-a634-4d4c-9d21-55824fd6bb5a.png)
+![Original Telescope architecture](../static/img/initialProjectDiagram.png)
 
 Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
 
