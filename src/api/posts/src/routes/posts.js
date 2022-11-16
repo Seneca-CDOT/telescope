@@ -11,7 +11,7 @@ posts.get('/', validatePostsQuery(), async (req, res, next) => {
   const defaultNumberOfPosts = process.env.MAX_POSTS_PER_PAGE || 30;
   const capNumOfPosts = 100;
   const page = parseInt(req.query.page || 1, 10);
-
+  const expand = req.query.expand ? parseInt(req.query.expand) : 0;
   let ids;
   let perPage;
   let postsCount;
@@ -60,14 +60,25 @@ posts.get('/', validatePostsQuery(), async (req, res, next) => {
     first: `/posts?per_page=${perPage}&page=${1}`,
     last: `/posts?per_page=${perPage}&page=${Math.floor(postsCount / perPage)}`,
   });
-  res.json(
-    ids
+  let data;
+  if (expand === 1) {
+    data = await Promise.all(
+      ids.map(async (id, title, published) => {
+        let post = await Post.byId(id); //obtain the corresponding feed to populate the author's name to the return data.
+        return {
+          id,
+          url: `${postsUrl}/${id}`,
+          author: post.feed.author,
+          title: post.title,
+          publishDate: post.published,
+        };
+      })
+    );
+  } else
+    data = ids
       // Return id and url for a specific post
-      .map((id) => ({
-        id,
-        url: `${postsUrl}/${id}`,
-      }))
-  );
+      .map((id) => ({ id, url: `${postsUrl}/${id}` }));
+  res.json(data);
 });
 
 posts.get('/:id', validatePostsIdParam(), async (req, res, next) => {
