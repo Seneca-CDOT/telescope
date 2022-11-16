@@ -244,6 +244,12 @@ Docker builds Telescope's dependencies at launch and keeps them on disk. In some
 
 There are different ways to run the application. By default, [env.development](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
 
+:::caution Important
+
+You do not need to modify any of the config files configs for them to run. 
+
+:::
+
 There are also [env.production](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.production) and [env.staging](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.staging) to choose based on developer's need. For example, if you want to use staging, you can do `cp ./config/env.staging ./.env` on Linux/macOS, or `copy config/env.staging .env` on Windows.
 
 Here are instructions for different scenarios:
@@ -401,3 +407,7 @@ If you receive the error message "Malformed input, repository not added" after r
 Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](../getting-started/aws-cloud9.md) for more information.
 
 :::
+
+### No Posts after Running
+
+If you have no posts after running make sure That you properly seeded the database and ran the start script. You do not need to modify any of the config files This includes modifying the Postgress URL.
