@@ -246,7 +246,7 @@ There are different ways to run the application. By default, [env.development](h
 
 :::caution Important
 
-You do not need to modify any of the config files for them to run. 
+You do not need to modify any of the config files for them to run.
 
 :::
 
@@ -303,7 +303,7 @@ Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
 
 Switch to app's `.env` by `cp ./config/env.development ./.env` (you changed `.env` previously to seed database).
 
-Finally, restart the `parser` container by running `pnpm:services start parser`. 
+Finally, restart the `parser` container by running `pnpm:services start parser`.
 
 #### Option 2: Run frontend only
 
