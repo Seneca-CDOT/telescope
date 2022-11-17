@@ -301,6 +301,8 @@ Docker Desktop app:
 
 Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
 
+To find container-id: `docker container ls -a` This will return all the docker containers, STATUS, and their PORTS
+
 Switch to app's `.env` by `cp ./config/env.development ./.env` (you changed `.env` previously to seed database).
 
 Finally, restart the `parser` container by running `pnpm:services start parser`.
