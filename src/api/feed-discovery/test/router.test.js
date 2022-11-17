@@ -31,7 +31,7 @@ describe('POST /', () => {
       };
 
       // Mocking the response body html when call GET request to blog url
-      nock(blogUrl).get('/').reply(200, mockBlogUrlResponseBody, {
+      nock(blogUrl).get('/').twice().reply(200, mockBlogUrlResponseBody, {
         'Content-Type': 'text/html',
       });
 
@@ -56,7 +56,7 @@ describe('POST /', () => {
       `;
 
       // Mocking the response body html when call GET request to blog url
-      nock(blogUrl1).get('/').reply(200, mockBlogUrl1ResponseBody, {
+      nock(blogUrl1).get('/').twice().reply(200, mockBlogUrl1ResponseBody, {
         'Content-Type': 'text/html',
       });
 
@@ -72,7 +72,7 @@ describe('POST /', () => {
       `;
 
       // Mocking the response body html when call GET request to blog url
-      nock(blogUrl2).get('/').reply(200, mockBlogUrl2ResponseBody, {
+      nock(blogUrl2).get('/').twice().reply(200, mockBlogUrl2ResponseBody, {
         'Content-Type': 'text/html',
       });
 
@@ -131,7 +131,7 @@ describe('POST /', () => {
       </html>`;
 
       // Mocking the response body html (send back nothing) when call GET request to blog url
-      nock(blogUrl).get('/').reply(200, mockBlogBody, {
+      nock(blogUrl).get('/').twice().reply(200, mockBlogBody, {
         'Content-Type': 'text/html',
       });
 
@@ -199,7 +199,7 @@ describe('POST /', () => {
       };
 
       // Mocking the response body html when call GET request to blog url
-      nock(blogUrl).get('/').reply(200, mockBlogUrlResponseBody, {
+      nock(blogUrl).get('/').twice().reply(200, mockBlogUrlResponseBody, {
         'Content-Type': 'text/html',
       });
 
@@ -227,7 +227,7 @@ describe('POST /', () => {
       };
 
       // Mocking the response body html when call GET request to blog url
-      nock(blogUrl).get('/').reply(200, mockBlogUrlResponseBody, {
+      nock(blogUrl).get('/').twice().reply(200, mockBlogUrlResponseBody, {
         'Content-Type': 'text/html',
       });
 
@@ -255,7 +255,7 @@ describe('POST /', () => {
       };
 
       // Mocking the response body html when call GET request to blog url
-      nock(blogUrl).get('/').reply(200, mockBlogUrlResponseBody, {
+      nock(blogUrl).get('/').twice().reply(200, mockBlogUrlResponseBody, {
         'Content-Type': 'text/html',
       });
 
@@ -294,7 +294,7 @@ describe('POST /', () => {
       };
 
       // Mocking the response body html when call GET request to blog url
-      nock(blogUrl).get('/').reply(200, mockBlogUrlResponseBody, {
+      nock(blogUrl).get('/').twice().reply(200, mockBlogUrlResponseBody, {
         'Content-Type': 'text/html',
       });
 
@@ -329,7 +329,7 @@ describe('POST /', () => {
       };
 
       // Mocking the response body html when call GET request to blog url
-      nock(youTubeDomain).get(channelUri).reply(200, mockYouTubeChannelUrlResponseBody, {
+      nock(youTubeDomain).get(channelUri).twice().reply(200, mockYouTubeChannelUrlResponseBody, {
         'Content-Type': 'text/html',
       });
 
@@ -344,6 +344,37 @@ describe('POST /', () => {
     it('should return 401 if no authorization token is included in headers', async () => {
       const res = await request(app).post('/').send(['https://test321.blogspot.com/']);
       expect(res.status).toBe(401);
+    });
+
+    it.concurrent.each([
+      'application/xml',
+      'application/rss+xml',
+      'application/atom+xml',
+      'application/x.atom+xml',
+      'application/x-atom+xml',
+      'application/json',
+      'application/json+oembed',
+      'application/xml+oembed',
+    ])('should return 200 and the url when url response content type is %s', async (type) => {
+      const feedUrl = 'https://test321.blogspot.com/feed/user/';
+
+      const result = {
+        feedUrls: [
+          {
+            feedUrl,
+            type: 'blog',
+          },
+        ],
+      };
+
+      nock(feedUrl).get('/').reply(200, undefined, { 'Content-Type': type });
+      const res = await request(app)
+        .post('/')
+        .set('Authorization', `bearer ${createServiceToken()}`)
+        .send([feedUrl]);
+
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual(result);
     });
   });
 

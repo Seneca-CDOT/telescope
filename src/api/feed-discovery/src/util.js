@@ -20,6 +20,27 @@ const toTwitchFeedUrl = (twitchChannelUrl) => {
   throw new Error('not a Twitch URL');
 };
 
+const isFeedUrl = async (url) => {
+  try {
+    const { statusCode, headers } = await got(url);
+    const contentType = headers['content-type'];
+    const validContentTypes = [
+      'application/xml',
+      'application/rss+xml',
+      'application/atom+xml',
+      'application/x.atom+xml',
+      'application/x-atom+xml',
+      'application/json',
+      'application/json+oembed',
+      'application/xml+oembed',
+    ];
+
+    return statusCode === 200 && validContentTypes.some((ct) => contentType.includes(ct));
+  } catch (err) {
+    return false;
+  }
+};
+
 const getBlogBody = async (blogUrl) => {
   try {
     logger.debug({ blogUrl }, 'Getting blog body');
@@ -101,3 +122,4 @@ module.exports.getBlogBody = getBlogBody;
 module.exports.getFeedUrls = getFeedUrls;
 module.exports.isTwitchUrl = isTwitchUrl;
 module.exports.toTwitchFeedUrl = toTwitchFeedUrl;
+module.exports.isFeedUrl = isFeedUrl;

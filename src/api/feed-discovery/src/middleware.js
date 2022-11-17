@@ -1,6 +1,6 @@
 const { logger, createError } = require('@senecacdot/satellite');
 
-const { isTwitchUrl, toTwitchFeedUrl, getBlogBody, getFeedUrls } = require('./util');
+const { isTwitchUrl, toTwitchFeedUrl, isFeedUrl, getBlogBody, getFeedUrls } = require('./util');
 
 // A middleware to ensure we get an array
 module.exports.checkForArray = () => {
@@ -41,6 +41,15 @@ module.exports.discoverFeedUrls = () => {
               feedUrl: toTwitchFeedUrl(url),
               type: 'twitch',
             };
+          }
+
+          if (await isFeedUrl(url)) {
+            return [
+              {
+                feedUrl: url,
+                type: 'blog',
+              },
+            ];
           }
 
           // Otherwise, try to parse out the feed URL from the body of the page
