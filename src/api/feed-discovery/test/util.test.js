@@ -3,6 +3,7 @@ const nock = require('nock');
 const {
   isTwitchUrl,
   toTwitchFeedUrl,
+  isFeedUrl,
   getBlogBody,
   getFeedUrlType,
   getFeedUrls,
@@ -29,6 +30,44 @@ describe('util.js', () => {
     expect(toTwitchFeedUrl('https://twitch.tv/thanhcvann')).toEqual(
       'http://localhost/v1/rss-bridge/?action=display&bridge=Twitch&channel=thanhcvann&type=all&format=Atom'
     );
+  });
+
+  test('isFeedUrl returns true for a feed url', () => {
+    const feedUrl = 'https://blog.com/feed/user/';
+
+    [
+      'application/xml',
+      'application/rss+xml',
+      'application/atom+xml',
+      'application/x.atom+xml',
+      'application/x-atom+xml',
+      'application/json',
+      'application/json+oembed',
+      'application/xml+oembed',
+    ].forEach(async (type) => {
+      nock(feedUrl).get('/').reply(200, undefined, { 'Content-Type': type });
+      expect(await isFeedUrl(feedUrl)).toBe(true);
+    });
+  });
+
+  test('isFeedUrl returns false when given URL returns a non 200 status', async () => {
+    const feedUrl = 'https://blog.com/feed/user/';
+    nock(feedUrl).get('/').reply(404, 'Not Found');
+
+    expect(await isFeedUrl(feedUrl)).toBe(false);
+  });
+
+  test('isFeedUrl returns false if given URL returns a non feed content type', async () => {
+    const feedUrl = 'https://blog.com/user/';
+    nock(feedUrl).get('/').reply(200, '<html></html>', { 'Content-Type': 'text/html' });
+
+    expect(await isFeedUrl(feedUrl)).toBe(false);
+  });
+
+  test('isFeedUrl returns false if given an invalid URL is given', async () => {
+    const feedUrl = 'Not a URL';
+
+    expect(await isFeedUrl(feedUrl)).toBe(false);
   });
 
   test('getBlogBody returns the expected body for a given URL', async () => {
