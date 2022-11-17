@@ -53,7 +53,7 @@ export default [
 
   // Third step we collect the user blog and the RSSfeeds from it.
   object().shape({
-    [blogUrl.name]: string().url().required(blogUrl.requiredErrorMsg),
+    [blogUrl.name]: string(),
     [blogs.name]: array().of(DiscoveredFeed).min(1, blogs.requiredErrorMsg),
     [allBlogs.name]: array().of(DiscoveredFeed),
     [blogOwnership.name]: boolean().test('agreed', blogOwnership.invalidErrorMsg, (val) => !!val),
