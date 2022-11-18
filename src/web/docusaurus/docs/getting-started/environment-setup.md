@@ -301,7 +301,7 @@ Run the `pnpm db:init` script as it will populate the database with an initial s
 :::
 
 Docker Desktop app:
-![Image](../static/img/initialProjectDiagram.png)
+![Image](../../static/img/initialProjectDiagram.png)
 
 Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
 
