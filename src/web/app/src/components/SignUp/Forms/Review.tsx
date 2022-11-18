@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'start',
     },
     blogRss: {
-      maxWidth: '300px',
+      maxWidth: '306px',
       textAlign: 'start',
       padding: '1%',
       minHeight: '60px',
