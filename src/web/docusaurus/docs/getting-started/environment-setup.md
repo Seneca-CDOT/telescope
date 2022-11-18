@@ -268,6 +268,12 @@ This is the default setting, you do not need to copy or modify any `env` file.
 pnpm services:start
 ```
 
+An Alternative version of the start command is
+
+```bash
+docker-compose --env-file config/env.development up --build -d
+```
+
 Then visit `localhost:8000` in a web browser to see Telescope running locally.
 
 Microservices will start downloading feeds and processing them until stopped. You can stop the microservices by running
@@ -294,14 +300,12 @@ Run the `pnpm db:init` script as it will populate the database with an initial s
 `db:seed` is responsible to populate the database with an initial set of data.
 :::
 
-Stop the `parser` service running. Make sure to stop the `parser` container before continuing to the next step by either using
-
 Docker Desktop app:
 ![Original Telescope architecture](../static/img/initialProjectDiagram.png)
 
 Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
 
-To find container-id: `docker container ls -a` This will return all the docker containers, STATUS, and their PORTS
+To find container-id: `docker container ps -a` This will return all the docker containers, STATUS, and their PORTS
 
 Switch to app's `.env` by `cp ./config/env.development ./.env` (you changed `.env` previously to seed database).
 
