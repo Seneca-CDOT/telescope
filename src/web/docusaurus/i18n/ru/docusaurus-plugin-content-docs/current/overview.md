@@ -1,120 +1,101 @@
 ---
-sidebar_position: 1
+sidebar_position: 0
 ---
+
+import StarField from '@site/src/components/StarField';
 
 # Обзор Telescope
 
-## Introduction
+## Наши contributors (участники, вложившие в развитие проекта)
 
-One of the key features of Seneca's open source involvement has been the
-emphasis on sharing what we're working on, teaching, and learning through blogging.
-We believe that one of the most rewarding parts of learning to work in the
-open source community is discovering that one can become part of the fabric
-of the web, find a voice, and build a following.
+Результат Telescope существует благодаря совместной работе всех этих талантливых людей (и роботов).
 
-We also believe that reading each other's blog posts is important. In the blog
-posts of our colleagues, we find that we are not alone in our struggles to make
-things work, our interests in various topics, and that imposter syndrome isn't
-something unique to "me."
+<StarField />
 
-To better enable the discovery of blogs within our community, we set up an open
-source blog [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>): an aggregated
-feed of blog posts from Seneca faculty and students working on open source in a
-single page. Our blog Planet currently lives at [http://zenit.senecac.on.ca/~chris.tyler/planet/](http://zenit.senecac.on.ca/~chris.tyler/planet/).
+## Введение
 
-## What is a Planet?
+Одной из ключевых особенностей участия Seneca в Open Source был акцент на том, чтобы делиться тем, над чем мы работаем, что мы учим и чему обучаемся через блогерство. Мы считаем, что одна из самых полезных частей обучения работе в Open Source сообществе — это открытие того, что можно стать частью ткани сети, обрести голос и обрести последователей.
 
-> Planet is a feed aggregator application designed to collect posts from the weblogs of members of an Internet community and display them on a single page. Planet runs on a web server. It creates pages with entries from the original feeds in chronological order, most recent entries first. --[Wikipedia](<https://en.wikipedia.org/wiki/Planet_(software)>)
+Мы также считаем, что чтение блогов друг друга важно. В блогах наших коллег мы обнаруживаем, что мы не одиноки в нашей борьбе за то, чтобы вещи работали, в наших интересах в различных темах, и что синдром самозванца не является чем-то уникальным для «меня».
 
-In the early 2000s, before the rise of social media apps like Twitter and Facebook,
-Planet solved a important problem in the free and open source community. It used
-various "feed" technologies (RSS, Atom, CDF) to allow blog posts from different
-platforms to be aggregated into a single page that was constantly updated with
-the latest posts by people within a particular community.
+Чтобы облегчить обнаружение блогов в нашем сообществе, мы создали блог с открытым исходным кодом [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>):агрегированный поток блогов преподавателей и студентов Seneca, работающих над Open Source, на одной странице. Наш блог Planet в настоящее время находится на [Planet CDOT](https://telescope.cdot.systems/planet).
 
-[Written in Python by Jeff Waugh and Scott James Remnant](https://people.gnome.org/~jdub/bzr/planet/devel/trunk/),
-Planet could be configured with a list of blog feeds and an HTML template. It would
-use these to dynamically generate a site with posts in chronological order from
-the specified feeds.
+## Что такое Planet?
 
-## In Search of a New Planet
+> Planet (перевод:Планета) — это приложение-агрегатор лент, предназначенное для сбора статей из блогов членов интернет-сообщества и отображения их на одной странице. Planet работает на веб-сервере. Оно создает страницы с записями из исходных лент в хронологическом порядке, начиная с самых последних записей. --[Wikipedia](<https://en.wikipedia.org/wiki/Planet_(software)>)
 
-Our current Planet is dying. The [software we use was last updated 13 years ago](https://people.gnome.org/~jdub/bzr/planet/devel/trunk/).
-While the underlying code as drifted further into the past, our needs have moved
-forward. Maintaining the existing system, especially with the number of students
-involved in open source at Seneca, has become too difficult. Our current site
-often breaks, and needs manual interventions on a regular basis. Going forward,
-we need a new planet to call home.
+В начале 2000-х, до появления приложений для социальных сетей, таких как Twitter и Facebook, Planet решало важную проблему в Open Source сообществе. Оно использовало различные технологии «лент» (RSS, Atom, CDF), чтобы позволить публикациям из блогов с разных платформ объединяться в одну страницу, которая постоянно обновлялась последними публикациями людей в определенном сообществе.
 
-As we get ready to enter the year 2020, we have decided it is time to consider moving to
-a new system. Unfortunately, almost every system that came to replace Planet has
-itself become unmaintained.
+Написанное на Python Джеффом Во и Скоттом Джеймсом Ремнантом, Planet могло быть настроено со списком лент блогов и HTML-шаблоном. Оно использовало их для динамического создания сайта с публикациями в хронологическом порядке из указанных лент.
 
-Rather than try to find an existing solution, we have instead decided to try and
-create one. Because we need this software, we also feel that we should
-create and maintain it. And, since our need for a Planet comes out of our
-collective work on open source, we think that creating it _together as open source_
-would be the most desireable path forward.
+## В Поисках Новой "Планеты"
 
-## Trying to Define Our Planet
+Наша "Планета" умирает. Программное обеспечение, которое мы используем, последний раз обновлялось 13 лет назад. В то время как основной его код ушел в прошлое, наши потребности двигают нас вперед. Поддерживать существующую систему, особенно с учетом количества студентов, участвующих в Open Sourse в Seneca, стало слишком сложно. Наш нынешний сайт часто ломается и нуждается в ручном вмешательстве на регулярной основе. В будущем нам нужна новая "Планета", которую мы могли бы назвать домом.
 
-We have learned a number of things over the past decade running our own planet.
-We've also watched as social media and modern technologies have reshaped our
-expectations for what a system like this can and should be. This has gone into our design and implementation of our new Telescope project.
+Готовясь войти в 2020 год, мы решили, что пора рассмотреть вопрос перехода на новую систему. К сожалению, почти каждая приходящая на смену Planet система сама становилась необслуживаемой.
 
-See [Architecture](architecture.md) for a more complete picture of our current design.
+Вместо того чтобы пытаться найти существующее решение, мы решили попытаться создать собственное. Поскольку нам нужно программное обеспечение, мы также чувствуем, что мы должны создать и поддерживать его. И, поскольку наша потребность в "Планете" вытекает из нашей коллективной работы в Open Sourse, мы считаем, что создание его _вместе как Open Sourse_, было бы наилучшим решением.
 
-## Project History
+## Попытка Определить Нашу "Планету"
 
-- [Telescope 1.0](https://blog.humphd.org/telescope-1-0-0-or-dave-is-once-again-asking-for-a-blog/) (April 2020)
-- [Telescope 2.0](https://blog.humphd.org/telescope-2-0/) (April 2021)
-- [Telescope 3.0](https://blog.humphd.org/toward-telescope-3-0/) (in progress, April 2022)
+За последнее десятилетие, руководя собственной "Планетой", мы многому научились. Мы также наблюдали, как социальные сети и современные технологии изменили наши ожидания относительно того, какой может и должна быть подобная система. Это было учтено при разработке и реализации нашего нового проекта Telescope.
+
+См. раздел [Архитектура](architecture.md) для более полного представления о дизайне нашего проекта.
+
+## Что делает Telescope?
+
+По сути, Telescope принимает [RSS](https://en.wikipedia.org/wiki/RSS) [ленты публикаций блогов](https://rss.com/blog/rss-feed-for-blog/), перестраивает эти публикаций в формат HTML и собирает их в единую веб-страницу для отображения. Он способен обрабатывать различные виды форматирования, такие как блоки кода или встроенные видео. Telescope также собирает данные об этих публикациях на [информационной панели](https://api.telescope.cdot.systems/v1/status/). Публикации, которые можно увидеть на Telescope, происходят из блогов вкладчиков в разработку Telescope. Таким образом, вы можете следить за развитием проекта на самом сайте!
+
+## История Проекта
+
+- [Telescope 1.0](https://blog.humphd.org/telescope-1-0-0-or-dave-is-once-again-asking-for-a-blog/) (Апрель 2020)
+- [Telescope 2.0](https://blog.humphd.org/telescope-2-0/) (Апрель 2021)
+- [Telescope 3.0](https://blog.humphd.org/toward-telescope-3-0/) (в процессе, Апрель 2022)
 
 ### 1.0
 
-[Telescope 1.0](https://github.com/Seneca-CDOT/telescope/releases/tag/1.0.0) realized many of our initial goals, including:
+[Telescope 1.0](https://github.com/Seneca-CDOT/telescope/releases/tag/1.0.0) реализовал многие из наших первоначальных целей, в том числе:
 
-- A monolithic node.js backend web server providing REST APIs and GraphQL
-- A node.js queue service for parallel feed processing
-- Complete UI overhaul and design
-- A GatsbyJS frontend web app using Material UI React components
-- Initial SAML2 based Single Sign On Authentication
-- Docker/Docker Compose based container management
-- CI/CD pipelines using CircleCI and Travis CI
-- Pull Request previews using Zeit Now
-- A Redis database for caching feeds and posts
-- An Elasticsearch database for full-text search of posts
-- An Nginx reverse proxy and HTTP cache server
-- Certbot for managing SSL certificates with Let’s Encrypt
-- A node.js based GitHub Webhook Service to automatically manage deployments based on
-- GitHub push events and webhooks to automate staging and production builds, as well as green/blue deployment
-- Staging (<https://dev.telescope.cdot.systems/>) and production (<https://telescope.cdot.systems/>) deployments
+- Монолитный бэкенд веб-сервер node.js, предоставляющий REST API и GraphQL
+- Сервис очереди node.js для параллельной обработки лент
+- Полный редизайн и обновление интерфейса
+- Фронтенд веб-приложение на GatsbyJS с использованием React компонентов из Material UI
+- Первоначальная аутентификация единого входа на основе SAML2
+- Управление контейнерами на основе Docker/Docker Compose
+- Пайплайны CI/CD с использованием CircleCI и Travis CI
+- Pull Request передосмотр с помощью Zeit Now
+- База данных Redis для кэширования лент и сообщений
+- База данных Elasticsearch для полнотекстового поиска публикаций
+- Обратный прокси-сервер Nginx и HTTP-кэш-сервер
+- Certbot для управления SSL-сертификатами из Let's Encrypt
+- GitHub веб-хук-сервис на базе node.js для автоматического управления размещением
+- GitHub push-события и веб-хуки для автоматизации стадийных и производственных сборок, а также "green/blue" размещения
+- Стадийные (<https://dev.telescope.cdot.systems/>) и производственные (<https://telescope.cdot.systems/>) размещения
 
 ### 2.0
 
-[Telescope 2.0](https://github.com/Seneca-CDOT/telescope/releases/tag/2.0.0) improved and extended this design:
+[Telescope 2.0](https://github.com/Seneca-CDOT/telescope/releases/tag/2.0.0) улучшил и расширил этот дизайн:
 
-- Improved testing infrastructure, including snapshot, end-to-end, and unit testing
-- Reworking CI/CD to GitHub Actions
-- Improved SEO
-- Adding Firebase as a back-end data store for User info
-- Improvements to the SAML based Authentication, JWT Authorization, and user Sign-up Flows
-  Security
-- New UI Design, Logo, CSS, and Theming
-- Improved Accessibility and User Experience
-- Migration of Monolithic back-end to Microservices (90% complete) and API Gateway using Traefik
-- Improvements to Elasticsearch and Redis
-- Full port of front-end from GatsbyJS to next.js
-- TypeScript rewrite of front-end
-- Dependency Updates and Maintenance, both manual and automated (Dependabot)
-- Bug fixes and Paying-off Technical Debt
-- Progressive Web App (PWA) and Mobile UI Support
-- Docker improvements
-- Automation and Tooling fixes, updates, and improvements
-- Improvements to nginx, caching, and certificate management
-- Updates to Documentation
-- Improved Developer Experience, including fixes for cross-platform differences
+- Улучшенная инфраструктура тестирования, включая моментальные снимки, сквозное и модульное тестирование
+- Переработка CI/CD в GitHub Actions
+- Улучшено SEO
+- Добавление Firebase в качестве внутреннего хранилища данных для информации о пользователе
+- Улучшения аутентификации на основе SAML, авторизации JWT и безопасности процессов регистрации пользователей
+- Новый дизайн пользовательского интерфейса, логотип, CSS и тематика
+- Улучшенная доступность и пользовательский опыт
+- Миграция монолитной серверной части в микросервисы (завершено на 90 %) и шлюз API с использованием Traefik
+- Улучшения в Elasticsearch и Redis
+- Полный порт интерфейса с GatsbyJS на next.js
+- Переписка внешнего интерфейса с помощью TypeScript
+- Обновления и обслуживание зависимостей, как вручную, так и автоматически (Dependabot)
+- Исправление ошибок и погашение технического долга
+- Поддержка прогрессивного веб-приложения (PWA) и мобильного пользовательского интерфейса
+- Улучшения докера
+- Автоматизация и инструменты исправления, обновления и улучшения
+- Улучшения в nginx, кэшировании и управлении сертификатами
+- Обновления документации
+- Улучшенный опыт разработчиков, включая исправления межплатформенных различий
 
 ### 3.0
 
-In progress.
+В процессе.
