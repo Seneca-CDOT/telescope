@@ -301,13 +301,11 @@ Run the `pnpm db:init` script as it will populate the database with an initial s
 :::
 
 Docker Desktop app:
-![Original Telescope architecture](../static/img/initialProjectDiagram.png)
+![Image](../static/img/initialProjectDiagram.png)
 
 Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
 
-To find container-id: `docker container ps -a` This will return all the docker containers, STATUS, and their PORTS
-
-Switch to app's `.env` by `cp ./config/env.development ./.env` (you changed `.env` previously to seed database).
+To find container-id: `docker ps -a` This will return all the docker containers, STATUS, and their PORTS
 
 Finally, restart the `parser` container by running `pnpm:services start parser`.
 
