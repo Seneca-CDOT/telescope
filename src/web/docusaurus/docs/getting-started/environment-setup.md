@@ -307,7 +307,7 @@ Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
 
 To find container-id: `docker ps -a` This will return all the docker containers, STATUS, and their PORTS
 
-Finally, restart the `parser` container by running `pnpm:services start parser`.
+Finally, restart the `parser` container by running `pnpm services:start parser`.
 
 #### Option 2: Run frontend only
 
