@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-import { dependencyDiscoveryUrl } from '../config';
+import { dependencyDiscoveryUrl } from '@config';
 import DependenciesTable from './DependenciesTable';
 
 const useStyles = makeStyles((theme) => ({

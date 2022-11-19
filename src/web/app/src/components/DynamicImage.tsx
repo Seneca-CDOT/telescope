@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 
-import { imageServiceUrl } from '../config';
+import { imageServiceUrl } from '@config';
 
 const useStyles = makeStyles(() => ({
   img: {

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import useSWRInfinite from 'swr/infinite';
 import { Container, Box, createStyles } from '@material-ui/core';
-import { searchServiceUrl } from '../config';
+import { searchServiceUrl } from '@config';
 import Timeline from './Posts/Timeline';
 import Spinner from './Spinner';
 import SearchHelp from './SearchHelp';

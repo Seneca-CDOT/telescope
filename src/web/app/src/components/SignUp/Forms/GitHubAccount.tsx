@@ -3,10 +3,10 @@ import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { connect } from 'formik';
 
-import { SignUpForm } from '../../../interfaces';
+import { SignUpForm } from '@interfaces';
 import formModels from '../Schema/FormModel';
 import { TextInput, CheckBoxInput } from '../FormFields';
-import PostAvatar from '../../Posts/PostAvatar';
+import PostAvatar from '@components/Posts/PostAvatar';
 
 const { githubUsername, github, githubOwnership } = formModels;
 

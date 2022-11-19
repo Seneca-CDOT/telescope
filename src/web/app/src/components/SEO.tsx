@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { webUrl } from '../config';
+import { webUrl } from '@config';
 
 type SEOProps = {
   pageTitle: string;

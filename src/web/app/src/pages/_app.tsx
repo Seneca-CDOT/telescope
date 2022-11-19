@@ -3,13 +3,13 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { SWRConfig } from 'swr';
 
-import AuthProvider from '../components/AuthProvider';
+import AuthProvider from '@components/AuthProvider';
 
-import { darkTheme, lightTheme } from '../theme';
-import usePreferredTheme from '../hooks/use-preferred-theme';
-import { ThemeContext } from '../components/ThemeProvider';
+import { darkTheme, lightTheme } from '@theme';
+import usePreferredTheme from '@hooks/use-preferred-theme';
+import { ThemeContext } from '@components/ThemeProvider';
 
-import '../styles/globals.css';
+import '@styles/globals.css';
 import '@fontsource/spartan';
 import '@fontsource/pt-serif';
 

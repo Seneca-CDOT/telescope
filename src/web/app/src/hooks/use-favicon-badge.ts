@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useMountedState } from 'react-use';
 import useVisibility from './use-visibility';
 
-import { logoUrl, logoBadgedUrl } from '../components/Logo';
+import { logoUrl, logoBadgedUrl } from '@components/Logo';
 
 const useFaviconBadge = () => {
   const isMounted = useMountedState();

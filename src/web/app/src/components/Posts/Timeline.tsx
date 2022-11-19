@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { Container, createStyles } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import PostComponent from './Post';
-import { Post } from '../../interfaces';
+import { Post } from '@interfaces';
 import LoadAutoScroll from './LoadAutoScroll';
 import CopyButton from './CopyButton';
 

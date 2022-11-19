@@ -4,22 +4,22 @@ import { Formik, Form, FormikHelpers } from 'formik';
 import { useRouter } from 'next/router';
 import Button from '@material-ui/core/Button';
 
-import useAuth from '../hooks/use-auth';
-import Overview from '../components/SignUp/Forms/Overview';
-import BasicInfo from '../components/SignUp/Forms/BasicInfo';
-import GitHubAccount from '../components/SignUp/Forms/GitHubAccount';
-import BlogFeeds from '../components/SignUp/Forms/BlogFeeds';
-import ChannelFeeds from '../components/SignUp/Forms/ChannelFeeds';
+import useAuth from '@hooks/use-auth';
+import Overview from '@components/SignUp/Forms/Overview';
+import BasicInfo from '@components/SignUp/Forms/BasicInfo';
+import GitHubAccount from '@components/SignUp/Forms/GitHubAccount';
+import BlogFeeds from '@components/SignUp/Forms/BlogFeeds';
+import ChannelFeeds from '@components/SignUp/Forms/ChannelFeeds';
 
-import Review from '../components/SignUp/Forms/Review';
-import DynamicImage from '../components/BannerDynamicItems';
+import Review from '@components/SignUp/Forms/Review';
+import DynamicImage from '@components/BannerDynamicItems';
 
-import { SignUpForm } from '../interfaces';
-import formModels from '../components/SignUp/Schema/FormModel';
-import formSchema from '../components/SignUp/Schema/FormSchema';
-import { ssoServiceUrl } from '../config';
-import PopUp from '../components/PopUp';
-import Spinner from '../components/Spinner';
+import { SignUpForm } from '@interfaces';
+import formModels from '@components/SignUp/Schema/FormModel';
+import formSchema from '@components/SignUp/Schema/FormSchema';
+import { ssoServiceUrl } from '@config';
+import PopUp from '@components/PopUp';
+import Spinner from '@components/Spinner';
 
 enum SIGN_UP_STEPS {
   OVERVIEW,

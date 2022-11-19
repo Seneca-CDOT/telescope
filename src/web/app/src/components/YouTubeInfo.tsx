@@ -1,4 +1,4 @@
-import { Post } from '../interfaces';
+import { Post } from '@interfaces';
 
 export interface YouTubeInfoContextInterface {
   channelUrl: string;

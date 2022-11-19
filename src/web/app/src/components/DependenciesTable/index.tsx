@@ -6,7 +6,7 @@ import TablePagination from '@mui/material/TablePagination';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Row from './Row';
-import SearchInput from '../SearchInput/SearchInput';
+import SearchInput from '@components/SearchInput/SearchInput';
 
 const useStyles = makeStyles((theme) => ({
   root: {

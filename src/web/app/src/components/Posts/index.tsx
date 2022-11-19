@@ -5,9 +5,9 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { usePrevious } from 'react-use';
 import SentimentDissatisfiedRoundedIcon from '@material-ui/icons/SentimentDissatisfiedRounded';
 import Timeline from './Timeline';
-import { postsServiceUrl } from '../../config';
-import useFaviconBadge from '../../hooks/use-favicon-badge';
-import { Post } from '../../interfaces';
+import { postsServiceUrl } from '@config';
+import useFaviconBadge from '@hooks/use-favicon-badge';
+import { Post } from '@interfaces';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

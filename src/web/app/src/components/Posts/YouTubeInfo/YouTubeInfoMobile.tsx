@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme, ListSubheader } from '@material-ui/core';
 import { AiOutlineYoutube } from 'react-icons/ai';
-import { useYouTubeInfo } from '../../../hooks/use-genericInfo';
+import { useYouTubeInfo } from '@hooks/use-genericInfo';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

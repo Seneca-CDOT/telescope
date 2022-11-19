@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Avatar, Grid } from '@material-ui/core';
-import useTelescopeContributor from '../hooks/use-telescope-contributor';
+import useTelescopeContributor from '@hooks/use-telescope-contributor';
 
 const contributionsCount = (contributions: number) =>
   contributions < 2 ? '1 contribution.' : `${contributions} contributions.`;

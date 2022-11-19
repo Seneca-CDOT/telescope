@@ -5,7 +5,7 @@ import { Autocomplete } from '@mui/material';
 import TextField from '@material-ui/core/TextField';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useDebounce } from 'react-use';
-import { searchServiceUrl } from '../../config';
+import { searchServiceUrl } from '@config';
 
 type AutocompleteOption = {
   author: string;

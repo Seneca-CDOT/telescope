@@ -1,6 +1,6 @@
-import SEO from '../components/SEO';
-import NavBar from '../components/NavBar';
-import DependenciesPage from '../components/DependenciesPage';
+import SEO from '@components/SEO';
+import NavBar from '@components/NavBar';
+import DependenciesPage from '@components/DependenciesPage';
 
 const dependencies = () => {
   return (
