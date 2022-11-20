@@ -244,6 +244,12 @@ Docker builds Telescope's dependencies at launch and keeps them on disk. In some
 
 There are different ways to run the application. By default, [env.development](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.development) will be used. Please read the use cases below to find out what configuration you need to make for different scenarios.
 
+:::caution Important
+
+You do not need to modify any of the config files for them to run.
+
+:::
+
 There are also [env.production](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.production) and [env.staging](https://github.com/Seneca-CDOT/telescope/blob/master/config/env.staging) to choose based on developer's need. For example, if you want to use staging, you can do `cp ./config/env.staging ./.env` on Linux/macOS, or `copy config/env.staging .env` on Windows.
 
 Here are instructions for different scenarios:
@@ -260,6 +266,12 @@ This is the default setting, you do not need to copy or modify any `env` file.
 
 ```bash
 pnpm services:start
+```
+
+An Alternative version of the start command is
+
+```bash
+docker-compose --env-file config/env.development up --build -d
 ```
 
 Then visit `localhost:8000` in a web browser to see Telescope running locally.
@@ -288,9 +300,14 @@ Run the `pnpm db:init` script as it will populate the database with an initial s
 `db:seed` is responsible to populate the database with an initial set of data.
 :::
 
-Stop the `parser` service running. If you have Docker app installed locally make sure to stop the `parser` container before continuing to the next step.
+Docker Desktop app:
+![Image](../../static/img/dockerDesktopExample.png)
 
-Finally, restart the `parser` container by running `pnpm:services start parser`.
+Docker CLI: `docker stop <container-id>` (e.g, `15649f07c6bf` in above picture)
+
+To find container-id: `docker ps -a` This will return all the docker containers, STATUS, and their PORTS
+
+Finally, restart the `parser` container by running `pnpm services:start parser`.
 
 #### Option 2: Run frontend only
 
@@ -401,3 +418,7 @@ If you receive the error message "Malformed input, repository not added" after r
 Alternatively, you can set up an AWS Cloud9 IDE environment if none of the above worked for you. Please see our [AWS Cloud9 IDE Setup documentation](../getting-started/aws-cloud9.md) for more information.
 
 :::
+
+### No Posts after Running
+
+If you have no posts after starting the services, make sure that you properly seeded the database and ran the `start` script. You do not need to modify any of the config files or modify the Postgres URL.
