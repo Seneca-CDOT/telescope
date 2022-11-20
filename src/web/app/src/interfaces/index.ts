@@ -1,3 +1,8 @@
+const LIGHT_DEFAULT = 'light-default';
+const LIGHT_HIGH_CONTRAST = 'light-high-contrast';
+const DARK_DEFAULT = 'dark-default';
+const DARK_DIM = 'dark-dim';
+
 export type Feed = {
   id: string;
   author: string;
@@ -45,4 +50,12 @@ export type SignUpForm = {
   channelOwnership: boolean;
 };
 
-export type ThemeName = 'light' | 'dark';
+export type ThemeName = 'light-default' | 'light-high-contrast' | 'dark-default' | 'dark-dim';
+
+export type Theme = {
+  title: string;
+  id: ThemeName;
+  image: string;
+};
+
+export { LIGHT_DEFAULT, LIGHT_HIGH_CONTRAST, DARK_DEFAULT, DARK_DIM };

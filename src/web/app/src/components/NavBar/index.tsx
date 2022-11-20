@@ -21,7 +21,8 @@ import useAuth from '../../hooks/use-auth';
  * This ensures that the version displayed to user is the client view which ties to the client's preference theme.
  * This is only an issue on DesktopHeader since on MobileHeader there is a listener triggering rerendering.
  * */
-const DynamicThemeToggleButton = dynamic(() => import('../ThemeToggleButton'), {
+
+const DynamicThemeSelector = dynamic(() => import('../ThemeSelector'), {
   ssr: false,
 });
 
@@ -159,7 +160,7 @@ export default function NavBar({ disabled }: NavBarProps) {
                 <NavBarButton {...props} key={props.title} />
               ))}
               {!user && <Login />}
-              <DynamicThemeToggleButton />
+              <DynamicThemeSelector />
               {user && (
                 <ButtonTooltip title="Logout" arrow placement="top" TransitionComponent={Zoom}>
                   <button type="button" className={classes.avatar} onClick={() => logout()}>
