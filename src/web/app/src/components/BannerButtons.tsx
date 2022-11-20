@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { makeStyles, Tooltip, withStyles, Zoom } from '@material-ui/core';
+import { makeStyles, Tooltip, withStyles, Zoom, IconButton, Theme } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import useAuth from '../hooks/use-auth';
@@ -8,7 +9,7 @@ import TelescopeAvatar from './TelescopeAvatar';
 import PopUp from './PopUp';
 import { webUrl } from '../config';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   buttonsContainer: {
     paddingTop: 'env(safe-area-inset-top, 0)',
     position: 'absolute',
@@ -23,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.3rem',
     border: '1.5px solid white',
     '&:hover': {
-      color: '#9ABDFF',
-      borderColor: '#9ABDFF',
+      color: theme.palette.primary.light,
+      borderColor: theme.palette.primary.light,
       backgroundColor: 'transparent',
     },
   },
@@ -34,23 +35,26 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     fontSize: '1.2rem',
     '&:hover': {
-      color: '#9ABDFF',
+      color: theme.palette.primary.light,
       backgroundColor: 'transparent',
     },
   },
   userSignedInClass: {
-    width: '255px',
+    width: '330px',
     [theme.breakpoints.down(490)]: {
       width: '100%',
       right: 0,
     },
   },
   userNotSignedClass: {
-    width: '350px',
+    width: '480px',
     [theme.breakpoints.down(490)]: {
       width: '100%',
       right: 0,
     },
+  },
+  icon: {
+    fontSize: '2.5rem',
   },
 }));
 
@@ -78,6 +82,16 @@ const BannerButtons = () => {
         user?.isRegistered ? classes.userSignedInClass : classes.userNotSignedClass
       )}
     >
+      <Link href="/search" passHref>
+        <IconButton color="inherit" className={classes.buttons} aria-label="search" component="a">
+          <SearchIcon className={classes.icon} />
+        </IconButton>
+      </Link>
+      <Link href="/dependencies" passHref>
+        <Button className={classes.buttons} variant="outlined">
+          Dependencies
+        </Button>
+      </Link>
       {user && !user?.isRegistered && (
         <PopUp
           messageTitle="Telescope"
@@ -93,7 +107,6 @@ const BannerButtons = () => {
           About us
         </Button>
       </Link>
-
       {user?.isRegistered ? (
         <>
           <ButtonTooltip title="Sign out" arrow placement="top" TransitionComponent={Zoom}>
