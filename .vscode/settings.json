@@ -9,6 +9,5 @@
   },
   "files.eol": "\n",
   "files.insertFinalNewline": true,
-  "eslint.packageManager": "pnpm",
   "eslint.workingDirectories": [{ "mode": "auto" }]
 }
