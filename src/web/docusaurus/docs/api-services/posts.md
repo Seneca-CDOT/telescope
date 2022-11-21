@@ -51,6 +51,53 @@ Status: 200 OK
 }
 ```
 
+### Get posts with posts basic information(author, title, and publishDate)
+
+Find any posts that are currently cached in redis with their basic information.
+
+```
+GET /
+```
+
+#### Code Samples
+
+##### Shell
+
+```bash
+curl -X GET \
+  http://localhost/v1/posts?expand=1
+```
+
+##### JavaScript
+
+- With `fetch`
+
+```js
+fetch('http://localhost/v1/posts?expand=1');
+```
+
+#### Responses
+
+##### Successful response
+
+```
+Status: 200 OK
+```
+
+```json
+{
+  "posts": [
+    {
+      "id": "8a41a9109e",
+      "url": "http://localhost/v1/posts/8a41a9109e",
+      "author": "Ray Gervais",
+      "title": "What Does \"Cloud Native\" Even Mean?",
+      "publishDate": "2022-11-04T00:00:00.000Z"
+    }
+  ]
+}
+```
+
 ### Get a single post
 
 Find a single post that is currently cached in redis. Response can be retrieved as html, json, or plain-text. Specify as part of the headers what you want the response to look like.

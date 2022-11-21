@@ -7,11 +7,34 @@ const postsUrl = process.env.POSTS_URL || '/';
 
 const posts = Router();
 
+const prepareData = (ids, shouldExpand = false) => {
+  if (shouldExpand) {
+    return Promise.all(
+      ids.map(async (id) => {
+        // obtain the corresponding feed to populate the author's name to the return data.
+        const post = await Post.byId(id);
+        return {
+          id,
+          url: `${postsUrl}/${id}`,
+          author: post.feed.author,
+          title: post.title,
+          publishDate: post.published,
+        };
+      })
+    );
+  }
+  return Promise.resolve(
+    ids
+      // Return id and url for a specific post
+      .map((id) => ({ id, url: `${postsUrl}/${id}` }))
+  );
+};
+
 posts.get('/', validatePostsQuery(), async (req, res, next) => {
   const defaultNumberOfPosts = process.env.MAX_POSTS_PER_PAGE || 30;
   const capNumOfPosts = 100;
   const page = parseInt(req.query.page || 1, 10);
-
+  const expand = req.query.expand ? parseInt(req.query.expand, 10) : 0;
   let ids;
   let perPage;
   let postsCount;
@@ -60,14 +83,13 @@ posts.get('/', validatePostsQuery(), async (req, res, next) => {
     first: `/posts?per_page=${perPage}&page=${1}`,
     last: `/posts?per_page=${perPage}&page=${Math.floor(postsCount / perPage)}`,
   });
-  res.json(
-    ids
-      // Return id and url for a specific post
-      .map((id) => ({
-        id,
-        url: `${postsUrl}/${id}`,
-      }))
-  );
+  try {
+    const data = await prepareData(ids, expand === 1);
+    res.json(data);
+  } catch (err) {
+    logger.error({ err }, 'Unable to get detail information of posts from Redis');
+    next(createError(503, 'Unable to connect to database'));
+  }
 });
 
 posts.get('/:id', validatePostsIdParam(), async (req, res, next) => {
