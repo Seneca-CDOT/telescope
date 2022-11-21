@@ -11,7 +11,21 @@ describe('/posts', () => {
   const createdItems = 150;
   const nonInteger = 'test';
 
-  const posts = [...Array(createdItems).keys()].map((item) => {
+  const feeds = [...Array(createdItems).keys()].map((item) => {
+    const guid = `http://telescope${item}.cdot.systems`;
+    const id = hash(guid);
+    return {
+      id,
+      author: 'author',
+      url: 'http://foo.url',
+      user: 'user',
+      link: `http://github.com/githubUsername`,
+      etag: 'etag',
+      lastModified: new Date('2009-09-07T22:23:00.544Z'),
+      githubUsername: `githubUsername`,
+    };
+  });
+  const posts = [...Array(createdItems).keys()].map((item, index) => {
     const guid = `http://telescope${item}.cdot.systems`;
     const id = hash(guid);
     return {
@@ -22,13 +36,26 @@ describe('/posts', () => {
       html: 'html',
       updated: new Date('2009-09-07T22:23:00.544Z'),
       published: new Date('2009-09-07T22:20:00.000Z'),
-      url: 'foo',
-      site: 'foo',
+      url: `http://localhost/v1/posts/${id}`,
+      site: 'http://foo.site',
+      feed: feeds[index].id,
     };
   });
 
-  beforeAll(() => posts.map((post) => addPost(post)));
+  const expandedPosts = [...Array(createdItems).keys()].map((item) => {
+    return {
+      id: posts[item].id,
+      url: posts[item].url,
+      author: feeds[item].author,
+      title: posts[item].title,
+      publishDate: '2009-09-07T22:20:00.000Z',
+    };
+  });
 
+  beforeAll(() => {
+    posts.map((post) => addPost(post));
+    feeds.map((feed) => addFeed(feed));
+  });
   test('default number of items should be returned', async () => {
     const res = await request(app).get('/');
 
@@ -64,6 +91,32 @@ describe('/posts', () => {
 
   test('request posts with both only page param', async () => {
     const res = await request(app).get('/?page=3');
+    expect(res.status).toEqual(200);
+    // This will depend on the env value, so as long as we get back something.
+    expect(res.body.length).toBeGreaterThan(0);
+  });
+
+  test('request posts with a valid expand(do not expand) query param', async () => {
+    const res = await request(app).get('/?page=1&expand=0');
+    expect(res.status).toEqual(200);
+    // This will depend on the env value, so as long as we get back something.
+    expect(res.body.length).toBeGreaterThan(0);
+  });
+  test('request posts with a valid expand query param', async () => {
+    const res = await request(app).get('/?page=1&expand=1');
+    expect(res.status).toEqual(200);
+    expect(res.body.length).toBeGreaterThan(0);
+    res.body.forEach((post) => {
+      // check if the returned object is the same as the generated one in this test.
+      expect(post).toEqual(
+        // We need to find the corresponding post of res.body in expandedPosts by filtering it with its id.
+        expect.objectContaining(expandedPosts.find((expandedPst) => expandedPst.id === post.id))
+      );
+    });
+    expect(expandedPosts).toEqual(expect.arrayContaining(res.body));
+  });
+  test('request posts with an invalid expand query param', async () => {
+    const res = await request(app).get('/?page=1&expand=abc');
     expect(res.status).toEqual(200);
     // This will depend on the env value, so as long as we get back something.
     expect(res.body.length).toBeGreaterThan(0);
