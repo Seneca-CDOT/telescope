@@ -7,7 +7,11 @@ const BlogFeeds = () => {
   return (
     <RSSFeeds
       title="Blog and RSS"
-      prompt="Enter your blog URL and select the RSS you want to use in Telescope"
+      prompt="Enter your blog root URL (HTML) and select the blog's RSS feed URL (XML) you want to use in Telescope, such as:"
+      promptExamples={[
+        'Blog root URL: https://dev.to/user',
+        'RSS feed URL: https://dev.to/feed/user',
+      ]}
       buttonText="Validate"
       helperText="Validate your Blog URL"
       noFeedsSelected="Please validate your blog URL"

@@ -136,6 +136,10 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '10px',
       color: '#474747',
     },
+    helpTextExample: {
+      fontSize: '.9em',
+      fontWeight: 'normal',
+    },
   })
 );
 
@@ -144,7 +148,8 @@ type RSSFeedsFormProps = {
     selected: 'blogs' | 'channels';
     discovered: 'allBlogs' | 'allChannels';
   };
-  prompt: string;
+  prompt?: string;
+  promptExamples?: Array<string>;
   title: string;
   buttonText: string;
   helperText: string;
@@ -163,6 +168,7 @@ const RSSFeeds = connect<RSSFeedsFormProps, SignUpForm>(
   ({
     feeds: { selected, discovered },
     prompt,
+    promptExamples,
     title,
     buttonText,
     helperText,
@@ -247,7 +253,13 @@ const RSSFeeds = connect<RSSFeedsFormProps, SignUpForm>(
       <div className={classes.root}>
         <div className={classes.container}>
           <h1 className={classes.blogPageTitle}>{title}</h1>
-          <h2 className={classes.helpText}>{prompt}</h2>
+          <h2 className={classes.helpText}>
+            {prompt}
+            {promptExamples?.map((example) => (
+              <div className={classes.helpTextExample}>{example}</div>
+            ))}
+          </h2>
+
           <div className={classes.infoContainer}>
             <div className={classes.inputsContainer}>
               <TextInput
