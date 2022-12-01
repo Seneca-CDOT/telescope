@@ -5,10 +5,10 @@ import { connect } from 'formik';
 
 import { SignUpForm } from '../../../interfaces';
 import formModels from '../Schema/FormModel';
-import { TextInput, CheckBoxInput } from '../FormFields';
+import { TextInput } from '../FormFields';
 import PostAvatar from '../../Posts/PostAvatar';
 
-const { githubUsername, github, githubOwnership } = formModels;
+const { githubUsername, github } = formModels;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -178,11 +178,6 @@ const GitHubAccount = connect<{}, SignUpForm>((props) => {
             </div>
           )}
         </div>
-        <CheckBoxInput
-          label={githubOwnership.label}
-          name={githubOwnership.name}
-          checked={values.githubOwnership}
-        />
       </div>
     </div>
   );

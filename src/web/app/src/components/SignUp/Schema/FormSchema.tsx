@@ -1,4 +1,4 @@
-import { string, array, object, boolean } from 'yup';
+import { string, array, object } from 'yup';
 
 import formModels from './FormModel';
 
@@ -13,15 +13,12 @@ const {
   displayName,
   githubUsername,
   github,
-  githubOwnership,
   blogs,
   allBlogs,
   channels,
   allChannels,
   blogUrl,
   channelUrl,
-  blogOwnership,
-  channelOwnership,
 } = formModels;
 
 // Each signup step has one validation schema
@@ -44,11 +41,6 @@ export default [
         avatarUrl: string().url().required(),
       })
       .required(github.invalidErrorMsg),
-    [githubOwnership.name]: boolean().test(
-      'agreed',
-      githubOwnership.invalidErrorMsg,
-      (val) => !!val
-    ),
   }),
 
   // Third step we collect the user blog and the RSSfeeds from it.
@@ -56,7 +48,6 @@ export default [
     [blogUrl.name]: string(),
     [blogs.name]: array().of(DiscoveredFeed).min(1, blogs.requiredErrorMsg),
     [allBlogs.name]: array().of(DiscoveredFeed),
-    [blogOwnership.name]: boolean().test('agreed', blogOwnership.invalidErrorMsg, (val) => !!val),
   }),
 
   // Fourth step we collect the user YouTube/Twitch channels and the RSSfeeds from it.
@@ -64,10 +55,6 @@ export default [
     [channelUrl.name]: string(),
     [channels.name]: array().of(DiscoveredFeed),
     [allChannels.name]: array().of(DiscoveredFeed),
-    [channelOwnership.name]: boolean().when(allChannels.name, {
-      is: (val: {}[]) => !!val.length,
-      then: (shema) => shema.test('agreed', channelOwnership.invalidErrorMsg, (val) => !!val),
-    }),
   }),
 
   // Reviewing step has no validation logic. We just display all data that we collected.

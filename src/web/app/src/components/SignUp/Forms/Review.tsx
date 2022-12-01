@@ -157,6 +157,10 @@ const Review = connect<{ accountError: string | undefined }, SignUpForm>((props)
             </div>
           </div>
         </div>
+        <div>
+          By submitting these information, you confirm you are the owner and/or maintainer of the
+          accounts entered.
+        </div>
         <FormHelperText error>{props.accountError}</FormHelperText>
       </div>
     </div>
