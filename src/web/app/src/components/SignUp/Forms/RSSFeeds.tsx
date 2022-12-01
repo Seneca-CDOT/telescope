@@ -238,6 +238,17 @@ const RSSFeeds = connect<RSSFeedsFormProps, SignUpForm>(
       setFieldValue(selected, selectedFeeds, true);
     };
 
+    // Parse FeedUrl by Type to produce desired output for confirmation
+    const parseFeedUrlByType = ({ feedUrl, type }: DiscoveredFeed) => {
+      // For twitch URL on channel feed page, parse the feed url to find the twitch URL
+      if (type === 'twitch') {
+        const result = feedUrl.match(/https?:\/\/www.twitch.tv\/\w+/);
+        return result ? result[0] : feedUrl;
+      }
+      // By default, return the original feed url
+      return feedUrl;
+    };
+
     useEffect(() => {
       if (errors[input.name as keyof SignUpForm]) {
         validateBlog();
@@ -288,7 +299,7 @@ const RSSFeeds = connect<RSSFeedsFormProps, SignUpForm>(
                           }
                           label={
                             <h1 className={classes.formControlLabel}>
-                              {feed.type}: {feed.feedUrl}
+                              {feed.type}: {parseFeedUrlByType(feed)}
                             </h1>
                           }
                         />
