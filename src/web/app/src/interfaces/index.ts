@@ -39,15 +39,12 @@ export type SignUpForm = {
     avatarUrl: string;
   };
   githubUsername: string;
-  githubOwnership: boolean;
   blogUrl: string;
   channelUrl: string;
   blogs: DiscoveredFeed[];
   allBlogs: DiscoveredFeed[];
   channels: DiscoveredFeed[];
   allChannels: DiscoveredFeed[];
-  blogOwnership: boolean;
-  channelOwnership: boolean;
 };
 
 export type ThemeName = 'light-default' | 'light-high-contrast' | 'dark-default' | 'dark-dim';

@@ -10,7 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { feedDiscoveryServiceUrl } from '../../../config';
 import useAuth from '../../../hooks/use-auth';
 import { SignUpForm, DiscoveredFeed, DiscoveredFeeds } from '../../../interfaces';
-import { TextInput, CheckBoxInput } from '../FormFields';
+import { TextInput } from '../FormFields';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -157,10 +157,6 @@ type RSSFeedsFormProps = {
     name: string;
     label: string;
   };
-  agreement: {
-    name: string;
-    label: string;
-  };
   noFeedsSelected?: string;
 };
 
@@ -173,7 +169,6 @@ const RSSFeeds = connect<RSSFeedsFormProps, SignUpForm>(
     buttonText,
     helperText,
     noFeedsSelected,
-    agreement,
     input,
     formik,
   }) => {
@@ -308,11 +303,6 @@ const RSSFeeds = connect<RSSFeedsFormProps, SignUpForm>(
               </div>
             </div>
           </div>
-          <CheckBoxInput
-            label={agreement.label}
-            name={agreement.name}
-            checked={values[agreement.name as keyof SignUpForm] as boolean}
-          />
         </div>
       </div>
     );

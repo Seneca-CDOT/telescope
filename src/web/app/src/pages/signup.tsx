@@ -41,15 +41,12 @@ const {
   displayName,
   githubUsername,
   github,
-  githubOwnership,
   blogUrl,
   blogs,
   channels,
   allBlogs,
   allChannels,
   email,
-  blogOwnership,
-  channelOwnership,
 } = formModels;
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -324,7 +321,6 @@ const SignUpPage = () => {
                   [displayName.name]: user?.name,
                   [email.name]: user?.email,
                   [githubUsername.name]: '',
-                  [githubOwnership.name]: false,
                   [github.name]: {
                     username: '',
                     avatarUrl: '',
@@ -334,8 +330,6 @@ const SignUpPage = () => {
                   [allBlogs.name]: [] as SignUpForm['allBlogs'],
                   [channels.name]: [] as SignUpForm['channels'],
                   [allChannels.name]: [] as SignUpForm['allChannels'],
-                  [blogOwnership.name]: false,
-                  [channelOwnership.name]: false,
                 } as SignUpForm
               }
             >

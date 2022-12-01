@@ -1,7 +1,7 @@
 import RSSFeeds from './RSSFeeds';
 import formModels from '../Schema/FormModel';
 
-const { blogs, allBlogs, blogUrl, blogOwnership } = formModels;
+const { blogs, allBlogs, blogUrl } = formModels;
 
 const BlogFeeds = () => {
   return (
@@ -18,10 +18,6 @@ const BlogFeeds = () => {
       feeds={{
         selected: blogs.name as any,
         discovered: allBlogs.name as any,
-      }}
-      agreement={{
-        name: blogOwnership.name,
-        label: blogOwnership.label,
       }}
       input={{
         name: blogUrl.name,
