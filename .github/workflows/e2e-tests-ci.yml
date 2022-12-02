@@ -12,12 +12,10 @@ jobs:
         node-version: [14.x, 16.x]
     env:
       # Whichever Docker containers are needed to pass e2e tests, define them here
-      DOCKER_CONTAINERS: 'sso feed-discovery auth login supabase-db kong rest meta elasticsearch redis posts traefik'
+      DOCKER_CONTAINERS: ${{ secrets.DOCKER_CONTAINERS }}
       # Postgres database connection string to run db migration
       DATABASE_URL: 'postgresql://postgres:your-super-secret-and-long-postgres-password@localhost/postgres'
-      TEST_WEB_CONTENT_CONTAINER: 'test-web-content'
-      needs: ${{ env.TEST_WEB_CONTENT_CONTAINER }}
-
+      
     steps:
       - uses: actions/checkout@v2
 
