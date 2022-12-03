@@ -32,7 +32,6 @@ jobs:
 
       - uses: docker/setup-buildx-action@v1
 
-        run: sudo apt update && sudo apt install -y fonts-unifont ttf-ubuntu-font-family
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright dependencies
