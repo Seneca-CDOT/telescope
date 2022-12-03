@@ -37,6 +37,7 @@ jobs:
 
       # Pull, build, and run containers, then start e2e tests
       - run: pnpm install
+      - run: npx playwright install --with-deps
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
         run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
       - name: Wait for Postgres and Login containers to become fully ready
