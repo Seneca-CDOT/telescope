@@ -12,7 +12,7 @@ jobs:
         node-version: [14.x, 16.x]
     env:
       # Whichever Docker containers are needed to pass e2e tests, define them here
-      DOCKER_CONTAINERS: ${{ secrets.DOCKER_CONTAINERS }}
+      DOCKER_CONTAINERS: 'sso feed-discovery auth login kong rest meta elasticsearch redis posts traefik'
       # Postgres database connection string to run db migration
       DATABASE_URL: 'postgresql://postgres:your-super-secret-and-long-postgres-password@localhost/postgres'
       
@@ -37,7 +37,7 @@ jobs:
 
       # Pull, build, and run containers, then start e2e tests
       - run: pnpm install
-      - run: pnpx playwright install --with-deps
+      - run: sudo pnpx playwright install --with-deps
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
         run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
       - name: Wait for Postgres and Login containers to become fully ready
