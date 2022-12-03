@@ -32,6 +32,8 @@ jobs:
 
       - uses: docker/setup-buildx-action@v1
 
+      - name: Are you kidding me with this?
+        run: sudo apt update && sudo apt install -y ttf-unifont
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright
