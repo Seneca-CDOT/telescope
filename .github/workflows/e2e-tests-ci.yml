@@ -6,7 +6,7 @@ on:
 jobs:
   e2e:
     name: End-To-End Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         node-version: [14.x, 16.x]
@@ -34,7 +34,7 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-      - name: Install Playwright
+      - name: Install Playwright dependencies
         run: pnpm playwright-deps
       # Pull, build, and run containers, then start e2e tests
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
