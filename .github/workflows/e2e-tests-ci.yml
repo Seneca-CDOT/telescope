@@ -37,11 +37,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright dependencies
-        # run: pnpm playwright-deps
-        #- name: This is the dumbest thing I've ever seen
-
-        run: PLAYWRIGHT_BROWSERS_PATH=0 sudo npx playwright install --with-deps
-
+        run: pnpm playwright-deps
       # Pull, build, and run containers, then start e2e tests
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
         run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}

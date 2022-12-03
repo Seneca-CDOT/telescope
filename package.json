@@ -26,7 +26,7 @@
     "test": "pnpm turbo run test",
     "jest": "jest -c jest.config.js --",
     "jest:e2e": "jest -c jest.config.e2e.js --forceExit --",
-    "playwright-deps": "sudo pnpx playwright install --with-deps",
+    "playwright-deps": "pnpm playwright install-deps",
     "coverage": "jest -c jest.config.js --collectCoverage --",
     "jest-watch": "jest -c jest.config.js --watch --",
     "jest-update": "jest -c jest.config.js --updateSnapshot --",
