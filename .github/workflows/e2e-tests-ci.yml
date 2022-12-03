@@ -6,7 +6,7 @@ on:
 jobs:
   e2e:
     name: End-To-End Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         node-version: [14.x, 16.x]
@@ -34,8 +34,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
-      - name: Install Playwright
-        run: pnpm playwright-deps
+      - name: Install Playwright dependencies
+        # run: pnpm playwright-deps
+        #- name: This is the dumbest thing I've ever seen
+        run: export PLAYWRIGHT_BROWSERS_PATH=0 sudo npx playwright install --with-deps
       # Pull, build, and run containers, then start e2e tests
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
         run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
