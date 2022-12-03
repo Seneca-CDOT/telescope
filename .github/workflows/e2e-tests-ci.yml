@@ -6,7 +6,7 @@ on:
 jobs:
   e2e:
     name: End-To-End Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         node-version: [14.x, 16.x]
