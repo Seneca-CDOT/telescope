@@ -37,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright dependencies
-        run: pnpm playwright-deps
+        run: npx playwright install-deps
       # Pull, build, and run containers, then start e2e tests
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
         run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
