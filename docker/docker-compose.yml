@@ -90,6 +90,10 @@ services:
       - JWT_ISSUER
       - JWT_AUDIENCE
       - JWT_SECRET
+      # Slack Bolt config
+      - SLACK_BOT_TOKEN
+      - SLACK_BOT_SIGNING_SECRET
+      - SLACK_BOT_CHANNEL_ID
     depends_on:
       - traefik
     labels:

@@ -6,6 +6,8 @@ const supabase = require('./supabase');
 const User = require('./user');
 const { matchOrigin, getUserId } = require('./util');
 
+const publishSignUpMessage = require('./slack-bolt-client');
+
 // Space-separated list of App origins that we know about and will allow
 // to be used as part of login redirects. You only need to specify
 // the origin (scheme://domain:port), for each of these vs. the full URL.
@@ -149,7 +151,6 @@ module.exports.createTelescopeUser = function createTelescopeUser() {
     }
 
     const response = await createNewProfile(id, req.body);
-
     if (response.error) {
       const {
         status,
@@ -163,6 +164,9 @@ module.exports.createTelescopeUser = function createTelescopeUser() {
       next(createError(status, 'Unable to create a Telescope profile'));
       return;
     }
+    publishSignUpMessage(req.body.displayName, req.body.githubUsername, req.body.blogUrl).catch(
+      (error) => logger.warn({ error }, 'Unable to publish Slack signup message')
+    );
     next();
   };
 };
