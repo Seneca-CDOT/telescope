@@ -106,6 +106,34 @@ const useStyles = makeStyles((theme: Theme) =>
 const Review = connect<{ accountError: string | undefined }, SignUpForm>((props) => {
   const classes = useStyles();
 
+  // Make sure only confirmed channel URL(s) are accepted, after data is "submitted" by "Youtube and Twitch" pages
+  const channelList = props.formik.values.channelUrl;
+  if (channelList && channelList.trim() !== '') {
+    // If there is any confirmed channel, match the URL(s) against channel URL list to eliminate unconfirmed ones from the channel URL list
+    const confirmedChannels = props.formik.values.channels;
+    if (confirmedChannels.length > 0) {
+      const confirmedChannelUrls = confirmedChannels.map((channel) => channel.feedUrl);
+
+      let channelListArray = channelList.split(/\s+/);
+      // This skips any youtube channel URL at the moment
+      channelListArray = channelListArray.filter((channel) =>
+        confirmedChannelUrls.find(
+          (confirmedChannel) =>
+            confirmedChannel.includes(channel) || channel.includes('www.youtube.com')
+        )
+      );
+      props.formik.values.channelUrl = channelListArray.join(' ');
+
+      // Match selected feeds against discovered feeds too, for consistency in case users backtrack to make changes
+      props.formik.values.allChannels = props.formik.values.allChannels.filter((discoveredFeed) =>
+        confirmedChannels.find((selectedFeed) => selectedFeed.feedUrl === discoveredFeed.feedUrl)
+      );
+    } else {
+      props.formik.values.channelUrl = ''; // Otherwise, the channel URL list and discovered feeds set to be empty
+      props.formik.values.allChannels = [];
+    }
+  }
+
   const { blogs, channels, displayName, firstName, lastName, email, github, blogUrl, channelUrl } =
     props.formik.values;
 
