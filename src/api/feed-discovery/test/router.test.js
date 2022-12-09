@@ -267,17 +267,25 @@ describe('POST /', () => {
       expect(res.body).toEqual(result);
     });
 
-    it('should return 200 and all feed urls if there are multiple link elements that could contain a feed url', async () => {
+    it('should return 200 and all relevant feed urls if there are multiple link elements that could contain a feed url', async () => {
       const blogUrl = 'https://test321.blogspot.com/';
       const mockBlogUrlResponseBody = `
           <!doctype html>
           <html lang="en">
             <head>
-              <link rel="alternate" type="application/x.atom+xml" href="https://test321.blogspot.com/x.atom/feeds/posts/default/-/open-source"/>
-              <link rel="alternate" type="application/x-atom+xml" href="https://test321.blogspot.com/x-atom/feeds/posts/default/-/open-source"/>
-              <link rel="alternate" type="application/json" href="https://test321.blogspot.com/json"/>
-              <link rel="alternate" type="application/json+oembed" href="https://test321.blogspot.com/oembed/?format=json"/>
-              <link rel="alternate" type="application/xml+oembed" href="https://test321.blogspot.com/oembed/?format=xml"/>
+              <link rel="alternate" type="application/x.atom+xml" href="https://test321.blogspot.com/x.atom/feeds/posts/default/-/open-source" />
+              <link rel="alternate" type="application/x-atom+xml" href="https://test321.blogspot.com/x-atom/feeds/posts/default/-/open-source" />
+              <link rel="alternate" type="application/json" href="https://test321.blogspot.com/json" />
+              <link rel="alternate" type="application/json+oembed" href="https://test321.blogspot.com/oembed/?format=json" />
+              <link rel="alternate" type="application/xml+oembed" href="https://test321.blogspot.com/oembed/?format=xml" />
+              <link rel="alternate" type="application/rss+xml" href="https://test321.blogspot.com/feeds/posts/default" />
+              <link rel="alternate" type="application/rss+xml" href="https://test321.blogspot.com/feeds/posts/default?alt=rss" />
+              <link rel="alternate" type="application/atom+xml" href="https://www.blogger.com/feeds/123/posts/default" />
+              <link rel="alternate" type="application/rss+xml" href="https://test321.wordpress.com/feed/" />
+              <link rel="alternate" type="application/rss+xml" href="https://test321.wordpress.com/comments/feed/" />
+              <link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&url=https%3A%2F%2Ftest321.wordpress.com%2F&for=wpcom-auto-discovery" />
+              <link rel="alternate" type="application/rss+xml" href="https://medium.com/feed/@test321" />
+              <link rel="alternate" type="application/rss+xml" href="https://dev.to/feed/test321" />
             </head>
             <body></body>
           </html>
@@ -290,6 +298,10 @@ describe('POST /', () => {
           'https://test321.blogspot.com/json',
           'https://test321.blogspot.com/oembed/?format=json',
           'https://test321.blogspot.com/oembed/?format=xml',
+          'https://test321.blogspot.com/feeds/posts/default',
+          'https://test321.wordpress.com/feed/',
+          'https://medium.com/feed/@test321',
+          'https://dev.to/feed/test321',
         ].map((feedUrl) => ({ feedUrl, type: 'blog' })),
       };
 
