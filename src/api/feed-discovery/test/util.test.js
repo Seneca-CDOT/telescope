@@ -6,6 +6,7 @@ const {
   isFeedUrl,
   getBlogBody,
   getFeedUrlType,
+  relevantFeedUrl,
   getFeedUrls,
 } = require('../src/util');
 
@@ -127,6 +128,27 @@ describe('util.js', () => {
     expect(getFeedUrlType('not-valid')).toBe('blog');
   });
 
+  test('relevantFeedUrl returns true for relevant feed URLs', () => {
+    [
+      'https://test321.com/feed/user',
+      'https://test321.workpress.com/feed/',
+      'https://test321.blogspot.com/feeds/posts/default',
+    ].forEach((feedUrl) => {
+      expect(relevantFeedUrl(feedUrl)).toBe(true);
+    });
+  });
+
+  test('relevantFeedUrl returns false for irrelevant feed URLs', () => {
+    [
+      'https://test321.workpress.com/comments/feed/',
+      'https://public-api.wordpress.com/oembed/?format=json&url=https%3A%2F%2Ftest321.wordpress.com%2F&for=wpcom-auto-discovery',
+      'https://www.blogger.com/feeds/123/posts/default',
+      'https://test321.blogspot.com/feeds/posts/default?alt=rss',
+    ].forEach((feedUrl) => {
+      expect(relevantFeedUrl(feedUrl)).toBe(false);
+    });
+  });
+
   test('getFeedUrls returns expected atom+xml feed URL for a given document', () => {
     const html = (type) => `
       <html lang="en">
@@ -157,5 +179,32 @@ describe('util.js', () => {
 
   test('getFeedUrls returns null if document cannot be parsed', () => {
     expect(getFeedUrls(null)).toBe(null);
+  });
+
+  test('getFeedUrls filters irrelevant feed URLs', () => {
+    const html = `
+    <html lang="en">
+      <head>
+        <link rel="alternate" type="application/atom+xml" href="https://test321.blogspot.com/feeds/posts/default" />
+        <link rel="alternate" type="application/rss+xml" href="https://test321.blogspot.com/feeds/posts/default?alt=rss" />
+        <link rel="alternate" type="application/atom+xml" href="https://www.blogger.com/feeds/123/posts/default" />
+        <link rel="alternate" type="application/rss+xml" href="https://test321.wordpress.com/feed/" />
+        <link rel="alternate" type="application/rss+xml" href="https://test321.wordpress.com/comments/feed/" />
+        <link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&url=https%3A%2F%2Ftest321.wordpress.com%2F&for=wpcom-auto-discovery" />
+        <link rel="alternate" type="application/rss+xml" href="https://medium.com/feed/@test321" />
+        <link rel="alternate" type="application/rss+xml" href="https://dev.to/feed/test321" />
+      </head>
+      <body></body>
+    </html>
+  `;
+
+    const expectedFeedUrls = [
+      'https://test321.blogspot.com/feeds/posts/default',
+      'https://test321.wordpress.com/feed/',
+      'https://medium.com/feed/@test321',
+      'https://dev.to/feed/test321',
+    ].map((feedUrl) => ({ feedUrl, type: 'blog' }));
+
+    expect(getFeedUrls(html)).toEqual(expectedFeedUrls);
   });
 });
