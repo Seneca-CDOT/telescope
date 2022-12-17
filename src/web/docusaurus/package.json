@@ -40,7 +40,7 @@
     "@babel/preset-env": "7.1.6",
     "@docusaurus/types": "2.1.0",
     "@senecacdot/eslint-config-telescope": "1.1.0",
-    "@types/react": "17.0.45",
+    "@types/react": "17.0.52",
     "eslint": "7.32.0",
     "eslint-plugin-import": "2.25.4",
     "rimraf": "3.0.2",
