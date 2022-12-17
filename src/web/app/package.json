@@ -59,7 +59,7 @@
     "@senecacdot/eslint-config-telescope": "1.1.0",
     "@testing-library/react": "12.1.5",
     "@types/node": "16.11.38",
-    "@types/react": "17.0.45",
+    "@types/react": "17.0.52",
     "@types/react-dom": "18.0.6",
     "@types/react-transition-group": "4.4.5",
     "@typescript-eslint/eslint-plugin": "4.33.0",
