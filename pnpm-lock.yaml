@@ -277,7 +277,7 @@ importers:
       minimatch: 3.0.5
       nodemon: 2.0.20
       normalize-url: 6.1.0
-      passport: 0.5.2
+      passport: 0.6.0
       passport-saml: 3.2.4
       rimraf: 3.0.2
       supertest: 6.1.6
@@ -291,7 +291,7 @@ importers:
       jsonwebtoken: 8.5.1
       minimatch: 3.0.5
       normalize-url: 6.1.0
-      passport: 0.5.2
+      passport: 0.6.0
       passport-saml: 3.2.4
     devDependencies:
       '@senecacdot/eslint-config-telescope': 1.1.0_eslint@7.32.0
@@ -17119,12 +17119,13 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: false
 
-  /passport/0.5.2:
-    resolution: {integrity: sha512-w9n/Ot5I7orGD4y+7V3EFJCQEznE5RxHamUxcqLT2QoJY0f2JdN8GyHonYFvN0Vz+L6lUJfVhrk2aZz2LbuREw==}
+  /passport/0.6.0:
+    resolution: {integrity: sha512-0fe+p3ZnrWRW74fe8+SvCyf4a3Pb2/h7gFkQ8yTJpAO50gDzlfjZUZTO1k5Eg9kUct22OxHLqDZoKUWRHOh9ug==}
     engines: {node: '>= 0.4.0'}
     dependencies:
       passport-strategy: 1.0.0
       pause: 0.0.1
+      utils-merge: 1.0.1
     dev: false
 
   /path-exists/3.0.0:
@@ -17180,7 +17181,7 @@ packages:
     engines: {node: '>=8'}
 
   /pause/0.0.1:
-    resolution: {integrity: sha1-HUCLP9t2kjuVQ9lvtMnf1TXZy10=}
+    resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
     dev: false
 
   /pend/1.2.0:
@@ -20980,7 +20981,7 @@ packages:
     engines: {node: '>= 4'}
 
   /utils-merge/1.0.1:
-    resolution: {integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=}
+    resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
     dev: false
 
