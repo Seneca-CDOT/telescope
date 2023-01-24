@@ -18,6 +18,7 @@ const service = new Satellite({
         secret: process.env.JWT_SECRET || `telescope-has-many-secrets-${Date.now()}!`,
         resave: false,
         saveUninitialized: false,
+        cookie: { secure: true, sameSite: 'none' },
       })
     );
     app.use(passport.initialize());
