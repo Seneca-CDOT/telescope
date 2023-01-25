@@ -306,12 +306,6 @@
 @sideway/formula
 @sideway/pinpoint
 @sindresorhus/is
-@slack/bolt
-@slack/logger
-@slack/oauth
-@slack/socket-mode
-@slack/types
-@slack/web-api
 @slorber/static-site-generator-webpack-plugin
 @supabase/gotrue-js
 @supabase/postgrest-js
@@ -332,7 +326,6 @@
 @types/babel__generator
 @types/babel__template
 @types/babel__traverse
-@types/body-parser
 @types/bonjour
 @types/cacheable-request
 @types/connect-history-api-fallback
@@ -340,7 +333,6 @@
 @types/eslint-scope
 @types/estree
 @types/express
-@types/express-serve-static-core
 @types/history
 @types/html-minifier-terser
 @types/http-cache-semantics
@@ -349,18 +341,14 @@
 @types/js-cookie
 @types/json-schema
 @types/json5
-@types/jsonwebtoken
 @types/keyv
 @types/lodash
 @types/minimatch
 @types/node
-@types/p-queue
 @types/p5
 @types/phoenix
 @types/prettier
-@types/promise.allsettled
 @types/prop-types
-@types/qs
 @types/react
 @types/react-dom
 @types/react-router-config
@@ -373,7 +361,6 @@
 @types/smoothscroll-polyfill
 @types/sockjs
 @types/trusted-types
-@types/tsscmp
 @types/unist
 @types/wait-on
 @types/ws
@@ -431,7 +418,6 @@ array-includes
 array-union
 array.prototype.flat
 array.prototype.flatmap
-array.prototype.map
 arrify
 ast-types-flow
 async
@@ -690,7 +676,6 @@ eta
 etag
 eval
 eventemitter2
-eventemitter3
 events
 execa
 exit
@@ -730,9 +715,7 @@ find-my-way
 find-process
 find-root
 find-up
-finity
 flat-cache
-follow-redirects
 for-each
 foreground-child
 fork-ts-checker-webpack-plugin
@@ -847,7 +830,6 @@ istanbul-lib-processinfo
 istanbul-lib-report
 istanbul-lib-source-maps
 istanbul-reports
-iterate-value
 jake
 jest
 jest-changed-files
@@ -1024,7 +1006,6 @@ p-cancelable
 p-finally
 p-is-promise
 p-map
-p-queue
 p-retry
 p-timeout
 p5
@@ -1063,7 +1044,6 @@ pkg-dir
 pkg-up
 playwright
 playwright-core
-please-upgrade-node
 pm2
 pm2-axon
 pm2-axon-rpc
@@ -1096,7 +1076,6 @@ process-on-spawn
 process-warning
 progress
 promise-polyfill
-promise.allsettled
 promise.prototype.finally
 promptly
 prompts
@@ -1192,7 +1171,6 @@ screenfull
 secure-json-parse
 selfsigned
 semver
-semver-compare
 semver-diff
 send
 serialize-javascript
@@ -1282,7 +1260,6 @@ ts-jest
 ts-node
 tsconfig-paths
 tslib
-tsscmp
 tsutils
 tunnel-agent
 turbo
