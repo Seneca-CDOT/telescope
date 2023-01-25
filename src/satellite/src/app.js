@@ -10,6 +10,8 @@ const { errorHandler } = require('./middleware');
 function createApp(router, options = {}) {
   const app = express();
 
+  if (process.env.NODE_ENV === 'production') app.set('trust proxy', 1);
+
   app.use(pinoHttp({ logger }));
 
   // Allow disabling or passing options to helmet
