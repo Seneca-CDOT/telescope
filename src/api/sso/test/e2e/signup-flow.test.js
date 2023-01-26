@@ -1,11 +1,13 @@
+const { test, expect } = require('@playwright/test');
+
 // NOTE: you need to run the sso and login services in docker for these to work
 const { hash, fetch } = require('@senecacdot/satellite');
 const { decode } = require('jsonwebtoken');
 
 // We need to get the URL to the sso service running in docker, and the list
 // of allowed origins, to compare with assumptions in the tests below.
-const { login, logout } = require('./browser-util');
-const { cleanupTelescopeUsers, ensureUsers } = require('./supabase-util');
+const { login, logout } = require('./lib/browser-util');
+const { cleanupTelescopeUsers, ensureUsers } = require('./lib/supabase-util');
 
 const { SSO_URL, FEED_DISCOVERY_URL } = process.env;
 
@@ -43,27 +45,18 @@ const galileoGalilei = {
 
 const users = [galileoGalilei, johannesKepler];
 
-describe('Signup Flow', () => {
-  afterAll(async () => {
-    await browser.close();
+test.describe('Signup Flow', () => {
+  test.afterAll(() => cleanupTelescopeUsers(users));
+
+  test.beforeEach(async ({ page }) => {
     await cleanupTelescopeUsers(users);
+    return page.goto(`http://localhost:8888/auth.html`);
   });
 
-  beforeEach(async () => {
-    await cleanupTelescopeUsers(users);
-    context = await browser.newContext();
-    page = await browser.newPage();
-    await page.goto(`http://localhost:8888/auth.html`);
-  });
-  afterEach(async () => {
-    await context.close();
-    await page.close();
-  });
-
-  it('should have none of the users in the Users service for test data accounts', () =>
+  test('should have none of the users in the Users service for test data accounts', () =>
     ensureUsers(users, false));
 
-  it('signup flow works to login and register a new Telescope user', async () => {
+  test('signup flow works to login and register a new Telescope user', async ({ page }) => {
     // Part 1: login using SSO, as a user who does not have a Telescope account.
     // Confirm that the payload of the token we get back matches what we expect.
     // NOTE: the data comes from config/simplesamlphp-users.php.
@@ -141,7 +134,7 @@ describe('Signup Flow', () => {
     await partThree(feedUrls, accessToken);
   });
 
-  it('signup flow fails if user is not authenticated', async () => {
+  test('signup flow fails if user is not authenticated', async () => {
     const invalidUser = { ...galileoGalilei, email: 'wrong@email.com' };
     const res = await fetch(`${SSO_URL}/register`, {
       method: 'POST',
@@ -153,7 +146,7 @@ describe('Signup Flow', () => {
     expect(res.status).toBe(401);
   });
 
-  it('signup flow fails if user data is missing required properties', async () => {
+  test('signup flow fails if user data is missing required properties', async ({ page }) => {
     const { accessToken } = await login(page, 'user2', 'user2pass');
     const invalidUser = { ...galileoGalilei };
     // Delete the firstName, which is required
@@ -169,7 +162,7 @@ describe('Signup Flow', () => {
     expect(res.status).toBe(400);
   });
 
-  it('signup flow fails if user is already a Telescope user', async () => {
+  test('signup flow fails if user is already a Telescope user', async ({ page }) => {
     const { accessToken } = await login(page, 'user2', 'user2pass');
     const res = await fetch(`${SSO_URL}/register`, {
       method: 'POST',
@@ -193,7 +186,7 @@ describe('Signup Flow', () => {
     expect(res2.status).toBe(403);
   });
 
-  it('Signup flow fails if feed is already used by another Telescope user', async () => {
+  test('Signup flow fails if feed is already used by another Telescope user', async ({ page }) => {
     // create the user1(johannes) account.
     const account1 = await login(page, 'user1', 'user1pass');
     const res = await fetch(`${SSO_URL}/register`, {

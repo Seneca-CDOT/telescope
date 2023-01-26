@@ -12,7 +12,9 @@
     "lint": "pnpm eslint",
     "lint-time": "pnpm eslint-time",
     "test": "jest -c jest.config.js",
-    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules"
+    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules",
+    "e2e": "pnpm playwright",
+    "playwright": "env-cmd -f env.local playwright test --"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -30,18 +32,20 @@
     "jsonwebtoken": "9.0.0",
     "minimatch": "3.0.5",
     "normalize-url": "6.1.0",
-    "passport": "0.5.2",
+    "passport": "0.6.0",
     "passport-saml": "3.2.4"
   },
   "engines": {
     "node": ">=16"
   },
   "devDependencies": {
+    "@playwright/test": "1.29.2",
     "@senecacdot/eslint-config-telescope": "1.1.0",
     "env-cmd": "10.1.0",
     "eslint": "7.32.0",
     "nodemon": "2.0.20",
+    "playwright": "1.29.2",
     "rimraf": "3.0.2",
-    "supertest": "6.1.6"
+    "supertest": "6.3.2"
   }
 }
