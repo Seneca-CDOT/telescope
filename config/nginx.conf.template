@@ -169,6 +169,11 @@ http {
       proxy_set_header Host $host;
       proxy_pass http://portainer:9000/;
     }
+
+    # Let's Encrypt route
+    location /.well-known/acme-challenge/ {
+      root /var/www/certbot;
+    }
   }
 
   # Requests to the oauth2-proxy which redirect to supabase studio app once authenticated
@@ -184,6 +189,11 @@ http {
       proxy_set_header X-Scheme $scheme;
       proxy_pass http://oauth2-proxy:8080/;
     }
+
+    # Let's Encrypt route
+    location /.well-known/acme-challenge/ {
+      root /var/www/certbot;
+    }
   }
 
   # Requests to the api.* domain should be proxied to Traefik
@@ -197,6 +207,11 @@ http {
       proxy_set_header  X-Forwarded-for $remote_addr;
       # We run Traefik via Docker on port 8888
       proxy_pass        http://traefik:8888;
+    }
+
+    # Let's Encrypt route
+    location /.well-known/acme-challenge/ {
+      root /var/www/certbot;
     }
   }
 
