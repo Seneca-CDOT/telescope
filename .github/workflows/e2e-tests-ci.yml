@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16.x, 18.x]
     env:
       # Whichever Docker containers are needed to pass e2e tests, define them here
       DOCKER_CONTAINERS: 'sso feed-discovery auth login kong rest meta elasticsearch redis posts traefik'
