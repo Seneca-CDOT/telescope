@@ -4,7 +4,7 @@
  * https://blog.humphd.org/not-so-simple-saml/
  */
 const passport = require('passport');
-const SamlStrategy = require('passport-saml').Strategy;
+const SamlStrategy = require('@node-saml/passport-saml').Strategy;
 const { logger, hash } = require('@senecacdot/satellite');
 
 const supabase = require('./supabase');

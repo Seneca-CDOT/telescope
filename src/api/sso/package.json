@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "An SSO Authentication and Authorization Service",
   "scripts": {
-    "dev": "env-cmd -f env.local nodemon src/server.js",
+    "dev": "env-cmd -f .env nodemon src/server.js",
     "start": "node src/server.js",
     "eslint": "eslint --config .eslintrc.js \"./**/*.js\"",
     "eslint-time": "TIMING=1 eslint --config .eslintrc.js \"./**/*.js\"",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
+    "@node-saml/passport-saml": "4.0.2",
     "@senecacdot/satellite": "^1.29.0",
     "@slack/bolt": "3.12.2",
     "@supabase/supabase-js": "1.29.4",
@@ -30,8 +31,7 @@
     "jsonwebtoken": "9.0.0",
     "minimatch": "3.0.5",
     "normalize-url": "6.1.0",
-    "passport": "0.5.2",
-    "passport-saml": "3.2.4"
+    "passport": "0.5.2"
   },
   "engines": {
     "node": ">=16"
