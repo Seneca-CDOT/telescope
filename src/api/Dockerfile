@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM docker.cdot.systems/library/node:lts-alpine
 
 # Install pnpm
 RUN npm i -g pnpm

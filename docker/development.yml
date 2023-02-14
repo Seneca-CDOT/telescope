@@ -36,7 +36,7 @@ services:
   # SSO Identity Provider test service, https://simplesamlphp.org
   # Access to the login page available at http://localhost:8081
   login:
-    image: kristophjunge/test-saml-idp
+    image: docker.cdot.systems/kristophjunge/test-saml-idp
     container_name: 'login'
     ports:
       - '8081:8080'
@@ -53,7 +53,7 @@ services:
   # containers can use http://test-web-content instead.
   test-web-content:
     container_name: 'test-web-content'
-    image: 'nginx:stable-alpine'
+    image: 'docker.cdot.systems/library/nginx:stable-alpine'
     ports:
       - '8888:80'
     volumes:
