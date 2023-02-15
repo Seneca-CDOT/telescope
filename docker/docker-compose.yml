@@ -293,7 +293,7 @@ services:
 
   # API Gateway
   traefik:
-    image: docker.cdot.systems/library/traefik:v2.9.1
+    image: traefik:v2.9.1
     container_name: 'traefik'
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -302,7 +302,7 @@ services:
 
   # Redis
   redis:
-    image: docker.cdot.systems/library/redis:latest
+    image: redis:latest
     container_name: 'redis'
     command: ['redis-server']
     volumes:
@@ -318,7 +318,7 @@ services:
       - xpack.security.enabled=false
 
   rss-bridge:
-    image: docker.cdot.systems/rssbridge/rss-bridge:2022-01-20
+    image: rssbridge/rss-bridge:2022-01-20
     container_name: 'rss-bridge'
     # See RSS-Bridge docs for config files:
     # Whitelist - https://github.com/RSS-Bridge/rss-bridge/wiki/Whitelisting

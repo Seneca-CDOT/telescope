@@ -142,7 +142,7 @@ services:
 
   # Portainer's routing is managed in our nginx.conf
   portainer:
-    image: docker.cdot.systems/library/portainer/portainer-ce:alpine
+    image: portainer/portainer-ce:alpine
     container_name: 'portainer'
     command: -H unix:///var/run/docker.sock --admin-password-file '/data/portainer'
     restart: unless-stopped

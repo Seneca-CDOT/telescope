@@ -12,7 +12,7 @@ ARG SUPABASE_URL
 ARG ANON_KEY
 
 ## Base ###########################################################################
-FROM docker.cdot.systems/library/node:16 as base
+FROM node:16 as base
 
 RUN npm install -g pnpm
 
@@ -94,7 +94,7 @@ COPY --from=dependencies-docs /docs/node_modules ./node_modules
 RUN pnpm build
 
 ## Deploy ######################################################################
-FROM docker.cdot.systems/library/nginx:1.20.2-alpine as deploy
+FROM nginx:1.20.2-alpine as deploy
 
 WORKDIR /
 
