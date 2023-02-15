@@ -1,6 +1,6 @@
 ## Base ###########################################################################
 # Set up the base layer
-FROM node:16 as base
+FROM docker.cdot.systems/library/node:16 as base
 
 RUN npm i -g pnpm
 
@@ -21,7 +21,7 @@ RUN npm_config_platform=linuxmusl pnpm install --prod --ignore-scripts=false
 
 ## Deploy ########################################################################
 # Stage for running our app
-FROM node:16-alpine3.15 as deploy
+FROM docker.cdot.systems/library/node:16-alpine3.15 as deploy
 
 WORKDIR /app
 
