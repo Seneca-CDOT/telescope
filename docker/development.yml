@@ -77,10 +77,6 @@ services:
       context: ../src/api/parser
       cache_from:
         - docker.cdot.systems/parser:buildcache
-    environment:
-      # In development and testing, the Parser service needs to contact the Supabase
-      # service directly via Docker vs through the http://localhost/v1/supabase domain.
-      - SUPABASE_URL=http://kong:8000
     depends_on:
       - elasticsearch
       - traefik
@@ -108,10 +104,6 @@ services:
       context: ../src/api/sso
       cache_from:
         - docker.cdot.systems/sso:buildcache
-    environment:
-      # In development and testing, the SSO service needs to contact the Supabase
-      # service directly via Docker vs through the http://localhost/v1/supabase domain.
-      - SUPABASE_URL=http://kong:8000
     depends_on:
       - test-web-content
       - traefik
@@ -140,3 +132,9 @@ services:
       context: ../src/api/dependency-discovery
       cache_from:
         - docker.cdot.systems/dependency-discovery:buildcache
+
+  db:
+    ports:
+      - '5432:5432'
+    volumes:
+      - ../db:/var/lib/postgresql/data

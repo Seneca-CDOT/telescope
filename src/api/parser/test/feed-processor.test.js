@@ -3,8 +3,8 @@ const processor = require('../src/feed/processor');
 const Feed = require('../src/data/feed');
 
 jest.mock('../src/utils/indexer');
-jest.mock('../src/utils/supabase');
-const { __setMockFeeds } = require('../src/utils/supabase');
+jest.mock('../src/utils/db');
+const { __setMockFeeds } = require('../src/utils/db');
 
 describe('Feed Processor Tests', () => {
   const createFeed = (url) =>

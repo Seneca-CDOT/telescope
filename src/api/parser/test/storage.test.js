@@ -13,8 +13,8 @@ const {
 } = require('../src/utils/storage');
 const Feed = require('../src/data/feed');
 
-jest.mock('../src/utils/supabase');
-const { __setMockFeeds } = require('../src/utils/supabase');
+jest.mock('../src/utils/db');
+const { __setMockFeeds } = require('../src/utils/db');
 
 describe('Storage tests for feeds', () => {
   const feed1 = new Feed('James Smith', 'http://seneca.co/jsmith', 'user');

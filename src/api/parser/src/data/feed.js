@@ -19,7 +19,7 @@ const {
   getFlaggedFeeds,
   setFlaggedFeed,
   unsetFlaggedFeed,
-} = require('../utils/supabase');
+} = require('../utils/db');
 
 const { deletePost } = require('../utils/indexer');
 

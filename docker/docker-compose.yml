@@ -331,3 +331,10 @@ services:
       - 'traefik.http.middlewares.rss_bridge_prefix.stripprefix.prefixes=/${API_VERSION}/rss-bridge'
       # Add our middleware to the router
       - 'traefik.http.routers.rss_bridge.middlewares=rss_bridge_redirect,rss_bridge_prefix'
+
+  db:
+    image: postgres:15-alpine
+    container_name: 'db'
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

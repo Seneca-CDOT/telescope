@@ -4,7 +4,7 @@ const normalizeUrl = require('normalize-url');
 const { loadFeedsIntoQueue, invalidateFeed } = require('../../src/parser');
 const feedWorker = require('../../src/feed/worker');
 const { feedQueue } = require('../../src/feed/queue');
-const { addFeeds, getInvalidFeeds, getAllFeeds } = require('../../src/utils/supabase');
+const { addFeeds, getInvalidFeeds, getAllFeeds } = require('../../src/utils/db');
 
 const urlToId = (url) => hash(normalizeUrl(url));
 

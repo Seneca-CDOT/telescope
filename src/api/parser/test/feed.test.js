@@ -6,8 +6,8 @@ const Post = require('../src/data/post');
 
 const urlToId = (url) => hash(normalizeUrl(url));
 
-jest.mock('../src/utils/supabase');
-const { __setMockFeeds, __resetMockFeeds } = require('../src/utils/supabase');
+jest.mock('../src/utils/db');
+const { __setMockFeeds, __resetMockFeeds } = require('../src/utils/db');
 
 describe('Post data class tests', () => {
   const data = {

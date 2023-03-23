@@ -11,6 +11,7 @@ module.exports = {
     feeds = [];
     feedIds = new Set();
   },
+
   /**
    * @param {Array<Feed | { url: string }>} feedObjects
    */
@@ -21,6 +22,7 @@ module.exports = {
         feedIds.add(id);
         return uniqueFeeds.concat({ id, invalid: false, flagged: false });
       }
+
       return uniqueFeeds;
     }, []);
     feeds = feeds.concat(mockFeeds);
@@ -35,16 +37,20 @@ module.exports = {
     });
     return Promise.resolve();
   },
+
   getInvalidFeeds: () => {
     const invalidFeedIds = feeds.filter((feed) => feed.flagged).map((feed) => ({ id: feed.id }));
     return Promise.resolve(invalidFeedIds);
   },
+
   isInvalid: (id) => {
     const targetFeed = feeds.find((feed) => feed.id === id);
     return Promise.resolve(!!targetFeed.invalid);
   },
+
   // Flagged feed related functions
   getAllFeeds: jest.fn().mockImplementation(() => Promise.resolve(feeds)),
+
   setFlaggedFeed: jest.fn().mockImplementation((id) => {
     feeds.forEach((feed) => {
       if (feed.id === id) {
@@ -53,6 +59,7 @@ module.exports = {
     });
     return Promise.resolve();
   }),
+
   unsetFlaggedFeed: jest.fn().mockImplementation((id) => {
     feeds.forEach((feed) => {
       if (feed.id === id) {
@@ -66,8 +73,11 @@ module.exports = {
     const flaggedFeedIds = feeds.filter((feed) => feed.flagged).map((feed) => feed.id);
     return Promise.resolve(flaggedFeedIds);
   }),
+
   isFlagged: jest.fn().mockImplementation((id) => {
-    const targetFeed = feeds.find((feed) => feed.id === id);
+    const targetFeed = feeds.find((feed) => {
+      return feed.id === id;
+    });
     return Promise.resolve(!!targetFeed.flagged);
   }),
 };

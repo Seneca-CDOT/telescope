@@ -1,5 +1,5 @@
 const { logger, Redis } = require('@senecacdot/satellite');
-const { isFlagged } = require('./supabase');
+const { isFlagged } = require('./db');
 
 const redis = Redis();
 
