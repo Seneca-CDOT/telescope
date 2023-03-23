@@ -224,17 +224,6 @@ services:
       - 'traefik.http.middlewares.strip_parser_prefix.stripprefix.forceSlash=true'
       - 'traefik.http.routers.parser.middlewares=strip_parser_prefix'
 
-  # planet service
-  planet:
-    init: true
-    container_name: 'planet'
-    environment:
-      - NODE_ENV
-      - PLANET_PORT
-      - POSTS_URL
-      - SERVICE_ROLE_KEY
-      - SUPABASE_URL
-
   dependency-discovery:
     init: true
     container_name: 'dependency-discovery'

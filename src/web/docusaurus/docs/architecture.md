@@ -36,7 +36,6 @@ The legacy back-end has been split into a series of microservices. Each microser
 - SSO Auth Service (`src/api/sso`) - authentication and authorization with Seneca's SSO service
 - Feed-Discovery Service (`src/api/feed-discovery`) - blog feed discovery and validation
 - Image Service (`src/api/image`) - dynamic image generation for the front-end hero banner
-- Planet Service (`src/api/planet`) - recreation of the original CDOT Planet using Telescope's back-end
 - Posts Service (`src/api/posts`) - API for accessing Post and Feed data in Redis (probably not well named at this point)
 - Search Service (`src/api/search`) - API for doing searches against Elasticsearch
 - Status Service (`src/api/status`) - API for accessing Telescope status information, as well as providing the Dashboards
@@ -50,7 +49,7 @@ When deployed, the services are not directly accessible via the network (i.e. yo
 
 The microservices can be controlled either using the `docker-compose` command directly, or with the following `npm` scripts:
 
-- `pnpm run services:start` starts all services. You can also list one or more services to start a subset, `npm run services:start image planet`
+- `pnpm run services:start` starts all services. You can also list one or more services to start a subset, `npm run services:start image parser`
 - `pnpm run services:stop` stops all services, or those specified
 - `pnpm run logs image` shows logs for the image service (specify whichever service you want to view)
 
