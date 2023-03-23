@@ -22,7 +22,6 @@ Seneca 的開源軟體開發其中一個關鍵的特色是重視分享我們正�
 
 為了能夠增加部落格的能見度，我們設立了一個開源部落格[Planet](<https://en.wikipedia.org/wiki/Planet_(software)>):
 一個將 Seneca 開源軟體開發的師生所發表的部落格文章化成單頁的集合體。
-我們的部落格 Planet 現在存在於[Planet CDOT](https://telescope.cdot.systems/planet).
 
 ## Planet 是甚麼?
 

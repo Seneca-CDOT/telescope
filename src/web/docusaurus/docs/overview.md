@@ -28,7 +28,7 @@ something unique to "me."
 To better enable the discovery of blogs within our community, we set up an open
 source blog [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>): an aggregated
 feed of blog posts from Seneca faculty and students working on open source in a
-single page. Our blog Planet currently lives at [Planet CDOT](https://telescope.cdot.systems/planet).
+single page.
 
 ## What is a Planet?
 

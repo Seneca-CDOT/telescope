@@ -10,7 +10,7 @@ Một trong những mục tiêu chính của việc tham gia và đóng góp c�
 
 Chúng tôi cũng tin rằng việc đọc các blog của nhau là rất quan trọng. Trong các bài đăng trên blog của các đồng nghiệp, chúng tôi thấy rằng chúng tôi không đơn độc trong cuộc đấu tranh để làm cho mọi thứ hoạt động, sở thích của chúng tôi trong các chủ đề khác nhau và imposter syndrome - cảm giác không có đủ khả năng và đánh giá thấp bản thân - không phải là điều mà chỉ riêng tôi phải trải qua.
 
-Để hỗ trợ tốt hơn việc khám phá các blog trong cộng đồng của chúng tôi, chúng tôi dựng lên một trang web open source (nguồn mở) [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>) để tổng hợp các bài blog từ các giảng viên và sinh viên Seneca làm việc trên nguồn mở trong một trang duy nhất. Blog Planet của chúng tôi hiện đang hoạt động tại [Planet CDOT](https://telescope.cdot.systems/planet).
+Để hỗ trợ tốt hơn việc khám phá các blog trong cộng đồng của chúng tôi, chúng tôi dựng lên một trang web open source (nguồn mở) [Planet](<https://en.wikipedia.org/wiki/Planet_(software)>) để tổng hợp các bài blog từ các giảng viên và sinh viên Seneca làm việc trên nguồn mở trong một trang duy nhất.
 
 ## Planet là gì?
 

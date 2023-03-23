@@ -93,8 +93,6 @@ jobs:
               SUPABASE_URL=${{ inputs.supabase_url }}
               ANON_KEY=${{ inputs.anon_key }}
               DEPENDENCY_DISCOVERY_URL=${{ inputs.dependency_discovery_url }}
-          - context: src/api/planet
-            image: planet
           - context: src/api/posts
             image: posts
           - context: src/api/dependency-discovery

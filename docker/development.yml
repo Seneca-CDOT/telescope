@@ -135,16 +135,6 @@ services:
       cache_from:
         - docker.cdot.systems/feed-discovery:buildcache
 
-  planet:
-    build:
-      context: ../src/api/planet
-      cache_from:
-        - docker.cdot.systems/planet:buildcache
-    ports:
-      - '9876:9876'
-    environment:
-      - POSTS_URL=http://posts:${POSTS_PORT:-5555}
-
   dependency-discovery:
     build:
       context: ../src/api/dependency-discovery

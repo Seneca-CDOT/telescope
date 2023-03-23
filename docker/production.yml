@@ -43,11 +43,6 @@ services:
     image: docker.cdot.systems/parser:${DOCKER_DEPLOY_TAG:-latest}
     restart: unless-stopped
 
-  # planet service
-  planet:
-    image: docker.cdot.systems/planet:${DOCKER_DEPLOY_TAG:-latest}
-    restart: unless-stopped
-
   # search service
   search:
     image: docker.cdot.systems/search:${DOCKER_DEPLOY_TAG:-latest}

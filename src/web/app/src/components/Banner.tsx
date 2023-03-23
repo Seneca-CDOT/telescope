@@ -3,7 +3,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { makeStyles, Theme, createStyles, Typography, Fab } from '@material-ui/core';
 import smoothscroll from 'smoothscroll-polyfill';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { gitCommitSha, webUrl, statusUrl } from '../config';
+import { gitCommitSha, statusUrl } from '../config';
 import BannerDynamicItems from './BannerDynamicItems';
 import BannerButtons from './BannerButtons';
 import ScrollAction from './ScrollAction';
@@ -78,22 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: 'transparent',
         boxShadow: 'none',
         display: 'grid',
-      },
-    },
-    planet: {
-      position: 'absolute',
-      bottom: theme.spacing(3),
-      right: theme.spacing(3),
-      color: 'white',
-    },
-    planetAnchor: {
-      opacity: 0.85,
-      fontFamily: 'Spartan',
-      fontSize: '1.3em',
-      color: 'white',
-      textDecorationLine: 'none',
-      '&:hover': {
-        textDecorationLine: 'underline',
       },
     },
     space: {
@@ -219,11 +203,6 @@ export default function Banner({ onVisibilityChange, bannerVisible }: BannerProp
             <KeyboardArrowDownIcon className={classes.arrowDownIcon} />
           </Fab>
         </ScrollAction>
-        <div className={classes.planet}>
-          <a href={`${webUrl}/planet`} title="telescope planet" className={classes.planetAnchor}>
-            Planet
-          </a>
-        </div>
       </div>
       <div className={classes.space} />
       <div className={classes.anchor} id="posts-anchor" ref={timelineAnchor} />
