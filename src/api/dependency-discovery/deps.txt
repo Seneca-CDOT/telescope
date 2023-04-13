@@ -1092,7 +1092,6 @@ parse5
 parse5-htmlparser2-tree-adapter
 parseurl
 passport
-passport-saml
 passport-strategy
 path-exists
 path-is-absolute
