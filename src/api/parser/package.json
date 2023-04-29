@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@babel/core": "7.17.10",
+    "@babel/core": "7.21.5",
     "@bull-board/api": "3.10.7",
     "@bull-board/express": "3.10.4",
     "@senecacdot/satellite": "^1.29.0",

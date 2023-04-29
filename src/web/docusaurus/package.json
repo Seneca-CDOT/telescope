@@ -36,8 +36,8 @@
   },
   "devDependencies": {
     "@algolia/client-search": "4.9.1",
-    "@babel/core": "7.18.6",
-    "@babel/preset-env": "7.1.6",
+    "@babel/core": "7.21.5",
+    "@babel/preset-env": "7.21.5",
     "@docusaurus/types": "2.1.0",
     "@senecacdot/eslint-config-telescope": "1.1.0",
     "@types/react": "17.0.52",
