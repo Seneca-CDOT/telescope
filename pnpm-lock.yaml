@@ -23,7 +23,7 @@ importers:
       jest-circus: 27.5.1
       jest-environment-node: 27.5.1
       jest-fetch-mock: 3.0.3
-      jest-playwright-preset: 1.7.0
+      jest-playwright-preset: 1.7.2
       jest-runner: 27.5.1
       nock: 13.2.4
       npm-run-all: 4.1.5
@@ -58,7 +58,7 @@ importers:
       jest-circus: 27.5.1
       jest-environment-node: 27.5.1
       jest-fetch-mock: 3.0.3
-      jest-playwright-preset: 1.7.0_l32tkdczjgqxuqrrxonq2y4q5e
+      jest-playwright-preset: 1.7.2_l32tkdczjgqxuqrrxonq2y4q5e
       jest-runner: 27.5.1
       nock: 13.2.4
       npm-run-all: 4.1.5
@@ -10302,8 +10302,8 @@ packages:
       os-homedir: 1.0.2
     dev: true
 
-  /expect-playwright/0.7.2:
-    resolution: {integrity: sha512-5o9si+8SUi68QVI0CRVv8tvTjZinpJWRSfQ3GP6v0DvlK55lDgFvD79r6A/NU+EUawrBc62qP30MxzOUnXNJZQ==}
+  /expect-playwright/0.8.0:
+    resolution: {integrity: sha512-+kn8561vHAY+dt+0gMqqj1oY+g5xWrsuGMk4QGxotT2WS545nVqqjs37z6hrYfIuucwqthzwJfCJUEYqixyljg==}
     dev: true
 
   /expect/27.5.1:
@@ -12730,15 +12730,15 @@ packages:
       '@types/node': 16.11.38
     dev: true
 
-  /jest-playwright-preset/1.7.0_l32tkdczjgqxuqrrxonq2y4q5e:
-    resolution: {integrity: sha512-G25Nik+By0SNniMDdkouDL/yA1LdqjzsXNSVU4xnRX1typjXRmzRE0aSgqxas2sRi8cwG3M1ioHdkLLsp6sang==}
+  /jest-playwright-preset/1.7.2_l32tkdczjgqxuqrrxonq2y4q5e:
+    resolution: {integrity: sha512-0M7M3z342bdKQLnS70cIptlJsW+uuGptbPnqIMg4K5Vp/L/DhqdTKZK7WM4n6miAUnZdUcjXKOdQWfZW/aBo7w==}
     peerDependencies:
-      jest: '>=26.6.3'
-      jest-circus: '>=26.6.3'
-      jest-environment-node: '>=26.6.3'
-      jest-runner: '>=26.6.3'
+      jest: ^26.6.3 || ^27.0.0
+      jest-circus: ^26.6.3 || ^27.0.0
+      jest-environment-node: ^26.6.2 || ^27.0.0
+      jest-runner: ^26.6.3 || ^27.0.0
     dependencies:
-      expect-playwright: 0.7.2
+      expect-playwright: 0.8.0
       jest: 27.5.1
       jest-circus: 27.5.1
       jest-environment-node: 27.5.1
