@@ -425,7 +425,7 @@ importers:
       '@types/node': 16.11.38
       '@types/react': 17.0.52
       '@types/react-dom': 18.0.6
-      '@types/react-transition-group': 4.4.5
+      '@types/react-transition-group': 4.4.6
       '@types/smoothscroll-polyfill': 0.3.1
       '@types/yup': 0.29.14
       '@typescript-eslint/eslint-plugin': 4.33.0
@@ -503,7 +503,7 @@ importers:
       '@types/node': 16.11.38
       '@types/react': 17.0.52
       '@types/react-dom': 18.0.6
-      '@types/react-transition-group': 4.4.5
+      '@types/react-transition-group': 4.4.6
       '@typescript-eslint/eslint-plugin': 4.33.0_zrqxgwgitu7trrjeml3nqco3jq
       '@typescript-eslint/parser': 4.33.0_wnilx7boviscikmvsfkd6ljepe
       babel-loader: 8.2.5_kq7miyjodb7lprkghsawqtp6uy
@@ -3564,7 +3564,7 @@ packages:
       '@material-ui/types': 5.1.0_@types+react@17.0.52
       '@material-ui/utils': 4.11.3_sfoxds7t5ydpegc3knd667wn6m
       '@types/react': 17.0.52
-      '@types/react-transition-group': 4.4.5
+      '@types/react-transition-group': 4.4.6
       clsx: 1.1.1
       hoist-non-react-statics: 3.3.2
       popper.js: 1.16.1-lts
@@ -3835,7 +3835,7 @@ packages:
       '@mui/types': 7.2.3_@types+react@17.0.52
       '@mui/utils': 5.11.13_react@17.0.2
       '@types/react': 17.0.52
-      '@types/react-transition-group': 4.4.5
+      '@types/react-transition-group': 4.4.6
       clsx: 1.1.1
       csstype: 3.1.1
       hoist-non-react-statics: 3.3.2
@@ -6134,8 +6134,8 @@ packages:
       '@types/react': 17.0.52
     dev: false
 
-  /@types/react-transition-group/4.4.5:
-    resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
+  /@types/react-transition-group/4.4.6:
+    resolution: {integrity: sha512-VnCdSxfcm08KjsJVQcfBmhEQAPnLB8G08hAxn39azX1qYBQ/5RVQuoHuKIcfKOdncuaUvEpFKFzEvbtIMsfVew==}
     dependencies:
       '@types/react': 17.0.52
 
