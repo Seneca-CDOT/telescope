@@ -454,7 +454,7 @@ importers:
       rimraf: 3.0.2
       smoothscroll-polyfill: 0.4.4
       swr: 1.2.2
-      terser-webpack-plugin: 5.3.6
+      terser-webpack-plugin: 5.3.8
       typescript: 4.4.4
       webpack: 5.76.0
       yup: 0.32.11
@@ -509,7 +509,7 @@ importers:
       babel-loader: 8.2.5_kq7miyjodb7lprkghsawqtp6uy
       eslint: 7.32.0
       rimraf: 3.0.2
-      terser-webpack-plugin: 5.3.6_webpack@5.76.0
+      terser-webpack-plugin: 5.3.8_webpack@5.76.0
       typescript: 4.4.4
       webpack: 5.76.0
 
@@ -2293,7 +2293,7 @@ packages:
       semver: 7.3.8
       serve-handler: 6.1.5
       shelljs: 0.8.5
-      terser-webpack-plugin: 5.3.6_webpack@5.76.0
+      terser-webpack-plugin: 5.3.8_webpack@5.76.0
       tslib: 2.5.0
       update-notifier: 5.1.0
       url-loader: 4.1.1_ftv5euorufwtgctrjykd2gnbvu
@@ -2636,7 +2636,7 @@ packages:
       core-js: 3.29.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      terser-webpack-plugin: 5.3.6_webpack@5.76.0
+      terser-webpack-plugin: 5.3.8_webpack@5.76.0
       tslib: 2.5.0
       webpack: 5.76.0
       webpack-merge: 5.8.0
@@ -4778,7 +4778,7 @@ packages:
       '@parcel/source-map': 2.1.1
       '@parcel/utils': 2.6.2
       nullthrows: 1.1.1
-      terser: 5.16.6
+      terser: 5.17.1
     transitivePeerDependencies:
       - '@parcel/core'
     dev: true
@@ -11559,7 +11559,7 @@ packages:
       he: 1.2.0
       param-case: 3.0.4
       relateurl: 0.2.7
-      terser: 5.16.6
+      terser: 5.17.1
     dev: false
 
   /html-parse-stringify/3.0.1:
@@ -14158,7 +14158,7 @@ packages:
       clean-webpack-plugin: 4.0.0_webpack@5.76.0
       globby: 11.1.0
       next: 12.1.6_d6xqrjk6ehtlyy6gu37vmsmnwu
-      terser-webpack-plugin: 5.3.6_webpack@5.76.0
+      terser-webpack-plugin: 5.3.8_webpack@5.76.0
       workbox-webpack-plugin: 6.5.4_webpack@5.76.0
       workbox-window: 6.5.4
     transitivePeerDependencies:
@@ -16900,7 +16900,7 @@ packages:
       jest-worker: 26.6.2
       rollup: 2.79.1
       serialize-javascript: 4.0.0
-      terser: 5.16.6
+      terser: 5.17.1
     dev: false
 
   /rollup/2.78.1:
@@ -18037,8 +18037,8 @@ packages:
       supports-hyperlinks: 2.3.0
     dev: true
 
-  /terser-webpack-plugin/5.3.6_webpack@5.76.0:
-    resolution: {integrity: sha512-kfLFk+PoLUQIbLmB1+PZDMRSZS99Mp+/MHqDNmMA6tOItzRt+Npe3E+fsMs5mfcM0wCtrrdU387UnV+vnSffXQ==}
+  /terser-webpack-plugin/5.3.8_webpack@5.76.0:
+    resolution: {integrity: sha512-WiHL3ElchZMsK27P8uIUh4604IgJyAW47LVXGbEoB21DbQcZ+OuMpGjVYnEUaqcWM6dO8uS2qUbA7LSCWqvsbg==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       '@swc/core': '*'
@@ -18057,11 +18057,11 @@ packages:
       jest-worker: 27.5.1
       schema-utils: 3.1.1
       serialize-javascript: 6.0.1
-      terser: 5.16.6
+      terser: 5.17.1
       webpack: 5.76.0
 
-  /terser/5.16.6:
-    resolution: {integrity: sha512-IBZ+ZQIA9sMaXmRZCUMDjNH0D5AQQfdn4WUjHL0+1lF4TP1IHRJbrhb6fNaXWikrYQTSkb7SLxkeXAiy1p7mbg==}
+  /terser/5.17.1:
+    resolution: {integrity: sha512-hVl35zClmpisy6oaoKALOpS0rDYLxRFLHhRuDlEGTKey9qHjS1w9GMORjuwIMt70Wan4lwsLYyWDVnWgF+KUEw==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -19211,7 +19211,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.6_webpack@5.76.0
+      terser-webpack-plugin: 5.3.8_webpack@5.76.0
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
