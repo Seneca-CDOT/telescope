@@ -32,7 +32,7 @@
     "@senecacdot/eslint-config-telescope": "1.1.0",
     "eslint": "7.32.0",
     "nock": "13.2.4",
-    "nodemon": "2.0.16",
+    "nodemon": "2.0.22",
     "rimraf": "3.0.2",
     "supertest": "6.1.6"
   }
