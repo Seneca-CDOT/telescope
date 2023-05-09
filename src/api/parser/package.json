@@ -12,7 +12,8 @@
     "lint": "pnpm eslint",
     "lint-time": "pnpm eslint-time",
     "test": "jest -c jest.config.js",
-    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules"
+    "clean": "pnpm rimraf .turbo node_modules || pnpm rimraf node_modules",
+    "postinstall": "prisma generate --schema=./schema.prisma"
   },
   "repository": "Seneca-CDOT/telescope",
   "license": "BSD-2-Clause",
@@ -33,6 +34,8 @@
     "linkify-html": "3.0.5",
     "linkifyjs": "3.0.5",
     "normalize-url": "6.1.0",
+    "prisma": "4.9.0",
+    "@prisma/client": "4.9.0",
     "rss-parser": "3.12.0",
     "sanitize-html": "2.5.3"
   },

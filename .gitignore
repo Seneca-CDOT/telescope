@@ -41,6 +41,9 @@ certs/
 # Redis data storage
 redis-data/
 
+# Postgres
+db
+
 .pnpm-debug.log
 
 # Turborepo

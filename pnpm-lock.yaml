@@ -148,6 +148,7 @@ importers:
       '@babel/core': 7.21.8
       '@bull-board/api': 3.10.7
       '@bull-board/express': 3.10.4
+      '@prisma/client': 4.9.0
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.29.0
       '@supabase/supabase-js': 1.29.4
@@ -164,6 +165,7 @@ importers:
       nock: 13.2.4
       nodemon: 2.0.22
       normalize-url: 6.1.0
+      prisma: 4.9.0
       rimraf: 3.0.2
       rss-parser: 3.12.0
       sanitize-html: 2.5.3
@@ -171,6 +173,7 @@ importers:
       '@babel/core': 7.21.8
       '@bull-board/api': 3.10.7
       '@bull-board/express': 3.10.4
+      '@prisma/client': 4.9.0_prisma@4.9.0
       '@senecacdot/satellite': 1.29.0
       '@supabase/supabase-js': 1.29.4
       bull: 3.29.3
@@ -180,6 +183,7 @@ importers:
       linkify-html: 3.0.5_linkifyjs@3.0.5
       linkifyjs: 3.0.5
       normalize-url: 6.1.0
+      prisma: 4.9.0
       rss-parser: 3.12.0
       sanitize-html: 2.5.3
     devDependencies:

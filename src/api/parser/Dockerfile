@@ -1,6 +1,6 @@
 ## Base ###########################################################################
 # Set up the base layer
-FROM node:16 as base
+FROM node:16-alpine3.15 as base
 
 RUN npm i -g pnpm
 
@@ -12,11 +12,13 @@ FROM base as dependencies
 
 COPY package.json ./
 
+COPY ./schema.prisma .
+
 RUN pnpm install --prod
 
 ## Deploy ########################################################################
 # Stage for running our app
-FROM node:16-alpine3.15 as deploy
+FROM base as deploy
 
 WORKDIR /app
 

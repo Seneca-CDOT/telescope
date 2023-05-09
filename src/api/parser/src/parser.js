@@ -1,7 +1,7 @@
 const { logger } = require('@senecacdot/satellite');
 const { feedQueue } = require('./feed/queue');
 const Feed = require('./data/feed');
-const { getAllFeeds } = require('./utils/supabase');
+const { getAllFeeds } = require('./utils/db');
 
 /**
  * Adds the feed to the database if necessary, or gets a more complete

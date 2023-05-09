@@ -169,3 +169,8 @@ services:
       ]
     depends_on:
       - studio
+
+  db:
+    volumes:
+      # We keep the actual data in a volume outside of git, so it survives restarts
+      - ../../supabase/volumes/db/data:/var/lib/postgresql/data
