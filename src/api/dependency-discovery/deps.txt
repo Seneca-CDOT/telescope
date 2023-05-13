@@ -57,6 +57,7 @@
 @babel/plugin-syntax-dynamic-import
 @babel/plugin-syntax-export-namespace-from
 @babel/plugin-syntax-import-assertions
+@babel/plugin-syntax-import-meta
 @babel/plugin-syntax-json-strings
 @babel/plugin-syntax-jsx
 @babel/plugin-syntax-logical-assignment-operators
@@ -934,7 +935,6 @@ joycon
 jpeg-js
 js-cookie
 js-git
-js-levenshtein
 js-tokens
 js-yaml
 jsdom
