@@ -454,7 +454,7 @@ importers:
       rimraf: 3.0.2
       smoothscroll-polyfill: 0.4.4
       swr: 1.2.2
-      terser-webpack-plugin: 5.3.8
+      terser-webpack-plugin: 5.3.9
       typescript: 4.4.4
       webpack: 5.76.0
       yup: 0.32.11
@@ -509,7 +509,7 @@ importers:
       babel-loader: 8.2.5_kq7miyjodb7lprkghsawqtp6uy
       eslint: 7.32.0
       rimraf: 3.0.2
-      terser-webpack-plugin: 5.3.8_webpack@5.76.0
+      terser-webpack-plugin: 5.3.9_webpack@5.76.0
       typescript: 4.4.4
       webpack: 5.76.0
 
@@ -2293,7 +2293,7 @@ packages:
       semver: 7.3.8
       serve-handler: 6.1.5
       shelljs: 0.8.5
-      terser-webpack-plugin: 5.3.8_webpack@5.76.0
+      terser-webpack-plugin: 5.3.9_webpack@5.76.0
       tslib: 2.5.0
       update-notifier: 5.1.0
       url-loader: 4.1.1_ftv5euorufwtgctrjykd2gnbvu
@@ -2636,7 +2636,7 @@ packages:
       core-js: 3.29.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      terser-webpack-plugin: 5.3.8_webpack@5.76.0
+      terser-webpack-plugin: 5.3.9_webpack@5.76.0
       tslib: 2.5.0
       webpack: 5.76.0
       webpack-merge: 5.8.0
@@ -14158,7 +14158,7 @@ packages:
       clean-webpack-plugin: 4.0.0_webpack@5.76.0
       globby: 11.1.0
       next: 12.1.6_d6xqrjk6ehtlyy6gu37vmsmnwu
-      terser-webpack-plugin: 5.3.8_webpack@5.76.0
+      terser-webpack-plugin: 5.3.9_webpack@5.76.0
       workbox-webpack-plugin: 6.5.4_webpack@5.76.0
       workbox-window: 6.5.4
     transitivePeerDependencies:
@@ -18037,8 +18037,8 @@ packages:
       supports-hyperlinks: 2.3.0
     dev: true
 
-  /terser-webpack-plugin/5.3.8_webpack@5.76.0:
-    resolution: {integrity: sha512-WiHL3ElchZMsK27P8uIUh4604IgJyAW47LVXGbEoB21DbQcZ+OuMpGjVYnEUaqcWM6dO8uS2qUbA7LSCWqvsbg==}
+  /terser-webpack-plugin/5.3.9_webpack@5.76.0:
+    resolution: {integrity: sha512-ZuXsqE07EcggTWQjXUj+Aot/OMcD0bMKGgF63f7UxYcu5/AJF53aIpK1YoP5xR9l6s/Hy2b+t1AM0bLNPRuhwA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       '@swc/core': '*'
@@ -19211,7 +19211,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.8_webpack@5.76.0
+      terser-webpack-plugin: 5.3.9_webpack@5.76.0
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:
