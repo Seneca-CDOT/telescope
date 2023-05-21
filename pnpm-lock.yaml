@@ -417,7 +417,7 @@ importers:
       '@mui/icons-material': 5.6.2
       '@mui/material': 5.7.0
       '@mui/styles': 5.7.0
-      '@octokit/request': 5.6.3
+      '@octokit/request': 6.2.5
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/github-url-parser': 2.0.0
       '@supabase/supabase-js': 1.29.4
@@ -470,7 +470,7 @@ importers:
       '@mui/icons-material': 5.6.2_tt4jban3cqoqrbgdxz7jqzdze4
       '@mui/material': 5.7.0_bno7qy6mlbbaeuydohnrzagapm
       '@mui/styles': 5.7.0_wfmuqocisy6ijxsutdsg4s4lmy
-      '@octokit/request': 5.6.3
+      '@octokit/request': 6.2.5
       '@senecacdot/github-url-parser': 2.0.0
       '@supabase/supabase-js': 1.29.4
       '@testing-library/react': 12.1.5_sfoxds7t5ydpegc3knd667wn6m
@@ -524,7 +524,7 @@ importers:
       '@docusaurus/preset-classic': 2.1.0
       '@docusaurus/types': 2.1.0
       '@mdx-js/react': 1.6.22
-      '@octokit/request': 5.6.3
+      '@octokit/request': 6.2.5
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@types/react': 17.0.59
       clsx: 1.1.1
@@ -545,7 +545,7 @@ importers:
       '@docusaurus/plugin-pwa': 2.1.0_6mk4fwenfamrdmp5qntahco6au
       '@docusaurus/preset-classic': 2.1.0_v2aktzmxp5vgyxwjabgmgd5vhy
       '@mdx-js/react': 1.6.22_react@17.0.2
-      '@octokit/request': 5.6.3
+      '@octokit/request': 6.2.5
       clsx: 1.1.1
       mdx-mermaid: 1.3.2_e5duv65itpskj3shbzztmgiak4
       mermaid: 9.1.2
@@ -4153,7 +4153,7 @@ packages:
     dependencies:
       '@octokit/auth-oauth-app': 5.0.5
       '@octokit/auth-oauth-user': 2.1.1
-      '@octokit/request': 6.2.3
+      '@octokit/request': 6.2.5
       '@octokit/request-error': 3.0.3
       '@octokit/types': 9.0.0
       '@types/lru-cache': 5.1.1
@@ -4171,7 +4171,7 @@ packages:
     dependencies:
       '@octokit/auth-oauth-device': 4.0.4
       '@octokit/auth-oauth-user': 2.1.1
-      '@octokit/request': 6.2.3
+      '@octokit/request': 6.2.5
       '@octokit/types': 9.0.0
       '@types/btoa-lite': 1.0.0
       btoa-lite: 1.0.0
@@ -4185,7 +4185,7 @@ packages:
     engines: {node: '>= 14'}
     dependencies:
       '@octokit/oauth-methods': 2.0.5
-      '@octokit/request': 6.2.3
+      '@octokit/request': 6.2.5
       '@octokit/types': 9.0.0
       universal-user-agent: 6.0.0
     transitivePeerDependencies:
@@ -4198,7 +4198,7 @@ packages:
     dependencies:
       '@octokit/auth-oauth-device': 4.0.4
       '@octokit/oauth-methods': 2.0.5
-      '@octokit/request': 6.2.3
+      '@octokit/request': 6.2.5
       '@octokit/types': 9.0.0
       btoa-lite: 1.0.0
       universal-user-agent: 6.0.0
@@ -4227,21 +4227,13 @@ packages:
     dependencies:
       '@octokit/auth-token': 3.0.3
       '@octokit/graphql': 5.0.5
-      '@octokit/request': 6.2.3
+      '@octokit/request': 6.2.5
       '@octokit/request-error': 3.0.3
       '@octokit/types': 9.0.0
       before-after-hook: 2.2.3
       universal-user-agent: 6.0.0
     transitivePeerDependencies:
       - encoding
-    dev: false
-
-  /@octokit/endpoint/6.0.12:
-    resolution: {integrity: sha512-lF3puPwkQWGfkMClXb4k/eUT/nZKQfxinRWJrdZaJO85Dqwo/G0yOC434Jr2ojwafWJMYqFGFa5ms4jJUgujdA==}
-    dependencies:
-      '@octokit/types': 6.41.0
-      is-plain-object: 5.0.0
-      universal-user-agent: 6.0.0
     dev: false
 
   /@octokit/endpoint/7.0.5:
@@ -4257,7 +4249,7 @@ packages:
     resolution: {integrity: sha512-Qwfvh3xdqKtIznjX9lz2D458r7dJPP8l6r4GQkIdWQouZwHQK0mVT88uwiU2bdTU2OtT1uOlKpRciUWldpG0yQ==}
     engines: {node: '>= 14'}
     dependencies:
-      '@octokit/request': 6.2.3
+      '@octokit/request': 6.2.5
       '@octokit/types': 9.0.0
       universal-user-agent: 6.0.0
     transitivePeerDependencies:
@@ -4291,7 +4283,7 @@ packages:
     engines: {node: '>= 14'}
     dependencies:
       '@octokit/oauth-authorization-url': 5.0.0
-      '@octokit/request': 6.2.3
+      '@octokit/request': 6.2.5
       '@octokit/request-error': 3.0.3
       '@octokit/types': 9.0.0
       btoa-lite: 1.0.0
@@ -4387,21 +4379,8 @@ packages:
       once: 1.4.0
     dev: false
 
-  /@octokit/request/5.6.3:
-    resolution: {integrity: sha512-bFJl0I1KVc9jYTe9tdGGpAMPy32dLBXXo1dS/YwSCTL/2nd9XeHsY616RE3HPXDVk+a+dBuzyz5YdlXwcDTr2A==}
-    dependencies:
-      '@octokit/endpoint': 6.0.12
-      '@octokit/request-error': 2.1.0
-      '@octokit/types': 6.41.0
-      is-plain-object: 5.0.0
-      node-fetch: 2.6.7
-      universal-user-agent: 6.0.0
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
-  /@octokit/request/6.2.3:
-    resolution: {integrity: sha512-TNAodj5yNzrrZ/VxP+H5HiYaZep0H3GU0O7PaF+fhDrt8FPrnkei9Aal/txsN/1P7V3CPiThG0tIvpPDYUsyAA==}
+  /@octokit/request/6.2.5:
+    resolution: {integrity: sha512-z83E8UIlPNaJUsXpjD8E0V5o/5f+vJJNbNcBwVZsX3/vC650U41cOkTLjq4PKk9BYonQGOnx7N17gvLyNjgGcQ==}
     engines: {node: '>= 14'}
     dependencies:
       '@octokit/endpoint': 7.0.5
