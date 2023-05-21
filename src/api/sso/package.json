@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/Seneca-CDOT/telescope#readme",
   "dependencies": {
-    "@node-saml/passport-saml": "4.0.2",
+    "@node-saml/passport-saml": "4.0.3",
     "@senecacdot/satellite": "^1.29.0",
     "@slack/bolt": "3.12.2",
     "@supabase/supabase-js": "1.29.4",

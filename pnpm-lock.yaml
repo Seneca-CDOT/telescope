@@ -242,7 +242,7 @@ importers:
 
   src/api/sso:
     specifiers:
-      '@node-saml/passport-saml': 4.0.2
+      '@node-saml/passport-saml': 4.0.3
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.29.0
       '@slack/bolt': 3.12.2
@@ -260,7 +260,7 @@ importers:
       rimraf: 3.0.2
       supertest: 6.1.6
     dependencies:
-      '@node-saml/passport-saml': 4.0.2
+      '@node-saml/passport-saml': 4.0.3
       '@senecacdot/satellite': 1.29.0
       '@slack/bolt': 3.12.2
       '@supabase/supabase-js': 1.29.4
@@ -4081,8 +4081,8 @@ packages:
     dev: false
     optional: true
 
-  /@node-saml/node-saml/4.0.3:
-    resolution: {integrity: sha512-v2kBxgFtGOl+svNjSGOUsGBdwKTuI0V6fIIkMAe6p/X3n9qqw5Wz1ZBaSCQGrWuZ9RY15dNgSPWLFnb90ilqlw==}
+  /@node-saml/node-saml/4.0.4:
+    resolution: {integrity: sha512-oybUBWBYVsHGckQxzyzlpRM4E2iuW3I2Ok/J9SwlotdmjvmZxSo6Ub74D9wltG8C9daJZYI57uy+1UK4FtcGXA==}
     engines: {node: '>= 14'}
     dependencies:
       '@types/debug': 4.1.7
@@ -4094,17 +4094,17 @@ packages:
       debug: 4.3.4
       xml-crypto: 3.0.1
       xml-encryption: 3.0.2
-      xml2js: 0.4.23
+      xml2js: 0.5.0
       xmlbuilder: 15.1.1
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@node-saml/passport-saml/4.0.2:
-    resolution: {integrity: sha512-WP1cxOchMKSwUmJbFH1uhADlZUa0LgsPXgN2KFMkRoiiEZh2c0CwuS8C7hY81A+WDv/jDgQ9l1w/GPV67ZJhIQ==}
+  /@node-saml/passport-saml/4.0.3:
+    resolution: {integrity: sha512-ScwNIAmXkUjXJB2BrNfX4Ri1Ho+bLiWWiH7X7GrlfECLHslPbMqU099KtSu+pD/QJT1dEluVv+1a646DdbVang==}
     engines: {node: '>= 14'}
     dependencies:
-      '@node-saml/node-saml': 4.0.3
+      '@node-saml/node-saml': 4.0.4
       '@types/express': 4.17.17
       '@types/passport': 1.0.12
       '@types/passport-strategy': 0.2.35
@@ -19677,6 +19677,14 @@ packages:
 
   /xml2js/0.4.23:
     resolution: {integrity: sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==}
+    engines: {node: '>=4.0.0'}
+    dependencies:
+      sax: 1.2.4
+      xmlbuilder: 11.0.1
+    dev: false
+
+  /xml2js/0.5.0:
+    resolution: {integrity: sha512-drPFnkQJik/O+uPKpqSgr22mpuFHqKdbS835iAQrUC73L2F5WkboIRd63ai/2Yg6I1jzifPFKH2NTK+cfglkIA==}
     engines: {node: '>=4.0.0'}
     dependencies:
       sax: 1.2.4
