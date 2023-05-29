@@ -280,7 +280,7 @@ importers:
 
   src/api/status:
     specifiers:
-      '@popperjs/core': 2.11.6
+      '@popperjs/core': 2.11.8
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.29.0
       bootstrap: 5.2.2
@@ -300,9 +300,9 @@ importers:
       xterm-addon-web-links: 0.5.1
       xterm-addon-webgl: 0.11.4
     dependencies:
-      '@popperjs/core': 2.11.6
+      '@popperjs/core': 2.11.8
       '@senecacdot/satellite': 1.29.0
-      bootstrap: 5.2.2_@popperjs+core@2.11.6
+      bootstrap: 5.2.2_@popperjs+core@2.11.8
       express: 4.18.2
       express-handlebars: 6.0.6
       npm-run-all: 4.1.5
@@ -5257,6 +5257,10 @@ packages:
     resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
     dev: false
 
+  /@popperjs/core/2.11.8:
+    resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
+    dev: false
+
   /@prisma/client/4.9.0_prisma@4.9.0:
     resolution: {integrity: sha512-bz6QARw54sWcbyR1lLnF2QHvRW5R/Jxnbbmwh3u+969vUKXtBkXgSgjDA85nji31ZBlf7+FrHDy5x+5ydGyQDg==}
     engines: {node: '>=14.17'}
@@ -7306,12 +7310,12 @@ packages:
   /boolbase/1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  /bootstrap/5.2.2_@popperjs+core@2.11.6:
+  /bootstrap/5.2.2_@popperjs+core@2.11.8:
     resolution: {integrity: sha512-dEtzMTV71n6Fhmbg4fYJzQsw1N29hJKO1js5ackCgIpDcGid2ETMGC6zwSYw09v05Y+oRdQ9loC54zB1La3hHQ==}
     peerDependencies:
       '@popperjs/core': ^2.11.6
     dependencies:
-      '@popperjs/core': 2.11.6
+      '@popperjs/core': 2.11.8
     dev: false
 
   /bottleneck/2.19.5:
