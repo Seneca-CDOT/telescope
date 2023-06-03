@@ -241,7 +241,7 @@ importers:
 
   src/api/sso:
     specifiers:
-      '@node-saml/passport-saml': 4.0.3
+      '@node-saml/passport-saml': 4.0.4
       '@senecacdot/eslint-config-telescope': 1.1.0
       '@senecacdot/satellite': ^1.29.0
       '@slack/bolt': 3.12.2
@@ -259,7 +259,7 @@ importers:
       rimraf: 3.0.2
       supertest: 6.1.6
     dependencies:
-      '@node-saml/passport-saml': 4.0.3
+      '@node-saml/passport-saml': 4.0.4
       '@senecacdot/satellite': 1.29.0
       '@slack/bolt': 3.12.2
       '@supabase/supabase-js': 1.29.4
@@ -4109,8 +4109,8 @@ packages:
       - supports-color
     dev: false
 
-  /@node-saml/passport-saml/4.0.3:
-    resolution: {integrity: sha512-ScwNIAmXkUjXJB2BrNfX4Ri1Ho+bLiWWiH7X7GrlfECLHslPbMqU099KtSu+pD/QJT1dEluVv+1a646DdbVang==}
+  /@node-saml/passport-saml/4.0.4:
+    resolution: {integrity: sha512-xFw3gw0yo+K1mzlkW15NeBF7cVpRHN/4vpjmBKzov5YFImCWh/G0LcTZ8krH3yk2/eRPc3Or8LRPudVJBjmYaw==}
     engines: {node: '>= 14'}
     dependencies:
       '@node-saml/node-saml': 4.0.4
@@ -5441,7 +5441,7 @@ packages:
     resolution: {integrity: sha512-DTuBFbqu4gGfajREEMrkq5jBhcnskinhr4+AnfJEk48zhVeEv3XnUKGIX98B74kxhYsIMfApGGySTn7V3b5yBA==}
     engines: {node: '>= 12.13.0', npm: '>= 6.12.0'}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@slack/oauth/2.6.0:
@@ -5451,7 +5451,7 @@ packages:
       '@slack/logger': 3.0.0
       '@slack/web-api': 6.8.1
       '@types/jsonwebtoken': 8.5.9
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
       jsonwebtoken: 9.0.0
       lodash.isstring: 4.0.1
     transitivePeerDependencies:
@@ -5464,7 +5464,7 @@ packages:
     dependencies:
       '@slack/logger': 3.0.0
       '@slack/web-api': 6.8.1
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
       '@types/p-queue': 2.3.2
       '@types/ws': 7.4.7
       eventemitter3: 3.1.2
@@ -5490,7 +5490,7 @@ packages:
       '@slack/logger': 3.0.0
       '@slack/types': 2.8.0
       '@types/is-stream': 1.1.0
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
       axios: 0.27.2
       eventemitter3: 3.1.2
       form-data: 2.5.1
@@ -5815,7 +5815,7 @@ packages:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@types/bonjour/3.5.10:
@@ -5847,7 +5847,7 @@ packages:
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@types/debug/4.1.7:
@@ -5878,7 +5878,7 @@ packages:
   /@types/express-serve-static-core/4.17.33:
     resolution: {integrity: sha512-TPBqmR/HRYI3eC2E5hmiivIzv+bidAfXofM+sbonAGvyDhySGw9/PQZFt2BLOrjUUR++4eJVpx6KnLQK1Fk9tA==}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
     dev: false
@@ -5930,7 +5930,7 @@ packages:
   /@types/is-stream/1.1.0:
     resolution: {integrity: sha512-jkZatu4QVbR60mpIzjINmtS1ZF4a/FqdTUTBeQDVOQ2PYyidtwFKr0B5G6ERukKwliq+7mIXvxyppwzG5EgRYg==}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@types/istanbul-lib-coverage/2.0.4:
@@ -5967,7 +5967,7 @@ packages:
   /@types/jsonwebtoken/8.5.9:
     resolution: {integrity: sha512-272FMnFGzAVMGtu9tkr29hRL6bZj4Zs1KZNeHLnKqAvp06tAIcarTMwOh8/8bz4FmKRcMxZhZNeUAQsNLoiPhg==}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@types/jsonwebtoken/9.0.1:
@@ -6174,7 +6174,7 @@ packages:
     resolution: {integrity: sha512-NUo5XNiAdULrJENtJXZZ3fHtfMolzZwczzBbnAeBbqBwG+LaG6YaJtuwzwGSQZ2wsCrxjEhNNjAkKigy3n8teQ==}
     dependencies:
       '@types/mime': 3.0.1
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@types/smoothscroll-polyfill/0.3.1:
@@ -6211,7 +6211,7 @@ packages:
   /@types/ws/7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@types/ws/8.5.4:
@@ -6223,20 +6223,20 @@ packages:
   /@types/xml-crypto/1.4.2:
     resolution: {integrity: sha512-1kT+3gVkeBDg7Ih8NefxGYfCApwZViMIs5IEs5AXF6Fpsrnf9CLAEIRh0DYb1mIcRcvysVbe27cHsJD6rJi36w==}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
       xpath: 0.0.27
     dev: false
 
   /@types/xml-encryption/1.2.1:
     resolution: {integrity: sha512-UeyZkfZFZSa9XCGU5uGgUmsSLwQESDJvF076bJGyDf2gkXJjKvK8fW/x4ckvEHB2M/5RHJEkMc5xI+JrdmCTKA==}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@types/xml2js/0.4.11:
     resolution: {integrity: sha512-JdigeAKmCyoJUiQljjr7tQG3if9NkqGUgwEUqBvV0N7LM4HyQk7UXCnusRa1lnvXAEYJ8mw8GtZWioagNztOwA==}
     dependencies:
-      '@types/node': 16.11.38
+      '@types/node': 18.11.8
     dev: false
 
   /@types/yargs-parser/21.0.0:
