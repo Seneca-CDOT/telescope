@@ -436,7 +436,7 @@ importers:
       formik: 2.2.9
       highlight.js: 11.4.0
       i18next: 21.6.14
-      i18next-browser-languagedetector: 6.1.5
+      i18next-browser-languagedetector: 6.1.8
       jwt-decode: 3.1.2
       nanoid: 3.2.0
       next: 12.1.6
@@ -480,7 +480,7 @@ importers:
       formik: 2.2.9_react@17.0.2
       highlight.js: 11.4.0
       i18next: 21.6.14
-      i18next-browser-languagedetector: 6.1.5
+      i18next-browser-languagedetector: 6.1.8
       jwt-decode: 3.1.2
       nanoid: 3.2.0
       next: 12.1.6_1faf08a55e21e6bc63c6a6ff56498db5
@@ -11799,8 +11799,8 @@ packages:
     resolution: {integrity: sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==}
     dev: false
 
-  /i18next-browser-languagedetector/6.1.5:
-    resolution: {integrity: sha512-11t7b39oKeZe4uyMxLSPnfw28BCPNLZgUk7zyufex0zKXZ+Bv+JnmJgoB+IfQLZwDt1d71PM8vwBX1NCgliY3g==}
+  /i18next-browser-languagedetector/6.1.8:
+    resolution: {integrity: sha512-Svm+MduCElO0Meqpj1kJAriTC6OhI41VhlT/A0UPjGoPZBhAHIaGE5EfsHlTpgdH09UVX7rcc72pSDDBeKSQQA==}
     dependencies:
       '@babel/runtime': 7.21.5
     dev: false
