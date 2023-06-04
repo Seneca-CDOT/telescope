@@ -287,7 +287,7 @@ importers:
       env-cmd: 10.1.0
       eslint: 7.32.0
       express: 4.18.2
-      express-handlebars: 6.0.6
+      express-handlebars: 6.0.7
       nodemon: 2.0.22
       npm-run-all: 4.1.5
       octokit: 2.0.9
@@ -304,7 +304,7 @@ importers:
       '@senecacdot/satellite': 1.29.0
       bootstrap: 5.2.2_@popperjs+core@2.11.8
       express: 4.18.2
-      express-handlebars: 6.0.6
+      express-handlebars: 6.0.7
       npm-run-all: 4.1.5
       octokit: 2.0.9
       perfect-scrollbar: 1.5.5
@@ -7034,7 +7034,7 @@ packages:
   /axios/0.25.0:
     resolution: {integrity: sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==}
     dependencies:
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
     transitivePeerDependencies:
       - debug
     dev: false
@@ -7042,7 +7042,7 @@ packages:
   /axios/0.26.1:
     resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
     dependencies:
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
     transitivePeerDependencies:
       - debug
     dev: false
@@ -10335,8 +10335,8 @@ packages:
       jest-message-util: 27.5.1
     dev: true
 
-  /express-handlebars/6.0.6:
-    resolution: {integrity: sha512-E4QHYCh+9fyfdBEb8uKJ8p6HD4qq/sUSHBq83lRNlLJp2TQKEg2nFJYbVdC+M3QzaV19dODe43lgjQWVaIpbyQ==}
+  /express-handlebars/6.0.7:
+    resolution: {integrity: sha512-iYeMFpc/hMD+E6FNAZA5fgWeXnXr4rslOSPkeEV6TwdmpJ5lEXuWX0u9vFYs31P2MURctQq2batR09oeNj0LIg==}
     engines: {node: '>=v12.22.9'}
     dependencies:
       glob: 8.1.0
@@ -11747,7 +11747,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
