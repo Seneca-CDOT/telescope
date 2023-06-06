@@ -294,7 +294,7 @@ importers:
       perfect-scrollbar: 1.5.5
       rimraf: 3.0.2
       sass: 1.55.0
-      vite: 3.1.8
+      vite: 3.2.7
       xterm: 4.18.0
       xterm-addon-fit: 0.5.0
       xterm-addon-web-links: 0.5.1
@@ -309,7 +309,7 @@ importers:
       octokit: 2.0.9
       perfect-scrollbar: 1.5.5
       sass: 1.55.0
-      vite: 3.1.8_sass@1.55.0
+      vite: 3.2.7_sass@1.55.0
       xterm: 4.18.0
       xterm-addon-fit: 0.5.0_xterm@4.18.0
       xterm-addon-web-links: 0.5.1_xterm@4.18.0
@@ -16916,14 +16916,6 @@ packages:
       terser: 5.17.1
     dev: false
 
-  /rollup/2.78.1:
-    resolution: {integrity: sha512-VeeCgtGi4P+o9hIg+xz4qQpRl6R401LWEXBmxYKOV4zlF82lyhgh2hTZnheFUbANE8l2A41F458iwj2vEYaXJg==}
-    engines: {node: '>=10.0.0'}
-    hasBin: true
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: false
-
   /rollup/2.79.1:
     resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
     engines: {node: '>=10.0.0'}
@@ -18938,21 +18930,27 @@ packages:
       vfile-message: 2.0.4
     dev: false
 
-  /vite/3.1.8_sass@1.55.0:
-    resolution: {integrity: sha512-m7jJe3nufUbuOfotkntGFupinL/fmuTNuQmiVE7cH2IZMuf4UbfbGYMUT3jVWgGYuRVLY9j8NnrRqgw5rr5QTg==}
+  /vite/3.2.7_sass@1.55.0:
+    resolution: {integrity: sha512-29pdXjk49xAP0QBr0xXqu2s5jiQIXNvE/xwd0vUizYT2Hzqe4BksNNoWllFVXJf4eLZ+UlVQmXfB4lWrc+t18g==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
+      '@types/node': '>= 14'
       less: '*'
       sass: '*'
       stylus: '*'
+      sugarss: '*'
       terser: ^5.4.0
     peerDependenciesMeta:
+      '@types/node':
+        optional: true
       less:
         optional: true
       sass:
         optional: true
       stylus:
+        optional: true
+      sugarss:
         optional: true
       terser:
         optional: true
@@ -18960,7 +18958,7 @@ packages:
       esbuild: 0.15.18
       postcss: 8.4.21
       resolve: 1.22.1
-      rollup: 2.78.1
+      rollup: 2.79.1
       sass: 1.55.0
     optionalDependencies:
       fsevents: 2.3.2
