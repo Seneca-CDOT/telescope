@@ -31,7 +31,7 @@
     "jsonwebtoken": "9.0.0",
     "minimatch": "3.0.5",
     "normalize-url": "6.1.0",
-    "passport": "0.5.2"
+    "passport": "0.6.0"
   },
   "engines": {
     "node": ">=16"
