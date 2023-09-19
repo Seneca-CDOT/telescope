@@ -8,7 +8,7 @@ import StarField from '@site/src/components/StarField';
 
 ## 기여자들
 
-Telescope의 결과는 이 모든 뛰어난 사람들 (그리고 로봇들)이 다 함께 노력한 덕분입니다.
+Telescope의 완성은 아래에 있는 이 모든 훌륭한 사람들 (그리고 로봇들)이 다 함께 노력한 덕분입니다.
 
 <StarField />
 
@@ -79,8 +79,8 @@ Telescope의 블로그 글은 Telescope 기여자들에게서 옵니다.
 
 [Telescope 1.0](https://github.com/Seneca-CDOT/telescope/releases/tag/1.0.0)는 초기 목표들 중 많은 것을 실현했습니다:
 
-- REST API 및 GraphQL을 제공하는 단일 node.js 백엔드 웹 서버
-- 병렬 피드 처리를 위한 node.js 큐 서비스
+- REST API 및 GraphQL을 제공하는 단일 Node.js 백엔드 웹 서버
+- 병렬 피드 처리를 위한 Node.js 큐 서비스
 - 완전히 새롭게 디자인된 UI
 - Material UI React 구성 요소를 사용한 GatsbyJS 프론트엔드 웹 앱
 - 초기 SAML2 기반의 단일 로그인 인증
@@ -91,7 +91,7 @@ Telescope의 블로그 글은 Telescope 기여자들에게서 옵니다.
 - 글의 전체 텍스트 검색을 위한 Elasticsearch 데이터베이스
 - Nginx 리버스 프록시 및 HTTP 캐시 서버
 - Let’s Encrypt로 SSL 인증서를 관리하기 위한 Certbot
-- GitHub 푸시 이벤트를 기반으로 자동으로 배포를 관리하기 위한 node.js 기반의 GitHub 웹훅 서비스
+- GitHub 푸시 이벤트를 기반으로 자동으로 배포를 관리하기 위한 Node.js 기반의 GitHub 웹훅 서비스
 - 스테이징 (<https://dev.telescope.cdot.systems/>) 및 프로덕션 (<https://telescope.cdot.systems/>) 배포
 
 ### 2.0
@@ -107,7 +107,7 @@ Telescope의 블로그 글은 Telescope 기여자들에게서 옵니다.
 - 접근성 및 사용자 경험 개선
 - 모놀리식 백엔드를 마이크로서비스로 이전 (90% 완료) 및 Traefik을 사용한 API 게이트웨이 도입
 - Elasticsearch와 Redis 개선
-- GatsbyJS에서 next.js로의 전면 포팅
+- GatsbyJS에서 Next.js로의 전면 포팅
 - 프론트엔드의 TypeScript 재작성
 - 수동 및 자동 종속성 업데이트 및 유지 보수 (Dependabot)
 - 버그 수정 및 기술 부채 상환
