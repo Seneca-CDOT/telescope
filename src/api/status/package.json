@@ -40,7 +40,7 @@
     "xterm-addon-webgl": "0.11.4"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "devDependencies": {
     "@senecacdot/eslint-config-telescope": "1.1.0",
