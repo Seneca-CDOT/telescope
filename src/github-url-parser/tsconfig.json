@@ -6,7 +6,9 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "outDir": "./dist",
-    "declarationMap": true
+    "declarationMap": true,
+    "experimentalDecorators": true,
+    "isolatedModules": true
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]
