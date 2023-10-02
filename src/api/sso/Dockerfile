@@ -1,7 +1,7 @@
 ## Base ###########################################################################
 # Set up the base layer
 # Use a larger node image to do the build for native deps (e.g., gcc, pytyhon)
-FROM node:16 as base
+FROM node:18 as base
 
 # Reduce npm log spam and colour during install within Docker
 ENV NPM_CONFIG_LOGLEVEL=warn
@@ -22,7 +22,7 @@ RUN pnpm install --prod
 ## Deploy ######################################################################
 # Stage for that run our app
 # Use a smaller node image (-alpine) at runtime
-FROM node:16-alpine3.15 as deploy
+FROM node:18-alpine3.15 as deploy
 
 WORKDIR /app
 

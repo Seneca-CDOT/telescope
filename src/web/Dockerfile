@@ -12,7 +12,7 @@ ARG SUPABASE_URL
 ARG ANON_KEY
 
 ## Base ###########################################################################
-FROM node:16 as base
+FROM node:18 as base
 
 RUN npm install -g pnpm
 
