@@ -37,12 +37,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Install Playwright dependencies
-        run: pnpx playwright install-deps
+        run: pnpm dlx playwright install-deps
       # Pull, build, and run containers, then start e2e tests
       - name: Pull/Build Docker Containers Necessary for Running E2E Tests
         run: docker compose --env-file ./config/env.development up -d ${{ env.DOCKER_CONTAINERS }}
       - name: Wait for Postgres and Login containers to become fully ready
-        run: pnpx -y wait-on -t 60000 tcp:5432 http://localhost:8081/simplesaml
+        run: pnpm --silent dlx wait-on -t 60000 tcp:5432 http://localhost:8081/simplesaml
       - name: Apply database migrations
         run: pnpm db:migrate
       - run: pnpm jest:e2e
