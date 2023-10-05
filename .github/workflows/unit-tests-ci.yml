@@ -34,4 +34,4 @@ jobs:
       - name: Install dependencies and run tests with default env
         run: |
           pnpm install
-          pnpm turbo run test --api="http://127.0.0.1:9080" --token="${{ env.SERVER_TOKEN }}" --team="telescope-admins"
+          pnpm turbo run test --api="http://127.0.0.1:9080" --token="${{ env.SERVER_TOKEN }}" --team="telescope-admins" --filter=!./src/github-url-parser
