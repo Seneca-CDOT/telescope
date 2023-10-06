@@ -20,10 +20,10 @@
     "write-heading-ids": "docusaurus write-heading-ids"
   },
   "dependencies": {
-    "@docusaurus/core": "2.1.0",
-    "@docusaurus/plugin-content-docs": "2.1.0",
-    "@docusaurus/plugin-pwa": "2.1.0",
-    "@docusaurus/preset-classic": "2.1.0",
+    "@docusaurus/core": "2.4.3",
+    "@docusaurus/plugin-content-docs": "2.4.3",
+    "@docusaurus/plugin-pwa": "2.4.3",
+    "@docusaurus/preset-classic": "2.4.3",
     "@mdx-js/react": "1.6.22",
     "@octokit/request": "6.2.5",
     "clsx": "1.1.1",
@@ -38,13 +38,13 @@
     "@algolia/client-search": "4.9.1",
     "@babel/core": "7.21.8",
     "@babel/preset-env": "7.21.5",
-    "@docusaurus/types": "2.1.0",
+    "@docusaurus/types": "2.4.3",
     "@senecacdot/eslint-config-telescope": "1.1.0",
     "@types/react": "17.0.60",
     "eslint": "7.32.0",
     "eslint-plugin-import": "2.25.4",
     "rimraf": "3.0.2",
-    "typescript": "4.4.4",
+    "typescript": "4.9.5",
     "unist-util-visit": "2.0.3"
   },
   "browserslist": {
