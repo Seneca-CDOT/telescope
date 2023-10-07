@@ -1,0 +1,22 @@
+name: docker-files-check-ci
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 'docker/*'
+  push:
+    branches:
+      - master
+    paths:
+      - 'docker/*'
+
+jobs:
+  docker-compose-files-validation:
+    name: Docker compose files validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Validation for docker-compose files
+        run: docker-compose -f docker/docker-compose.yml -f docker/development.yml -f docker/production.yml -f docker/supabase/docker-compose.yml config --quiet --no-interpolate
