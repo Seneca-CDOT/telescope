@@ -67,7 +67,7 @@ const config = async () => {
     ],
     i18n: {
       defaultLocale: 'en',
-      locales: ['en', 'vi', 'uk', 'zh', 'bg', 'ru'],
+      locales: ['en', 'vi', 'uk', 'zh', 'bg', 'ru', 'ko'],
       localeConfigs: {
         en: {
           htmlLang: 'en-CA',
@@ -89,6 +89,9 @@ const config = async () => {
         },
         ru: {
           htmlLang: 'ru-RU',
+        },
+        ko: {
+          htmlLang: 'ko-KR',
         },
       },
     },
