@@ -8,6 +8,7 @@ const routes = require('./routes');
 require('./authentication');
 
 const service = new Satellite({
+  cors: { origin: 'https://telescope.cdot.systems', credentials: true },
   router: routes,
   beforeRouter(app) {
     // Initialize and use Session and Passport middleware on the app. In production
