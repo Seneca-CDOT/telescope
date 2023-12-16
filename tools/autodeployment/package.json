@@ -5,7 +5,7 @@
   "description": "A tool for automatic deployment",
   "main": "server.js",
   "dependencies": {
-    "@octokit/webhooks": "9.15.0",
+    "@octokit/webhooks": "9.26.3",
     "@senecacdot/satellite": "^1.29.0",
     "date-fns": "2.28.0",
     "dotenv": "10.0.0",
