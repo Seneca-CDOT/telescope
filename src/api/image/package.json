@@ -23,7 +23,7 @@
   "dependencies": {
     "@senecacdot/satellite": "^1.29.0",
     "celebrate": "15.0.1",
-    "got": "11.8.5",
+    "got": "11.8.6",
     "sharp": "0.31.1",
     "supertest": "6.1.6"
   },
